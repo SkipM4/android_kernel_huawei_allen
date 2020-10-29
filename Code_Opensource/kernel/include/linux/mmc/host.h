@@ -70,6 +70,8 @@ struct mmc_ios {
 #define MMC_TIMING_MMC_DDR52	8
 #define MMC_TIMING_MMC_HS200	9
 #define MMC_TIMING_MMC_HS400	10
+#define MMC_TIMING_SD_EXP	11
+#define MMC_TIMING_SD_EXP_1_2V	12
 #define MMC_TIMING_NEW_SD    MMC_TIMING_UHS_SDR12
 
 	unsigned char	signal_voltage;		/* signalling voltage (1.8V or 3.3V) */
@@ -217,7 +219,12 @@ struct mmc_host_ops {
 #endif
 	int (*send_cmd_direct)(struct mmc_host *host, struct mmc_request *mrq);
 
-	ANDROID_KABI_RESERVE(1);
+	/*
+	 * Initialize an SD express card. Hosts advertising MMC_CAP2_SD_EXP must
+	 * implement this, keep get_cd() valid during the PCIe handoff, and own
+	 * the hardware transition away from legacy SD signaling.
+	 */
+	int (*init_sd_express)(struct mmc_host *host, struct mmc_ios *ios);
 	ANDROID_KABI_RESERVE(2);
 };
 
@@ -498,6 +505,8 @@ struct mmc_host {
 #define MMC_CAP2_HC_ERASE_SZ	(1 << 9)	/* High-capacity erase size */
 #define MMC_CAP2_CD_ACTIVE_HIGH	(1 << 10)	/* Card-detect signal active high */
 #define MMC_CAP2_RO_ACTIVE_HIGH	(1 << 11)	/* Write-protect signal active high */
+#define MMC_CAP2_SD_EXP		(1 << 12)	/* SD express via PCIe; requires init_sd_express */
+#define MMC_CAP2_SD_EXP_1_2V	(1 << 13)	/* SD express 1.2V */
 
 #define MMC_CAP2_NO_PRESCAN_POWERUP (1 << 14)	/* Don't power up before scan */
 #define MMC_CAP2_HS400_1_8V	(1 << 15)	/* Can support HS400 1.8V */
