@@ -213,13 +213,11 @@ SECTIONS
 	. += PAGE_SIZE;
 #endif
 
-#ifdef CONFIG_ARM64_SW_TTBR0_PAN
-	reserved_ttbr0 = .;
-	. += RESERVED_TTBR0_SIZE;
-#endif
+	reserved_pg_dir = .;
+	. += PAGE_SIZE;
+
 	swapper_pg_dir = .;
 	. += PAGE_SIZE;
-	swapper_pg_end = .;
 
 	. = ALIGN(SZ_64K);
 	_protect_end = .; /* begin from _protect_start to _protect_end, only access by acpu */
