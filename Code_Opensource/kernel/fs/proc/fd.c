@@ -267,7 +267,7 @@ static int proc_readfd_common(struct file *file, struct dir_context *ctx,
 		char name[10 + 1];
 		unsigned int len;
 
-		f = fcheck_files(files, fd);
+		f = files_lookup_fd_rcu(files, fd);
 		if (!f)
 			continue;
 		data.mode = f->f_mode;
