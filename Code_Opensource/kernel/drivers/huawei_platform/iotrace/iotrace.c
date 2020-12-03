@@ -2512,7 +2512,7 @@ static int iotrace_io_type_parse(unsigned long long op, unsigned long long flag)
 }
 #endif
 
-static void blk_add_trace_rq_insert(void *ignore, struct request_queue *q, struct request *rq)
+static void blk_add_trace_rq_insert(void *ignore, struct request *rq)
 {
 	if (io_trace_this->enable) {
 #if LINUX_VERSION_CODE>= KERNEL_VERSION(4,9,0)
@@ -2528,7 +2528,7 @@ static void blk_add_trace_rq_insert(void *ignore, struct request_queue *q, struc
 	}
 	return;
 }
-static void blk_add_trace_rq_issue(void *ignore, struct request_queue *q, struct request *rq)
+static void blk_add_trace_rq_issue(void *ignore, struct request *rq)
 {
 	if (io_trace_this->enable) {
 #if LINUX_VERSION_CODE>= KERNEL_VERSION(4,9,0)
