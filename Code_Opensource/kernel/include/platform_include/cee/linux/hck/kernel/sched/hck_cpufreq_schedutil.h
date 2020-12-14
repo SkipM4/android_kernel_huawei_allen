@@ -244,9 +244,8 @@ void gov_sysfs_set_attr(unsigned int cpu, char *gov_name, struct governor_user_a
 void sugov_tunables_save(struct cpufreq_policy *policy, struct sugov_tunables *tunables);
 void sugov_nop_timer(struct timer_list *unused);
 
-unsigned long sugov_get_util(struct sugov_cpu *sg_cpu);
-unsigned long sugov_iowait_apply(struct sugov_cpu *sg_cpu, u64 time,
-					unsigned long util, unsigned long max);
+void sugov_get_util(struct sugov_cpu *sg_cpu);
+void sugov_iowait_apply(struct sugov_cpu *sg_cpu, u64 time);
 unsigned int get_next_freq(struct sugov_policy *sg_policy,
 				  unsigned long util, unsigned long max);
 #endif

@@ -1128,8 +1128,8 @@ static unsigned int sugov_next_freq_shared_policy(struct sugov_policy *sg_policy
 		struct sugov_cpu *j_sg_cpu = &per_cpu(sugov_cpu, j);
 		unsigned long j_util, j_max;
 
-		j_util = sugov_get_util(j_sg_cpu);
-		j_sg_cpu->util = j_util;
+		sugov_get_util(j_sg_cpu);
+		j_util = j_sg_cpu->util;
 		j_max = j_sg_cpu->max;
 
 		if (j_sg_cpu->use_max_freq)
@@ -1148,7 +1148,8 @@ static unsigned int sugov_next_freq_shared_policy(struct sugov_policy *sg_policy
 		 * Below load signal don't use target_loads,
 		 * don't update util, only update the field of sg_policy
 		 */
-		j_util = sugov_iowait_apply(j_sg_cpu, sg_policy->update_time, j_util, j_max);
+		sugov_iowait_apply(j_sg_cpu, sg_policy->update_time);
+		j_util = j_sg_cpu->util;
 
 		trace_perf(cpufreq_schedutil_get_util, j, j_sg_cpu->util,
 						 j_sg_cpu->max,
