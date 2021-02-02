@@ -628,9 +628,6 @@ int module_get_kallsym(unsigned int symnum, unsigned long *value, char *type,
 /* Look for this name: can be of form module:name. */
 unsigned long module_kallsyms_lookup_name(const char *name);
 
-int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
-					     struct module *, unsigned long),
-				   void *data);
 
 extern void __noreturn __module_put_and_exit(struct module *mod,
 			long code);
@@ -815,13 +812,6 @@ static inline unsigned long module_kallsyms_lookup_name(const char *name)
 	return 0;
 }
 
-static inline int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
-							   struct module *,
-							   unsigned long),
-						 void *data)
-{
-	return 0;
-}
 
 static inline int register_module_notifier(struct notifier_block *nb)
 {
@@ -910,5 +900,9 @@ static inline bool module_sig_ok(struct module *module)
 	return true;
 }
 #endif	/* CONFIG_MODULE_SIG */
+
+int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
+					     struct module *, unsigned long),
+				   void *data);
 
 #endif /* _LINUX_MODULE_H */
