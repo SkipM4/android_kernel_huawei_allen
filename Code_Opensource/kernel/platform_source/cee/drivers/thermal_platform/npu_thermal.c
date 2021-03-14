@@ -63,7 +63,7 @@ static int npu_thermal_match_cdev(struct thermal_cooling_device *cdev,
 
 	for (i = 0; i < COOLING_DEV_MAX; i++) {
 		if (strncmp(cdev->type, trip_point->cdev_name[i],
-			     sizeof(cdev->type) - 1) == 0)
+			     sizeof(trip_point->cdev_name[i]) - 1) == 0)
 			return 0;
 	}
 

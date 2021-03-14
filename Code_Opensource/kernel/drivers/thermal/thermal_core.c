@@ -1128,9 +1128,6 @@ __thermal_cooling_device_register(struct device_node *np,
 		return ERR_PTR(-EINVAL);
 #endif
 
-	if (type && strlen(type) >= THERMAL_NAME_LENGTH)
-		return ERR_PTR(-EINVAL);
-
 	if (!ops || !ops->get_max_state || !ops->get_cur_state ||
 	    !ops->set_cur_state)
 		return ERR_PTR(-EINVAL);
@@ -1146,7 +1143,12 @@ __thermal_cooling_device_register(struct device_node *np,
 	}
 
 	cdev->id = result;
-	strlcpy(cdev->type, type ? : "", sizeof(cdev->type));
+	cdev->type = kstrdup(type ? type : "", GFP_KERNEL);
+	if (!cdev->type) {
+		ida_simple_remove(&thermal_cdev_ida, cdev->id);
+		kfree(cdev);
+		return ERR_PTR(-ENOMEM);
+	}
 	mutex_init(&cdev->lock);
 	INIT_LIST_HEAD(&cdev->thermal_instances);
 	cdev->np = np;
@@ -1159,6 +1161,7 @@ __thermal_cooling_device_register(struct device_node *np,
 	result = device_register(&cdev->device);
 	if (result) {
 		ida_simple_remove(&thermal_cdev_ida, cdev->id);
+		kfree(cdev->type);
 		put_device(&cdev->device);
 		return ERR_PTR(result);
 	}
@@ -1337,6 +1340,7 @@ void thermal_cooling_device_unregister(struct thermal_cooling_device *cdev)
 	ida_simple_remove(&thermal_cdev_ida, cdev->id);
 	device_del(&cdev->device);
 	thermal_cooling_device_destroy_sysfs(cdev);
+	kfree(cdev->type);
 	put_device(&cdev->device);
 }
 EXPORT_SYMBOL_GPL(thermal_cooling_device_unregister);
