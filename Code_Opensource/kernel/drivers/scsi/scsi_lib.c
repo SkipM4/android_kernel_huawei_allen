@@ -1641,7 +1641,7 @@ static bool scsi_mq_lld_busy(struct request_queue *q)
 static void scsi_softirq_done(struct request *rq)
 {
 	struct scsi_cmnd *cmd = blk_mq_rq_to_pdu(rq);
-	int disposition;
+	enum scsi_disposition disposition;
 #ifdef CONFIG_MAS_BLK
 	struct Scsi_Host *shost = cmd->device->host;
 	struct scatterlist *sgl = scsi_sglist(cmd);
