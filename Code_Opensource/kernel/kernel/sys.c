@@ -585,6 +585,10 @@ long __sys_setreuid(uid_t ruid, uid_t euid)
 		goto error;
 #endif
 
+	retval = set_cred_ucounts(new);
+	if (retval < 0)
+		goto error;
+
 	sched_core_setuid(current, new->uid.val);
 	return commit_creds(new);
 
@@ -648,6 +652,10 @@ long __sys_setuid(uid_t uid)
 	if (!from_kuid_munged(&init_user_ns, new->uid) && (checkroot_setuid(old->uid.val)))
 		goto error;
 #endif
+
+	retval = set_cred_ucounts(new);
+	if (retval < 0)
+		goto error;
 
 	sched_core_setuid(current, new->uid.val);
 	return commit_creds(new);
@@ -729,6 +737,10 @@ long __sys_setresuid(uid_t ruid, uid_t euid, uid_t suid)
 	if (!from_kuid_munged(&init_user_ns, new->uid) && (checkroot_setresuid(old->uid.val)))
 		goto error;
 #endif
+
+	retval = set_cred_ucounts(new);
+	if (retval < 0)
+		goto error;
 
 	sched_core_setuid(current, new->uid.val);
 	return commit_creds(new);
