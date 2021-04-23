@@ -13,6 +13,7 @@
 #define __LINUX_REGULATOR_DRIVER_H_
 
 #include <linux/device.h>
+#include <linux/ktime.h>
 #include <linux/linear_range.h>
 #include <linux/notifier.h>
 #include <linux/regulator/consumer.h>
@@ -481,7 +482,7 @@ struct regulator_dev {
 	unsigned int is_switch:1;
 
 	/* time when this regulator was disabled last time */
-	unsigned long last_off_jiffy;
+	ktime_t last_off;
 
 	ANDROID_KABI_RESERVE(1);
 };
