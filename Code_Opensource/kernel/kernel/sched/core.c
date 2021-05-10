@@ -1765,7 +1765,6 @@ uclamp_tg_restrict(struct task_struct *p, enum uclamp_id clamp_id)
 {
 	struct uclamp_se uc_req = p->uclamp_req[clamp_id];
 #ifdef CONFIG_UCLAMP_TASK_GROUP
-	struct uclamp_se uc_max;
 
 	/*
 	 * Tasks in autogroups or root task group will be
@@ -1776,21 +1775,23 @@ uclamp_tg_restrict(struct task_struct *p, enum uclamp_id clamp_id)
 	if (task_group(p) == &root_task_group)
 		return uc_req;
 
-	uc_max = task_group(p)->uclamp[clamp_id];
-#ifdef CONFIG_SCHED_HISI_UTIL_CLAMP
-	/*
-	 * No tg restrict for task's UCLAMP_MIN.
-	 * Usually we want a higher UCLAMP_MIN or a lower UCLAMP_MAX for a
-	 * specified task than the entire task group.
-	 * No security issue because SCHED_FLAG_UTIL_CLAMP from userspace
-	 * requires CAP_SYS_NICE.
-	 */
-	if ((clamp_id == UCLAMP_MAX && uc_req.value > uc_max.value) ||
-	    !uc_req.user_defined)
-#else
-	if (uc_req.value > uc_max.value || !uc_req.user_defined)
-#endif
-		return uc_max;
+	switch (clamp_id) {
+	case UCLAMP_MIN: {
+		struct uclamp_se uc_min = task_group(p)->uclamp[clamp_id];
+		if (uc_req.value < uc_min.value)
+			return uc_min;
+		break;
+	}
+	case UCLAMP_MAX: {
+		struct uclamp_se uc_max = task_group(p)->uclamp[clamp_id];
+		if (uc_req.value > uc_max.value)
+			return uc_max;
+		break;
+	}
+	default:
+		WARN_ON_ONCE(1);
+		break;
+	}
 #endif
 
 	return uc_req;
