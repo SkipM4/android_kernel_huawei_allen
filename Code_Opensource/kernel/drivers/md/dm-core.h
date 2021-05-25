@@ -190,6 +190,39 @@ struct dm_table {
 #endif
 };
 
+/* One object per cloned bio; the bio must remain the last member. */
+#define DM_TIO_MAGIC 7282014
+struct dm_target_io {
+	unsigned magic;
+	struct dm_io *io;
+	struct dm_target *ti;
+	unsigned target_bio_nr;
+	unsigned *len_ptr;
+	bool inside_dm_io;
+	struct bio clone;
+};
+
+/* One object per original bio, embedding its first clone. */
+#define DM_IO_MAGIC 5191977
+struct dm_io {
+	unsigned magic;
+	struct mapped_device *md;
+	blk_status_t status;
+	atomic_t io_count;
+	struct bio *orig_bio;
+	unsigned long start_time;
+	spinlock_t endio_lock;
+	struct dm_stats_aux stats_aux;
+	struct dm_target_io tio;
+};
+
+static inline void dm_io_inc_pending(struct dm_io *io)
+{
+	atomic_inc(&io->io_count);
+}
+
+void dm_io_dec_pending(struct dm_io *io, blk_status_t error);
+
 static inline struct completion *dm_get_completion_from_kobject(struct kobject *kobj)
 {
 	return &container_of(kobj, struct dm_kobject_holder, kobj)->completion;
