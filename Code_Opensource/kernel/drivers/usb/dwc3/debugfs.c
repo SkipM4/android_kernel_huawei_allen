@@ -890,8 +890,24 @@ void dwc3_debugfs_create_endpoint_dir(struct dwc3_ep *dep)
 {
 	struct dentry		*dir;
 
+	if (IS_ERR_OR_NULL(dep->dwc->root))
+		return;
+
 	dir = debugfs_create_dir(dep->name, dep->dwc->root);
 	dwc3_debugfs_create_endpoint_files(dep, dir);
+}
+
+void dwc3_debugfs_remove_endpoint_dir(struct dwc3_ep *dep)
+{
+	struct dentry		*dir;
+
+	/* The platform role-switch path may already have removed the root. */
+	if (IS_ERR_OR_NULL(dep->dwc->root))
+		return;
+
+	dir = debugfs_lookup(dep->name, dep->dwc->root);
+	debugfs_remove_recursive(dir);
+	dput(dir);
 }
 
 void dwc3_debugfs_init(struct dwc3 *dwc)
@@ -933,5 +949,7 @@ void dwc3_debugfs_exit(struct dwc3 *dwc)
 {
 	dwc3_chip_debugfs_exit();
 	debugfs_remove_recursive(dwc->root);
+	dwc->root = NULL;
 	kfree(dwc->regset);
+	dwc->regset = NULL;
 }
