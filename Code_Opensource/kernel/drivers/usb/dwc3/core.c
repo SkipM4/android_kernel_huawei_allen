@@ -179,11 +179,9 @@ static void __dwc3_set_mode(struct dwc3 *dwc)
 
 	switch (dwc->current_dr_role) {
 	case DWC3_GCTL_PRTCAP_HOST:
-		dwc3_debugfs_exit(dwc);
 		dwc3_host_exit(dwc);
 		break;
 	case DWC3_GCTL_PRTCAP_DEVICE:
-		dwc3_debugfs_exit(dwc);
 		dwc3_gadget_exit(dwc);
 		dwc3_event_buffers_cleanup(dwc);
 		break;
@@ -264,7 +262,6 @@ static void __dwc3_set_mode(struct dwc3 *dwc)
 
 		trace_hck_vh_dwc3_host_quirks(dwc);
 
-		dwc3_debugfs_init(dwc);
 		break;
 	case DWC3_GCTL_PRTCAP_DEVICE:
 		//dwc3_core_soft_reset(dwc);
@@ -278,8 +275,6 @@ static void __dwc3_set_mode(struct dwc3 *dwc)
 
 		dwc3_lscdtimer_set();
 		trace_hck_vh_dwc3_device_quirks(dwc);
-
-		dwc3_debugfs_init(dwc);
 
 		ret = dwc3_gadget_init(dwc);
 		if (ret)
@@ -1740,6 +1735,7 @@ static int dwc3_probe(struct platform_device *pdev)
 	}
 
 	dwc3_check_params(dwc);
+	dwc3_debugfs_init(dwc);
 
 	ret = dwc3_core_init_mode(dwc);
 	if (ret)
