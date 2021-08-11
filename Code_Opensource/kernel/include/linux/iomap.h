@@ -149,6 +149,42 @@ struct iomap_ops {
 	ANDROID_KABI_RESERVE(2);
 };
 
+/**
+ * struct iomap_iter - Iterate through a range of a file
+ * @inode: Set at the start of the iteration and should not change.
+ * @pos: The current file position. iomap_iter() updates it between iterations.
+ * @len: Remaining length of the file range.
+ * @processed: Bytes processed in the latest iteration, or a negative errno.
+ * @flags: Zero or more IOMAP_BEGIN flags.
+ * @iomap: Destination mapping for the current iteration.
+ * @srcmap: Source mapping for copy-on-write operations.
+ */
+struct iomap_iter {
+	struct inode *inode;
+	loff_t pos;
+	u64 len;
+	s64 processed;
+	unsigned flags;
+	struct iomap iomap;
+	struct iomap srcmap;
+};
+
+int iomap_iter(struct iomap_iter *iter, const struct iomap_ops *ops);
+
+static inline u64 iomap_length(const struct iomap_iter *iter)
+{
+	u64 end = iter->iomap.offset + iter->iomap.length;
+
+	if (iter->srcmap.type != IOMAP_HOLE)
+		end = min(end, iter->srcmap.offset + iter->srcmap.length);
+	return min(iter->len, end - iter->pos);
+}
+
+static inline struct iomap *iomap_iter_srcmap(struct iomap_iter *iter)
+{
+	return iter->srcmap.type != IOMAP_HOLE ? &iter->srcmap : &iter->iomap;
+}
+
 /*
  * Main iomap iterator function.
  */
