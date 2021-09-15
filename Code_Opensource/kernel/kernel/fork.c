@@ -2498,6 +2498,7 @@ static __latent_entropy struct task_struct *copy_process(
 	write_unlock_irq(&tasklist_lock);
 
 	proc_fork_connector(p);
+	sched_post_fork(p, args);
 #ifdef CONFIG_HW_QOS_THREAD
 	iaware_proc_fork_inherit(p, clone_flags);
 #endif
@@ -2506,7 +2507,6 @@ static __latent_entropy struct task_struct *copy_process(
 	inherit_vip_property(p);
 	iaware_proc_fork_connector(p);
 #endif
-	sched_post_fork(p);
 	cgroup_post_fork(p, args);
 	perf_event_fork(p);
 
