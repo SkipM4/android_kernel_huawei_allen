@@ -2664,6 +2664,8 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 	if (dwc->pullups_connected == is_on)
 		return 0;
 
+	dwc->softconnect = is_on;
+
 	/*
 	 * Per databook, when we want to stop the gadget, if a control transfer
 	 * is still in process, complete it and get the core into setup phase.
@@ -4786,14 +4788,14 @@ int dwc3_gadget_resume(struct dwc3 *dwc)
 {
 	int			ret;
 
-	if (!dwc->gadget_driver)
+	if (!dwc->gadget_driver || !dwc->softconnect)
 		return 0;
 
 	ret = __dwc3_gadget_start(dwc);
 	if (ret < 0)
 		goto err0;
 
-	ret = dwc3_gadget_run_stop(dwc, dwc->gadget_pullup, false);
+	ret = dwc3_gadget_run_stop(dwc, dwc->softconnect, false);
 	if (ret < 0)
 		goto err1;
 
