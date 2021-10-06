@@ -2043,8 +2043,6 @@ struct blk_plug {
 	void (*flush_plug_list_fn)(struct blk_plug *, bool);
 #endif
 };
-#define BLK_MAX_REQUEST_COUNT 16
-#define BLK_PLUG_FLUSH_SIZE (128 * 1024)
 
 struct blk_plug_cb;
 typedef void (*blk_plug_cb_fn)(struct blk_plug_cb *, bool);

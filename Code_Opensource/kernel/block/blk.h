@@ -217,6 +217,12 @@ enum rq_atomic_flags {
 #endif
 
 /*
+ * Plug flush limits
+ */
+#define BLK_MAX_REQUEST_COUNT	32
+#define BLK_PLUG_FLUSH_SIZE	(128 * 1024)
+
+/*
  * Internal elevator interface
  */
 #define ELV_ON_HASH(rq) ((rq)->rq_flags & RQF_HASHED)
