@@ -3370,7 +3370,9 @@ static __always_inline void do_slab_free(struct kmem_cache *s,
 		hw_check_and_set_canary(s, head, s->hw_random_free) == false)
 		return;
 #endif
-	memcg_slab_free_hook(s, &head, 1);
+	/* memcg_slab_free_hook() is already called for bulk free. */
+	if (!tail)
+		memcg_slab_free_hook(s, &head, 1);
 redo:
 	/*
 	 * Determine the currently cpus per cpu slab.
