@@ -875,12 +875,6 @@ void blk_mq_requeue_request(struct request *rq, bool kick_requeue_list)
 
 	/* this request will be re-inserted to io scheduler queue */
 	blk_mq_sched_requeue_request(rq);
-#ifdef CONFIG_MAS_BLK
-	if (!rq->q->mas_queue_ops || !rq->q->mas_queue_ops->mq_req_requeue_fn)
-		BUG_ON(!list_empty(&rq->queuelist));
-#else
-		BUG_ON(!list_empty(&rq->queuelist));
-#endif
 	blk_mq_add_to_requeue_list(rq, true, kick_requeue_list);
 }
 EXPORT_SYMBOL(blk_mq_requeue_request);
