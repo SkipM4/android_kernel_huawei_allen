@@ -204,12 +204,13 @@ EXPORT_SYMBOL_GPL(usbnet_get_endpoints);
 
 int usbnet_get_ethernet_addr(struct usbnet *dev, int iMACAddress)
 {
+	u8 addr[ETH_ALEN];
 	int 		tmp = -1, ret;
 	unsigned char	buf [13];
 
 	ret = usb_string(dev->udev, iMACAddress, buf, sizeof buf);
 	if (ret == 12)
-		tmp = hex2bin(dev->net->dev_addr, buf, 6);
+		tmp = hex2bin(addr, buf, ETH_ALEN);
 	if (tmp < 0) {
 		dev_dbg(&dev->udev->dev,
 			"bad MAC string %d fetch, %d\n", iMACAddress, tmp);
@@ -217,6 +218,7 @@ int usbnet_get_ethernet_addr(struct usbnet *dev, int iMACAddress)
 			ret = -EINVAL;
 		return ret;
 	}
+	eth_hw_addr_set(dev->net, addr);
 	return 0;
 }
 EXPORT_SYMBOL_GPL(usbnet_get_ethernet_addr);
@@ -1794,7 +1796,7 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 	} else {
 #endif
 		strscpy(net->name, "usb%d", sizeof(net->name));
-		memcpy (net->dev_addr, node_id, sizeof node_id);
+		eth_hw_addr_set(net, node_id);
 #ifdef CONFIG_CDC_DRIVER
 	}
 #endif
@@ -1893,16 +1895,16 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 #ifdef CONFIG_CDC_DRIVER
 	if ((vendor_id == X1_TBOX_VENDOR_ID) &&
 		(product_id == X1_TBOX_PRODUCT_ID)) {
-		memcpy (net->dev_addr, x1_tbox_mac_addr, sizeof x1_tbox_mac_addr);
+		eth_hw_addr_set(net, x1_tbox_mac_addr);
 		netif_info(dev, probe, dev->net, "tbox_mac = %pM\n", net->dev_addr);
 	} else if ((vendor_id == X1_APA_VENDOR_ID) &&
 		(product_id == X1_APA_PRODUCT_ID)) {
-		memcpy (net->dev_addr, x1_apa_mac_addr, sizeof x1_apa_mac_addr);
+		eth_hw_addr_set(net, x1_apa_mac_addr);
 		netif_info(dev, probe, dev->net, "apa_mac = %pM\n", net->dev_addr);
 	} else if ((vendor_id == C385_TBOX_VENDOR_ID) &&
 		(product_id == C385_TBOX_PRODUCT_ID)) {
 		strcpy (net->name, "eth101");
-		memcpy (net->dev_addr, c385_tbox_mac_addr, sizeof c385_tbox_mac_addr);
+		eth_hw_addr_set(net, c385_tbox_mac_addr);
 		netif_info(dev, probe, dev->net, "name =  %s, tbox_mac = %pM\n", net->name, net->dev_addr);
 	}
 #endif
