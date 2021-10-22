@@ -2111,8 +2111,13 @@ struct pinctrl_dev *pinctrl_register(struct pinctrl_desc *pctldesc,
 		return pctldev;
 
 	error = pinctrl_enable(pctldev);
-	if (error)
+	if (error) {
+		pinctrl_free_pindescs(pctldev, pctldesc->pins,
+				      pctldesc->npins);
+		mutex_destroy(&pctldev->mutex);
+		kfree(pctldev);
 		return ERR_PTR(error);
+	}
 
 	return pctldev;
 }
