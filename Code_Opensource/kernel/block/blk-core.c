@@ -932,10 +932,8 @@ static noinline_for_stack bool submit_bio_checks(struct bio *bio)
 	if (blkcg && blkcg != &blkcg_root && blkcg->type <= BLK_THROTL_FG)
 		bio->bi_opf |= REQ_FG;
 #endif
-	if (blk_throtl_bio(bio)) {
-		blkcg_bio_issue_init(bio);
+	if (blk_throtl_bio(bio))
 		return false;
-	}
 
 	blk_cgroup_bio_start(bio);
 	blkcg_bio_issue_init(bio);
