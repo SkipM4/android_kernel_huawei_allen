@@ -2292,8 +2292,8 @@ alloc_pages_vma(gfp_t gfp, int order, struct vm_area_struct *vma,
 #ifdef CONFIG_MM_AMA
 				page = ama_alloc_anon_pages(gfp, order);
 #else
-				page = __alloc_pages_node(hpage_node,
-								gfp, order);
+				page = __alloc_pages_nodemask(gfp, order,
+							hpage_node, nmask);
 #endif
 			goto out;
 		}
