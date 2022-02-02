@@ -619,4 +619,3 @@ EXPORT_SYMBOL_GPL(crypto_alg_prop_check);
 
 MODULE_DESCRIPTION("Cryptographic core API");
 MODULE_LICENSE("GPL");
-MODULE_SOFTDEP("pre: cryptomgr");
