@@ -236,9 +236,6 @@
 #include <asm/irq.h>
 #include <asm/irq_regs.h>
 #include <asm/io.h>
-
-#define CREATE_TRACE_POINTS
-#include <trace/events/random.h>
 #ifdef CONFIG_HISI_RANDOM_ENTROPY_IMPROVEMENT
 #include <platform_include/see/bl31_smc.h>
 #include <linux/arm-smccc.h>
@@ -324,7 +321,6 @@ static void mix_pool_bytes(const void *in, size_t nbytes)
 {
 	unsigned long flags;
 
-	trace_mix_pool_bytes(nbytes, _RET_IP_);
 	spin_lock_irqsave(&input_pool.lock, flags);
 	_mix_pool_bytes(in, nbytes);
 	spin_unlock_irqrestore(&input_pool.lock, flags);
@@ -397,8 +393,6 @@ static void credit_entropy_bits(size_t nbits)
 		orig = READ_ONCE(input_pool.entropy_count);
 		entropy_count = min_t(unsigned int, POOL_BITS, orig + add);
 	} while (cmpxchg(&input_pool.entropy_count, orig, entropy_count) != orig);
-
-	trace_credit_entropy_bits(nbits, entropy_count, _RET_IP_);
 
 	if (crng_init < 2 && entropy_count >= POOL_MIN_BITS)
 		crng_reseed();
@@ -730,7 +724,6 @@ void add_device_randomness(const void *buf, size_t size)
 	if (!crng_ready() && size)
 		crng_slow_load(buf, size);
 
-	trace_add_device_randomness(size, _RET_IP_);
 	spin_lock_irqsave(&input_pool.lock, flags);
 	_mix_pool_bytes(buf, size);
 	_mix_pool_bytes(&time, sizeof(time));
@@ -809,7 +802,6 @@ void add_input_randomness(unsigned int type, unsigned int code,
 	last_value = value;
 	add_timer_randomness(&input_timer_state,
 			     (type << 4) ^ code ^ (code >> 4) ^ value);
-	trace_add_input_randomness(input_pool.entropy_count);
 }
 EXPORT_SYMBOL_GPL(add_input_randomness);
 
@@ -889,7 +881,6 @@ void add_disk_randomness(struct gendisk *disk)
 		return;
 	/* first major is 1, so we get >= 0x200 here */
 	add_timer_randomness(disk->random, 0x100 + disk_devt(disk));
-	trace_add_disk_randomness(disk_devt(disk), input_pool.entropy_count);
 }
 EXPORT_SYMBOL_GPL(add_disk_randomness);
 #endif
@@ -913,8 +904,6 @@ static void extract_entropy(void *buf, size_t nbytes)
 		size_t counter;
 	} block;
 	size_t i;
-
-	trace_extract_entropy(nbytes, input_pool.entropy_count);
 
 	for (i = 0; i < ARRAY_SIZE(block.rdseed); ++i) {
 		if (!arch_get_random_seed_long(&block.rdseed[i]) &&
@@ -986,8 +975,6 @@ static void _get_random_bytes(void *buf, size_t nbytes)
 	u32 chacha_state[CHACHA_STATE_WORDS];
 	u8 tmp[CHACHA_BLOCK_SIZE];
 	size_t len;
-
-	trace_get_random_bytes(nbytes, _RET_IP_);
 
 	if (!nbytes)
 		return;
@@ -1185,7 +1172,6 @@ size_t __must_check get_random_bytes_arch(void *buf, size_t nbytes)
 	size_t left = nbytes;
 	u8 *p = buf;
 
-	trace_get_random_bytes_arch(left, _RET_IP_);
 	while (left) {
 		unsigned long v;
 		size_t chunk = min_t(size_t, left, sizeof(unsigned long));
@@ -1340,16 +1326,6 @@ void rand_initialize_disk(struct gendisk *disk)
 }
 #endif
 
-static ssize_t urandom_read_nowarn(struct file *file, char __user *buf,
-				   size_t nbytes, loff_t *ppos)
-{
-	ssize_t ret;
-
-	ret = get_random_bytes_user(buf, nbytes);
-	trace_urandom_read(nbytes, input_pool.entropy_count);
-	return ret;
-}
-
 static ssize_t urandom_read(struct file *file, char __user *buf, size_t nbytes,
 			    loff_t *ppos)
 {
@@ -1362,7 +1338,7 @@ static ssize_t urandom_read(struct file *file, char __user *buf, size_t nbytes,
 				  current->comm, nbytes);
 	}
 
-	return urandom_read_nowarn(file, buf, nbytes, ppos);
+	return get_random_bytes_user(buf, nbytes);
 }
 
 static ssize_t random_read(struct file *file, char __user *buf, size_t nbytes,
@@ -1373,7 +1349,7 @@ static ssize_t random_read(struct file *file, char __user *buf, size_t nbytes,
 	ret = wait_for_random_bytes();
 	if (ret != 0)
 		return ret;
-	return urandom_read_nowarn(file, buf, nbytes, ppos);
+	return get_random_bytes_user(buf, nbytes);
 }
 
 static __poll_t random_poll(struct file *file, poll_table *wait)
@@ -1534,7 +1510,7 @@ SYSCALL_DEFINE3(getrandom, char __user *, buf, size_t, count, unsigned int,
 		if (unlikely(ret))
 			return ret;
 	}
-	return urandom_read_nowarn(NULL, buf, count, NULL);
+	return get_random_bytes_user(buf, count);
 }
 
 /********************************************************************
