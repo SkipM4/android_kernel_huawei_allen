@@ -59,19 +59,14 @@ void dl_clear_root_domain(struct root_domain *rd)
 	return;
 }
 
-int dl_task_can_attach(struct task_struct *p, const struct cpumask *cs_cpus_allowed)
-{
-	return -1;
-}
-
 int dl_cpuset_cpumask_can_shrink(const struct cpumask *cur, const struct cpumask *trial)
 {
 	return 0;
 }
 
-bool dl_cpu_busy(unsigned int cpu)
+int dl_cpu_busy(int cpu, struct task_struct *p)
 {
-	return false;
+	return p ? -1 : 0;
 }
 #endif /* CONFIG_SMP */
 
