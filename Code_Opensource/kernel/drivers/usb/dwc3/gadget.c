@@ -2401,31 +2401,24 @@ static void __dwc3_gadget_stop(struct dwc3 *dwc);
 
 static int dwc3_gadget_restart(struct dwc3 *dwc)
 {
-	int			ret;
-	unsigned long		flags;
-	struct device		*dev = dwc->dev;
+	int ret;
+	unsigned long flags;
 
 	spin_lock_irqsave(&dwc->lock, flags);
 	__dwc3_gadget_stop(dwc);
 	spin_unlock_irqrestore(&dwc->lock, flags);
 
-	/*
-	 * do core init because of the core may hang up caused by
-	 * config DCTL.RUN to 0 during ep transport
-	 */
-	ret = dwc3_core_init(dwc);
-	if (ret) {
-		dev_err(dev, "failed to initialize core %d\n", ret);
-		goto err;
-	}
+	/* Reconnect requires a device core reset, not a second PHY/core init. */
+	ret = dwc3_core_soft_reset(dwc);
+	if (ret)
+		return ret;
+	ret = dwc3_event_buffers_setup(dwc);
+	if (ret)
+		return ret;
 
 	spin_lock_irqsave(&dwc->lock, flags);
 	ret = __dwc3_gadget_start(dwc);
 	spin_unlock_irqrestore(&dwc->lock, flags);
-	if (ret)
-		dev_err(dev, "__dwc3_gadget_start error %d\n", ret);
-
-err:
 	return ret;
 }
 
