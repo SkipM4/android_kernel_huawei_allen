@@ -1555,12 +1555,16 @@ static int mmc_select_hs400es(struct mmc_card *card)
 		goto out_err;
 	}
 
+	/*
+	 * Bump to HS timing and frequency. Some cards don't handle
+	 * SEND_STATUS reliably at the initial frequency.
+	 */
 	mmc_set_timing(host, MMC_TIMING_MMC_HS);
+	mmc_set_bus_speed(card);
+
 	err = mmc_switch_status(card, true);
 	if (err)
 		goto out_err;
-
-	mmc_set_clock(host, card->ext_csd.hs_max_dtr);
 
 	/* Switch card to DDR with strobe bit */
 	val = EXT_CSD_DDR_BUS_WIDTH_8 | EXT_CSD_BUS_WIDTH_STROBE;
@@ -1623,7 +1627,7 @@ static int mmc_select_hs200(struct mmc_card *card)
 	int err = -EINVAL;
 	u8 val;
 #ifndef CONFIG_ZODIAC_MMC
-	unsigned int old_signal_voltage;
+	unsigned int old_signal_voltage, old_clock;
 
 	old_signal_voltage = host->ios.signal_voltage;
 	if (card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS200_1_2V)
@@ -1654,6 +1658,9 @@ static int mmc_select_hs200(struct mmc_card *card)
 		if (err)
 			goto err;
 		old_timing = host->ios.timing;
+#ifndef CONFIG_ZODIAC_MMC
+		old_clock = host->ios.clock;
+#endif
 		mmc_set_timing(host, MMC_TIMING_MMC_HS200);
 
 		/*need to change voltage after set timing on zodiac plat*/
@@ -1673,13 +1680,17 @@ static int mmc_select_hs200(struct mmc_card *card)
 		 * tuning will fail and the result ends up the same.
 		 */
 #ifndef CONFIG_ZODIAC_MMC
+		/* Use HS clock for status; full HS200 speed is selected later. */
+		mmc_set_clock(host, card->ext_csd.hs_max_dtr);
 		err = mmc_switch_status(card, false);
 		/*
 		 * mmc_select_timing() assumes timing has not changed if
 		 * it is a switch error.
 		 */
-		if (err == -EBADMSG)
+		if (err == -EBADMSG) {
+			mmc_set_clock(host, old_clock);
 			mmc_set_timing(host, old_timing);
+		}
 #endif
 	}
 err:
