@@ -2648,34 +2648,15 @@ static int __dwc3_gadget_start(struct dwc3 *dwc);
 
 static int dwc3_gadget_soft_disconnect(struct dwc3 *dwc)
 {
-	u32 count;
+	unsigned long flags;
 
+	spin_lock_irqsave(&dwc->lock, flags);
 	dwc->connected = false;
-	/*
-	 * In the Synopsis DesignWare Cores USB3 Databook Rev. 3.30a
-	 * Section 4.1.8 Table 4-7, it states that for a device-initiated
-	 * disconnect, the SW needs to ensure that it sends "a DEPENDXFER
-	 * command for any active transfers" before clearing the RunStop
-	 * bit.
-	 */
 	dwc3_stop_active_transfers(dwc);
 	__dwc3_gadget_stop(dwc);
+	spin_unlock_irqrestore(&dwc->lock, flags);
 
-	/*
-	 * In the Synopsis DesignWare Cores USB3 Databook Rev. 3.30a
-	 * Section 1.3.4, it mentions that for the DEVCTRLHLT bit, the
-	 * "software needs to acknowledge the events that are generated
-	 * (by writing to GEVNTCOUNTn) while it is waiting for this bit
-	 * to be set to '1'."
-	 */
-	count = dwc3_readl(dwc->regs, DWC3_GEVNTCOUNT(0));
-	count &= DWC3_GEVNTCOUNT_MASK;
-	if (count > 0) {
-		dwc3_writel(dwc->regs, DWC3_GEVNTCOUNT(0), count);
-		dwc->ev_buf->lpos = (dwc->ev_buf->lpos + count) %
-					dwc->ev_buf->length;
-	}
-
+	/* Leave event acknowledgement to the running IRQ while waiting for halt. */
 	return dwc3_gadget_run_stop(dwc, false, false);
 }
 
@@ -2735,37 +2716,22 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 		return 0;
 	}
 
-	/*
-	 * Synchronize and disable any further event handling while controller
-	 * is being enabled/disabled.
-	 */
-	disable_irq(dwc->irq_gadget);
-
 	spin_lock_irqsave(&dwc->lock, flags);
-	dwc->gadget_pullup = is_on ? 1 : 0;
-	if (dwc->pcd_suspended) {
-		pr_info("%s: pcd suspended, not pullup %d\n", __func__, is_on);
-		spin_unlock_irqrestore(&dwc->lock, flags);
-		ret = 0;
-		goto out_enable_irq;
-	}
-
-
-	if (is_on)
+	dwc->gadget_pullup = is_on;
+	if (is_on) {
+		dwc->pcd_suspended = 0;
 		dwc3_pullup_notify();
+	}
+	spin_unlock_irqrestore(&dwc->lock, flags);
 
 	pr_info("%s:pull up dwc3_gadget_run_stop %d\n", __func__, is_on);
 	if (!is_on)
 		ret = dwc3_gadget_soft_disconnect(dwc);
 	else
 		ret = dwc3_gadget_run_stop(dwc, true, false);
-	spin_unlock_irqrestore(&dwc->lock, flags);
 	/* wait for event buffer empty */
 	if (!is_on)
 		dwc3_wait_event_clear(dwc);
-
-out_enable_irq:
-	enable_irq(dwc->irq_gadget);
 
 	pm_runtime_put(dwc->dev);
 
