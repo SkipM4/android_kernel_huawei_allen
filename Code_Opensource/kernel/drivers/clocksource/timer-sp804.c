@@ -290,6 +290,11 @@ static int __init sp804_of_init(struct device_node *np, struct sp804_timer *time
 	const char *name = of_get_property(np, "compatible", NULL);
 	int vendor_flag = 0;
 
+	if (initialized) {
+		pr_debug("%pOF: skipping further SP804 timer device\n", np);
+		return 0;
+	}
+
 	base = of_iomap(np, 0);
 	if (!base)
 		return -ENXIO;
@@ -305,11 +310,6 @@ static int __init sp804_of_init(struct device_node *np, struct sp804_timer *time
 	if (vendor_flag == 0) {
 		writel(0, timer1_base + timer->ctrl);
 		writel(0, timer2_base + timer->ctrl);
-	}
-
-	if (initialized || !of_device_is_available(np)) {
-		ret = -EINVAL;
-		goto err;
 	}
 
 	clk1 = of_clk_get(np, 0);
