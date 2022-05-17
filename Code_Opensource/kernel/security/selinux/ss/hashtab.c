@@ -190,10 +190,8 @@ int hashtab_duplicate(struct hashtab *new, struct hashtab *orig,
 			if (!tmp)
 				goto error;
 			rc = copy(tmp, cur, args);
-			if (rc) {
-				pfree(tmp);
+			if (rc)
 				goto error;
-			}
 #else
 			tmp = kmem_cache_zalloc(hashtab_node_cachep,
 						GFP_KERNEL);
@@ -219,14 +217,13 @@ int hashtab_duplicate(struct hashtab *new, struct hashtab *orig,
 
  error:
 #ifdef CONFIG_HKIP_SELINUX_PROT
+	/* PRMEM_NO_FLAGS allocations belong to the pool, not individual objects. */
 	for (i = 0; i < new->size; i++) {
 		for (cur = new->htable[i]; cur; cur = tmp) {
 			tmp = cur->next;
 			destroy(cur->key, cur->datum, args);
-			pfree(cur);
 		}
 	}
-	pfree(new);
 #else
 	for (i = 0; i < new->size; i++) {
 		for (cur = new->htable[i]; cur; cur = tmp) {
@@ -235,8 +232,9 @@ int hashtab_duplicate(struct hashtab *new, struct hashtab *orig,
 			kmem_cache_free(hashtab_node_cachep, cur);
 		}
 	}
-	kmem_cache_free(hashtab_node_cachep, new);
+	kfree(new->htable);
 #endif
+	memset(new, 0, sizeof(*new));
 	return -ENOMEM;
 }
 
