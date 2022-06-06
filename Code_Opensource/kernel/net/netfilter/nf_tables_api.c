@@ -2054,7 +2054,7 @@ static int nft_basechain_init(struct nft_base_chain *basechain, u8 family,
 	chain->flags |= NFT_CHAIN_BASE | flags;
 	basechain->policy = NF_ACCEPT;
 	if (chain->flags & NFT_CHAIN_HW_OFFLOAD &&
-	    !nft_chain_offload_priority(basechain)) {
+	    !nft_chain_offload_support(basechain)) {
 		list_splice_init(&basechain->hook_list, &hook->list);
 		return -EOPNOTSUPP;
 	}
@@ -2128,8 +2128,11 @@ static int nf_tables_addchain(struct nft_ctx *ctx, u8 family, u8 genmask,
 		err = nft_basechain_init(basechain, family, &hook, flags);
 		if (err < 0) {
 			nft_chain_release_hook(&hook);
+			if (rcu_access_pointer(basechain->stats)) {
+				static_branch_dec(&nft_counters_enabled);
+				free_percpu(rcu_dereference_raw(basechain->stats));
+			}
 			kfree(basechain);
-			free_percpu(stats);
 			return err;
 		}
 	} else {
