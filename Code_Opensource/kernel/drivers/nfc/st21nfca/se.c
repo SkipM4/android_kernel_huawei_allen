@@ -330,13 +330,18 @@ int st21nfca_connectivity_event_received(struct nfc_hci_dev *hdev, u8 host,
 		 * member name:   aid_tag(M) aid_len aid  params_tag(M) params_len  params
 		 * example:       0x81       5-16    X    0x82 0-255    X
 		 */
-		if (skb->len < 2 || skb->data[0] != NFC_EVT_TRANSACTION_AID_TAG)
-			return -EPROTO;
+		if (skb->len < NFC_MIN_AID_LENGTH + 2 ||
+		    skb->data[0] != NFC_EVT_TRANSACTION_AID_TAG) {
+			r = -EPROTO;
+			goto exit;
+		}
 
 		aid_len = skb->data[1];
 
-		if (skb->len < aid_len + 4 || aid_len > sizeof(transaction->aid))
-			return -EPROTO;
+		if (skb->len < aid_len + 4 || aid_len > sizeof(transaction->aid)) {
+			r = -EPROTO;
+			goto exit;
+		}
 
 		params_len = skb->data[aid_len + 3];
 
@@ -344,12 +349,16 @@ int st21nfca_connectivity_event_received(struct nfc_hci_dev *hdev, u8 host,
 		 * space in the packet to read everything.
 		 */
 		if ((skb->data[aid_len + 2] != NFC_EVT_TRANSACTION_PARAMS_TAG) ||
-		    (skb->len < aid_len + 4 + params_len))
-			return -EPROTO;
+		    (skb->len < aid_len + 4 + params_len)) {
+			r = -EPROTO;
+			goto exit;
+		}
 
 		transaction = devm_kzalloc(dev, sizeof(*transaction) + params_len, GFP_KERNEL);
-		if (!transaction)
-			return -ENOMEM;
+		if (!transaction) {
+			r = -ENOMEM;
+			goto exit;
+		}
 
 		transaction->aid_len = aid_len;
 		transaction->params_len = params_len;
@@ -363,6 +372,7 @@ int st21nfca_connectivity_event_received(struct nfc_hci_dev *hdev, u8 host,
 		nfc_err(&hdev->ndev->dev, "Unexpected event on connectivity gate\n");
 		return 1;
 	}
+exit:
 	kfree_skb(skb);
 	return r;
 }
