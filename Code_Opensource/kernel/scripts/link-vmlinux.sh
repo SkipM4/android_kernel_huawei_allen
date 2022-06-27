@@ -165,7 +165,7 @@ objtool_link()
 
 	if [ -n "${CONFIG_VMLINUX_VALIDATION}" ]; then
 		objtoolopt="${objtoolopt} --noinstr"
-		if [ -n "${CONFIG_RETPOLINE}" ]; then
+		if [ -n "${CONFIG_CPU_UNRET_ENTRY}" ]; then
 			objtoolopt="${objtoolopt} --unret"
 		fi
 	fi
@@ -183,6 +183,9 @@ objtool_link()
 		fi
 		if [ -n "${CONFIG_RETPOLINE}" ]; then
 			objtoolopt="${objtoolopt} --retpoline"
+		fi
+		if [ -n "${CONFIG_RETHUNK}" ]; then
+			objtoolopt="${objtoolopt} --rethunk"
 		fi
 		if [ -n "${CONFIG_X86_SMAP}" ]; then
 			objtoolopt="${objtoolopt} --uaccess"
