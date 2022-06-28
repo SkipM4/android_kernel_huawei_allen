@@ -3858,13 +3858,30 @@ static int init_percpu_info(struct f2fs_sb_info *sbi)
 
 #ifdef CONFIG_BLK_DEV_ZONED
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 4, 0))
-static int f2fs_report_zone_cb(struct blk_zone *zone, unsigned int idx,
-			       void *data)
-{
-	struct f2fs_dev_info *dev = data;
+struct f2fs_report_zones_args {
+	struct f2fs_sb_info *sbi;
+	struct f2fs_dev_info *dev;
+};
 
-	if (zone->type != BLK_ZONE_TYPE_CONVENTIONAL)
-		set_bit(idx, dev->blkz_seq);
+static int f2fs_report_zone_cb(struct blk_zone *zone, unsigned int idx,
+			      void *data)
+{
+	struct f2fs_report_zones_args *rz_args = data;
+	block_t unusable_blocks = (zone->len - zone->capacity) >>
+					F2FS_LOG_SECTORS_PER_BLOCK;
+
+	if (zone->type == BLK_ZONE_TYPE_CONVENTIONAL)
+		return 0;
+
+	set_bit(idx, rz_args->dev->blkz_seq);
+	if (!rz_args->sbi->unusable_blocks_per_sec) {
+		rz_args->sbi->unusable_blocks_per_sec = unusable_blocks;
+		return 0;
+	}
+	if (rz_args->sbi->unusable_blocks_per_sec != unusable_blocks) {
+		f2fs_err(rz_args->sbi, "F2FS supports single zone capacity\n");
+		return -EINVAL;
+	}
 	return 0;
 }
 #endif
@@ -3874,6 +3891,7 @@ static int init_blkz_info(struct f2fs_sb_info *sbi, int devi)
 	struct block_device *bdev = FDEV(devi).bdev;
 	sector_t nr_sectors = bdev->bd_part->nr_sects;
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 4, 0))
+	struct f2fs_report_zones_args rep_zone_arg;
 	int ret;
 #else
 	sector_t sector = 0;
@@ -3907,8 +3925,10 @@ static int init_blkz_info(struct f2fs_sb_info *sbi, int devi)
 		return -ENOMEM;
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 4, 0))
+	rep_zone_arg.sbi = sbi;
+	rep_zone_arg.dev = &FDEV(devi);
 	ret = blkdev_report_zones(bdev, 0, BLK_ALL_ZONES, f2fs_report_zone_cb,
-				  &FDEV(devi));
+				  &rep_zone_arg);
 	if (ret < 0)
 		return ret;
 	return 0;
