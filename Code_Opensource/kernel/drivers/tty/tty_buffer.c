@@ -523,6 +523,15 @@ static void flush_to_ldisc(struct work_struct *work)
 
 }
 
+static inline void tty_flip_buffer_commit(struct tty_buffer *tail)
+{
+	/*
+	 * Paired w/ acquire in flush_to_ldisc(); ensures flush_to_ldisc() sees
+	 * buffer data.
+	 */
+	smp_store_release(&tail->commit, tail->used);
+}
+
 /**
  *	tty_flip_buffer_push	-	terminal
  *	@port: tty port to push
@@ -543,7 +552,7 @@ void tty_flip_buffer_push(struct tty_port *port)
 	 * flush_to_ldisc() sees buffer data.
 	 */
 	spin_lock_irqsave(&port->lock, flags);
-	smp_store_release(&buf->tail->commit, buf->tail->used);
+	tty_flip_buffer_commit(buf->tail);
 	spin_unlock_irqrestore(&port->lock, flags);
 #if defined(CONFIG_SERIAL_UART_V500)
 	queue_work(system_highpri_unbound_wq, &buf->work);
