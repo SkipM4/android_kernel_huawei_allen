@@ -487,7 +487,7 @@ void tcp_init_sock(struct sock *sk)
 	sk->sk_netqos_time = jiffies;
 #endif
 
-	tp->reordering = sock_net(sk)->ipv4.sysctl_tcp_reordering;
+	tp->reordering = READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_reordering);
 	tcp_assign_congestion_control(sk);
 
 	tp->tsoffset = 0;
