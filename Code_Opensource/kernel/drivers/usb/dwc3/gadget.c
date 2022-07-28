@@ -2399,29 +2399,6 @@ static int dwc3_gadget_set_selfpowered(struct usb_gadget *g,
 static int __dwc3_gadget_start(struct dwc3 *dwc);
 static void __dwc3_gadget_stop(struct dwc3 *dwc);
 
-static int dwc3_gadget_restart(struct dwc3 *dwc)
-{
-	int ret;
-	unsigned long flags;
-
-	spin_lock_irqsave(&dwc->lock, flags);
-	__dwc3_gadget_stop(dwc);
-	spin_unlock_irqrestore(&dwc->lock, flags);
-
-	/* Reconnect requires a device core reset, not a second PHY/core init. */
-	ret = dwc3_core_soft_reset(dwc);
-	if (ret)
-		return ret;
-	ret = dwc3_event_buffers_setup(dwc);
-	if (ret)
-		return ret;
-
-	spin_lock_irqsave(&dwc->lock, flags);
-	ret = __dwc3_gadget_start(dwc);
-	spin_unlock_irqrestore(&dwc->lock, flags);
-	return ret;
-}
-
 static void dwc3_ulpi_phy_reset(struct dwc3 *dwc)
 {
 #ifdef CONFIG_USB_ULPI_BUS
@@ -2668,9 +2645,6 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 
 	is_on = !!is_on;
 	pr_info("%s:pull up %d\n", __func__, is_on);
-	if (dwc->pullups_connected == is_on)
-		return 0;
-
 	dwc->softconnect = is_on;
 
 	/*
@@ -2684,13 +2658,6 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 				msecs_to_jiffies(DWC3_PULL_UP_TIMEOUT));
 		if (ret == 0)
 			dev_warn(dwc->dev, "timed out waiting for SETUP phase\n");
-	}
-	if (is_on && phy_reset(dwc->usb2_generic_phy))
-		pr_err("dwc3:phy reset failed\n");
-	if (is_on) {
-		ret = dwc3_gadget_restart(dwc);
-		if (ret)
-			pr_err("%s: dwc3_gadget_restart failed\n", __func__);
 	}
 
 	/*
@@ -2716,23 +2683,39 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 		return 0;
 	}
 
-	spin_lock_irqsave(&dwc->lock, flags);
-	dwc->gadget_pullup = is_on;
-	if (is_on) {
+	if (dwc->pullups_connected == is_on) {
+		pm_runtime_put(dwc->dev);
+		return 0;
+	}
+
+	if (!is_on) {
+		ret = dwc3_gadget_soft_disconnect(dwc);
+	} else {
+		if (phy_reset(dwc->usb2_generic_phy))
+			pr_err("dwc3:phy reset failed\n");
+		ret = dwc3_core_soft_reset(dwc);
+		if (ret)
+			goto out_pm;
+		ret = dwc3_event_buffers_setup(dwc);
+		if (ret)
+			goto out_pm;
+		ret = __dwc3_gadget_start(dwc);
+		if (ret)
+			goto out_pm;
+
+		spin_lock_irqsave(&dwc->lock, flags);
+		dwc->gadget_pullup = true;
 		dwc->pcd_suspended = 0;
 		dwc3_pullup_notify();
-	}
-	spin_unlock_irqrestore(&dwc->lock, flags);
-
-	pr_info("%s:pull up dwc3_gadget_run_stop %d\n", __func__, is_on);
-	if (!is_on)
-		ret = dwc3_gadget_soft_disconnect(dwc);
-	else
+		spin_unlock_irqrestore(&dwc->lock, flags);
 		ret = dwc3_gadget_run_stop(dwc, true, false);
+	}
+
 	/* wait for event buffer empty */
 	if (!is_on)
 		dwc3_wait_event_clear(dwc);
 
+out_pm:
 	pm_runtime_put(dwc->dev);
 
 	return ret;
