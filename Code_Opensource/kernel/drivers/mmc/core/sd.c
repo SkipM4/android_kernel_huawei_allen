@@ -1323,7 +1323,7 @@ retry:
 					mmc_remove_card(card);
 				goto retry;
 			}
-			goto done;
+			goto cont;
 		}
 	}
 
@@ -1372,7 +1372,7 @@ retry:
 			mmc_set_bus_width(host, MMC_BUS_WIDTH_4);
 		}
 	}
-
+cont:
 	if (host->cqe_ops && !host->cqe_enabled) {
 		err = host->cqe_ops->cqe_enable(host, card);
 		if (!err) {
@@ -1393,7 +1393,7 @@ retry:
 #ifdef CONFIG_MMC_PASSWORDS
 locked_card:
 #endif
-done:
+
 	host->card = card;
 	return 0;
 
