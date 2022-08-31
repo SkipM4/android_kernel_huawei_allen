@@ -58,9 +58,9 @@ struct anon_vma {
 	 * This counter is used for making decision about reusing anon_vma
 	 * instead of forking new one. See comments in function anon_vma_clone.
 	 */
-	unsigned num_children;
+	unsigned long num_children;
 	/* Count of VMAs whose ->anon_vma pointer points to this object. */
-	unsigned num_active_vmas;
+	unsigned long num_active_vmas;
 
 	struct anon_vma *parent;	/* Parent of this anon_vma */
 
