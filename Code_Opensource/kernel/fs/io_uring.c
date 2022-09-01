@@ -4733,7 +4733,8 @@ static bool io_arm_poll_handler(struct io_kiocb *req)
 	__poll_t mask, ret;
 	int rw;
 
-	if (!req->file || !file_can_poll(req->file))
+	if (!req->file || !file_can_poll(req->file) ||
+	    req->file->f_op->may_pollfree)
 		return false;
 	if (req->flags & REQ_F_POLLED)
 		return false;
