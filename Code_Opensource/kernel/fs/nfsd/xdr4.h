@@ -725,7 +725,6 @@ struct nfsd4_compoundargs {
 	u32				opcnt;
 	struct nfsd4_op			*ops;
 	struct nfsd4_op			iops[8];
-	int				cachetype;
 };
 
 struct nfsd4_compoundres {
