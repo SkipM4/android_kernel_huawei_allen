@@ -98,6 +98,13 @@ static const struct mmc_fixup __maybe_unused mmc_blk_fixups[] = {
 		  MMC_QUIRK_TRIM_BROKEN),
 	MMC_FIXUP("V10016", CID_MANFID_KINGSTON, CID_OEMID_ANY, add_quirk_mmc,
 		  MMC_QUIRK_TRIM_BROKEN),
+
+	/*
+	 * Some SD cards reports discard support while they don't
+	 */
+	MMC_FIXUP(CID_NAME_ANY, CID_MANFID_SANDISK_SD, 0x5344, add_quirk_sd,
+		  MMC_QUIRK_BROKEN_SD_DISCARD),
+
 #ifdef CONFIG_ZODIAC_MMC_FLUSH_REDUCE_WHITE_LIST
 	MMC_FIXUP("Q3J97V", CID_MANFID_MICRON, CID_OEMID_ANY, en_emmc_flush_reduce, 0);
 	MMC_FIXUP("HAG4a2", CID_MANFID_HYNIX, CID_OEMID_ANY, en_emmc_flush_reduce, 0);
