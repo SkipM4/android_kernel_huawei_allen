@@ -103,7 +103,7 @@ struct fscrypt_info {
 	 * will be NULL if the master key was found in a process-subscribed
 	 * keyring rather than in the filesystem-level keyring.
 	 */
-	struct key *ci_master_key;
+	struct fscrypt_master_key *ci_master_key;
 
 	/*
 	 * Link in list of inodes that were unlocked with the master key.
