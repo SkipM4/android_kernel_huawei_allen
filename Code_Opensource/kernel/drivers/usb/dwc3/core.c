@@ -157,22 +157,26 @@ static void __dwc3_set_mode(struct dwc3 *dwc)
 	unsigned long flags;
 	int ret;
 	u32 reg;
+	u32 desired_dr_role;
 
 	mutex_lock(&dwc->mutex);
+	spin_lock_irqsave(&dwc->lock, flags);
+	desired_dr_role = dwc->desired_dr_role;
+	spin_unlock_irqrestore(&dwc->lock, flags);
 
 	pm_runtime_get_sync(dwc->dev);
 
 	dev_err(dwc->dev, "__dwc3_set_mode dwc->desired_dr_role = %d,dwc->current_dr_role = %d, dwc->dr_mode= %d.\n",
-		dwc->desired_dr_role, dwc->current_dr_role, dwc->dr_mode);
+		desired_dr_role, dwc->current_dr_role, dwc->dr_mode);
 
 	if (dwc->current_dr_role == DWC3_GCTL_PRTCAP_OTG)
 		dwc3_otg_update(dwc, 0);
 
 
-	if (dwc->desired_dr_role == dwc->current_dr_role)
+	if (desired_dr_role == dwc->current_dr_role)
 		goto out;
 
-	if (dwc->desired_dr_role == DWC3_GCTL_PRTCAP_OTG && dwc->edev)
+	if (desired_dr_role == DWC3_GCTL_PRTCAP_OTG && dwc->edev)
 		goto out;
 
 	switch (dwc->current_dr_role) {
@@ -200,7 +204,7 @@ static void __dwc3_set_mode(struct dwc3 *dwc)
 	 */
 	if (dwc->current_dr_role && ((DWC3_IP_IS(DWC3) ||
 			DWC3_VER_IS_PRIOR(DWC31, 190A)) &&
-			dwc->desired_dr_role != DWC3_GCTL_PRTCAP_OTG)) {
+			desired_dr_role != DWC3_GCTL_PRTCAP_OTG)) {
 		reg = dwc3_readl(dwc->regs, DWC3_GCTL);
 		reg |= DWC3_GCTL_CORESOFTRESET;
 		dwc3_writel(dwc->regs, DWC3_GCTL, reg);
@@ -220,9 +224,9 @@ static void __dwc3_set_mode(struct dwc3 *dwc)
 
 	spin_lock_irqsave(&dwc->lock, flags);
 
-	dwc->current_dr_role = dwc->desired_dr_role;
+	dwc->current_dr_role = desired_dr_role;
 
-	if (!dwc->desired_dr_role) {
+	if (!desired_dr_role) {
 		spin_unlock_irqrestore(&dwc->lock, flags);
 		goto out;
 	}
@@ -233,7 +237,7 @@ static void __dwc3_set_mode(struct dwc3 *dwc)
 		goto out;
 	}
 
-	switch (dwc->desired_dr_role) {
+	switch (desired_dr_role) {
 	case DWC3_GCTL_PRTCAP_HOST:
 		if (dwc->gctl_reset_quirk)
 			dwc3_otg_force_reset_core(dwc);
