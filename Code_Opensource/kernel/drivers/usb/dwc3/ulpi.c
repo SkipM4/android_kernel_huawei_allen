@@ -85,17 +85,20 @@ static const struct ulpi_ops dwc3_ulpi_ops = {
 
 int dwc3_ulpi_init(struct dwc3 *dwc)
 {
+	struct ulpi *ulpi;
+
 	if (dwc->ulpi) {
 		dev_info(dwc->dev, "already register ulpi\n");
 		return 0;
 	}
 
 	/* Register the interface */
-	dwc->ulpi = ulpi_register_interface(dwc->dev, &dwc3_ulpi_ops);
-	if (IS_ERR(dwc->ulpi)) {
+	ulpi = ulpi_register_interface(dwc->dev, &dwc3_ulpi_ops);
+	if (IS_ERR(ulpi)) {
 		dev_err(dwc->dev, "failed to register ULPI interface");
-		return PTR_ERR(dwc->ulpi);
+		return PTR_ERR(ulpi);
 	}
+	dwc->ulpi = ulpi;
 
 	return 0;
 }

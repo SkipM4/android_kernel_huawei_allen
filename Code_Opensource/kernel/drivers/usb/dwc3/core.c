@@ -749,8 +749,13 @@ static int dwc3_phy_setup(struct dwc3 *dwc)
 		fallthrough;
 	case DWC3_GHWPARAMS3_HSPHY_IFC_ULPI:
 		ret = dwc3_ulpi_init(dwc);
-		if (ret)
+		if (ret) {
+			if (ret == -ETIMEDOUT) {
+				dwc3_core_soft_reset(dwc);
+				ret = -EPROBE_DEFER;
+			}
 			return ret;
+		}
 		/* FALLTHROUGH */
 	default:
 		break;
