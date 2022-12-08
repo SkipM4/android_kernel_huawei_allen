@@ -71,6 +71,7 @@ struct css_task_iter {
 	ANDROID_KABI_RESERVE(1);
 };
 
+extern struct file_system_type cgroup_fs_type;
 extern struct cgroup_root cgrp_dfl_root;
 extern atomic_t g_css_inc_0;
 extern atomic_t g_css_dec_0;
