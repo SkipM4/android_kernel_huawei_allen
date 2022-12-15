@@ -2137,6 +2137,9 @@ static void *__pskb_pull_tail_gfp(struct sk_buff *skb, int delta, gfp_t gfp_mask
 				insp = list;
 			} else {
 				/* Eaten partially. */
+				if (skb_is_gso(skb) && !list->head_frag &&
+				    skb_headlen(list))
+					skb_shinfo(skb)->gso_type |= SKB_GSO_DODGY;
 
 				if (skb_shared(list)) {
 					/* Sucks! We need to fork list. :-( */
