@@ -28,6 +28,8 @@
 #endif
 #ifdef CONFIG_HYPERFRAME
 #include <linux/device.h>
+#include "io_uring/io_uring_types.h"
+#include <platform_include/basicplatform/linux/fs/hyperframe_inf.h>
 #endif
 #ifdef CONFIG_HUFS_MANUAL_BKOPS
 #include <scsi/scsi_host.h>
@@ -194,6 +196,31 @@ int main(void)
   DEFINE(OEM_DEVICE_SIZE, sizeof(struct device));
   DEFINE(OEM_HYPERFRAME_DEVICE_FRAME,
 	 ALIGN(48 + sizeof(struct device) + sizeof(unsigned long), 16));
+  BUILD_BUG_ON(offsetof(struct io_kiocb, rw.kiocb));
+  BUILD_BUG_ON(sizeof(struct hyperframe_ctx) != 432);
+  BUILD_BUG_ON(sizeof(struct hyperframe_req) != 136);
+  DEFINE(OEM_HF_CTX_BUF, offsetof(struct io_ring_ctx, buf));
+  DEFINE(OEM_HF_REQ_BUF, offsetof(struct io_kiocb, buf));
+  DEFINE(OEM_HF_REQ_OPCODE, offsetof(struct io_kiocb, opcode));
+  DEFINE(OEM_HF_REQ_RESULT, offsetof(struct io_kiocb, result));
+  DEFINE(OEM_HF_REQ_CTX, offsetof(struct io_kiocb, ctx));
+  DEFINE(OEM_HF_REQ_FLAGS, offsetof(struct io_kiocb, flags));
+  DEFINE(OEM_HF_RW_POS, offsetof(struct io_kiocb, rw.kiocb.ki_pos));
+  DEFINE(OEM_HF_RW_COMPLETE, offsetof(struct io_kiocb, rw.kiocb.ki_complete));
+  DEFINE(OEM_HF_RW_ADDR, offsetof(struct io_kiocb, rw.addr));
+  DEFINE(OEM_HF_RW_LEN, offsetof(struct io_kiocb, rw.len));
+  DEFINE(OEM_HF_OPEN_DFD, offsetof(struct io_kiocb, open.dfd));
+  DEFINE(OEM_HF_OPEN_FILENAME, offsetof(struct io_kiocb, open.filename));
+  DEFINE(OEM_HF_OPEN_HOW, offsetof(struct io_kiocb, open.how));
+  DEFINE(OEM_HF_OPEN_HOW_FLAGS, offsetof(struct io_kiocb, open.how.flags));
+  DEFINE(OEM_HF_OPEN_NOFILE, offsetof(struct io_kiocb, open.nofile));
+  DEFINE(OEM_HF_TASK_FILES, offsetof(struct task_struct, files));
+  DEFINE(OEM_HF_REQ_FAIL, REQ_F_FAIL);
+  DEFINE(OEM_HF_REQ_CLEAR_CLEANUP, (u32)~REQ_F_NEED_CLEANUP);
+  DEFINE(OEM_HF_OP_OPEN, IO_OP_HYPERFRAME_OPEN);
+  DEFINE(OEM_HF_OP_WRITE, IO_OP_HYPERFRAME_WRITE);
+  DEFINE(OEM_HF_OP_READ, IO_OP_HYPERFRAME_READ);
+  DEFINE(OEM_HF_OP_CLOSE, IO_OP_HYPERFRAME_CLOSE);
 #endif
 #ifdef CONFIG_HUFS_MANUAL_BKOPS
   DEFINE(OEM_SCSI_HOSTDATA, offsetof(struct Scsi_Host, hostdata));

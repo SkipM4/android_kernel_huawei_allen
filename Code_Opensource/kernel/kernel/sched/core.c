@@ -21,7 +21,7 @@
 #include <asm/tlb.h>
 
 #include "../workqueue_internal.h"
-#include "../../fs/io-wq.h"
+#include "../../io_uring/io-wq.h"
 #include "../smpboot.h"
 #ifdef CONFIG_SCHED_RUNNING_AVG
 #include "../time/tick-internal.h"

@@ -65,14 +65,14 @@ struct hyperframe_req {
 
 static inline bool hyperframe_rw(u8 opcode)
 {
-	return (opcode == IORING_OP_HYPERFRAME_READ ||
-			opcode == IORING_OP_HYPERFRAME_WRITE);
+	return (opcode == IO_OP_HYPERFRAME_READ ||
+			opcode == IO_OP_HYPERFRAME_WRITE);
 }
 
 static inline bool hyperframe_opcode(u8 opcode)
 {
-	return (opcode >= IORING_OP_HYPERFRAME_OPEN &&
-			opcode <= IORING_OP_HYPERFRAME_CLOSE);
+	return (opcode >= IO_OP_HYPERFRAME_OPEN &&
+			opcode <= IO_OP_HYPERFRAME_CLOSE);
 }
 
 #endif /* _LINUX_HF_INF_H */

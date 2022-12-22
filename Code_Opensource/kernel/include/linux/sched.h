@@ -1888,6 +1888,9 @@ struct task_struct {
 	unsigned int			mutex_vip_prio;
 #endif
 
+	/* PF_IO_WORKER; keep existing OEM task fields at their current offsets. */
+	void				*pf_io_worker;
+
 	/*
 	 * New fields for task_struct should be added above here, so that
 	 * they are included in the randomized portion of task_struct.

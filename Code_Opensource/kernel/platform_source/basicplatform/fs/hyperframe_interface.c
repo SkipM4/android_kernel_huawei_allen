@@ -1,5 +1,36 @@
 // SPDX-License-Identifier: GPL-2.0
 #include <platform_include/basicplatform/linux/hck/fs/hck_hyperframe.h>
+#include <linux/fs.h>
+#include <linux/workqueue.h>
+
+extern void hyperframe_fill_cq_asm(struct kiocb *iocb, long res, long res2);
+extern void hyperframe_read_work_asm(struct work_struct *work);
+extern void hyperframe_write_work_asm(struct work_struct *work);
+extern void hyperframe_fill_cq_work_asm(struct work_struct *work);
+
+void __cficanonical hyperframe_fill_cq(struct kiocb *iocb, long res, long res2)
+{
+	hyperframe_fill_cq_asm(iocb, res, res2);
+}
+__ADDRESSABLE(hyperframe_fill_cq)
+
+void __cficanonical hyperframe_read_work(struct work_struct *work)
+{
+	hyperframe_read_work_asm(work);
+}
+__ADDRESSABLE(hyperframe_read_work)
+
+void __cficanonical hyperframe_write_work(struct work_struct *work)
+{
+	hyperframe_write_work_asm(work);
+}
+__ADDRESSABLE(hyperframe_write_work)
+
+void __cficanonical hyperframe_fill_cq_work(struct work_struct *work)
+{
+	hyperframe_fill_cq_work_asm(work);
+}
+__ADDRESSABLE(hyperframe_fill_cq_work)
 
 extern typeof(vh_probe_hck_hyperframe_err_record) hck_hyperframe_err_record_asm;
 extern typeof(vh_probe_hck_hyperframe_set_opf) hck_hyperframe_set_opf_asm;

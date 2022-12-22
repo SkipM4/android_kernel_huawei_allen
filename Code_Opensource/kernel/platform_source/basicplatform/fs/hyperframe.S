@@ -2357,7 +2357,7 @@ hck_hyperframe_ctx_alloc_asm:               // @hck_hyperframe_ctx_alloc
 	bl	kmem_cache_alloc_trace
 .Ltmp325:
 	.loc	1 761 11                        // kernel/platform_source/basicplatform/fs/hyperframe.c:761:11
-	str	x0, [x20, #1184]
+	str	x0, [x20, #OEM_HF_CTX_BUF]
 	.loc	1 762 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:762:6
 	cbz	x0, .LBB4_9
 .Ltmp326:
@@ -2390,7 +2390,7 @@ hck_hyperframe_ctx_alloc_asm:               // @hck_hyperframe_ctx_alloc
 	//DEBUG_VALUE: __ll_sc_atomic_add:tmp <- undef
 	//DEBUG_VALUE: __ll_sc_atomic_add:result <- undef
 	.loc	1 769 16                        // kernel/platform_source/basicplatform/fs/hyperframe.c:769:16
-	ldr	x20, [x20, #1184]
+	ldr	x20, [x20, #OEM_HF_CTX_BUF]
 .Ltmp330:
 	//DEBUG_VALUE: hck_hyperframe_ctx_alloc:hf_ctx <- $x20
 	.loc	1 772 14                        // kernel/platform_source/basicplatform/fs/hyperframe.c:772:14
@@ -2758,7 +2758,7 @@ hck_hyperframe_ctx_free_asm:                // @hck_hyperframe_ctx_free
 	.cfi_offset w29, -16
 .Ltmp399:
 	.loc	1 823 39 prologue_end           // kernel/platform_source/basicplatform/fs/hyperframe.c:823:39
-	ldr	x0, [x0, #1184]
+	ldr	x0, [x0, #OEM_HF_CTX_BUF]
 .Ltmp400:
 	//DEBUG_VALUE: hck_hyperframe_ctx_free:ctx <- [DW_OP_LLVM_entry_value 1] $x0
 	//DEBUG_VALUE: hck_hyperframe_ctx_free:hf_ctx <- $x0
@@ -2822,7 +2822,7 @@ hck_hyperframe_openat_prep_asm:             // @hck_hyperframe_openat_prep
 	//DEBUG_VALUE: hck_hyperframe_openat_prep:req <- $x0
 	//DEBUG_VALUE: hck_hyperframe_openat_prep:req <- $x0
 	//DEBUG_VALUE: hck_hyperframe_openat_prep:sqe <- $x1
-	ldr	x8, [x0, #232]
+	ldr	x8, [x0, #OEM_HF_REQ_BUF]
 .Ltmp408:
 	//DEBUG_VALUE: hck_hyperframe_openat_prep:hf_req <- $x8
 	//DEBUG_VALUE: hck_hyperframe_openat_prep:sqe <- $x1
@@ -2834,10 +2834,10 @@ hck_hyperframe_openat_prep_asm:             // @hck_hyperframe_openat_prep
 	//DEBUG_VALUE: hck_hyperframe_openat_prep:sqe <- $x1
 	//DEBUG_VALUE: hck_hyperframe_openat_prep:req <- $x0
 	.loc	1 184 21 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:184:21
-	ldrb	w9, [x0, #72]
+	ldrb	w9, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp410:
 	.loc	1 184 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:184:6
-	cmp	w9, #34                         // =34
+	cmp	w9, #OEM_HF_OP_OPEN                         // =34
 	b.ne	.LBB6_3
 .Ltmp411:
 // %bb.2:
@@ -2875,7 +2875,7 @@ hck_hyperframe_close_prep_asm:              // @hck_hyperframe_close_prep
 	//DEBUG_VALUE: hck_hyperframe_close_prep:req <- $x0
 	//DEBUG_VALUE: hck_hyperframe_close_prep:req <- $x0
 	//DEBUG_VALUE: hck_hyperframe_close_prep:sqe <- $x1
-	ldr	x8, [x0, #232]
+	ldr	x8, [x0, #OEM_HF_REQ_BUF]
 .Ltmp416:
 	//DEBUG_VALUE: hck_hyperframe_close_prep:hf_req <- $x8
 	//DEBUG_VALUE: hck_hyperframe_close_prep:sqe <- $x1
@@ -2887,10 +2887,10 @@ hck_hyperframe_close_prep_asm:              // @hck_hyperframe_close_prep
 	//DEBUG_VALUE: hck_hyperframe_close_prep:sqe <- $x1
 	//DEBUG_VALUE: hck_hyperframe_close_prep:req <- $x0
 	.loc	1 92 21 is_stmt 0               // kernel/platform_source/basicplatform/fs/hyperframe.c:92:21
-	ldrb	w9, [x0, #72]
+	ldrb	w9, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp418:
 	.loc	1 92 6                          // kernel/platform_source/basicplatform/fs/hyperframe.c:92:6
-	cmp	w9, #37                         // =37
+	cmp	w9, #OEM_HF_OP_CLOSE                         // =37
 	b.ne	.LBB7_3
 .Ltmp419:
 // %bb.2:
@@ -2941,11 +2941,11 @@ hck_hyperframe_rw_prep_asm:                 // @hck_hyperframe_rw_prep
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:hf_req <- undef
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:kiocb <- 0
 	.loc	1 850 26 prologue_end           // kernel/platform_source/basicplatform/fs/hyperframe.c:850:26
-	ldrb	w8, [x0, #72]
+	ldrb	w8, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp424:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- $w8
 	.loc	3 68 46                         // kernel/include/platform_include/basicplatform/linux/fs/hyperframe_inf.h:68:46
-	sub	w8, w8, #35                     // =35
+	sub	w8, w8, #OEM_HF_OP_WRITE                     // =35
 .Ltmp425:
 	.loc	1 850 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:850:6
 	cmp	w8, #1                          // =1
@@ -2958,13 +2958,13 @@ hck_hyperframe_rw_prep_asm:                 // @hck_hyperframe_rw_prep
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:req <- $x0
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:kiocb <- 0
 	.loc	1 0 0 is_stmt 0                 // kernel/platform_source/basicplatform/fs/hyperframe.c:0:0
-	ldr	x8, [x0, #80]
+	ldr	x8, [x0, #OEM_HF_REQ_CTX]
 	mov	x19, x2
 .Ltmp427:
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:ret <- $x19
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:ret <- $x19
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:hf_req <- undef
-	ldr	x2, [x8, #1184]
+	ldr	x2, [x8, #OEM_HF_CTX_BUF]
 .Ltmp428:
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:hf_ctx <- $x2
 	.loc	1 853 14 is_stmt 1              // kernel/platform_source/basicplatform/fs/hyperframe.c:853:14
@@ -2990,7 +2990,7 @@ hck_hyperframe_rw_prep_asm:                 // @hck_hyperframe_rw_prep
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:req <- $x0
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:kiocb <- 0
 	.loc	1 0 0                           // kernel/platform_source/basicplatform/fs/hyperframe.c:0:0
-	ldr	x8, [x0, #232]
+	ldr	x8, [x0, #OEM_HF_REQ_BUF]
 .Ltmp432:
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:hf_req <- $x8
 	.loc	1 859 6 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:859:6
@@ -3005,25 +3005,25 @@ hck_hyperframe_rw_prep_asm:                 // @hck_hyperframe_rw_prep
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:kiocb <- 0
 	//DEBUG_VALUE: hck_hyperframe_rw_prep:kiocb <- $x0
 	.loc	1 867 25                        // kernel/platform_source/basicplatform/fs/hyperframe.c:867:25
-	ldr	x9, [x0, #48]
+	ldr	x9, [x0, #OEM_HF_RW_ADDR]
 	.loc	1 866 21                        // kernel/platform_source/basicplatform/fs/hyperframe.c:866:21
 	adrp	x10, hyperframe_fill_cq
 	add	x10, x10, :lo12:hyperframe_fill_cq
-	str	x10, [x0, #16]
+	str	x10, [x0, #OEM_HF_RW_COMPLETE]
 	.loc	1 867 15                        // kernel/platform_source/basicplatform/fs/hyperframe.c:867:15
 	stp	x0, x9, [x8, #8]
 	.loc	1 869 24                        // kernel/platform_source/basicplatform/fs/hyperframe.c:869:24
-	ldr	x9, [x0, #80]
+	ldr	x9, [x0, #OEM_HF_REQ_CTX]
 	.loc	1 869 29 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:869:29
-	ldr	x9, [x9, #1184]
+	ldr	x9, [x9, #OEM_HF_CTX_BUF]
 	.loc	1 869 17                        // kernel/platform_source/basicplatform/fs/hyperframe.c:869:17
 	str	x9, [x8, #32]
 	.loc	1 870 28 is_stmt 1              // kernel/platform_source/basicplatform/fs/hyperframe.c:870:28
-	ldr	x9, [x0, #56]
+	ldr	x9, [x0, #OEM_HF_RW_LEN]
 	.loc	1 870 18 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:870:18
 	str	x9, [x8, #96]
 	.loc	1 871 26 is_stmt 1              // kernel/platform_source/basicplatform/fs/hyperframe.c:871:26
-	ldr	x9, [x0, #8]
+	ldr	x9, [x0, #OEM_HF_RW_POS]
 	.loc	1 871 17 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:871:17
 	str	x9, [x8, #112]
 .Ltmp434:
@@ -3121,7 +3121,7 @@ hck_hyperframe_init_req_asm:                // @hck_hyperframe_init_req
 .Ltmp447:
 	//DEBUG_VALUE: hck_hyperframe_init_req:hf_req <- 0
 	.loc	1 262 11 prologue_end           // kernel/platform_source/basicplatform/fs/hyperframe.c:262:11
-	str	xzr, [x0, #232]
+	str	xzr, [x0, #OEM_HF_REQ_BUF]
 .Ltmp448:
 	.loc	1 263 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:263:6
 	ldr	w8, [x2]
@@ -3135,7 +3135,7 @@ hck_hyperframe_init_req_asm:                // @hck_hyperframe_init_req
 	//DEBUG_VALUE: hck_hyperframe_init_req:hf_req <- 0
 	//DEBUG_VALUE: hck_hyperframe_init_req:ret <- $x2
 	.loc	1 263 38                        // kernel/platform_source/basicplatform/fs/hyperframe.c:263:38
-	ldrb	w8, [x0, #72]
+	ldrb	w8, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp450:
 	//DEBUG_VALUE: hyperframe_opcode:opcode <- $w8
 	.loc	1 0 38                          // kernel/platform_source/basicplatform/fs/hyperframe.c:0:38
@@ -3144,7 +3144,7 @@ hck_hyperframe_init_req_asm:                // @hck_hyperframe_init_req
 	//DEBUG_VALUE: hck_hyperframe_init_req:req <- $x19
 	//DEBUG_VALUE: hck_hyperframe_init_req:req <- $x19
 	.loc	3 74 46 is_stmt 1               // kernel/include/platform_include/basicplatform/linux/fs/hyperframe_inf.h:74:46
-	sub	w8, w8, #34                     // =34
+	sub	w8, w8, #OEM_HF_OP_OPEN                     // =34
 .Ltmp452:
 	.loc	1 263 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:263:6
 	cmp	w8, #3                          // =3
@@ -3175,7 +3175,7 @@ hck_hyperframe_init_req_asm:                // @hck_hyperframe_init_req
 	bl	kmem_cache_alloc_trace
 .Ltmp456:
 	.loc	1 266 11                        // kernel/platform_source/basicplatform/fs/hyperframe.c:266:11
-	str	x0, [x19, #232]
+	str	x0, [x19, #OEM_HF_REQ_BUF]
 	.loc	1 267 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:267:6
 	cbz	x0, .LBB9_5
 .Ltmp457:
@@ -3208,7 +3208,7 @@ hck_hyperframe_init_req_asm:                // @hck_hyperframe_init_req
 	//DEBUG_VALUE: __ll_sc_atomic_add:tmp <- undef
 	//DEBUG_VALUE: __ll_sc_atomic_add:result <- undef
 	.loc	1 274 16                        // kernel/platform_source/basicplatform/fs/hyperframe.c:274:16
-	ldr	x8, [x19, #232]
+	ldr	x8, [x19, #OEM_HF_REQ_BUF]
 .Ltmp461:
 	//DEBUG_VALUE: hck_hyperframe_init_req:hf_req <- $x8
 	.loc	1 281 26                        // kernel/platform_source/basicplatform/fs/hyperframe.c:281:26
@@ -3290,11 +3290,11 @@ hck_hyperframe_free_req_asm:                // @hck_hyperframe_free_req
 .Ltmp470:
 	//DEBUG_VALUE: hck_hyperframe_free_req:hf_req <- undef
 	.loc	1 301 30 prologue_end           // kernel/platform_source/basicplatform/fs/hyperframe.c:301:30
-	ldrb	w8, [x0, #72]
+	ldrb	w8, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp471:
 	//DEBUG_VALUE: hyperframe_opcode:opcode <- $w8
 	.loc	3 74 46                         // kernel/include/platform_include/basicplatform/linux/fs/hyperframe_inf.h:74:46
-	sub	w8, w8, #34                     // =34
+	sub	w8, w8, #OEM_HF_OP_OPEN                     // =34
 .Ltmp472:
 	.loc	1 301 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:301:6
 	cmp	w8, #3                          // =3
@@ -3303,7 +3303,7 @@ hck_hyperframe_free_req_asm:                // @hck_hyperframe_free_req
 // %bb.1:
 	//DEBUG_VALUE: hck_hyperframe_free_req:req <- $x0
 	.loc	1 0 0 is_stmt 0                 // kernel/platform_source/basicplatform/fs/hyperframe.c:0:0
-	ldr	x0, [x0, #232]
+	ldr	x0, [x0, #OEM_HF_REQ_BUF]
 .Ltmp474:
 	//DEBUG_VALUE: hck_hyperframe_free_req:req <- [DW_OP_LLVM_entry_value 1] $x0
 	//DEBUG_VALUE: hck_hyperframe_free_req:hf_req <- $x0
@@ -3398,9 +3398,9 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	.cfi_offset w29, -80
 .Ltmp484:
 	.loc	1 877 15 prologue_end           // kernel/platform_source/basicplatform/fs/hyperframe.c:877:15
-	ldrb	w8, [x0, #72]
+	ldrb	w8, [x0, #OEM_HF_REQ_OPCODE]
 	.loc	1 877 2 is_stmt 0               // kernel/platform_source/basicplatform/fs/hyperframe.c:877:2
-	sub	w8, w8, #34                     // =34
+	sub	w8, w8, #OEM_HF_OP_OPEN                     // =34
 	cmp	w8, #3                          // =3
 	//DEBUG_VALUE: hck_hyperframe_issue_sqe:ret <- $x1
 	b.hi	.LBB11_24
@@ -3433,7 +3433,7 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 .Ltmp490:
 	//DEBUG_VALUE: hyperframe_io_open:req <- $x20
 	//DEBUG_VALUE: hyperframe_io_open:file <- 0
-	add	x23, x20, #24                   // =24
+	add	x23, x20, #OEM_HF_OPEN_HOW                   // =24
 	.loc	1 231 8 is_stmt 0               // kernel/platform_source/basicplatform/fs/hyperframe.c:231:8
 	add	x1, sp, #8                      // =8
 	mov	x0, x23
@@ -3451,25 +3451,25 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hck_hyperframe_issue_sqe:ret <- $x19
 	//DEBUG_LABEL: hyperframe_io_open:err
 	.loc	1 249 20                        // kernel/platform_source/basicplatform/fs/hyperframe.c:249:20
-	ldr	x0, [x20, #16]
+	ldr	x0, [x20, #OEM_HF_OPEN_FILENAME]
 	.loc	1 249 2 is_stmt 0               // kernel/platform_source/basicplatform/fs/hyperframe.c:249:2
 	bl	putname
 .Ltmp494:
 	.loc	1 250 13 is_stmt 1              // kernel/platform_source/basicplatform/fs/hyperframe.c:250:13
-	ldr	w8, [x20, #88]
+	ldr	w8, [x20, #OEM_HF_REQ_FLAGS]
 .Ltmp495:
 	.loc	1 82 14                         // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w21, [x20, #76]
+	str	w21, [x20, #OEM_HF_REQ_RESULT]
 .Ltmp496:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 250 13                        // kernel/platform_source/basicplatform/fs/hyperframe.c:250:13
-	and	w9, w8, #0xffffdfff
+	and	w9, w8, #OEM_HF_REQ_CLEAR_CLEANUP
 	and	w8, w8, #0xc
 	cmp	w8, #4                          // =4
 .Ltmp497:
 	//DEBUG_VALUE: hyperframe_io_open:ret <- $w21
 	.loc	1 0 13 is_stmt 0                // kernel/platform_source/basicplatform/fs/hyperframe.c:0:13
-	orr	w8, w9, #0x80
+	orr	w8, w9, #OEM_HF_REQ_FAIL
 .Ltmp498:
 	.loc	1 251 10 is_stmt 1              // kernel/platform_source/basicplatform/fs/hyperframe.c:251:10
 	ccmp	w21, #0, #0, eq
@@ -3480,7 +3480,7 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	cmp	w21, #1                         // =1
 .Ltmp500:
 	.loc	1 0 0 is_stmt 0                 // kernel/platform_source/basicplatform/fs/hyperframe.c:0:0
-	str	w8, [x20, #88]
+	str	w8, [x20, #OEM_HF_REQ_FLAGS]
 .Ltmp501:
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w21
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x20
@@ -3495,10 +3495,10 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w21
 	//DEBUG_VALUE: hyperframe_io_open:ret <- $w21
 	.loc	1 0 33                          // kernel/platform_source/basicplatform/fs/hyperframe.c:0:33
-	ldrb	w8, [x20, #72]
+	ldrb	w8, [x20, #OEM_HF_REQ_OPCODE]
 .Ltmp503:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- $w8
-	sub	w8, w8, #35                     // =35
+	sub	w8, w8, #OEM_HF_OP_WRITE                     // =35
 .Ltmp504:
 	and	w8, w8, #0xff
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -3513,9 +3513,9 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w21
 	//DEBUG_VALUE: hyperframe_io_open:ret <- $w21
 	.loc	1 84 15 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:84:15
-	ldr	x8, [x20, #56]
+	ldr	x8, [x20, #OEM_HF_RW_LEN]
 	sub	x8, x8, w21, uxtw
-	str	x8, [x20, #56]
+	str	x8, [x20, #OEM_HF_RW_LEN]
 .Ltmp506:
 .LBB11_6:
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x20
@@ -3566,7 +3566,7 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 .Ltmp513:
 	//DEBUG_VALUE: get_current:sp_el0 <- $x23
 	.loc	1 129 40                        // kernel/platform_source/basicplatform/fs/hyperframe.c:129:40
-	ldr	x22, [x23, #2528]
+	ldr	x22, [x23, #OEM_HF_TASK_FILES]
 .Ltmp514:
 	//DEBUG_VALUE: hyperframe_io_close:file <- 0
 	//DEBUG_VALUE: hyperframe_io_close:close <- $x20
@@ -3592,7 +3592,7 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hyperframe_io_close:fdt <- $x8
 	//DEBUG_VALUE: ________p1 <- $x8
 	.loc	1 141 13                        // kernel/platform_source/basicplatform/fs/hyperframe.c:141:13
-	ldrsw	x0, [x20, #8]
+	ldrsw	x0, [x20, #OEM_HF_OPEN_DFD]
 	.loc	1 141 24 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:141:24
 	ldr	w9, [x8]
 .Ltmp519:
@@ -3662,7 +3662,7 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: get_current:sp_el0 <- $x23
 	//DEBUG_VALUE: hyperframe_io_close:file <- $x0
 	.loc	1 160 34 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:160:34
-	ldr	x1, [x23, #2528]
+	ldr	x1, [x23, #OEM_HF_TASK_FILES]
 	.loc	1 160 8                         // kernel/platform_source/basicplatform/fs/hyperframe.c:160:8
 	bl	filp_close
 .Ltmp530:
@@ -3693,7 +3693,7 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hck_hyperframe_issue_sqe:req <- $x20
 	//DEBUG_VALUE: hck_hyperframe_issue_sqe:ret <- $x19
 	.loc	1 163 9 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:163:9
-	ldr	w8, [x20, #88]
+	ldr	w8, [x20, #OEM_HF_REQ_FLAGS]
 	.loc	1 163 15 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:163:15
 	and	w9, w8, #0xc
 .Ltmp534:
@@ -3707,8 +3707,8 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hck_hyperframe_issue_sqe:req <- $x20
 	//DEBUG_VALUE: hck_hyperframe_issue_sqe:ret <- $x19
 	.loc	1 164 14                        // kernel/platform_source/basicplatform/fs/hyperframe.c:164:14
-	orr	w8, w8, #0x80
-	str	w8, [x20, #88]
+	orr	w8, w8, #OEM_HF_REQ_FAIL
+	str	w8, [x20, #OEM_HF_REQ_FLAGS]
 .Ltmp536:
 .LBB11_16:
 	//DEBUG_VALUE: hyperframe_io_close:close <- $x20
@@ -3781,7 +3781,7 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	cmp	w8, #1                          // =1
 .Ltmp548:
 	.loc	1 82 14                         // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w8, [x20, #76]
+	str	w8, [x20, #OEM_HF_REQ_RESULT]
 .Ltmp549:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -3796,10 +3796,10 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hyperframe_io_close:ret <- $w8
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w8
 	.loc	1 0 33 is_stmt 0                // kernel/platform_source/basicplatform/fs/hyperframe.c:0:33
-	ldrb	w9, [x20, #72]
+	ldrb	w9, [x20, #OEM_HF_REQ_OPCODE]
 .Ltmp551:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- $w9
-	sub	w9, w9, #35                     // =35
+	sub	w9, w9, #OEM_HF_OP_WRITE                     // =35
 .Ltmp552:
 	and	w9, w9, #0xff
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -3815,9 +3815,9 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hyperframe_io_close:ret <- $w8
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w8
 	.loc	1 84 15 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:84:15
-	ldr	x9, [x20, #56]
+	ldr	x9, [x20, #OEM_HF_RW_LEN]
 	sub	x9, x9, x8
-	str	x9, [x20, #56]
+	str	x9, [x20, #OEM_HF_RW_LEN]
 .Ltmp554:
 .LBB11_21:
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x20
@@ -3860,9 +3860,9 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hyperframe_io_open:ret <- $w21
 	//DEBUG_VALUE: hyperframe_io_open:file <- 0
 	.loc	1 235 44                        // kernel/platform_source/basicplatform/fs/hyperframe.c:235:44
-	ldr	w0, [x20, #24]
+	ldr	w0, [x20, #OEM_HF_OPEN_HOW_FLAGS]
 	.loc	1 235 61 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:235:61
-	ldr	x1, [x20, #48]
+	ldr	x1, [x20, #OEM_HF_OPEN_NOFILE]
 	.loc	1 235 8                         // kernel/platform_source/basicplatform/fs/hyperframe.c:235:8
 	bl	__get_unused_fd_flags
 .Ltmp559:
@@ -3879,9 +3879,9 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	//DEBUG_VALUE: hyperframe_io_open:ret <- $w21
 	//DEBUG_VALUE: hyperframe_io_open:file <- 0
 	.loc	1 239 32                        // kernel/platform_source/basicplatform/fs/hyperframe.c:239:32
-	ldr	w0, [x20, #8]
+	ldr	w0, [x20, #OEM_HF_OPEN_DFD]
 	.loc	1 239 47 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:239:47
-	ldr	x1, [x20, #16]
+	ldr	x1, [x20, #OEM_HF_OPEN_FILENAME]
 	.loc	1 239 9                         // kernel/platform_source/basicplatform/fs/hyperframe.c:239:9
 	add	x2, sp, #8                      // =8
 	bl	do_filp_open
@@ -4120,7 +4120,7 @@ hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 	.loc	1 191 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:191:6
 	str	wzr, [x29, #28]
 	.loc	1 193 39                        // kernel/platform_source/basicplatform/fs/hyperframe.c:193:39
-	ldr	x25, [x20, #232]
+	ldr	x25, [x20, #OEM_HF_REQ_BUF]
 .Ltmp591:
 	//DEBUG_VALUE: hyperframe_openat_alloc:hf_req <- $x25
 	.loc	1 196 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:196:6
@@ -4327,7 +4327,7 @@ hck_hyperframe_complete_sqe_asm:            // @hck_hyperframe_complete_sqe
 	//DEBUG_VALUE: hck_hyperframe_complete_sqe:ret <- $x1
 	//DEBUG_VALUE: hyperframe_opcode:opcode <- $w0
 	//DEBUG_VALUE: hyperframe_opcode:opcode <- $w0
-	sub	w8, w0, #34                     // =34
+	sub	w8, w0, #OEM_HF_OP_OPEN                     // =34
 	and	w8, w8, #0xff
 .Ltmp612:
 	.loc	1 895 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:895:6
@@ -4354,8 +4354,9 @@ hck_hyperframe_complete_sqe_asm:            // @hck_hyperframe_complete_sqe
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_fill_cq
-	.type	hyperframe_fill_cq,@function
-hyperframe_fill_cq:                     // @hyperframe_fill_cq
+	.globl	hyperframe_fill_cq_asm
+	.type	hyperframe_fill_cq_asm,@function
+hyperframe_fill_cq_asm:                     // @hyperframe_fill_cq
 .Lfunc_begin13:
 	.loc	1 751 0                         // kernel/platform_source/basicplatform/fs/hyperframe.c:751:0
 	.cfi_startproc
@@ -4387,7 +4388,7 @@ hyperframe_fill_cq:                     // @hyperframe_fill_cq
 	//DEBUG_VALUE: hyperframe_fill_cq:req <- $x0
 	//DEBUG_VALUE: hyperframe_fill_cq:req <- $x0
 	.loc	1 753 39 prologue_end           // kernel/platform_source/basicplatform/fs/hyperframe.c:753:39
-	ldr	x25, [x0, #232]
+	ldr	x25, [x0, #OEM_HF_REQ_BUF]
 .Ltmp617:
 	//DEBUG_VALUE: hyperframe_add_cq_list:flags <- 0
 	//DEBUG_VALUE: hyperframe_add_cq_list:res <- $x1
@@ -4520,12 +4521,13 @@ hyperframe_fill_cq:                     // @hyperframe_fill_cq
 	ret
 .Ltmp638:
 .Lfunc_end13:
-	.size	hyperframe_fill_cq, .Lfunc_end13-hyperframe_fill_cq
+	.size	hyperframe_fill_cq_asm, .Lfunc_end13-hyperframe_fill_cq
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_read_work
-	.type	hyperframe_read_work,@function
-hyperframe_read_work:                   // @hyperframe_read_work
+	.globl	hyperframe_read_work_asm
+	.type	hyperframe_read_work_asm,@function
+hyperframe_read_work_asm:                   // @hyperframe_read_work
 .Lfunc_begin14:
 	.loc	1 648 0                         // kernel/platform_source/basicplatform/fs/hyperframe.c:648:0
 	.cfi_startproc
@@ -4924,7 +4926,7 @@ hyperframe_read_work:                   // @hyperframe_read_work
 	cmp	w24, #1                         // =1
 .Ltmp694:
 	.loc	1 82 14                         // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w24, [x0, #76]
+	str	w24, [x0, #OEM_HF_REQ_RESULT]
 .Ltmp695:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -4938,10 +4940,10 @@ hyperframe_read_work:                   // @hyperframe_read_work
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w24
 	//DEBUG_VALUE: hyperframe_read_work:ret <- $w24
 	.loc	1 0 33 is_stmt 0                // kernel/platform_source/basicplatform/fs/hyperframe.c:0:33
-	ldrb	w8, [x0, #72]
+	ldrb	w8, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp697:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- $w8
-	sub	w8, w8, #35                     // =35
+	sub	w8, w8, #OEM_HF_OP_WRITE                     // =35
 .Ltmp698:
 	and	w8, w8, #0xff
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -4956,9 +4958,9 @@ hyperframe_read_work:                   // @hyperframe_read_work
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w24
 	//DEBUG_VALUE: hyperframe_read_work:ret <- $w24
 	.loc	1 84 15 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:84:15
-	ldr	x8, [x0, #56]
+	ldr	x8, [x0, #OEM_HF_RW_LEN]
 	sub	x8, x8, w24, uxtw
-	str	x8, [x0, #56]
+	str	x8, [x0, #OEM_HF_RW_LEN]
 	b	.LBB14_1
 .Ltmp700:
 .LBB14_18:
@@ -5015,12 +5017,13 @@ hyperframe_read_work:                   // @hyperframe_read_work
 	b	.LBB14_19
 .Ltmp708:
 .Lfunc_end14:
-	.size	hyperframe_read_work, .Lfunc_end14-hyperframe_read_work
+	.size	hyperframe_read_work_asm, .Lfunc_end14-hyperframe_read_work
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_write_work
-	.type	hyperframe_write_work,@function
-hyperframe_write_work:                  // @hyperframe_write_work
+	.globl	hyperframe_write_work_asm
+	.type	hyperframe_write_work_asm,@function
+hyperframe_write_work_asm:                  // @hyperframe_write_work
 .Lfunc_begin15:
 	.loc	1 591 0 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:591:0
 	.cfi_startproc
@@ -5413,7 +5416,7 @@ hyperframe_write_work:                  // @hyperframe_write_work
 	cmp	w24, #1                         // =1
 .Ltmp765:
 	.loc	1 82 14                         // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w24, [x0, #76]
+	str	w24, [x0, #OEM_HF_REQ_RESULT]
 .Ltmp766:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -5426,10 +5429,10 @@ hyperframe_write_work:                  // @hyperframe_write_work
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w24
 	//DEBUG_VALUE: hyperframe_write_work:ret <- $w24
 	.loc	1 0 33 is_stmt 0                // kernel/platform_source/basicplatform/fs/hyperframe.c:0:33
-	ldrb	w8, [x0, #72]
+	ldrb	w8, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp768:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- $w8
-	sub	w8, w8, #35                     // =35
+	sub	w8, w8, #OEM_HF_OP_WRITE                     // =35
 .Ltmp769:
 	and	w8, w8, #0xff
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -5443,9 +5446,9 @@ hyperframe_write_work:                  // @hyperframe_write_work
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w24
 	//DEBUG_VALUE: hyperframe_write_work:ret <- $w24
 	.loc	1 84 15 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:84:15
-	ldr	x8, [x0, #56]
+	ldr	x8, [x0, #OEM_HF_RW_LEN]
 	sub	x8, x8, w24, uxtw
-	str	x8, [x0, #56]
+	str	x8, [x0, #OEM_HF_RW_LEN]
 	b	.LBB15_1
 .Ltmp771:
 .LBB15_18:
@@ -5498,12 +5501,13 @@ hyperframe_write_work:                  // @hyperframe_write_work
 	b	.LBB15_19
 .Ltmp779:
 .Lfunc_end15:
-	.size	hyperframe_write_work, .Lfunc_end15-hyperframe_write_work
+	.size	hyperframe_write_work_asm, .Lfunc_end15-hyperframe_write_work
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_fill_cq_work
-	.type	hyperframe_fill_cq_work,@function
-hyperframe_fill_cq_work:                // @hyperframe_fill_cq_work
+	.globl	hyperframe_fill_cq_work_asm
+	.type	hyperframe_fill_cq_work_asm,@function
+hyperframe_fill_cq_work_asm:                // @hyperframe_fill_cq_work
 .Lfunc_begin16:
 	.loc	1 703 0 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:703:0
 	.cfi_startproc
@@ -5691,10 +5695,10 @@ hyperframe_fill_cq_work:                // @hyperframe_fill_cq_work
 	.loc	1 730 14 is_stmt 1              // kernel/platform_source/basicplatform/fs/hyperframe.c:730:14
 	ldur	x8, [x21, #-64]
 	.loc	1 730 19 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:730:19
-	ldrb	w9, [x8, #72]
+	ldrb	w9, [x8, #OEM_HF_REQ_OPCODE]
 .Ltmp807:
 	.loc	1 730 6                         // kernel/platform_source/basicplatform/fs/hyperframe.c:730:6
-	cmp	w9, #35                         // =35
+	cmp	w9, #OEM_HF_OP_WRITE                         // =35
 	//DEBUG_VALUE: __ll_sc_atomic_sub:v <- [DW_OP_constu 192, DW_OP_minus, DW_OP_plus_uconst 420, DW_OP_stack_value] $x20
 	//DEBUG_VALUE: arch_atomic_sub:v <- [DW_OP_constu 192, DW_OP_minus, DW_OP_plus_uconst 420, DW_OP_stack_value] $x20
 	//DEBUG_VALUE: arch_atomic_dec:v <- [DW_OP_constu 192, DW_OP_minus, DW_OP_plus_uconst 420, DW_OP_stack_value] $x20
@@ -5781,7 +5785,7 @@ hyperframe_fill_cq_work:                // @hyperframe_fill_cq_work
 	cmp	w9, #1                          // =1
 .Ltmp819:
 	.loc	1 82 14                         // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w9, [x0, #76]
+	str	w9, [x0, #OEM_HF_REQ_RESULT]
 .Ltmp820:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -5794,10 +5798,10 @@ hyperframe_fill_cq_work:                // @hyperframe_fill_cq_work
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x0
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w9
 	.loc	1 0 33 is_stmt 0                // kernel/platform_source/basicplatform/fs/hyperframe.c:0:33
-	ldrb	w9, [x0, #72]
+	ldrb	w9, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp822:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- $w9
-	sub	w9, w9, #35                     // =35
+	sub	w9, w9, #OEM_HF_OP_WRITE                     // =35
 .Ltmp823:
 	and	w9, w9, #0xff
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -5810,9 +5814,9 @@ hyperframe_fill_cq_work:                // @hyperframe_fill_cq_work
 	//DEBUG_VALUE: hyperframe_fill_cq_work:work <- $x20
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x0
 	.loc	1 84 15 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:84:15
-	ldr	x9, [x0, #56]
+	ldr	x9, [x0, #OEM_HF_RW_LEN]
 	sub	x9, x9, x8
-	str	x9, [x0, #56]
+	str	x9, [x0, #OEM_HF_RW_LEN]
 	b	.LBB16_1
 .Ltmp825:
 .LBB16_14:
@@ -5867,7 +5871,7 @@ hyperframe_fill_cq_work:                // @hyperframe_fill_cq_work
 	b	.LBB16_15
 .Ltmp834:
 .Lfunc_end16:
-	.size	hyperframe_fill_cq_work, .Lfunc_end16-hyperframe_fill_cq_work
+	.size	hyperframe_fill_cq_work_asm, .Lfunc_end16-hyperframe_fill_cq_work
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_io_rw_buf
@@ -7456,7 +7460,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 .Ltmp1086:
 	//DEBUG_VALUE: hyperframe_io_rw:hf_ctx <- 0
 	.loc	1 516 39                        // kernel/platform_source/basicplatform/fs/hyperframe.c:516:39
-	ldr	x25, [x0, #232]
+	ldr	x25, [x0, #OEM_HF_REQ_BUF]
 .Ltmp1087:
 	//DEBUG_VALUE: hyperframe_io_rw:hf_req <- $x25
 	//DEBUG_VALUE: hyperframe_io_rw:rw <- $w1
@@ -7501,7 +7505,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 .Ltmp1093:
 	//DEBUG_VALUE: file_inode:f <- $x1
 	.loc	1 524 14 is_stmt 0              // kernel/platform_source/basicplatform/fs/hyperframe.c:524:14
-	ldr	x3, [x20, #56]
+	ldr	x3, [x20, #OEM_HF_RW_LEN]
 	//DEBUG_VALUE: i_size_read:inode <- $x8
 .Ltmp1094:
 	.loc	25 1357 12 is_stmt 1            // kernel/include/linux/fs.h:1357:12
@@ -8009,7 +8013,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_req_complete:res <- -12
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x20
 	.loc	1 82 14 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w8, [x20, #76]
+	str	w8, [x20, #OEM_HF_REQ_RESULT]
 .Ltmp1159:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 85 2                          // kernel/platform_source/basicplatform/fs/hyperframe.c:85:2
@@ -8039,7 +8043,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_req_complete:res <- -22
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x20
 	.loc	1 82 14 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w8, [x20, #76]
+	str	w8, [x20, #OEM_HF_REQ_RESULT]
 .Ltmp1163:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 85 2                          // kernel/platform_source/basicplatform/fs/hyperframe.c:85:2
@@ -8069,7 +8073,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_req_complete:res <- -17
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x20
 	.loc	1 82 14 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w8, [x20, #76]
+	str	w8, [x20, #OEM_HF_REQ_RESULT]
 .Ltmp1168:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 85 2                          // kernel/platform_source/basicplatform/fs/hyperframe.c:85:2
@@ -8172,7 +8176,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	cmp	w20, #1                         // =1
 .Ltmp1181:
 	.loc	1 82 14                         // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w20, [x0, #76]
+	str	w20, [x0, #OEM_HF_REQ_RESULT]
 .Ltmp1182:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -8194,10 +8198,10 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_io_rw:flags <- 0
 	//DEBUG_VALUE: hyperframe_io_rw:hf_ctx <- 0
 	.loc	1 0 33 is_stmt 0                // kernel/platform_source/basicplatform/fs/hyperframe.c:0:33
-	ldrb	w8, [x0, #72]
+	ldrb	w8, [x0, #OEM_HF_REQ_OPCODE]
 .Ltmp1184:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- $w8
-	sub	w8, w8, #35                     // =35
+	sub	w8, w8, #OEM_HF_OP_WRITE                     // =35
 .Ltmp1185:
 	and	w8, w8, #0xff
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -8220,9 +8224,9 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_io_rw:flags <- 0
 	//DEBUG_VALUE: hyperframe_io_rw:hf_ctx <- 0
 	.loc	1 84 15 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:84:15
-	ldr	x8, [x0, #56]
+	ldr	x8, [x0, #OEM_HF_RW_LEN]
 	sub	x8, x8, w20, uxtw
-	str	x8, [x0, #56]
+	str	x8, [x0, #OEM_HF_RW_LEN]
 	b	.LBB20_33
 .Ltmp1187:
 .LBB20_30:
@@ -8268,7 +8272,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_io_rw:flags <- 0
 	//DEBUG_VALUE: hyperframe_io_rw:hf_ctx <- 0
 	.loc	1 0 0 is_stmt 0                 // kernel/platform_source/basicplatform/fs/hyperframe.c:0:0
-	str	w8, [x0, #76]
+	str	w8, [x0, #OEM_HF_REQ_RESULT]
 .Ltmp1191:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	b	.LBB20_24
@@ -8305,7 +8309,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_req_complete:res <- $w20
 	//DEBUG_VALUE: hyperframe_req_complete:req <- $x0
 	.loc	1 82 14                         // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w20, [x0, #76]
+	str	w20, [x0, #OEM_HF_REQ_RESULT]
 .Ltmp1196:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 .LBB20_33:
@@ -8351,7 +8355,7 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	cmp	w21, #1                         // =1
 .Ltmp1200:
 	.loc	1 82 14                         // kernel/platform_source/basicplatform/fs/hyperframe.c:82:14
-	str	w21, [x20, #76]
+	str	w21, [x20, #OEM_HF_REQ_RESULT]
 .Ltmp1201:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- undef
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -8368,10 +8372,10 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_io_rw:flags <- 0
 	//DEBUG_VALUE: hyperframe_io_rw:hf_ctx <- 0
 	.loc	1 0 33 is_stmt 0                // kernel/platform_source/basicplatform/fs/hyperframe.c:0:33
-	ldrb	w8, [x20, #72]
+	ldrb	w8, [x20, #OEM_HF_REQ_OPCODE]
 .Ltmp1203:
 	//DEBUG_VALUE: hyperframe_rw:opcode <- $w8
-	sub	w8, w8, #35                     // =35
+	sub	w8, w8, #OEM_HF_OP_WRITE                     // =35
 .Ltmp1204:
 	and	w8, w8, #0xff
 	.loc	1 83 33                         // kernel/platform_source/basicplatform/fs/hyperframe.c:83:33
@@ -8389,9 +8393,9 @@ hyperframe_io_rw:                       // @hyperframe_io_rw
 	//DEBUG_VALUE: hyperframe_io_rw:flags <- 0
 	//DEBUG_VALUE: hyperframe_io_rw:hf_ctx <- 0
 	.loc	1 84 15 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:84:15
-	ldr	x8, [x20, #56]
+	ldr	x8, [x20, #OEM_HF_RW_LEN]
 	sub	x8, x8, w21, uxtw
-	str	x8, [x20, #56]
+	str	x8, [x20, #OEM_HF_RW_LEN]
 .Ltmp1206:
 .LBB20_37:
 	//DEBUG_VALUE: hyperframe_io_rw:hf_req <- $x25
@@ -8440,7 +8444,7 @@ hyperframe_close_unlink:                // @hyperframe_close_unlink
 	//DEBUG_VALUE: hyperframe_close_unlink:buf <- 0
 	//DEBUG_VALUE: hyperframe_close_unlink:file_path <- 0
 	.loc	1 102 39 prologue_end           // kernel/platform_source/basicplatform/fs/hyperframe.c:102:39
-	ldr	x8, [x0, #232]
+	ldr	x8, [x0, #OEM_HF_REQ_BUF]
 .Ltmp1209:
 	//DEBUG_VALUE: hyperframe_close_unlink:hf_req <- $x8
 	.loc	1 104 15                        // kernel/platform_source/basicplatform/fs/hyperframe.c:104:15
