@@ -95,6 +95,8 @@ static inline void ClearPageHugeFreed(struct page *head)
 
 /* Forward declaration */
 static int hugetlb_acct_memory(struct hstate *h, long delta);
+static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+		unsigned long start, unsigned long end);
 
 static inline void unlock_or_release_subpool(struct hugepage_subpool *spool)
 {
@@ -3698,6 +3700,16 @@ static int hugetlb_vm_op_split(struct vm_area_struct *vma, unsigned long addr)
 {
 	if (addr & ~(huge_page_mask(hstate_vma(vma))))
 		return -EINVAL;
+
+	/* PMD sharing requires the whole PUD-aligned range to remain intact. */
+	if (addr & ~PUD_MASK) {
+		unsigned long floor = addr & PUD_MASK;
+		unsigned long ceil = floor + PUD_SIZE;
+
+		if (floor >= vma->vm_start && ceil <= vma->vm_end)
+			hugetlb_unshare_pmds(vma, floor, ceil);
+	}
+
 	return 0;
 }
 
@@ -5741,33 +5753,22 @@ void move_hugetlb_state(struct page *oldpage, struct page *newpage, int reason)
 	}
 }
 
-/*
- * This function will unconditionally remove all the shared pmd pgtable entries
- * within the specific vma for a hugetlbfs memory range.
- */
-void hugetlb_unshare_all_pmds(struct vm_area_struct *vma)
+static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+				  unsigned long start, unsigned long end)
 {
 	struct hstate *h = hstate_vma(vma);
 	unsigned long sz = huge_page_size(h);
 	struct mm_struct *mm = vma->vm_mm;
 	struct mmu_notifier_range range;
-	unsigned long address, start, end;
+	unsigned long address;
 	spinlock_t *ptl;
 	pte_t *ptep;
 
-	if (!(vma->vm_flags & VM_MAYSHARE))
+	if (!(vma->vm_flags & VM_MAYSHARE) || start >= end)
 		return;
 
-	start = ALIGN(vma->vm_start, PUD_SIZE);
-	end = ALIGN_DOWN(vma->vm_end, PUD_SIZE);
-
-	if (start >= end)
-		return;
-
-	/*
-	 * No need to call adjust_range_if_pmd_sharing_possible(), because
-	 * we have already done the PUD_SIZE alignment.
-	 */
+	flush_cache_range(vma, start, end);
+	/* The callers provide PUD-aligned boundaries. */
 	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma, mm,
 				start, end);
 	mmu_notifier_invalidate_range_start(&range);
@@ -5779,17 +5780,21 @@ void hugetlb_unshare_all_pmds(struct vm_area_struct *vma)
 		if (!ptep)
 			continue;
 		ptl = huge_pte_lock(h, mm, ptep);
-		/* We don't want 'address' to be changed */
 		huge_pmd_unshare(mm, vma, &tmp, ptep);
 		spin_unlock(ptl);
 	}
 	flush_hugetlb_tlb_range(vma, start, end);
 	i_mmap_unlock_write(vma->vm_file->f_mapping);
-	/*
-	 * No need to call mmu_notifier_invalidate_range(), see
-	 * Documentation/vm/mmu_notifier.rst.
-	 */
 	mmu_notifier_invalidate_range_end(&range);
+}
+
+/* Remove every shared PMD page table in the PUD-aligned VMA interior. */
+void hugetlb_unshare_all_pmds(struct vm_area_struct *vma)
+{
+	unsigned long start = ALIGN(vma->vm_start, PUD_SIZE);
+	unsigned long end = ALIGN_DOWN(vma->vm_end, PUD_SIZE);
+
+	hugetlb_unshare_pmds(vma, start, end);
 }
 
 #ifdef CONFIG_CMA
