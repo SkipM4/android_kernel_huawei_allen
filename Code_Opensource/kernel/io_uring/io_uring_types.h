@@ -506,6 +506,7 @@ struct io_sr_msg {
 	int				msg_flags;
 	int				bgid;
 	size_t				len;
+	size_t				done_io;
 	struct io_buffer		*kbuf;
 };
 
