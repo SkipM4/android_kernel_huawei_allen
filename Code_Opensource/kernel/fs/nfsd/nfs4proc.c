@@ -1806,13 +1806,12 @@ out:
 	release_copy_files(copy);
 	return status;
 out_err:
+	if (nfsd4_ssc_is_inter(copy))
+		refcount_dec(&copy->ss_nsui->nsui_refcnt);
 	if (async_copy)
 		cleanup_async_copy(async_copy);
 	status = nfserrno(-ENOMEM);
-	/*
-	* source's vfsmount of inter-copy will be unmounted
-	* by the laundromat
-	*/
+	/* source's vfsmount of inter-copy will be unmounted by the laundromat */
 	goto out;
 }
 
