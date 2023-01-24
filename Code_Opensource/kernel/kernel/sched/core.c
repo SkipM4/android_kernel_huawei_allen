@@ -5696,8 +5696,7 @@ static noinline void __schedule_bug(struct task_struct *prev)
 		pr_err("Preemption disabled at:");
 		print_ip_sym(KERN_ERR, preempt_disable_ip);
 	}
-	if (panic_on_warn)
-		panic("scheduling while atomic\n");
+	check_panic_on_warn("scheduling while atomic");
 	CALL_HCK_VH(hck_dfx_bbox_panic_on_nowarn, !panic_on_warn);
 
 	trace_android_rvh_schedule_bug(prev);
