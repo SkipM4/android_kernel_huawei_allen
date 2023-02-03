@@ -1033,7 +1033,7 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
 
 	if (fio->io_wbc && !is_read_io(fio->op))
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 4, 0))
-		wbc_account_cgroup_owner(fio->io_wbc, page, PAGE_SIZE);
+		wbc_account_cgroup_owner(fio->io_wbc, fio->page, PAGE_SIZE);
 #else
 		wbc_account_io(fio->io_wbc, page, PAGE_SIZE);
 #endif
@@ -1311,7 +1311,7 @@ alloc_new:
 
 	if (fio->io_wbc)
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 4, 0))
-		wbc_account_cgroup_owner(fio->io_wbc, page, PAGE_SIZE);
+		wbc_account_cgroup_owner(fio->io_wbc, fio->page, PAGE_SIZE);
 #else
 		wbc_account_io(fio->io_wbc, page, PAGE_SIZE);
 #endif
@@ -1503,7 +1503,7 @@ alloc_new:
 
 	if (fio->io_wbc)
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 4, 0))
-		wbc_account_cgroup_owner(fio->io_wbc, bio_page, PAGE_SIZE);
+		wbc_account_cgroup_owner(fio->io_wbc, fio->page, PAGE_SIZE);
 #else
 		wbc_account_io(fio->io_wbc, bio_page, PAGE_SIZE);
 #endif
