@@ -666,8 +666,7 @@ ifeq ($(USE_BISHENG_CLANG),true)
     CLANG_FLAGS += -Wno-error=int-conversion
     CLANG_FLAGS += -Wno-error=implicit-int
 endif
-KBUILD_CFLAGS	+= $(CLANG_FLAGS)
-KBUILD_AFLAGS	+= $(CLANG_FLAGS)
+KBUILD_CPPFLAGS	+= $(CLANG_FLAGS)
 export CLANG_FLAGS
 endif
 
