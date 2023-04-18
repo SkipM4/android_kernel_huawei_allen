@@ -6320,7 +6320,10 @@ static inline bool cpu_overutilized(int cpu)
 #ifdef CONFIG_HISI_EAS_SCHED
 	return (capacity_of(cpu) * 1024) < (cpu_util(cpu) * cpu_sd_capacity_margin(cpu));
 #else
-	return !fits_capacity(cpu_util(cpu), capacity_of(cpu));
+	unsigned long rq_util_min = uclamp_rq_get(cpu_rq(cpu), UCLAMP_MIN);
+	unsigned long rq_util_max = uclamp_rq_get(cpu_rq(cpu), UCLAMP_MAX);
+
+	return !util_fits_cpu(cpu_util(cpu), rq_util_min, rq_util_max, cpu);
 #endif
 }
 
