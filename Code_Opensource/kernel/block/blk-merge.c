@@ -853,6 +853,8 @@ static struct request *attempt_merge(struct request_queue *q,
 		elv_merge_requests(q, req, next);
 	}
 
+	blk_crypto_rq_put_keyslot(next);
+
 	/*
 	 * 'next' is going away, so update stats accordingly
 	 */
