@@ -110,6 +110,7 @@ int cgroup_transfer_tasks(struct cgroup *to, struct cgroup *from)
 
 	mutex_lock(&cgroup_mutex);
 
+	cpus_read_lock();
 	percpu_down_write(&cgroup_threadgroup_rwsem);
 
 	/* all tasks in @from are being moved, all csets are source */
@@ -147,6 +148,7 @@ int cgroup_transfer_tasks(struct cgroup *to, struct cgroup *from)
 out_err:
 	cgroup_migrate_finish(&mgctx);
 	percpu_up_write(&cgroup_threadgroup_rwsem);
+	cpus_read_unlock();
 	mutex_unlock(&cgroup_mutex);
 	return ret;
 }
