@@ -2872,7 +2872,7 @@ int f2fs_resize_fs(struct file *filp, __u64 resize_len)
 	if (err) {
 		up_write(&sbi->gc_lock);
 		f2fs_err(sbi, "write_checkpoint failed! stop resize!");
-		return err;
+		goto out_drop_write;
 	}
 
 	/* should skip valid block addr check in some place */
