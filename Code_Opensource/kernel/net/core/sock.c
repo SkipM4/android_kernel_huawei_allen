@@ -2072,8 +2072,6 @@ void sk_setup_caps(struct sock *sk, struct dst_entry *dst)
 {
 	u32 max_segs = 1;
 
-	sk_dst_set(sk, dst);
-
 #ifdef CONFIG_HW_CLOUD_NETWORK
 	if (is_cloud_network_enable() && tun_dev_match_by_name(dst->dev))
 		sk->sk_route_forced_caps &= ~NETIF_F_GSO;
@@ -2106,6 +2104,7 @@ void sk_setup_caps(struct sock *sk, struct dst_entry *dst)
 	}
 #endif
 	sk->sk_gso_max_segs = max_segs;
+	sk_dst_set(sk, dst);
 }
 EXPORT_SYMBOL_GPL(sk_setup_caps);
 
