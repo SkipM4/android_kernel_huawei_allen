@@ -681,7 +681,7 @@ static int breakpoint_handler(unsigned long unused, unsigned int esr,
 		perf_bp_event(bp, regs);
 
 		/* Do we need to handle the stepping? */
-		if (is_default_overflow_handler(bp))
+		if (uses_default_overflow_handler(bp))
 			step = 1;
 unlock:
 		rcu_read_unlock();
@@ -763,7 +763,7 @@ static int watchpoint_report(struct perf_event *wp, unsigned long addr,
 #ifdef CONFIG_HAVE_HW_BREAKPOINT_ADDR_MASK
 	int step = 1;
 #else
-	int step = is_default_overflow_handler(wp);
+	int step = uses_default_overflow_handler(wp);
 #endif
 	struct arch_hw_breakpoint *info = counter_arch_bp(wp);
 
