@@ -2707,7 +2707,9 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 	if (!ret || ret < 0) {
 		pm_runtime_put(dwc->dev);
 		pr_err("pm_runtime_get_sync faile %d.\n", ret);
-		return 0;
+		if (ret < 0)
+			pm_runtime_set_suspended(dwc->dev);
+		return ret;
 	}
 
 	if (dwc->pullups_connected == is_on) {
