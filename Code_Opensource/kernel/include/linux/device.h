@@ -1007,8 +1007,6 @@ void device_links_supplier_sync_state_pause(void);
 void device_links_supplier_sync_state_resume(void);
 void device_link_wait_removal(void);
 
-__printf(3, 4)
-int dev_err_probe(const struct device *dev, int err, const char *fmt, ...);
 
 #ifdef CONFIG_MM_AMA
 struct devres * alloc_dr_exp(dr_release_t release,
