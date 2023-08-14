@@ -1022,12 +1022,29 @@ static void add_cfi_jumptables(struct objtool_file *file)
 	}
 }
 
+/*
+ * Symbols that replace INSN_CALL_DYNAMIC, every (tail) call to such a symbol
+ * will be added to the .retpoline_sites section.
+ */
 __weak bool arch_is_retpoline(struct symbol *sym)
 {
 	return false;
 }
 
+/*
+ * Symbols that replace INSN_RETURN, every (tail) call to such a symbol
+ * will be added to the .return_sites section.
+ */
 __weak bool arch_is_rethunk(struct symbol *sym)
+{
+	return false;
+}
+
+/*
+ * Symbols that are embedded inside other instructions, because sometimes crazy
+ * code exists. These are mostly ignored for validation purposes.
+ */
+__weak bool arch_is_embedded_insn(struct symbol *sym)
 {
 	return false;
 }
@@ -1255,7 +1272,7 @@ static int add_jump_destinations(struct objtool_file *file)
 			 * middle of another instruction.  Objtool only
 			 * knows about the outer instruction.
 			 */
-			if (sym && sym->return_thunk) {
+			if (sym && sym->embedded_insn) {
 				add_return_call(file, insn, false);
 				continue;
 			}
@@ -2073,6 +2090,9 @@ static int classify_symbols(struct objtool_file *file)
 
 			if (arch_is_rethunk(func))
 				func->return_thunk = true;
+
+			if (arch_is_embedded_insn(func))
+				func->embedded_insn = true;
 
 			if (!strcmp(func->name, "__fentry__"))
 				func->fentry = true;
