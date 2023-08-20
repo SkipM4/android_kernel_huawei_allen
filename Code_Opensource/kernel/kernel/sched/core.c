@@ -7723,6 +7723,7 @@ static int __sched_setscheduler(struct task_struct *p,
 	int reset_on_fork;
 	int queue_flags = DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK;
 	struct rq *rq;
+	bool cpuset_locked = false;
 #ifdef CONFIG_SCHED_DYNAMIC_PRIO
 	unsigned long dflags;
 	bool is_setting_dynamic_prio =
@@ -7842,6 +7843,12 @@ recheck:
 			return retval;
 	}
 
+	/* No-PI setters can run under tasklist or dynamic-priority spinlocks. */
+	if (pi && (dl_policy(policy) || dl_policy(p->policy))) {
+		cpuset_lock();
+		cpuset_locked = true;
+	}
+
 #ifdef CONFIG_SCHED_DYNAMIC_PRIO
 	/*
 	 * The p->dyn_prio.lock in dynamic_prio.c must also protect
@@ -7944,6 +7951,20 @@ change:
 		if (!is_setting_dynamic_prio)
 			spin_unlock_irqrestore(&p->dyn_prio.lock, dflags);
 #endif
+		if (cpuset_locked) {
+			cpuset_unlock();
+			cpuset_locked = false;
+		}
+		goto recheck;
+	}
+
+	/* Retry if a concurrent policy change now requires the cpuset mutex. */
+	if (pi && !cpuset_locked && task_has_dl_policy(p)) {
+		task_rq_unlock(rq, p, &rf);
+#ifdef CONFIG_SCHED_DYNAMIC_PRIO
+		if (!is_setting_dynamic_prio)
+			spin_unlock_irqrestore(&p->dyn_prio.lock, dflags);
+#endif
 		goto recheck;
 	}
 
@@ -8038,6 +8059,8 @@ change:
 		spin_unlock_irqrestore(&p->dyn_prio.lock, dflags);
 #endif
 
+	if (cpuset_locked)
+		cpuset_unlock();
 	if (pi)
 		rt_mutex_adjust_pi(p);
 
@@ -8074,6 +8097,8 @@ unlock:
 	if (!is_setting_dynamic_prio)
 		spin_unlock_irqrestore(&p->dyn_prio.lock, dflags);
 #endif
+	if (cpuset_locked)
+		cpuset_unlock();
 	return retval;
 }
 

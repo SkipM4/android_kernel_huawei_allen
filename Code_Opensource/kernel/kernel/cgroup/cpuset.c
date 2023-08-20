@@ -339,6 +339,16 @@ static struct cpuset top_cpuset = {
  */
 
 static DEFINE_MUTEX(cpuset_mutex);
+
+void cpuset_lock(void)
+{
+	mutex_lock(&cpuset_mutex);
+}
+
+void cpuset_unlock(void)
+{
+	mutex_unlock(&cpuset_mutex);
+}
 static DEFINE_SPINLOCK(callback_lock);
 
 static struct workqueue_struct *cpuset_migrate_mm_wq;
