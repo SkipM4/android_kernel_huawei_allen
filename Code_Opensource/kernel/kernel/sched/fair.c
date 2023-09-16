@@ -8267,7 +8267,7 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
 	if (!sd)
 		goto fail;
 
-	if (!clamp(task_util_est(p), p_util_min, p_util_max))
+	if (!task_util_est(p) && p_util_min == 0)
 		goto unlock;
 
 	latency_sensitive = uclamp_latency_sensitive(p);
