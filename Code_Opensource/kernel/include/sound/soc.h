@@ -1194,6 +1194,7 @@ struct snd_soc_pcm_runtime {
 	/* bit field */
 	unsigned int pop_wait:1;
 	unsigned int fe_compr:1; /* for Dynamic PCM */
+	unsigned int initialized:1;
 
 	int num_components;
 
