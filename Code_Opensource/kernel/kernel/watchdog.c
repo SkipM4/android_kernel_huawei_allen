@@ -189,6 +189,13 @@ unsigned int __read_mostly softlockup_panic =
             CONFIG_BOOTPARAM_SOFTLOCKUP_PANIC_VALUE;
 EXPORT_SYMBOL(softlockup_panic);
 
+static int __init softlockup_panic_setup(char *str)
+{
+	softlockup_panic = simple_strtoul(str, NULL, 0);
+	return 1;
+}
+__setup("softlockup_panic=", softlockup_panic_setup);
+
 static int __init nowatchdog_setup(char *str)
 {
 	watchdog_user_enabled = 0;
