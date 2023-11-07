@@ -2330,22 +2330,6 @@ static void __migrate_hrtimers(unsigned int scpu, bool remove_pinned)
 	local_irq_restore(flags);
 }
 
-int hrtimers_dead_cpu(unsigned int scpu)
-{
-	BUG_ON(cpu_online(scpu));
-	tick_cancel_sched_timer(scpu);
-
-	/*
-	 * this BH disable ensures that raise_softirq_irqoff() does
-	 * not wakeup ksoftirqd (and acquire the pi-lock) while
-	 * holding the cpu_base lock
-	 */
-	local_bh_disable();
-	__migrate_hrtimers(scpu, true);
-	local_bh_enable();
-	return 0;
-}
-
 void hrtimer_quiesce_cpu(void *cpup)
 {
 	__migrate_hrtimers(*(unsigned int *)cpup, false);
@@ -2383,51 +2367,43 @@ static void migrate_hrtimer_list(struct hrtimer_clock_base *old_base,
 	}
 }
 
-int hrtimers_dead_cpu(unsigned int scpu)
+#endif /* CONFIG_CPU_ISOLATION_OPT */
+
+int hrtimers_cpu_dying(unsigned int dying_cpu)
 {
 	struct hrtimer_cpu_base *old_base, *new_base;
-	int i;
+	int i, ncpu = cpumask_first(cpu_active_mask);
 
-	BUG_ON(cpu_online(scpu));
-	tick_cancel_sched_timer(scpu);
+	tick_cancel_sched_timer(dying_cpu);
+
+	old_base = this_cpu_ptr(&hrtimer_bases);
+	new_base = &per_cpu(hrtimer_bases, ncpu);
 
 	/*
-	 * this BH disable ensures that raise_softirq_irqoff() does
-	 * not wakeup ksoftirqd (and acquire the pi-lock) while
-	 * holding the cpu_base lock
+	 * CPU hotplug and isolation are serialized by cpu_maps_update_begin().
+	 * The online isolation path cannot take the two base locks concurrently.
 	 */
-	local_bh_disable();
-	local_irq_disable();
-	old_base = &per_cpu(hrtimer_bases, scpu);
-	new_base = this_cpu_ptr(&hrtimer_bases);
-	/*
-	 * The caller is globally serialized and nobody else
-	 * takes two locks at once, deadlock is not possible.
-	 */
-	raw_spin_lock(&new_base->lock);
-	raw_spin_lock_nested(&old_base->lock, SINGLE_DEPTH_NESTING);
+	raw_spin_lock(&old_base->lock);
+	raw_spin_lock_nested(&new_base->lock, SINGLE_DEPTH_NESTING);
 
 	for (i = 0; i < HRTIMER_MAX_CLOCK_BASES; i++) {
+#ifdef CONFIG_CPU_ISOLATION_OPT
+		migrate_hrtimer_list(&old_base->clock_base[i],
+				     &new_base->clock_base[i], true);
+#else
 		migrate_hrtimer_list(&old_base->clock_base[i],
 				     &new_base->clock_base[i]);
+#endif
 	}
 
-	/*
-	 * The migration might have changed the first expiring softirq
-	 * timer on this CPU. Update it.
-	 */
-	hrtimer_update_softirq_timer(new_base, false);
+	/* Refresh the destination's first expiring softirq timer. */
+	__hrtimer_get_next_event(new_base, HRTIMER_ACTIVE_SOFT);
+	smp_call_function_single(ncpu, retrigger_next_event, NULL, 0);
 
-	raw_spin_unlock(&old_base->lock);
 	raw_spin_unlock(&new_base->lock);
-
-	/* Check, if we got expired work to do */
-	__hrtimer_peek_ahead_timers();
-	local_irq_enable();
-	local_bh_enable();
+	raw_spin_unlock(&old_base->lock);
 	return 0;
 }
-#endif /* CONFIG_CPU_ISOLATION_OPT */
 
 #endif /* CONFIG_HOTPLUG_CPU */
 
