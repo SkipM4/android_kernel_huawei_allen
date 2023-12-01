@@ -456,6 +456,9 @@ static struct binder_buffer *binder_alloc_new_buf_locked(
 		return ERR_PTR(-EINVAL);
 	}
 
+	/* Pad 0-size buffers so they get assigned unique addresses */
+	size = max(size, sizeof(void *));
+
 #ifdef CONFIG_HUAWEI_KSTATE
 	/*
 	* if async and no more async space left.
@@ -480,9 +483,6 @@ static struct binder_buffer *binder_alloc_new_buf_locked(
 #endif
 		return ERR_PTR(-ENOSPC);
 	}
-
-	/* Pad 0-size buffers so they get assigned unique addresses */
-	size = max(size, sizeof(void *));
 
 	while (n) {
 		buffer = rb_entry(n, struct binder_buffer, rb_node);
