@@ -9818,7 +9818,7 @@ static int detach_tasks(struct lb_env *env)
 				util = capacity_orig_of(env->src_cpu);
 #endif
 
-			if (util > env->imbalance)
+			if (shr_bound(util, env->sd->nr_balance_failed) > env->imbalance)
 				goto next;
 
 			env->imbalance -= util;
