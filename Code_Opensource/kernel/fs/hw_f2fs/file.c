@@ -5098,6 +5098,11 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
 			goto out;
 	}
 
+	if (f2fs_compressed_file(src) || f2fs_compressed_file(dst)) {
+		ret = -EOPNOTSUPP;
+		goto out_unlock;
+	}
+
 #ifdef CONFIG_F2FS_FS_COMPRESSION_EX
 	if (is_inode_flag_set(src, FI_COMPRESS_RELEASED)) {
 		ret = f2fs_reserve_compress_blocks_internal(src, MOVE_SRC);
