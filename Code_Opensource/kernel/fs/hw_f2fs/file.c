@@ -6060,13 +6060,18 @@ static int reserve_compress_blocks(struct dnode_of_data *dn, pgoff_t count,
 				goto next;
 			}
 
-			if (__is_valid_data_blkaddr(sbi, blkaddr)) {
+			if (blkaddr == NEW_ADDR ||
+			    __is_valid_data_blkaddr(sbi, blkaddr)) {
 				compr_blocks++;
 				continue;
 			}
 		}
 
 		reserved = cluster_size - compr_blocks;
+		/* All data blocks in this cluster are already reserved. */
+		if (reserved == 1)
+			goto next;
+
 		ret = inc_valid_block_count(sbi, dn->inode, &reserved);
 		if (ret)
 			return ret;
