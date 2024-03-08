@@ -99,7 +99,7 @@ unsigned int sysctl_sched_wakeup_granularity			= 1000000UL;
 static unsigned int normalized_sysctl_sched_wakeup_granularity	= 1000000UL;
 
 #ifdef CONFIG_HISI_EAS_SCHED
-/* For can_migrate_task() and newidle_balance(). */
+/* For can_migrate_task() and sched_balance_newidle(). */
 const_debug unsigned int sysctl_sched_migration_cost	= 0UL;
 #else
 const_debug unsigned int sysctl_sched_migration_cost	= 500000UL;
@@ -4154,7 +4154,7 @@ static inline unsigned long cfs_rq_load_avg(struct cfs_rq *cfs_rq)
 	return cfs_rq->avg.load_avg;
 }
 
-static int newidle_balance(struct rq *this_rq, struct rq_flags *rf);
+static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf);
 
 unsigned long task_util(struct task_struct *p)
 {
@@ -4666,7 +4666,7 @@ attach_entity_load_avg(struct cfs_rq *cfs_rq, struct sched_entity *se) {}
 static inline void
 detach_entity_load_avg(struct cfs_rq *cfs_rq, struct sched_entity *se) {}
 
-static inline int newidle_balance(struct rq *rq, struct rq_flags *rf)
+static inline int sched_balance_newidle(struct rq *rq, struct rq_flags *rf)
 {
 	return 0;
 }
@@ -8625,7 +8625,7 @@ balance_fair(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
 	if (rq->nr_running)
 		return 1;
 
-	return newidle_balance(rq, rf) != 0;
+	return sched_balance_newidle(rq, rf) != 0;
 }
 #endif /* CONFIG_SMP */
 
@@ -9094,10 +9094,10 @@ idle:
 	if (!rf)
 		return NULL;
 
-	new_tasks = newidle_balance(rq, rf);
+	new_tasks = sched_balance_newidle(rq, rf);
 
 	/*
-	 * Because newidle_balance() releases (and re-acquires) rq->lock, it is
+	 * Because sched_balance_newidle() releases (and re-acquires) rq->lock, it is
 	 * possible for any higher priority task to appear. In that case we
 	 * must re-start the pick_next_entity() loop.
 	 */
@@ -11476,7 +11476,7 @@ next_group:
 	 *
 	 * Considering env->cpus are not overloaded but there're other
 	 * cpus in rd overloaded, rd->overload will be set to 0 by mistake.
-	 * That will cause newidle_balance() stop working.
+	 * That will cause sched_balance_newidle() stop working.
 	 *
 	 * Since env->cpus was initialized as sched_domain_span(env->sd)
 	 * AND cpu_active_mask, cpumask_equal(env->cpus, cpu_active_mask)
@@ -12172,7 +12172,7 @@ voluntary_active_balance(struct lb_env *env)
 #ifdef CONFIG_HISI_EAS_SCHED
 	/*
 	 * The only chance that we want active lb in lb is migrating misfit
-	 * running task to higher capacity cpu in newidle_balance().
+	 * running task to higher capacity cpu in sched_balance_newidle().
 	 * Otherwise active lb should be triggered by check_for_migration()
 	 * in scheduler_tick(). In that case we will pick a larger but still
 	 * energy efficient cpu.
@@ -12551,7 +12551,7 @@ out_one_pinned:
 	ld_moved = 0;
 
 	/*
-	 * newidle_balance() disregards balance intervals, so we could
+	 * sched_balance_newidle() disregards balance intervals, so we could
 	 * repeatedly reach this code, which would lead to balance_interval
 	 * skyrocketting in a short amount of time. Skip the balance_interval
 	 * increase logic to avoid that.
@@ -13474,7 +13474,7 @@ static inline void nohz_run_idle_balance(int cpu) { }
 #endif /* CONFIG_NO_HZ_COMMON */
 
 /*
- * newidle_balance is called by schedule() if this_cpu is about to become
+ * sched_balance_newidle is called by schedule() if this_cpu is about to become
  * idle. Attempts to pull tasks from other CPUs.
  *
  * Returns:
@@ -13482,7 +13482,7 @@ static inline void nohz_run_idle_balance(int cpu) { }
  *     0 - failed, no new tasks
  *   > 0 - success, new (fair) tasks present
  */
-static int newidle_balance(struct rq *this_rq, struct rq_flags *rf)
+static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf)
 {
 	unsigned long next_balance = jiffies + HZ;
 	int this_cpu = this_rq->cpu;
