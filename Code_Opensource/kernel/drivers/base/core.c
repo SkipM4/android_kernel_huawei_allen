@@ -50,6 +50,7 @@ static LIST_HEAD(deferred_sync);
 static unsigned int defer_sync_state_count = 1;
 static DEFINE_MUTEX(fwnode_link_lock);
 static bool fw_devlink_is_permissive(void);
+static struct workqueue_struct *device_link_wq;
 
 /**
  * fwnode_link_add - Create a link between two fwnode_handles.
