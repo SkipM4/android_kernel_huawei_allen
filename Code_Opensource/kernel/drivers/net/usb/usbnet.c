@@ -83,9 +83,6 @@
 
 /*-------------------------------------------------------------------------*/
 
-// randomly generated ethernet address
-static u8	node_id [ETH_ALEN];
-
 #ifdef CONFIG_CDC_DRIVER
 static u8 x1_tbox_mac_addr[ETH_ALEN] = { 0x18, 0x1F, 0xF1, 0x01, 0x00, 0x04 };
 static u8 x1_apa_mac_addr[ETH_ALEN] = { 0x18, 0x1F, 0xF1, 0x01, 0x01, 0x04 };
@@ -1796,7 +1793,6 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 	} else {
 #endif
 		strscpy(net->name, "usb%d", sizeof(net->name));
-		eth_hw_addr_set(net, node_id);
 #ifdef CONFIG_CDC_DRIVER
 	}
 #endif
@@ -1872,10 +1868,6 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 		goto out4;
 	}
 
-	/* let userspace know we have a random address */
-	if (ether_addr_equal(net->dev_addr, node_id))
-		net->addr_assign_type = NET_ADDR_RANDOM;
-
 	if ((dev->driver_info->flags & FLAG_WLAN) != 0)
 		SET_NETDEV_DEVTYPE(net, &wlan_type);
 	if ((dev->driver_info->flags & FLAG_WWAN) != 0)
@@ -1908,6 +1900,9 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 		netif_info(dev, probe, dev->net, "name =  %s, tbox_mac = %pM\n", net->name, net->dev_addr);
 	}
 #endif
+	if (!is_valid_ether_addr(net->dev_addr))
+		eth_hw_addr_random(net);
+
 	status = register_netdev (net);
 	if (status)
 		goto out5;
@@ -2310,7 +2305,6 @@ static int __init usbnet_init(void)
 	BUILD_BUG_ON(
 		sizeof_field(struct sk_buff, cb) < sizeof(struct skb_data));
 
-	eth_random_addr(node_id);
 	return 0;
 }
 module_init(usbnet_init);
