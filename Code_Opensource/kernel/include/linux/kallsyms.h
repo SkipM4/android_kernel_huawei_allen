@@ -71,12 +71,11 @@ static inline void *dereference_symbol_descriptor(void *ptr)
 	return ptr;
 }
 
+#ifdef CONFIG_KALLSYMS
 /* Call a function on each kallsyms symbol in the core kernel */
 int kallsyms_on_each_symbol(int (*fn)(void *, const char *, struct module *,
 				      unsigned long),
 			    void *data);
-
-#ifdef CONFIG_KALLSYMS
 /* Lookup the address for a symbol. Returns 0 if not found. */
 unsigned long kallsyms_lookup_name(const char *name);
 
@@ -156,6 +155,12 @@ static inline int lookup_symbol_attrs(unsigned long addr, unsigned long *size, u
 static inline bool kallsyms_show_value(const struct cred *cred)
 {
 	return false;
+}
+
+static inline int kallsyms_on_each_symbol(int (*fn)(void *, const char *, struct module *,
+					    unsigned long), void *data)
+{
+	return -EOPNOTSUPP;
 }
 
 #endif /*CONFIG_KALLSYMS*/
