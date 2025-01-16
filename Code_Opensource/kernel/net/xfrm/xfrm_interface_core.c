@@ -39,6 +39,7 @@
 #include <net/ip6_route.h>
 #include <net/ip_tunnels.h>
 #include <net/addrconf.h>
+#include <net/inet_sock.h>
 #include <net/xfrm.h>
 #include <net/net_namespace.h>
 #include <net/netns/generic.h>
@@ -368,7 +369,7 @@ xmit:
 	skb_dst_set(skb, dst);
 	skb->dev = tdev;
 
-	err = dst_output(xi->net, skb->sk, skb);
+	err = dst_output(xi->net, skb_to_full_sk(skb), skb);
 	if (net_xmit_eval(err) == 0) {
 		struct pcpu_sw_netstats *tstats = this_cpu_ptr(dev->tstats);
 

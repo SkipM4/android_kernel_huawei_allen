@@ -14,6 +14,7 @@
 #include <linux/spinlock.h>
 #include <net/dst.h>
 #include <net/icmp.h>
+#include <net/inet_sock.h>
 #include <net/inet_ecn.h>
 #include <net/xfrm.h>
 
@@ -504,19 +505,20 @@ out:
 int xfrm_output_resume(struct sk_buff *skb, int err)
 {
 	struct net *net = xs_net(skb_dst(skb)->xfrm);
+	struct sock *sk = skb_to_full_sk(skb);
 
 	while (likely((err = xfrm_output_one(skb, err)) == 0)) {
 		nf_reset_ct(skb);
 
-		err = skb_dst(skb)->ops->local_out(net, skb->sk, skb);
+		err = skb_dst(skb)->ops->local_out(net, sk, skb);
 		if (unlikely(err != 1))
 			goto out;
 
 		if (!skb_dst(skb)->xfrm)
-			return dst_output(net, skb->sk, skb);
+			return dst_output(net, sk, skb);
 
 		err = nf_hook(skb_dst(skb)->ops->family,
-			      NF_INET_POST_ROUTING, net, skb->sk, skb,
+			      NF_INET_POST_ROUTING, net, sk, skb,
 			      NULL, skb_dst(skb)->dev, xfrm_output2);
 		if (unlikely(err != 1))
 			goto out;
@@ -643,7 +645,7 @@ static int xfrm4_tunnel_check_size(struct sk_buff *skb)
 	     !skb_gso_validate_network_len(skb, ip_skb_dst_mtu(skb->sk, skb)))) {
 		skb->protocol = htons(ETH_P_IP);
 
-		if (skb->sk)
+		if (skb->sk && sk_fullsock(skb->sk))
 			xfrm_local_error(skb, mtu);
 		else
 			icmp_send(skb, ICMP_DEST_UNREACH,
@@ -679,6 +681,7 @@ static int xfrm6_tunnel_check_size(struct sk_buff *skb)
 {
 	int mtu, ret = 0;
 	struct dst_entry *dst = skb_dst(skb);
+	struct sock *sk = skb_to_full_sk(skb);
 
 	if (skb->ignore_df)
 		goto out;
@@ -693,9 +696,9 @@ static int xfrm6_tunnel_check_size(struct sk_buff *skb)
 		skb->dev = dst->dev;
 		skb->protocol = htons(ETH_P_IPV6);
 
-		if (xfrm6_local_dontfrag(skb->sk))
+		if (xfrm6_local_dontfrag(sk))
 			ipv6_stub->xfrm6_local_rxpmtu(skb, mtu);
-		else if (skb->sk)
+		else if (sk)
 			xfrm_local_error(skb, mtu);
 		else
 			icmpv6_send(skb, ICMPV6_PKT_TOOBIG, 0, mtu);
@@ -752,18 +755,22 @@ void xfrm_local_error(struct sk_buff *skb, int mtu)
 {
 	unsigned int proto;
 	struct xfrm_state_afinfo *afinfo;
+	struct sock *sk = skb_to_full_sk(skb);
+
+	if (!sk)
+		return;
 
 	if (skb->protocol == htons(ETH_P_IP))
 		proto = AF_INET;
 	else if (skb->protocol == htons(ETH_P_IPV6) &&
-		 skb->sk->sk_family == AF_INET6)
+		 sk->sk_family == AF_INET6)
 		proto = AF_INET6;
 	else
 		return;
 
 	afinfo = xfrm_state_get_afinfo(proto);
 	if (afinfo) {
-		afinfo->local_error(skb, mtu);
+		afinfo->local_error(skb, sk, mtu);
 		rcu_read_unlock();
 	}
 }

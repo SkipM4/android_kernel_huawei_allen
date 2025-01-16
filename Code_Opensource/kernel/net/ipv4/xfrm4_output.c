@@ -11,6 +11,7 @@
 #include <linux/netfilter_ipv4.h>
 #include <net/dst.h>
 #include <net/ip.h>
+#include <net/inet_sock.h>
 #include <net/xfrm.h>
 #include <net/icmp.h>
 
@@ -36,11 +37,14 @@ int xfrm4_output(struct net *net, struct sock *sk, struct sk_buff *skb)
 			    !(IPCB(skb)->flags & IPSKB_REROUTED));
 }
 
-void xfrm4_local_error(struct sk_buff *skb, u32 mtu)
+void xfrm4_local_error(struct sk_buff *skb, struct sock *sk, u32 mtu)
 {
 	struct iphdr *hdr;
 
+	if (!sk)
+		return;
+
 	hdr = skb->encapsulation ? inner_ip_hdr(skb) : ip_hdr(skb);
-	ip_local_error(skb->sk, EMSGSIZE, hdr->daddr,
-		       inet_sk(skb->sk)->inet_dport, mtu);
+	ip_local_error(sk, EMSGSIZE, hdr->daddr,
+		       inet_sk(sk)->inet_dport, mtu);
 }
