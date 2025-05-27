@@ -3700,17 +3700,27 @@ static int hugetlb_vm_op_split(struct vm_area_struct *vma, unsigned long addr)
 {
 	if (addr & ~(huge_page_mask(hstate_vma(vma))))
 		return -EINVAL;
+	return 0;
+}
 
-	/* PMD sharing requires the whole PUD-aligned range to remain intact. */
+void hugetlb_split(struct vm_area_struct *vma, unsigned long addr)
+{
+	/*
+	 * PMD sharing is only possible for PUD_SIZE-aligned address ranges
+	 * in HugeTLB VMAs. If we will lose PUD_SIZE alignment due to this
+	 * split, unshare PMDs in the PUD_SIZE interval surrounding addr now.
+	 * The caller holds the mmap, VMA and file rmap write locks.
+	 */
+	mmap_assert_write_locked(vma->vm_mm);
+	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+
 	if (addr & ~PUD_MASK) {
 		unsigned long floor = addr & PUD_MASK;
 		unsigned long ceil = floor + PUD_SIZE;
 
 		if (floor >= vma->vm_start && ceil <= vma->vm_end)
-			hugetlb_unshare_pmds(vma, floor, ceil);
+			hugetlb_unshare_pmds(vma, floor, ceil, false);
 	}
-
-	return 0;
 }
 
 static unsigned long hugetlb_vm_op_pagesize(struct vm_area_struct *vma)
@@ -5754,7 +5764,8 @@ void move_hugetlb_state(struct page *oldpage, struct page *newpage, int reason)
 }
 
 static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
-				  unsigned long start, unsigned long end)
+				  unsigned long start, unsigned long end,
+				  bool take_locks)
 {
 	struct hstate *h = hstate_vma(vma);
 	unsigned long sz = huge_page_size(h);
@@ -5772,7 +5783,10 @@ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
 	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma, mm,
 				start, end);
 	mmu_notifier_invalidate_range_start(&range);
-	i_mmap_lock_write(vma->vm_file->f_mapping);
+	if (take_locks)
+		i_mmap_lock_write(vma->vm_file->f_mapping);
+	else
+		i_mmap_assert_write_locked(vma->vm_file->f_mapping);
 	for (address = start; address < end; address += PUD_SIZE) {
 		unsigned long tmp = address;
 
@@ -5784,7 +5798,8 @@ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
 		spin_unlock(ptl);
 	}
 	flush_hugetlb_tlb_range(vma, start, end);
-	i_mmap_unlock_write(vma->vm_file->f_mapping);
+	if (take_locks)
+		i_mmap_unlock_write(vma->vm_file->f_mapping);
 	mmu_notifier_invalidate_range_end(&range);
 }
 
@@ -5794,7 +5809,7 @@ void hugetlb_unshare_all_pmds(struct vm_area_struct *vma)
 	unsigned long start = ALIGN(vma->vm_start, PUD_SIZE);
 	unsigned long end = ALIGN_DOWN(vma->vm_end, PUD_SIZE);
 
-	hugetlb_unshare_pmds(vma, start, end);
+	hugetlb_unshare_pmds(vma, start, end, true);
 }
 
 #ifdef CONFIG_CMA
