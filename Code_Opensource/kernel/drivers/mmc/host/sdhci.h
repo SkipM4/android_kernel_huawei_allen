@@ -19,6 +19,10 @@
 #include <linux/android_kabi.h>
 
 #include <linux/mmc/host.h>
+#if defined(CONFIG_DYNAMIC_DEBUG) || \
+	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
+#include <linux/dynamic_debug.h>
+#endif
 
 #ifdef CONFIG_MMC_CQ_HCI
 #include <platform_include/basicplatform/linux/mmc/cmdq_hci.h>
@@ -947,5 +951,19 @@ void __sdhci_set_timeout(struct sdhci_host *host, struct mmc_command *cmd);
 int sdhci_card_busy_data0(struct mmc_host *mmc);
 void sdhci_set_transfer_irqs(struct sdhci_host *host);
 void sdhci_set_default_irqs(struct sdhci_host *host);
+
+#if defined(CONFIG_DYNAMIC_DEBUG) || \
+	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
+#define sdhci_dbg_dumpregs(host, fmt) \
+	do { \
+		DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, fmt); \
+		if (DYNAMIC_DEBUG_BRANCH(descriptor)) \
+			sdhci_dumpregs(host); \
+	} while (0)
+#elif defined(DEBUG)
+#define sdhci_dbg_dumpregs(host, fmt) sdhci_dumpregs(host)
+#else
+#define sdhci_dbg_dumpregs(host, fmt) do { } while (0)
+#endif
 
 #endif /* __SDHCI_HW_H */
