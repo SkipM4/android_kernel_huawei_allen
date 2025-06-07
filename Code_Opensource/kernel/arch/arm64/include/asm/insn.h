@@ -9,6 +9,13 @@
 #define	__ASM_INSN_H
 #include <linux/build_bug.h>
 #include <linux/types.h>
+#include <asm/brk-imm.h>
+
+/*
+ * BRK instruction encoding; the #imm16 value occupies bits[20:5].
+ */
+#define AARCH64_BREAK_MON	0xd4200000
+#define AARCH64_BREAK_FAULT	(AARCH64_BREAK_MON | (FAULT_BRK_IMM << 5))
 
 #include <asm/alternative.h>
 
