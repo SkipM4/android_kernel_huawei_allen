@@ -1087,6 +1087,11 @@ void noinstr spectre_bhb_patch_fw_mitigation_enabled(struct alt_instr *alt,
 		*updptr++ = cpu_to_le32(aarch64_insn_gen_nop());
 }
 
+bool is_spectre_bhb_fw_mitigated(void)
+{
+	return test_bit(BHB_FW, &system_bhb_mitigations);
+}
+
 /* Patched to correct the immediate */
 void noinstr spectre_bhb_patch_loop_iter(struct alt_instr *alt,
 				   __le32 *origptr, __le32 *updptr, int nr_inst)
