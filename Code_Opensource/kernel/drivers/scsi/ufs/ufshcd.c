@@ -4931,7 +4931,7 @@ out:
 		hba->is_hibernate = false;
 	if (reenable_intr)
 		ufshcd_enable_intr(hba, UIC_COMMAND_COMPL);
-	if (ret) {
+	if (ret && !hba->pm_op_in_progress) {
 		dev_err(hba->dev,
 			"%s: Changing link power status failed (%d). Scheduling error handler\n",
 			__func__, ret);
@@ -4941,6 +4941,10 @@ out:
 out_unlock:
 	spin_unlock_irqrestore(hba->host->host_lock, flags);
 	mutex_unlock(&hba->uic_cmd_mutex);
+
+	/* Recover a failed hibern8 exit synchronously during runtime resume. */
+	if (ret && hba->pm_op_in_progress)
+		ret = ufshcd_link_recovery(hba);
 
 	return ret;
 }
