@@ -3482,6 +3482,17 @@ extern int sysctl_nr_trim_pages;
 extern bool pte_map_lock_addr(struct vm_fault *vmf, unsigned long addr);
 extern int reclaim_shmem_address_space(struct address_space *mapping);
 
+static inline bool is_write_sealed(int seals)
+{
+	return seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE);
+}
+
+static inline bool is_readonly_sealed(int seals, vm_flags_t vm_flags)
+{
+	return is_write_sealed(seals) &&
+	       (vm_flags & (VM_SHARED | VM_WRITE)) == VM_SHARED;
+}
+
 /**
  * seal_check_write - Check for F_SEAL_WRITE and F_SEAL_FUTURE_WRITE flags and
  *                    handle them.
@@ -3493,24 +3504,10 @@ extern int reclaim_shmem_address_space(struct address_space *mapping);
  */
 static inline int seal_check_write(int seals, struct vm_area_struct *vma)
 {
-	if (seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE)) {
-		/*
-		 * New PROT_WRITE and MAP_SHARED mmaps are not allowed when
-		 * "future write" seal active.
-		 */
-		if ((vma->vm_flags & VM_SHARED) && (vma->vm_flags & VM_WRITE))
-			return -EPERM;
-
-		/*
-		 * Since an F_SEAL_FUTURE_WRITE sealed memfd can be mapped as
-		 * MAP_SHARED and read-only, take care to not allow mprotect to
-		 * revert protections on such mappings. Do this only for shared
-		 * mappings. For private mappings, don't need to mask
-		 * VM_MAYWRITE as we still want them to be COW-writable.
-		 */
-		if (vma->vm_flags & VM_SHARED)
-			vma->vm_flags &= ~(VM_MAYWRITE);
-	}
+	if (is_write_sealed(seals) &&
+	    (vma->vm_flags & (VM_SHARED | VM_WRITE)) ==
+	    (VM_SHARED | VM_WRITE))
+		return -EPERM;
 
 	return 0;
 }
