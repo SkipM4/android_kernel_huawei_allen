@@ -104,9 +104,11 @@ static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
 		return sg_policy->util_changed;
 #endif
 
-	if (unlikely(sg_policy->limits_changed)) {
-		sg_policy->limits_changed = false;
+	if (unlikely(READ_ONCE(sg_policy->limits_changed))) {
+		WRITE_ONCE(sg_policy->limits_changed, false);
 		sg_policy->need_freq_update = true;
+		/* Pair with the write barrier in sugov_limits(). */
+		smp_mb();
 		return true;
 	}
 
@@ -530,7 +532,7 @@ static inline bool sugov_cpu_is_busy(struct sugov_cpu *sg_cpu) { return false; }
 static inline void ignore_dl_rate_limit(struct sugov_cpu *sg_cpu, struct sugov_policy *sg_policy)
 {
 	if (cpu_bw_dl(cpu_rq(sg_cpu->cpu)) > sg_cpu->bw_dl)
-		sg_policy->limits_changed = true;
+		WRITE_ONCE(sg_policy->limits_changed, true);
 }
 
 static void sugov_update_single(struct update_util_data *hook, u64 time,
@@ -1170,7 +1172,9 @@ static void sugov_limits(struct cpufreq_policy *policy)
 
 	sg_policy->min_freq = policy->min;
 #endif
-	sg_policy->limits_changed = true;
+	/* Pair with the read barrier in sugov_should_update_freq(). */
+	smp_wmb();
+	WRITE_ONCE(sg_policy->limits_changed, true);
 }
 
 struct cpufreq_governor schedutil_gov = {
