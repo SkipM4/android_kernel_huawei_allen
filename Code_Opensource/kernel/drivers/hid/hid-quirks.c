@@ -887,7 +887,6 @@ static const struct hid_device_id hid_ignore_list[] = {
 #endif
 	{ HID_USB_DEVICE(USB_VENDOR_ID_YEALINK, USB_DEVICE_ID_YEALINK_P1K_P4K_B2K) },
 	{ HID_USB_DEVICE(USB_VENDOR_ID_QUANTA, USB_DEVICE_ID_QUANTA_HP_5MP_CAMERA_5473) },
-	{ HID_USB_DEVICE(USB_VENDOR_ID_SMARTLINKTECHNOLOGY, USB_DEVICE_ID_SMARTLINKTECHNOLOGY_4155) },
 	{ }
 };
 
@@ -992,6 +991,13 @@ bool hid_ignore(struct hid_device *hdev)
 	case USB_VENDOR_ID_SOUNDGRAPH:
 		if (hdev->product >= USB_DEVICE_ID_SOUNDGRAPH_IMON_FIRST &&
 		    hdev->product <= USB_DEVICE_ID_SOUNDGRAPH_IMON_LAST)
+			return true;
+		break;
+	case USB_VENDOR_ID_JIELI_SDK_DEFAULT:
+		/* Distinguish the microphone from the touchscreen sharing this ID. */
+		if (hdev->product == USB_DEVICE_ID_JIELI_SDK_4155 &&
+		    strncmp(hdev->name, "SmartlinkTechnology", 19) == 0 &&
+		    strncmp(hdev->uniq, "20201111000001", 14) == 0)
 			return true;
 		break;
 	case USB_VENDOR_ID_HANWANG:
