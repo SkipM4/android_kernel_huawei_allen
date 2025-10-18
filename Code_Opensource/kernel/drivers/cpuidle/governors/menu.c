@@ -290,11 +290,13 @@ again:
 	 *
 	 * This can deal with workloads that have long pauses interspersed
 	 * with sporadic activity with a bunch of short pauses.
+	 *
+	 * If too few samples remain to exclude more outliers, allow the
+	 * deepest available idle state when no high-confidence prediction
+	 * can be made.
 	 */
 	if ((divisor * 4) <= INTERVALS * 3) {
 		CALL_HCK_VH(lpcpu_cpuidle_menu_device_clear_repeat, data);
-		if (divisor >= INTERVALS / 2)
-			return max;
 		return UINT_MAX;
 	}
 
