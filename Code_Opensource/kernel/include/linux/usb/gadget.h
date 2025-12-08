@@ -22,6 +22,7 @@
 #include <linux/init.h>
 #include <linux/list.h>
 #include <linux/slab.h>
+#include <linux/spinlock.h>
 #include <linux/scatterlist.h>
 #include <linux/types.h>
 #include <linux/workqueue.h>
@@ -426,6 +427,9 @@ struct usb_gadget {
 	struct list_head		ep_list;	/* of usb_ep */
 	enum usb_device_speed		speed;
 	enum usb_device_speed		max_speed;
+
+	spinlock_t			state_lock;
+	bool				teardown;
 
 	/* USB SuperSpeed Plus only */
 	enum usb_ssp_rate		ssp_rate;
