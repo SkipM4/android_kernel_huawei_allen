@@ -4942,10 +4942,6 @@ out_unlock:
 	spin_unlock_irqrestore(hba->host->host_lock, flags);
 	mutex_unlock(&hba->uic_cmd_mutex);
 
-	/* Recover a failed hibern8 exit synchronously during runtime resume. */
-	if (ret && hba->pm_op_in_progress)
-		ret = ufshcd_link_recovery(hba);
-
 	return ret;
 }
 
@@ -11124,7 +11120,9 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
 #endif
 				dev_err(hba->dev, "%s: hibern8 exit failed %d\n",
 						__func__, ret);
-				goto vendor_suspend;
+				ret = ufshcd_link_recovery(hba);
+				if (ret)
+					goto vendor_suspend;
 #ifdef CONFIG_SCSI_HUFS
 			}
 #endif
