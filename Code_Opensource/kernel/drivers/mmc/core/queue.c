@@ -319,7 +319,10 @@ static blk_status_t mmc_mq_queue_rq(struct blk_mq_hw_ctx *hctx,
 	spin_unlock_irq(&mq->lock);
 
 	if (!(req->rq_flags & RQF_DONTPREP)) {
-		req_to_mmc_queue_req(req)->retries = 0;
+		struct mmc_queue_req *mq_rq = req_to_mmc_queue_req(req);
+
+		mq_rq->retries = 0;
+		mq_rq->flags = 0;
 		req->rq_flags |= RQF_DONTPREP;
 	}
 
