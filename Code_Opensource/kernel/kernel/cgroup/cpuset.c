@@ -173,6 +173,11 @@ struct cpuset {
 	atomic_t nr_deadline_tasks;
 	int nr_migrate_dl_tasks;
 	u64 sum_migrate_dl_bw;
+	/*
+	 * CPU used for temporary DL bandwidth allocation during attach;
+	 * -1 if no DL bandwidth was allocated in the current attach.
+	 */
+	int dl_bw_cpu;
 };
 
 /*
@@ -294,6 +299,7 @@ static struct cpuset top_cpuset = {
 	.flags = ((1 << CS_ONLINE) | (1 << CS_CPU_EXCLUSIVE) |
 		  (1 << CS_MEM_EXCLUSIVE)),
 	.partition_root_state = PRS_ENABLED,
+	.dl_bw_cpu = -1,
 };
 
 /**
@@ -568,6 +574,8 @@ static struct cpuset *alloc_trial_cpuset(struct cpuset *cs)
 	trial = kmemdup(cs, sizeof(*cs), GFP_KERNEL);
 	if (!trial)
 		return NULL;
+
+	trial->dl_bw_cpu = -1;
 
 	if (alloc_cpumasks(trial, NULL)) {
 		kfree(trial);
@@ -2218,6 +2226,7 @@ static void reset_migrate_dl_data(struct cpuset *cs)
 {
 	cs->nr_migrate_dl_tasks = 0;
 	cs->sum_migrate_dl_bw = 0;
+	cs->dl_bw_cpu = -1;
 }
 
 /* Called by cgroups to determine if a cpuset is usable; cpuset_mutex held */
@@ -2272,6 +2281,8 @@ static int cpuset_can_attach(struct cgroup_taskset *tset)
 			reset_migrate_dl_data(cs);
 			goto out_unlock;
 		}
+
+		cs->dl_bw_cpu = cpu;
 	}
 
 out_success:
@@ -2299,12 +2310,11 @@ static void cpuset_cancel_attach(struct cgroup_taskset *tset)
 	if (!cs->attach_in_progress)
 		wake_up(&cpuset_attach_wq);
 
-	if (cs->nr_migrate_dl_tasks) {
-		int cpu = cpumask_any(cs->effective_cpus);
+	if (cs->dl_bw_cpu >= 0)
+		dl_bw_free(cs->dl_bw_cpu, cs->sum_migrate_dl_bw);
 
-		dl_bw_free(cpu, cs->sum_migrate_dl_bw);
+	if (cs->nr_migrate_dl_tasks)
 		reset_migrate_dl_data(cs);
-	}
 
 	mutex_unlock(&cpuset_mutex);
 }
@@ -2868,6 +2878,8 @@ cpuset_css_alloc(struct cgroup_subsys_state *parent_css)
 	cs = kzalloc(sizeof(*cs), GFP_KERNEL);
 	if (!cs)
 		return ERR_PTR(-ENOMEM);
+
+	cs->dl_bw_cpu = -1;
 
 	if (alloc_cpumasks(cs, NULL)) {
 		kfree(cs);
