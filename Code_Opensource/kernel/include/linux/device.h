@@ -577,6 +577,7 @@ struct device {
 #ifdef CONFIG_DMA_OPS_BYPASS
 	bool			dma_ops_bypass : 1;
 #endif
+	bool			ready_to_probe:1;
 	ANDROID_KABI_RESERVE(1);
 	ANDROID_KABI_RESERVE(2);
 	ANDROID_KABI_RESERVE(3);
@@ -725,6 +726,16 @@ static inline void dev_set_uevent_suppress(struct device *dev, int val)
 static inline int device_is_registered(struct device *dev)
 {
 	return dev->kobj.state_in_sysfs;
+}
+
+static inline bool dev_ready_to_probe(const struct device *dev)
+{
+	return dev->ready_to_probe;
+}
+
+static inline void dev_set_ready_to_probe(struct device *dev)
+{
+	dev->ready_to_probe = true;
 }
 
 static inline void device_enable_async_suspend(struct device *dev)

@@ -3277,6 +3277,10 @@ int device_add(struct device *dev)
 		fw_devlink_link_device(dev);
 	}
 
+	device_lock(dev);
+	dev_set_ready_to_probe(dev);
+	device_unlock(dev);
+
 	bus_probe_device(dev);
 	if (parent)
 		klist_add_tail(&dev->p->knode_parent,
