@@ -1054,12 +1054,6 @@ int dwc3_core_init(struct dwc3 *dwc)
 	int			ret;
 
 
-	/*
-	 * Write Linux Version Code to our GUID register so it's easy to figure
-	 * out which kernel version a bug was found.
-	 */
-	dwc3_writel(dwc->regs, DWC3_GUID, LINUX_VERSION_CODE);
-
 
 	if (!dwc->phys_ready) {
 		ret = dwc3_core_get_phy(dwc);
@@ -1087,6 +1081,12 @@ int dwc3_core_init(struct dwc3 *dwc)
 	ret = dwc3_phy_setup(dwc);
 	if (ret)
 		goto err1;
+
+	/*
+	 * Write Linux Version Code to our GUID register so it's easy to figure
+	 * out which kernel version a bug was found.
+	 */
+	dwc3_writel(dwc->regs, DWC3_GUID, LINUX_VERSION_CODE);
 
 	dwc3_core_setup_global_control(dwc);
 	dwc3_core_num_eps(dwc);
