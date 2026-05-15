@@ -96,8 +96,15 @@ SCHED_FEAT(RT_PUSH_IPI, false)
  * rq lock and possibly create a large contention, sending an
  * IPI to that CPU and let that CPU push the RT task to where
  * it should go may be a better scenario.
+ *
+ * This is best for PREEMPT_RT. On non-RT kernels, long preemption-disabled
+ * sections can prevent the IPI from making progress.
  */
+#ifdef CONFIG_PREEMPT_RT
 SCHED_FEAT(RT_PUSH_IPI, true)
+#else
+SCHED_FEAT(RT_PUSH_IPI, false)
+#endif
 #endif
 #endif
 
