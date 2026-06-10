@@ -6613,6 +6613,7 @@ static int io_init_req(struct io_ring_ctx *ctx, struct io_kiocb *req,
 		return -EINVAL;
 	if (unlikely(req->opcode >= IO_OP_LAST))
 		return -EINVAL;
+	req->opcode = array_index_nospec(req->opcode, IO_OP_LAST);
 	if (!io_check_restriction(ctx, req, sqe_flags))
 		return -EACCES;
 
