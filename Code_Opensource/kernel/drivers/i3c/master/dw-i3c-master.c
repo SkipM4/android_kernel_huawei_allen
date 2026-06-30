@@ -860,7 +860,11 @@ int dw_i3c_master_daa(struct i3c_master_controller *m)
 		dw_i3c_master_dequeue_xfer(master, xfer);
 #endif
 
-	newdevs = GENMASK(master->maxdevs - cmd->rx_len - 1, 0);
+	/* cmd->rx_len is the number of addresses left unassigned. */
+	if (cmd->rx_len >= master->maxdevs)
+		newdevs = 0;
+	else
+		newdevs = GENMASK(master->maxdevs - cmd->rx_len - 1, 0);
 	newdevs &= ~olddevs;
 
 	for (pos = 0; pos < master->maxdevs; pos++) {
