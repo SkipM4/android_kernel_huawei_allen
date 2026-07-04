@@ -732,6 +732,10 @@ void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
 	if (has_not_enough_free_secs(sbi, 0, 0)) {
 		static DEFINE_RATELIMIT_STATE(fg_gc_rs, F2FS_GC_DSM_INTERVAL, F2FS_GC_DSM_BURST);
 
+		/* Submit cached data before foreground GC can wait for it. */
+		f2fs_submit_merged_write(sbi, DATA);
+		f2fs_submit_all_merged_ipu_writes(sbi);
+
 		/* here judgement for recover process */
 		if (unlikely(gc_th->f2fs_gc_task == NULL)) {
 			down_write(&sbi->gc_lock);
