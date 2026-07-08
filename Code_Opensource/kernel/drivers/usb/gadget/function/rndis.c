@@ -632,6 +632,13 @@ static int rndis_query_response(struct rndis_params *params,
 	if (!params->dev)
 		return -ENOTSUPP;
 
+	BufLength = le32_to_cpu(buf->InformationBufferLength);
+	BufOffset = le32_to_cpu(buf->InformationBufferOffset);
+	if (BufLength > RNDIS_MAX_TOTAL_SIZE ||
+	    BufOffset > RNDIS_MAX_TOTAL_SIZE ||
+	    BufOffset + 8 >= RNDIS_MAX_TOTAL_SIZE)
+		return -EINVAL;
+
 	/*
 	 * we need more memory:
 	 * gen_ndis_query_resp expects enough space for
@@ -646,8 +653,6 @@ static int rndis_query_response(struct rndis_params *params,
 
 	resp->MessageType = cpu_to_le32(RNDIS_MSG_QUERY_C);
 	resp->RequestID = buf->RequestID; /* Still LE in msg buffer */
-	BufLength = le32_to_cpu(buf->InformationBufferLength);
-	BufOffset = le32_to_cpu(buf->InformationBufferOffset);
 	BufMsgLength = le32_to_cpu(buf->MessageLength);
 
 	if (rndis_info_buf_check(BufLength, BufOffset, BufMsgLength, actual)) {
@@ -661,10 +666,7 @@ static int rndis_query_response(struct rndis_params *params,
 	}
 
 	if (gen_ndis_query_resp(params, le32_to_cpu(buf->OID),
-			le32_to_cpu(buf->InformationBufferOffset)
-					+ 8 + (u8 *)buf,
-			le32_to_cpu(buf->InformationBufferLength),
-			r)) {
+				BufOffset + 8 + (u8 *)buf, BufLength, r)) {
 		/* OID not supported */
 		resp->Status = cpu_to_le32(RNDIS_STATUS_NOT_SUPPORTED);
 		resp->MessageLength = cpu_to_le32(sizeof *resp);
