@@ -625,7 +625,7 @@ static void __sock_release(struct socket *sock, struct inode *inode)
 		iput(SOCK_INODE(sock));
 		return;
 	}
-	sock->file = NULL;
+	WRITE_ONCE(sock->file, NULL);
 #ifdef CONFIG_HW_FDLEAK
 	fdleak_report(FDLEAK_WP_SOCKET, 1);
 #endif
