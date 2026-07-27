@@ -425,14 +425,16 @@ int swsusp_arch_suspend(void)
 		ret = bl31_hibernate_freeze();
 		if (ret != 0) {
 			pr_err("Can't hibernate: bl31 hibernate freeze fail.\n");
-			local_dbg_restore(flags);
+			local_daif_restore(flags);
 			return -EBUSY;
 		}
 #endif
 
 		ret = swsusp_mte_save_tags();
-		if (ret)
+		if (ret) {
+			local_daif_restore(flags);
 			return ret;
+		}
 
 		sleep_cpu = smp_processor_id();
 		ret = swsusp_save();
