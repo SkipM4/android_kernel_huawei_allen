@@ -27,6 +27,7 @@
 #include <linux/regulator/driver.h>
 #include <linux/regulator/machine.h>
 #include <linux/module.h>
+#include <linux/workqueue.h>
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/regulator.h>
@@ -6090,8 +6091,9 @@ static int __init regulator_init_complete(void)
 	 * To solve the problem that the LCD is powered off unexpectedly,
 	 * the value of 30000 ms is changed to 300 ms.
 	 */
-	schedule_delayed_work(&regulator_init_complete_work,
-			      msecs_to_jiffies(300));
+	queue_delayed_work(system_freezable_wq,
+			   &regulator_init_complete_work,
+			   msecs_to_jiffies(300));
 
 	return 0;
 }
