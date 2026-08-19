@@ -11,7 +11,7 @@ export OBB_PRODUCT_NAME := charlotte
 export TARGET_BOARD_PLATFORM := charlotte
 VERSION = 5
 PATCHLEVEL = 10
-SUBLEVEL = 264
+SUBLEVEL = 265
 EXTRAVERSION =
 NAME = Dare mighty things
 
