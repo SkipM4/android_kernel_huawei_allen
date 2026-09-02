@@ -1252,6 +1252,8 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
 	if (!zalloc_cpumask_var(&policy->real_cpus, GFP_KERNEL))
 		goto err_free_rcpumask;
 
+	init_rwsem(&policy->rwsem);
+
 	init_completion(&policy->kobj_unregister);
 	CALL_HCK_VH(lpcpu_cpufreq_policy_kobject_init, &policy->kobj,
 		    &ktype_cpufreq, cpufreq_global_kobject, "policy%u",
@@ -1270,8 +1272,6 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
 		kobject_put(&policy->kobj);
 		goto err_free_real_cpus;
 	}
-
-	init_rwsem(&policy->rwsem);
 
 	freq_constraints_init(&policy->constraints);
 
