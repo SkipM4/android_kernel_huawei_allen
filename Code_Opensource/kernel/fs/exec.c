@@ -1278,6 +1278,13 @@ int begin_new_exec(struct linux_binprm * bprm)
 		goto out;
 
 	/*
+	 * Apply CLOEXEC after unsharing the FD table and before changing
+	 * dumpability. Filesystem flush handlers may wait for userspace,
+	 * so do this before exec_mmap() takes exec_update_lock.
+	 */
+	do_close_on_exec(me->files);
+
+	/*
 	 * Must be called _before_ exec_mmap() as bprm->mm is
 	 * not visibile until then. This also enables the update
 	 * to be lockless.
@@ -1325,13 +1332,6 @@ int begin_new_exec(struct linux_binprm * bprm)
 	flush_thread();
 	me->personality &= ~bprm->per_clear;
 
-	/*
-	 * We have to apply CLOEXEC before we change whether the process is
-	 * dumpable (in setup_new_exec) to avoid a race with a process in userspace
-	 * trying to access the should-be-closed file descriptors of a process
-	 * undergoing exec(2).
-	 */
-	do_close_on_exec(me->files);
 #ifdef CONFIG_DFX_BINDER
 	me->binder_pid = -ESRCH;
 #endif
