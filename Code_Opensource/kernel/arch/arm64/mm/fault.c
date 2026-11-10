@@ -132,9 +132,9 @@ static void show_pte(unsigned long addr)
 	if (is_ttbr0_addr(addr)) {
 		/* TTBR0 */
 		mm = current->active_mm;
-		if (mm == &init_mm) {
-			pr_alert("[%016lx] user address but active_mm is swapper\n",
-				 addr);
+		if (!mm || mm == &init_mm) {
+			pr_alert("[%016lx] user address but active_mm is %s\n",
+				 addr, mm ? "swapper" : "NULL");
 			return;
 		}
 	} else if (is_ttbr1_addr(addr)) {

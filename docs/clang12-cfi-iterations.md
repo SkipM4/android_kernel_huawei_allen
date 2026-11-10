@@ -536,3 +536,54 @@ Enforcing SELinux are confirmed. Current best confidently attributed progress
 remains r12 past the gear-control hook; preserve it if a later retention
 window would otherwise exclude it. Processed full logs/partition snapshots
 are removed after retaining these findings.
+
+## r14: Preserve The Primary Fault Report (2026-11-10)
+
+The diagnostic change in `arch/arm64/mm/fault.c` makes the existing TTBR0
+page-table dump return with an explicit message when `active_mm` is NULL,
+as it already does for `init_mm`. The fatal Oops path, original register
+report, CFI and PAC remain unchanged. This addresses the r13 reporting
+hazard, not an established root cause or a successful boot fix.
+
+Compilation succeeds. Final disassembly places a NULL branch before the
+`mm->pgd` load at offset 0x58. Boot packaging and matching modem ABI,
+certificate, CMS signature, ext4 and metadata checks pass. The r14 pair uses
+the usual versioned paths; obsolete r9 candidates are removed, preserving
+originals and r10-r14. Identity, bounds, backups and fastboot model/unlock
+checks pass; both writes succeed. Build is
+`#14 SMP PREEMPT Tue Nov 10 23:24:54 CST 2026`.
+
+r14 still returns to fastboot before Android/ADB, but both current pstore
+records now identify build #14 and preserve the initiating Oops:
+
+```text
+[15.833624s] NULL pointer dereference at virtual address 0x5
+pc: check_l3_ddr_freq_change+0x348/0x574
+lr: check_l3_ddr_freq_change+0xf0/0x574
+update_mips_window -> phase_account_task -> __schedule -> init ppoll
+```
+
+The faulting instruction loads the L3 device's IPC sample-time table. The
+pointer is 1, rather than a valid initialized table. Earlier probe errors
+identify `mips_l3_c1` and `mips_l3_c2` missing `core-dev-table`.
+`mips_mem.c` publishes each new device into the shared policy before this
+validation, then frees it on error without clearing that pointer. Its error
+path also drops the shared policy kobject, and probe attempts to free the
+policy despite cached per-CPU pointers and registered idle callbacks.
+These are concrete lifetime bugs, not an issue to fix with a NULL check on
+an arbitrary table pointer or by disabling MIPS frequency management.
+
+Next fully initialize monitor data before publishing it; let the shared
+cluster policy outlive an individual failed monitor probe, with kobject
+ownership and staged publication. Preserve the existing enable gate so
+an absent L3 monitor remains unavailable rather than becoming a dangling
+device. Do not invent missing firmware frequency tables. The exact primary
+exception of the truncated r13 run remains unproven; r14 independently
+establishes the next actionable fault.
+
+Recovery full hashes match the tested pair and unchanged Magisk ramdisk.
+Both originals are restored and full hashes verified. Normal Android,
+original BiSheng kernel, loaded stock modem module and Enforcing SELinux
+are confirmed. Best confidently attributed progress is now r14 in second
+stage init; preserve it outside the recent-five window if needed. Processed
+full logs are removed after recording this evidence.
