@@ -1,0 +1,10 @@
+/.tmp/
+/.codex-tmp/
+/out/
+/build/
+/tools/toolchains/
+/images/
+/*.tar.gz
+/*.img
+*.log
+*.tmp
