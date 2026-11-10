@@ -87,3 +87,17 @@ scripts/repack-allen-boot.sh out/allen-clang12-stock-compat/arch/arm64/boot/Imag
 The repacker refuses to overwrite an existing image and validates the actual
 packed components. A corresponding ABI-matched, signed modem-driver filesystem
 image is still required; a successful repack does not establish successful boot.
+
+Stage that matching module partition from the same kernel output directory:
+
+```sh
+scripts/stage-allen-modem.sh out/allen-clang12-stock-compat \
+  images/test/allen-modem_driver-test-5.10.43-clang12-r4.img
+```
+
+Use a new versioned path for each iteration. This produces the companion signed
+`.ko` and an ext4 image cloned from the verified original partition, checking
+ABI imports, the embedded signing certificate, CMS signature, filesystem
+integrity, ownership/mode and SELinux-label readback. It refuses existing output
+paths and cleans its owned temporary files. These are staging checks, not a
+runtime-CFI or boot guarantee; never flash this partition without its paired boot.
