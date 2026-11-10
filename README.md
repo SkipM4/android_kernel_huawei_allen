@@ -29,12 +29,18 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Wi-Fi association and multi-level L3 voting remain unresolved or unverified.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r23: r21 retains full early logs,
+The current installed test candidate is r24: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
-in the satellite init thread. Paired readback and targeted checks pass;
-early PRMEM, invalid PD sysfs mode and duplicate-registration warnings remain.
+in the satellite init thread. r24 removes invalid PD sysfs executable bits
+without changing its effective creation mode or store callback. Paired readback
+and targeted checks pass; early PRMEM and duplicate-registration warnings remain.
 See `docs/clang12-early-diagnostics.md` for attribution and
 test limits. Accepted r17 and functional r20 are retained for rollback.
+Audio follow-up finds no normal codec-backed sound card and an empty audio
+policy manager; required stock codec options and their implementation are
+absent from the active/public source build. Bluetooth command attempts fail
+in framework AppOps reporting. Neither functionality is certified; see
+`docs/clang12-functional-tests.md` before proceeding with audio/BT repairs.
 
 ## Layout
 
@@ -50,7 +56,8 @@ test limits. Accepted r17 and functional r20 are retained for rollback.
 - `docs/clang12-r2-flash-test.md`: r2 CFI boot failure, verified rollback and next fix.
 - `docs/clang12-cfi-iterations.md`: targeted CFI fixes and subsequent paired tests.
 - `docs/clang12-working-baseline.md`: accepted r17 boot baseline and test scope.
-- `docs/clang12-functional-tests.md`: r18/r19 repairs and hardware test limits.
+- `docs/clang12-functional-tests.md`: functional repairs, checks and audio/BT gaps.
+- `docs/clang12-early-diagnostics.md`: r21-r24 log, lock, GPIO and PD iterations.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
 project root and are excluded from Git. Never overwrite them.
@@ -119,7 +126,7 @@ For future versions, create a new boot candidate from the uncompressed Image:
 
 ```sh
 scripts/repack-allen-boot.sh out/allen-clang12-stock-compat/arch/arm64/boot/Image \
-  images/test/allen-boot-test-5.10.43-clang12-r21.img
+  images/test/allen-boot-test-5.10.43-clang12-r25.img
 ```
 
 The repacker refuses to overwrite an existing image and validates the actual
@@ -130,7 +137,7 @@ Stage that matching module partition from the same kernel output directory:
 
 ```sh
 scripts/stage-allen-modem.sh out/allen-clang12-stock-compat \
-  images/test/allen-modem_driver-test-5.10.43-clang12-r21.img
+  images/test/allen-modem_driver-test-5.10.43-clang12-r25.img
 ```
 
 Use a new versioned path for each iteration. This produces the companion signed

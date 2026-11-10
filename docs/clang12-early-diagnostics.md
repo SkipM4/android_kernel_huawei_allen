@@ -192,3 +192,54 @@ Checks after paired r23 flash:
 - USB power remains present. A read-only check finds the existing PD state,
   CC orientation and vbus-only attributes accessible as root. No satellite,
   PD completion or power-control attribute is written for this test.
+
+## r24: Declare A Valid PD Sysfs Mode
+
+Base: r23, commit `770213707`. Change only the succ_value DEVICE_ATTR mode
+in `drivers/huawei_platform/usb/pd/hw_pd.c` from 0774 (S_IRWXU | S_IRWXG |
+S_IROTH) to 0664. sysfs already masks executable bits to 0664 while warning,
+so this supplies the same effective kernel creation mode without invalid
+bits. Keep the attribute name, store callback, cable completion/state logic
+and absence of a show callback unchanged. Do not change the core validator,
+write a fake cable result, or use chmod as a driver fix.
+
+The live r23 attribute has mode 0666, owner/group root/root, after userspace
+setup. That later permissions policy is separate from its declared creation
+mode; this change neither introduces nor fixes it. Reference: Linux 5.10.43
+fs/sysfs/group.c's mode mask and the attributed pd_dpm_probe call chain.
+No external implementation is adopted.
+
+Checks after paired r24 flash:
+
+- Diff checks, Clang 12.0.7 ThinLTO, boot round-trip and signed matching
+  modem staging pass; all 390 versioned imports match and CMS/filesystem
+  metadata checks pass.
+- Flash boot and one normal reboot both reach #24, boot_completed=1 and
+  normal mode. The Huawei home launcher is present on the second boot.
+  Full partition readback matches the r24 boot/modem_driver pair and the
+  unchanged independent Magisk ramdisk. The module is loaded, sig_enforce
+  is Y, and SELinux remains Enforcing.
+- Both full logs start at 0.000000. The invalid succ_value permissions
+  warning disappears; no GPIO can-sleep, bad-rwlock, CFI failure or panic
+  messages appear. WARNING count falls from r22's 21 to four: one early
+  PRMEM drain, one module-version warning, and two duplicate proc entries.
+  CPU-feature S-taint and W-taint remain, with taint 516 unchanged.
+- Existing PD/CC/vbus-only values remain 1/1/0. The live succ_value mode
+  remains 0666 root/root, consistent with the earlier userspace override.
+  USB power stays present. No succ_value write, cable-completion injection,
+  PD negotiation/OTG operation or permissions-policy change is tested.
+  Wi-Fi and Bluetooth settings remain at their original disabled values.
+
+Current test pair:
+
+- `images/test/allen-boot-test-5.10.43-clang12-r24.img`
+- `images/test/allen-modem_driver-test-5.10.43-clang12-r24.img`
+
+Retain accepted r17, the latest r20-r24 pairs (including the r20 functional
+reference), and stock originals. Keep expanded printk retention during these
+diagnostic iterations. This is a boot/targeted-fix candidate, not complete
+audio, radio, suspend or long-term stability certification. See
+`clang12-functional-tests.md` for the newly attributed audio-codec gap and
+Bluetooth command/manager failures. Restore compatible audio implementation
+before enabling its absent configuration rules; PRMEM ordering and CPU-ID
+mask changes remain separate, security-sensitive analysis tasks.

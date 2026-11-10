@@ -1079,7 +1079,7 @@ static DEVICE_ATTR(smart_holder, S_IRUGO, pd_dpm_smart_holder_show, NULL);
 #endif /* CONFIG_TYPEC_CAP_CUSTOM_SRC2 */
 static DEVICE_ATTR(cc_state, S_IRUGO, pd_dpm_cc_state_show, NULL);
 static DEVICE_ATTR(vbus_only_status, S_IRUGO, pd_dpm_vbus_only_status_show, NULL);
-static DEVICE_ATTR(succ_value, S_IRWXU | S_IRWXG | S_IROTH, NULL, pd_dpm_succ_store);
+static DEVICE_ATTR(succ_value, 0664, NULL, pd_dpm_succ_store);
 static struct attribute *pd_dpm_ctrl_attributes[] = {
 	&dev_attr_cc_orientation.attr,
 	&dev_attr_pd_state.attr,
