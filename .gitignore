@@ -3,6 +3,7 @@
 /out/
 /build/
 /tools/toolchains/
+/tools/host/
 /images/
 /*.tar.gz
 /*.img
