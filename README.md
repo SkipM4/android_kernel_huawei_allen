@@ -13,6 +13,7 @@ before attempting newer kernels. Project safety rules are in `AGENTS.md`.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
+- `docs/clang12-r2-flash-test.md`: r2 CFI boot failure, verified rollback and next fix.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
 project root and are excluded from Git. Never overwrite them.
@@ -68,7 +69,9 @@ stock-derived configuration, verified OEM public certificate and ABI checker.
 
 The ThinLTO/CFI `r2` candidate is a matching boot/modem_driver pair, not a
 boot-only replacement. Both test images and their rollback requirements are
-recorded in that document; they have not been flashed.
+recorded in that document. The paired flash test reaches a MAS block-completion
+CFI panic before Android starts; both originals are restored and normal boot is
+verified. See `docs/clang12-r2-flash-test.md`. Do not reuse r2 as a working kernel.
 
 For future versions, create a new boot candidate from the uncompressed Image:
 

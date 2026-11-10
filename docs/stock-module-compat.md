@@ -153,7 +153,10 @@ It does not validate runtime CFI type IDs, external firmware protocols, or boot.
 
 ## Candidate Pair
 
-Both images are generated and validated locally, but not flashed:
+Both images are generated and validated locally. The 2026-11-10 paired flash
+test fails with a MAS block-completion CFI panic; both original partitions are
+restored and normal Android boot is verified. See
+`docs/clang12-r2-flash-test.md` for attribution, rollback and the next narrow fix:
 
 - `images/test/allen-boot-test-5.10.43-clang12-r2.img`.
 - `images/test/allen-modem_driver-test-5.10.43-clang12-r2.img`.
@@ -180,9 +183,10 @@ Do not mix versions or flash only the new boot: the old module fails CRC checks.
 Conversely, reverting only boot would leave a module signed by a key the stock
 kernel does not trust. Treat boot and modem_driver as one test/rollback pair.
 
-Next: obtain explicit approval for the additional modem_driver partition flash,
-then verify fastboot identity, unlock state and both target partitions before
-flashing the pair. The existing Magisk ramdisk stays unchanged. On failure,
-restore both backed-up boot and modem_driver images before rebooting; do not
-erase or format any partition. Boot, runtime CFI and compatibility with the
-installed baseband firmware remain untested.
+The user approves the additional modem_driver partition and the r2 paired test
+is complete. The existing Magisk ramdisk stays unchanged. Both backed-up boot
+and modem_driver images are restored after collecting the failure evidence;
+no partition is erased or formatted. r2 reaches kernel initialization but not
+Android, so it is not a bootable-system candidate. Runtime modem/baseband
+compatibility remains untested. Next isolate the MAS assembly callback-address
+registration under enforcing CFI before preparing another matched pair.
