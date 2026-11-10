@@ -787,6 +787,12 @@ block the tests above; policy/label investigation remains separate work.
 No permissive mode is used. Taint 516 (S/W) and the known early sensorhub
 spinlock warning are not claimed resolved by callback metadata repairs.
 
-Continuous second-boot observation beyond the r16 fault window is pending;
-keep r17 installed while checking boot identity and uptime, without another
-kernel rebuild or unrelated changes. Completion is not yet declared.
+Continuous second-boot observation reaches 3902 seconds with boot_completed=1
+and the same boot ID, beyond r16's 3625-second failure window. No restart or
+panic occurs. Final awake UI and current runtime-log/security/readback checks
+pass. r17 remains installed and supersedes r16 as the best successful version;
+preserve its matching boot/modem_driver pair outside the recent-five window
+if later iterations require it. The self-built normal-system-boot goal is
+achieved, without claiming warning-free operation, complete hardware parity,
+or untested SQE/OEM functionality. Source fix commit is `81ad87b1a`;
+`docs/clang12-working-baseline.md` records reproduction and remaining work.
