@@ -3,13 +3,28 @@
 Build the official ALN HarmonyOS 4.2 Linux 5.10.43 sources on x86_64 Linux
 before attempting newer kernels. Project safety rules are in `AGENTS.md`.
 
+## Current Status
+
+Clang 12.0.7 builds a signed, ABI-matched boot/modem_driver pair with enforcing
+CFI. r16 reaches the Huawei home screen on two boots, but fails after about an
+hour when storaged exercises a hyperframe direct-I/O hook. r17 supplies typed
+CFI entries for the audited hyperframe callbacks, reaches the home screen on
+two boots and passes actual direct-I/O read/write checks. It is currently on
+the phone for continuous observation beyond r16's failure window; final
+working-baseline acceptance remains pending.
+
+Use the stock-derived compatibility build in `docs/stock-module-compat.md`
+for paired device tests, not the initial released-configuration build below.
+See `docs/clang12-cfi-iterations.md` for each attributed failure and recovery.
+
 ## Layout
 
-- `Code_Opensource/kernel/`: official sources with a link-script portability fix.
+- `Code_Opensource/kernel/`: official sources with targeted bring-up fixes.
 - `configs/allen-stock-5.10.43.config`: configuration read from the running phone.
 - `tools/toolchains/clang-r416183b1/`: local Android Clang 12.0.7 toolchain.
 - `tools/host/bin/bc`: local build dependency, extracted from the Arch package.
 - `out/allen-clang12/`: independent kernel output directory; not tracked.
+- `out/allen-clang12-stock-compat/`: stock-derived paired-test output; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -73,15 +88,15 @@ boot-only replacement. Both test images and their rollback requirements are
 recorded in that document. The paired flash test reaches a MAS block-completion
 CFI panic before Android starts; both originals are restored and normal boot is
 verified. See `docs/clang12-r2-flash-test.md`. Do not reuse r2 as a working kernel.
-Subsequent targeted fixes move past individual failures but have not yet
-produced a normally booting kernel. Originals are restored after failed tests;
-see `docs/clang12-cfi-iterations.md` for the latest proven blocker.
+Subsequent fixes reach normal Android, but r16's later direct-I/O CFI failure
+still prevents accepting it as a working baseline. Originals are restored
+after failed tests; see `docs/clang12-cfi-iterations.md` for the latest blocker.
 
 For future versions, create a new boot candidate from the uncompressed Image:
 
 ```sh
 scripts/repack-allen-boot.sh out/allen-clang12-stock-compat/arch/arm64/boot/Image \
-  images/test/allen-boot-test-5.10.43-clang12-r3.img
+  images/test/allen-boot-test-5.10.43-clang12-r17.img
 ```
 
 The repacker refuses to overwrite an existing image and validates the actual
@@ -92,7 +107,7 @@ Stage that matching module partition from the same kernel output directory:
 
 ```sh
 scripts/stage-allen-modem.sh out/allen-clang12-stock-compat \
-  images/test/allen-modem_driver-test-5.10.43-clang12-r4.img
+  images/test/allen-modem_driver-test-5.10.43-clang12-r17.img
 ```
 
 Use a new versioned path for each iteration. This produces the companion signed

@@ -2176,8 +2176,9 @@ hyperframe_init:                        // @hyperframe_init
                                         // -- End function
 	.text
 	.p2align	2                               // -- Begin function hck_hyperframe_err_record
-	.type	hck_hyperframe_err_record,@function
-hck_hyperframe_err_record:              // @hck_hyperframe_err_record
+	.globl	hck_hyperframe_err_record_asm
+	.type	hck_hyperframe_err_record_asm,@function
+hck_hyperframe_err_record_asm:              // @hck_hyperframe_err_record
 .Lfunc_begin2:
 	.loc	1 901 0 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:901:0
 	.cfi_startproc
@@ -2228,13 +2229,14 @@ hck_hyperframe_err_record:              // @hck_hyperframe_err_record
 	ret
 .Ltmp312:
 .Lfunc_end2:
-	.size	hck_hyperframe_err_record, .Lfunc_end2-hck_hyperframe_err_record
+	.size	hck_hyperframe_err_record_asm, .Lfunc_end2-hck_hyperframe_err_record_asm
 	.cfi_endproc
 	.file	207 "/mnt/disk/jenkins/ci/workspace/chipset_pipeline_release/opensource/component_code/vendor/huawei/extra/build/build_script/kirin_kernel_release" "kernel/include/linux/printk.h"
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_set_opf
-	.type	hck_hyperframe_set_opf,@function
-hck_hyperframe_set_opf:                 // @hck_hyperframe_set_opf
+	.globl	hck_hyperframe_set_opf_asm
+	.type	hck_hyperframe_set_opf_asm,@function
+hck_hyperframe_set_opf_asm:                 // @hck_hyperframe_set_opf
 .Lfunc_begin3:
 	.loc	1 832 0                         // kernel/platform_source/basicplatform/fs/hyperframe.c:832:0
 	.cfi_startproc
@@ -2299,12 +2301,13 @@ hck_hyperframe_set_opf:                 // @hck_hyperframe_set_opf
 	ret
 .Ltmp321:
 .Lfunc_end3:
-	.size	hck_hyperframe_set_opf, .Lfunc_end3-hck_hyperframe_set_opf
+	.size	hck_hyperframe_set_opf_asm, .Lfunc_end3-hck_hyperframe_set_opf_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_ctx_alloc
-	.type	hck_hyperframe_ctx_alloc,@function
-hck_hyperframe_ctx_alloc:               // @hck_hyperframe_ctx_alloc
+	.globl	hck_hyperframe_ctx_alloc_asm
+	.type	hck_hyperframe_ctx_alloc_asm,@function
+hck_hyperframe_ctx_alloc_asm:               // @hck_hyperframe_ctx_alloc
 .Lfunc_begin4:
 	.loc	1 758 0                         // kernel/platform_source/basicplatform/fs/hyperframe.c:758:0
 	.cfi_startproc
@@ -2729,14 +2732,15 @@ hck_hyperframe_ctx_alloc:               // @hck_hyperframe_ctx_alloc
 	b	.LBB4_8
 .Ltmp398:
 .Lfunc_end4:
-	.size	hck_hyperframe_ctx_alloc, .Lfunc_end4-hck_hyperframe_ctx_alloc
+	.size	hck_hyperframe_ctx_alloc_asm, .Lfunc_end4-hck_hyperframe_ctx_alloc_asm
 	.cfi_endproc
 	.file	211 "/mnt/disk/jenkins/ci/workspace/chipset_pipeline_release/opensource/component_code/vendor/huawei/extra/build/build_script/kirin_kernel_release" "kernel/arch/arm64/include/asm/atomic.h"
 	.file	212 "/mnt/disk/jenkins/ci/workspace/chipset_pipeline_release/opensource/component_code/vendor/huawei/extra/build/build_script/kirin_kernel_release" "kernel/include/linux/atomic-arch-fallback.h"
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_ctx_free
-	.type	hck_hyperframe_ctx_free,@function
-hck_hyperframe_ctx_free:                // @hck_hyperframe_ctx_free
+	.globl	hck_hyperframe_ctx_free_asm
+	.type	hck_hyperframe_ctx_free_asm,@function
+hck_hyperframe_ctx_free_asm:                // @hck_hyperframe_ctx_free
 .Lfunc_begin5:
 	.loc	1 822 0 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:822:0
 	.cfi_startproc
@@ -2799,12 +2803,13 @@ hck_hyperframe_ctx_free:                // @hck_hyperframe_ctx_free
 	ret
 .Ltmp406:
 .Lfunc_end5:
-	.size	hck_hyperframe_ctx_free, .Lfunc_end5-hck_hyperframe_ctx_free
+	.size	hck_hyperframe_ctx_free_asm, .Lfunc_end5-hck_hyperframe_ctx_free_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_openat_prep
-	.type	hck_hyperframe_openat_prep,@function
-hck_hyperframe_openat_prep:             // @hck_hyperframe_openat_prep
+	.globl	hck_hyperframe_openat_prep_asm
+	.type	hck_hyperframe_openat_prep_asm,@function
+hck_hyperframe_openat_prep_asm:             // @hck_hyperframe_openat_prep
 .Lfunc_begin6:
 	.loc	1 182 0                         // kernel/platform_source/basicplatform/fs/hyperframe.c:182:0
 	.cfi_startproc
@@ -2851,12 +2856,13 @@ hck_hyperframe_openat_prep:             // @hck_hyperframe_openat_prep
 	ret
 .Ltmp414:
 .Lfunc_end6:
-	.size	hck_hyperframe_openat_prep, .Lfunc_end6-hck_hyperframe_openat_prep
+	.size	hck_hyperframe_openat_prep_asm, .Lfunc_end6-hck_hyperframe_openat_prep_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_close_prep
-	.type	hck_hyperframe_close_prep,@function
-hck_hyperframe_close_prep:              // @hck_hyperframe_close_prep
+	.globl	hck_hyperframe_close_prep_asm
+	.type	hck_hyperframe_close_prep_asm,@function
+hck_hyperframe_close_prep_asm:              // @hck_hyperframe_close_prep
 .Lfunc_begin7:
 	.loc	1 90 0                          // kernel/platform_source/basicplatform/fs/hyperframe.c:90:0
 	.cfi_startproc
@@ -2903,12 +2909,13 @@ hck_hyperframe_close_prep:              // @hck_hyperframe_close_prep
 	ret
 .Ltmp422:
 .Lfunc_end7:
-	.size	hck_hyperframe_close_prep, .Lfunc_end7-hck_hyperframe_close_prep
+	.size	hck_hyperframe_close_prep_asm, .Lfunc_end7-hck_hyperframe_close_prep_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_rw_prep
-	.type	hck_hyperframe_rw_prep,@function
-hck_hyperframe_rw_prep:                 // @hck_hyperframe_rw_prep
+	.globl	hck_hyperframe_rw_prep_asm
+	.type	hck_hyperframe_rw_prep_asm,@function
+hck_hyperframe_rw_prep_asm:                 // @hck_hyperframe_rw_prep
 .Lfunc_begin8:
 	.loc	1 845 0                         // kernel/platform_source/basicplatform/fs/hyperframe.c:845:0
 	.cfi_startproc
@@ -3083,12 +3090,13 @@ hck_hyperframe_rw_prep:                 // @hck_hyperframe_rw_prep
 	b	.LBB8_5
 .Ltmp446:
 .Lfunc_end8:
-	.size	hck_hyperframe_rw_prep, .Lfunc_end8-hck_hyperframe_rw_prep
+	.size	hck_hyperframe_rw_prep_asm, .Lfunc_end8-hck_hyperframe_rw_prep_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_init_req
-	.type	hck_hyperframe_init_req,@function
-hck_hyperframe_init_req:                // @hck_hyperframe_init_req
+	.globl	hck_hyperframe_init_req_asm
+	.type	hck_hyperframe_init_req_asm,@function
+hck_hyperframe_init_req_asm:                // @hck_hyperframe_init_req
 .Lfunc_begin9:
 	.loc	1 260 0 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:260:0
 	.cfi_startproc
@@ -3257,12 +3265,13 @@ hck_hyperframe_init_req:                // @hck_hyperframe_init_req
 	b	.LBB9_4
 .Ltmp469:
 .Lfunc_end9:
-	.size	hck_hyperframe_init_req, .Lfunc_end9-hck_hyperframe_init_req
+	.size	hck_hyperframe_init_req_asm, .Lfunc_end9-hck_hyperframe_init_req_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_free_req
-	.type	hck_hyperframe_free_req,@function
-hck_hyperframe_free_req:                // @hck_hyperframe_free_req
+	.globl	hck_hyperframe_free_req_asm
+	.type	hck_hyperframe_free_req_asm,@function
+hck_hyperframe_free_req_asm:                // @hck_hyperframe_free_req
 .Lfunc_begin10:
 	.loc	1 298 0 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:298:0
 	.cfi_startproc
@@ -3352,12 +3361,13 @@ hck_hyperframe_free_req:                // @hck_hyperframe_free_req
 	b	.LBB10_3
 .Ltmp483:
 .Lfunc_end10:
-	.size	hck_hyperframe_free_req, .Lfunc_end10-hck_hyperframe_free_req
+	.size	hck_hyperframe_free_req_asm, .Lfunc_end10-hck_hyperframe_free_req_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_hyperframe_issue_sqe
-	.type	hck_hyperframe_issue_sqe,@function
-hck_hyperframe_issue_sqe:               // @hck_hyperframe_issue_sqe
+	.globl	hck_hyperframe_issue_sqe_asm
+	.type	hck_hyperframe_issue_sqe_asm,@function
+hck_hyperframe_issue_sqe_asm:               // @hck_hyperframe_issue_sqe
 .Lfunc_begin11:
 	.loc	1 876 0 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:876:0
 	.cfi_startproc
@@ -4285,7 +4295,7 @@ hck_hyperframe_issue_sqe:               // @hck_hyperframe_issue_sqe
 	b	.LBB11_3
 .Ltmp610:
 .Lfunc_end11:
-	.size	hck_hyperframe_issue_sqe, .Lfunc_end11-hck_hyperframe_issue_sqe
+	.size	hck_hyperframe_issue_sqe_asm, .Lfunc_end11-hck_hyperframe_issue_sqe_asm
 	.cfi_endproc
 	.section	.rodata,"a",@progbits
 	.p2align	2
@@ -4300,8 +4310,9 @@ hck_hyperframe_issue_sqe:               // @hck_hyperframe_issue_sqe
                                         // -- End function
 	.text
 	.p2align	2                               // -- Begin function hck_hyperframe_complete_sqe
-	.type	hck_hyperframe_complete_sqe,@function
-hck_hyperframe_complete_sqe:            // @hck_hyperframe_complete_sqe
+	.globl	hck_hyperframe_complete_sqe_asm
+	.type	hck_hyperframe_complete_sqe_asm,@function
+hck_hyperframe_complete_sqe_asm:            // @hck_hyperframe_complete_sqe
 .Lfunc_begin12:
 	.loc	1 894 0 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:894:0
 	.cfi_startproc
@@ -4337,7 +4348,7 @@ hck_hyperframe_complete_sqe:            // @hck_hyperframe_complete_sqe
 	ret
 .Ltmp615:
 .Lfunc_end12:
-	.size	hck_hyperframe_complete_sqe, .Lfunc_end12-hck_hyperframe_complete_sqe
+	.size	hck_hyperframe_complete_sqe_asm, .Lfunc_end12-hck_hyperframe_complete_sqe_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_fill_cq

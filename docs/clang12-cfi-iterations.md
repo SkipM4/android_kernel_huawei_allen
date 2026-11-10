@@ -681,8 +681,8 @@ pass. Both writes succeed without an intervening reboot. Build is
 `#16 SMP PREEMPT Wed Nov 11 00:05:16 CST 2026`. The first boot reaches normal
 Android and `boot_completed=1`; an awake screen capture displays the Huawei
 home launcher. A normal reboot reaches `boot_completed=1` again on the same
-self-built kernel, unlike r15. Final stability and readback checks are in
-progress at this point; this is not yet a completed validation record.
+self-built kernel, unlike r15. The subsequent runtime checks below still
+identify a fatal fault, so repeat-boot success is not completed validation.
 
 Both boots show the actual home launcher. The second remains up for over five
 minutes with encrypted F2FS /data mounted read-write, CE user 0 available,
@@ -720,3 +720,73 @@ Android, boot_completed=1, the original BiSheng kernel, loaded stock modem
 module and Enforcing SELinux are confirmed. r16 remains the furthest proven
 bring-up progress, not a completed working-kernel goal. Processed logs are
 removed after retaining these findings.
+
+## r17: Typed Hyperframe Runtime Hook Entries (2026-11-11)
+
+The r16 runtime panic establishes the direct-I/O set_opf callback defect.
+An audit of the same registration object finds eleven no-data callbacks:
+err_record, set_opf, ctx_alloc/free, openat/close/rw_prep, init/free_req,
+issue_sqe and complete_sqe. All eleven raw linked assembly targets lack
+compiler CFI bodies, and all are registered by hyperframe_init. This is one
+confirmed callback-family defect, not speculative handling of unrelated
+subsystems.
+
+Add `hyperframe_interface.c` under the existing HYPERFRAME build condition.
+Each canonical/addressable typed entry directly calls its global `_asm`
+body. The no-data signatures and opaque struct tags come from the published
+`hck_hyperframe.h`, using typeof for the assembly declarations. Rename only
+the eleven assembly definition/type/size directives, leaving registration
+references on the original names; assembly instructions, local objects and
+the r11 initcall stay unchanged. This follows the standard Android Clang CFI
+annotation approach already proven for the r12 gear-control callbacks, not
+an OEM type-ID patch or a CFI exemption.
+
+Compilation succeeds. Address-based final ELF inspection confirms all eleven
+public callback symbols are canonical BTI entries branching to typed .cfi
+bodies, which directly call their respective _asm implementations. Boot
+repack, 390-import module ABI checks (zero missing/CRC mismatches), embedded
+certificate/CMS verification, ext4 integrity and metadata readback pass.
+Build is `#17 SMP PREEMPT Wed Nov 11 01:35:56 CST 2026`. Remove obsolete r12
+candidates, retaining originals and the five recent pairs r13-r17; r16 is
+still the furthest previously proven progress and is retained.
+
+Identity, partition bounds, original rollback hashes and fastboot model/unlock
+checks pass. Both r17 writes succeed without an intervening reboot; the
+separate Magisk ramdisk is not written. Paired runtime tests are in progress.
+Test direct I/O using the existing Magisk BusyBox dd, whose verified help
+supports iflag/oflag=direct; the system Toybox dd does not support those flags.
+Use only owned regular files under /data/local/tmp, never a raw data partition
+or another app's data.
+
+The initial r17 boot and one normal reboot both reach boot_completed=1 on
+build #17; awake screenshots show the actual Huawei home launcher. Full
+device boot/modem_driver readback matches the staged pair, the mounted module
+matches its signed companion, and ramdisk readback matches the unchanged
+original. The modem module is loaded. Runtime config confirms enforcing
+CFI/shadow, ThinLTO, forced SHA512 module signatures and SELinux; getenforce
+is Enforcing and sig_enforce is Y. Encrypted F2FS /data is read-write, CE user
+0 is available, and SurfaceFlinger/activity/power services are present.
+
+Three rounds of O_DIRECT write and O_DIRECT read of a random owned 16 MiB
+file pass SHA256 content comparison. A smaller direct-I/O write/read/hash
+check also passes after the reboot. All test files are removed. These tests
+exercise the direct-I/O path implicated by r16, unlike its buffered checks.
+
+A temporary freestanding ARM64 syscall probe first returns EPERM from
+io_uring_setup as UID 0, matching the existing io_uring_allowed() gate that
+only admits UID 1013. Running the probe after changing only its own UID to
+1013 successfully creates and closes a ring. This exercises ctx_alloc/free
+without changing the kernel allowlist or SELinux; SQE submissions and OEM
+hyperframe-specific opcodes remain untested. The probe is removed.
+
+The captured early runtime log has no current CFI/panic/Oops/BUG matches, but
+does contain AVC denials. These include nfc/product_platform_prop:file
+getattr, priv_app/hal_sensors_default:binder call, mediaserver/mediaprovider_app
+directory search, and audio services/default property file read. They do not
+block the tests above; policy/label investigation remains separate work.
+No permissive mode is used. Taint 516 (S/W) and the known early sensorhub
+spinlock warning are not claimed resolved by callback metadata repairs.
+
+Continuous second-boot observation beyond the r16 fault window is pending;
+keep r17 installed while checking boot identity and uptime, without another
+kernel rebuild or unrelated changes. Completion is not yet declared.
