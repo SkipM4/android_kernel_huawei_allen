@@ -8,7 +8,8 @@ obj-$(CONFIG_MAS_BLK) += mas_blk_core.o mas_blk_dump.o mas_blk_latency.o mas_blk
 		mas_blk_busy_idle_interface.o mas_blk_core_interface.o mas_blk_dump_interface.o \
 		mas_blk_flush_interface.o mas_blk_latency_interface.o mas_blk_mq_tag.o mas_blk_tz.o \
 		mas_blk_unistore_interface.o dsm_block.o mas_blk_sysfs.o
-obj-$(CONFIG_MAS_UFS_GEAR_CTRL) += mas_blk_gear_ctrl.o mas_blk_gear_ctrl_flowctrl.o mas_blk_gear_ctrl_sysfs.o
+obj-$(CONFIG_MAS_UFS_GEAR_CTRL) += mas_blk_gear_ctrl.o mas_blk_gear_ctrl_init.o \
+	mas_blk_gear_ctrl_flowctrl.o mas_blk_gear_ctrl_sysfs.o
  obj-$(CONFIG_MAS_UNISTORE_PRESERVE) += mas_blk_unistore.o mas_blk_unistore_register.o mas_blk_unistore_sysfs.o
  obj-$(CONFIG_MAS_BKOPS) += mas_bkops_core.o mas_bkops_sysfs.o mas_bkops_core_interface.o mas_bkops_sysfs_interface.o
  obj-$(CONFIG_MAS_HEALTH) += mas_blk_health.o

@@ -306,3 +306,47 @@ Both original partitions are restored and full readbacks match their backups.
 Normal Android, original BiSheng kernel, loaded stock modem module, Enforcing
 SELinux and unchanged Magisk ramdisk are confirmed. Full temporary logs are
 removed after retaining these findings.
+
+## r9: Standard C Initcall For Assembly Gear-Control Init (2026-11-10)
+
+Replace the direct assembly PREL32 initcall registration with a C
+`device_initcall(mas_gear_ctrl_hck_init)` in `mas_blk_gear_ctrl_init.c`.
+Make the existing assembly function global without changing its body. The
+new object follows the original object under `CONFIG_MAS_UFS_GEAR_CTRL`,
+preserving level 6, ordering and return status. This follows the existing
+standard initcall implementation in `include/linux/init.h`, not a CFI bypass.
+
+Compilation succeeds. Decode the final ELF PREL32 entry and confirm exactly
+one gear-control registration, pointing to the compiler-generated canonical
+BTI/CFI stub. Its C implementation directly calls the unchanged assembly
+function. Boot repack and matching-module ABI, certificate, CMS signature,
+ext4 and metadata checks pass; the module still has 390 versioned imports,
+zero missing exports and zero CRC mismatches.
+
+The r9 boot/modem_driver pair uses the usual versioned `images/test/` paths.
+Obsolete r4 candidates are removed, preserving originals and r5-r9. Device
+identity, partition bounds, original readbacks and fastboot model/unlock
+checks pass. Both writes succeed without an intervening reboot. Build is
+`#9 SMP PREEMPT Tue Nov 10 22:11:16 CST 2026`.
+
+r9 returns to fastboot without reaching Android. Both recovery pstore records
+identify build #9; the single fatal panic is now:
+
+```text
+[14.853498s] CFI failure (target: __cfi_hisi_page_cache_manage_init+0x0/0x1c)
+do_boottime_initcall -> do_one_initcall -> do_initcalls
+```
+
+The gear-control initcall is no longer the failing target. The new pagecache
+target is an existing C wrapper referenced directly by its assembly initcall,
+the same noncanonical assembly-to-C ABI issue already repaired in MAS.
+Audit the pagecache assembly's seven wrapper references and repair only that
+interface next, keeping standard CFI enforcing and callback bodies intact.
+An earlier nonfatal sensorhub warning reports an uninitialized spinlock at
+`package_route_tbl+0x68`; retain it as a separate unresolved runtime issue,
+not as the cause of this initcall panic.
+
+Both original partitions are restored. Full hashes match the boot/modem_driver
+backups and unchanged Magisk ramdisk. Normal Android (`boot_completed=1`),
+original BiSheng kernel, loaded stock modem module and Enforcing SELinux are
+confirmed. Full temporary logs are removed after retaining these findings.

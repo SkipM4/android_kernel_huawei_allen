@@ -13,11 +13,6 @@
 	.text
 	.file	"mas_blk_gear_ctrl.c"
                                         // Start of file scope inline assembly
-	.section	.initcall6.init,"a",@progbits
-__initcall__kmod_mas_blk_gear_ctrl__367_306_mas_gear_ctrl_hck_init6:
-.Ltmp0:
-	.word	mas_gear_ctrl_hck_init-.Ltmp0
-	.text
 
 
                                         // End of file scope inline assembly
@@ -1571,6 +1566,7 @@ mas_blk_gear_ctrl_reinit:               // @mas_blk_gear_ctrl_reinit
                                         // -- End function
 	.section	.init.text,"ax",@progbits
 	.p2align	2                               // -- Begin function mas_gear_ctrl_hck_init
+	.globl	mas_gear_ctrl_hck_init
 	.type	mas_gear_ctrl_hck_init,@function
 mas_gear_ctrl_hck_init:                 // @mas_gear_ctrl_hck_init
 .Lfunc_begin10:
