@@ -11280,13 +11280,8 @@ ufs_mq_iosched_init:                    // @ufs_mq_iosched_init
 	//DEBUG_VALUE: ufs_mq_iosched_init:priv <- 0
 	//DEBUG_VALUE: ufs_mq_iosched_init:ds_lld <- 0
 	.loc	1 4103 2 is_stmt 1              // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:4103:2
-	adrp	x1, __cfi_ufs_mq_sync_burst_check_timer_expire
 	add	x0, x21, #232                   // =232
-	add	x1, x1, :lo12:__cfi_ufs_mq_sync_burst_check_timer_expire
-	mov	w2, wzr
-	mov	x3, xzr
-	mov	x4, xzr
-	bl	init_timer_key
+	bl	mas_ufs_mq_sync_burst_timer_init
 .Ltmp1564:
 	.loc	1 4114 2                        // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:4114:2
 	adrp	x1, __cfi_ufs_mq_write_throttle_check_timer_expire
@@ -82455,7 +82450,7 @@ ufs_turbo_check_timer_expire.check_count:
 	.addrsig_sym __cfi_ufs_mq_flush_plug_list
 	.addrsig_sym __ufs_turbo_check_timer_expire
 	.addrsig_sym ufs_datasync_work
-	.addrsig_sym __cfi_ufs_mq_sync_burst_check_timer_expire
+	.addrsig_sym mas_ufs_mq_sync_burst_timer_init
 	.addrsig_sym __cfi_ufs_mq_write_throttle_check_timer_expire
 	.addrsig_sym ufs_sync_fs
 	.addrsig_sym __cfi_ufs_mq_io_guard_work_fn

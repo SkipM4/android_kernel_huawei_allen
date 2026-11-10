@@ -88,6 +88,7 @@ extern void __cfi_ufs_mq_flush_plug_list(
 	struct blk_plug *plug, bool from_schedule);
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,19,0))
 extern void __cfi_ufs_mq_sync_burst_check_timer_expire(struct timer_list *timer);
+extern void mas_ufs_mq_sync_burst_timer_init(struct timer_list *timer);
 unsigned long ufs_mq_sync_burst_check_timer_prepare(struct timer_list *timer);
 #else
 extern void __cfi_ufs_mq_sync_burst_check_timer_expire(unsigned long data);

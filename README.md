@@ -73,9 +73,9 @@ boot-only replacement. Both test images and their rollback requirements are
 recorded in that document. The paired flash test reaches a MAS block-completion
 CFI panic before Android starts; both originals are restored and normal boot is
 verified. See `docs/clang12-r2-flash-test.md`. Do not reuse r2 as a working kernel.
-The r3 completion-callback fix passes link-time inspection, but its device test
-finds another MAS/UFS timer CFI failure. Originals are restored; see
-`docs/clang12-cfi-iterations.md` for the current blocker.
+Subsequent targeted fixes move past individual failures but have not yet
+produced a normally booting kernel. Originals are restored after failed tests;
+see `docs/clang12-cfi-iterations.md` for the latest proven blocker.
 
 For future versions, create a new boot candidate from the uncompressed Image:
 

@@ -62,3 +62,49 @@ Android, boot completion, original August 5 BiSheng kernel, loaded stock modem
 module and SELinux Enforcing are verified. Complete partition readbacks match
 both originals and the unchanged Magisk ramdisk backup. Full build/diagnostic
 logs are temporary; only the failure evidence above is retained in Git.
+
+## r4: MAS/UFS Sync-Burst Timer (2026-11-10)
+
+Add `mas_ufs_mq_sync_burst_timer_init` in the existing ioscheduler C interface
+and its platform-header declaration. Only the failing sync-burst timer's
+assembly initialization is redirected to this C helper. It calls
+`init_timer_key` with the original zero flags and NULL name/key arguments.
+Other timer registrations are not changed speculatively.
+
+Full incremental compilation succeeds. Final disassembly confirms the callback
+argument is `__cfi_ufs_mq_sync_burst_check_timer_expire.cfi_jt`. The new reusable
+`scripts/stage-allen-modem.sh` stages and validates the matching signed modem
+partition; ABI, cryptographic signature, filesystem/metadata readback and boot
+repack checks pass. Standard CFI and module-signing enforcement remain enabled.
+
+Test pair:
+
+- `images/test/allen-boot-test-5.10.43-clang12-r4.img`.
+- `images/test/allen-modem_driver-test-5.10.43-clang12-r4.img`.
+- Matching signed module: `images/test/allen-modem_driver-test-5.10.43-clang12-r4.ko`.
+
+Device/partition/original-backup checks and fastboot model/unlock confirmation
+pass. Both flashes succeed without an intervening reboot. Kernel build is
+`#4 SMP PREEMPT Tue Nov 10 19:35:32 CST 2026`.
+
+r4 returns to fastboot without reaching Android/ADB. Current console pstore
+from engineering recovery identifies `5.10.43 #4` and:
+
+```text
+[14.278937s] Kernel panic - not syncing: CFI failure (target: __cfi__ufs_mq_complete_request_remote+0x0/0x1c)
+flush_smp_call_function_queue -> ipi_handler
+Comm: fsck_boost
+```
+
+The new failing address is a remote I/O completion IPI callback, not the r3
+sync-burst timer target. The same ioscheduler assembly directly assigns its
+raw wrapper address to `rq->csd.func` before
+`smp_call_function_single_async`. Next move only that CSD initialization to
+compiled C; retain the original request data, zero flags and destination-CPU
+selection. Preserve/reload any caller-saved registers needed after the new
+helper call. No global CFI relaxation is justified by these results.
+
+Both originals are restored, normal Android returns with boot completion,
+the August 5 BiSheng kernel, loaded stock module and SELinux Enforcing.
+Byte-for-byte readbacks confirm original boot/modem_driver and unchanged
+Magisk ramdisk. Temporary full logs are removed after documenting the evidence.

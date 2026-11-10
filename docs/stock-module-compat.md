@@ -129,7 +129,7 @@ The ABI checker reads the real installed module's version table and the actual
 kernel exports. A nonzero result blocks treating the stock module as compatible.
 It does not validate runtime CFI type IDs, external firmware protocols, or boot.
 
-## Current Status
+## Local Build Validation (Before The r2 Flash)
 
 - Current boot/ramdisk backups and stock signature verification pass.
 - The modem partition backup passes read-only ext4 checking and contains the
@@ -188,7 +188,6 @@ is complete. The existing Magisk ramdisk stays unchanged. Both backed-up boot
 and modem_driver images are restored after collecting the failure evidence;
 no partition is erased or formatted. r2 reaches kernel initialization but not
 Android, so it is not a bootable-system candidate. Runtime modem/baseband
-compatibility remains untested. The targeted r3 MAS completion-registration fix
-produces a valid CFI jump-table pointer but its device test finds the next
-MAS/UFS sync-burst timer CFI failure. See `docs/clang12-cfi-iterations.md`; both
-originals are again restored and the next fix is restricted to that timer.
+compatibility remains untested. Subsequent targeted CFI fixes and paired tests
+are recorded in `docs/clang12-cfi-iterations.md`. Use its latest entry for the
+current concrete failure and verified rollback, not this initial build result.

@@ -27,6 +27,13 @@ void __cfi_ufs_mq_sync_burst_check_timer_expire(struct timer_list *timer)
 	data = ufs_mq_sync_burst_check_timer_prepare(timer);
 	ufs_mq_sync_burst_check_timer_expire(data);
 }
+
+void mas_ufs_mq_sync_burst_timer_init(struct timer_list *timer)
+{
+	/* Materialize the noncanonical CFI callback before handing it to timers. */
+	init_timer_key(timer, __cfi_ufs_mq_sync_burst_check_timer_expire,
+		0, NULL, NULL);
+}
 #else
 void __cfi_ufs_mq_sync_burst_check_timer_expire(unsigned long data)
 {
