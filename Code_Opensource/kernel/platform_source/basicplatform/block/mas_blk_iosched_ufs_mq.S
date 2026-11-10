@@ -8370,14 +8370,9 @@ ufs_mq_req_complete:                    // @ufs_mq_req_complete
 // %bb.9:
 	//DEBUG_VALUE: ufs_mq_req_complete:rq <- $x19
 	.loc	1 3592 16                       // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:3592:16
-	adrp	x9, __cfi__ufs_mq_complete_request_remote
-	add	x9, x9, :lo12:__cfi__ufs_mq_complete_request_remote
-	.loc	1 3593 16                       // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:3593:16
-	str	x19, [x19, #776]
-	.loc	1 3592 16                       // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:3592:16
-	str	x9, [x19, #768]
-	.loc	1 3594 17                       // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:3594:17
-	str	wzr, [x19, #760]
+	mov	x0, x19
+	bl	mas_ufs_mq_init_remote_csd
+	ldr	x8, [x19, #8]
 	.loc	1 3595 51                       // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:3595:51
 	ldr	w0, [x8, #128]
 	.loc	1 3592 7                        // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:3592:7
@@ -82443,7 +82438,7 @@ ufs_turbo_check_timer_expire.check_count:
 	.ident	"Android (7485623, based on r416183b1) clang version 12.0.7 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)"
 	.section	".note.GNU-stack","",@progbits
 	.addrsig
-	.addrsig_sym __cfi__ufs_mq_complete_request_remote
+	.addrsig_sym mas_ufs_mq_init_remote_csd
 	.addrsig_sym __cfi_ufs_mq_sync_io_dispatch_work_fn
 	.addrsig_sym delayed_work_timer_fn
 	.addrsig_sym __cfi_ufs_mq_async_io_dispatch_work_fn

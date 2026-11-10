@@ -50,6 +50,13 @@ void __cfi__ufs_mq_complete_request_remote(void *data)
 	__ufs_mq_complete_request_remote(data);
 }
 
+void mas_ufs_mq_init_remote_csd(struct request *rq)
+{
+	rq->csd.func = __cfi__ufs_mq_complete_request_remote;
+	rq->csd.info = rq;
+	rq->csd.flags = 0;
+}
+
 void __cfi_ufs_mq_async_io_dispatch_work_fn(struct work_struct *work)
 {
 	ufs_mq_async_io_dispatch_work_fn(work);

@@ -108,3 +108,48 @@ Both originals are restored, normal Android returns with boot completion,
 the August 5 BiSheng kernel, loaded stock module and SELinux Enforcing.
 Byte-for-byte readbacks confirm original boot/modem_driver and unchanged
 Magisk ramdisk. Temporary full logs are removed after documenting the evidence.
+
+## r5: MAS/UFS Remote Completion CSD (2026-11-10)
+
+Add `mas_ufs_mq_init_remote_csd` to the existing ioscheduler C interface and
+declare it in its platform header. It initializes the callback, request data
+and zero flags exactly as the existing `blk_mq_complete_request_remote` in
+`block/blk-mq.c`. Redirect only the proven raw assembly CSD initialization.
+Reload the caller-saved request-context pointer after the new C call; retain
+the original online-CPU check and `smp_call_function_single_async` destination.
+
+Compilation succeeds. Final disassembly verifies the CSD field offsets match
+the published assembly layout and `rq->csd.func` uses
+`__cfi__ufs_mq_complete_request_remote.cfi_jt`. Boot repack and matching signed
+module staging checks pass, with 390 imports, no missing exports and no CRC
+mismatches. CFI, signature enforcement and SELinux are not relaxed.
+
+Test pair:
+
+- `images/test/allen-boot-test-5.10.43-clang12-r5.img`.
+- `images/test/allen-modem_driver-test-5.10.43-clang12-r5.img`.
+- Matching signed module: `images/test/allen-modem_driver-test-5.10.43-clang12-r5.ko`.
+
+Identity, partition bounds, original backups and fastboot unlock/model checks
+pass; both candidate flashes succeed. Build is
+`#5 SMP PREEMPT Tue Nov 10 20:24:04 CST 2026`. Android/ADB does not start; the
+device returns to fastboot. Recovery console pstore identifies `5.10.43 #5`:
+
+```text
+[14.391978s] Kernel panic - not syncing: CFI failure (target: delayed_work_timer_fn+0x0/0x2c)
+call_timer_fn -> __run_timers -> run_timer_softirq
+```
+
+The remote-completion CFI target is no longer the observed failure. The new
+target is the standard delayed-work timer callback: MAS ioscheduler, flush,
+busy/idle and background-operation assembly contains raw references to this
+exported symbol. Rewriting each initialization site would be unnecessary
+complexity. The existing kernel `__cficanonical` attribute is already used by
+initcall stubs to make assembly-visible symbols valid CFI entry points.
+Next apply it only to this proven failing callback and inspect the linked
+symbol before testing; this preserves CFI type checks and the workqueue body.
+
+Both original partitions are restored and verified byte-for-byte. Normal
+Android boot, original BiSheng kernel, loaded stock modem module and Enforcing
+SELinux are confirmed; the Magisk ramdisk readback is unchanged. Full logs are
+removed after retaining this evidence.

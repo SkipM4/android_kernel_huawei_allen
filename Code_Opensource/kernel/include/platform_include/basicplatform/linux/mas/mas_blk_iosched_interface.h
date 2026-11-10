@@ -84,6 +84,7 @@ extern void __cfi_ufs_mq_write_throttle_check_timer_expire(unsigned long data);
 #endif
 extern void __cfi_ufs_mq_async_io_dispatch_work_fn(struct work_struct *work);
 extern void __cfi__ufs_mq_complete_request_remote(void *data);
+extern void mas_ufs_mq_init_remote_csd(struct request *rq);
 extern void __cfi_ufs_mq_flush_plug_list(
 	struct blk_plug *plug, bool from_schedule);
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,19,0))
