@@ -10,4 +10,4 @@ obj-y += filemap_manager/
 obj-$(CONFIG_HISI_PROC) += proc/
 
 obj-$(CONFIG_VENDOR_FS) += vendor_fs_interface.o
-obj-$(CONFIG_HYPERFRAME) += hyperframe.o
+obj-$(CONFIG_HYPERFRAME) += hyperframe.o hyperframe_init.o

@@ -393,3 +393,45 @@ and unchanged Magisk ramdisk. Both original partitions are subsequently
 restored and their full hashes verified. Normal Android, original BiSheng
 kernel, loaded stock modem module and Enforcing SELinux are confirmed.
 Processed full logs are removed after recording these conclusions.
+
+## r11: Standard C Initcall For Assembly Hyperframe Init (2026-11-10)
+
+Replace hyperframe's raw assembly PREL32 registration with
+`device_initcall(hyperframe_init)` in a new C registration object immediately
+following `hyperframe.o` under `CONFIG_HYPERFRAME`. Make the assembly entry
+global; retain its body, return value and initialization order. The standard
+initcall macro supplies enforcing CFI metadata without annotating its runner
+as `__nocfi` or disabling the subsystem.
+
+Compilation succeeds. Final ELF decoding confirms a unique hyperframe
+registration pointing to a canonical CFI stub whose C body directly calls
+the original assembly initialization. Boot repack and matching modem ABI,
+certificate, CMS signature, ext4 and metadata checks pass. The r11 pair and
+signed module use the usual versioned paths. Obsolete r6 candidates are
+removed; originals and the five recent pairs r7-r11 remain.
+
+Identity, partition bounds, backups and fastboot model/unlock checks pass.
+Both writes succeed. Build is `#11 SMP PREEMPT Tue Nov 10 22:38:54 CST 2026`.
+The new kernel passes the initcall stage and reaches PID 1 running Android
+`init`, but still returns to fastboot before Android/ADB is ready. Recovery
+pstore identifies build #11 and the initiating panic:
+
+```text
+[15.027363s] CFI failure (target: hck_mas_queue_busy_change_gear+0x0/0x40)
+init -> pread64 -> read_pages -> scsi_queue_rq -> vendor hook
+```
+
+This is an opaque gear-control assembly hook callback, not a remaining
+initcall failure. Its published registration takes the raw assembly address.
+The same object registers three such hook callbacks plus `mas_gear_ctrl_work`
+as a work callback; all four linked addresses lack compiler CFI metadata.
+Next add typed canonical C wrappers for those four audited callback entries,
+calling separately named global assembly bodies directly. Use the hook
+prototypes in `hck_mas_ufs_gear_ctrl.h` and the standard work callback type;
+preserve the existing registration, function bodies and callback checks.
+The nonfatal sensorhub spinlock warning remains a separate unresolved issue.
+
+Recovery full hashes match the r11 test pair and unchanged Magisk ramdisk.
+Both originals are restored and full hashes verified. Normal stock Android,
+original BiSheng kernel, loaded stock modem module and Enforcing SELinux are
+confirmed; processed full logs are removed after recording the evidence.

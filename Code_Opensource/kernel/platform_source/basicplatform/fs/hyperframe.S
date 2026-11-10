@@ -13,11 +13,6 @@
 	.text
 	.file	"hyperframe.c"
                                         // Start of file scope inline assembly
-	.section	.initcall6.init,"a",@progbits
-__initcall__kmod_hyperframe__415_992_hyperframe_init6:
-.Ltmp0:
-	.word	hyperframe_init-.Ltmp0
-	.text
 
 
                                         // End of file scope inline assembly
@@ -302,6 +297,7 @@ hyperframe_exit:                        // @hyperframe_exit
                                         // -- End function
 	.section	.init.text,"ax",@progbits
 	.p2align	2                               // -- Begin function hyperframe_init
+	.globl	hyperframe_init
 	.type	hyperframe_init,@function
 hyperframe_init:                        // @hyperframe_init
 .Lfunc_begin1:
