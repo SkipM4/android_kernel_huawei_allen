@@ -1648,9 +1648,8 @@ mas_blk_busyidle_check_execute_request: // @mas_blk_busyidle_check_execute_reque
 	//DEBUG_VALUE: mas_blk_busyidle_check_execute_request:done <- $x19
 	//DEBUG_VALUE: mas_blk_busyidle_check_execute_request:q <- [DW_OP_LLVM_entry_value 1] $x0
 	.loc	2 826 14                        // kernel/platform_source/basicplatform/block/mas_blk_busy_idle_notify.c:826:14
-	adrp	x8, __cfi_mas_blk_busyidle_end_rq
-	add	x8, x8, :lo12:__cfi_mas_blk_busyidle_end_rq
-	str	x8, [x20, #784]
+	mov	x0, x20
+	bl	mas_blk_busyidle_set_end_io
 	.loc	2 827 15                        // kernel/platform_source/basicplatform/block/mas_blk_busy_idle_notify.c:827:15
 	add	x8, x20, #256                   // =256
 .Ltmp204:
@@ -43751,7 +43750,7 @@ mas_blk_busyidle_state_init:            // @mas_blk_busyidle_state_init
 	.ident	"Android (7485623, based on r416183b1) clang version 12.0.7 (https://android.googlesource.com/toolchain/llvm-project c935d99d7cf2016289302412d708641d52d2f7ee)"
 	.section	".note.GNU-stack","",@progbits
 	.addrsig
-	.addrsig_sym __cfi_mas_blk_busyidle_end_rq
+	.addrsig_sym mas_blk_busyidle_set_end_io
 	.addrsig_sym __cfi_mas_blk_idle_notify_work
 	.addrsig_sym delayed_work_timer_fn
 	.addrsig_sym __cfi_mas_blk_busyidle_handler_latency_check_timer_expire

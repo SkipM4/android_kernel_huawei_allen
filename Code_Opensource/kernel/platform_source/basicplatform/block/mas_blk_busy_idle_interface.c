@@ -44,6 +44,12 @@ void __cfi_mas_blk_busyidle_end_rq(struct request *rq, blk_status_t error)
 	mas_blk_busyidle_end_rq(rq, error);
 }
 
+void mas_blk_busyidle_set_end_io(struct request *rq)
+{
+	/* Assembly must obtain the CFI callback address through compiled C. */
+	rq->end_io = __cfi_mas_blk_busyidle_end_rq;
+}
+
 #if defined(CONFIG_MAS_DEBUG_FS) || defined(CONFIG_MAS_BLK_DEBUG)
 ssize_t __cfi_mas_queue_busyidle_enable_store(
 	struct request_queue *q, const char *page, size_t count)

@@ -52,6 +52,7 @@ extern ssize_t __cfi_mas_queue_idle_state_show(
 	struct request_queue *q, char *page);
 extern void __cfi_mas_blk_busyidle_end_rq(
 	struct request *rq, blk_status_t error);
+extern void mas_blk_busyidle_set_end_io(struct request *rq);
 extern void mas_blk_busyidle_end_rq(
 	const struct request *rq, blk_status_t error);
 #if defined(CONFIG_MAS_DEBUG_FS) || defined(CONFIG_MAS_BLK_DEBUG)

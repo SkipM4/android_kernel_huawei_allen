@@ -188,5 +188,7 @@ is complete. The existing Magisk ramdisk stays unchanged. Both backed-up boot
 and modem_driver images are restored after collecting the failure evidence;
 no partition is erased or formatted. r2 reaches kernel initialization but not
 Android, so it is not a bootable-system candidate. Runtime modem/baseband
-compatibility remains untested. Next isolate the MAS assembly callback-address
-registration under enforcing CFI before preparing another matched pair.
+compatibility remains untested. The targeted r3 MAS completion-registration fix
+produces a valid CFI jump-table pointer but its device test finds the next
+MAS/UFS sync-burst timer CFI failure. See `docs/clang12-cfi-iterations.md`; both
+originals are again restored and the next fix is restricted to that timer.
