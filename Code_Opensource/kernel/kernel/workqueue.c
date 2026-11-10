@@ -1628,7 +1628,8 @@ bool queue_work_node(int node, struct workqueue_struct *wq,
 }
 EXPORT_SYMBOL_GPL(queue_work_node);
 
-void delayed_work_timer_fn(struct timer_list *t)
+/* Published platform assembly takes this callback's symbol address directly. */
+void __cficanonical delayed_work_timer_fn(struct timer_list *t)
 {
 	struct delayed_work *dwork = from_timer(dwork, t, timer);
 

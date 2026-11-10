@@ -153,3 +153,56 @@ Both original partitions are restored and verified byte-for-byte. Normal
 Android boot, original BiSheng kernel, loaded stock modem module and Enforcing
 SELinux are confirmed; the Magisk ramdisk readback is unchanged. Full logs are
 removed after retaining this evidence.
+
+## r6: Canonical Delayed-Work Timer Entry (2026-11-10)
+
+Apply the existing `__cficanonical` attribute only to
+`delayed_work_timer_fn` in `kernel/workqueue.c`. Its body, timer argument and
+export stay unchanged. The attribute is defined by `compiler-clang.h` and is
+already used with `__ADDRESSABLE` by the kernel's initcall stubs when assembly
+takes a symbol address. Unlike `__nocfi`, it provides a valid canonical CFI
+entry; it does not disable type checks. This exported function is already
+addressable, so no new address-keeping helper or assembly rewrite is needed.
+
+Compilation succeeds. Final disassembly shows `delayed_work_timer_fn` as a
+BTI/jump-table entry branching to the unchanged `delayed_work_timer_fn.cfi`
+body. Published MAS assembly now resolves its raw references to that checked
+entry. Boot repack, the matching module's 390 imports/zero missing exports/zero
+CRC mismatches, embedded certificate, CMS signature and ext4/metadata
+readback checks all pass.
+
+Test pair:
+
+- `images/test/allen-boot-test-5.10.43-clang12-r6.img`.
+- `images/test/allen-modem_driver-test-5.10.43-clang12-r6.img`.
+- Matching signed module: `images/test/allen-modem_driver-test-5.10.43-clang12-r6.ko`.
+
+Device identity, target capacities, original backups and fastboot model/unlock
+are verified. Both writes succeed without an intervening reboot. Kernel build
+is `#6 SMP PREEMPT Tue Nov 10 20:56:52 CST 2026`.
+
+r6 still does not reach Android/ADB and returns to fastboot. Current console
+and dmesg pstore records both identify `5.10.43 #6`. Inspecting the first panic,
+not just the end of the recursive trace, establishes two distinct failures:
+
+```text
+[14.390300s] CFI failure (target: __cfi_mas_blk_idle_notify_work+0x0/0x1c)
+Workqueue: busyidle_notify; process_one_work -> worker_thread
+[15.390935s] CFI failure (target: __cfi_mas_blk_panic_notify+0x0/0x1c)
+atomic_notifier_call_chain -> panic
+```
+
+The first fault is the busy/idle work callback; the panic-notifier fault occurs
+while reporting it and recurs until platform crash capture. The delayed-work
+timer target is no longer the observed failure. Both new targets have proven
+raw assembly references: the work initializer materializes a symbol address,
+and `mas_blk_dump.S` stores the notifier symbol in its static notifier block.
+Next apply canonical CFI entries to these two observed callbacks and verify
+their linked addresses; retain the actual work and panic-reporting behavior.
+Do not mistake the secondary notifier panic for the initiating failure.
+
+Both original partitions are restored and full readbacks match their backups.
+Normal Android boot, the original BiSheng kernel, loaded stock modem module and
+Enforcing SELinux are verified; the independent Magisk ramdisk is unchanged.
+Full logs are removed after extracting this evidence. The five most recent
+candidate pairs (r2 through r6) are retained within the 20 GB workspace limit.
