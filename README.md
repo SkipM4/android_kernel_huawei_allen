@@ -29,10 +29,11 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Wi-Fi association and multi-level L3 voting remain unresolved or unverified.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r22: r21 retains full early logs,
-and r22 initializes the TCP recovery rule lock. Paired readback, two boots
-and loopback TCP checks pass; early PRMEM, GPIO and duplicate-registration
-warnings remain. See `docs/clang12-early-diagnostics.md` for attribution and
+The current installed test candidate is r23: r21 retains full early logs,
+r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
+in the satellite init thread. Paired readback and targeted checks pass;
+early PRMEM, invalid PD sysfs mode and duplicate-registration warnings remain.
+See `docs/clang12-early-diagnostics.md` for attribution and
 test limits. Accepted r17 and functional r20 are retained for rollback.
 
 ## Layout

@@ -1086,7 +1086,7 @@ static int init_gpio(int32_t gpio_id, char *gpio_name, int status, int gpio_dire
 		return rc;
 	}
 
-	rc = gpio_get_value(gpio_id);
+	rc = gpio_get_value_cansleep(gpio_id);
 	hwlog_info("%s: get gpio %d value %d",
 		__func__, gpio_id, rc);
 
@@ -1106,7 +1106,7 @@ static int init_gpio(int32_t gpio_id, char *gpio_name, int status, int gpio_dire
 		}
 	}
 
-	rc = gpio_get_value(gpio_id);
+	rc = gpio_get_value_cansleep(gpio_id);
 	hwlog_info("%s: get value gpio %d value %d",
 		__func__, gpio_id, rc);
 

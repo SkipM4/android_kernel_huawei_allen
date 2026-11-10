@@ -66,7 +66,9 @@ Checks and findings after paired r21 flash:
   checks without an architecture-specific compatibility analysis.
 - Other retained warnings: duplicate module-version sysfs creation;
   sixteen can-sleep GPIO accesses through gpiod_get_raw_value in the
-  hw_sate_init_th path; duplicate sysfs-group and proc entry registration.
+  hw_sate_init_th path; invalid sysfs permissions and duplicate proc entries.
+  The sysfs-group warning was initially classified too broadly: later full
+  context attributes it to invalid permissions, not duplicate group creation.
   These are distinct caller/ordering issues, not new CFI failures.
 - The TCP recovery bad-rwlock warning reproduces at 24.73 seconds, confirming
   the same netlink rule-update failure seen on unmodified r20. No panic or
@@ -141,10 +143,52 @@ Checks after paired r22 flash:
   window. No positive TCP whitelist-insertion trace occurs, so successful
   whitelist insertion/deletion is not claimed or forced for this check.
 - The 21 unrelated warnings remain: PRMEM early LRU drain (one), duplicate
-  module version (one), satellite GPIO can-sleep access (sixteen), duplicate
-  sysfs group (one) and proc registration (two). S/W taint remains 516.
+  module version (one), satellite GPIO can-sleep access (sixteen), invalid
+  sysfs attribute permissions (one) and proc registration (two). S/W taint
+  remains 516.
 
 Next isolate the satellite init_gpio reads. Their caller is the driver's
 initialization kthread, so the standard sleeping GPIO read API is suitable;
 retain GPIO direction/output values and do not exercise satellite service
 or issue radio-control writes for this diagnostic repair.
+
+## r23: Use Sleeping GPIO Reads In Satellite Initialization
+
+Base: r22, commit `b34ac92f9`. Sixteen boot warnings have the same chain:
+gpiod_get_raw_value -> init_gpio -> hw_bbic_dev_init -> hw_sate_init_thread
+-> kthread. The two reads in init_gpio use the atomic GPIO API despite
+the controller's can_sleep flag. This dedicated kthread holds no spinlock
+or interrupt-disabled section across the helper and already calls GPIO
+request/direction operations, so sleeping reads match its context.
+
+Change only these two calls to gpio_get_value_cansleep in
+`drivers/hwnet/hw_sate_comm/dev/bbic_dev.c`. Both legacy APIs read the raw
+physical level through the same GPIO backend; no active-low translation,
+direction/output value, power/reset sequence, SIM switching, timing delay,
+DT value or satellite-service policy changes. Other GPIO users remain
+separate audit work, rather than being globally replaced without context.
+Reference: this tree's Linux 5.10.43 gpiolib and asm-generic/gpio.h contracts;
+no external implementation is adopted.
+
+The remaining sysfs warning is specifically `succ_value` mode 0774 in
+hw_pd.c: the core reports invalid executable bits and masks the mode to
+0664. This is not duplicate group registration. Duplicate module-version
+paths are /module/tcpc_class/version and /module/nkd/version; duplicate
+proc entries are /proc/ion_process_info and /proc/memtrack through
+memcheck_ion_createfs. These call sites are separate future repairs.
+
+Checks after paired r23 flash:
+
+- Diff checks, Clang 12.0.7 ThinLTO and paired staging pass; modem imports,
+  signature and filesystem/metadata checks pass. The linked init_gpio helper
+  calls gpiod_get_raw_value_cansleep at both read sites.
+- Android reaches #23 and boot_completed=1. Full boot/modem_driver readback
+  matches the candidate pair; independent Magisk ramdisk is unchanged.
+  The matching module is loaded, sig_enforce is Y and SELinux is Enforcing.
+- Full log starts at 0.000000. All sixteen GPIO warnings disappear; the
+  twenty-two init_gpio raw-level records exactly match the preceding r22
+  boot. No bad rwlock, CFI failure or panic is recorded. Five other warnings
+  remain; this does not certify satellite communications or all GPIO callers.
+- USB power remains present. A read-only check finds the existing PD state,
+  CC orientation and vbus-only attributes accessible as root. No satellite,
+  PD completion or power-control attribute is written for this test.
