@@ -76,9 +76,9 @@ platform_source_interface_check()
 	local link_out_file;
 	local platform_source;
 
-	if [ "${product_type}" == "armpc" ] ||
-	   [ "${product_type}" == "cdc" ] ||
-	   [ "${product_type}" == "cdc_ace" ]; then
+	if [ "${product_type}" = "armpc" ] ||
+	   [ "${product_type}" = "cdc" ] ||
+	   [ "${product_type}" = "cdc_ace" ]; then
 		echo "product_type = ${product_type}, no need check interfaces!"
 		return
 	fi
@@ -435,7 +435,7 @@ fi;
 # final build of init/
 ${MAKE} -f "${srctree}/scripts/Makefile.build" obj=init need-builtin=1
 
-if [["${verify_plat}" != "himatrix"]]; then
+if [ "${verify_plat}" != "himatrix" ]; then
 	platform_source_interface_check
 fi
 #link vmlinux.o
