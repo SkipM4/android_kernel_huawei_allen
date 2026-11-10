@@ -183,7 +183,7 @@ and FFmpeg-generated clips. The SDK jars are retained as test tools; owned
 temporary sources, bytecode, clips and full logs are removed. No APK,
 persistent service, media-library entry or user-media access is introduced.
 
-Current test pair is r20:
+The retained r20 functional-reference pair is:
 
 - `images/test/allen-boot-test-5.10.43-clang12-r20.img`
 - `images/test/allen-modem_driver-test-5.10.43-clang12-r20.img`
@@ -192,3 +192,44 @@ Keep accepted r17 and the stock originals as paired rollback paths. L3 c1/c2
 multi-level voting, Wi-Fi association/data, cellular service, Bluetooth,
 deep suspend, long-term stability and high-resolution/surface video playback
 remain unverified or unresolved. Do not guess the additional L3 vote fields.
+
+## r23 Audio And Bluetooth Follow-Up (2026-11-11)
+
+r23 reaches normal Android with the GPIO initialization repair; r20 remains
+the named hardware-video/sensor reference. Neither of the following probes
+establishes a functional pass, and neither leads to speculative driver or
+SELinux changes:
+
+- System `svc bluetooth enable` and its restore command exit 137. Attributed
+  AndroidRuntime logs show a NullPointerException in AppOps runtime-access
+  reporting through BluetoothAdapter, not a kernel panic. Bluetooth init
+  activity occurs, but the manager reports STATE_ON timeout. The observed
+  adapter and persistent setting remain OFF/0, their original state. No
+  discovery or pairing is requested. A proper attributed app/UI test and
+  service/HAL diagnosis are still needed before calling Bluetooth working
+  or assigning this to a specific driver defect.
+- A temporary AudioTrack probe requests one second of silent 48-kHz stereo
+  PCM and per-track mute, without recording or changing system volume.
+  getMinBufferSize returns -1 before track creation, under shell and a root
+  diagnostic attempt. The probe reports that failure rather than substituting
+  a guessed buffer size or claiming playback. Temporary device DEX files are
+  removed after each attempt.
+- Read-only diagnosis finds AudioPolicyManager=0x0 and only audio-dp in
+  /proc/asound/cards. analog_less_machine repeatedly returns -EPROBE_DEFER
+  during card registration; fw_hifi exists by the time of inspection, so
+  initial pre-device-node firmware-open errors alone do not explain the gap.
+- Compared with original running-stock configuration, the generated config
+  omits SND_SOC_ASP_CODEC_V2C, SND_SOC_ASP_CODEC_AXI2TDM and
+  SND_SOC_ASP_CODEC_MAD_V2. The child Kconfig defines them but is not sourced
+  by codecs/Kconfig. Its asp_codec_codecless directory contains only Kconfig
+  and Makefile, not the referenced asp_codec_v2/utils/control/path sources.
+  The machine driver cannot bind an absent codec merely by changing a return
+  value, reordering its probe, or enabling unresolved build rules.
+
+Next obtain and compare a compatible codec implementation and its DT/DAI,
+register and firmware contracts before restoring these configuration options.
+GitHub indexed-code searches for asp_codec_v2.c / asp_codec_v2 return no
+results; this does not prove that no compatible release exists. No external
+audio implementation has been adopted. Audio, microphone/call paths and
+Bluetooth remain open functionality gaps, alongside Wi-Fi association,
+multi-level L3 voting and long-duration/deep-suspend testing.
