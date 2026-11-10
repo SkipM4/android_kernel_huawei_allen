@@ -14,19 +14,22 @@
 
 #include "mas_blk_flush_interface.h"
 
-void __cfi_mas_blk_flush_work_fn(struct work_struct *work)
+void __cficanonical __cfi_mas_blk_flush_work_fn(struct work_struct *work)
 {
 	mas_blk_flush_work_fn(work);
 }
+__ADDRESSABLE(__cfi_mas_blk_flush_work_fn)
 
-int __cfi_mas_blk_poweroff_flush_notifier_call(
+int __cficanonical __cfi_mas_blk_poweroff_flush_notifier_call(
 	struct notifier_block *powerkey_nb, unsigned long event, void *data)
 {
 	return mas_blk_poweroff_flush_notifier_call(powerkey_nb, event, data);
 }
+__ADDRESSABLE(__cfi_mas_blk_poweroff_flush_notifier_call)
 
-int __init __cfi_mas_blk_flush_init(void)
+int __init __cficanonical __cfi_mas_blk_flush_init(void)
 {
 	return mas_blk_flush_init();
 }
+__ADDRESSABLE(__cfi_mas_blk_flush_init)
 

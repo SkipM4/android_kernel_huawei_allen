@@ -257,3 +257,52 @@ Both original partitions are restored and verified byte-for-byte. Normal
 Android, original BiSheng kernel, loaded stock module, Enforcing SELinux and
 unchanged Magisk ramdisk are confirmed. Full logs and the temporary audit list
 are removed after recording these results.
+
+## r8: Audited MAS Assembly-To-C Wrapper ABI (2026-11-10)
+
+Complete the r7 linked-address audit's repair for the remaining 18 wrapper
+symbols, in four existing C interfaces: bkops, busy/idle, flush and ioscheduler.
+Only `__cficanonical` and `__ADDRESSABLE` are added; return types, parameters,
+function bodies and the published assembly stay unchanged. Both branches of
+the existing kernel-version conditionals keep equivalent annotations.
+
+Compilation succeeds. Inspecting the actual ELF addresses confirms all 20
+assembly-referenced C wrapper symbols are BTI/canonical CFI entries branching
+to their corresponding `.cfi` bodies. Name-only disassembly initially omits
+the manual-GC proc-show symbol because it shares an address with a CFI type
+group alias; address-based inspection resolves that verifier limitation.
+No source workaround or weakened gate is used for the alias.
+
+Matching-module ABI/signature/certificate/ext4 checks and boot repack checks
+pass. Standard CFI and forced module signatures remain enforcing. The r8 test
+pair and signed module use the usual `images/test/allen-*-clang12-r8` paths;
+obsolete r3 candidates are removed, preserving the original backups and the
+r4-r8 retention window.
+
+Identity, partition bounds, original backups and fastboot unlock/model checks
+pass; both writes succeed without an intervening reboot. Kernel build is
+`#8 SMP PREEMPT Tue Nov 10 21:52:52 CST 2026`. r8 returns to fastboot without
+reaching Android. Current recovery console identifies `5.10.43 #8`, with one
+panic:
+
+```text
+[14.760819s] CFI failure (target: mas_gear_ctrl_hck_init+0x0/0x26c)
+do_boottime_initcall -> do_one_initcall -> do_initcalls
+```
+
+The flush-init C wrapper is no longer the failing target. This new initcall is
+different: `mas_gear_ctrl_hck_init` itself is an opaque assembly implementation,
+with no C body in which to emit CFI metadata. Its local `.init.text` function is
+registered directly in `.initcall6.init` by a PREL32 entry.
+
+Next replace only this registration with a standard C `device_initcall`,
+exposing the assembly entry for a direct call from the compiler-generated
+canonical initcall stub. Build the C registration under the same
+`CONFIG_MAS_UFS_GEAR_CTRL` condition and preserve initcall ordering, return
+status and the existing hook-registration body. Do not bypass CFI in the core
+initcall runner or disable the gear-control subsystem.
+
+Both original partitions are restored and full readbacks match their backups.
+Normal Android, original BiSheng kernel, loaded stock modem module, Enforcing
+SELinux and unchanged Magisk ramdisk are confirmed. Full temporary logs are
+removed after retaining these findings.

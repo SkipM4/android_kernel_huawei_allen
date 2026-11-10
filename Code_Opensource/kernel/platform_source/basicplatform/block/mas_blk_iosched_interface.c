@@ -15,10 +15,11 @@
 #define pr_fmt(fmt) "[BLK-IO]" fmt
 #include "mas_blk_iosched_interface.h"
 
-void __cfi_ufs_mq_sync_io_dispatch_work_fn(struct work_struct *work)
+void __cficanonical __cfi_ufs_mq_sync_io_dispatch_work_fn(struct work_struct *work)
 {
 	ufs_mq_sync_io_dispatch_work_fn(work);
 }
+__ADDRESSABLE(__cfi_ufs_mq_sync_io_dispatch_work_fn)
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,19,0))
 void __cfi_ufs_mq_sync_burst_check_timer_expire(struct timer_list *timer)
@@ -40,10 +41,11 @@ void __cfi_ufs_mq_sync_burst_check_timer_expire(unsigned long data)
 	ufs_mq_sync_burst_check_timer_expire(data);
 }
 #endif
-void __cfi_ufs_mq_flush_plug_list(struct blk_plug *plug, bool from_schedule)
+void __cficanonical __cfi_ufs_mq_flush_plug_list(struct blk_plug *plug, bool from_schedule)
 {
 	ufs_mq_flush_plug_list(plug, from_schedule);
 }
+__ADDRESSABLE(__cfi_ufs_mq_flush_plug_list)
 
 void __cfi__ufs_mq_complete_request_remote(void *data)
 {
@@ -57,15 +59,17 @@ void mas_ufs_mq_init_remote_csd(struct request *rq)
 	rq->csd.flags = 0;
 }
 
-void __cfi_ufs_mq_async_io_dispatch_work_fn(struct work_struct *work)
+void __cficanonical __cfi_ufs_mq_async_io_dispatch_work_fn(struct work_struct *work)
 {
 	ufs_mq_async_io_dispatch_work_fn(work);
 }
+__ADDRESSABLE(__cfi_ufs_mq_async_io_dispatch_work_fn)
 
-void __cfi_ufs_mq_io_guard_work_fn(struct work_struct *work)
+void __cficanonical __cfi_ufs_mq_io_guard_work_fn(struct work_struct *work)
 {
 	ufs_mq_io_guard_work_fn();
 }
+__ADDRESSABLE(__cfi_ufs_mq_io_guard_work_fn)
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0))
 blk_qc_t __cfi_ufs_mq_make_request(struct bio *bio)
@@ -206,17 +210,19 @@ static inline void __cfi_ufs_mq_poll_enable(bool *enable)
 	ufs_mq_poll_enable(enable);
 }
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,19,0))
-void __cfi_ufs_mq_write_throttle_check_timer_expire(struct timer_list *timer)
+void __cficanonical __cfi_ufs_mq_write_throttle_check_timer_expire(struct timer_list *timer)
 {
 	unsigned long data;
 	data = ufs_mq_write_throttle_check_timer_prepare(timer);
 	ufs_mq_write_throttle_check_timer_expire(data);
 }
+__ADDRESSABLE(__cfi_ufs_mq_write_throttle_check_timer_expire)
 #else
-void __cfi_ufs_mq_write_throttle_check_timer_expire(unsigned long data)
+void __cficanonical __cfi_ufs_mq_write_throttle_check_timer_expire(unsigned long data)
 {
 	ufs_mq_write_throttle_check_timer_expire(data);
 }
+__ADDRESSABLE(__cfi_ufs_mq_write_throttle_check_timer_expire)
 #endif
 static inline void __cfi_ufs_mq_write_throttle_handler(
 	struct request_queue *q, bool level)

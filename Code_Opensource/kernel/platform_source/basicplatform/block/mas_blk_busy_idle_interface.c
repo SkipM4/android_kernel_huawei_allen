@@ -15,24 +15,27 @@
 #include "mas_blk_busy_idle_interface.h"
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,19,0))
-void __cfi_mas_blk_busyidle_handler_latency_check_timer_expire(
+void __cficanonical __cfi_mas_blk_busyidle_handler_latency_check_timer_expire(
 	struct timer_list *timer)
 {
 	mas_blk_busyidle_handler_latency_check_timer_expire(timer);
 }
+__ADDRESSABLE(__cfi_mas_blk_busyidle_handler_latency_check_timer_expire)
 #else
-void __cfi_mas_blk_busyidle_handler_latency_check_timer_expire(
+void __cficanonical __cfi_mas_blk_busyidle_handler_latency_check_timer_expire(
 	unsigned long data)
 {
 	mas_blk_busyidle_handler_latency_check_timer_expire(data);
 }
+__ADDRESSABLE(__cfi_mas_blk_busyidle_handler_latency_check_timer_expire)
 #endif
 
-int __cfi_mas_blk_busyidle_notify_handler(
+int __cficanonical __cfi_mas_blk_busyidle_notify_handler(
 	struct notifier_block *nb, unsigned long val, void *v)
 {
 	return mas_blk_busyidle_notify_handler(nb, val, v);
 }
+__ADDRESSABLE(__cfi_mas_blk_busyidle_notify_handler)
 
 void __cficanonical __cfi_mas_blk_idle_notify_work(struct work_struct *work)
 {
