@@ -350,3 +350,46 @@ Both original partitions are restored. Full hashes match the boot/modem_driver
 backups and unchanged Magisk ramdisk. Normal Android (`boot_completed=1`),
 original BiSheng kernel, loaded stock modem module and Enforcing SELinux are
 confirmed. Full temporary logs are removed after retaining these findings.
+
+## r10: Canonical Pagecache Assembly-To-C Entries (2026-11-10)
+
+Add `__cficanonical` and `__ADDRESSABLE` to all seven C wrappers whose raw
+addresses are referenced by `pagecache_manage.S`: its init/exit wrappers,
+timeout work/timer and proc show/open/write callbacks. Only
+`pagecache_manage_interface.c` changes; signatures, bodies and the assembly
+remain unchanged. The source precedent remains the standard CFI initcall
+stub in `include/linux/init.h`.
+
+Compilation succeeds. Address-based final ELF inspection proves all seven
+symbols are canonical BTI entries branching to their matching `.cfi` bodies.
+The unique pagecache PREL32 initcall resolves to the canonical init wrapper.
+Boot packaging and matching-module ABI/certificate/CMS/ext4/metadata checks
+pass. The r10 pair and signed module use the usual `images/test/` paths;
+obsolete r5 candidates are removed, preserving originals and r6-r10.
+
+Identity, bounds, backup and fastboot model/unlock checks pass; both writes
+succeed. Kernel build is `#10 SMP PREEMPT Tue Nov 10 22:28:01 CST 2026`.
+r10 still returns to fastboot without reaching Android. Current recovery
+pstore identifies build #10, with one fatal panic:
+
+```text
+[14.751306s] CFI failure (target: hyperframe_init+0x0/0x85c)
+do_boottime_initcall -> do_one_initcall -> do_initcalls
+```
+
+The pagecache initcall is no longer the failing target. The new target is a
+pure assembly implementation registered through its own raw PREL32 entry,
+like the r9 gear-control failure. A read-only source/link audit finds this
+is the last raw assembly-body initcall in the current tree; the remaining
+assembly initcall entries target the repaired flush/pagecache C wrappers.
+Next provide a standard C initcall stub for hyperframe under its existing
+configuration, preserving its level, object ordering and initialization body.
+Its assembly also registers opaque hook/work callbacks without CFI metadata;
+record those as a separate ABI audit rather than bypassing the initcall check.
+The previously recorded nonfatal sensorhub spinlock warning remains present.
+
+Recovery full partition hashes match the tested r10 boot/modem_driver pair
+and unchanged Magisk ramdisk. Both original partitions are subsequently
+restored and their full hashes verified. Normal Android, original BiSheng
+kernel, loaded stock modem module and Enforcing SELinux are confirmed.
+Processed full logs are removed after recording these conclusions.
