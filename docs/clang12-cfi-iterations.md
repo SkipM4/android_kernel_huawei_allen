@@ -565,7 +565,7 @@ update_mips_window -> phase_account_task -> __schedule -> init ppoll
 
 The faulting instruction loads the L3 device's IPC sample-time table. The
 pointer is 1, rather than a valid initialized table. Earlier probe errors
-identify `mips_l3_c1` and `mips_l3_c2` missing `core-dev-table`.
+identify unreadable frequency tables for `mips_l3_c1` and `mips_l3_c2`.
 `mips_mem.c` publishes each new device into the shared policy before this
 validation, then frees it on error without clearing that pointer. Its error
 path also drops the shared policy kobject, and probe attempts to free the
@@ -587,3 +587,74 @@ original BiSheng kernel, loaded stock modem module and Enforcing SELinux
 are confirmed. Best confidently attributed progress is now r14 in second
 stage init; preserve it outside the recent-five window if needed. Processed
 full logs are removed after recording this evidence.
+
+## r15: MIPS Monitor Probe Lifetime (2026-11-10/11)
+
+The stock live DT clarifies the parser failure: both L3 c1/c2 nodes have
+`nr-level=2` and eleven three-cell rows (CPU kHz, first target MHz, second
+target MHz). The published implementation assumes two cells per row, so it
+rejects these 33-cell tables. Stock sysfs exposes both target columns and
+enables those monitors. These are present but unsupported tables, not absent
+properties; do not invent values or silently ignore the second level.
+
+Fix only the confirmed failed-probe lifetime in `mips_mem.c`: give shared
+built-in cluster policies kobject ownership independent of an individual
+monitor's devres; create all CPU links before publishing the policy; initialize
+monitor data before creating its sysfs object and publishing it under the
+existing state lock. Kobject release callbacks free the containing objects,
+and a failed monitor never drops or frees the shared policy. Global enable
+changes skip clusters with missing monitor providers under the same lock,
+matching the existing scheduler's availability gate.
+
+This retains the real probe error for unsupported multi-level tables, instead
+of publishing freed memory. Healthy monitors and frequency-management code
+remain enabled. The driver is built-in and has no module-exit path; shared
+policies remain referenced by the per-CPU users for its lifetime. Device
+unbind/removal and multi-level hardware vote support are not validated by
+this bring-up fix.
+
+Compilation, boot repack and matching modem ABI/certificate/CMS/ext4/metadata
+checks pass. The r15 pair and signed module use the usual versioned paths;
+obsolete r10 candidates are removed, preserving originals and r11-r15.
+Identity, partition bounds, backups and fastboot model/unlock checks pass;
+both writes succeed. Build is `#15 SMP PREEMPT Tue Nov 10 23:40:46 CST 2026`.
+
+The first r15 boot reaches normal Android, `boot_completed=1`, and the Huawei
+launcher. A wake/unlock swipe displays the actual home screen; SurfaceFlinger,
+activity, window, display and power services are present. The system remains
+up for over eight minutes while checking encrypted F2FS /data, mounted modem
+filesystem, charging state, CPU schedutil frequencies and Wi-Fi enable/disable.
+Wi-Fi initializes wlan0; no network credentials or cellular connection are
+tested, and its originally disabled setting is restored. Touch input devices
+are registered; injected input does not prove physical touch accuracy.
+
+Running /proc/version identifies Clang 12 and build #15. Full device boot and
+modem_driver hashes match the staged r15 pair, ramdisk matches its unchanged
+backup, and the mounted module equals the signed companion. modem_driver is
+loaded without an unsigned-module taint. Runtime config confirms enforcing
+CFI/shadow, ThinLTO, forced SHA512 module signatures and SELinux; getenforce
+reports Enforcing and module sig_enforce reports Y. Existing kernel taint 516
+(S/W) is not treated as proof of warning-free stability.
+
+A required repeat boot fails before boot_completed: ADB briefly sees build
+#15, then the device returns to fastboot. Current pstore identifies build #15
+and the initiating failure at 29.884653 seconds:
+
+```text
+CFI failure (target: autoremove_wake_function+0x0/0x60)
+ufs_mq_tag_put -> sbitmap_queue_clear -> __wake_up_common
+```
+
+MAS tag assembly materializes this exported C callback's raw noncanonical
+address. A simultaneous platform CFI event in the timer path resolves, using
+the current ELF and KASLR slide, to `__mas_blk_latency_check_timer_expire`.
+Latency assembly takes that C wrapper's raw address as well. These two
+observed faults require typed canonical entries, not disabled CFI or relaxed
+signatures. The first home-screen boot is real, but r15 is not a reliable
+working baseline and the goal remains incomplete.
+
+Both original partitions are restored; full boot/modem_driver/ramdisk hashes,
+normal Android, original BiSheng kernel, loaded stock module and Enforcing
+SELinux are verified. Retain r15 as the best proven progress even when it
+falls outside the recent-five window. Processed full logs and screenshots are
+removed after recording the durable evidence.

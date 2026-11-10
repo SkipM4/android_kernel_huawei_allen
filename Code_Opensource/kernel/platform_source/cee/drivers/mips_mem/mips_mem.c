@@ -645,7 +645,13 @@ static const struct sysfs_ops sysfs_ops = {
 	.store  = store,
 };
 
+static void mipsmem_dev_release(struct kobject *kobj)
+{
+	kfree(container_of(kobj, struct dev_info, kobj));
+}
+
 static struct kobj_type ktype_mips = {
+	.release = mipsmem_dev_release,
 	.sysfs_ops	  = &sysfs_ops,
 	.default_attrs  = mips_attrs,
 };
@@ -654,7 +660,13 @@ static struct attribute *default_attrs[] = {
 	NULL,
 };
 
+static void mipsmem_cluster_release(struct kobject *kobj)
+{
+	kfree(container_of(kobj, struct mipsmem_cluster_policy, kobj));
+}
+
 static struct kobj_type ktype_default = {
+	.release = mipsmem_cluster_release,
 	.default_attrs  = default_attrs,
 };
 
@@ -686,11 +698,14 @@ void set_mips_mem_state(bool enabled)
 	struct dev_info *ddr_info;
 	struct dev_info *l3_info;
 
+	spin_lock_irqsave(&state_lock, flags);
 	for_each_online_cpu(cpu) {
 		struct mipsmem_cpu_info *mem_cpu = &per_cpu(cpu_info, cpu);
 
+		if (!mem_cpu->policy || !mem_cpu->policy->ddr_dev ||
+		    !mem_cpu->policy->l3c_dev)
+			continue;
 		if (cpu == cpumask_first(&mem_cpu->policy->cpu_mask)) {
-			spin_lock_irqsave(&state_lock, flags);
 			ddr_info = mem_cpu->policy->ddr_dev;
 			l3_info = mem_cpu->policy->l3c_dev;
 			ddr_info->enable = enabled;
@@ -699,9 +714,9 @@ void set_mips_mem_state(bool enabled)
 				set_hw_vote(l3_info, 0, 0);
 				set_hw_vote(ddr_info, 0, 0);
 			}
-			spin_unlock_irqrestore(&state_lock, flags);
 		}
 	}
+	spin_unlock_irqrestore(&state_lock, flags);
 }
 
 static int mips_mem_idle_notif(struct notifier_block *nb, unsigned long action,
@@ -730,7 +745,8 @@ static struct mipsmem_cluster_policy *mipsmem_cluster_alloc_and_init(struct plat
 {
 	struct mipsmem_cluster_policy *policy = NULL;
 	int ret = 0;
-	int cpu;
+	int cpu, linked_cpu;
+	unsigned long flags;
 	struct device *dev = &pdev->dev;
 	struct device *cpu_dev;
 	struct mipsmem_cpu_info *mem_cpu = &per_cpu(cpu_info, cpumask_first(cpus));
@@ -738,8 +754,9 @@ static struct mipsmem_cluster_policy *mipsmem_cluster_alloc_and_init(struct plat
 	policy = mem_cpu->policy;
 	if (policy)
 		return policy;
-	policy = devm_kzalloc(dev, sizeof(*policy), GFP_KERNEL);
-	if (IS_ERR_OR_NULL(policy)) {
+	/* Per-CPU users share this policy across monitor probe failures. */
+	policy = kzalloc(sizeof(*policy), GFP_KERNEL);
+	if (!policy) {
 		dev_err(dev, "mips mem alloc cluster err\n");
 		return NULL;
 	}
@@ -751,27 +768,40 @@ static struct mipsmem_cluster_policy *mipsmem_cluster_alloc_and_init(struct plat
 	if (ret) {
 		dev_err(dev, "mips: failed to init cluster->kobj: %d\n", ret);
 		kobject_put(&policy->kobj);
-		goto error;
+		return NULL;
 	}
 
 	for_each_cpu(cpu, cpus) {
 		cpu_dev = get_cpu_device(cpu);
 		ret = sysfs_create_link(&cpu_dev->kobj, &policy->kobj, "mips_mem");
+		if (ret) {
+			dev_err(dev, "mips: symlink creation cpu%d failed\n", cpu);
+			goto error;
+		}
+	}
+
+	for_each_cpu(cpu, cpus) {
 		mem_cpu = &per_cpu(cpu_info, cpu);
-			if (ret) {
-				dev_err(dev, "mips: symlink creation cpu%d failed\n", cpu);
-				kobject_put(&policy->kobj);
-				goto error;
-			}
-			mem_cpu->policy = policy;
-			mem_cpu->cpu = cpu;
-			mem_cpu->enable = true;
 		mem_cpu->mips_cpu_idle_nb.notifier_call = mips_mem_idle_notif;
 		cpu_pm_register_notifier(&mem_cpu->mips_cpu_idle_nb);
 	}
+	spin_lock_irqsave(&state_lock, flags);
+	for_each_cpu(cpu, cpus) {
+		mem_cpu = &per_cpu(cpu_info, cpu);
+		mem_cpu->policy = policy;
+		mem_cpu->cpu = cpu;
+		mem_cpu->enable = true;
+	}
+	spin_unlock_irqrestore(&state_lock, flags);
 	return policy;
 error:
-	devm_kfree(dev, policy);
+	for_each_cpu(linked_cpu, cpus) {
+		if (linked_cpu == cpu)
+			break;
+		cpu_dev = get_cpu_device(linked_cpu);
+		sysfs_remove_link(&cpu_dev->kobj, "mips_mem");
+	}
+	kobject_put(&policy->kobj);
 	return NULL;
 }
 
@@ -886,30 +916,14 @@ static int mipsmem_dev_alloc_and_init(struct platform_device *pdev, struct mipsm
 	struct dev_info *dev_info = NULL;
 	struct device *dev = &pdev->dev;
 	int ret;
+	unsigned long flags;
 
-	dev_info = devm_kzalloc(dev, sizeof(*dev_info), GFP_KERNEL);
+	dev_info = kzalloc(sizeof(*dev_info), GFP_KERNEL);
 	if (dev_info == NULL) {
 		dev_err(dev, "[%s] node %s doesn't have dev_info alloc fail!\n",
 			__func__, dev->of_node->name);
 		return -ENOMEM;
 	}
-	if (strstr(pdev->name, "l3")) {
-		policy->l3c_dev = dev_info;
-		ret = kobject_init_and_add(&dev_info->kobj, &ktype_mips,
-					   &policy->kobj, "mips_l3");
-
-		dev_info(dev, "mips: l3 name: %s\n", pdev->name);
-	} else {
-		policy->ddr_dev = dev_info;
-		ret = kobject_init_and_add(&dev_info->kobj, &ktype_mips,
-					   &policy->kobj, "mips_ddr");
-		dev_info(dev, "mips: ddr name: %s\n", pdev->name);
-	}
-	if (ret) {
-		dev_err(dev, "mips: failed to init dev_info->kobj: %d\n", ret);
-		goto error;
-	}
-
 	dev_info->freq_map = init_core_dev_map(dev, "core-dev-table", &dev_info->map_len);
 	if (dev_info->freq_map == NULL) {
 		dev_err(dev, "Couldn't find the freq map table!\n");
@@ -929,11 +943,25 @@ static int mipsmem_dev_alloc_and_init(struct platform_device *pdev, struct mipsm
 	dev_info->ipc_min_sample_time_ns = default_ipc_min_sample_time;
 	dev_info->nipc_min_sample_time = ARRAY_SIZE(default_ipc_min_sample_time);
 	dev_info->mem_load_window_size_ns = DEFAULT_MEM_WINDOW_SIZE;
+	ret = kobject_init_and_add(&dev_info->kobj, &ktype_mips,
+				   &policy->kobj,
+				   strstr(pdev->name, "l3") ? "mips_l3" : "mips_ddr");
+	if (ret) {
+		dev_err(dev, "mips: failed to init dev_info->kobj: %d\n", ret);
+		kobject_put(&dev_info->kobj);
+		return ret;
+	}
 	init_vote_max_freq(dev_info);
+	/* Scheduler callbacks must never observe a partially initialized monitor. */
+	spin_lock_irqsave(&state_lock, flags);
+	if (strstr(pdev->name, "l3"))
+		policy->l3c_dev = dev_info;
+	else
+		policy->ddr_dev = dev_info;
+	spin_unlock_irqrestore(&state_lock, flags);
 	return 0;
 error:
-	kobject_put(&policy->kobj);
-	devm_kfree(dev, dev_info);
+	kfree(dev_info);
 	return ret;
 }
 
@@ -956,10 +984,8 @@ static int mips_driver_probe(struct platform_device *pdev)
 	}
 
 	ret = mipsmem_dev_alloc_and_init(pdev, policy);
-	if (ret) {
+	if (ret)
 		dev_err(dev, "init dev fail\n");
-		devm_kfree(dev, policy);
-	}
 	return ret;
 }
 
