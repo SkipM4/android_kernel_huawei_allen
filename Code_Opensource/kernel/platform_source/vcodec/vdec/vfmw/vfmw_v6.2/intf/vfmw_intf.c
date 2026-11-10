@@ -76,12 +76,12 @@ struct vfmw_glb_vdec_callback* vfmw_get_vdec_glb_callback(void)
 irqreturn_t vfmw_isr(int irq, void *id)
 {
 	int32_t dev_id = *((int32_t *)id);
-	unsigned long flag = 0;
+	unsigned long flag;
 
 	if (dev_id > DEC_DEV_NUM)
 		return IRQ_NONE;
 
-	vfmw_get_vdec_glb_callback()->vdec_lock_power_state(flag);
+	vfmw_get_vdec_glb_callback()->vdec_lock_power_state(&flag);
 	if (!vfmw_get_vdec_glb_callback()->vdec_get_power_state()) {
 		dprint(PRN_ERROR, "vdec now power off, irq should exit\n");
 		goto exit;

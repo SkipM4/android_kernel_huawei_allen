@@ -338,10 +338,10 @@ static bool vdec_get_smmu_glb_bypass(void)
 	return vdec_get_entry()->setting_info.smmu_glb_bypass;
 }
 
-static void vdec_lock_power_state(unsigned long flag)
+static void vdec_lock_power_state(unsigned long *flag)
 {
 	vdec_entry *vdec = vdec_get_entry();
-	spin_lock_irqsave(&vdec->power_state_spin_lock, flag);
+	spin_lock_irqsave(&vdec->power_state_spin_lock, *flag);
 }
 
 static void vdec_unlock_power_state(unsigned long flag)

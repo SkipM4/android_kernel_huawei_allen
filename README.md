@@ -20,11 +20,13 @@ Use the stock-derived compatibility build in `docs/stock-module-compat.md`
 for paired device tests, not the initial released-configuration build below.
 See `docs/clang12-cfi-iterations.md` for each attributed failure and recovery.
 
-Functional follow-up reaches r19: static sensorhub route-lock initialization
+Functional follow-up reaches r20: static sensorhub route-lock initialization
 and ION reuse eligibility repairs pass paired flash and targeted sensor/ION,
-storage, USB and display sleep/wake checks. r19 is the current test candidate,
-not a full hardware certification. Camera consent, Wi-Fi association, the
-video IRQ-flags bug and multi-level L3 voting remain unresolved or unverified.
+storage, USB and display sleep/wake checks. r20 repairs video decoder IRQ-flags
+writeback and passes named hardware AVC/HEVC decode and live accel/gyro/mag
+event tests. r20 is the current test candidate, not full hardware certification.
+The user reports preliminary front/rear camera switching and photos working
+on r19. Wi-Fi association and multi-level L3 voting remain unresolved or unverified.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
 ## Layout
@@ -110,7 +112,7 @@ For future versions, create a new boot candidate from the uncompressed Image:
 
 ```sh
 scripts/repack-allen-boot.sh out/allen-clang12-stock-compat/arch/arm64/boot/Image \
-  images/test/allen-boot-test-5.10.43-clang12-r20.img
+  images/test/allen-boot-test-5.10.43-clang12-r21.img
 ```
 
 The repacker refuses to overwrite an existing image and validates the actual
@@ -121,7 +123,7 @@ Stage that matching module partition from the same kernel output directory:
 
 ```sh
 scripts/stage-allen-modem.sh out/allen-clang12-stock-compat \
-  images/test/allen-modem_driver-test-5.10.43-clang12-r20.img
+  images/test/allen-modem_driver-test-5.10.43-clang12-r21.img
 ```
 
 Use a new versioned path for each iteration. This produces the companion signed

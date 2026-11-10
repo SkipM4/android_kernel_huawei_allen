@@ -13,7 +13,7 @@ This meets the self-built kernel normal-system-boot goal. It is not a claim of
 complete firmware feature parity or a production/long-term stress certificate.
 No stock rollback is performed after the original acceptance checks. The r17
 pair remains retained as a proven rollback baseline. Subsequent functional
-work installs r19 as a newer test candidate; see `docs/clang12-functional-tests.md`
+work installs r20 as a newer test candidate; see `docs/clang12-functional-tests.md`
 for its targeted checks and outstanding hardware-validation limits.
 
 ## Proven Checks

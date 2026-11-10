@@ -47,7 +47,7 @@ typedef enum {
 	} while (0)
 
 struct vfmw_glb_vdec_callback {
-	void (*vdec_lock_power_state)(unsigned long);
+	void (*vdec_lock_power_state)(unsigned long *);
 	void (*vdec_unlock_power_state)(unsigned long);
 	bool (*vdec_get_power_state)(void);
 	bool (*vdec_get_smmu_glb_bypass)(void);
