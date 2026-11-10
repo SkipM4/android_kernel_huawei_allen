@@ -581,7 +581,7 @@ void delete_dpi_rule(const char *data, u32 len)
 	g_dpi_rules_num = 0;
 }
 
-static rwlock_t g_tcp_recover_lock;
+static DEFINE_RWLOCK(g_tcp_recover_lock);
 static uid_t g_tcp_recover_white_list[TCP_RECOVER_RULE_MAX_SIZE];
 static int g_tcp_recover_next_index = 0;
 int get_tcp_recover_somark(struct sock *sk)

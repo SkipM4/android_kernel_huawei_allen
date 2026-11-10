@@ -24,10 +24,16 @@ Functional follow-up reaches r20: static sensorhub route-lock initialization
 and ION reuse eligibility repairs pass paired flash and targeted sensor/ION,
 storage, USB and display sleep/wake checks. r20 repairs video decoder IRQ-flags
 writeback and passes named hardware AVC/HEVC decode and live accel/gyro/mag
-event tests. r20 is the current test candidate, not full hardware certification.
+event tests. r20 remains the hardware-functional reference, not full certification.
 The user reports preliminary front/rear camera switching and photos working
 on r19. Wi-Fi association and multi-level L3 voting remain unresolved or unverified.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
+
+The current installed test candidate is r22: r21 retains full early logs,
+and r22 initializes the TCP recovery rule lock. Paired readback, two boots
+and loopback TCP checks pass; early PRMEM, GPIO and duplicate-registration
+warnings remain. See `docs/clang12-early-diagnostics.md` for attribution and
+test limits. Accepted r17 and functional r20 are retained for rollback.
 
 ## Layout
 

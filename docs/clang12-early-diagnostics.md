@@ -61,8 +61,8 @@ Checks and findings after paired r21 flash:
   the PRMEM reservation/init ordering needs a separate fix.
 - S-taint is the CPU-feature variation check, not mixed EL1/EL2 startup or
   a DMA cache-alignment warning. CPU0 reports MIDR 0x411fd461, while CPU4
-  reports 0x482fd422; several ID feature registers differ and are rejected
-  by strict masks. Do not zero the taint or relax unknown reserved-field
+  reports 0x482fd422; several ID feature registers differ and trigger strict
+  mask sanity checks. Do not zero the taint or relax unknown reserved-field
   checks without an architecture-specific compatibility analysis.
 - Other retained warnings: duplicate module-version sysfs creation;
   sixteen can-sleep GPIO accesses through gpiod_get_raw_value in the
@@ -105,3 +105,46 @@ second target, copy the probe lifetime bugs, substitute its structs into ALN,
 or guess how two targets are encoded. No external code is adopted in r21.
 Next locate a compatible voting implementation or original-kernel behavior
 before restoring these monitors.
+
+## r22: Initialize The TCP Recovery Rule Lock
+
+Base: diagnostic r21, commit `465d1c8bc`. Change only the declaration of
+`g_tcp_recover_lock` in `drivers/hwnet/hw_dpi_mark/dpi_hw_hook.c` to
+`static DEFINE_RWLOCK(g_tcp_recover_lock)`. Standard initialization supplies
+the raw lock, debug magic and owner state before any netlink rule update.
+No duplicate late initialization, new fallback, whitelist alteration, rule
+algorithm change, callback-type change or netlink ABI change is introduced.
+The 8-MiB diagnostic log ring stays enabled so remaining earlier faults
+remain visible. Reference: Linux 5.10.43's rwlock initializer and the
+attributed r20/r21 write_lock_bh call chain; no external driver code.
+
+The separate existing whitelist-reader/writer concurrency semantics are
+not redesigned by this initialization fix. A local TCP smoke test is useful
+for transport regression checking, but does not certify concurrency, rule
+policy or physical networking.
+
+Checks after paired r22 flash:
+
+- Clang 12.0.7 ThinLTO build and paired staging pass. The signed modem
+  module's 390 imports match; CMS, filesystem/metadata and boot checks pass.
+- Final ELF data contains the standard initialized queued rwlock, including
+  debug magic and no-owner state. No lock-check suppression is introduced.
+- Normal Android reaches build #22 on the flash boot and one normal reboot,
+  with boot_completed=1 and the Huawei launcher present. Full boot and
+  modem_driver readback match the staged pair; independent ramdisk matches
+  the original Magisk image. SELinux remains Enforcing and sig_enforce is Y.
+- A temporary shell-context Java probe completes sixteen 4096-byte TCP
+  loopback echo rounds with exact content comparison, then removes its DEX.
+  This is transport regression coverage, not an external network test.
+- Full logs start at 0.000000. Neither boot has bad-rwlock, CFI failure or
+  panic messages. The first observation exceeds the r20/r21 postboot warning
+  window. No positive TCP whitelist-insertion trace occurs, so successful
+  whitelist insertion/deletion is not claimed or forced for this check.
+- The 21 unrelated warnings remain: PRMEM early LRU drain (one), duplicate
+  module version (one), satellite GPIO can-sleep access (sixteen), duplicate
+  sysfs group (one) and proc registration (two). S/W taint remains 516.
+
+Next isolate the satellite init_gpio reads. Their caller is the driver's
+initialization kthread, so the standard sleeping GPIO read API is suitable;
+retain GPIO direction/output values and do not exercise satellite service
+or issue radio-control writes for this diagnostic repair.
