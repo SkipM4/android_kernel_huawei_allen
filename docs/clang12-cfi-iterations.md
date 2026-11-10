@@ -481,3 +481,58 @@ Both originals are restored and full hashes verified. Stock Android reaches
 `boot_completed=1` with the original BiSheng kernel, loaded stock modem
 module and Enforcing SELinux. Processed full logs are removed after retaining
 these conclusions.
+
+## r13: Canonical Ext4 Multipage BIO Completion (2026-11-10)
+
+Add `__cficanonical` and `__ADDRESSABLE` only to the ext4 `mpage_end_io`
+definition in `fs/ext4/readpage.c`. Preserve its complete body, including
+decryption/verity post-read processing and normal completion. The unrelated
+static function in `fs/mpage.c` stays untouched. This supplies a typed CFI
+entry for the raw address stored by pagecache assembly; it does not suppress
+BIO completion checks.
+
+Compilation succeeds. Final ELF inspection confirms the global ext4 symbol
+is a BTI entry branching to its corresponding `.cfi` body. Boot repack and
+matching modem ABI/certificate/CMS/ext4/metadata checks pass. The r13 pair and
+signed module use the usual versioned paths; obsolete r8 candidates are
+removed, preserving originals and r9-r13. Identity, partition bounds, backups
+and fastboot model/unlock checks pass; both writes succeed. Build is
+`#13 SMP PREEMPT Tue Nov 10 23:06:01 CST 2026`.
+
+r13 still returns to fastboot without Android/ADB. Current console pstore
+contains build #13, but the initiating fault is overwritten by a repeated
+fault-reporting sequence on CPU 4, PID 34, `ksoftirqd/4`:
+
+```text
+[15.804063s] NULL pointer dereference at virtual address 0000000000000058
+ESR=0x96000005, current-EL data abort, read access
+[15.807857s] secondary CPU 1 Oops identifies 5.10.43 #13
+pc: do_ptrauth_fault; lr: el1_fpac
+```
+
+Do not identify the secondary pointer-authentication Oops as the initiating
+fault, or infer that all CFI failures are gone from this truncated console.
+The dmesg pstore is stale: its timestamp and embedded build identify r12,
+including the old mpage CFI panic. It is not r13 test evidence. Read-only
+rrecord inspection finds old stock/bootloader records but no build #13 or
+current fault; bootfail_info has no usable current record. No partition is
+erased or reformatted to obtain diagnostics.
+
+Source and final disassembly identify a concrete recursive-reporting hazard
+in `arch/arm64/mm/fault.c:show_pte`: for a TTBR0 address it checks
+`current->active_mm` only against `init_mm`, then loads `mm->pgd` at offset
+0x58 without checking NULL. This is consistent with the repeated address,
+but does not yet prove the original exception or why active_mm was absent.
+Next make only that diagnostic page-table dump tolerate a NULL active_mm,
+report the missing context and return to the normal fatal Oops path. This
+must preserve the original fault and register report, not turn it into a
+recoverable access or bypass CFI/PAC. Reflash a new diagnostic pair to recover
+the primary PC/LR/backtrace before choosing any driver or memory fix.
+
+Full recovery hashes match the r13 test pair and unchanged Magisk ramdisk.
+Both originals are restored and their full hashes verified. Normal Android
+(`boot_completed=1`), original BiSheng kernel, loaded stock modem module and
+Enforcing SELinux are confirmed. Current best confidently attributed progress
+remains r12 past the gear-control hook; preserve it if a later retention
+window would otherwise exclude it. Processed full logs/partition snapshots
+are removed after retaining these findings.

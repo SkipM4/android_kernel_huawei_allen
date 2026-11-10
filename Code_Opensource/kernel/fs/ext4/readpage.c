@@ -186,7 +186,7 @@ ext4_trace_read_completion(struct bio *bio)
 #ifndef CONFIG_MM_PAGECACHE_HELPER
 static
 #endif
-void mpage_end_io(struct bio *bio)
+void __cficanonical mpage_end_io(struct bio *bio)
 {
 	if (trace_android_fs_dataread_start_enabled())
 		ext4_trace_read_completion(bio);
@@ -200,6 +200,7 @@ void mpage_end_io(struct bio *bio)
 	}
 	__read_end_io(bio);
 }
+__ADDRESSABLE(mpage_end_io)
 
 #ifndef CONFIG_MM_PAGECACHE_HELPER
 static
