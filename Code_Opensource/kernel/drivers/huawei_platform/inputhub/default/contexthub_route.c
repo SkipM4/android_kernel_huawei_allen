@@ -183,23 +183,32 @@ static struct workqueue_struct *mcu_aod_wq;
 static unsigned int adapt_ext_hall_index;
 static DEFINE_MUTEX(mutex_update);
 
+/* Routes can be accessed before the asynchronous IOMCU boot notification. */
 static struct inputhub_route_table package_route_tbl[] = {
 	{ ROUTE_SHB_PORT, {NULL, 0}, {NULL, 0}, {NULL, 0},
-		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[0].read_wait) },
+		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[0].read_wait),
+		ATOMIC_INIT(0), __SPIN_LOCK_UNLOCKED(package_route_tbl[0].buffer_spin_lock) },
 	{ ROUTE_MOTION_PORT, {NULL, 0}, {NULL, 0}, {NULL, 0},
-		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[1].read_wait) },
+		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[1].read_wait),
+		ATOMIC_INIT(0), __SPIN_LOCK_UNLOCKED(package_route_tbl[1].buffer_spin_lock) },
 	{ ROUTE_CA_PORT, {NULL, 0}, {NULL, 0}, {NULL, 0},
-		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[2].read_wait) },
+		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[2].read_wait),
+		ATOMIC_INIT(0), __SPIN_LOCK_UNLOCKED(package_route_tbl[2].buffer_spin_lock) },
 	{ ROUTE_FHB_PORT, {NULL, 0}, {NULL, 0}, {NULL, 0},
-		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[3].read_wait) },
+		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[3].read_wait),
+		ATOMIC_INIT(0), __SPIN_LOCK_UNLOCKED(package_route_tbl[3].buffer_spin_lock) },
 	{ ROUTE_FHB_UD_PORT, {NULL, 0}, {NULL, 0}, {NULL, 0},
-		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[4].read_wait) },
+		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[4].read_wait),
+		ATOMIC_INIT(0), __SPIN_LOCK_UNLOCKED(package_route_tbl[4].buffer_spin_lock) },
 	{ ROUTE_KB_PORT, {NULL, 0}, {NULL, 0}, {NULL, 0},
-		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[5].read_wait) },
+		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[5].read_wait),
+		ATOMIC_INIT(0), __SPIN_LOCK_UNLOCKED(package_route_tbl[5].buffer_spin_lock) },
 	{ ROUTE_MLPS_PORT, {NULL, 0}, {NULL, 0}, {NULL, 0},
-		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[6].read_wait) },
+		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[6].read_wait),
+		ATOMIC_INIT(0), __SPIN_LOCK_UNLOCKED(package_route_tbl[6].buffer_spin_lock) },
 	{ ROUTE_DE_PORT, {NULL, 0}, {NULL, 0}, {NULL, 0},
-		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[7].read_wait) },
+		__WAIT_QUEUE_HEAD_INITIALIZER(package_route_tbl[7].read_wait),
+		ATOMIC_INIT(0), __SPIN_LOCK_UNLOCKED(package_route_tbl[7].buffer_spin_lock) },
 };
 
 static struct {
@@ -3440,10 +3449,6 @@ void inputhub_route_pm_wakeup_event(unsigned int msec)
 
 void init_locks(void)
 {
-	int i;
-
-	for (i = 0; i < ARRAY_SIZE(package_route_tbl); ++i)
-		spin_lock_init(&package_route_tbl[i].buffer_spin_lock);
 	mutex_init(&mutex_write_cmd);
 	mutex_init(&mutex_write_adapter);
 	mutex_init(&mutex_unpack);
