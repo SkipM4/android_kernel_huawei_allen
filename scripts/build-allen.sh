@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
 toolchain="$PWD/tools/toolchains/clang-r416183b1"
-output="$PWD/out/allen-clang12"
+output=$(realpath -m -- "${OUTPUT_DIR:-$PWD/out/allen-clang12}")
 export PATH="$PWD/tools/host/bin:$toolchain/bin:$PATH"
 
 printf 'Working directory: %s\n' "$PWD"
@@ -30,6 +30,7 @@ if make -C Code_Opensource/kernel \
     ARCH=arm64 O="$output" LLVM=1 LLVM_IAS=1 \
     CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabi- \
     CLANG_PREBUILTS_PATH="$toolchain/" LOCALVERSION= \
+    LD="$toolchain/bin/ld.lld --thinlto-jobs=2 --thinlto-cache-policy=cache_size_bytes=1g" \
     -j"${JOBS:-8}" "$@" >"$log" 2>&1; then
     tail -n 10 "$log"
 else

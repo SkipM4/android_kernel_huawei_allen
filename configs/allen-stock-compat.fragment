@@ -1,0 +1,11 @@
+# The OEM PGO data and private signing tools are not in this source release.
+# CONFIG_KERNEL_CODEMERGE is not set
+# Its implementation is absent; standard enforcing CFI remains enabled.
+# CONFIG_HKIP_CFI_HARDEN is not set
+# Full LTO exhausted host memory; ThinLTO retains standard cross-module CFI.
+# CONFIG_LTO_CLANG_FULL is not set
+CONFIG_LTO_CLANG_THIN=y
+CONFIG_MODULE_SIG_KEY="certs/signing_key.pem"
+CONFIG_SYSTEM_TRUSTED_KEYS="../../configs/allen-stock-module-signing.pem"
+# Match the stock kernel rather than enabling this from a nonempty tool prefix.
+# CONFIG_COMPAT_VDSO is not set

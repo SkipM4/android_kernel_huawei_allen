@@ -151,3 +151,6 @@ Next: locate the installed `modem_driver` and compare its symbol CRCs and CFI
 requirements with this build, then package a candidate preserving the original
 boot header, LZ4 format, stub ramdisk and DTB. Retain a recoverable known-good
 image before any flash test.
+
+Follow-up results and the unflashed paired candidate are recorded in
+`docs/stock-module-compat.md`.

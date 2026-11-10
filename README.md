@@ -12,6 +12,7 @@ before attempting newer kernels. Project safety rules are in `AGENTS.md`.
 - `out/allen-clang12/`: independent kernel output directory; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
+- `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
 project root and are excluded from Git. Never overwrite them.
@@ -27,9 +28,12 @@ scripts/build-allen.sh
 
 The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
-ARM64. `JOBS` overrides the default eight build jobs. `LOCALVERSION=` keeps the
+ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
+independent output directory. `LOCALVERSION=` keeps the
 stock `5.10.43` release string instead of adding a Git suffix; this alone does
 not establish module ABI compatibility.
+ThinLTO links use two backend jobs and a bounded cache to avoid the observed
+Full LTO memory failure and excessive cache growth.
 
 Additional make targets can be passed directly, for example:
 
@@ -57,3 +61,22 @@ kernel. Do not merge the Magisk ramdisk into boot.
 Configuration success or compilation success is not a boot or module-ABI test.
 Do not flash until the candidate image, target partition, recovery path and
 fastboot identity have been verified according to `AGENTS.md`.
+
+The initial released-config kernel does not satisfy the installed modem module's
+symbol CRCs or CFI imports. See `docs/stock-module-compat.md` for the separate
+stock-derived configuration, verified OEM public certificate and ABI checker.
+
+The ThinLTO/CFI `r2` candidate is a matching boot/modem_driver pair, not a
+boot-only replacement. Both test images and their rollback requirements are
+recorded in that document; they have not been flashed.
+
+For future versions, create a new boot candidate from the uncompressed Image:
+
+```sh
+scripts/repack-allen-boot.sh out/allen-clang12-stock-compat/arch/arm64/boot/Image \
+  images/test/allen-boot-test-5.10.43-clang12-r3.img
+```
+
+The repacker refuses to overwrite an existing image and validates the actual
+packed components. A corresponding ABI-matched, signed modem-driver filesystem
+image is still required; a successful repack does not establish successful boot.
