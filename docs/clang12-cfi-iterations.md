@@ -658,3 +658,65 @@ normal Android, original BiSheng kernel, loaded stock module and Enforcing
 SELinux are verified. Retain r15 as the best proven progress even when it
 falls outside the recent-five window. Processed full logs and screenshots are
 removed after recording the durable evidence.
+
+## r16: Waitqueue Wake And Latency Timer Entries (2026-11-11)
+
+Apply `__cficanonical` to exported `autoremove_wake_function` in
+`kernel/sched/wait.c`, whose export already makes it addressable. Add
+canonical/addressable annotations to the existing MAS latency timer wrapper
+in both version branches of `mas_blk_latency_interface.c`. Prototypes,
+function bodies, waitqueue removal and timer diagnostics are unchanged.
+These are the two observed assembly-facing targets from the r15 repeat boot;
+standard CFI remains enforcing, not bypassed.
+
+Compilation succeeds. Final address-based ELF inspection proves both public
+symbols are canonical BTI entries leading to their matching `.cfi` bodies.
+Boot repack and matching modem ABI/certificate/CMS/ext4/metadata checks pass;
+390 imports match with no missing exports or CRC mismatches. The r16 pair
+and companion module use the usual versioned paths. Obsolete r11 candidates
+are removed, preserving originals and the five recent pairs r12-r16.
+
+Identity, bounds, original baseline hashes and fastboot model/unlock checks
+pass. Both writes succeed without an intervening reboot. Build is
+`#16 SMP PREEMPT Wed Nov 11 00:05:16 CST 2026`. The first boot reaches normal
+Android and `boot_completed=1`; an awake screen capture displays the Huawei
+home launcher. A normal reboot reaches `boot_completed=1` again on the same
+self-built kernel, unlike r15. Final stability and readback checks are in
+progress at this point; this is not yet a completed validation record.
+
+Both boots show the actual home launcher. The second remains up for over five
+minutes with encrypted F2FS /data mounted read-write, CE user 0 available,
+SurfaceFlinger/activity/power services and a loaded signed modem module.
+An owned 16 MiB /data file passes repeated buffered read/hash checks and is
+removed. Sleep/wake and Wi-Fi enable/disable pass, restoring the original
+Wi-Fi setting; physical touch, network association and calls are not tested.
+Full boot/modem_driver hashes match r16, the mounted module matches its signed
+companion, and the separate Magisk ramdisk is unchanged. Runtime config
+confirms enforcing CFI/shadow, ThinLTO, forced SHA512 signatures and SELinux;
+getenforce is Enforcing and sig_enforce is Y. Taint 516 (S/W) and the earlier
+sensorhub spinlock warning remain, so this is not warning-free certification.
+
+Continued unattended operation fails at 3624.819951 seconds. On reconnection
+the target is in fastboot; both recovery pstore records identify build #16
+and the initiating panic:
+
+```text
+CFI failure (target: hck_hyperframe_set_opf+0x0/0x4c)
+storaged -> f2fs_direct_IO -> __blockdev_direct_IO -> dio_new_bio
+```
+
+This is a direct-I/O vendor-hook callback, which the buffered file checks did
+not exercise. Hyperframe assembly registers eleven hook callbacks with raw
+assembly addresses, without compiler CFI metadata; its r11 C initcall fix
+does not supply metadata for these runtime callbacks. Next add typed canonical
+C entries for this audited callback family, preserving the assembly bodies
+and hook registration, and test actual O_DIRECT reads/writes on an owned file.
+Do not accept two successful boots as a reliable working baseline in the face
+of this concrete runtime failure, or disable CFI to avoid it.
+
+Recovery readback matches both r16 images and the unchanged ramdisk. Both
+original partitions are restored and their full hashes verified. Normal stock
+Android, boot_completed=1, the original BiSheng kernel, loaded stock modem
+module and Enforcing SELinux are confirmed. r16 remains the furthest proven
+bring-up progress, not a completed working-kernel goal. Processed logs are
+removed after retaining these findings.

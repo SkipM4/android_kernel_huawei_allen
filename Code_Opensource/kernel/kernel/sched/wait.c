@@ -395,7 +395,7 @@ void finish_wait(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_en
 }
 EXPORT_SYMBOL(finish_wait);
 
-__sched int autoremove_wake_function(struct wait_queue_entry *wq_entry, unsigned int mode,
+__sched int __cficanonical autoremove_wake_function(struct wait_queue_entry *wq_entry, unsigned int mode,
 				     int sync, void *key)
 {
 	int ret = default_wake_function(wq_entry, mode, sync, key);

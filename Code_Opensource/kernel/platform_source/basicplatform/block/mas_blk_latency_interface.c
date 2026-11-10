@@ -18,7 +18,7 @@
 #include "mas_blk_latency_interface.h"
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,19,0))
-void __mas_blk_latency_check_timer_expire(struct timer_list *timer)
+void __cficanonical __mas_blk_latency_check_timer_expire(struct timer_list *timer)
 {
 	struct blk_bio_cust *mas_bio = (struct blk_bio_cust *)from_timer(mas_bio,
 			timer, latency_expire_timer);
@@ -26,11 +26,12 @@ void __mas_blk_latency_check_timer_expire(struct timer_list *timer)
 	mas_blk_latency_check_timer_expire((unsigned long)bio);
 }
 #else
-void __mas_blk_latency_check_timer_expire(unsigned long data)
+void __cficanonical __mas_blk_latency_check_timer_expire(unsigned long data)
 {
 	mas_blk_latency_check_timer_expire(data);
 }
 #endif
+__ADDRESSABLE(__mas_blk_latency_check_timer_expire)
 
 ssize_t __mas_queue_io_latency_warning_threshold_store(
 	struct request_queue *q, const char *page, size_t count)
