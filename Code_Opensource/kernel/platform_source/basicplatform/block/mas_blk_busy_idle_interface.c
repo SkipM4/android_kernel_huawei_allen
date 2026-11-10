@@ -34,10 +34,12 @@ int __cfi_mas_blk_busyidle_notify_handler(
 	return mas_blk_busyidle_notify_handler(nb, val, v);
 }
 
-void __cfi_mas_blk_idle_notify_work(struct work_struct *work)
+void __cficanonical __cfi_mas_blk_idle_notify_work(struct work_struct *work)
 {
 	mas_blk_idle_notify_work(work);
 }
+/* Keep the callback address installed by assembly visible to LTO. */
+__ADDRESSABLE(__cfi_mas_blk_idle_notify_work)
 
 void __cfi_mas_blk_busyidle_end_rq(struct request *rq, blk_status_t error)
 {

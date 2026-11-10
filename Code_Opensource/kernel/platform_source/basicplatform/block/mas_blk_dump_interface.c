@@ -14,9 +14,10 @@
 
 #include "mas_blk_dump_interface.h"
 
-int __cfi_mas_blk_panic_notify(
+int __cficanonical __cfi_mas_blk_panic_notify(
 	struct notifier_block *nb, unsigned long event, void *buf)
 {
 	return mas_blk_panic_notify(nb, event, buf);
 }
+__ADDRESSABLE(__cfi_mas_blk_panic_notify)
 

@@ -206,3 +206,54 @@ Normal Android boot, the original BiSheng kernel, loaded stock modem module and
 Enforcing SELinux are verified; the independent Magisk ramdisk is unchanged.
 Full logs are removed after extracting this evidence. The five most recent
 candidate pairs (r2 through r6) are retained within the 20 GB workspace limit.
+
+## r7: Busy/Idle Work And Panic Notifier (2026-11-10)
+
+Give `__cfi_mas_blk_idle_notify_work` and `__cfi_mas_blk_panic_notify` canonical
+entries in the existing busy/idle and dump C interfaces. Use `__ADDRESSABLE`
+alongside `__cficanonical`, following the initcall-stub pattern: these functions
+are referenced by published assembly, not exported C callback tables. No
+function body, work initialization, notifier priority or panic handling is
+removed or changed.
+
+Compilation and final disassembly pass: both public symbols are checked BTI
+jump-table entries targeting their `.cfi` implementations. Matching-module
+ABI/signature/ext4 checks and boot repack checks pass. Test images are the
+`allen-boot-test-5.10.43-clang12-r7.img` and
+`allen-modem_driver-test-5.10.43-clang12-r7.img` pair in `images/test/`, with
+the companion signed r7 module. Original r2 candidates are now outside the
+five-version retention window and are removed; original device backups remain.
+
+The usual identity, partition, backup and fastboot unlock/model checks pass;
+both flashes succeed. Build is `#7 SMP PREEMPT Tue Nov 10 21:30:53 CST 2026`.
+r7 still returns to fastboot without reaching Android. Current recovery pstore
+identifies `5.10.43 #7` and contains only one panic:
+
+```text
+[14.735973s] CFI failure (target: __cfi_mas_blk_flush_init+0x0/0x1c)
+do_boottime_initcall -> do_one_initcall -> do_initcalls
+```
+
+Busy/idle work is no longer the initiating fault; the panic notifier no longer
+causes the recursive crash sequence. The new failure is a flush initcall whose
+published assembly supplies its raw wrapper address through a PREL32 initcall
+entry. The compiler's own initcall-stub idiom provides the relevant precedent.
+
+A linked-address audit now establishes the scope of this error class rather
+than guessing the next callback: 20 distinct `__cfi_*` C wrapper symbols are
+taken by MAS assembly, and only the two r7 targets are canonical entries.
+The remaining 18 resolve to raw implementation addresses, including the new
+flush-init target. All have existing definitions in MAS C interface files.
+
+This stronger evidence supersedes the earlier plan to wait for each callback
+to fail individually. Next add canonical/addressable entries only to these
+18 audited MAS assembly-facing wrappers, keeping their prototypes and bodies
+unchanged. Recheck all 20 linked entry points before deploying the next pair.
+This is a single assembly-to-C CFI ABI repair, not a general compiler flag
+change, an untyped whitelist or a CFI bypass; unrelated driver callbacks stay
+untouched. A genuinely wrong prototype must still fail CFI and be diagnosed.
+
+Both original partitions are restored and verified byte-for-byte. Normal
+Android, original BiSheng kernel, loaded stock module, Enforcing SELinux and
+unchanged Magisk ramdisk are confirmed. Full logs and the temporary audit list
+are removed after recording these results.
