@@ -263,9 +263,10 @@ static struct ion_buffer *ion_buffer_reuse(struct ion_heap *heap,
 {
 	struct ion_buffer *buffer;
 
-	// if the restriction is deleted, the whitelist processes revenue is reduced.
+	if (!(heap->flags & ION_HEAP_FLAG_FREE_BUF_REUSE))
+		return NULL;
 	if (!task_judge(heap))
-		return buffer;
+		return NULL;
 	buffer = ion_heap_alloc_from_reuselist(heap, len);
 	if (buffer) {
 #ifdef CONFIG_MM_LB

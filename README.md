@@ -12,13 +12,20 @@ CFI entries for the audited hyperframe callbacks, reaches the home screen on
 two boots and passes actual direct-I/O read/write checks. Its second boot runs
 continuously for over 65 minutes without panic or restart, beyond r16's known
 failure window. r17 is the first accepted self-built normal-boot baseline and
-remains installed. This establishes the boot goal, not complete OEM feature
-parity or production stability. See `docs/clang12-working-baseline.md` for
+is retained as the tested rollback pair. This establishes the boot goal, not
+complete OEM feature parity or production stability. See `docs/clang12-working-baseline.md` for
 reproduction, the accepted image pair, rollback and remaining limitations.
 
 Use the stock-derived compatibility build in `docs/stock-module-compat.md`
 for paired device tests, not the initial released-configuration build below.
 See `docs/clang12-cfi-iterations.md` for each attributed failure and recovery.
+
+Functional follow-up reaches r19: static sensorhub route-lock initialization
+and ION reuse eligibility repairs pass paired flash and targeted sensor/ION,
+storage, USB and display sleep/wake checks. r19 is the current test candidate,
+not a full hardware certification. Camera consent, Wi-Fi association, the
+video IRQ-flags bug and multi-level L3 voting remain unresolved or unverified.
+See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
 ## Layout
 
@@ -34,6 +41,7 @@ See `docs/clang12-cfi-iterations.md` for each attributed failure and recovery.
 - `docs/clang12-r2-flash-test.md`: r2 CFI boot failure, verified rollback and next fix.
 - `docs/clang12-cfi-iterations.md`: targeted CFI fixes and subsequent paired tests.
 - `docs/clang12-working-baseline.md`: accepted r17 boot baseline and test scope.
+- `docs/clang12-functional-tests.md`: r18/r19 repairs and hardware test limits.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
 project root and are excluded from Git. Never overwrite them.
@@ -94,14 +102,15 @@ CFI panic before Android starts; both originals are restored and normal boot is
 verified. See `docs/clang12-r2-flash-test.md`. Do not reuse r2 as a working kernel.
 Subsequent fixes reach normal Android; r16's later direct-I/O CFI failure is
 repaired in the accepted r17 baseline. Originals are restored after failed
-tests, but r17 remains installed after successful validation. See
+tests; functional candidates later replace the installed r17 while its pair
+is retained as a rollback baseline. See
 `docs/clang12-cfi-iterations.md` for the complete failure and recovery history.
 
 For future versions, create a new boot candidate from the uncompressed Image:
 
 ```sh
 scripts/repack-allen-boot.sh out/allen-clang12-stock-compat/arch/arm64/boot/Image \
-  images/test/allen-boot-test-5.10.43-clang12-r18.img
+  images/test/allen-boot-test-5.10.43-clang12-r20.img
 ```
 
 The repacker refuses to overwrite an existing image and validates the actual
@@ -112,7 +121,7 @@ Stage that matching module partition from the same kernel output directory:
 
 ```sh
 scripts/stage-allen-modem.sh out/allen-clang12-stock-compat \
-  images/test/allen-modem_driver-test-5.10.43-clang12-r18.img
+  images/test/allen-modem_driver-test-5.10.43-clang12-r20.img
 ```
 
 Use a new versioned path for each iteration. This produces the companion signed

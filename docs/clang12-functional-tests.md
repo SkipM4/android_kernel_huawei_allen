@@ -50,6 +50,50 @@ New attributed nonfatal findings in the #18 log:
   also returns an uninitialized pointer on a whitelist miss. Next restrict
   it to reuse-enabled heaps and return NULL for a miss; keep normal
   allocation and enabled-heap reuse behavior intact.
+
+Checks:
+
+- Clang 12.0.7 ThinLTO build, diff checks and paired boot/modem staging pass;
+  390 module imports match, CMS/metadata/ext4/boot checks pass.
+- Paired flash reaches build #19 in normal Android. Full boot/modem_driver
+  readback matches r19; the independent Magisk ramdisk remains unchanged.
+- A temporary ARM64 syscall probe uses this tree's ION UAPI, queries the
+  ordinary system-RAM heap (`sys_heap`), and completes sixteen 64-KiB
+  allocate/map/write/read/unmap/close rounds as a non-whitelisted process.
+  No secure/reserved heap, reuse whitelist or debugfs setting is changed.
+  This verifies the normal fallback, not whitelist-hit recycling under load.
+- USB transfer and a 2-MiB actual O_DIRECT write/read/hash comparison pass.
+  The owned diagnostic binary and data directory are removed afterward.
+- The first available root log starts at 13.50 seconds, covering the time
+  of r18's ION fault; neither it nor the test log reports bad route spinlock,
+  bad ION rwlock, CFI failure or panic. The vfmw IRQ warning still occurs.
+- Wi-Fi enables, but acquires no IPv4/default route, so association and data
+  transport remain unverified. Restore the original disabled Wi-Fi state.
+- Display sleep and wake requests succeed. Attached USB/ADB prevents these
+  checks from proving deep system suspend or idle-power parity.
+- CFI configuration is unchanged, module sig_enforce is Y, SELinux remains
+  Enforcing and the signed modem module is loaded. Taint remains 516.
+- A normal reboot again reaches build #19, `boot_completed=1` and the Huawei
+  home launcher, with the signed module loaded and SELinux Enforcing. Its
+  captured log again has no bad route spinlock, ION rwlock, CFI failure or
+  panic, but still has the video ISR warning. This is short-run verification,
+  not a repeat of r17's longer acceptance observation or stress certification.
+
+Current installed candidate:
+
+- `images/test/allen-boot-test-5.10.43-clang12-r19.img`
+- `images/test/allen-modem_driver-test-5.10.43-clang12-r19.img`
+
+Keep these paired. Retain accepted r17 and the stock boot/modem_driver
+originals; if this candidate fails later, attribute the recovery pstore to
+its build before restoring both r17 images (or both originals). Do not touch
+the separate ramdisk or user-data partitions. Keep only the recent five
+candidate pairs plus the best accepted baseline; processed diagnostics are
+removed rather than committed.
+
+Camera preview still awaits the user's first-use consent. Physical touch,
+cellular calls/data, Bluetooth, full sensor coverage, hardware video playback,
+long-term stress and deep suspend remain outside this round's proven results.
 - IRQ 113 reports `vfmw_isr` returning with interrupts enabled. This video
   decoder ISR issue is separate from both lock fixes and needs its own
   call-chain investigation; do not suppress the core IRQ warning.
@@ -57,3 +101,24 @@ New attributed nonfatal findings in the #18 log:
 L3 c1/c2 remains unsupported multi-level voting, not missing DT data. No
 hardware register encodings, frequency table columns or DT values are guessed.
 Keep the accepted r17 boot/module pair and stock originals as rollback paths.
+
+## r19: ION Reuse Eligibility (2026-11-11)
+
+Base: r18 sensor-route repair, commit `3ace804a9`. Change only `ion.c`:
+`ion_buffer_reuse()` returns NULL before touching reuse state for heaps
+without ION_HEAP_FLAG_FREE_BUF_REUSE, and returns NULL instead of a garbage
+pointer when the allocating process is absent from the reuse whitelist.
+`ion_buffer_create()` already interprets NULL as a reuse miss and performs
+normal allocation. Reuse-enabled heaps retain their initialization, lists,
+whitelist and allocation behavior. No blanket lock initialization, policy
+change or disabled optimization is needed.
+
+Reference: official Linux 5.10.43 source's ION heap flags, reuse initialization
+and buffer-creation contract. This is a local OEM extension repair, not a
+claim that the extension exists in upstream Linux.
+
+The separate video ISR warning has also been narrowed down: its power-lock
+callback takes saved IRQ flags by value. `spin_lock_irqsave()` changes only
+that callee's local copy, while the ISR restores its unchanged zero flags.
+Next change the lock callback to return or write back the real saved flags;
+do not mask the warning or disable interrupts as a workaround.
