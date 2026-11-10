@@ -435,3 +435,49 @@ Recovery full hashes match the r11 test pair and unchanged Magisk ramdisk.
 Both originals are restored and full hashes verified. Normal stock Android,
 original BiSheng kernel, loaded stock modem module and Enforcing SELinux are
 confirmed; processed full logs are removed after recording the evidence.
+
+## r12: Typed Entries For Opaque Gear-Control Callbacks (2026-11-10)
+
+Add `mas_blk_gear_ctrl_interface.c` with four canonical/addressable C wrappers:
+the three audited vendor-hook callbacks and `mas_gear_ctrl_work`. Each calls
+the corresponding global `_asm` implementation directly. Rename only the
+assembly definitions/type/size directives; leave registration references
+pointing to the original names, which now resolve to the CFI entries. Build
+the interface under the existing gear-control configuration. Hook signatures
+come from `hck_mas_ufs_gear_ctrl.h`; the work callback uses the standard
+`struct work_struct *` signature.
+
+Source body comparison confirms all four assembly implementations are
+unchanged. Compilation succeeds, and final ELF inspection proves each
+public name is a canonical BTI entry leading to its typed `.cfi` wrapper,
+which directly calls the correct preserved assembly body. Boot packaging and
+matching modem ABI/certificate/CMS/ext4/metadata checks pass. The r12 pair
+and signed module use the usual versioned paths; obsolete r7 candidates are
+removed, retaining originals and r8-r12.
+
+Identity, partition bounds, backups and fastboot model/unlock checks pass;
+both writes succeed. Build is `#12 SMP PREEMPT Tue Nov 10 22:53:14 CST 2026`.
+r12 passes the previous gear-control hook failure but still returns to
+fastboot before Android/ADB becomes available. Current recovery pstore
+identifies build #12 and one initiating panic:
+
+```text
+[15.755251s] CFI failure (target: mpage_end_io+0x0/0x1b4)
+lo_complete_rq -> blk_mq_end_request -> blk_update_request -> bio_endio
+```
+
+This is a BIO-completion ABI failure, not a gear-control or sensor-driver
+panic; the interrupt happens to interrupt a sensor work item. The target is
+the global ext4 `mpage_end_io` in `fs/ext4/readpage.c`, exposed under
+`CONFIG_MM_PAGECACHE_HELPER`. Do not confuse it with the unrelated static
+function of the same name in `fs/mpage.c`. Pagecache assembly stores its raw
+global address in `bio->bi_end_io`; the final ELF has a separate noncanonical
+`.cfi_jt` entry. Next canonicalize only this ext4 completion callback, keeping
+decryption/verity post-processing and normal read completion unchanged.
+The nonfatal sensorhub spinlock warning remains unresolved separately.
+
+Recovery partition hashes match the r12 pair and unchanged Magisk ramdisk.
+Both originals are restored and full hashes verified. Stock Android reaches
+`boot_completed=1` with the original BiSheng kernel, loaded stock modem
+module and Enforcing SELinux. Processed full logs are removed after retaining
+these conclusions.

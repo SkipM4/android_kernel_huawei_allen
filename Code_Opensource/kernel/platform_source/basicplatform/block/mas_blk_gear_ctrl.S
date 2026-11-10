@@ -293,8 +293,9 @@ mas_gear_ctrl_init:                     // @mas_gear_ctrl_init
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function mas_gear_ctrl_work
-	.type	mas_gear_ctrl_work,@function
-mas_gear_ctrl_work:                     // @mas_gear_ctrl_work
+	.globl	mas_gear_ctrl_work_asm
+	.type	mas_gear_ctrl_work_asm,@function
+mas_gear_ctrl_work_asm:                 // @mas_gear_ctrl_work
 .Lfunc_begin1:
 	.loc	3 57 0                          // kernel/platform_source/basicplatform/block/mas_blk_gear_ctrl.c:57:0
 	.cfi_startproc
@@ -472,7 +473,7 @@ mas_gear_ctrl_work:                     // @mas_gear_ctrl_work
 	ret
 .Ltmp49:
 .Lfunc_end1:
-	.size	mas_gear_ctrl_work, .Lfunc_end1-mas_gear_ctrl_work
+	.size	mas_gear_ctrl_work_asm, .Lfunc_end1-mas_gear_ctrl_work_asm
 	.cfi_endproc
 	.file	161 "/mnt/disk/jenkins/ci/workspace/chipset_pipeline_release/opensource/component_code/vendor/huawei/extra/build/build_script/kirin_kernel_release" "kernel/include/linux/spinlock_api_smp.h"
 	.file	162 "/mnt/disk/jenkins/ci/workspace/chipset_pipeline_release/opensource/component_code/vendor/huawei/extra/build/build_script/kirin_kernel_release" "kernel/include/linux/timekeeping.h"
@@ -2107,8 +2108,9 @@ mas_gear_ctrl_hck_init:                 // @mas_gear_ctrl_hck_init
                                         // -- End function
 	.text
 	.p2align	2                               // -- Begin function hck_mas_queue_busy_change_gear
-	.type	hck_mas_queue_busy_change_gear,@function
-hck_mas_queue_busy_change_gear:         // @hck_mas_queue_busy_change_gear
+	.globl	hck_mas_queue_busy_change_gear_asm
+	.type	hck_mas_queue_busy_change_gear_asm,@function
+hck_mas_queue_busy_change_gear_asm:     // @hck_mas_queue_busy_change_gear
 .Lfunc_begin11:
 	.loc	3 264 0 is_stmt 1               // kernel/platform_source/basicplatform/block/mas_blk_gear_ctrl.c:264:0
 	.cfi_startproc
@@ -2187,12 +2189,13 @@ hck_mas_queue_busy_change_gear:         // @hck_mas_queue_busy_change_gear
 	ret
 .Ltmp289:
 .Lfunc_end11:
-	.size	hck_mas_queue_busy_change_gear, .Lfunc_end11-hck_mas_queue_busy_change_gear
+	.size	hck_mas_queue_busy_change_gear_asm, .Lfunc_end11-hck_mas_queue_busy_change_gear_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_mas_queue_ioback_change_gear
-	.type	hck_mas_queue_ioback_change_gear,@function
-hck_mas_queue_ioback_change_gear:       // @hck_mas_queue_ioback_change_gear
+	.globl	hck_mas_queue_ioback_change_gear_asm
+	.type	hck_mas_queue_ioback_change_gear_asm,@function
+hck_mas_queue_ioback_change_gear_asm:   // @hck_mas_queue_ioback_change_gear
 .Lfunc_begin12:
 	.loc	3 279 0                         // kernel/platform_source/basicplatform/block/mas_blk_gear_ctrl.c:279:0
 	.cfi_startproc
@@ -2286,12 +2289,13 @@ hck_mas_queue_ioback_change_gear:       // @hck_mas_queue_ioback_change_gear
 	ret
 .Ltmp302:
 .Lfunc_end12:
-	.size	hck_mas_queue_ioback_change_gear, .Lfunc_end12-hck_mas_queue_ioback_change_gear
+	.size	hck_mas_queue_ioback_change_gear_asm, .Lfunc_end12-hck_mas_queue_ioback_change_gear_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hck_mas_blk_gear_ctrl_reinit
-	.type	hck_mas_blk_gear_ctrl_reinit,@function
-hck_mas_blk_gear_ctrl_reinit:           // @hck_mas_blk_gear_ctrl_reinit
+	.globl	hck_mas_blk_gear_ctrl_reinit_asm
+	.type	hck_mas_blk_gear_ctrl_reinit_asm,@function
+hck_mas_blk_gear_ctrl_reinit_asm:       // @hck_mas_blk_gear_ctrl_reinit
 .Lfunc_begin13:
 	.loc	3 259 0                         // kernel/platform_source/basicplatform/block/mas_blk_gear_ctrl.c:259:0
 	.cfi_startproc
@@ -2318,7 +2322,7 @@ hck_mas_blk_gear_ctrl_reinit:           // @hck_mas_blk_gear_ctrl_reinit
 	ret
 .Ltmp306:
 .Lfunc_end13:
-	.size	hck_mas_blk_gear_ctrl_reinit, .Lfunc_end13-hck_mas_blk_gear_ctrl_reinit
+	.size	hck_mas_blk_gear_ctrl_reinit_asm, .Lfunc_end13-hck_mas_blk_gear_ctrl_reinit_asm
 	.cfi_endproc
                                         // -- End function
 	.type	g_mas_min_gear_level,@object    // @g_mas_min_gear_level
