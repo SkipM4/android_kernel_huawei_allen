@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | String-Copy/Lifecycle Repairs Compile; Activation Audit Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | Enabled Link Building; Render Ownership Decision Open |
 | 05 | L3 multi-level voting | Match DT/firmware vote contract, repair missing implementation and validate real level changes | Pending |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Pending |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Pending |
@@ -64,6 +64,18 @@ authorization, complete link and module compatibility must pass before
 exposing the restored interface. Enabled-build debug metadata shows unchanged
 task_struct size but 23 shifted member offsets, so size alone cannot clear
 this compatibility gate.
+
+END_FREQ now follows the observed native/compat caller's self-thread scope.
+An isolated original-feature full build is started after removing obsolete
+#2 cache while preserving configuration/symbol/signing metadata. The active
+r37 output and device remain unchanged. Read-only inspection of the actual
+SELinux policy confirms ordinary application self:file access to render
+commands 0xab23-0xab28, but not global boost 0xab64 in the examined lists.
+Application render ownership, including force-init of an existing group,
+requires repair before activation. The proposed self-process/system-control
+boundary is awaiting user confirmation because it changes cross-process
+behavior; do not silently block all application render calls or flash the
+unresolved candidate.
 
 Long-term records omit personal network/subscription identifiers, temporary
 checksums and complete logs. Task-owned host/device probes and downloaded

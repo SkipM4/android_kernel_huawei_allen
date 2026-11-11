@@ -424,3 +424,97 @@ members, including proc_qos and sched_class, move by eight bytes. Other
 top-level offsets in this comparison remain unchanged; nested types and
 export CRCs are not certified by it. A complete enabled link and matching
 module ABI review are mandatory. No enabled image is packaged or flashed.
+
+## END_FREQ Caller Scope And Enabled-Link Candidate
+
+Further read-only disassembly of the installed native and Thumb
+libiAwareRtgSched implementations identifies END_FREQ as 0xc010ab18 in both
+ABIs. EndFreq forwards to SetCommandFreq, which obtains getpid, gettid and
+getuid and stores the caller's own UID/PID/TID header plus a zero frequency
+word. Thumb calls are resolved through the library's actual PLT relocations,
+not by interpreting its Thumb text as ARM instructions. This command is not
+an observed system-server request to stop an arbitrary application's group.
+
+The existing stop_frame_freq trusted the supplied TID and changed that
+target's frame state, unlike adjacent self-thread frame/min-util handlers.
+It now rejects a non-current TID with the existing FRAME_ERR_PID result and
+looks up the current task's frame directly. Valid native/compat caller
+payloads, NULL handling, missing-frame errors and successful state updates
+are unchanged. The affected proc_state object compiles in the audited
+original-feature configuration; checkpatch passes. An installed negative
+ioctl test is still required before claiming runtime authorization coverage.
+
+The compatibility fragment now explicitly selects the original five frame
+features for an isolated enabled-link candidate. The installed r37 output
+configuration remains unchanged. The obsolete initial #2 build cache is
+removed after preserving its configuration, symbol metadata and signing
+material; original image backups, accepted r17 and recent rollback pairs
+remain. The independent candidate uses the existing signing key rather than
+introducing an unrelated key change, and the projected workspace stays below
+20 GB. A running build is not yet a linked or installed candidate.
+
+Activation also requires classifying two global proc routes. The render
+init/stop/destroy/query backends operate on global render state and do not
+check caller UID; their inited helper tests state existence, not identity.
+The proc boost handler similarly changes all frame groups, with numeric
+bounds but no caller-UID or group-membership check. The proc mount has the
+existing hidepid setting, but applications can use their own proc entry;
+that alone cannot prove these command paths inaccessible. Check the actual
+installed SELinux ioctl policy and intended library use before choosing a
+permission repair. No permissive interval, mode/owner change or global
+control request is used for this audit. The candidate is not approved for
+flashing solely because the enabled link succeeds.
+
+### Installed SELinux Extended-Permission Evidence
+
+The current r37 binary policy is copied read-only from /sys/fs/selinux/policy
+and verified against the device-side hash of the exact copy. Its temporary
+device file and directory are removed immediately. No policy reload, label,
+owner, mode or enforcing-state change occurs. A temporary host build of the
+official SELinuxProject libsepol/checkpolicy 3.9 release reads the policy;
+both downloaded release assets match their official SHA-256 digests. This
+tool adds no kernel implementation or permanent host package installation.
+
+The policy.conf dump is inspected with typeattribute membership and self
+targets resolved, not only by searching literal same-type allow rules:
+
+- untrusted_app and its installed _25/_27/_29 variants have basic self:file
+  read/write/open/ioctl permission. Their explicit ioctl list includes
+  0xab05, 0xab0a, 0xab14-0xab18, 0xab1a, 0xab1e-0xab20 and 0xab22-0xab28.
+  Thus the five render operations and capability query, 0xab23-0xab28, are
+  explicitly permitted for these applications' own proc files once the
+  RTG feature is initialized. The old cross-target END_FREQ at 0xab18 is
+  also inside this list, supporting the self-thread repair's relevance.
+- platform_app, priv_app and system_app have a smaller self:file RTG list
+  ending at 0xab22; their examined rules do not grant the render range.
+- system_server has its self:file configuration list 0xab01-0xab05.
+- The examined application/system-server self:file lists do not grant
+  0xab64, the global boost command. The shared domain:file driver whitelist
+  is 0x5450-0x5451, not a grant of every RTG command. Do not invent a boost
+  permission change based on the C handler alone.
+
+These are current policy/source reachability checks, not an application
+execution test, exploitation attempt or complete audit of every SELinux
+domain. r37 still has FRAME_RTG disabled. No global render or boost request
+is injected into the device. The explicit render application permission
+means a system-UID-only blanket restriction would change the original
+allowed caller scope and is not adopted silently.
+
+Before activation, the proposed repair is application ownership enforcement
+at the copied-request/backend boundary, with the existing system controller
+scope preserved. It must also prevent an application's force-init from
+replacing another process's active global render group. Checking a user
+pointer in a wrapper and then re-copying it in the backend would leave a
+TOCTOU gap and is not sufficient. Exact cross-process caller compatibility
+and lifecycle ordering remain open. User confirmation is requested for
+this behavior-changing ownership scope; keep r37 installed while it waits.
+
+The separate proc capability getter also retains a stale CONFIG_HISI_RTG
+guard, although this tree defines SCHED_RTG and has no HISI_RTG Kconfig
+symbol. The restored misc-device getter already uses SCHED_RTG. Align the
+proc getter with the actual backend rather than advertising a missing RTG
+bit in an enabled frame build. Its exact native-sized command still leaves
+the ordinary four-byte compat capability encoding unsupported; preserve the
+legacy eight-byte form while handling the standard read-only compat form
+with a four-byte store. These remain pending source/ABI work, not tested
+capability results from the currently installed disabled feature.

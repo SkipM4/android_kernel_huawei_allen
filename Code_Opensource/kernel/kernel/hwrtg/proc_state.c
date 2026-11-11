@@ -1396,8 +1396,10 @@ int stop_frame_freq(const struct rtg_data_head *rtg_head)
 
 	if (rtg_head == NULL)
 		return -INVALID_ARG;
+	if (rtg_head->tid != current->pid)
+		return -FRAME_ERR_PID;
 
-	frame_info = lookup_frame_info_by_pid(rtg_head->tid);
+	frame_info = lookup_frame_info_by_task(current);
 	if (!frame_info)
 		return -FRAME_ERR_PID;
 
