@@ -28,13 +28,13 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is r44. A separate normalized vote-scale
+validation. The installed device is r45. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r44: r21 retains full early logs,
+The current installed test candidate is r45: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -49,8 +49,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r37/r41/r42/r43/r44 pairs are retained;
-r43 is the immediate r44 rollback. Original boot/ramdisk/modem backups remain intact.
+test limits. Accepted r17 and the latest r41/r42/r43/r44/r45 pairs are retained;
+r44 is the immediate r45 rollback. Original boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -257,6 +257,16 @@ certificate, matched signed pair/readback and two normal boots pass. This is
 not a deliberately triggered old-kernel UAF or positive global lifecycle test;
 unknown system global state is not force-replaced. See the RTG audit for the
 remaining caller, root-retirement identity and runtime acceptance gates.
+r45 requires non-force global resume/get to match the lookup-pinned task to
+the original unretired root entry, rejecting numeric PID and freed-address
+reuse without reviving or rotating old queues. Wake/free hooks select the
+root by task pointer. Same-object pause/resume, force-init, ABI and caller
+policy remain unchanged. Full link, identical configuration/export CRCs/
+certificate, signed paired readback and two normal boots pass with unchanged
+ramdisk/security. This is installed/static identity-fix evidence, not a live
+PID-reuse or positive global lifecycle test. Scoped loaded JNI/client sites
+still use group commands 17/18 and do not prove global inactivity. Matching
+callers, positive global lifecycle and full timer/frame acceptance remain open.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

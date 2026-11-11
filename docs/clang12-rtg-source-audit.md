@@ -910,3 +910,51 @@ No implementation-mirroring test or system-queue takeover probe is added.
 Device remains r44 at this source-check stage; full link, matched pairing
 and installed validation follow separately. Positive global lifecycle,
 matching caller behavior and scheduling/power acceptance remain open.
+
+### r45 Installed Root-Identity Repair
+
+The full #45 link from 782c4f17e includes the pointer/retirement checks before
+non-force resume publication and getter feedback/reset in the final ELF.
+The wake/free hook machine code compares the root pointer to current/the
+freeing task, rather than comparing numeric PID fields. The modified file
+has no compiler diagnostic. Configuration, the entire export/CRC table and
+signing key/certificate are byte-identical to r44; no task/Binder layout,
+feature gate, ioctl payload or caller-policy change is introduced. The
+matching modem has 390 present/matching imports; PKCS#7, certificate inclusion,
+ext4 integrity and label/owner/mode readback pass. Boot kernel round-trip,
+original DT/firmware/header preservation and real partition bounds pass.
+
+The r44 device partitions match the retained rollback pair before flashing.
+Supported serial/model/unlock checks confirm the same Allen bootloader;
+unsupported product/all queries do not substitute for identity or bounds.
+Both r45 flashes succeed, exact image-length paired readbacks match and the
+independent ramdisk hash remains unchanged through a subsequent normal reboot.
+Two changed-boot-ID normal startups reach boot completion with #45. Complete
+early logs have no WARN, BUG, CFI failure, panic or Oops; the classified
+unconditional wiphy stack remains. SELinux stays Enforcing, taint 4,
+sig_enforce Y and PRMEM enabled, with the matching modem Live. The ordinary
+framework still enables RTG after reboot.
+
+These installed pairing/startup checks do not reproduce numeric PID/slab
+reuse or certify positive global queue/exit/resume behavior. No unknown
+system queue is replaced and no new diagnostic/permission bypass is added.
+Previously passed independent group/native/compat/MIPS tests are not
+needlessly replayed for the isolated global identity selection change.
+The legacy destroy token, actual caller lifecycle, timer expiry and full
+frame scheduling/performance acceptance remain separate open gates.
+
+A follow-up read-only check of the system_server-loaded libhwrme_jni.so and
+libhwrme_client.so verifies each copy against its exact device digest. The
+JNI adapter links libhwrme_client, imports ResMngMmEvent and registers
+android/hwrme/HwResMngEngine.nativeHwResMngMmEvent with signature (II)V.
+PriorityAdmin::InitRenderPid at 0x9df8 constructs 0x40087811 at 0x9e20/0x9e28;
+its ioctl call is at 0x9e30. GetRenderRelatedTid constructs 0xc2007812 at
+0xb2c0/0xb2cc and calls ioctl at 0xb2d0. These are the common group commands
+17/18, not the independent global commands 44/45/46. This is scoped loaded
+adapter/client evidence, not execution of the JNI callback, an all-library
+indirect-call proof, a permission proof or evidence that global state is idle.
+
+r44 is the immediate paired rollback. Original backups, r17 and the latest
+r41/r42/r43/r44/r45 pairs remain. Consumed library/disassembly/IR copies,
+full logs and other task-owned artifacts are removed; unrelated diagnostics
+are preserved. Workspace stays below 20 GB; whole bring-up remains open.

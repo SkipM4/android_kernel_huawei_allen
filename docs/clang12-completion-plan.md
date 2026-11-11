@@ -3,8 +3,8 @@
 ## Acceptance Rule
 
 User requests stepwise repair and validation until all required work is
-complete. Baseline is installed r44 from bringup/clang12 at 062a2f726; immediate
-paired rollback is r43. Each kernel iteration stays isolated, with matching
+complete. Baseline is installed r45 from bringup/clang12 at 782c4f17e; immediate
+paired rollback is r44. Each kernel iteration stays isolated, with matching
 boot/modem_driver validation, unchanged independent ramdisk unless separately
 required, retained security controls and accurate functional scope.
 
@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r42 Ownership/Re-Enable, r43 Errno And r44 Depth-Retirement Fix; Global/Timeout/Scheduling Scope Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r45 Root-Identity Fix Installed; Positive Global/Timeout/Scheduling Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -221,3 +221,24 @@ descriptor in that snapshot; this does not prove which commands it uses or
 that global queues are inactive. No lock, permission, radio, thermal or
 calibration bypass is attempted. Original backups and r17 plus the latest
 r37/r41/r42/r43/r44 pairs remain; consumed task-owned diagnostics are removed.
+
+r45 closes the source-level global root identity defect: non-force init/get
+require the lookup-pinned task and the existing root retirement flag to
+match, and wake/free hooks select the actual task pointer. PID removal can
+precede final task free, so clearing the numeric token only in that hook
+would be insufficient. Same-object pause/resume and force-init remain;
+there is no new liveness, caller, UID, PID-namespace or ioctl-layout policy.
+The destroy request's numeric guard is unchanged, not a general delayed
+PID-handle guarantee across force replacement. Object/optimized IR, final
+ELF and full link checks pass; configuration, complete exports/CRCs and
+certificate match r44. Paired readback, unchanged ramdisk and two complete
+normal boots pass with retained security. r44 is the immediate rollback.
+
+No unknown global queue is force-replaced and no live PID/address-reuse
+sequence is induced. Loaded system_server JNI/client copies are verified
+against their exact device digests. Their examined init/get sites use group
+commands 17/18, not global 44/45/46; this scoped result does not establish
+all indirect callers or global inactivity. Positive global lifecycle,
+request behavior across force replacement, timer expiry and complete frame
+scheduling remain open. Original backups, r17 and the latest r41/r42/r43/
+r44/r45 pairs remain; consumed task-owned artifacts are removed.
