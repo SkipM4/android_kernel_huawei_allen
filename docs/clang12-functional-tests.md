@@ -1002,3 +1002,41 @@ not to alter coefficients, fabricate temperatures or loosen protection.
 r31 remains installed; no kernel build/flash or new functional certification
 is introduced. Fallback freshness/thermal safety remain unresolved; next
 isolate the separately observed PCIe PME/AER MSI affinity failure.
+
+### Read-Only PCIe MSI Affinity Audit
+
+IRQ267 belongs to the MSI allocation of root port 0000:00:00.0 beneath
+f8000000.pci, with PCIe PME/aerdrv actions. The live DT's MSI resource index 1
+maps SPI94 to GIC ID126, found as IRQ83 in IRQ sysfs with effective affinity
+CPU0; the logical IRQ267 effective mask remains empty. The DesignWare host
+installs a chained handler on that physical IRQ. Chained descriptors with
+zero counts are omitted by show_interrupts, so the visible IRQ92 pcie-msi
+entry must not be mistaken for this root port's line. IRQ267 has zero sampled
+activity; these snapshots do not certify delivery, migration or error recovery.
+
+The local DesignWare host's dw_pci_msi_set_affinity unconditionally returns
+-EINVAL. Its function matches Linux upstream stable v5.10.43 after whitespace
+normalization. MSI domain affinity delegation reaches this logical bottom
+chip, not a GIC parent-data entry. The bottom domain is a standalone linear
+domain; the Kport driver separately requests the aggregated physical interrupt
+and dispatches it through dw_handle_msi_irq. Consequently, changing one
+logical vector's affinity is not implemented by this driver topology.
+
+With CONFIG_GENERIC_IRQ_EFFECTIVE_AFF_MASK enabled and the effective mask
+empty, irq_needs_fixup falls back to the requested mask. That mask includes
+the hot-unplugged CPUs, so migration calls the unsupported setter and reports
+the observed -22. The empty-mask fallback and unsupported setter also exist
+in upstream v5.10.43; the error does not establish a new compiler regression
+or failure of RTC/UFS interrupts. Source provenance:
+https://github.com/gregkh/linux/blob/v5.10.43/drivers/pci/controller/dwc/pcie-designware-host.c
+https://github.com/gregkh/linux/blob/v5.10.43/kernel/irq/cpuhotplug.c
+
+No fake successful affinity return, effective-mask fabrication, hard-coded
+CPU pinning, generic migration suppression or CPU-hotplug disable is added.
+Per-vector support would require a correct shared-line/domain contract, not
+merely delegating to a nonexistent GIC parent-data entry. Physical delivery
+and parent migration need their own bounded hardware check before such a
+change; no PCIe error injection or CPU-online/offline writes occur here.
+This step changes documentation only and leaves r31 installed. The separate
+raw-battery-temperature callback gap is a candidate for the next isolated
+API/unit audit, not a proven cause of the shell calculation rejection.

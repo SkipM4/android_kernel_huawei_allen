@@ -122,6 +122,10 @@ trigger it with valid inputs; live-history attribution and fallback freshness
 remain unresolved. No thermal protection or coefficients change. See
 `docs/clang12-thermal-source-audit.md` and the r31/remaining runtime sections
 of `docs/clang12-functional-tests.md` for scope and next steps.
+A separate PCIe audit traces IRQ267's -22 to the DesignWare MSI affinity
+setter, which is also unimplemented in upstream Linux 5.10.43. Logical MSI
+vectors use a separately dispatched physical interrupt; no fake affinity
+success or CPU-hotplug workaround is added. Delivery/migration remain untested.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see
