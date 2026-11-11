@@ -613,7 +613,7 @@ static unsigned long get_dev_cap(void)
 	unsigned long cap = 0;
 
 	cap |= BIT(CAP_AI_SCHED_COMM_CMD);
-#ifdef CONFIG_HISI_RTG
+#ifdef CONFIG_SCHED_RTG
 	cap |= BIT(CAP_RTG_CMD);
 #endif
 #ifdef CONFIG_RENDER_RT
@@ -642,6 +642,17 @@ static long ctrl_rt_config_ioctl(int abi, unsigned int cmd, unsigned long arg)
 {
 	long ret;
 	void __user *uarg = (void __user *)arg;
+
+#ifdef CONFIG_COMPAT
+	/* Keep the legacy eight-byte request alongside the ILP32 capability word. */
+	if (abi == IOCTL_ABI_ARM32 &&
+		cmd == _IOR(RTG_SCHED_IPC_MAGIC, RT_CTRL_GET_DEV_CAP, compat_ulong_t)) {
+		if (uarg == NULL)
+			return -EINVAL;
+		return put_user((compat_ulong_t)get_dev_cap(),
+			(compat_ulong_t __user *)uarg);
+	}
+#endif
 
 	switch (cmd) {
 	case RTG_CMD_RT_CTRL_INIT_RENDER_PID: {

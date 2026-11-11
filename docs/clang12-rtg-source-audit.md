@@ -509,12 +509,52 @@ TOCTOU gap and is not sufficient. Exact cross-process caller compatibility
 and lifecycle ordering remain open. User confirmation is requested for
 this behavior-changing ownership scope; keep r37 installed while it waits.
 
-The separate proc capability getter also retains a stale CONFIG_HISI_RTG
-guard, although this tree defines SCHED_RTG and has no HISI_RTG Kconfig
-symbol. The restored misc-device getter already uses SCHED_RTG. Align the
-proc getter with the actual backend rather than advertising a missing RTG
-bit in an enabled frame build. Its exact native-sized command still leaves
-the ordinary four-byte compat capability encoding unsupported; preserve the
-legacy eight-byte form while handling the standard read-only compat form
-with a four-byte store. These remain pending source/ABI work, not tested
-capability results from the currently installed disabled feature.
+The separate proc capability getter retained a stale CONFIG_HISI_RTG guard,
+although this tree defines SCHED_RTG and has no HISI_RTG Kconfig symbol or
+hidden compiler definition. It now uses SCHED_RTG, matching the restored
+misc-device getter and the real backend. The standard four-byte compat
+capability request 0x8004ab28 is handled only for the ARM32 ABI, using
+put_user(compat_ulong_t). The legacy eight-byte form 0x8008ab28 remains on
+its original path. Native callers do not gain the four-byte encoding.
+The existing feature-enabled gate, NULL/uaccess errors, command IDs and
+other payload layouts are retained; no scheduling-setting request is added.
+
+### Complete Enabled-Link And Signed-Module Result
+
+The first complete original-feature build links as #38. It adds 13 exports,
+removes none, and changes 8936 export CRCs relative to the installed r37
+build. The old retained r37 modem module has 151 mismatched imports against
+this enabled kernel; the matching rebuilt module has all 390 imports present
+and matching. The other produced module is the unchanged OEM hisi_dummy_ko
+artifact, with two matching imports; it is not a hardware-function pass.
+The observed live device loads only modem_driver, and the examined stock
+module directories contain that same installed module. Configured legacy
+HI1102 module flags are not evidence of another deployed Allen module.
+
+After the capability changes, the complete relink succeeds as #39. Every
+export and CRC remains identical to the #38 enabled build. The final native
+ELF retains proc_rtg_open/native/compat entries and real frame initialization.
+Its compat path checks ABI and exact 0x8004ab28, materializes capability 7
+and uses a four-byte sttr store; this is compiled-width evidence, not an
+installed canary or normal-application query result. The changed ioctl C
+file has no compiler diagnostics, and checkpatch reports no errors/warnings.
+Enforcing CFI, ThinLTO and forced module signing remain configured.
+
+The final modem module is processed on a temporary copy with the existing
+staging operations: strip debug information and sign with SHA-512 using the
+existing key. Its 390 imports still match; PKCS#7 content verification passes
+with the matching certificate, and that certificate is present in the final
+kernel Image. Raw build output is not treated as a signed installed module
+merely because MODULE_SIG_ALL is configured; the established staging step
+performs the signing. This check does not package or certify an ext4 image,
+boot round-trip, partition readback, runtime CFI or module loading.
+
+Superseded unflashed #38 ELF/LTO link output is removed before the relink to
+avoid transient duplicate storage. The workspace remains below 20 GB;
+original backups and all retained test/rollback image pairs are unchanged.
+The candidate's original-feature configuration changes only the five audited
+frame flags relative to r37. Its main baseline output and installed device
+remain r37, with SELinux Enforcing. No #38/#39 image pair is packaged or
+flashed while application render ownership and lifecycle certification remain
+open. Consumed policy/library/source dumps, signing copies and full logs are
+removed after recording the results.
