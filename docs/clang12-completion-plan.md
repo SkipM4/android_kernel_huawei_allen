@@ -3,8 +3,8 @@
 ## Acceptance Rule
 
 User requests stepwise repair and validation until all required work is
-complete. Baseline is installed r45 from bringup/clang12 at 782c4f17e; immediate
-paired rollback is r44. Each kernel iteration stays isolated, with matching
+complete. Baseline is installed r46 from bringup/clang12 at ea82efe4b; immediate
+paired rollback is r45. Each kernel iteration stays isolated, with matching
 boot/modem_driver validation, unchanged independent ramdisk unless separately
 required, retained security controls and accurate functional scope.
 
@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r45 Root-Identity Fix Installed; Positive Global/Timeout/Scheduling Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r46 Boost-Wake Ordering Installed; Intended Timeout/Global/Scheduling Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -242,3 +242,24 @@ all indirect callers or global inactivity. Positive global lifecycle,
 request behavior across force replacement, timer expiry and complete frame
 scheduling remain open. Original backups, r17 and the latest r41/r42/r43/
 r44/r45 pairs remain; consumed task-owned artifacts are removed.
+
+r46 addresses a concrete boost-restart race: an old queued timeout can clear
+a newly armed boost, and lock-external activation can be undone by cleanup
+before renewal. Activation now uses the existing timer mutex; the worker
+consumes its notification before checking for a pending renewed timer, with
+no late bit-set to overwrite a concurrent expiry. The existing argument,
+duration/util and permission contracts remain. Object/optimized IR and final
+ELF checks, full build, identical configuration/complete export CRCs/signing
+materials, matching signed pair/readback and two normal boots pass. Ramdisk
+and security controls remain unchanged; r45 is the immediate rollback.
+
+The source timer entry is reachable only through proc boost 0xc014ab64 in the
+examined tree, not the ordinary frame min-util commands. Scoped verified
+loaded-library sites/immediate inspection does not locate an intended
+permitted production boost caller or prove global inactivity. No global
+boost or queue takeover is injected to fill this gap. Intended-caller expiry/
+restart stress, positive global lifecycle and full frame scheduling remain
+open, alongside the existing manual/hardware/source prerequisites. Original
+backups, r17 and the latest r42/r43/r44/r45/r46 pairs remain; r41 metadata is
+retained for frame-disabled comparison, while its superseded pair and
+consumed task-owned artifacts are removed. Whole-device acceptance is open.

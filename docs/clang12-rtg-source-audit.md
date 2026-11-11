@@ -1015,3 +1015,40 @@ unsafe global injection is added. Device remains r45 at this source-check
 stage. Full link/paired installation follow separately; real intended-caller
 expiry/restart stress, full frame integration and power/performance acceptance
 remain open rather than being replaced by these static checks.
+
+### r46 Installed Boost-Wake Ordering Repair
+
+The full #46 link from ea82efe4b contains the atomic wait-bit consume followed
+by enabled/pending-timer checks before cleanup in the final worker machine
+code. The timer entry holds g_timer_lock before start_rtg_boost, the unchanged
+overlapping-duration guard, boost-floor updates and timer renewal. The full
+configuration, entire Module.symvers/export CRC table and signing key/
+certificate are byte-identical to r45; neither modified file has a compiler
+diagnostic. Inherited unrelated linker/section warnings remain separately
+classified, not claimed repaired by this change.
+
+The matching signed modem has all 390 imports present with matching CRCs;
+PKCS#7, certificate-in-Image, ext4/owner/mode/label and boot kernel/DT/firmware/
+header/bounds checks pass. Before flashing, the retained r45 pair matches the
+installed partitions. Standard fastboot product/all queries still report
+Command not supported despite their zero host exit status; supported OEM
+queries confirm the same model and unlocked bootloader. Both flash result
+texts report successful writes, and exact image-length r46 boot/modem
+readbacks match. The independent ramdisk hash stays unchanged after both
+installation and subsequent normal reboot.
+
+Two changed-boot-ID normal startups reach boot completion with #46. Both
+complete early logs have no WARNING, BUG, Oops, panic or CFI failure, with
+one already classified unconditional wiphy_new_nm stack per boot. SELinux
+stays Enforcing, taint 4, sig_enforce Y and PRMEM enabled; matching modem is
+Live, frame_sched exists and the stock framework enables RTG after reboot.
+These checks do not execute production boost expiry/restart or certify the
+full frame/global lifecycle and power/performance requirements. No test
+configuration, global boost injection, permission change or queue takeover
+is used, and unrelated passed group/MIPS tests are not replayed.
+
+r45 is the immediate paired rollback. Original backups, r17 and the latest
+r42/r43/r44/r45/r46 pairs remain. Superseded r41 images are removed with its
+useful configuration/export/signing metadata retained. Consumed task-owned
+library/IR/disassembly copies and full logs are removed; unrelated diagnostics
+remain. Workspace stays below 20 GB, and whole bring-up acceptance stays open.
