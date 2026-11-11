@@ -1295,3 +1295,52 @@ Device remains #36 with boot completed, taint 4, SELinux Enforcing and forced
 module signing. No rebuild/reboot/flash or previously passing functional
 test is needed for this source-only audit. Temporary device copies and host
 binary/source/disassembly/logs are removed; r32 remains paired rollback.
+
+## r37: Correct RTNL Diagnostic Acquisition Intervals
+
+The isolated change in net/core/rtnetlink.c starts the existing hold-time
+interval after successful killable, trylock and final-refcount acquisitions,
+as well as normal rtnl_lock. It uses ktime_get_ns for acquisition and release.
+No lock/refcount return semantics, warning threshold, deferred work, netlink
+dump locking or public interface changes. See docs/clang12-early-diagnostics.md
+for the exact source contracts and uninstrumented raw-mutex boundary.
+
+checkpatch and static diff checks pass. Full Clang #37 build and final ELF
+success-gate/clock/diagnostic checks pass. The complete export set and every
+CRC agree with r36. The signed matching modem module's 390 versioned imports
+have no missing exports or CRC mismatches; signature and filesystem metadata
+readback pass. Enforcing CFI, ThinLTO and forced signing remain configured.
+
+The installed r36 rollback pair matches the retained images. Since its ring
+has rotated past early boot, one normal reboot captures a same-task time-zero
+baseline with 24 RTNL duration reports. The killable register_netdev path
+reports durations above two seconds using a stale earlier acquisition time.
+No earlier audio/network/suspend pass is repeated as part of this comparison.
+
+Paired r37 boot/modem_driver flash succeeds after serial/model/unlock and
+actual partition checks. Normal Android completes boot. Device-side hashes
+match both installed images, and the independent ramdisk hash is unchanged.
+The matching modem module is live, taint is 4, SELinux is Enforcing and module
+signature enforcement is Y. Audioserver and SurfaceFlinger remain running.
+
+Complete startup and post-query rings have zero RTNL duration reports, versus
+24 in the r36 baseline. No WARNING, BUG, CFI failure, Oops or kernel panic
+appears. The remaining single stack is wiphy_new_nm's already attributed
+unconditional dump_stack, not an RTNL duration warning. Read-only ip link
+enumeration returns 45 entries; IPv4 and IPv6 all-table route dumps succeed.
+No interface, network selection, scheduling setting or data-transfer changes
+are made. Successful enumeration is not cellular/Wi-Fi internet certification.
+
+The crash buffer still contains the inherited vendor_init SIGSEGV at 0x14,
+and init reports the same sys_wp_init_action failure. This is not repaired,
+suppressed or promoted to a clean-userspace claim. No earlier PERF_CTRL query,
+audio, capture or suspend result is reused as full r37 certification.
+
+No artificial long RTNL hold or failed-acquisition stress is injected.
+Final ELF gates support unchanged failure returns and success-only timestamps;
+the original over-threshold diagnostic remains active in code but is not
+positively triggered in this bounded runtime check. No additional reboot is
+needed after this unchanged candidate passes its targeted validation.
+r36 remains immediate paired rollback. Temporary full logs/disassembly and
+superseded r29 artifacts are removed; originals, accepted r17 and the latest
+r30-r32/r36-r37 pairs remain within the workspace limit.

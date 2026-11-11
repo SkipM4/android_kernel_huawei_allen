@@ -19,6 +19,7 @@
 #include <linux/socket.h>
 #include <linux/kernel.h>
 #include <linux/timer.h>
+#include <linux/timekeeping.h>
 #include <linux/string.h>
 #include <linux/sockios.h>
 #include <linux/net.h>
@@ -78,13 +79,17 @@ void *get_rtnl_mutex(void)
 void rtnl_lock(void)
 {
 	mutex_lock(&rtnl_mutex);
-	start_hold_time = local_clock();
+	start_hold_time = ktime_get_ns();
 }
 EXPORT_SYMBOL(rtnl_lock);
 
 int rtnl_lock_killable(void)
 {
-	return mutex_lock_killable(&rtnl_mutex);
+	int ret = mutex_lock_killable(&rtnl_mutex);
+
+	if (!ret)
+		start_hold_time = ktime_get_ns();
+	return ret;
 }
 EXPORT_SYMBOL(rtnl_lock_killable);
 
@@ -103,7 +108,7 @@ void __rtnl_unlock(void)
 	struct sk_buff *head = defer_kfree_skb_list;
 	u64 hold_time;
 	defer_kfree_skb_list = NULL;
-	hold_time = div_u64(local_clock() - start_hold_time, NSEC_PER_MSEC);
+	hold_time = div_u64(ktime_get_ns() - start_hold_time, NSEC_PER_MSEC);
 	mutex_unlock(&rtnl_mutex);
 	if (hold_time > RTNL_LOCK_HOLD_MAX_MS) {
 		pr_err("%s[%d] hold rtnl_lock too long: %llums\n",
@@ -128,7 +133,11 @@ EXPORT_SYMBOL(rtnl_unlock);
 
 int rtnl_trylock(void)
 {
-	return mutex_trylock(&rtnl_mutex);
+	int ret = mutex_trylock(&rtnl_mutex);
+
+	if (ret)
+		start_hold_time = ktime_get_ns();
+	return ret;
 }
 EXPORT_SYMBOL(rtnl_trylock);
 
@@ -140,7 +149,11 @@ EXPORT_SYMBOL(rtnl_is_locked);
 
 bool refcount_dec_and_rtnl_lock(refcount_t *r)
 {
-	return refcount_dec_and_mutex_lock(r, &rtnl_mutex);
+	bool ret = refcount_dec_and_mutex_lock(r, &rtnl_mutex);
+
+	if (ret)
+		start_hold_time = ktime_get_ns();
+	return ret;
 }
 EXPORT_SYMBOL(refcount_dec_and_rtnl_lock);
 

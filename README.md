@@ -29,7 +29,7 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3 voting remains unresolved.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r36: r21 retains full early logs,
+The current installed test candidate is r37: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -44,8 +44,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r29-r32/r36 pairs are retained; r32 is
-the immediate r36 rollback. Original boot/ramdisk/modem backups remain intact.
+test limits. Accepted r17 and the latest r30-r32/r36-r37 pairs are retained;
+r36 is the immediate r37 rollback. Original boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -185,6 +185,15 @@ requires real BIO enforcement, not just a proc file. No write-protection
 bypass, userspace binary patch or flash is introduced. See
 `docs/clang12-system-wp-source-audit.md` and `docs/clang12-functional-tests.md`
 for the separate source/contract requirements and remaining limits.
+r37 corrects RTNL hold-time accounting after successful killable, trylock and
+reference-count acquisitions, using the standard monotonic clock throughout.
+The register_netdev killable path previously reused an older timestamp.
+Lock/return semantics, deferred work and the existing 300-ms diagnostic stay
+unchanged. A fresh r36 time-zero baseline has 24 duration reports; r37 has
+none during startup or bounded link/IPv4/IPv6 route enumeration. Full build,
+paired readback and security checks pass. This repairs diagnostic accounting,
+not measured network performance; no forced long RTNL hold is injected. See
+`docs/clang12-early-diagnostics.md` and `docs/clang12-functional-tests.md`.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

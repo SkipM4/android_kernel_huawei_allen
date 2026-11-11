@@ -417,3 +417,66 @@ on unchanged r26; see clang12-functional-tests.md. Audio's missing compatible
 V2C implementation, multi-level L3 voting and calibration-access correctness
 remain separate work. Do not loosen security policy merely because the
 calibration open errors coexist with successful scanning and association.
+
+## r37: RTNL Hold-Time Accounting
+
+The OEM __rtnl_unlock diagnostic subtracts a global acquisition timestamp,
+prints durations exceeding 300 whole milliseconds and dumps the current
+stack. Only rtnl_lock originally initialized that timestamp. Three other
+wrapped acquisitions omitted it:
+
+- rtnl_lock_killable: register_netdev uses this path, then calls rtnl_unlock
+  through netdev_run_todo. Repeated modem/Wi-Fi registration therefore
+  measured from an older acquisition rather than its own successful lock.
+- rtnl_trylock: a successful trylock also owns RTNL and can reach the same
+  instrumented unlock without starting a new interval.
+- refcount_dec_and_rtnl_lock: qdisc_put_unlocked uses the refcount helper and
+  unlocks through the same path when the final reference is released.
+
+The fix is limited to net/core/rtnetlink.c. All four wrapped acquisitions
+record ktime_get_ns while holding the mutex; killable records only for return
+0, trylock only for nonzero and the refcount helper only for true. Failed
+acquisitions preserve their original result and do not alter another holder's
+timestamp. The existing mutex/refcount primitives are not replaced.
+__rtnl_unlock measures with the same clock before releasing the mutex.
+
+ktime_get_ns is the local Linux 5.10 standard monotonic elapsed-time API.
+It avoids the per-CPU/bounded-drift contract of local_clock on configurations
+with unstable scheduler clocks. Allen currently uses GENERIC_SCHED_CLOCK,
+without HAVE_UNSTABLE_SCHED_CLOCK; no observed cross-CPU backwards jump is
+claimed here. The reproduced defect is missing acquisition accounting, not
+a diagnosed hardware clock fault. No arch clock or timekeeper code changes.
+
+The 300-ms condition, log text, dump_stack, mutex-unlock placement and deferred
+skb/registration work remain unchanged. No timestamp guard, lock-owner state,
+fake duration or warning suppression is added. Generic netlink dump paths
+retain their existing paired raw cb_mutex locking and unlocking; they do not
+use this OEM duration diagnostic and are not newly instrumented. The change
+does not claim coverage of every possible raw mutex consumer.
+
+Static diff and checkpatch pass with no errors/warnings. Complete Clang #37
+build passes. Final ELF confirms success-gated timestamp stores in the three
+conditional wrappers, ktime_get in all four acquisition paths and unlock,
+and the retained duration test/log/stack path. The whole export set, CRCs,
+export types and module identifiers remain equal to r36. The signed matching
+modem module has 390 versioned imports, no missing exports or CRC mismatches,
+and successful signature and ext4 metadata/readback checks.
+
+The initial r36 ring has already rotated past startup. One normal r36 reboot
+therefore obtains a complete time-zero comparison: 24 RTNL duration reports,
+including modem registration intervals reported above two seconds. After
+paired r37 installation, the full startup and post-query rings have zero
+RTNL duration reports, no WARNING/BUG/CFI failure/Oops/panic, and one remaining
+wiphy_new_nm stack from its inherited unconditional dump_stack. Read-only
+link and IPv4/IPv6 route dumps succeed; no network setting or interface changes.
+
+No deliberate long hold, contention, interrupted killable wait or refcount
+destruction stress is injected into the active device. Failure-path behavior
+is checked in the final ELF; real over-threshold logging is retained in code,
+not demonstrated through forced disruption. This is diagnostic accounting
+validation, not network latency, throughput, connectivity or all-lock coverage.
+Partition readbacks match r37 and the independent Magisk ramdisk is unchanged.
+SELinux Enforcing, taint 4, forced signing and live matching modem module remain.
+The stock vendor_init write-protection action still fails independently.
+r36 is retained as immediate rollback; temporary files and superseded r29
+test artifacts are removed after recording the results.
