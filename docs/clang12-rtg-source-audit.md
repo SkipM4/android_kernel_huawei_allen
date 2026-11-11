@@ -819,6 +819,42 @@ queue feedback/rotation and pause/resume policy remain unchanged.
 Diff/checkpatch and the frame-enabled render_rt.o build pass with no compiler
 diagnostic in the modified file. Optimized ThinLTO IR confirms the old-depth
 loop and zeroed logical counts precede the new-depth store. No branch-mirror
-test or dangerous old-kernel lifetime probe is added. Device remains r43;
-full current-source link, paired packaging and relevant runtime validation
-are still required before this source repair is an installed acceptance pass.
+test or dangerous old-kernel lifetime probe is added. At this initial source
+check stage, device remains r43 and installed validation is pending.
+
+### r44 Installed Depth-Retirement Repair
+
+The fresh full link is #44 from 062a2f726. Its final initializer machine code
+clears old task memberships and logical counts before the new depth store,
+not merely in pre-link IR. No compiler diagnostic concerns the modified file.
+Configuration, the entire Module.symvers/export CRC table and the signing
+key/certificate are byte-identical to r43. No task/Binder field, header,
+feature gate, ioctl encoding or credential policy changes. The matching
+modem has 390 present/matching imports; PKCS#7 verification, certificate
+inclusion, ext4 integrity and label/owner/mode readback pass. Boot kernel
+round-trip, original firmware/DT/header preservation and real bounds pass.
+
+The installed r43 partitions match the retained rollback pair beforehand.
+Supported OEM serial/model/unlock checks confirm the same Allen bootloader;
+unsupported product/all queries do not substitute for identity or bounds.
+Both r44 flashes succeed. Exact image-length boot/modem readbacks match,
+and the independent ramdisk hash remains unchanged before/after installation
+and a subsequent normal reboot. Two changed-boot-ID normal startups reach
+boot completion with #44. Complete early logs have no WARN, BUG, CFI failure,
+panic or Oops; the known unconditional wiphy stack remains separately
+classified. SELinux stays Enforcing, taint 4, sig_enforce Y and PRMEM enabled;
+the matching modem is Live. The ordinary framework still enables RTG.
+
+These are installed pairing/startup checks and static lifetime-fix evidence,
+not positive global queue, root-exit/PID-reuse, actual timer-expiry or full
+frame scheduling certification. Only system_server is observed holding a
+perf_ctrl descriptor in a pre-flash snapshot. It does not prove global command
+usage or inactivity. No unknown system queue is force-replaced, no vulnerable
+old-kernel sequence is induced, and prior unrelated tests are not replayed.
+The next smallest source audit concerns retired-root identity while retaining
+same-live-target resume; caller and positive runtime acceptance remain open.
+
+r43 is the immediate paired rollback. Original backups, r17 and the latest
+r37/r41/r42/r43/r44 pairs remain. Consumed full logs, recovered ELF/tool/IR
+and other task-owned temporary artifacts are removed; unrelated diagnostics
+are preserved. The workspace stays below 20 GB and whole bring-up is open.
