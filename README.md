@@ -29,7 +29,7 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3 voting remains unresolved.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r29: r21 retains full early logs,
+The current installed test candidate is r30: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -44,8 +44,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r25-r29 pairs are retained; r28 is
-the immediate r29 rollback and r27 is the pre-audio rollback.
+test limits. Accepted r17 and the latest r26-r30 pairs are retained; r29 is
+the immediate r30 rollback and r27 is the pre-audio rollback.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -70,8 +70,15 @@ later deep resumes no longer emit the UFS warning; taint stays 4. Post-resume
 silent playback, PCM/clock release and actual O_DIRECT write/read/compare
 also pass without device/audio-service restart. Two eventpoll wakeups abort
 freezing before device suspend, not a UFS/codec resume failure. RTC wakeups
-expose a separate NO_SUSPEND/wake-IRQ contract conflict, still unfixed; see
+expose a separate NO_SUSPEND/wake-IRQ contract conflict; see
 `docs/clang12-functional-tests.md` for the tested scope and next isolated step.
+r30 applies a SoC-only RTC IRQ flag correction after auditing the handler's
+MMIO lifetime and workqueue notification path. It preserves the PMU RTC,
+alarm programming and wake-enable pair. Compilation, signed paired flash,
+readback and read-only RTC time progression pass; wakeup remains enabled,
+boot logs have no kernel WARNING and taint is 4. No RTC IRQ or system sleep
+has occurred on this initial r30 check, so actual RTC-attributed deep wake
+testing remains pending, with r29 retained as the immediate rollback.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 microphone, calls/sidetone and system/deep suspend are not certified; see
 `docs/clang12-audio-source-audit.md` and `docs/clang12-functional-tests.md`.

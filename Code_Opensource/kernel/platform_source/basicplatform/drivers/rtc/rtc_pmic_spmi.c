@@ -928,8 +928,9 @@ static int request_rtc_irq(struct device *dev, struct vendor_rtc_dev *prtc)
 		ret = -EIO;
 	}
 
+	/* The SoC alarm is a wake IRQ; defer its handler until system resume. */
 	if (devm_request_irq(dev, prtc->soc_rtc_irq, soc_rtc_interrupt,
-		IRQF_NO_SUSPEND, "vendor-soc-rtc", prtc)) {
+		0, "vendor-soc-rtc", prtc)) {
 		pr_err("[%s]request_soc_rtc_irq error\n", __func__);
 		ret = -EIO;
 	}

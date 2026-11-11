@@ -646,3 +646,67 @@ registration to the documented wake-IRQ contract while preserving alarm
 programming and the existing wake-enable pair. Do not silence the generic
 diagnostic or disable RTC alarms. No RTC source, IRQ flag or alarm is modified
 in this r29 validation round.
+
+## r30: Use The Normal SoC RTC Wake-IRQ Path
+
+Change only platform_source/basicplatform/drivers/rtc/rtc_pmic_spmi.c:
+request the SoC RTC IRQ with flags zero instead of IRQF_NO_SUSPEND. Keep the
+PMU RTC registration, the DT-derived level trigger, SoC alarm register
+programming, device wakeup policy and the existing rtc_suspend/rtc_resume
+enable_irq_wake/disable_irq_wake pair unchanged. No clock, RTC time, secure
+offset/calibration, firmware, device tree, global alarm or power-off alarm
+setting is changed.
+
+The call-chain audit finds no dependency on running the SoC handler during
+the late/noirq phase. Its MMIO is mapped in rtc_init_cfg for the device's
+lifetime; RTC PM does not unmap it or gate its clock. soc_rtc_interrupt only
+reads/acknowledges the alarm status and calls rtc_update_irq. That core call
+queues irqwork to process timer events; this is not a periodic clock tick
+required to make the suspend/resume sequence progress. soc_rtc_read_time
+independently reads the counter. Delaying the handler until normal resume
+therefore preserves the alarm notification rather than deleting it.
+
+Reference: the local official 5.10.43 RTC handler/PM and RTC core workqueue
+contracts, kernel/irq/pm.c and kernel/irq/chip.c, and
+`Documentation/power/suspend-and-interrupts.rst`. The PM core must be able to
+arm the SoC IRQ as a wake source and defer its ordinary handler; NO_SUSPEND
+bypasses that path and causes the observed misconfigured-IRQ diagnostic.
+Do not replace the flag with IRQF_COND_SUSPEND: this IRQ is not a demonstrated
+shared interrupt with a separate no-suspend user. The PMU interrupt has a
+different handler/purpose and is outside this isolated repair.
+
+Before the change, read-only checks confirm that RTC time advances and device
+wakeup policy is enabled on #29. Current boot/modem_driver readback matches
+the retained r29 pair, which is the immediate rollback.
+
+Clang 12.0.7 ThinLTO/enforcing-CFI compilation and diff checks pass. Boot
+round-trip verifies the kernel, unchanged firmware stub/OEM DT/header fields
+and partition bounds. All 390 signed modem imports are available with matching
+CRCs; certificate/signature, ext4 and module metadata readback pass. No new
+API, configuration or ABI structure is introduced by the flag correction.
+
+Supported bootloader preflight reconfirms the recorded serial, ALN-AL00
+identity and unlocked state; product/all queries are unsupported as before.
+Paired boot/modem_driver flash succeeds and #30 reaches normal Android with
+sys.boot_completed=1. Device-side readback matches each retained r30 image
+over its exact length; the independent ramdisk still matches the pre-flash
+r29 baseline. The signed modem module is loaded with sig_enforce=Y and
+SELinux Enforcing.
+
+Read-only since_epoch samples show normal RTC time progression after boot.
+The RTC's wakeup policy remains enabled. Both distinct actions are registered:
+vendor-soc-rtc on its unchanged DT-derived level IRQ and vendor-pmu-rtc on
+the PMU IRQ. Full early logs contain no kernel WARNING, BUG, CFI failure,
+panic or unbalanced enable, and taint stays 4. No RTC time, calibration,
+alarm setting, global trace or SELinux policy is changed for these checks.
+
+The initial post-flash check has zero RTC IRQ counts and zero suspend
+successes/failures. An actual RTC-attributed deep wake therefore remains
+pending; USB-only resume and the absence of an RTC event are not proof that
+RTC wakeup works or that its diagnostic is fixed. Next disconnect USB without
+attaching a charger, leave the screen asleep for about two minutes and
+reconnect. Inspect every completed cycle's wake reason and RTC handler/core
+notification, not just the final Type-C wake reason. Require an actual RTC
+event with preserved alarm delivery and no misconfigured-IRQ diagnostic
+before marking this path passed. Preserve r29 for paired rollback if wakeup,
+alarm handling or storage/audio after resume regresses.
