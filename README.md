@@ -49,10 +49,13 @@ named hardware AVC/HEVC encoders each complete thirty synthetic frames and
 EOS, with VENC IRQ activity. Pairing/peer transfer, video decode fidelity,
 camera recording and audio remain outside these checks; see
 `docs/clang12-functional-tests.md` for the exact scope.
-Wi-Fi scan requests on r25 return no results despite adapter enable; this
-is inconclusive, not a scan pass or an attributed hardware failure. The
-same interval exposes calibration-partition open errors (-EACCES), whose
-caller/context and policy need separate diagnosis without relaxing protection.
+Wi-Fi foreground scanning passes on r26 after explicitly waking the device
+and foregrounding native settings; scanner results and successful driver
+completion agree. Its existing saved network automatically associates and
+obtains DHCP configuration. The rejected shell scan probe is not a hardware
+failure; explicit external connectivity and sustained transfer remain untested.
+Calibration-partition open errors (-EACCES) coexist with these successes and
+need separate lifecycle diagnosis without relaxing protection.
 
 ## Layout
 

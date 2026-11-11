@@ -338,3 +338,41 @@ from driver delivery, and audit the calibration read initialization context.
 Wi-Fi association/data transfer remains unverified. This does not replace
 the missing compatible audio codec implementation, Bluetooth peer tests or
 the separate multi-level L3/PRMEM lifecycle work.
+
+## r26: Foreground Native Wi-Fi Scan And Association
+
+The continued shell-context probe validates UID 2000 and OpPackageName
+com.android.shell, but startScan returns false with Wi-Fi both OFF and ON.
+No foreground single-scan request appears in the corresponding scanner dump.
+The existing CHANGE_WIFI_STATE/WIFI_SCAN AppOps report allow; location is OFF,
+idle mode is false and scanning availability is enabled. The installed vendor
+service's exact rejection gate is not attributed. AOSP Android 12.0.0_r1
+WifiServiceImpl / WifiShellCommand show why a zero shell-command exit code
+does not prove scan acceptance; they are interface references, not proof that
+the installed implementation follows every same gate.
+
+The first native-settings attempt also leaves the display asleep and the
+scanner showing only PNO requests. Repeat with the device explicitly awakened
+and the native Wi-Fi settings activity in the foreground, temporarily enabling
+Wi-Fi while leaving location and scan-always-available unchanged:
+
+- WifiScanningService records settings-attributed single-scan requests and
+  fresh result batches (17, 22, 24 and 15 results), not just an old cache.
+- wificond reaches wal_cfg80211_scan; matching hmac scan-completion events
+  report status 0. Foreground scan delivery and result return pass on #26.
+- The existing saved-network policy automatically associates during this
+  enabled interval. The primary client reports supplicant COMPLETED with
+  populated DHCP configuration. No password is supplied and no network is
+  added or explicitly selected. Association/DHCP pass; explicit external
+  connectivity, DNS, throughput and sustained transfer remain untested.
+- Calibration open -EACCES messages still occur during successful scanning
+  and association, including HAL and supplicant callers. This rules out
+  treating those errors alone as proof of scan failure; calibration fidelity
+  and the correct kernel-owned access lifecycle still need separate work.
+- No BUG, CFI failure or panic appears. Wi-Fi returns to its original OFF/0,
+  location remains OFF/0 and no SELinux, AppOps, block-node permission or
+  calibration-content changes are made. Nearby network identifiers are not
+  included in this record; diagnostic dumps are removed after analysis.
+
+This resolves the earlier inconclusive foreground scan/association checks,
+not every radio function or the standalone shell probe's vendor-service gate.
