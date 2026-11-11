@@ -55,6 +55,8 @@ register on two normal boots. Silent 48 kHz stereo playback consumes all
 observes the real PCM running, then closing, balanced playback power events
 and codec autosuspend after clock disable. No kernel WARNING, BUG, CFI failure
 or panic is found in the captured full boot/test logs; taint remains 4.
+The user also confirms normal audible playback in the system sound settings
+on r28; this is a basic user-observed playback pass, not fidelity certification.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 microphone, calls/sidetone and system/deep suspend are not certified; see
 `docs/clang12-audio-source-audit.md` and `docs/clang12-functional-tests.md`.

@@ -206,7 +206,11 @@ Allen hardware routes from symmetric names, remove the controls to silence
 messages, or claim call/sidetone correctness from normal playback.
 
 For device results and limitations see the r28 section of
-clang12-functional-tests.md. Keep r27 as the immediate paired rollback and
+clang12-functional-tests.md. The user subsequently confirms that playback
+in the system sound settings sounds normal on r28. This supplies the basic
+audible-output observation missing from the silent probe, not a measurement
+of fidelity or validation of other audio paths.
+Keep r27 as the immediate paired rollback and
 preserve the original images and independent Magisk ramdisk. Microphone,
 audible fidelity, call/sidetone paths and recorded-video audio require their
 own meaningful checks; silent playback is not full audio certification.

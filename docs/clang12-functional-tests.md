@@ -428,6 +428,12 @@ codec and ASP-subsystem clock disable. Audioserver retains the same PID.
 This verifies short playback startup/shutdown and codec runtime autosuspend,
 not system suspend, deep sleep, long-duration stability or audible output.
 
+The user subsequently reports normal playback from the system sound settings
+on r28. Record this separately as a user-observed basic audible playback pass,
+not an instrumented audio test. No waveform, level, frequency response or
+distortion measurement is taken, and no additional kernel change, build or
+flash is needed for this confirmation.
+
 ### Remaining Gaps
 
 The two boot diagnostics, mux MDM_5G_UP_L_MUX has no paths and mux
@@ -439,9 +445,10 @@ Do not delete widgets, suppress messages or invent routes to clear them.
 Their intended platform routes and firmware control contract need separate
 evidence before a sidetone/call fix.
 
-Registration, logical speaker routing and silent frame consumption do not
-prove that the speaker emits correct sound. Audible playback/fidelity,
-microphone capture, calls, sidetone, Bluetooth audio, USB/DP audio, video
-recording with audio and system/deep suspend remain unverified. Next perform
-a short user-observed playback with the normal system UI before expanding
-the codec import or attributing remaining audio-path errors.
+Registration, logical speaker routing and silent frame consumption alone do
+not prove audible output; the user's system-settings check now confirms basic
+audible playback. Measured fidelity, microphone capture, calls, sidetone,
+Bluetooth audio, USB/DP audio, video recording with audio and system/deep
+suspend remain unverified. Next isolate one of these paths with its own
+meaningful check before expanding the codec import or attributing remaining
+audio-path errors.
