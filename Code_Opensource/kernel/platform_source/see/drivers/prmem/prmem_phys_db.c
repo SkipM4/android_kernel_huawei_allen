@@ -248,14 +248,9 @@ static void __init prmem_phys_db_init(struct prmem_phys_db *db)
 #ifdef CONFIG_PRMEM_CONTINUOUS_MEMORY
 static phys_addr_t last_memblock_start;
 static phys_addr_t last_memblock_end;
+static phys_addr_t prmem_reserved_phys;
 static void * prmem_alternative_db_vaddr;
 unsigned long prmem_start_pfn;
-
-void __init prmem_alternative_alloc(void)
-{
-	prmem_alternative_db_vaddr = memblock_alloc(PRMEM_PHYS_DB_SIZE, SZ_2M);
-	WARN(!prmem_alternative_db_vaddr, "prmem temporarily alloc memory fail, ignore this err");
-}
 
 static void __init prmem_get_last_memblock_addr(void)
 {
@@ -273,34 +268,30 @@ static void __init prmem_get_last_memblock_addr(void)
 	}
 }
 
-static int __init prmem_try_alloc_contig_range(unsigned long *start_pfn, unsigned long *end_pfn)
+static phys_addr_t __init prmem_reserve_phys_db(void)
 {
-	int rc = -1;
-#ifndef CONFIG_HHEE_OHOS
-	struct acr_info dummy;
-#endif
-	unsigned long pfn;
-	unsigned long pfn_shift = SZ_16M >> PAGE_SHIFT;
-	unsigned long last_memblk_start_pfn = PHYS_PFN(last_memblock_start);
-	unsigned long last_memblk_end_pfn = PHYS_PFN(last_memblock_end);
+	phys_addr_t start;
+	phys_addr_t phys;
 
-	for (pfn = last_memblk_start_pfn; pfn < last_memblk_end_pfn; pfn += pfn_shift) {
-#ifdef CONFIG_HHEE_OHOS
-		rc = alloc_contig_range(pfn, pfn + PRMEM_PHYS_DB_PFN_NUM, MIGRATE_MOVABLE,
-					GFP_KERNEL);
-#else
-		rc = alloc_contig_range(pfn, pfn + PRMEM_PHYS_DB_PFN_NUM, MIGRATE_MOVABLE,
-					GFP_KERNEL, &dummy);
-#endif
-		if (rc == 0) {
-			*start_pfn = pfn;
-			*end_pfn = pfn + PRMEM_PHYS_DB_PFN_NUM;
-			pr_err("prmem_try_alloc_contig_range success, start_phys 0x%lx, end_phys 0x%lx\n",
-				PFN_PHYS(pfn), PFN_PHYS(pfn + PRMEM_PHYS_DB_PFN_NUM));
-			break;
-		}
+	for (start = last_memblock_start;
+	     start + PRMEM_PHYS_DB_SIZE <= last_memblock_end; start += SZ_16M) {
+		phys = memblock_phys_alloc_range(PRMEM_PHYS_DB_SIZE, PAGE_SIZE,
+						start, start + PRMEM_PHYS_DB_SIZE);
+		if (phys)
+			return phys;
 	}
-	return rc;
+	return 0;
+}
+
+void __init prmem_alternative_alloc(void)
+{
+	prmem_alternative_db_vaddr = memblock_alloc(PRMEM_PHYS_DB_SIZE, SZ_2M);
+	WARN(!prmem_alternative_db_vaddr, "prmem temporarily alloc memory fail, ignore this err");
+
+	/* Reserve before the buddy allocator and LRU workqueues are initialized. */
+	prmem_get_last_memblock_addr();
+	prmem_reserved_phys = prmem_reserve_phys_db();
+	WARN(!prmem_reserved_phys, "prmem reserve failed, use alternative mem");
 }
 
 /*
@@ -350,35 +341,19 @@ void __init configure_prmem_secure_region(void)
 void __init prmem_phys_dbs_init(void)
 {
 #ifdef CONFIG_PRMEM_CONTINUOUS_MEMORY
-	int rc;
-	int ret;
-#ifndef CONFIG_HHEE_OHOS
-	struct acr_info dummy;
-#endif
-	bool use_alternative_db = false;
-	unsigned long start_pfn = PHYS_PFN(last_memblock_start);
-	unsigned long end_pfn = start_pfn + PRMEM_PHYS_DB_PFN_NUM;
+	unsigned long start_pfn;
 	unsigned long prmem_pfn_num = PRMEM_PHYS_MEMORY_SIZE >> PAGE_SHIFT;
 
-	prmem_get_last_memblock_addr();
-#ifdef CONFIG_HHEE_OHOS
-	rc = alloc_contig_range(start_pfn, end_pfn, MIGRATE_MOVABLE, GFP_KERNEL);
-#else
-	rc = alloc_contig_range(start_pfn, end_pfn, MIGRATE_MOVABLE, GFP_KERNEL, &dummy);
-#endif
-	if (rc != 0) {
-		pr_err("prmem alloc contig range busy\n");
-		ret = prmem_try_alloc_contig_range(&start_pfn, &end_pfn);
-		if (WARN(ret != 0, "prmem try alloc fail, use alternative mem"))
-			use_alternative_db = true;
+	if (!prmem_reserved_phys) {
+		start_pfn = virt_to_pfn((uintptr_t)prmem_alternative_db_vaddr);
+	} else {
+		start_pfn = PHYS_PFN(prmem_reserved_phys);
+		memblock_free_late(__pa((uintptr_t)prmem_alternative_db_vaddr), PRMEM_PHYS_DB_SIZE);
 	}
 
-	if (use_alternative_db)
-		start_pfn = virt_to_pfn((uintptr_t)prmem_alternative_db_vaddr);
-	else
-		memblock_free_late(__pa((uintptr_t)prmem_alternative_db_vaddr), PRMEM_PHYS_DB_SIZE);
-
 	prmem_start_pfn = PFN_PHYS(start_pfn);
+	pr_info("physical database start 0x%lx, size 0x%lx\n", prmem_start_pfn,
+		(unsigned long)PRMEM_PHYS_DB_SIZE);
 	prmem_pgtable_pages_phys_db.start_pfn = (unsigned long)(start_pfn + prmem_pfn_num);
 	prmem_pmalloc_phys_db.start_pfn = start_pfn;
 #endif

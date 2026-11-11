@@ -26,10 +26,10 @@ storage, USB and display sleep/wake checks. r20 repairs video decoder IRQ-flags
 writeback and passes named hardware AVC/HEVC decode and live accel/gyro/mag
 event tests. r20 is the recorded hardware-functional reference, not full certification.
 The user reports preliminary front/rear camera switching and photos working
-on r19. Wi-Fi association and multi-level L3 voting remain unresolved or unverified.
+on r19. Multi-level L3 voting remains unresolved.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r26: r21 retains full early logs,
+The current installed test candidate is r27: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -37,9 +37,14 @@ as the sole owner of its existing proc interfaces, removing duplicate memcheck
 registration without changing their ABI. r26 removes duplicate version
 declarations from combined TCPC/NPU modules, keeping the active version values.
 Paired readback, real ION allocation/mapping/accounting and registration checks
-pass. r26 boots normally twice; only the early PRMEM WARNING remains.
+pass. r27 reserves the PRMEM physical database during the existing early
+memblock stage without delaying write protection or changing its selected
+physical range. It boots normally twice with no WARNING in either full early
+log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
+Database capacity/accounting, Reserved page ownership and protected SELinux
+pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r22-r26 pairs are retained for rollback.
+test limits. Accepted r17 and the latest r23-r27 pairs are retained for rollback.
 Audio follow-up finds no normal codec-backed sound card and an empty audio
 policy manager; the required V2C codec implementation is not supplied by
 the ALN archive. A newer Changsha implementation has incompatible register
@@ -72,7 +77,7 @@ need separate lifecycle diagnosis without relaxing protection.
 - `docs/clang12-cfi-iterations.md`: targeted CFI fixes and subsequent paired tests.
 - `docs/clang12-working-baseline.md`: accepted r17 boot baseline and test scope.
 - `docs/clang12-functional-tests.md`: functional repairs, checks and audio/BT gaps.
-- `docs/clang12-early-diagnostics.md`: r21-r26 log, lock, GPIO, PD and registration fixes.
+- `docs/clang12-early-diagnostics.md`: r21-r27 log, lock, GPIO, PD, registration and PRMEM fixes.
 - `docs/clang12-audio-source-audit.md`: missing V2C codec and rejected platform sources.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the

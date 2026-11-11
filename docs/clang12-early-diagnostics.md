@@ -344,3 +344,76 @@ move all PRMEM initialization, suppress the drain guard or guess reserved
 memory addresses without tracing the earliest consumers and protection
 ordering. The newly inconclusive Wi-Fi scan test and calibration read
 context are recorded in clang12-functional-tests.md.
+
+## r27: Reserve The PRMEM Physical Database Before Buddy Initialization
+
+Base: r26. A fresh unchanged-r26 boot reproduces the sole remaining WARNING
+at mm/swap.c:974, through prmem_try_alloc_contig_range / alloc_contig_range /
+lru_cache_disable. PRMEM runs from mm_init before mm_percpu_wq exists; the
+LRU drain guard is correct. The initial start_pfn was also calculated from
+last_memblock_start before that variable was populated, causing an invalid
+first allocation attempt. The subsequent scan succeeds in the highest memory
+bank, using physical range 0x800000000-0x800e2a000.
+
+Change only platform_source/see/drivers/prmem/prmem_phys_db.c:
+
+- Reserve the preferred physical database in the existing
+  prmem_alternative_alloc callback, after paging_init and before mem_init.
+  Use standard memblock_phys_alloc_range for each exact candidate interval;
+  it excludes already reserved memory and retains ownership through
+  memblock_free_all. Candidate selection still starts at the highest memory
+  bank's base and advances in 16-MiB steps. Stop before a full database would
+  cross that bank's end; no device-specific address is added to the code.
+- Retain the existing 2-MiB-aligned memblock fallback reservation. If the
+  preferred reservation succeeds, release only the unused fallback with the
+  existing memblock_free_late call. If it fails, warn and use that fallback,
+  rather than suppressing a real reservation failure.
+- The original mm_init -> prmem_init call and its internal order remain:
+  auxiliary mapping, physical databases (page-table database before pmalloc),
+  status, mark_wr_data_wr, then protected caches. No LRU/workqueue guard,
+  memory-bank definition, pool size, protection call, CFI setting or secure
+  region SMC/FFA implementation is changed.
+- Reserved pages are compatible with the existing fallback design. PRMEM
+  manages their ownership through its own chunk bitmaps; its release path
+  does not return these pages to the buddy allocator. This is early boot
+  reservation, not a later runtime contiguous-page migration request.
+
+References: this tree's Linux 5.10.43 memblock allocator, ARM64 setup/mm_init,
+PRMEM page ownership and protection paths. Also inspect
+HK416AAA/HUAWEI_Kirin9000S_Kernel at
+991c4dd5c219f90fa0575086bf565c991b3ab2ee (Linux 5.10.43, Kirin 9000S): its
+prmem_phys_db.c is identical to the pre-change local file and contains the
+same ordering bug, so it supplies no fix to transplant. No external driver
+implementation is adopted.
+
+Checks after paired r27 flash:
+
+- Diff checks, Clang 12.0.7 ThinLTO, boot round-trip and signed modem staging
+  pass, with all 390 versioned imports present and matching. Linked calls
+  confirm memblock_phys_alloc_range replaces the PRMEM contiguous allocator;
+  the original prmem_init protection order remains.
+- Paired flash and a normal reboot both reach #27, normal mode,
+  boot_completed=1 and the Huawei launcher. Full boot/modem_driver readback
+  matches; the independent Magisk ramdisk is unchanged. The matching modem
+  module loads, sig_enforce is Y and SELinux remains Enforcing.
+- Both complete boot logs begin at 0.000000 and contain no WARNING, BUG,
+  bad lock, enabled-IRQ exit, CFI failure or panic. Taint drops from 516 to 4:
+  the W bit is gone, while the previously attributed CPU-feature S bit
+  remains. This is not a claim that every OEM diagnostic message is resolved.
+- The selected physical range is exactly the same as r26. The physical
+  database capacities remain 42 page-table pages and 3584 pmalloc pages;
+  free + used equals capacity, with the observed initial accounting also
+  unchanged. PRMEM reports enabled and both SELinux pools report protected.
+- Read only the kpageflags metadata for the complete selected region:
+  all 3626 pages have PageReserved; none is on buddy, LRU or slab. No physical
+  page contents are read. These checks validate reservation and normal pool
+  use, not adversarial hypervisor protection, every PRMEM client, deep
+  suspend or long-duration memory pressure.
+
+Retain accepted r17, latest r23-r27 pairs, immediate rollback r26 and all
+original backups; retire r22 candidate artifacts after this verification.
+Wi-Fi foreground scan and automatic saved-network association/DHCP passed
+on unchanged r26; see clang12-functional-tests.md. Audio's missing compatible
+V2C implementation, multi-level L3 voting and calibration-access correctness
+remain separate work. Do not loosen security policy merely because the
+calibration open errors coexist with successful scanning and association.
