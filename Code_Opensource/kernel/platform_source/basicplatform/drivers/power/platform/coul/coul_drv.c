@@ -404,8 +404,7 @@ int coul_drv_battery_temperature_permille(int *raw_temp)
 
 	/* execute the operation of coul module */
 	if (ops && ops->get_battery_temp_permille && raw_temp) {
-		*raw_temp = ops->get_battery_temp_permille();
-		return 0;
+		return ops->get_battery_temp_permille(raw_temp);
 	}
 
 	return -EPERM;

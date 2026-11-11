@@ -42,41 +42,29 @@ struct battery_thermal_priv {
 static int battery_thermal_get_temp(
 	struct thermal_zone_device *thermal, int *temp)
 {
-	int raw_temp = 0;
-
 	if (thermal == NULL || temp == NULL)
 		return -EINVAL;
-	coul_drv_battery_temperature_permille(&raw_temp);
-	*temp = raw_temp; /* to fit iaware interface */
 
-	return 0;
+	return coul_drv_battery_temperature_permille(temp);
 }
 
 #ifdef CONFIG_COUL_ALGORITHM_CORE
 static int battery0_thermal_get_temp(
 	struct thermal_zone_device *thermal, int *temp)
 {
-	int raw_temp = 0;
-
 	if (thermal == NULL || temp == NULL)
 		return -EINVAL;
-	raw_temp = coul_merge_drv_battery_temperature_raw(0);
-	*temp = raw_temp; /* to fit iaware interface */
 
-	return 0;
+	return coul_merge_drv_battery_temperature_raw(0, temp);
 }
 
 static int battery1_thermal_get_temp(
 	struct thermal_zone_device *thermal, int *temp)
 {
-	int raw_temp = 0;
-
 	if (thermal == NULL || temp == NULL)
 		return -EINVAL;
-	raw_temp = coul_merge_drv_battery_temperature_raw(1);
-	*temp = raw_temp; /* to fit iaware interface */
 
-	return 0;
+	return coul_merge_drv_battery_temperature_raw(1, temp);
 }
 #endif
 

@@ -244,6 +244,11 @@ int coul_merge_battery_temperature(void)
 	return coul_merge_drv_battery_temperature(BATT_0);
 }
 
+static int coul_merge_battery_temp_permille(int *raw_temp)
+{
+	return coul_merge_drv_battery_temperature_raw(BATT_0, raw_temp);
+}
+
 static int coul_merge_battery_removed_before_boot(void)
 {
 	return coul_merge_drv_battery_removed_before_boot(BATT_0);
@@ -846,6 +851,7 @@ struct coulometer_ops coul_merge_ops = {
 	.battery_capacity = coul_merge_get_capacity,
 	.battery_unfiltered_capacity = coul_merge_get_unfiltered_capacity,
 	.battery_temperature = coul_merge_battery_temperature,
+	.get_battery_temp_permille = coul_merge_battery_temp_permille,
 	.battery_temperature_for_charger =
 		coul_merge_battery_temperature,
 	.battery_rm = coul_merge_battery_rm,

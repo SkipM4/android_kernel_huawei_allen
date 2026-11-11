@@ -233,7 +233,9 @@ int coul_merge_drv_fifo_avg_current(int batt);
 int coul_merge_drv_battery_current_avg(int batt);
 int coul_merge_drv_battery_unfiltered_capacity(int batt);
 int coul_merge_drv_battery_capacity(int batt);
-int coul_merge_drv_battery_temperature_raw(unsigned int batt_index);
+/* Return status separately from the signed millidegree temperature. */
+int coul_merge_drv_battery_temperature_raw(unsigned int batt_index,
+	int *raw_temp);
 int coul_merge_drv_battery_temperature(int batt);
 int coul_merge_drv_battery_rm(int batt);
 int coul_merge_drv_battery_fcc(int batt);

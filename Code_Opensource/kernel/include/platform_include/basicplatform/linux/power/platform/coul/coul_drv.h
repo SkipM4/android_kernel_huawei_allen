@@ -132,7 +132,7 @@ struct coulometer_ops {
 	int (*get_record_fcc)(unsigned int size, unsigned int *records);
 	int (*get_last_powerdown_soc)(void);
 	int (*get_battery_temperature_raw)(void);
-	int (*get_battery_temp_permille)(void);
+	int (*get_battery_temp_permille)(int *raw_temp);
 	void (*get_c_calibration)(int *cur_offset_a, int *cur_offset_b);
 	void (*force_ocv)(void);
 	int (*coul_interpolate_pc)(int ocv);

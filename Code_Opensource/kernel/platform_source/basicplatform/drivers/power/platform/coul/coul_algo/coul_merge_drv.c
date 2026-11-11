@@ -438,19 +438,21 @@ int coul_merge_drv_battery_capacity(int batt_index)
 	return -EPERM;
 }
 
-int coul_merge_drv_battery_temperature_raw(unsigned int batt_index)
+int coul_merge_drv_battery_temperature_raw(unsigned int batt_index,
+	int *raw_temp)
 {
 	struct coulometer_drv *coul_merge_drv = NULL;
 	struct coul_merge_drv_ops *ops = NULL;
 
 	coul_merge_drv = coul_merge_drv_get_info(batt_index);
-	if(coul_merge_drv == NULL)
-		return 0;
+	if (coul_merge_drv == NULL)
+		return -ENODEV;
 	ops = coul_merge_drv->g_coul_ops;
 
-		/* execute the operation of coul module */
-	if (ops && ops->battery_raw_temperature)
-		return ops->battery_raw_temperature(coul_merge_drv->data);
+	if (ops && ops->battery_raw_temperature) {
+		*raw_temp = ops->battery_raw_temperature(coul_merge_drv->data);
+		return 0;
+	}
 
 	coul_merge_drv_err("%s batt_index %d, ops error\n", __func__);
 	return -EPERM;

@@ -75,3 +75,12 @@ This step changes documentation only; it does not claim restored thermal
 accuracy or full power safety. Next isolate the independently observed
 PCIe PME/AER MSI affinity failure before another kernel iteration. Raw ELF,
 config copies, disassembly and logs are removed after retaining this audit.
+
+## r32 Follow-Up
+
+The separate raw-temperature API gap is subsequently repaired in r32 with
+status/output separation, the existing BATT_0 callback and direct thermal
+error propagation. Valid BATT_0 reads and the unregistered BATT_1 ENODEV path
+pass targeted checks; the stock shell calculation coefficients/guard and
+lower-level acquisition defaults remain unchanged. See the r32 section of
+clang12-functional-tests.md for source scope, validation and remaining limits.

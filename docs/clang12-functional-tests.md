@@ -1040,3 +1040,78 @@ change; no PCIe error injection or CPU-online/offline writes occur here.
 This step changes documentation only and leaves r31 installed. The separate
 raw-battery-temperature callback gap is a candidate for the next isolated
 API/unit audit, not a proven cause of the shell calculation rejection.
+
+## r32: Separate Raw Battery Temperature From Status
+
+### Cause And Interface Change
+
+The raw-temperature follow-up confirms the separate API gap. The aggregate
+bat_raw_temp caller discards coul_drv_battery_temperature_permille's failure,
+and the active coul_merge_ops has no corresponding callback. Per-battery
+retrieval also conflates signed temperature data and status, returning a
+successful zero when that battery's driver is unregistered. The r31 baseline
+shows zero aggregate/second-battery raw nodes alongside the working BATT_0
+node and ordinary battery temperature.
+
+The live coul_merge DT has cap_ratio_1=0. The existing temperature policy
+selects BATT_0 even when other properties support two-battery aggregation;
+do not introduce averaging, maximum selection or a new charging policy.
+The existing coul_core_get_raw_battery_temperature path calls
+coul_battery_retry_temp_permille. Its get_bat_temp result is represented in
+millidegrees by the existing PERMILLAGE conversion. This unit does not imply
+millidegree sensor resolution. Existing board/shielding/acquisition defaults
+and temperature compensation remain unchanged.
+
+Changes are confined to coul_drv.h, coul_merge_drv.h, coul_drv.c,
+coul_merge_drv.c, coul_merge.c and battery_thermal.c. The internal raw getter
+and aggregate callback now return status with a separate int output value.
+The missing aggregate callback delegates to the existing BATT_0 raw getter.
+An unregistered battery returns -ENODEV without assigning a temperature;
+missing operations retain error reporting. The three thermal get_temp
+callbacks return the getter status directly instead of publishing initialized
+data on failure. Zero and negative temperatures remain valid signed values,
+not error codes. Caller-validated output pointers remain an internal contract;
+no speculative fallback or artificial precision is added.
+
+All local declarations, callback assignments and call sites are reviewed and
+updated together. These interfaces/registration functions are not exported
+module symbols; the callback slot layout does not change. No DT, calibration,
+firmware, permissions, SELinux, charging threshold or independent ramdisk
+change is made. Existing thermal-zone registration/names remain intact.
+
+### Validation And Limits
+
+Diff/whitespace review and the existing Clang 12 build pass with the original
+security configuration. The matched modem module has no missing versioned
+imports or CRC mismatches; signature/certificate, ext4 metadata and boot
+round-trip/DT preservation checks pass. The installed r31 pair matches its
+retained rollback images before flashing. Supported OEM bootloader queries
+reconfirm ALN-AL00 and unlocked state; product/all remain unsupported.
+
+Both r32 flashes succeed and #32 reaches normal Android with boot completed.
+Device-side digests match boot/modem_driver, and the full independent ramdisk
+digest is unchanged. The signed modem is loaded with sig_enforce=Y and
+SELinux Enforcing. Six passive reads show bat_raw_temp and bat0_raw_temp
+returning the same BATT_0 millidegree value, consistent with the ordinary
+Battery/battery_gauge snapshots. They no longer expose the aggregate's old
+initialized zero. Reading the existing bat1_raw_temp file instead reports
+No such device (ENODEV), confirming the unregistered-provider error path.
+
+The complete early/observation ring starts at boot time zero and contains no
+kernel WARNING splat, BUG, CFI failure, panic, unbalanced-enable or
+misconfigured-IRQ marker. Taint remains 4, and boot/audioserver/thermal-daemon
+identities remain stable during observation. Battery presence/health and
+normal properties remain readable, and r31's OCV lookup errors do not recur.
+Recent logcat has no fatal-exception/native-crash/ANR marker. PCIe affinity
+errors and both inherited DAPM MUX diagnostics remain observed.
+
+This validates active BATT_0 callback wiring, signed-value transport by source
+inspection and the actual missing-BATT_1 status path. No cold/zero-degree
+stimulus, sensor fault injection, dual-battery hardware, charging stress or
+full thermal-accuracy test is performed. Acquisition fallback behavior below
+this API is not redesigned or certified. The stock shell calculation guard
+is unchanged; absence of its message in a short recent log is not a repair
+claim. Earlier functional passes retain their original version and scope.
+r31 is the immediate paired rollback. Original backups, accepted r17 and the
+latest r28-r32 pairs remain; superseded r27 test artifacts and temporary
+build/audit logs are removed after validation.

@@ -29,7 +29,7 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3 voting remains unresolved.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r31: r21 retains full early logs,
+The current installed test candidate is r32: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -44,8 +44,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r27-r31 pairs are retained; r30 is
-the immediate r31 rollback and r27 is the pre-audio rollback.
+test limits. Accepted r17 and the latest r28-r32 pairs are retained; r31 is
+the immediate r32 rollback. Original boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -126,6 +126,18 @@ A separate PCIe audit traces IRQ267's -22 to the DesignWare MSI affinity
 setter, which is also unimplemented in upstream Linux 5.10.43. Logical MSI
 vectors use a separately dispatched physical interrupt; no fake affinity
 success or CPU-hotplug workaround is added. Delivery/migration remain untested.
+r32 fixes the separate raw-battery-temperature interface: status is returned
+independently of signed millidegree data, the missing aggregate callback uses
+the existing BATT_0 measurement path, and thermal callbacks propagate errors.
+The DT disables the second battery's capacity contribution; its unregistered
+raw-temperature provider now returns ENODEV instead of a successful zero.
+Compilation, signed paired flash/readback and unchanged ramdisk checks pass.
+Six passive reads of bat_raw_temp and bat0_raw_temp agree with the existing
+battery readings; full early/observation logs have no kernel WARNING, BUG,
+CFI failure or panic, and taint stays 4. Sensor resolution, acquisition defaults,
+temperature compensation and charging policy remain unchanged. This fixes
+the interface contract, not the stock shell calculation guard or full thermal
+accuracy/safety; see `docs/clang12-functional-tests.md` for the r32 scope.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see
