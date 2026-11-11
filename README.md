@@ -65,8 +65,13 @@ power-down/restore without reboot, but UFS resume emits an unbalanced hub IRQ
 enable warning and taint rises to 516. r29 supplies the missing initial
 is_irq_enabled state after successful hub IRQ registration. Its paired boot,
 readback and actual O_DIRECT write/read/compare checks pass with UFS IRQ
-activity, no kernel WARNING and taint 4. The warning-specific first unplugged
-suspend recheck remains pending. See `docs/clang12-functional-tests.md`.
+activity, no kernel WARNING and taint 4. The first unplugged recheck and two
+later deep resumes no longer emit the UFS warning; taint stays 4. Post-resume
+silent playback, PCM/clock release and actual O_DIRECT write/read/compare
+also pass without device/audio-service restart. Two eventpoll wakeups abort
+freezing before device suspend, not a UFS/codec resume failure. RTC wakeups
+expose a separate NO_SUSPEND/wake-IRQ contract conflict, still unfixed; see
+`docs/clang12-functional-tests.md` for the tested scope and next isolated step.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 microphone, calls/sidetone and system/deep suspend are not certified; see
 `docs/clang12-audio-source-audit.md` and `docs/clang12-functional-tests.md`.

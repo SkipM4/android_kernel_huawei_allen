@@ -578,11 +578,71 @@ enable. Taint is 4, sig_enforce is Y and SELinux is Enforcing. These initial
 checks do not exercise the reported system-sleep warning: this r29 boot still
 has zero suspend successes/failures.
 
-The decisive first unplugged suspend/resume recheck remains pending. Retain
-r28 as the immediate paired rollback; its audio implementation is unchanged
-by this repair, and the independent Magisk ramdisk remains outside the change.
-Next disconnect USB with the screen asleep for about 60 seconds, reconnect,
-and verify actual deep entry, UFS/codec resume, no unbalanced enable/WARN and
-unchanged taint before treating the warning as resolved. Then check playback
-and storage after that actual resume; do not substitute another USB-connected
-display-only check.
+### Unplugged Recheck And Post-Resume Function
+
+The user disconnects USB with the screen asleep and then reconnects. The same
+#29 boot identity remains, normal Android is booted and audioserver retains
+its PID. Kernel and suspend-service statistics agree on five attempts: three
+successful deep suspends and two freezing-stage aborts. All device-suspend
+and resume failure counters remain zero. The service reports approximately
+99 seconds of cumulative sleep; the last wake reason is the Type-C IRQ on
+cable reconnection. The other two completed wakeups are attributed to the
+SoC RTC, with a separate configuration diagnostic described next.
+
+The first successful cycle and both subsequent device-sleep cycles log UFS
+platform suspend/resume returning zero and idle codec suspend begin/end,
+have_dapm=0/is_ulsr=0 and resume from asp pd. No unbalanced enable appears.
+The complete captured boot/suspend/resume logs contain no kernel WARNING,
+BUG, CFI failure or panic; taint remains 4. This resolves the observed UFS
+hub initial-state warning, including the decisive first resume, not just a
+later cycle that could have corrected the old flag as a side effect.
+
+The two failed attempts explicitly log Freezing of tasks aborted, with
+eventpoll as the last active wakeup source. kernel/power/process.c distinguishes
+this pm_wakeup_pending path from tasks refusing to freeze: it aborts promptly
+before device suspend. Do not attribute those counters to a failed UFS or
+codec callback, lengthen freezer timeouts or disable wakeups to clear them.
+
+After actual system resume, the native probe repeats its 512 aligned-block
+O_DIRECT write/fsync/read/byte-compare check successfully. UFS hub and core
+IRQ counters increase. A shell-identity-validated AudioTrack probe consumes
+all 96,000 generated silent 48 kHz stereo frames, reports the logical built-in
+speaker route and zero underruns, and observes the normal PCM RUNNING with
+the codec runtime active. After stop/release the PCM closes and the codec
+returns to runtime suspended. Both playback power-down events and codec/ASP
+clock disable are present. No global volume, media-library, microphone,
+radio, power-policy, SELinux, kernel configuration or partition change is made.
+The probes and their exclusive owned files are removed.
+
+The same device/audio-service identity remains throughout the post-resume
+checks. Full logs still have no kernel WARN/BUG/CFI failure/panic or unbalanced
+IRQ enable; taint stays 4, sig_enforce is Y and SELinux remains Enforcing.
+No new kernel build or flash is needed for this confirmation. Retain r28 as
+the immediate paired rollback. These are short idle deep-sleep and resume
+checks; active-DAPM/ULSR, calls/microphone, audible post-resume fidelity,
+long-duration sleep/idle-power parity and every wakeup source remain outside
+the proven scope.
+
+### Separate RTC Wake-IRQ Contract Gap
+
+Two RTC wakeups log Resume caused by misconfigured IRQ 228 vendor-soc-rtc.
+Read-only IRQ attribution confirms the SoC RTC action; the RTC device's wakeup
+policy is enabled. The message is emitted by kernel/irq/chip.c irq_may_run
+when a no-suspend IRQ is also configured as a wakeup source but is not armed
+through the normal wake-IRQ path. It is not a kernel WARN splat and does not
+change taint, but it identifies a separate driver contract mismatch.
+
+platform_source/basicplatform/drivers/rtc/rtc_pmic_spmi.c request_rtc_irq
+registers the SoC IRQ with IRQF_NO_SUSPEND, then rtc_suspend enables wake on
+that same IRQ and rtc_resume disables wake.
+`Documentation/power/suspend-and-interrupts.rst` explicitly states that
+IRQF_NO_SUSPEND and enable_irq_wake must not be used together for the same
+device. The PMU IRQ
+has a separate registration and purpose; do not change both just because
+they share this helper.
+
+Next audit the SoC RTC handler's late/noirq dependencies, then adapt only its
+registration to the documented wake-IRQ contract while preserving alarm
+programming and the existing wake-enable pair. Do not silence the generic
+diagnostic or disable RTC alarms. No RTC source, IRQ flag or alarm is modified
+in this r29 validation round.
