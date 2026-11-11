@@ -84,3 +84,28 @@ error propagation. Valid BATT_0 reads and the unregistered BATT_1 ENODEV path
 pass targeted checks; the stock shell calculation coefficients/guard and
 lower-level acquisition defaults remain unchanged. See the r32 section of
 clang12-functional-tests.md for source scope, validation and remaining limits.
+
+## r41 Synchronized Cold-Window Follow-Up
+
+Ten passive snapshots over approximately 47 seconds cover more than a full
+seven-sample history window. The same daemon PID remains running. All eight
+configured physical inputs and Battery remain readable; the maximum sampled
+physical input rises from 24715 to 24905 mC. Published shell_front remains
+24632 mC and shell_back remains 26295 mC. The fresh log contains 20 CalcTemp
+rejections, ten for each slot, reporting cached front 24632 and back 26296.
+The one-millidegree back difference is observed, not attributed to a specific
+rounding/bias path without publication evidence.
+
+An earlier log reports a different cached front value, 24795. Thus the
+observable cache is not permanently fixed, but the two observations do not
+establish an accepted calculation or explain the update. Do not compare
+older log values with current sysfs to infer a synchronized bias pipeline.
+Search the exact `is abnormal` diagnostic: generic error/failed filters can
+miss it even though the daemon emits it at error level.
+
+No stress, sensor/control write, service restart or kernel change occurs in
+this follow-up. This cold window does not certify freshness, recovery or
+protection during charging/warming. Next audit publication/scene selection
+and observe a bounded normal warming/recovery window when appropriate;
+there is still no demonstrated kernel acquisition failure justifying a
+temperature-unit or ADC patch for these messages.

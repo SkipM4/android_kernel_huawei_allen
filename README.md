@@ -28,8 +28,9 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is r41; normalized vote-scale bookkeeping
-still needs a separate consumer audit before performance-parity claims.
+validation. The installed device is r41. A separate normalized vote-scale
+reference audit classifies it as unused original bookkeeping within the
+examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 

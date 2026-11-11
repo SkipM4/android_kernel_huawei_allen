@@ -38,8 +38,10 @@ Offline symbol recovery uses `marin-m/vmlinux-to-elf` commit
 `6aa8039ae67ccc7f49d019d6b18d016f0cc4af80` (GPL-3). Its temporary Python
 environment does not install global host packages or upload the Image.
 
-The recovered `_text` address, `0xffffffc010000000`, is independently checked
-against the raw Image and the exact `linux_banner` bytes. Recovery provides
+The recovered `_text` address, `0xffffffc010000000`, is checked against the
+raw Image and exact `linux_banner` bytes. Embedded absolute pointers to two
+known strings independently confirm this preferred address base; relative
+symbol alignment alone would not establish it. Recovery provides
 symbols and machine code, not original DWARF or original ELF section metadata.
 
 The factory contract is:
@@ -113,19 +115,33 @@ this matches the factory ARM64 `udiv` result. If a memory interval contains
 no complete MIPS sampling window, the callback skips that incomplete sample
 instead of passing a zero-duration window to the filtered producer.
 
+### Normalized Vote-Scale Classification
+
 The factory `set_hw_vote` additionally updates per-CPU normalized vote-scale
 bookkeeping, exposed by `mips_mem_get_freq_scale`. This state is absent from
-the published source. Its machine code multiplies the selected MHz vote by
-1,024,000 and divides by a CPU-policy field; the exact field/consumer contract
-still needs confirmation before any restoration.
+the published source. The writer at `0xffffffc011be5bf4` and getter load at
+`0xffffffc011be6d18` reference the field at `0xffffffc012f458f8`, initially
+zero in the Image. Its formula is selected vote MHz times 1,024,000 divided
+by `policy->cpuinfo.max_freq` in kHz. Original
+`cpufreq_frequency_table_cpuinfo` establishes hardware max at policy offset
+40; `cpufreq_quick_get_max` instead reads adjustable policy max at offset 56.
+The relevant public policy layout agrees; these two maxima are not exchanged.
 
-No direct call, direct branch, absolute/relative helper pointer or plain
-export-name string is found in the original Image. Known exported names are
-present; this getter is absent from the normal plaintext export-name table. An inlined or
-otherwise direct data consumer still needs audit: absence of calls alone
-does not establish harmlessness, and the getter alone does not establish
-active performance feedback. Do not invent a consumer, copy an incompatible
-policy layout or claim complete OEM scheduling parity.
+No direct call/branch, absolute/relative helper pointer, helper ADR or
+ADRP+ADD materialization, or plaintext export name is located in the Image.
+Known exported names are present. No absolute pointer to the data field is
+found either. An affine ARM64 address scan inspects 1,111 neighboring-page
+address seeds across 664 whole functions, tracking ADR/ADRP, displacement
+arithmetic, register copies, memory references and pointer call/store
+candidates. It finds only the known writer and getter and no field-pointer
+escape. Positive controls require finding both known instructions.
+
+This is a practical encoded-reference audit, not a formal general alias or
+control-flow proof. Within that scope, classify the field as unused original
+bookkeeping rather than a demonstrated missing active feedback mechanism.
+Do not add unused state/getters or invent a consumer to reproduce symbol
+presence. The consumer audit is closed with this classification; complete
+OEM performance/power parity is still not certified.
 
 ## Validation And Remaining Work
 
@@ -210,5 +226,6 @@ Both full early boot logs and the post-workload log have no WARNING, BUG,
 panic or CFI failure. A new boot ID confirms the normal reboot, not a stale
 boot-completed property. SELinux remains Enforcing, taint remains 4, PRMEM
 remains enabled, the independent ramdisk is unchanged, and all six maps and
-enable flags persist. This completes the bounded table/ratio/vote validation,
-not the outstanding normalized-scale consumer audit or whole-device signoff.
+enable flags persist. This completes the bounded table/ratio/vote validation.
+The separate normalized-scale audit is classified above, without another
+kernel change, build or flash; whole-device signoff remains open.
