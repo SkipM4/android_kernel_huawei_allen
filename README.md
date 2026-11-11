@@ -49,6 +49,9 @@ Audio follow-up finds no normal codec-backed sound card and an empty audio
 policy manager; the required V2C codec implementation is not supplied by
 the ALN archive. A newer Changsha implementation has incompatible register
 pages and is not adopted; see `docs/clang12-audio-source-audit.md`.
+A new same-version Hepburn/Charlotte candidate contains the real CLT driver
+and matches all six Allen register bases in order. Its mapping lengths and
+reorganized build need a scoped adaptation; it has not been imported or tested.
 A correctly attributed shell-context probe passes Bluetooth ON/OFF on r24;
 named hardware AVC/HEVC encoders each complete thirty synthetic frames and
 EOS, with VENC IRQ activity. Pairing/peer transfer, video decode fidelity,
