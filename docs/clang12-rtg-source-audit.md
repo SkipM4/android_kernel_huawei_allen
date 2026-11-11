@@ -700,3 +700,31 @@ real timer expiry under an intended permitted caller, full frame-thread
 scheduling/END_FREQ integration and bounded concurrency/performance coverage.
 The approved application group ownership and tested re-enable scope pass;
 this does not close the complete scheduler or bring-up acceptance queue.
+
+### Global Initialization Error Transport
+
+Read-only r42 checks confirm /dev/hisi_perf_ctrl remains system:system 0660
+and hisi_perf_ctrl_device. Separate global commands are INIT_RENDER_TID_GLO
+44, GET_RENDER_RT_GLO 45 and DESTROY_RENDER_RT_GLO 46. Native and ARM32
+initialization requests both use the same 12-byte fixed-field payload.
+The packed task membership field is a u32 with four eight-bit slots:
+queue_index << PER_SHIFT, where PER_SHIFT is 3, means queue_index * 8.
+It is not a three-bit-per-queue packing error and is not modified.
+
+A bounded actual-UID1000 Magisk-domain probe issues only inaccessible
+initialization/output addresses and an absent PID. On r42, both ABIs return
+positive 1 for global initialization's failed user copy and missing target,
+while the adjacent getter correctly returns -EFAULT for failed user copy.
+No valid global queue is initialized, sampled, resumed or destroyed. This
+isolates the backend's bool local variable converting negative errno to true,
+not an ioctl encoding or generic compat transport error. The API declares an
+int return, and nonnegative ioctl results may be interpreted as success.
+
+The local status variable is changed to int so existing EFAULT, ENODEV and
+EBUSY failures retain their signed values. Successful operations, request
+layout, dispatch, caller permissions, queue state and existing resume/reset
+semantics remain unchanged. This does not resolve global ownership,
+task-identity/re-init cleanup or queue-depth lifecycle questions; those require
+the matching caller/implementation contract rather than speculative changes.
+Full current-source link/pair and installed negative-return validation follow
+as an isolated iteration with r42 retained as rollback.

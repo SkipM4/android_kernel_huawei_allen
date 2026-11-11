@@ -1747,7 +1747,7 @@ err:
 int init_render_rthread_global(void __user *uarg)
 {
 	int depth;
-	bool ret = 0;
+	int ret = 0;
 	struct task_struct *render = NULL;
 	struct render_init_paras_glo rfps;
 	unsigned long flags;
