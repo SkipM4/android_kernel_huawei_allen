@@ -8,6 +8,7 @@ obj-$(CONFIG_FILE_BASED_ENCRYPTO) += file_encry/
 obj-y += cpumask/
 obj-$(CONFIG_HW_VOTE) += hw_vote/
 obj-$(CONFIG_PLATFORM_QOS) += qos/
+obj-$(CONFIG_PERF_CTRL) += perf_ctrl/
 obj-y += dpm/
 obj-$(CONFIG_SR)                      += pm/
 obj-y += hck/

@@ -118,6 +118,15 @@ entry. See `docs/clang12-rtg-source-audit.md` before changing these options;
 restoration affects task layout, Binder propagation and scheduler behavior,
 not only ioctl file registration.
 
+The later dispatcher restoration connects that definition and driver graph
+and adds a pinned 5.10.43 reference implementation adapted to Allen's command
+IDs. An enabled build still fails at the required missing thermal query
+provider. The compatibility fragment explicitly disables PERF_CTRL,
+FRAME_RTG, SCHED_STAT_YIELD and DDR_PERF_CTRL until that provider is audited;
+this preserves the previous effective state during stock-config regeneration.
+Do not infer enabled-driver, module-ABI or runtime success from the individually
+compiled dispatcher/scheduler-query objects.
+
 ## Reproduction
 
 From `/home/data/Allen`:

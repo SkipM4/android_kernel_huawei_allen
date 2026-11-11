@@ -97,3 +97,85 @@ dependency model. Only then consider an isolated configuration/source
 iteration with paired module-ABI, build and rollback checks. No build or
 flash is needed for this documentation-only audit. Downloaded libraries,
 reference files and disassembly are removed after inspection.
+
+## Follow-up: Restore The Dispatcher Without Enabling The Feature
+
+Two Linux 5.10.43 releases contain the missing dispatcher, unlike the earlier
+9000S/Hepburn candidates:
+
+- HK416AAA/HUAWEI_Kirin9000_Kernel at
+  170c9e979789b1078c1ecdf3816a1766334998fd, Kirin 9000.
+- wutaijieing/android_kernel_LIO_kirin990_103 at
+  2f71c5e433024c76412bab655e6ff54b3e656ca8, repository identifying Kirin 990;
+  its inspected source reports Linux 5.10.43.
+
+Their platform_source/cee/drivers/perf_ctrl/perf_ctrl.c files are identical,
+with a GPLv2 notice. The driver dispatches ioctl requests to existing query
+and control handlers; it does not contain platform register mappings. It
+registers a misc device named hisi_perf_ctrl, not perf_ctrl. The correctly
+named /dev/hisi_perf_ctrl is also absent on the current r32 device.
+
+The local restoration uses the pinned Kirin 9000 file as its reference:
+
+- Restore perf_ctrl.c and connect its existing Kconfig and Makefile to the
+  parent driver graph.
+- Use Allen's relocated platform_include/cee/linux/perf_ctrl.h and correct
+  that header's stale mm_lb include to its existing basicplatform location.
+- Bind command IDs explicitly to the local handlers rather than relying on
+  positional array order. The released prefix through SET_TASK_L3C_PART is
+  retained; the 11 later Allen command IDs use Allen's existing HVGR, HWP,
+  SMT, global-render, frame-VIP and PID-query implementations.
+- Preserve the legacy unsupported SET_TASK_UTIL slot, ioctl boundary
+  validation, compat pointer conversion and device name. Remove only
+  no-op open/release callbacks and unused includes, simplify misc registration
+  and add module-license metadata. No new dummy handler is introduced.
+
+The 47 named command slots have no duplicate IDs and cover all current
+commands except the deliberately unsupported SET_TASK_UTIL slot. This is
+source dispatch coverage, not proof that each optional hardware handler is
+enabled or functional. Existing optional-handler error/default behavior is
+not redesigned. In particular, the retained legacy capability-word and
+other native/compat payload contracts require separate runtime ABI review;
+the earlier per-process RTG checks do not certify this different device API.
+
+### Enabled-Build Result And Next Missing Provider
+
+Enabling only PERF_CTRL adds that symbol and exposes FRAME_RTG,
+SCHED_STAT_YIELD and DDR_PERF_CTRL as disabled options; no existing active
+configuration value changes. The new dispatcher and existing
+sched_perf_ctrl/frame_perf_ctrl objects compile with Android Clang 12.
+The complete enabled kernel build fails because the pre-existing
+thermal_platform Makefile also requests thermal_perf_ctrl.o, whose source
+is missing. No linked enabled kernel or test image is produced or flashed.
+
+The pinned Kirin 9000 release supplies a thermal_perf_ctrl.c candidate, but
+it is not imported. It reads sensor IDs 0, 1 and 2 for maximum SoC temperature.
+Allen's live tsens name order is cluster0, cluster1, cluster2, gpu, modem,
+npu, peri, ddr: that candidate would omit GPU from this maximum despite its
+comment referring to GPU. Its cooling-power query also leaves zero values
+when a cooling-device lookup fails and still reports success. Do not copy
+these platform assumptions or silently manufacture successful sensor data.
+
+The compatibility fragment therefore explicitly keeps PERF_CTRL, FRAME_RTG,
+SCHED_STAT_YIELD and DDR_PERF_CTRL disabled. This preserves the prior
+effective feature state when regenerating from the original stock config,
+rather than accidentally activating newly visible options. The source
+dispatcher restoration is dormant, pending its required query-provider
+closure. Frame RTG, Binder propagation, task layout and thermal control
+policy remain unchanged. Device r32 and its retained paired images are not
+touched.
+
+After restoring the disabled baseline, the complete Clang build passes.
+The final ELF retains ffrt and omits the dormant perf_ctrl/rtg handlers; the
+exported symbol set and every export CRC agree with the r32 baseline.
+Enforcing CFI, ThinLTO and forced module signing remain configured.
+checkpatch reports no errors or warnings for the new dispatcher. These are
+disabled-baseline and source checks, not enabled-driver runtime or signed
+paired-image certification. Temporary reference files and build logs are
+removed; original backups and the retained r28-r32 test pairs remain intact.
+
+Next audit the two missing thermal query callbacks against Allen's named
+sensor/zone mapping, actual units and missing-cooling-device contract, then
+complete an enabled link before considering a runtime or frame-RTG step.
+Do not remove the required thermal object, disable thermal protection or
+return fake successful zero values just to obtain an enabled build.

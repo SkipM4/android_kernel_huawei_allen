@@ -25,7 +25,7 @@
 #include <platform_include/cee/linux/drg.h>
 #include <platform_include/cee/linux/render_rt.h>
 #include <platform_include/cee/linux/sched_perf_ctrl.h>
-#include <linux/mm_lb/mm_lb.h>
+#include <platform_include/basicplatform/linux/mm_lb/mm_lb.h>
 #include <platform_include/cee/linux/cpufreq_perf_ctrl.h>
 #include <platform_include/cee/linux/l3cache_partition_ctrl.h>
 #include <platform_include/hvgrgpu/linux/hvgr_gpu_hook.h>

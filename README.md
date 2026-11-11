@@ -147,6 +147,15 @@ this is not full runtime ABI certification. The known Hepburn reference also
 lacks that driver. No placeholder interface, scheduler bulk-enable or flash
 is introduced; r32 remains installed. See `docs/clang12-rtg-source-audit.md`
 for the source gap and isolated restoration boundary.
+A subsequent source-only step restores the performance-control dispatcher
+from a pinned Kirin 9000 Linux 5.10.43 release, adapting command slots to
+Allen's existing handlers and fixing a relocated header include. Its objects
+compile, but the enabled kernel build exposes a second missing provider,
+thermal_perf_ctrl.c. The old thermal candidate omits Allen's GPU sensor and
+turns some lookup failures into successful zero values, so it is not imported.
+PERF_CTRL and frame scheduling remain explicitly disabled; no candidate is
+flashed, and the installed kernel remains r32. Complete the thermal query
+contract before attempting an enabled link or runtime test.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

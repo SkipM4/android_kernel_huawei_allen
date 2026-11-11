@@ -1137,3 +1137,28 @@ See `docs/clang12-rtg-source-audit.md` for source locations, privilege checks
 and the restoration boundary. Locate and audit a complete matching provider
 or a justified independent dependency model before attempting a separate
 frame-scheduler iteration; an empty proc file is not a repair.
+
+## Performance-Control Dispatcher: Compile-Only Preparation
+
+The subsequent source step restores the pinned Kirin 9000 Linux 5.10.43
+misc-device dispatcher and connects its existing build rules. It maps 47
+command IDs to Allen's local handlers, preserving the legacy unsupported
+SET_TASK_UTIL slot. With PERF_CTRL enabled and frame/statistics/DDR options
+disabled, the dispatcher and existing scheduler-query objects compile.
+The full enabled build fails at the next missing thermal_perf_ctrl.c provider;
+this is not a successful enabled-kernel build or runtime functional pass.
+
+Read-only live DT inspection confirms eight tsens entries with GPU at index
+3. The old platform's thermal query candidate reads only indices 0-2 and
+also masks some cooling-power lookup errors with zero values. It is not
+imported. The default fragment keeps PERF_CTRL and the separate frame/DDR
+features disabled, with no partitions, device settings, permissions or
+thermal policy changed. Device #32 remains installed; no new paired test
+images are staged. See `docs/clang12-rtg-source-audit.md` for sources and the
+next bounded query-provider audit.
+
+After returning to PERF_CTRL disabled, the complete baseline build passes.
+There are no exported-symbol additions/removals or CRC changes relative to
+the saved r32 baseline. Enforcing CFI and forced module signing remain
+configured. This does not validate the enabled feature or certify a new
+boot/modem pair; no device reboot or unrelated functional retest is performed.
