@@ -879,7 +879,7 @@ startup or long-duration stability certification.
   bci_get_capacity_map_by_basp also reports failure repeatedly. Battery status,
   capacity, voltage and temperature properties remain readable. The capacity
   mapping failure does not establish that all battery sensing is broken.
-- Thermal-daemon repeatedly rejects shelltemp inputs 0 and 5 and reuses the
+- Thermal-daemon repeatedly rejects shelltemp results 0 and 5 and reuses the
   previous temperature. Some physical thermal zones remain readable. Audit
   input mapping, virtual sensors and OEM units before interpreting individual
   zone values or performing heavy load/charging stress; no overheat or root
@@ -984,3 +984,21 @@ observed. The prior thermal-service fallback and missing RTG interface are
 not repaired by this change; audit thermal inputs/units next before stress.
 r30 is the immediate paired rollback. Original backups, accepted r17 and the
 latest r27-r31 pairs are retained; temporary build/audit logs are removed.
+
+### Read-Only Thermal Calculation Audit
+
+The follow-up reproduces both stock Thermal-daemon CalcTemp rejections during
+passive physical-temperature reads without stress or service restart. A
+config/ELF audit identifies calculated shell slots, not thermal-zone indices,
+and locates rejection when a computed result exceeds its maximum input or
+falls below the valid lower bound. Board 13479 has no named group in the
+located thermald.xml candidate; its expected default coefficients can reach
+that branch even with valid constant inputs. This is not a replay of live
+history or proof of every userspace lookup. The default group does not use
+DDR or the zero raw-battery nodes. A separate unimplemented raw-temperature
+callback/ignored-return gap is recorded, not patched as the shell root cause.
+See clang12-thermal-source-audit.md for evidence, limitations and the decision
+not to alter coefficients, fabricate temperatures or loosen protection.
+r31 remains installed; no kernel build/flash or new functional certification
+is introduced. Fallback freshness/thermal safety remain unresolved; next
+isolate the separately observed PCIe PME/AER MSI affinity failure.

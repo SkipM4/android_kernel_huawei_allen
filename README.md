@@ -115,8 +115,13 @@ The full early/observation log has ongoing battery work without the two lookup
 errors or kernel WARNING, BUG, CFI failure or panic; taint remains 4 and battery
 properties update. This does not certify low-battery behavior, capacity
 accuracy or charging modes. PCIe affinity and inherited audio MUX diagnostics
-remain; thermal/RTG root causes remain unaudited. See the r31 and remaining
-runtime sections of `docs/clang12-functional-tests.md` for scope and next steps.
+remain; RTG remains unaudited. A later read-only thermal audit locates the
+shelltemp messages at the stock daemon's calculated-result bound check,
+not a demonstrated physical-sensor read failure. Default coefficients can
+trigger it with valid inputs; live-history attribution and fallback freshness
+remain unresolved. No thermal protection or coefficients change. See
+`docs/clang12-thermal-source-audit.md` and the r31/remaining runtime sections
+of `docs/clang12-functional-tests.md` for scope and next steps.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see
