@@ -210,14 +210,16 @@ static long ctrl_set_config(int abi, unsigned long arg)
 
 	switch (abi) {
 	case IOCTL_ABI_ARM32:
-		copy_from_user(&temp,
-			(void __user *)compat_ptr((compat_uptr_t)rs.data), rs.len);
+		rs.data = compat_ptr((compat_uptr_t)(unsigned long)rs.data);
 		break;
 	case IOCTL_ABI_AARCH64:
-		copy_from_user(&temp, (void __user *)rs.data, rs.len);
 		break;
 	default:
 		pr_err("[AWARE_RTG] CMD_ID_SET_CONFIG abi format error");
+		return -INVALID_ARG;
+	}
+	if (copy_from_user(temp, (void __user *)rs.data, rs.len)) {
+		pr_err("[AWARE_RTG] CMD_ID_SET_CONFIG copy rs.data failed\n");
 		return -INVALID_ARG;
 	}
 
@@ -252,14 +254,16 @@ static long ctrl_set_rtg_thread(int abi, unsigned long arg)
 
 	switch (abi) {
 	case IOCTL_ABI_ARM32:
-		copy_from_user(&temp,
-			(void __user *)compat_ptr((compat_uptr_t)rs.data), rs.len);
+		rs.data = compat_ptr((compat_uptr_t)(unsigned long)rs.data);
 		break;
 	case IOCTL_ABI_AARCH64:
-		copy_from_user(&temp, (void __user *)rs.data, rs.len);
 		break;
 	default:
 		pr_err("[AWARE_RTG] CMD_ID_SET_RTG_THREAD abi format error");
+		return -INVALID_ARG;
+	}
+	if (copy_from_user(temp, (void __user *)rs.data, rs.len)) {
+		pr_err("[AWARE_RTG] CMD_ID_SET_RTG_THREAD copy rs.data failed\n");
 		return -INVALID_ARG;
 	}
 
@@ -298,14 +302,16 @@ static long ctrl_set_rtg_cfs_thread(int abi, unsigned long arg)
 
 	switch (abi) {
 	case IOCTL_ABI_ARM32:
-		copy_from_user(&temp,
-			(void __user *)compat_ptr((compat_uptr_t)rs.data), rs.len);
+		rs.data = compat_ptr((compat_uptr_t)(unsigned long)rs.data);
 		break;
 	case IOCTL_ABI_AARCH64:
-		copy_from_user(&temp, (void __user *)rs.data, rs.len);
 		break;
 	default:
 		pr_err("[AWARE_RTG] CMD_ID_SET_RTG_CFS_THREAD abi format error");
+		return -INVALID_ARG;
+	}
+	if (copy_from_user(temp, (void __user *)rs.data, rs.len)) {
+		pr_err("[AWARE_RTG] CMD_ID_SET_RTG_CFS_THREAD copy rs.data failed\n");
 		return -INVALID_ARG;
 	}
 

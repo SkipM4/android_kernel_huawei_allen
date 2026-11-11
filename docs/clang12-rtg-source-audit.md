@@ -339,3 +339,55 @@ normal-caller use, frame scheduling and thermal safety remain separate work.
 r32 stays available as immediate paired rollback. Device probes, host
 temporary executables and diagnostic logs are removed after recording the
 results; original backups, accepted r17 and the latest r29-r32/r36 pairs remain.
+
+## r37 Follow-up: Enabled Source Audit And String-Copy Repair
+
+The installed baseline is now r37, with PERF_CTRL enabled and FRAME_RTG still
+disabled. A separate temporary configuration enables only the five original
+frame features: FRAME_RTG, HW_RTG_SCHED, HW_RTG_CONSTRAINT,
+HW_RTG_MULTI_FRAME and HW_RTG_VIP_FOR_MULTI_FRAME. olddefconfig with the
+complete trusted Clang/native/compat toolchain arguments changes no other
+enabled value. The two-flag FRAME_RTG/HW_RTG_SCHED subset is insufficient:
+without MULTI_FRAME, parse_rtg_attr is the existing EFAULT fallback rather
+than the original attribute implementation. SCHED_STAT_YIELD, DDR_PERF_CTRL,
+CGroup RTG and tracing/debug options remain disabled.
+
+The active ioctl source includes kernel/hwrtg/include/proc_state.h and
+iaware_rtg.h through relative paths. Their public include/hwrtg copies are
+still identical. The original proc entry keeps mode 0644, task euid/egid
+ownership and security_task_to_inode. Open permits UID 1000 or application
+UIDs >= 10000; configuration, enable, attribute and RT-thread assignment
+require the actual current UID 1000, not the payload's claimed UID. Frame
+begin/end checks the current TID, CFS assignment checks the current PID and
+group ownership, and activity control checks caller/group UID. These are
+sampled source checks, not complete authorization certification.
+
+Three string handlers -- SET_CONFIG, SET_RTG_THREAD and SET_RTG_CFS_THREAD --
+previously ignored the nested copy_from_user result in both ABI branches.
+An inaccessible or partially accessible string could reach parsing as an
+incomplete stack buffer. Each handler now converts the compat pointer once,
+then checks a single copy and returns the existing INVALID_ARG error before
+termination or parsing on failure. Successful payload layout, command IDs,
+length bounds, parser behavior and authorization are unchanged. No buffer
+zeroing, fake success or speculative fallback is added.
+
+The original-feature configuration compiles all six hwrtg objects, the frame
+and multi-frame objects, Binder, fork and proc/base with Android Clang 12,
+ThinLTO and enforcing CFI. The final changed ioctl object has no diagnostics
+in its own C file, and checkpatch reports no errors or warnings for the patch.
+The requested-object build is not a complete kernel link, task-layout/module
+CRC check, image certification or runtime fault-injection test. The active
+r37 output configuration, device, security settings and partitions are
+unchanged. Do not enable the feature solely on this compile result.
+
+Further source audit identifies a deterministic timer-lifecycle blocker:
+deinit_frame_timer clears g_timer_on but keeps its persistent worker;
+init_frame_timer rejects that existing worker on re-enable and never restores
+g_timer_on. The ioctl enable wrapper also returns success after an invalid
+string, failed state setup or timer-worker creation failure. Resolve this
+real enable/disable contract separately before an enabled candidate. The
+render capability query currently accepts only its native-sized command;
+the exact switch rejects the ordinary four-byte compat encoding rather than
+over-copying that request. Its intended 32-bit caller contract remains to be
+checked. Full frame authorization and timer/state synchronization also remain
+open; no claim is made that dormant OEM scheduling code is ready to expose.
