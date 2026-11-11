@@ -29,7 +29,7 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3 voting remains unresolved.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r32: r21 retains full early logs,
+The current installed test candidate is r36: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -44,8 +44,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r28-r32 pairs are retained; r31 is
-the immediate r32 rollback. Original boot/ramdisk/modem backups remain intact.
+test limits. Accepted r17 and the latest r29-r32/r36 pairs are retained; r32 is
+the immediate r36 rollback. Original boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -145,7 +145,7 @@ not connected to the published build graph and its driver source is absent.
 Sampled stock 64/32-bit ioctl commands and payloads match the local handler;
 this is not full runtime ABI certification. The known Hepburn reference also
 lacks that driver. No placeholder interface, scheduler bulk-enable or flash
-is introduced; r32 remains installed. See `docs/clang12-rtg-source-audit.md`
+was introduced in that audit; r32 remained installed. See `docs/clang12-rtg-source-audit.md`
 for the source gap and isolated restoration boundary.
 A subsequent source-only step restores the performance-control dispatcher
 from a pinned Kirin 9000 Linux 5.10.43 release, adapting command slots to
@@ -153,18 +153,30 @@ Allen's existing handlers and fixing a relocated header include. Its objects
 compile, but the enabled kernel build exposes a second missing provider,
 thermal_perf_ctrl.c. The old thermal candidate omits Allen's GPU sensor and
 turns some lookup failures into successful zero values, so it is not imported.
-PERF_CTRL and frame scheduling remain explicitly disabled; no candidate is
-flashed, and the installed kernel remains r32. Complete the thermal query
-contract before attempting an enabled link or runtime test.
+At that source-only stage PERF_CTRL and frame scheduling stayed disabled,
+and r32 remained installed pending completion of the thermal query contract.
 A follow-up now supplies the missing thermal queries using Allen's existing
 DT-configured IPA sensor range and system_h provider, without changing thermal
 policy or units. Failed cooling/sensor queries propagate errors rather than
 successful zero values. A complete PERF_CTRL-enabled build succeeds; frame
 RTG, statistics-layout and DDR-provider options stay disabled. The dispatcher
 also corrects the standard four-byte compat capability-word query and rejects
-the absent HWP backend instead of its no-op fallback. This remains an unbooted
-candidate: device r32 is unchanged, and runtime query/permission checks are
-still required. See `docs/clang12-rtg-source-audit.md` for the build/ABI scope.
+the absent HWP backend instead of its no-op fallback.
+r36 now boots normally twice with its signed matching modem module. Root
+native/compat capability, IPA and both cooling-zone queries pass; invalid
+zones return EINVAL and all buffer canaries remain intact. The node keeps
+system:system ownership, mode 0660 and hisi_perf_ctrl_device labeling;
+ordinary shell access is denied. These are bounded transport checks, not
+certification of every system caller, scheduling command or thermal accuracy.
+Frame RTG and /proc/<pid>/rtg remain unavailable. See
+`docs/clang12-rtg-source-audit.md` for the build/ABI and runtime scope.
+A full early-boot comparison with r32 reproduces vendor_init SIGSEGV during
+the stock sys_wp_init_action, following a UFS path-open failure. Init restarts
+the subcontext and Android completes boot, but that action remains unresolved.
+No kernel WARNING, BUG, CFI failure, Oops or panic appears in the compared
+boots. RTNL duration diagnostics and an unconditional wiphy allocation stack
+dump are not kernel crash evidence. No write-protection bypass is introduced;
+see `docs/clang12-functional-tests.md` for the inherited failure and limits.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

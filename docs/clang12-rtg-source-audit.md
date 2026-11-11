@@ -276,3 +276,66 @@ accuracy or full scheduling compatibility. Next perform bounded read-only
 query tests only after paired image, module-ABI and security checks; keep
 r32 as the immediate rollback for this unbooted candidate. Frame RTG
 restoration remains a separate iteration.
+
+## r36: Bounded Native And Compat Runtime Validation
+
+The completed #36 build is packaged with the existing boot and modem staging
+scripts. Boot kernel round-trip, unchanged firmware stub/DT/header and partition
+bounds pass. The signed matching modem module has 390 versioned imports,
+no missing exports or CRC mismatches, and successful PKCS#7 verification;
+its ext4 content, owner, mode and SELinux label are checked on readback.
+The installed r32 boot/modem pair first matches the retained rollback files.
+
+Both r36 flashes succeed after serial/model/unlock and partition checks.
+Fastboot product/all queries remain unsupported; supported OEM identity
+queries and the existing ADB partition mapping are used, not assumed sizes
+reported as zero by fastboot. Device-side exact-length hashes match both
+installed r36 images. Independent Magisk ramdisk readback is unchanged.
+Normal Android completes boot, the matching modem module is live, taint is 4,
+module signature enforcement is Y and SELinux remains Enforcing.
+
+The misc node is /dev/hisi_perf_ctrl, major/minor 10:90 in this boot. It keeps
+system:system, mode 0660 and u:object_r:hisi_perf_ctrl_device:s0 without any
+chmod/chown, policy edit or permissive interval. Ordinary shell open returns
+EACCES. Successful root probes run in the existing Magisk domain and do not
+prove that each intended system/app caller can access the device.
+
+Temporary freestanding AArch64 and ARM EABI executables perform only the
+three read-only query command numbers. No scheduling-setting command runs:
+
+- Native GET_DEV_CAP returns the eight-byte value 7. The 32-bit process tests
+  both the standard four-byte encoding and the legacy eight-byte encoding;
+  each returns 7, and the legacy high word is zero. Canaries on both sides
+  remain intact, including the word immediately after the four-byte result.
+- Native and compat GET_IPA_STAT return success with all six fields supplied.
+  The existing CPU limit fields are 1530000/2150000/2620000 and GPU limit
+  750000000 in their provider units, not instantaneous clocks. Sampled SoC
+  outputs are 44000/49000 and system_h outputs 28550/28500 millidegrees.
+  Surrounding raw CPU/GPU and system_h reads have consistent units and scale.
+  They are sequential, time-varying acquisitions, not an atomic comparison
+  or independent proof of sensor calibration or maximum selection accuracy.
+- Both SoC and board cooling queries succeed in both ABIs with four output
+  fields in GPU/CPU0/CPU1/CPU2 order. GPU power is legitimately zero in these
+  samples while CPU fields are populated. No missing backend is simulated,
+  so actual backend-error transport is not claimed as runtime-tested.
+- Zone selectors -1 and 2 return EINVAL in both ABIs, leave the input payload
+  untouched and preserve all canaries. Valid query buffers also remain
+  within their fixed 24/20-byte boundaries.
+
+Full time-zero kernel rings before/after queries show no WARNING, BUG, CFI
+failure, Oops or panic. An early native crash marker is investigated rather
+than omitted: vendor_init dies during stock sys_wp_init_action, then init
+restarts its subcontext. Restoring r32 reproduces the same action failure and
+SIGSEGV address 0x14; r36 is then restored and boots normally again with the
+same inherited failure. This is not a repaired write-protection path or a
+claim that the whole system has no crashes. The detailed comparison is in
+docs/clang12-functional-tests.md. No extra query run is needed on the second
+boot of the unchanged candidate after the first native/compat pass.
+
+PERF_CTRL is accepted only within this bounded query/registration scope.
+Capability bit CAP_RTG_CMD reflects SCHED_RTG, not restored FRAME_RTG or
+HW_RTG_SCHED; /proc/1/rtg is still absent as configured. Full command ABI,
+normal-caller use, frame scheduling and thermal safety remain separate work.
+r32 stays available as immediate paired rollback. Device probes, host
+temporary executables and diagnostic logs are removed after recording the
+results; original backups, accepted r17 and the latest r29-r32/r36 pairs remain.

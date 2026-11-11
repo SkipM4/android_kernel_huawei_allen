@@ -1198,3 +1198,69 @@ CRC mismatches; the complete kernel export set and CRCs are unchanged from
 the disabled baseline. CFI and forced signing remain configured. No new
 paired test images are packaged or installed; these results do not certify
 native/compat runtime transport, module loading or successful boot.
+
+## r36: Performance Queries And Early-Boot Failure Comparison
+
+The completed PERF_CTRL/thermal-query build #36 is installed as a boot and
+signed matching modem_driver pair. Packaging, ABI/signature and filesystem
+metadata checks pass. Device-side partition readback matches the candidates;
+the independent Magisk ramdisk remains unchanged. Normal Android completes
+boot, modem_driver is live, taint is 4, signature enforcement is Y and
+SELinux remains Enforcing. r32's installed pair is verified before replacement
+and retained as immediate rollback.
+
+Temporary native AArch64 and 32-bit ARM root probes use only GET_DEV_CAP,
+GET_IPA_STAT and GET_THERMAL_CDEV_POWER. Both capability encodings, fixed-width
+temperature/frequency-limit payloads and both valid cooling zones succeed.
+Negative/out-of-range zone selectors return EINVAL, with no copied output;
+all buffer canaries pass. The standard compat capability writes exactly four
+bytes without changing the adjacent sentinel; legacy compat writes eight.
+No mutable scheduler commands, backend fault injection or power/load stress
+are used. See docs/clang12-rtg-source-audit.md for values and accuracy limits.
+
+The node retains system:system 0660 and hisi_perf_ctrl_device labeling.
+Ordinary shell open returns EACCES. Root transport success is not proof of
+normal system/app caller accessibility or full performance-control ABI.
+FRAME_RTG/HW_RTG_SCHED stay disabled and /proc/1/rtg remains absent. Earlier
+audio/network/suspend passes are not repeated or promoted to #36 certification.
+
+### Real Native Crash: Stock Vendor-Init Write-Protection Action
+
+The full early logcat crash buffer contains an init-named SIGSEGV with fault
+address 0x14. The matching time-zero kernel ring identifies that PID as the
+u:r:vendor_init:s0 subcontext, not PID 1. Immediately preceding messages are
+hw_init's SYS_WP reports and do_with_ufs failing to open a path with ENOENT.
+PID 1 restarts the subcontext and reports failure receiving the result of
+sys_wp_init_action, from post-fs in /vendor/etc/init/init.platform.rc:26.
+The crash helper cannot execute in that context, and no new tombstone is
+available for this event. Absence of a tombstone is not absence of a crash.
+
+This finding warrants a targeted baseline comparison. The known r32 pair is
+restored; its full early ring and crash buffer reproduce the same action,
+UFS open failure, subcontext restart and SIGSEGV at 0x14. r36 is restored and
+its second boot reproduces the same inherited action failure while Android
+again completes boot. No WARNING, BUG, CFI failure, Oops or kernel panic is
+found in either r36 early ring or the r32 comparison. This establishes the
+failure predates the restored PERF_CTRL candidate, not its exact root cause
+or lack of security impact. The write-protection path is not changed, disabled
+or bypassed. Next isolate the exact missing UFS path and stock action contract
+through read-only inspection before choosing any kernel-side change.
+
+### Other Stack Dumps And Remaining Boundaries
+
+Repeated modem/network startup stacks originate in __rtnl_unlock's OEM
+duration diagnostic, and are present in the r32 comparison too. Source
+inspection finds start_hold_time initialized only by rtnl_lock, not successful
+rtnl_trylock or rtnl_lock_killable, and subtraction uses local_clock across
+potential CPU migration. These durations are not reliable proof of actual
+multi-second lock ownership; accounting needs a separate fix, not suppressed
+warnings or changed network synchronization. The Wi-Fi allocation stack is
+from an unconditional dump_stack in wiphy_new_nm, not a WARNING or CFI trap.
+
+Previously attributed PCIe MSI affinity EINVAL remains. Calibration access,
+shell-temperature calculation guards, multi-level L3 voting and full frame
+RTG are not repaired by the new query provider. No charging, recording,
+caller scheduling, calibration, firmware, DT, permission or user-setting
+change occurs here. Cleanup removes temporary host/device probes and full
+logs, and superseded r28 test artifacts; original backups, accepted r17 and
+the latest r29-r32/r36 pairs remain.
