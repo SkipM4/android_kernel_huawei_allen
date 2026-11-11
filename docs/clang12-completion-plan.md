@@ -24,8 +24,8 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
 | 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | Enabled #39 Link/Module Checks Pass; Render Ownership Decision Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
-| 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Cold-Window Rejections Confirmed; Publication/Recovery Audit Open |
-| 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Pending |
+| 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Publication Contract Audited; Real Warming/Recovery Open |
+| 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
 | 08 | Vendor-init WP action | Matching userspace/protection source, correct process-context reporting and genuine protection behavior | Needs Matching Source |
 | 09 | PCIe affinity/delivery | Verify physical/logical interrupt topology and classify functional impact before any affinity implementation | Pending |
 | 10 | Charging/standby | Appropriate charger and battery state; charging transitions, temperatures, overnight power and wake stability | Needs Hardware/Time |
@@ -116,5 +116,17 @@ The synchronized r41 cold-window follow-up still observes ten fallback
 events per front/back calculation slot while physical inputs change and
 published shell values remain stable. This does not certify warming recovery
 or protection and does not justify changing stock coefficients or sensor
-units. Thermal publication/scene-selection work remains open; see
-clang12-thermal-source-audit.md.
+units. The subsequent publication audit confirms framework-owned integer
+storage and named slot aggregation/smoothing in the stock daemon. Back's
+published output is not slot 5 alone. Real warming/recovery remains open;
+see clang12-thermal-source-audit.md.
+
+The calibration read-only audit finds two all-zero records with no valid
+CRC for the matching original/r41 layout. No contents or parameters are
+transferred and no partition write occurs. The original kernel shares the
+caller-credential read and automatic clear-on-sync-failure write gate.
+Changing permissions or credentials cannot recover absent records and could
+expose that destructive gate. Intended optional usage and authorized
+read/write lifecycle still require resolution; see
+clang12-calibration-access-audit.md. Device remains r41 without another
+kernel edit, build or flash during these audits.

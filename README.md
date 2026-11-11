@@ -128,6 +128,13 @@ trigger it with valid inputs; live-history attribution and fallback freshness
 remain unresolved. No thermal protection or coefficients change. See
 `docs/clang12-thermal-source-audit.md` and the r31/remaining runtime sections
 of `docs/clang12-functional-tests.md` for scope and next steps.
+The r41 publication follow-up confirms userspace-owned millidegree storage
+and named slot smoothing, not a kernel unit conversion. Real warming/recovery
+remains open. A separate read-only calibration audit finds both matching NV
+records all zero with no valid CRC; the inherited clear-on-sync-failure write
+gate makes permission/credential bypass unsafe. No calibration write or radio
+configuration change occurs; optional usage and authorized lifecycle remain
+open. See `docs/clang12-calibration-access-audit.md`.
 A separate PCIe audit traces IRQ267's -22 to the DesignWare MSI affinity
 setter, which is also unimplemented in upstream Linux 5.10.43. Logical MSI
 vectors use a separately dispatched physical interrupt; no fake affinity

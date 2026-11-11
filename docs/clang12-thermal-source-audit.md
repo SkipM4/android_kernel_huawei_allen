@@ -109,3 +109,44 @@ protection during charging/warming. Next audit publication/scene selection
 and observe a bounded normal warming/recovery window when appropriate;
 there is still no demonstrated kernel acquisition failure justifying a
 temperature-unit or ADC patch for these messages.
+
+## r41 Publication Contract
+
+The live front/back platform nodes have DT `is_framework = 1`. Their
+`/sys/class/hw_thermal/temp/shell_front/temp` and shell_back equivalents
+are system-owned, writable `sysfs_pg` nodes. In shell_temp.c,
+`shell_store_temp` parses a decimal millidegree integer, checks the existing
+-40000..145000 boundary and framework mode, then assigns `shell->temp`.
+`get_shell_temp` returns that integer unchanged. Successful framework probe
+does not schedule the kernel's coefficient-sampling worker. The active
+publication contract is userspace-owned, not two competing kernel/daemon
+calculators or a kernel rounding conversion.
+
+The unchanged daemon ELF is retrieved with exact device-side digest
+verification for offline inspection. `CalcShellTemp` at 0x1572c reads the
+0x151b8 calculation/fallback result and updates its per-slot cache through
+separate time/step bounds. `CalcTemp` itself returns the prior cache on the
+abnormal-result branch. Thus a rejected slot does not supply a newly accepted
+calculation merely because the later publication step runs.
+
+The name-combining function at 0x15934 groups cached results by output name.
+Once the output is initialized, each matching slot contributes the signed
+integer-truncated candidate `(smooth * prior_output + (10 - smooth) *
+slot_cache) / 10`; the maximum candidate is selected for that name. The
+`smooth_para` parser stores the field consumed by this loop, at 0x16c74.
+The default front output has slot 0 with smooth 0. Back combines slots 4/5/6
+with smooth 1/1/6, rather than exposing slot 5 alone. For example, prior
+output 26295 and slot-5 cache 26296 with smooth 1 yield candidate 26295.
+This explains how a one-millidegree difference can arise in the actual
+publication contract; it does not reconstruct the live caches of slots 4/6.
+
+At 0x15d98/0x15d9c, combining precedes `WriteShellTemp` at 0x15aa4, which
+builds the named hw_thermal path and calls the decimal writer at 0x1035c.
+That writer opens with O_WRONLY, writes the formatted integer and verifies
+the complete count; WriteShellTemp logs a failure if the writer returns an
+error. The sampled diagnostic set has no WriteShellTemp failure. Static
+code plus root-readable attributes alone do not prove every live write or
+fallback freshness under load. No ptrace attach, tracing configuration
+change, service restart, coefficient edit or temperature injection occurs.
+The remaining thermal gate is bounded real warming/recovery and protection
+behavior, not an established kernel millidegree/publication mismatch.
