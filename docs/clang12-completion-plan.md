@@ -3,8 +3,8 @@
 ## Acceptance Rule
 
 User requests stepwise repair and validation until all required work is
-complete. Baseline is installed r42 from bringup/clang12 at f494fb9c2; immediate
-paired rollback is r41. Each kernel iteration stays isolated, with matching
+complete. Baseline is installed r43 from bringup/clang12 at ae8702666; immediate
+paired rollback is r42. Each kernel iteration stays isolated, with matching
 boot/modem_driver validation, unchanged independent ramdisk unless separately
 required, retained security controls and accurate functional scope.
 
@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r42 Native/Compat Ownership And Re-Enable Pass; Global/Timeout/Scheduling Scope Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r42 Ownership/Re-Enable And r43 Global Errno Pass; Global/Timeout/Scheduling Scope Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -190,3 +190,14 @@ on the unchanged kernel/policy. It is not claimed as a repaired zygote defect.
 Existing SIM/peer/source/hardware/manual prerequisites remain unsatisfied;
 the whole bring-up goal is not complete. Temporary app/tools/tracing and
 consumed full logs are removed; r41 is the immediate paired rollback.
+
+r43 addresses the independent global initializer's bool status variable.
+Actual UID1000 native/compat probes reproduce positive 1 on r42 for failed
+copy and missing PID; both return the existing negative EFAULT/ENODEV on r43.
+The adjacent failed-copy getter remains EFAULT. No valid global initialization,
+sampling, resume or destruction occurs. Full configuration/export/CRC and
+certificate identity with r42, signed paired readback and normal startup/reboot
+pass. Independent ramdisk and security controls remain unchanged; r42 is now
+the immediate rollback. The global caller/permission and force/resume/depth/
+exit cleanup contracts remain open. A scoped library immediate scan is not a
+complete caller proof and does not justify speculative ownership changes.

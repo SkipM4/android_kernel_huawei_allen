@@ -728,3 +728,49 @@ task-identity/re-init cleanup or queue-depth lifecycle questions; those require
 the matching caller/implementation contract rather than speculative changes.
 Full current-source link/pair and installed negative-return validation follow
 as an isolated iteration with r42 retained as rollback.
+
+The read-only client check distinguishes common hwrme_client group commands
+17/18 from the independent global commands 44/45/46. A scoped immediate-
+materialization scan of the 64-bit hwrme/iaware/perfhub candidates does not
+locate a direct global-command caller. It is not a complete indirect-call,
+all-library or permission proof, and does not justify changing global
+ownership, force-init or same-target non-force resume behavior. The client
+copies are verified against their exact device-side digests; private vendor
+libraries are read with existing root access, without changing labels,
+permissions, policy or firmware. Copies/disassembly are temporary only.
+
+### r43 Global Error Validation
+
+The one-line status-type repair passes diff/checkpatch and full #43 build,
+with no diagnostic in render_rt.c. Configuration, the complete exported
+symbol/CRC table and signing certificate are byte-identical to r42. The
+matched staged modem has 390 present/matching imports; its PKCS#7 signature,
+certificate inclusion, ext4 integrity and SELinux metadata pass. Boot kernel
+round-trip, original firmware/DT/header preservation and partition bounds
+pass. No unrelated frame feature, task field, ABI or credential gate changes.
+
+The retained r42 boot/modem partitions match before flashing. Supported
+serial/model/unlock checks confirm the same Allen bootloader; unsupported
+product/all queries and zero fastboot sizes are not used as identity/bounds.
+Both r43 flashes succeed, paired image-length readbacks match and the full
+independent ramdisk hash is unchanged. Actual UID1000 in the existing Magisk
+domain executes the same bounded read-only native and ARM32 probes used on
+r42. Failed initialization copy now returns -EFAULT (-14), and the absent
+PID returns -ENODEV (-19), rather than positive 1. The adjacent getter still
+returns -EFAULT for its failed copy. No valid global queue state is changed.
+
+Probe removal is followed by a normal reboot with a different boot ID. Both
+complete early logs and the post-probe log have no WARN, BUG, CFI failure,
+panic or Oops. The inherited unconditional wiphy stack remains separately
+classified. SELinux stays Enforcing, taint stays 4, PRMEM remains enabled and
+module sig_enforce is Y. The loaded matching modem is Live, and ordinary
+framework frame configuration remains present. Previously passed r42 group,
+timer re-enable and MIPS tests are not needlessly replayed for this independent
+local errno-type change; their bounded scope is not expanded into global
+queue or performance certification.
+
+Original backups, r17 and the latest r36/r37/r41/r42/r43 pairs remain. r42 is
+the immediate paired rollback. Temporary device probes, library/disassembly
+copies and consumed full logs are removed after recording these conclusions.
+Next global work must resolve the matching caller and non-force resume,
+owner retirement and depth/reset contracts before changing queue semantics.
