@@ -376,3 +376,72 @@ Wi-Fi while leaving location and scan-always-available unchanged:
 
 This resolves the earlier inconclusive foreground scan/association checks,
 not every radio function or the standalone shell probe's vendor-service gate.
+
+## r28: Codec Registration, Silent Playback And Runtime PM
+
+The approved codec-only integration uses the Linux 5.10.43 Charlotte source
+and DT-boundary adaptation documented in clang12-audio-source-audit.md.
+The local PCM/DSP implementation, device tree, firmware, calibration data and
+independent Magisk ramdisk are not changed. Keep the r27 boot/modem_driver
+pair as the immediate pre-audio rollback; do not mix pair versions.
+
+### Build And Paired Boot
+
+- Clang 12.0.7 ThinLTO with enforcing CFI builds the codec as built-in code.
+  Final ELF initcalls place CLT data setup before path registration, then the
+  common component driver and late machine driver. Boot round-trip and modem
+  signature/certificate/filesystem checks pass; all 390 versioned modem imports
+  have matching exports and CRCs. No debug stubs or unrelated audio import is
+  used to bypass compilation.
+- Preflight confirms the recorded serial and bootloader ALN-AL00 identity
+  and unlocked state. This bootloader does not support getvar product/all;
+  the documented OEM identity queries supply the supported check. Both boot
+  and modem_driver flashes succeed. The first boot and a normal reboot reach
+  sys.boot_completed=1 on #28, normal mode, with Magisk root available.
+- The normal analog-less-machine-card is card 0 with its eight PCM devices;
+  audio-dp is card 1. AudioPolicyManager is populated on both boots instead of
+  the r27 null manager. Audioserver is running. Device-side readback hashes
+  over each retained image's exact length match the r28 boot/modem_driver
+  pair, and the entire ramdisk hash matches its pre-flash baseline.
+- Full early logs from both boots and the captured playback interval contain
+  no kernel WARNING, BUG, CFI failure or panic. Taint remains 4, module
+  sig_enforce remains Y, and SELinux remains Enforcing. Early fw_hifi open
+  retries are followed by successful DSP loading/verification and the loaded
+  marker; those early retries alone are not proof of DSP failure.
+
+### Playback And Release
+
+A temporary AudioTrack probe validates UID 2000 and OpPackageName
+com.android.shell, streams two seconds of generated zero-valued 48 kHz stereo
+16-bit PCM and mutes only its own track. It does not change global volume,
+request microphone capture, play user media or create a media-library file.
+The original smoke check and the post-reboot lifecycle check each consume
+all 96,000 written frames, report the built-in speaker route and zero underruns.
+Track stop/release completes and the temporary device DEX is removed.
+
+The lifecycle check also observes the actual card0/pcm0p substream RUNNING
+with hardware/application pointers while the probe plays, then closed after
+release. Codec runtime_status changes from suspended to active and returns
+to suspended; runtime control remains auto with the existing 200 ms delay.
+The log pairs both playback PRE_PMU events with POST_PMD events, followed by
+codec and ASP-subsystem clock disable. Audioserver retains the same PID.
+This verifies short playback startup/shutdown and codec runtime autosuspend,
+not system suspend, deep sleep, long-duration stability or audible output.
+
+### Remaining Gaps
+
+The two boot diagnostics, mux MDM_5G_UP_L_MUX has no paths and mux
+SIDETONE_PAG_DIN_MUX has no paths, originate in the pinned source's route
+definitions. CLT connects the right MDM 5G mux for the ultrasound path, but
+does not connect the left mux or the sidetone mux. These are ASoC diagnostics,
+not kernel WARN splats, and coexist with the tested normal playback path.
+Do not delete widgets, suppress messages or invent routes to clear them.
+Their intended platform routes and firmware control contract need separate
+evidence before a sidetone/call fix.
+
+Registration, logical speaker routing and silent frame consumption do not
+prove that the speaker emits correct sound. Audible playback/fidelity,
+microphone capture, calls, sidetone, Bluetooth audio, USB/DP audio, video
+recording with audio and system/deep suspend remain unverified. Next perform
+a short user-observed playback with the normal system UI before expanding
+the codec import or attributing remaining audio-path errors.

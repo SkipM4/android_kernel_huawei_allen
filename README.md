@@ -29,7 +29,7 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3 voting remains unresolved.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r27: r21 retains full early logs,
+The current installed test candidate is r28: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -44,18 +44,24 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r23-r27 pairs are retained for rollback.
-Audio follow-up finds no normal codec-backed sound card and an empty audio
-policy manager; the required V2C codec implementation is not supplied by
-the ALN archive. A newer Changsha implementation has incompatible register
-pages and is not adopted; see `docs/clang12-audio-source-audit.md`.
-A new same-version Hepburn/Charlotte candidate contains the real CLT driver
-and matches all six Allen register bases in order. Its mapping lengths and
-reorganized build need a scoped adaptation; it has not been imported or tested.
+test limits. Accepted r17 and the latest r24-r28 pairs are retained; r27 is
+the immediate pre-audio rollback.
+r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
+the ALN archive, and maps its six pages within the existing Allen DT resources.
+Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
+unchanged. The normal codec-backed sound card and audio policy manager now
+register on two normal boots. Silent 48 kHz stereo playback consumes all
+96,000 frames with zero underruns and a built-in speaker route. A follow-up
+observes the real PCM running, then closing, balanced playback power events
+and codec autosuspend after clock disable. No kernel WARNING, BUG, CFI failure
+or panic is found in the captured full boot/test logs; taint remains 4.
+Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
+microphone, calls/sidetone and system/deep suspend are not certified; see
+`docs/clang12-audio-source-audit.md` and `docs/clang12-functional-tests.md`.
 A correctly attributed shell-context probe passes Bluetooth ON/OFF on r24;
 named hardware AVC/HEVC encoders each complete thirty synthetic frames and
 EOS, with VENC IRQ activity. Pairing/peer transfer, video decode fidelity,
-camera recording and audio remain outside these checks; see
+camera recording and full audio functionality remain outside these checks; see
 `docs/clang12-functional-tests.md` for the exact scope.
 Wi-Fi foreground scanning passes on r26 after explicitly waking the device
 and foregrounding native settings; scanner results and successful driver
@@ -81,7 +87,7 @@ need separate lifecycle diagnosis without relaxing protection.
 - `docs/clang12-working-baseline.md`: accepted r17 boot baseline and test scope.
 - `docs/clang12-functional-tests.md`: functional repairs, checks and audio/BT gaps.
 - `docs/clang12-early-diagnostics.md`: r21-r27 log, lock, GPIO, PD, registration and PRMEM fixes.
-- `docs/clang12-audio-source-audit.md`: missing V2C codec and rejected platform sources.
+- `docs/clang12-audio-source-audit.md`: codec source audit and scoped r28 CLT integration.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
 project root and are excluded from Git. Never overwrite them.

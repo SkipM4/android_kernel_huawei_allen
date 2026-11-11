@@ -23,7 +23,8 @@ config SND_SOC_ASP_CODEC
 	tristate "Soc Smartstar asp codec"
 
 config SND_SOC_ASP_CODEC_CODECLESS
-	tristate "Soc Smartstar asp codec for codecless support"
+	bool "Soc Smartstar asp codec for codecless support"
+	depends on CHAR_IP_PLATFORM
 
 config SND_SOC_ASP_CODEC_ANA
 	tristate "Soc Smartstar asp codec for ana support"

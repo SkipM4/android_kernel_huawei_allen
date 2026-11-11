@@ -151,24 +151,62 @@ SELinux Enforcing and taint 4. ALSA still exposes only audio-dp. No kernel
 source/config, DT, firmware, ramdisk, calibration data or partition is changed
 in this follow-up; no audio functional pass or compilation is claimed.
 
-## Next Safe Audio Step
+## r28: Approved Codec-Only Integration
 
-Proposed scope: a separate codec-only import from this pinned Charlotte
-candidate, approximately 11,400 source lines, followed by narrow DT-resource
-and build integration. Confirm this larger driver addition before proceeding;
-it is materially different from the prior one-line warning fixes. Expected
-benefit is restoring the real codec-backed sound card and allowing the HAL to
-initialize. Risks include compile/API incompatibility, runtime-PM/reset
-behavior, audio-path failure and hardware register writes during probe.
+The user approves the separate codec import/adaptation, compilation and
+recoverable paired flash. Import the 23 audited files from the pinned
+Hepburn/Charlotte commit into vendor/asp_codec_codecless/{base,platform/clt,store}.
+Retain their GPLv2 notices. Do not import the external PCM/DSP implementation,
+other-platform or PC branches, firmware, device tree or calibration data.
 
-After scope confirmation: keep r27 as immediate rollback, preserve local
-PCM/DSP and original images, verify build and signed paired staging first,
-then check normal boot, component/card registration, AudioPolicyManager and
-silent synthetic playback. Do not initially record microphone data, change
-system volume, or claim speaker/call/recording fidelity from registration.
-No trial writes to unknown registers or speculative DT expansion are allowed.
+Local adaptations:
 
-Until a compatible implementation is integrated and tested, keep the audio
-gap explicit and continue independent functional checks. Do not claim speaker, microphone,
-call audio or recorded-video audio coverage from camera photos, hardware
-video coding, a dummy sound-card registration or DP-only ALSA presence.
+- Connect the existing SND_SOC_ASP_CODEC_CODECLESS option to the child
+  directory. Make it built-in-only and dependent on CHAR_IP_PLATFORM,
+  reflecting the supported CLT implementation and its ordered initcalls.
+  The current option remains y; the incomplete old V2C Kconfig is not sourced.
+- Curate both Makefiles for CLT/phone, using subdir-ccflags-y for common
+  includes. Link the CLT data and all path registrations before the common
+  component driver. The final ELF confirms arch_initcall data setup, then
+  path device_initcalls, component registration and the late machine driver.
+  No speculative sound-card reordering is needed.
+- Replace hardcoded mapping lengths with ordered platform IORESOURCE_MEM
+  resources. Validate the six expected page bases at this DT boundary and
+  map exactly each supplied length with devm_ioremap. Clamp the last u32
+  register offset to the resource boundary; the AXI2TDM definitions end at
+  0xCC and the MAD direct definitions fit inside its 0x1000-byte resource.
+  Do not claim the pages exclusively: the existing clock/MAD drivers share
+  them. Do not expand the DT to accommodate the reference's extra four bytes.
+- Pass pdev to the mapping helper and remove manual unmapping and the empty
+  platform remove callback. Devres unregisters the component before releasing
+  its mappings. Preserve the original DSP-intercore register locking protocol
+  and PM/reset/DAPM behavior; it is not a redundant host RMW lock.
+
+The first build exposes a Kbuild include-root error; correcting the child
+Makefile's source-root path resolves it without header stubs. Clang 12.0.7
+ThinLTO/CFI compilation, staged diff checks, boot round-trip, and signed modem
+staging pass. All 390 versioned modem imports are present with matching CRCs.
+These static checks do not certify runtime power management or all audio paths.
+
+The approved paired flash and a normal reboot both reach the system on #28.
+The normal codec-backed card and populated audio policy manager now register.
+Silent playback consumes all frames with the logical built-in speaker route;
+the post-reboot lifecycle check observes a running PCM, then closure and codec
+runtime autosuspend with balanced path power events and clock disable.
+Readback matches both retained r28 images and the unchanged ramdisk baseline.
+No kernel WARN splat, BUG, CFI failure or panic is found in the captured full
+boot/test logs; SELinux Enforcing, forced module signing and taint 4 remain.
+
+Two ASoC unconnected-mux diagnostics remain for MDM_5G_UP_L_MUX and
+SIDETONE_PAG_DIN_MUX. Comparison against the pinned reference confirms that
+the platform route file and these widget definitions are semantically
+unchanged by the import. The CLT ultrasound route uses the right MDM 5G mux;
+neither the left mux nor sidetone mux is connected there. Do not infer missing
+Allen hardware routes from symmetric names, remove the controls to silence
+messages, or claim call/sidetone correctness from normal playback.
+
+For device results and limitations see the r28 section of
+clang12-functional-tests.md. Keep r27 as the immediate paired rollback and
+preserve the original images and independent Magisk ramdisk. Microphone,
+audible fidelity, call/sidetone paths and recorded-video audio require their
+own meaningful checks; silent playback is not full audio certification.

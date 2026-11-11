@@ -25,6 +25,7 @@ endif
 
 obj-$(CONFIG_HDMI_K3) += snd-soc-hdmi-audio.o
 obj-$(CONFIG_SND_SOC_DP_AUDIO)    += snd-soc-dp-audio.o
+obj-$(CONFIG_SND_SOC_ASP_CODEC_CODECLESS) += vendor/asp_codec_codecless/
 
 obj-$(CONFIG_SND_SOC_AU_PA) += vendor/au_pa/
 
