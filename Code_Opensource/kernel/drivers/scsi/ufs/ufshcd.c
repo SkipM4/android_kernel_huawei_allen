@@ -11924,6 +11924,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
 					"request ufs intr hub irq failed\n");
 				goto out_wakeup_source;
 			}
+			hba->is_irq_enabled = true;
 		}
 #else
 		/* IRQ registration */

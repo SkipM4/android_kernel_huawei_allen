@@ -29,7 +29,7 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3 voting remains unresolved.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r28: r21 retains full early logs,
+The current installed test candidate is r29: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -44,8 +44,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r24-r28 pairs are retained; r27 is
-the immediate pre-audio rollback.
+test limits. Accepted r17 and the latest r25-r29 pairs are retained; r28 is
+the immediate r29 rollback and r27 is the pre-audio rollback.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -59,7 +59,14 @@ The user also confirms normal audible playback in the system sound settings
 on r28; this is a basic user-observed playback pass, not fidelity certification.
 A 30-second screen-off/wake check also passes silent playback and codec runtime
 release without device/audio-service restart. USB/charging wakeup sources stay
-active and system-suspend counters do not advance; unplugged suspend is pending.
+active and system-suspend counters do not advance while the cable is attached.
+The subsequent unplugged check confirms one 71-second deep suspend and codec
+power-down/restore without reboot, but UFS resume emits an unbalanced hub IRQ
+enable warning and taint rises to 516. r29 supplies the missing initial
+is_irq_enabled state after successful hub IRQ registration. Its paired boot,
+readback and actual O_DIRECT write/read/compare checks pass with UFS IRQ
+activity, no kernel WARNING and taint 4. The warning-specific first unplugged
+suspend recheck remains pending. See `docs/clang12-functional-tests.md`.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 microphone, calls/sidetone and system/deep suspend are not certified; see
 `docs/clang12-audio-source-audit.md` and `docs/clang12-functional-tests.md`.

@@ -480,6 +480,31 @@ log. Confirm actual suspend entry and codec callbacks before attributing any
 resume failure or modifying their implementation. r28 remains installed and
 the r27 paired rollback remains available.
 
+### Unplugged Deep-Suspend Result And UFS Resume Warning
+
+The user disconnects USB, leaves the display asleep, then reconnects it.
+The same r28 boot identity remains and Android is still in normal mode with
+sys.boot_completed=1. Kernel and suspend-service counters advance from zero
+to one successful suspend, with no suspend/resume stage failure. The kernel
+records PM: suspend entry (deep) and suspend exit, and the reported sleep time
+is 71 seconds. The last wake reason is the Type-C port IRQ triggered by cable
+reconnection. This is actual deep system suspend, not just display sleep.
+
+The codec logs suspend begin/end with have_dapm=0 and is_ulsr=0, followed by
+resume from asp pd. After reconnection it is runtime suspended and the normal
+playback PCM is closed. These observations exercise idle codec system-sleep
+callbacks, not post-resume streaming, an active-DAPM/ULSR case, microphone or
+call recovery.
+
+The cycle is not a clean suspend pass: UFS resume logs Unbalanced enable for
+IRQ 54 and a kernel WARN at enable_irq, raising taint from 4 to 516. The
+minimal stack is hufs_enable_all_irq -> hufs_main_resume -> hufs_resume ->
+ufshcd_resume -> ufshcd_system_resume. The current IRQ action identifies the
+UFS interrupt hub; it is not the Type-C wake IRQ or an audio IRQ. UFS returns
+success and the system does not reboot, but do not hide or dismiss the warning
+because the framework counts the suspend as successful. The r29 isolated
+initial-state repair is described next.
+
 ### Remaining Gaps
 
 The two boot diagnostics, mux MDM_5G_UP_L_MUX has no paths and mux
@@ -498,3 +523,66 @@ Bluetooth audio, USB/DP audio, video recording with audio and system/deep
 suspend remain unverified. Next isolate one of these paths with its own
 meaningful check before expanding the codec import or attributing remaining
 audio-path errors.
+
+## r29: Initialize UFS Hub IRQ Ownership After Registration
+
+Change only drivers/scsi/ufs/ufshcd.c: after successful registration of the
+CONFIG_SCSI_UFS_INTR_HUB IRQ, set the existing hba->is_irq_enabled to true.
+The platform obtains both hba->irq and hba->ufs_intr_hub_irq from DT IRQ index
+zero; the registered shared IRQ is automatically enabled. The non-hub branch
+already records this state, but the hub branch leaves the zero-initialized
+flag false. No new state field, platform IRQ number or core IRQ override is
+needed.
+
+On the first observed system-sleep cycle, the platform suspend disables the
+hub IRQ, but the core ufshcd_disable_irq skips its own disable because the
+flag is false. Core resume then enables it and marks it true; the platform's
+subsequent hufs_enable_all_irq enables it again at depth zero and warns.
+Record the correct initial state instead of removing the platform pair:
+its nested disable keeps the hub IRQ masked until the platform has restored
+the controller. Keep the existing UTR-core IRQ operations, runtime-PM,
+error/reset paths, regulator/clock/reset ordering and core WARN checks.
+
+Reference: official ALN 5.10.43 IRQ registration and PM call chains, and Linux
+stable v5.10.43 drivers/scsi/ufs/ufshcd.c, which sets is_irq_enabled after
+successful devm_request_irq. The upstream source is inspected at
+https://github.com/gregkh/linux/blob/v5.10.43/drivers/scsi/ufs/ufshcd.c.
+This applies the standard state contract to the local hub branch; it is not
+an external UFS driver import or certification of all platform PM behavior.
+
+Clang 12.0.7 ThinLTO/enforcing-CFI compilation and diff checks pass. Boot
+round-trip, unchanged OEM DT/header/firmware-stub and partition-bound checks
+pass. The signed modem companion has all 390 versioned imports available
+with matching CRCs; certificate/signature, ext4 and metadata readback checks
+pass. No configuration, ABI structure or audio-driver change is made.
+
+Bootloader preflight reconfirms the recorded serial, ALN-AL00 identity and
+unlocked state using the supported OEM queries; product/all remain unsupported.
+Both boot and modem_driver flashes succeed and #29 reaches normal Android
+with sys.boot_completed=1. Device-side readback over each image's exact length
+matches the r29 pair; the full independent ramdisk hash matches the pre-flash
+r28 baseline.
+
+A temporary freestanding ARM64 probe uses the verified ARM64 UAPI O_DIRECT
+flag, not the differing asm-generic value or a buffered fallback. It creates
+only its own exclusive diagnostic file, writes 512 aligned 4096-byte blocks,
+fsyncs, reads them through the same O_DIRECT descriptor and compares every
+byte with the generated offset-dependent pattern. The check passes; both
+hub and UTR-core IRQ counters increase. The executable and owned data are
+removed. The same boot identity remains throughout the storage check.
+
+The normal codec-backed card and populated AudioPolicyManager remain present,
+and the idle PCM is closed with the codec runtime suspended. Full boot/storage
+logs contain no kernel WARNING, BUG, CFI failure, panic or unbalanced IRQ
+enable. Taint is 4, sig_enforce is Y and SELinux is Enforcing. These initial
+checks do not exercise the reported system-sleep warning: this r29 boot still
+has zero suspend successes/failures.
+
+The decisive first unplugged suspend/resume recheck remains pending. Retain
+r28 as the immediate paired rollback; its audio implementation is unchanged
+by this repair, and the independent Magisk ramdisk remains outside the change.
+Next disconnect USB with the screen asleep for about 60 seconds, reconnect,
+and verify actual deep entry, UFS/codec resume, no unbalanced enable/WARN and
+unchanged taint before treating the warning as resolved. Then check playback
+and storage after that actual resume; do not substitute another USB-connected
+display-only check.
