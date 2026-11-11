@@ -33,6 +33,7 @@
 
 struct timer_list g_frame_timer;
 atomic_t g_timer_on = ATOMIC_INIT(0);
+DEFINE_MUTEX(g_timer_lock);
 
 static struct task_struct *g_timer_thread;
 unsigned long g_thread_flag;
@@ -47,6 +48,11 @@ static int frame_thread_func(void *data)
 	for (;;) {
 		wait_on_bit(&g_thread_flag, DISABLE_FRAME_SCHED,
 			TASK_INTERRUPTIBLE);
+		mutex_lock(&g_timer_lock);
+		/* Disable or re-enable may have retired this timeout while we waited. */
+		if (!atomic_read(&g_timer_on) ||
+		    test_bit(DISABLE_FRAME_SCHED, &g_thread_flag))
+			goto rearm;
 		set_frame_min_util(rtg_frame_info(DEFAULT_RT_FRAME_ID), 0, true);
 #ifdef CONFIG_HW_RTG_MULTI_FRAME
 		for (id = MULTI_FRAME_ID; id < (MULTI_FRAME_ID + MULTI_FRAME_NUM); id++)
@@ -63,7 +69,9 @@ static int frame_thread_func(void *data)
 				set_frame_sched_state(rtg_frame_info(id), false);
 		}
 #endif
+rearm:
 		set_bit(DISABLE_FRAME_SCHED, &g_thread_flag);
+		mutex_unlock(&g_timer_lock);
 	}
 	return 0;
 }
@@ -90,7 +98,6 @@ static void on_timer_timeout(struct timer_list *t)
 	wake_thread();
 }
 
-DEFINE_MUTEX(g_timer_lock);
 int init_frame_timer(void)
 {
 	int ret = 0;

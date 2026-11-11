@@ -590,3 +590,23 @@ validation remain required; stale uninstalled #39 is not a current candidate.
 The separate PERF_CTRL global wake-queue lifecycle is not covered by these
 five group-backend checks. Full enable/disable concurrency and worker ordering
 also remain gates before activating frame scheduling.
+
+### Proc Enable/Disable And Timer Worker Ordering
+
+The proc dispatcher now uses a lifecycle rwsem: enable/disable holds its write
+side and normal native/compat commands hold the read side. This drains active
+requests before reset and prevents overlapping controller enable/disable
+operations without serializing normal frame ioctls with one another. It does
+not change ioctl encodings, caller policy or scheduler-hook locking. Lock
+ordering is lifecycle rwsem, then existing timer mutex, then downstream
+frame/task locks; scheduler hooks do not acquire the new rwsem.
+
+Disable now stops the timer before resetting proc state. The persistent
+worker performs timeout cleanup under the existing timer mutex and checks
+both g_timer_on and the pending-work bit after acquiring it. Thus disable
+drains an executing cleanup, and a worker that wakes after disable/re-enable
+does not consume a retired timeout. The callback only clears/wakes the bit;
+it does not acquire the mutex used around del_timer_sync. The enabled objects
+compile and diff/checkpatch pass. This lock review is not a runtime stress,
+timeout-delivery or performance result; these still require the current
+matched enabled candidate, and PERF_CTRL's independent routes remain separate.

@@ -20,6 +20,7 @@
 #include <linux/compat.h>
 #endif
 #include <linux/cred.h>
+#include <linux/rwsem.h>
 #include <linux/sched/topology.h>
 #ifdef CONFIG_HW_RTG_SCHED
 #include <platform_include/cee/linux/perf_ctrl.h>
@@ -39,6 +40,7 @@
 #define MAX_BOOST_DURATION_MS 5000
 
 atomic_t g_rtg_enable = ATOMIC_INIT(0);
+static DECLARE_RWSEM(g_rtg_lifecycle_lock);
 #ifdef CONFIG_HW_MTK_RTG_SCHED
 atomic_t g_enable_type = ATOMIC_INIT(ALL_ENABLE); // default: all enable
 #endif
@@ -164,8 +166,8 @@ static void disable(void)
 	}
 	pr_info("[AWARE_RTG] disabled!\n");
 	atomic_set(&g_rtg_enable, 0);
-	deinit_proc_state();
 	deinit_frame_timer();
+	deinit_proc_state();
 }
 
 static long ctrl_set_enable(unsigned long arg)
@@ -739,7 +741,8 @@ static long rtg_config_ioctl(int abi, unsigned int cmd, unsigned long arg)
 	return ret;
 }
 
-static long do_proc_rtg_ioctl(int abi, struct file *file, unsigned int cmd, unsigned long arg)
+static long proc_rtg_ioctl_locked(int abi, struct file *file,
+	unsigned int cmd, unsigned long arg)
 {
 	long ret;
 
@@ -789,6 +792,25 @@ static long do_proc_rtg_ioctl(int abi, struct file *file, unsigned int cmd, unsi
 		ret = rtg_config_ioctl(abi, cmd, arg);
 		break;
 	}
+	return ret;
+}
+
+static long do_proc_rtg_ioctl(int abi, struct file *file,
+	unsigned int cmd, unsigned long arg)
+{
+	long ret;
+
+	/* Drain active requests before resetting state; normal frame calls stay parallel. */
+	if (cmd == CMD_ID_SET_ENABLE) {
+		down_write(&g_rtg_lifecycle_lock);
+		ret = proc_rtg_ioctl_locked(abi, file, cmd, arg);
+		up_write(&g_rtg_lifecycle_lock);
+	} else {
+		down_read(&g_rtg_lifecycle_lock);
+		ret = proc_rtg_ioctl_locked(abi, file, cmd, arg);
+		up_read(&g_rtg_lifecycle_lock);
+	}
+
 	return ret;
 }
 
