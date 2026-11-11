@@ -296,3 +296,45 @@ no BUG, CFI failure, panic or enabled-IRQ warning. Android remains booted on
 taint remains 516. Wi-Fi and Bluetooth settings remain OFF. These short
 functional checks do not replace deep suspend, peer-radio transfer,
 long-duration stress or full OEM hardware certification.
+
+## r25 Wi-Fi Scan Request And Calibration Access Follow-Up
+
+This diagnostic runs on #25 before the metadata-only r26 flash. Wi-Fi is
+initially disabled with scan-always-available set; do not change the latter
+policy, location setting, saved networks or calibration data for this test.
+
+- A shell cmd wifi start-scan exits zero both with Wi-Fi disabled and after
+  a temporary enable. Repeated list-scan-results queries for eighteen seconds
+  return No scan results in both cases. The enabled state and two wlan
+  interfaces appear, but command success alone is not a hardware scan pass.
+- The enabled interval's kernel log shows a scheduled PNO scan starting,
+  but no request-specific foreground wal_cfg80211_scan callback is found.
+  This does not establish whether the shell request was forwarded, policy
+  denied it, the vendor service took another path or radio results were absent.
+  A scanner dump taken in the disabled state shows empty results and default
+  state machines; it is not evidence of the enabled-state scan outcome.
+- Kernel NVE reads from the Wi-Fi HAL context log open errors with fd
+  fffffff3 (-EACCES). Source hisi_conn_nve_read opens
+  /dev/block/by-name/conn_calidata through ksys_open, with the caller's
+  credentials; set_fs(KERNEL_DS) does not supply kernel-thread credentials.
+  The source's generic NVRAM/customization warnings are not individually
+  attributed as fatal or treated as the established scan-failure cause.
+- Read-only inspection after the r26 reboot finds that same partition at
+  /dev/block/sdd5, mode 0600 root/root and type certification_device. The
+  Wi-Fi HAL and wificond run as UID/GID 1010. No matching Wi-Fi/conn/NV AVC
+  is found in the r25 enabled test interval. These facts warrant tracing
+  credentials/capabilities and kernel-owned calibration access; they do not
+  prove a particular SELinux rule is missing or justify chmod, blanket
+  permissions, caller-credential overrides or permissive mode.
+- Wi-Fi is restored to its original OFF/0 state; Bluetooth remains OFF/0
+  and location remains disabled. No SSID/BSSID list is retained or printed,
+  no network is added/explicitly joined and no calibration partition is read
+  for content, written or flashed. No BUG, CFI failure or panic appears in
+  the captured test interval. Temporary probes and diagnostic logs are removed
+  after recording the durable evidence.
+
+Next use request/service-side evidence to distinguish scan API/policy behavior
+from driver delivery, and audit the calibration read initialization context.
+Wi-Fi association/data transfer remains unverified. This does not replace
+the missing compatible audio codec implementation, Bluetooth peer tests or
+the separate multi-level L3/PRMEM lifecycle work.

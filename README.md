@@ -49,6 +49,10 @@ named hardware AVC/HEVC encoders each complete thirty synthetic frames and
 EOS, with VENC IRQ activity. Pairing/peer transfer, video decode fidelity,
 camera recording and audio remain outside these checks; see
 `docs/clang12-functional-tests.md` for the exact scope.
+Wi-Fi scan requests on r25 return no results despite adapter enable; this
+is inconclusive, not a scan pass or an attributed hardware failure. The
+same interval exposes calibration-partition open errors (-EACCES), whose
+caller/context and policy need separate diagnosis without relaxing protection.
 
 ## Layout
 
