@@ -163,6 +163,15 @@ static int g_wake_queue_num = 0;
 static int g_inited_queue_num = 0;
 static int g_cur_queue = 0;
 
+/* Under g_wake_queue_rwlock; pause retains identity, exit retires it. */
+static bool global_render_matches(struct task_struct *task)
+{
+	struct child_thread *root =
+		&g_ta_render[RENDER_RT_GLO].ta_child_threads[RENDER_IDX_RRTG];
+
+	return !root->exited && root->task == task;
+}
+
 /*
  * set_task_wake_queue_bit() - set wake queue bit for task
  * @task: target task
@@ -422,11 +431,11 @@ static void remove_task_from_rrt_glo(struct task_struct *task)
 	if (render_unrelated_task(task))
 		goto out_unlock;
 
-	/* if render died, change rrt_glo to un-inited state */
-	if (unlikely(task->pid == g_inited_pid))
-		g_ta_render_ptr_glo = NULL;
-
 	rrt_pos = &g_ta_render[RENDER_RT_GLO];
+
+	/* if render died, change rrt_glo to un-inited state */
+	if (unlikely(task == rrt_pos->ta_child_threads[RENDER_IDX_RRTG].task))
+		g_ta_render_ptr_glo = NULL;
 
 	for (i = 0; i < g_wake_queue_num; i++, rrt_pos++) {
 		index = find_task_index_in_wake_queue(i, task);
@@ -478,7 +487,7 @@ static void add_waker_to_global_render_rthread(struct task_struct *wakee)
 		goto out_unlock;
 
 	/* waker is render_thread itself, just SKIP */
-	if (current->pid == g_inited_pid)
+	if (current == g_ta_render_ptr_glo->ta_child_threads[RENDER_IDX_RRTG].task)
 		goto out_unlock;
 
 	rrt_pos = &g_ta_render[RENDER_RT_GLO];
@@ -1780,8 +1789,9 @@ int init_render_rthread_global(void __user *uarg)
 
 	write_lock_irqsave(&g_wake_queue_rwlock, flags);
 
-	/* non-force-init with new render pid not allowed */
-	if (!rfps.force_init && rfps.render_pid != g_inited_pid) {
+	/* Resume only the original unretired task, not a reused PID/address. */
+	if (!rfps.force_init && (rfps.render_pid != g_inited_pid ||
+				 !global_render_matches(render))) {
 		ret = -EBUSY;
 		goto out_unlock;
 	}
@@ -1829,7 +1839,8 @@ int get_render_rthread_glo(void __user *uarg)
 	}
 
 	write_lock_irqsave(&g_wake_queue_rwlock, flags);
-	if (!g_ta_render_ptr_glo || !g_inited_pid || result.render_pid != g_inited_pid) {
+	if (!g_ta_render_ptr_glo || !g_inited_pid ||
+	    result.render_pid != g_inited_pid || !global_render_matches(render)) {
 		ret = -ENOENT;
 		goto out_unlock;
 	}

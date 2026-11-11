@@ -858,3 +858,55 @@ r43 is the immediate paired rollback. Original backups, r17 and the latest
 r37/r41/r42/r43/r44 pairs remain. Consumed full logs, recovered ELF/tool/IR
 and other task-owned temporary artifacts are removed; unrelated diagnostics
 are preserved. The workspace stays below 20 GB and whole bring-up is open.
+
+### Global Root Identity Repair
+
+The previously recovered original initializer and the published source use
+the same numeric-PID non-force resume rule. The retained current source
+establishes why this is not a stable root identity: release_task detaches the
+PID, free_pid removes its numeric ID from the namespace IDR before its RCU
+release, and put_task_struct_rcu_user can defer the final task put. The render
+free hook runs only in __put_task_struct, before free_task. Thus a PID can
+refer to a different task while the registered old task is still retained.
+After final free, g_inited_pid still retains its old numeric value as well.
+
+On r44, a same-number lookup of a replacement task passes the initializer's
+numeric check and can reactivate the old queues without reset. The getter
+can likewise use that replacement as the root for feedback/reset. This is a
+source-proven identity defect, not a PID-reuse failure observed on the device.
+Just clearing g_inited_pid in the final free hook would not close the window
+before that hook. Pointer equality alone would miss a reused slab address
+after final free unless the stored entry's retirement flag is also checked.
+
+Non-force init and get now require the lookup-pinned task to match the first
+global queue's root pointer and its existing exited flag to remain clear,
+under g_wake_queue_rwlock. The flag marks final task-structure retirement,
+not a new exit_state/zombie or scheduling-liveness policy. The predicate
+reads only static queue storage and compares the pointer value; it does not
+dereference a freed task or retain a new long-lived task reference. Failed
+resume keeps the existing EBUSY and does not publish the active pointer;
+failed get keeps ENOENT and does not feed back or rotate/reset queues.
+
+Pause/destroy retains the registered root storage, so a matching unretired
+task can still resume without reset when the active pointer is NULL. Force
+init continues to replace the target and uses r44's complete old-depth
+retirement. No new UID/caller gate, feature, ioctl payload, PID conversion or
+queue policy is introduced. The destroy request's legacy numeric-PID guard
+remains unchanged; this is not a general PID-handle guarantee for delayed
+userspace destroy requests across a later force replacement.
+
+The wakeup and final-free hooks also select the root by task pointer, not
+task->pid versus the stored userspace numeric token. Both selections remain
+under the same lock. Wakeup already requires an active root and uses a direct
+pointer comparison without another flag read on its hot path. Final free
+marks the existing queue entries exited before the task memory is freed;
+r44 retirement clears replaced tasks' memberships under that lock. Kernel
+TID exchange also demonstrates that a task's numeric PID is not its identity.
+
+Diff/checkpatch and frame-enabled render_rt.o compilation pass without a
+diagnostic in the modified file. Optimized ThinLTO IR contains both the
+pointer/retirement tests before resume publication and getter feedback/reset.
+No implementation-mirroring test or system-queue takeover probe is added.
+Device remains r44 at this source-check stage; full link, matched pairing
+and installed validation follow separately. Positive global lifecycle,
+matching caller behavior and scheduling/power acceptance remain open.
