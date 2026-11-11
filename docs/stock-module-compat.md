@@ -109,6 +109,15 @@ module compatibility; inspect actual generated CRCs before any flash.
 No speculative bulk Kconfig additions, CRC bypasses, or replacement security
 implementations are introduced.
 
+The later r32 read-only RTG audit identifies the specific dependency break:
+PERF_CTRL has an unsourced Kconfig definition and no parent driver traversal,
+and the published perf_ctrl directory lacks perf_ctrl.c. HW_RTG_SCHED's
+definition is sourced but depends on FRAME_RTG, which depends on PERF_CTRL.
+It is the actual /proc/<pid>/rtg gate; SCHED_CGROUP_RTG is unrelated to that
+entry. See `docs/clang12-rtg-source-audit.md` before changing these options;
+restoration affects task layout, Binder propagation and scheduler behavior,
+not only ioctl file registration.
+
 ## Reproduction
 
 From `/home/data/Allen`:

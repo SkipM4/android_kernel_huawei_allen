@@ -115,7 +115,8 @@ The full early/observation log has ongoing battery work without the two lookup
 errors or kernel WARNING, BUG, CFI failure or panic; taint remains 4 and battery
 properties update. This does not certify low-battery behavior, capacity
 accuracy or charging modes. PCIe affinity and inherited audio MUX diagnostics
-remain; RTG remains unaudited. A later read-only thermal audit locates the
+remain; the RTG gap is subsequently audited separately. A later read-only
+thermal audit locates the
 shelltemp messages at the stock daemon's calculated-result bound check,
 not a demonstrated physical-sensor read failure. Default coefficients can
 trigger it with valid inputs; live-history attribution and fallback freshness
@@ -138,6 +139,14 @@ CFI failure or panic, and taint stays 4. Sensor resolution, acquisition defaults
 temperature compensation and charging policy remain unchanged. This fixes
 the interface contract, not the stock shell calculation guard or full thermal
 accuracy/safety; see `docs/clang12-functional-tests.md` for the r32 scope.
+A read-only RTG follow-up identifies HW_RTG_SCHED as the missing proc gate,
+not SCHED_CGROUP_RTG. Its FRAME_RTG dependency is lost because PERF_CTRL is
+not connected to the published build graph and its driver source is absent.
+Sampled stock 64/32-bit ioctl commands and payloads match the local handler;
+this is not full runtime ABI certification. The known Hepburn reference also
+lacks that driver. No placeholder interface, scheduler bulk-enable or flash
+is introduced; r32 remains installed. See `docs/clang12-rtg-source-audit.md`
+for the source gap and isolated restoration boundary.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

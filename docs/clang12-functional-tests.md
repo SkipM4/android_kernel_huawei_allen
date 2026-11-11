@@ -1115,3 +1115,25 @@ claim. Earlier functional passes retain their original version and scope.
 r31 is the immediate paired rollback. Original backups, accepted r17 and the
 latest r28-r32 pairs remain; superseded r27 test artifacts and temporary
 build/audit logs are removed after validation.
+
+## r32 Follow-up: RTG Interface Source Gap
+
+Read-only inspection confirms that /proc/<pid>/rtg is absent for the current
+system_server as well as PID 1; their ffrt endpoints remain present. The
+proc gate is HW_RTG_SCHED, not SCHED_CGROUP_RTG. The saved stock options are
+dropped through FRAME_RTG's dependency on PERF_CTRL, whose published Kconfig
+and driver traversal are disconnected and whose perf_ctrl.c is missing.
+The final ELF independently confirms the omitted rtg handlers.
+
+Selected installed 64/32-bit library disassembly matches the local enable,
+configuration and frame-frequency ioctl encodings and payload layouts. No
+commands are injected, and no runtime enable, scheduling performance or
+complete ABI compatibility is claimed. The known pinned Hepburn reference
+also lacks the performance-control driver. No configuration, permissions,
+SELinux or partitions change; the device stays on #32 with boot completed,
+Enforcing and taint 4. No unrelated functional passes are repeated.
+
+See `docs/clang12-rtg-source-audit.md` for source locations, privilege checks
+and the restoration boundary. Locate and audit a complete matching provider
+or a justified independent dependency model before attempting a separate
+frame-scheduler iteration; an empty proc file is not a repair.
