@@ -1264,3 +1264,34 @@ caller scheduling, calibration, firmware, DT, permission or user-setting
 change occurs here. Cleanup removes temporary host/device probes and full
 logs, and superseded r28 test artifacts; original backups, accepted r17 and
 the latest r29-r32/r36 pairs remain.
+
+## r36 Follow-up: Stock Write-Protection Action Context
+
+Read-only inspection of the installed init, its embedded function symbols
+and the live restarted vendor_init subcontext identifies the ENOENT target
+as /proc/sys_wp_soft. This is not a per-device UFS sysfs-path mismatch.
+The published Allen source lacks that interface; the retained original
+ARM64 kernel Image and stock configuration lack the old implementation too.
+No original-kernel boot test is performed to infer further runtime behavior.
+
+Both protection success/failure branches call InitPropertySet to report
+ro.odm.sys.wp. The main-init permission lookup uses a process-local property
+information mapping. Two bounded pointer-word reads per process show PID 1
+has a mapped property-info area, while vendor_init has NULL; both callbacks
+resolve to InitPropertySet. The lookup reads mapping offset 0x14, consistent
+with the already captured SIGSEGV. No action is invoked, process attached or
+memory modified to obtain this evidence. Event registers/PC remain unavailable.
+
+Thus the missing kernel interface and userspace callback context are separate
+defects. A dummy proc/status implementation would not fix both branches and
+would misrepresent protection. The available 4.14 software-WP reference
+requires actual BIO write interception and validated partition mapping; it
+is not imported into Allen's dynamic-partition 5.10 stack. The matching OEM
+init/plugin source is absent, so no binary, boot script, property override or
+hardware WP flag is changed. See docs/clang12-system-wp-source-audit.md for
+source provenance, call-chain evidence and the proper repair boundary.
+
+Device remains #36 with boot completed, taint 4, SELinux Enforcing and forced
+module signing. No rebuild/reboot/flash or previously passing functional
+test is needed for this source-only audit. Temporary device copies and host
+binary/source/disassembly/logs are removed; r32 remains paired rollback.

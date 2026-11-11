@@ -175,8 +175,16 @@ the stock sys_wp_init_action, following a UFS path-open failure. Init restarts
 the subcontext and Android completes boot, but that action remains unresolved.
 No kernel WARNING, BUG, CFI failure, Oops or panic appears in the compared
 boots. RTNL duration diagnostics and an unconditional wiphy allocation stack
-dump are not kernel crash evidence. No write-protection bypass is introduced;
-see `docs/clang12-functional-tests.md` for the inherited failure and limits.
+dump are not kernel crash evidence. A read-only follow-up identifies the
+missing path as /proc/sys_wp_soft and the crash path as an internal main-init
+property setter used from vendor_init, whose property-info mapping is NULL.
+Both success/failure branches use that setter, so adding a dummy proc node
+would not repair the context mismatch. The retained original kernel and
+stock configuration also lack the old software-WP interface; a 4.14 reference
+requires real BIO enforcement, not just a proc file. No write-protection
+bypass, userspace binary patch or flash is introduced. See
+`docs/clang12-system-wp-source-audit.md` and `docs/clang12-functional-tests.md`
+for the separate source/contract requirements and remaining limits.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see
