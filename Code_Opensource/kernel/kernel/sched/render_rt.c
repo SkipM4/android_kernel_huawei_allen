@@ -16,6 +16,7 @@
 
 #define pr_fmt(fmt) "render_rt: " fmt
 
+#include <linux/cred.h>
 #include <linux/sched.h>
 #include <linux/slab.h>
 #include <linux/sort.h>
@@ -527,6 +528,13 @@ static inline bool inited(void)
 	return true;
 }
 
+/* Check task identity under g_rt_rwlock, not the caller's supplied PID/UID. */
+static bool render_access_allowed(struct task_struct *leader)
+{
+	return uid_eq(current_uid(), KUIDT_INIT(1000)) ||
+	       same_thread_group(current, leader);
+}
+
 bool render_rt_inited(void)
 {
 	unsigned long flags;
@@ -785,7 +793,8 @@ void remove_render_rthread(struct task_struct *task)
 	 * the render thread exit. Uninitialize itself in such cases.
 	 */
 	if (task == g_ta_render_ptr->ta_grp_task ||
-	    task->pid == g_ta_render_ptr->pid) {
+	    task == g_ta_render_ptr->ta_child_threads[
+			g_ta_render_ptr->render_index].task) {
 		g_ta_render_ptr = NULL;
 		reason = 1;
 		goto err;
@@ -1206,6 +1215,11 @@ int get_render_hrthread(void __user *uarg)
 		goto unlock;
 	}
 
+	if (!render_access_allowed(g_ta_render_ptr->ta_grp_task)) {
+		ret = -EPERM;
+		goto unlock;
+	}
+
 	if (g_ht_result.render_pid != g_ta_render_ptr->pid) {
 		ret = -ENODEV;
 		goto unlock;
@@ -1520,6 +1534,11 @@ int get_render_rthread(void __user *uarg)
 		goto err;
 	}
 
+	if (!render_access_allowed(g_ta_render_ptr->ta_grp_task)) {
+		ret = -EPERM;
+		goto err;
+	}
+
 	if (result.render_pid != g_ta_render_ptr->pid) {
 		ret = -ENODEV;
 		goto err;
@@ -1565,22 +1584,6 @@ err_copy:
 	return ret;
 }
 
-static struct task_struct *get_leader_task(pid_t pid)
-{
-	struct task_struct *cur = NULL;
-	struct task_struct *leader = NULL;
-
-	cur = find_task_by_vpid(pid);
-	if (!cur)
-		return NULL;
-
-	leader = cur->group_leader;
-	if (!leader)
-		return NULL;
-
-	return leader;
-}
-
 struct render_thread_task {
 	int pid;
 	struct task_struct *task;
@@ -1623,6 +1626,7 @@ int init_render_rthread(void __user *uarg)
 	int count = 0;
 	int render_index = -1;
 	struct task_struct *leader = NULL;
+	struct task_struct *render;
 	struct task_struct *pos = NULL;
 	struct render_init_paras rfps;
 	unsigned long flags;
@@ -1632,11 +1636,17 @@ int init_render_rthread(void __user *uarg)
 		return -EFAULT;
 
 	child_tasks = kmalloc(sizeof(struct render_thread_task) * MAX_TID_COUNT,
-			      GFP_ATOMIC);
+			      GFP_KERNEL);
 	if (!child_tasks)
 		return -ENOMEM;
 
 	write_lock_irqsave(&g_rt_rwlock, flags);
+	rcu_read_lock();
+
+	if (inited() && !render_access_allowed(g_ta_render_ptr->ta_grp_task)) {
+		ret = -EPERM;
+		goto err;
+	}
 
 	/* if rps.force_init is true, ignore the error */
 	if (!rfps.force_init && inited()) {
@@ -1644,27 +1654,21 @@ int init_render_rthread(void __user *uarg)
 		goto err;
 	}
 
-	/* clear all the members */
-	(void)memset_s(&g_ta_render, sizeof(struct render_related_thread),
-		       0, sizeof(struct render_related_thread));
-#ifndef CONFIG_RENDER_RT_GLOBAL
-	g_ta_render_ptr = &g_ta_render;
-#else
-	g_ta_render_ptr = &g_ta_render[RENDER_RT_GRP];
-#endif
-	g_ta_render_ptr->pid = rfps.render_pid;
-
-	/* mark the start timestamp */
-	g_ta_render_ptr->window_start = sched_ktime_clock();
-
-	rcu_read_lock();
-	leader = get_leader_task(g_ta_render_ptr->pid);
-	pos = leader;
-	if (pos == NULL) {
-		rcu_read_unlock();
+	render = find_task_by_vpid(rfps.render_pid);
+	if (!render) {
 		ret = -ENODEV;
 		goto err;
 	}
+	leader = render->group_leader;
+	if (!render_access_allowed(leader)) {
+		ret = -EPERM;
+		goto err;
+	}
+	if ((render->flags | leader->flags) & PF_EXITING) {
+		ret = -ENODEV;
+		goto err;
+	}
+	pos = leader;
 
 	// cppcheck-suppress *
 	do {
@@ -1680,15 +1684,32 @@ int init_render_rthread(void __user *uarg)
 
 		count++;
 	} while_each_thread(leader, pos);
-	rcu_read_unlock();
 
 	sort(child_tasks, count, sizeof(struct render_thread_task),
 	     &cmp_render_task, NULL);
 
 	for (i = 0; i < count; i++) {
-		/* save the render_thread index */
-		if (child_tasks[i].pid == g_ta_render_ptr->pid)
+		if (child_tasks[i].task == render) {
 			render_index = i;
+			break;
+		}
+	}
+	if (render_index == -1) {
+		ret = -EINVAL;
+		goto err;
+	}
+
+	/* Publish only a valid replacement; rejected requests leave the group intact. */
+#ifndef CONFIG_RENDER_RT_GLOBAL
+	g_ta_render_ptr = &g_ta_render;
+#else
+	g_ta_render_ptr = &g_ta_render[RENDER_RT_GRP];
+#endif
+	memset(g_ta_render_ptr, 0, sizeof(*g_ta_render_ptr));
+	g_ta_render_ptr->pid = rfps.render_pid;
+	g_ta_render_ptr->window_start = sched_ktime_clock();
+
+	for (i = 0; i < count; i++) {
 		/* init each entry for wakeupinfo */
 #ifndef CONFIG_RENDER_RT_GLOBAL
 		init_child_rthread(i, child_tasks[i].task);
@@ -1697,14 +1718,11 @@ int init_render_rthread(void __user *uarg)
 #endif
 	}
 
-	if (render_index == -1) {
-		ret = -EINVAL;
-		goto err;
-	}
-
 	g_ta_render_ptr->render_index = render_index;
 	g_ta_render_ptr->total_count = count;
 	g_ta_render_ptr->ta_grp_task = leader;
+	/* Task freeing takes g_rt_rwlock; retain RCU through publication. */
+	rcu_read_unlock();
 	write_unlock_irqrestore(&g_rt_rwlock, flags);
 	pr_info("init success\n");
 
@@ -1712,7 +1730,7 @@ int init_render_rthread(void __user *uarg)
 	return 0;
 
 err:
-	g_ta_render_ptr = NULL;
+	rcu_read_unlock();
 	write_unlock_irqrestore(&g_rt_rwlock, flags);
 	pr_err("[%s %d] init failed ret=%d\n", __func__, __LINE__, ret);
 
@@ -1877,6 +1895,11 @@ int destroy_render_rthread(void __user *uarg)
 	if (!inited())
 		goto unlock;
 
+	if (!render_access_allowed(g_ta_render_ptr->ta_grp_task)) {
+		ret = -EPERM;
+		goto unlock;
+	}
+
 	if (destroy_pid != g_ta_render_ptr->pid) {
 		ret = -ENODEV;
 		goto unlock;
@@ -1912,6 +1935,10 @@ int stop_render_rthread(void __user *uarg)
 	write_lock_irqsave(&g_rt_rwlock, flags);
 	if (!inited()) {
 		ret = -ENODEV;
+		goto unlock;
+	}
+	if (!render_access_allowed(g_ta_render_ptr->ta_grp_task)) {
+		ret = -EPERM;
 		goto unlock;
 	}
 	if (rs.render_pid != g_ta_render_ptr->pid) {

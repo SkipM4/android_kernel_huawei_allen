@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | Enabled #39 Link/Module Checks Pass; Render Ownership Decision Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | Ownership Approved And Group Object Checks Pass; Fresh Link/Lifecycle/Runtime Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -159,3 +159,13 @@ root MSI counters remain zero, so root PME/AER delivery/migration is not
 certified. Wi-Fi and display are restored, the boot is unchanged and the
 complete interval log has no warning/fatal markers. No affinity or kernel
 change is made; see clang12-pcie-affinity-audit.md.
+
+The user approves the application self-process/system-controller render
+boundary. The shared five group backends enforce it on copied requests under
+the existing render lock, including force-init takeover rejection. Failed
+initialization no longer clears an existing group or the separate global
+wake-queue buffer; task identity and RCU publication replace PID-only lifetime
+assumptions. Enabled object and style checks pass. This does not activate RTG:
+r41 remains installed, and current-source link/pair, enable/disable concurrency
+and real native/compat/application behavior still require validation. See
+clang12-rtg-source-audit.md for the independent global-queue scope limitation.

@@ -558,3 +558,35 @@ remain r37, with SELinux Enforcing. No #38/#39 image pair is packaged or
 flashed while application render ownership and lifecycle certification remain
 open. Consumed policy/library/source dumps, signing copies and full logs are
 removed after recording the results.
+
+### Approved Render Ownership And Transactional Initialization
+
+The user approves applications managing only their own process while retaining
+the actual UID1000 system controller's cross-process scope. The five shared
+render backends now enforce this boundary after their single user copy and
+under g_rt_rwlock. Both proc RTG and PERF_CTRL dispatch use these backends;
+there is no second copy of a wrapper-validated request. Queries, stop and
+destroy check the existing group's task identity. Initialization checks both
+the existing owner, including force-init, and the resolved new target's
+thread group. A matching UID or caller-supplied PID is not proof of ownership.
+Root does not gain the UID1000 controller exception.
+
+Initialization previously cleared the active pointer even when returning
+EBUSY, and with RENDER_RT_GLOBAL enabled its memset cleared the first global
+wake-queue buffer instead of RENDER_RT_GRP. It now validates and collects the
+target before replacing the correctly selected group buffer. Failed busy,
+ownership, lookup and missing-render-index requests leave the previous group
+unchanged. RCU covers task lookup, collection, sorting and publication; task
+freeing takes the same render lock before releasing the stored task/signal
+identities. The free hook compares the actual render task, not a reused PID.
+Allocation outside the spinlock uses GFP_KERNEL. No new task_struct fields,
+credential overrides, policy changes or synthetic render results are added.
+
+The affected enabled-config object compiles, compiled IR retains the ownership
+checks, and diff/checkpatch checks pass. These are source/object results only:
+the installed device remains r41 with FRAME_RTG disabled. Fresh full link,
+paired ABI/signature checks and actual native/compat/application lifecycle
+validation remain required; stale uninstalled #39 is not a current candidate.
+The separate PERF_CTRL global wake-queue lifecycle is not covered by these
+five group-backend checks. Full enable/disable concurrency and worker ordering
+also remain gates before activating frame scheduling.
