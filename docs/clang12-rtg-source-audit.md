@@ -610,3 +610,93 @@ it does not acquire the mutex used around del_timer_sync. The enabled objects
 compile and diff/checkpatch pass. This lock review is not a runtime stress,
 timeout-delivery or performance result; these still require the current
 matched enabled candidate, and PERF_CTRL's independent routes remain separate.
+
+### r42 Enabled Device Validation
+
+The fresh current-source frame-enabled build is #42, not the stale #39
+candidate. It includes the r41 MIPS repair and changes only the five selected
+frame flags relative to r41; additional unselected Kconfig entries do not
+enable other features. Task debug metadata still reports 4,672 bytes but 23
+existing member offsets shift, with rtg_depth added. Examined binder_proc,
+binder_thread, binder_transaction and binder_node sizes/member offsets are
+unchanged. This is not a blanket task-layout or external-module ABI guarantee.
+
+The enabled export table adds 13 symbols, removes none and changes 8,936 CRCs
+relative to r41. The fresh matching modem has all 390 imports present and
+matching, and the uninstalled OEM dummy artifact has two matching imports.
+Only modem_driver is observed loaded on the baseline. Enforcing CFI, ThinLTO,
+MODVERSIONS and forced signing remain configured. The new source files have
+no compiler diagnostics. Signed-module PKCS#7/certificate, ext4/label readback
+and boot kernel/DT/firmware/header round-trip checks pass.
+
+The confirmed r41 device partitions match its retained immediate rollback
+pair before flashing. The same serial/model/unlocked bootloader is confirmed
+using the supported OEM queries; standard product/all still return Command
+not supported and are not substituted for identity or partition bounds.
+Both local r42 flashes succeed. Exact image-length boot/modem hashes match
+after boot, and the full independent ramdisk hash is unchanged. Neither
+calibration, DT/firmware, user data nor SELinux policy is modified.
+
+A temporary APK, packaged with checksum-verified official Android build tools
+35.0.0 and the tagged AOSP android-10.0.0_r1 JNI header, executes ordinary
+64-bit and ARM32 application processes. Its actual domain is untrusted_app_27;
+no run-as domain, injected credentials, mode/label change or permissive window
+is used to obtain application results. Each ABI passes:
+
+- Native-sized eight-byte capability value 7 and surrounding canaries;
+  standard ARM32 four-byte capability value 7 and four-byte canaries. Native
+  callers reject the ARM32 encoding; inaccessible output pointers fail.
+- Own init/query/hot-thread/stop/resume/force-init/destroy/re-init operations.
+  ARM32 render queries use the observed OEM native-sized 512-byte layout,
+  not a newly invented smaller C-struct ABI.
+- EBUSY, invalid forced target and failed user copy leave the existing group
+  usable, rather than clearing its pointer or replacing its owner.
+- A forked child with the same UID cannot query, stop, destroy or force-init
+  the parent's group, including force-init directed at itself. Each child
+  opens its own proc file. Parent queries still succeed after these refusals.
+- A child that initializes its own group and exits is reaped; subsequent
+  parent initialization succeeds after normal task-free cleanup.
+
+These are real ioctl and lifecycle checks, not mirrors of the C branches.
+An initial ARM32 APK ABI-switch launch encounters Connection refused to the
+secondary zygote before executing the probe. Force-stopping and relaunching
+only the temporary APK then produces a complete passing ARM32 result on the
+same kernel and policy. No system service/socket/property fix is inferred.
+The two observed temporary-app AVCs concern FinalizerDaemon getopt on the
+primary USAP unix socket, not render ioctl permission. No policy widening is
+used for either the startup transition or these unrelated messages.
+
+A freestanding controller executes with actual UID1000 in the existing
+Magisk domain. It successfully initializes/queries/stops a test child in a
+different process, force-replaces it with self and destroys self. Three
+disable/re-enable cycles each report disabled capability gating followed by
+capability 7. The frame_sched worker PID is unchanged. This validates the
+kernel UID boundary, not every system_server SELinux permission or ordinary
+library call. No global boost is injected to bypass the examined ioctl lists.
+
+The temporary APK and controller are removed before normal reboot. A changed
+boot ID and complete early logs establish two normal r42 boots. The stock
+framework's sManagerService disables/enables RTG after each boot; the test
+controller's default-only configuration is not left as a claimed equivalent
+to system setup. Both boot logs and the complete post-probe log have no WARN,
+BUG, CFI failure, panic or Oops. Each contains the previously attributed
+unconditional wiphy_new_nm dump_stack; it is not a new warning. Taint stays 4,
+SELinux stays Enforcing, PRMEM remains enabled and module sig_enforce is Y.
+
+A bounded post-reboot MIPS telemetry check covers CPUs 0-11 with 2,622 samples,
+862 containing nonzero instruction counts, and 2,280 post-writel desired-vote
+events spanning 19 distinct name/vote pairs. It uses a task-owned trace
+instance and a short anonymous zero-stream/hash workload, with start/end
+markers, zero overruns and all six monitor maps/ratios/enables/sample windows
+unchanged. The existing wifi trace instance is untouched. This is a relevant
+counter/vote regression after scheduler layout activation, not a repeated
+26,078-sample machine-code oracle, measured physical frequencies or power
+parity. Original backups, r17 and the latest five pairs remain; r41 is the
+immediate paired rollback. Task-owned probes/tools/traces and consumed full
+logs are removed after recording these results.
+
+Remaining RTG work includes the separate PERF_CTRL global wake-queue lifecycle,
+real timer expiry under an intended permitted caller, full frame-thread
+scheduling/END_FREQ integration and bounded concurrency/performance coverage.
+The approved application group ownership and tested re-enable scope pass;
+this does not close the complete scheduler or bring-up acceptance queue.

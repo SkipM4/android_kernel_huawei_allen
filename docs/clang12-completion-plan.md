@@ -3,8 +3,8 @@
 ## Acceptance Rule
 
 User requests stepwise repair and validation until all required work is
-complete. Baseline is installed r41 from bringup/clang12 at 6ec244014; immediate
-paired rollback is r37. Each kernel iteration stays isolated, with matching
+complete. Baseline is installed r42 from bringup/clang12 at f494fb9c2; immediate
+paired rollback is r41. Each kernel iteration stays isolated, with matching
 boot/modem_driver validation, unchanged independent ramdisk unless separately
 required, retained security controls and accurate functional scope.
 
@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | Ownership Approved And Group Object Checks Pass; Fresh Link/Lifecycle/Runtime Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r42 Native/Compat Ownership And Re-Enable Pass; Global/Timeout/Scheduling Scope Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -169,3 +169,24 @@ assumptions. Enabled object and style checks pass. This does not activate RTG:
 r41 remains installed, and current-source link/pair, enable/disable concurrency
 and real native/compat/application behavior still require validation. See
 clang12-rtg-source-audit.md for the independent global-queue scope limitation.
+
+r42 completes current-source enabled link and matched boot/modem packaging,
+paired flash/readback and two normal boots with unchanged independent ramdisk
+and security controls. Real 64/32-bit untrusted_app_27 callers pass ownership,
+force-init rejection, query-width canaries and exit cleanup. Actual UID1000
+in the existing Magisk domain controls only test-child/self groups and passes
+three disable/re-enable cycles with the same worker. The normal framework
+configures RTG after reboot. A bounded post-enable MIPS telemetry capture has
+2,622 samples, 862 with nonzero instructions, and 2,280 requested-vote events,
+with zero overruns and unchanged monitor settings. This does not repeat the
+full original-machine-code oracle or measure effective hardware clocks.
+
+The independent PERF_CTRL global wake-queue lifecycle, actual timer expiry
+under intended caller policy, full frame-thread scheduling/END_FREQ coverage
+and performance/power parity remain open. An initial ARM32 process launch
+during the temporary APK ABI change reports a secondary-zygote connection
+refusal; an ordinary force-stop/relaunch of only that APK subsequently passes
+on the unchanged kernel/policy. It is not claimed as a repaired zygote defect.
+Existing SIM/peer/source/hardware/manual prerequisites remain unsatisfied;
+the whole bring-up goal is not complete. Temporary app/tools/tracing and
+consumed full logs are removed; r41 is the immediate paired rollback.

@@ -28,13 +28,13 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is r41. A separate normalized vote-scale
+validation. The installed device is r42. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r41: r21 retains full early logs,
+The current installed test candidate is r42: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -49,8 +49,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r31/r32/r36/r37/r41 pairs are retained;
-r37 is the immediate r41 rollback. Original boot/ramdisk/modem backups remain intact.
+test limits. Accepted r17 and the latest r32/r36/r37/r41/r42 pairs are retained;
+r41 is the immediate r42 rollback. Original boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -221,6 +221,24 @@ match original machine code, including genuine second-level maxima, and
 Enforcing/CFI/signature gates pass; taint remains 4. Frame-enabled #39 remains
 unflashed. These are requested-vote checks, not effective-clock, power or
 complete OEM scheduler certification. See `docs/clang12-mips-multilevel-audit.md`.
+r42 enables the five audited original frame features after the approved
+render ownership and lifecycle repairs. Applications can manage only their
+own process; actual UID1000 retains controller scope. Rejected initialization
+preserves the active group, uses the correct group buffer and retains task
+identity through RCU publication. Proc reset drains active ioctls and timer
+cleanup. Fresh link, matching signed modem and paired readback pass; shifted
+task member offsets prohibit mixing an older frame-disabled modem.
+Real 64/32-bit untrusted_app_27 callers pass capability canaries, self-group
+operations, same-UID cross-process rejection, force-init protection and exit
+cleanup. A real-UID1000 Magisk-domain controller passes test-child control and
+three disable/re-enable cycles without replacing the persistent worker.
+Two normal boots retain Enforcing, taint 4, PRMEM and forced module signing,
+with no WARN/BUG/CFI/panic; the inherited wiphy dump_stack remains classified.
+The framework re-enables RTG after reboot, and a bounded counter/vote telemetry
+regression passes without changing monitor settings. This is not global
+wake-queue, timer-expiry stress, full frame scheduling or performance parity
+certification. See `docs/clang12-rtg-source-audit.md` and
+`docs/clang12-completion-plan.md` for remaining gates and manual prerequisites.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

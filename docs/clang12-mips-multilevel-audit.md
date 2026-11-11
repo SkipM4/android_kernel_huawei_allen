@@ -229,3 +229,23 @@ remains enabled, the independent ramdisk is unchanged, and all six maps and
 enable flags persist. This completes the bounded table/ratio/vote validation.
 The separate normalized-scale audit is classified above, without another
 kernel change, build or flash; whole-device signoff remains open.
+
+## r42 Scheduler-Activation Regression
+
+r42 enables the audited original frame features after render ownership and
+proc/timer lifecycle repair. Its matched modem and task/Binder layout review
+are recorded in clang12-rtg-source-audit.md; no stale #39 output is flashed.
+After normal reboot and framework configuration, a task-owned isolated trace
+captures 2,622 MIPS samples across CPUs 0-11, including 862 with nonzero
+instruction counts, and 2,280 post-writel desired-vote events with 19 distinct
+name/vote pairs. A short anonymous zero-stream/hash workload provides bounded
+activity; no governor, ratio, sensor, thermal or hardware vote-setting write
+is introduced. Start/end markers and zero per-CPU overruns pass. All six
+monitor maps, ratios, enable flags and sample/window settings are unchanged.
+The isolated instance is removed and the existing wifi instance is untouched.
+
+This checks continuing counter/vote operation after scheduler layout changes.
+It does not repeat the r41 original-machine-code oracle, certify every frame
+load path or measure effective physical clocks/performance/power parity.
+r41 remains the paired r42 rollback; security and normal-boot results are
+recorded with the RTG iteration rather than inferred from the earlier kernel.
