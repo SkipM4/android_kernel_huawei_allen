@@ -18,7 +18,7 @@
 
 #include <linux/cred.h>
 
-void init_frame_timer(void);
+int init_frame_timer(void);
 void deinit_frame_timer(void);
 void start_boost_timer(u32 duration, u32 min_util);
 

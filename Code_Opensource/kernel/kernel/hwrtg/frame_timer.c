@@ -91,13 +91,13 @@ static void on_timer_timeout(struct timer_list *t)
 }
 
 DEFINE_MUTEX(g_timer_lock);
-void init_frame_timer(void)
+int init_frame_timer(void)
 {
+	int ret = 0;
+
 	mutex_lock(&g_timer_lock);
-	if (atomic_read(&g_timer_on) == 1) {
-		mutex_unlock(&g_timer_lock);
-		return;
-	}
+	if (atomic_read(&g_timer_on) == 1)
+		goto out;
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(5, 10, 0)
 	init_timer(&g_frame_timer);
@@ -106,21 +106,23 @@ void init_frame_timer(void)
 #else
 	timer_setup(&g_frame_timer, on_timer_timeout, 0);
 #endif
-	mutex_unlock(&g_timer_lock);
-	/* create thread */
 	set_bit(DISABLE_FRAME_SCHED, &g_thread_flag);
-	if (!IS_ERR_OR_NULL(g_timer_thread)) {
-		pr_err("[AWARE_RTG] g_timer_thread already exist\n");
-		return;
+	/* The worker persists across disable/enable cycles. */
+	if (!g_timer_thread) {
+		g_timer_thread = kthread_create(frame_thread_func, NULL, "frame_sched");
+		if (IS_ERR(g_timer_thread)) {
+			ret = PTR_ERR(g_timer_thread);
+			g_timer_thread = NULL;
+			pr_err("[AWARE_RTG] g_timer_thread create failed: %d\n", ret);
+			goto out;
+		}
+		wake_up_process(g_timer_thread);
 	}
-
-	g_timer_thread = kthread_create(frame_thread_func, NULL, "frame_sched");
-	if (IS_ERR_OR_NULL(g_timer_thread)) {
-		pr_err("[AWARE_RTG] g_timer_thread create failed\n");
-		return;
-	}
-	wake_up_process(g_timer_thread);
 	atomic_set(&g_timer_on, 1);
+
+out:
+	mutex_unlock(&g_timer_lock);
+	return ret;
 }
 
 void deinit_frame_timer(void)

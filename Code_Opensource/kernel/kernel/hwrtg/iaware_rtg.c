@@ -121,35 +121,39 @@ static int set_enable_config(char *config_str)
 }
 
 /*lint -save -e446 -e666 -e732 -e734 -e507 -e545*/
-static void enable(const struct rtg_enable_data *data)
+static int enable(const struct rtg_enable_data *data)
 {
 	char temp[MAX_DATA_LEN];
+	int ret;
 
 	if (atomic_read(&g_rtg_enable) == 1) {
 		pr_info("[AWARE_RTG] already enabled!\n");
-		return;
+		return SUCC;
 	}
 	if ((data->len <= 0) || (data->len >= MAX_DATA_LEN)) {
 		pr_err("[AWARE_RTG] %s data len invalid\n", __func__);
-		return;
+		return -INVALID_ARG;
 	}
 	if (copy_from_user(&temp, (void __user *)data->data, data->len)) {
 		pr_err("[AWARE_RTG] %s copy user data failed\n", __func__);
-		return;
+		return -INVALID_ARG;
 	}
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wincompatible-pointer-types"
 	temp[data->len] = '\0';
 
-	if (set_enable_config(&temp) != SUCC) {
+	ret = set_enable_config(temp);
+	if (ret != SUCC) {
 		pr_err("[AWARE_RTG] %s failed!\n", __func__);
-		return;
+		return ret;
 	}
-#pragma GCC diagnostic pop
 
-	init_frame_timer();
+	ret = init_frame_timer();
+	if (ret) {
+		deinit_proc_state();
+		return ret;
+	}
 	atomic_set(&g_rtg_enable, 1);
 	pr_info("[AWARE_RTG] enabled!\n");
+	return SUCC;
 }
 
 static void disable(void)
@@ -180,9 +184,9 @@ static long ctrl_set_enable(unsigned long arg)
 		return -INVALID_ARG;
 	}
 	if (rs_enable.enable == 1)
-		enable(&rs_enable);
-	else
-		disable();
+		return enable(&rs_enable);
+
+	disable();
 
 	return SUCC;
 }

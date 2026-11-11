@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | String-Copy Repair Checked; Lifecycle Audit Working |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | String-Copy/Lifecycle Repairs Compile; Activation Audit Open |
 | 05 | L3 multi-level voting | Match DT/firmware vote contract, repair missing implementation and validate real level changes | Pending |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Pending |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Pending |
@@ -57,9 +57,13 @@ The follow-up snapshot still shows the same locked/asleep device and absent
 SIMs. Continue source work while these manual prerequisites wait. The frame
 RTG stock-feature closure changes only its five original flags in a temporary
 configuration. Its affected objects compile, and three ignored nested user
-copies are repaired. Runtime scheduling remains disabled on r37; enable/timer
-lifecycle, authorization, complete link and module compatibility must pass
-before exposing the restored interface.
+copies are repaired. The timer now reuses its persistent worker on re-enable
+and reports setup failures to the enable ioctl instead of false success.
+Runtime scheduling remains disabled on r37; lifecycle synchronization,
+authorization, complete link and module compatibility must pass before
+exposing the restored interface. Enabled-build debug metadata shows unchanged
+task_struct size but 23 shifted member offsets, so size alone cannot clear
+this compatibility gate.
 
 Long-term records omit personal network/subscription identifiers, temporary
 checksums and complete logs. Task-owned host/device probes and downloaded

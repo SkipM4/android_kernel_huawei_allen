@@ -391,3 +391,36 @@ the exact switch rejects the ordinary four-byte compat encoding rather than
 over-copying that request. Its intended 32-bit caller contract remains to be
 checked. Full frame authorization and timer/state synchronization also remain
 open; no claim is made that dormant OEM scheduling code is ready to expose.
+
+### Timer Re-Enable And Failure Reporting Repair
+
+The separate lifecycle repair keeps the original persistent frame_sched
+worker instead of rejecting it on re-enable. Timer initialization and worker
+creation now stay under the existing g_timer_lock; successful reuse restores
+g_timer_on. kthread_create failures return PTR_ERR and clear the failed
+pointer so a later enable can retry. No thread-stop path, new workqueue,
+timer duration, boost policy or feature default is introduced.
+
+init_frame_timer now returns a status, with both existing header copies
+updated. The enable handler propagates invalid input, failed state setup and
+timer initialization errors. If timer setup fails after state initialization,
+it uses the existing deinit_proc_state cleanup and does not publish
+g_rtg_enable. Already-enabled and successful disable requests retain their
+existing success behavior. These changes do not make the whole ioctl/state
+lifecycle atomic; concurrent configuration and timer/worker state ordering
+still require review before activation.
+
+Both changed objects compile in the original-feature configuration with no
+diagnostics in their own C files. checkpatch passes, and the compiled LLVM
+IR retains all three string-copy failure branches and the status-returning
+timer entry. No installed enable/disable cycle or induced kthread failure is
+tested while this feature is disabled on r37; runtime certification remains
+open rather than replaced by a mock implementation test.
+
+Clang debug metadata from the enabled and r37 fork objects gives task_struct
+size 4672 bytes in both builds, but this is not layout compatibility: the
+new rtg_depth member occupies byte offset 112, and 23 existing top-level
+members, including proc_qos and sched_class, move by eight bytes. Other
+top-level offsets in this comparison remain unchanged; nested types and
+export CRCs are not certified by it. A complete enabled link and matching
+module ABI review are mandatory. No enabled image is packaged or flashed.
