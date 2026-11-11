@@ -57,6 +57,9 @@ and codec autosuspend after clock disable. No kernel WARNING, BUG, CFI failure
 or panic is found in the captured full boot/test logs; taint remains 4.
 The user also confirms normal audible playback in the system sound settings
 on r28; this is a basic user-observed playback pass, not fidelity certification.
+A 30-second screen-off/wake check also passes silent playback and codec runtime
+release without device/audio-service restart. USB/charging wakeup sources stay
+active and system-suspend counters do not advance; unplugged suspend is pending.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 microphone, calls/sidetone and system/deep suspend are not certified; see
 `docs/clang12-audio-source-audit.md` and `docs/clang12-functional-tests.md`.

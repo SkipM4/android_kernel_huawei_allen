@@ -434,6 +434,52 @@ not an instrumented audio test. No waveform, level, frequency response or
 distortion measurement is taken, and no additional kernel change, build or
 flash is needed for this confirmation.
 
+### Display Wake And USB-Connected Suspend Boundary
+
+A separate r28 follow-up checks the power baseline before attempting deeper
+sleep. The firmware exposes freeze/mem, with deep selected in mem_sleep.
+Kernel suspend_stats has zero successes and failures; the root-accessible
+suspend_control service also reports zero suspend attempts and total suspend
+time. PowerManagerService is Asleep with no held wake-lock or display suspend
+blocker, and the recorded native suspend-service locks are inactive.
+
+The kernel's per-source active_time_ms nevertheless shows usb_wake_lock and
+charge_wakelock continuously active; their active time increases across the
+screen-off interval. A transient sensorhub wakeup is not retained as a
+continuous blocker. Interpret active_time_ms using
+`drivers/base/power/wakeup_stats.c`: it is zero for an inactive source, unlike
+active_count, which counts past activations. No debugfs mount or global
+tracing change is needed.
+
+This matches the local USB/charging lifecycle: dwc3-chip.c holds its wakeup
+source on device connection unless chip_usb_bc12.c sleep_allowed permits the
+charger type, and releases it in stop_device. The charging manager acquires
+its source in charge_start_charging and releases it in charge_stop_charging.
+These observations do not establish a wake-lock leak after cable removal.
+Do not force-unlock sources, change charger policy, disable SELinux or write
+directly to power/state to manufacture a suspend pass with active USB.
+
+The recoverable check wakes the display, requests sleep, leaves it Asleep for
+30 seconds without issuing ADB requests, then wakes it again. A post-wake
+silent AudioTrack check consumes all 96,000 frames, reports the built-in
+speaker route and zero underruns, and observes card0/pcm0p RUNNING. After
+release the PCM closes and the codec returns to runtime suspended, with both
+playback power-down events and codec/ASP clock disable in the log. Device
+boot identity and audioserver PID do not change; the test interval has no
+kernel WARNING, BUG, CFI failure or panic. The original Asleep state is
+restored and the temporary probe is removed. No global volume, media,
+microphone, radio, power policy, kernel configuration or partition is changed.
+
+Suspend success/failure counters remain unchanged at zero during this check;
+there is no demonstrated system-suspend entry or codec system-sleep callback.
+This is a display-wake/audio and runtime-PM pass, not deep-suspend certification.
+Next unplug USB without attaching a charger, leave the screen off for about
+60 seconds, reconnect, and compare suspend counters, suspend-service statistics,
+last_resume_reason/last_suspend_time and the minimal kernel suspend/resume
+log. Confirm actual suspend entry and codec callbacks before attributing any
+resume failure or modifying their implementation. r28 remains installed and
+the r27 paired rollback remains available.
+
 ### Remaining Gaps
 
 The two boot diagnostics, mux MDM_5G_UP_L_MUX has no paths and mux
