@@ -141,7 +141,10 @@ open. See `docs/clang12-calibration-access-audit.md`.
 A separate PCIe audit traces IRQ267's -22 to the DesignWare MSI affinity
 setter, which is also unimplemented in upstream Linux 5.10.43. Logical MSI
 vectors use a separately dispatched physical interrupt; no fake affinity
-success or CPU-hotplug workaround is added. Delivery/migration remain untested.
+success or CPU-hotplug workaround is added. An r41 topology/activation check
+then observes 122 fresh deliveries on the endpoint's separate GIC INTx IRQ82
+while root-port IRQ267 affinity refusals recur. Root PME/AER delivery and
+migration remain untested; see `docs/clang12-pcie-affinity-audit.md`.
 r32 fixes the separate raw-battery-temperature interface: status is returned
 independently of signed millidegree data, the missing aggregate callback uses
 the existing BATT_0 measurement path, and thermal callbacks propagate errors.

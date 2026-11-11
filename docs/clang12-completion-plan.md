@@ -27,7 +27,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
 | 08 | Vendor-init WP action | Matching userspace/protection source, correct process-context reporting and genuine protection behavior | Needs Matching Source |
-| 09 | PCIe affinity/delivery | Verify physical/logical interrupt topology and classify functional impact before any affinity implementation | Pending |
+| 09 | PCIe affinity/delivery | Verify physical/logical interrupt topology and classify functional impact before any affinity implementation | Endpoint INTx Delivery Pass; Root PME/AER/Migration Open |
 | 10 | Charging/standby | Appropriate charger and battery state; charging transitions, temperatures, overnight power and wake stability | Needs Hardware/Time |
 | 11 | Camera/audio integration | User-confirmed front/rear recording, audio-video sync, microphone routes and calls/headset integration | Needs Manual Check |
 | 12 | Final regression/security | Installed final pair, ABI/signatures/readback, enforcing controls and scoped regression with every required item closed | Pending |
@@ -150,3 +150,12 @@ radios/settings remain unchanged, and the kernel log covers the full
 extension without warning/fatal markers; the first window's beginning has
 rotated out. High-temperature throttling, charging and overnight-power
 acceptance remain open, not inferred from this bounded recovery result.
+
+The r41 topology follow-up identifies Wi-Fi's actual endpoint INTx IRQ82
+separately from root-port PME/AER logical MSI IRQ267 and its physical GIC
+dispatch IRQ83. A bounded Wi-Fi enable/disable interval observes 122 new
+IRQ82 deliveries while 45 existing IRQ267 affinity refusals recur. Both
+root MSI counters remain zero, so root PME/AER delivery/migration is not
+certified. Wi-Fi and display are restored, the boot is unchanged and the
+complete interval log has no warning/fatal markers. No affinity or kernel
+change is made; see clang12-pcie-affinity-audit.md.
