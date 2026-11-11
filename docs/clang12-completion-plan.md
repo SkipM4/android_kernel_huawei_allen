@@ -24,7 +24,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
 | 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | Enabled #39 Link/Module Checks Pass; Render Ownership Decision Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
-| 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Publication Contract Audited; Real Warming/Recovery Open |
+| 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
 | 08 | Vendor-init WP action | Matching userspace/protection source, correct process-context reporting and genuine protection behavior | Needs Matching Source |
 | 09 | PCIe affinity/delivery | Verify physical/logical interrupt topology and classify functional impact before any affinity implementation | Pending |
@@ -130,3 +130,23 @@ expose that destructive gate. Intended optional usage and authorized
 read/write lifecycle still require resolution; see
 clang12-calibration-access-audit.md. Device remains r41 without another
 kernel edit, build or flash during these audits.
+
+The subsequent live configuration audit finds MP16C/bisheng and
+cali_data_mask=0x07 in the DT-selected configuration, with no mask override.
+It requests NV reads rather than explicitly skipping them. Read refusal and
+successful reads of the two zero records both leave the loader without a
+valid selected record; no permission or mask change is justified to claim
+calibration recovery. The source retains its no-new-NV-cache/DPD-not-ready
+behavior, but real firmware calibration and RF/network correctness are not
+certified by this source inspection.
+
+The normal-screen thermal follow-up observes front recovery in a 157-second
+window, then both front/back publication rising and falling during a separate
+282-second screen-on/off extension. Slot-5 cached values update between
+rejection episodes in the same daemon lifetime. This is not a permanently
+frozen cache under the tested normal warming/cooling conditions. No thermal
+protection or coefficient changes occur. The display is restored to Asleep,
+radios/settings remain unchanged, and the kernel log covers the full
+extension without warning/fatal markers; the first window's beginning has
+rotated out. High-temperature throttling, charging and overnight-power
+acceptance remain open, not inferred from this bounded recovery result.

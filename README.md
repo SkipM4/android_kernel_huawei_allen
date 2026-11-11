@@ -129,8 +129,11 @@ remain unresolved. No thermal protection or coefficients change. See
 `docs/clang12-thermal-source-audit.md` and the r31/remaining runtime sections
 of `docs/clang12-functional-tests.md` for scope and next steps.
 The r41 publication follow-up confirms userspace-owned millidegree storage
-and named slot smoothing, not a kernel unit conversion. Real warming/recovery
-remains open. A separate read-only calibration audit finds both matching NV
+and named slot smoothing, not a kernel unit conversion. A bounded normal-screen
+warming/cooling check then observes both front/back publication and cached
+fallback values update; the cache is not permanently frozen in that window.
+High-temperature throttling and charging safety remain open. A separate
+read-only calibration audit finds both matching NV
 records all zero with no valid CRC; the inherited clear-on-sync-failure write
 gate makes permission/credential bypass unsafe. No calibration write or radio
 configuration change occurs; optional usage and authorized lifecycle remain

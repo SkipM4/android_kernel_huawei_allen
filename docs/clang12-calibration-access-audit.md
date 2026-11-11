@@ -69,6 +69,45 @@ does not certify live configuration or all RF calibration sources. The
 probe invokes no driver calibration ioctl or automatic initialization; its
 only partition operation is read. Its device executable is removed afterward.
 
+## r41 Configuration And Rejection Follow-Up
+
+The live hi110x subchip property is `bisheng`, which the local board table
+maps to MP16C. The DT selects /vendor/etc/cfg_aln_al_va.ini;
+/data/vendor/cust_conn/ini_cfg is a symlink to that same file. The optional
+cfg_aln_al_va_nvme.ini exists but supplies no cali_data_mask key, so it does
+not override this key even if the separate NVME-selection flag enables it.
+The base HOST_WIFI_NORMAL section supplies `cali_data_mask=0x07`.
+
+The source's skip bits are bit 3 for power NV and bit 4 for DPD NV. Neither
+is set by 0x07. Bits 0/1 request refresh/reupload and bit 2 marks first
+power-on calibration. Therefore the failure must not be described as a
+configuration that explicitly disables NV access. The runtime mask helper
+adjusts refresh/reupload behavior; it does not justify changing the stock
+skip bits merely to remove access diagnostics.
+
+In read_nv_to_ramdisk, either two failed low-level opens or two readable
+all-zero records leave the selected-record index at -1. The latter fail
+their stored CRC before age selection. Both routes return the high-level
+read error and leave synchronization incomplete. This source result, plus
+the complete read-only record check, establishes that removing the access
+refusal cannot turn the current empty records into valid loaded calibration.
+It does not establish that caller access is correctly authorized in every
+future populated-record state.
+
+hwifi_cust_get_nvram_mp16 retains its prior cache and returns unchanged on a
+failed fetch rather than publishing a successful new record. The DPD-ready
+helper starts false and requires the returned record status to match the
+configured radio capability; a read-error status does not establish that
+condition. wal_get_nv_dpd_data_mp16 then skips the NV-to-calibration-buffer
+copy when not ready. Separately, the default first-power/refresh/reupload
+path remains present. These are source contracts, not proof that a live
+firmware calibration completed or that transmit power/DPD fidelity passed.
+
+No mask, RF parameter, kernel credential or partition permission changes
+are made. The caller/lifecycle and empty-record behavior are now identified;
+authorized future record access, write safety and real RF/network validation
+remain separate unresolved boundaries.
+
 ## Write-Safety Boundary And Remaining Work
 
 conn_nve_check_sync_before_write calls read_nv_to_ramdisk when unsynchronized.

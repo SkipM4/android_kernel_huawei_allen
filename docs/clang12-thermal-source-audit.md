@@ -150,3 +150,58 @@ fallback freshness under load. No ptrace attach, tracing configuration
 change, service restart, coefficient edit or temperature injection occurs.
 The remaining thermal gate is bounded real warming/recovery and protection
 behavior, not an established kernel millidegree/publication mismatch.
+
+## r41 Normal Screen Warming And Cooling
+
+A bounded extension of the unresolved recovery check uses only the ordinary
+lock-screen display at its existing brightness. KEYCODE_WAKEUP keeps the
+display awake; KEYCODE_SLEEP restores its initially Asleep state. No unlock,
+application workload, CPU stress, brightness/timeout change, radio enable,
+temperature injection or thermal control write occurs. Passive sensor
+sampling checks the same thermal-daemon PID throughout. A conservative
+35 C physical-input observation bound is not reached or installed as a
+thermal policy; the existing protections are unchanged.
+
+The first window contains 31 snapshots over approximately 157 seconds.
+The maximum configured physical input increases from 24670 to 26520 mC.
+Front publication changes from 25176 to 25854 mC, with 28 distinct values;
+back remains 25758 mC. Fresh logs contain three front-slot rejections near
+the beginning and 31 back-slot rejections. This establishes front recovery
+but leaves the back behavior unresolved, motivating the bounded extension
+rather than rerunning an already-passing test.
+
+The extension contains 36 screen-on and 18 subsequent screen-off snapshots,
+approximately 282 seconds including observation overhead. The measured
+publication changes are:
+
+| Phase | Front First / Last | Back First / Last | Observation |
+| --- | --- | --- | --- |
+| Screen On | 25165 / 26457 mC | 25847 / 26952 mC | Both publications update during normal warming |
+| Screen Off | 26476 / 25952 mC | 26952 / 26455 mC | Both decrease after a short post-display thermal lag |
+
+The largest sampled configured physical input is 27095 mC. Front/back
+publication peaks are 26523/27074 mC. Fresh extension logs contain two
+front and 31 back CalcTemp rejections, not a continuous rejection for every
+slot/tick. Within this same daemon lifetime, slot 5's logged last value takes
+25847, 26689, 26761, 26953 and 26456 mC between rejection episodes. Together
+with the audited cache-update/publication path, this resolves the earlier
+possibility of a permanently frozen fallback cache in this normal-use
+window. It does not imply every tick is accepted or that every calculated
+slot is an independently calibrated physical-temperature measurement.
+
+Neither window contains a WriteShellTemp failure or the later output
+step-bound diagnostic in the collected thermal logs. The final display
+state is Asleep, Wi-Fi remains OFF, SIM slots remain ABSENT, and daemon PID
+1444 persists. SELinux is Enforcing, taint is 4 and PRMEM remains enabled.
+The retrospective kernel buffer covers the complete extension and has no
+WARNING, BUG, panic or CFI-failure marker. It has overwritten the beginning
+of the first window; do not claim two complete kernel-log passes.
+
+This is a bounded normal-screen warming/cooling and fallback-freshness pass,
+not high-temperature throttling, charger-mode protection, temperature
+accuracy, sustained-load safety or overnight-power certification. The
+observed low-temperature CalcTemp diagnostics are classified at the stock
+calculation guard with demonstrated normal-window recovery; no kernel
+sensor/unit patch or stock coefficient change is justified. Real charging
+and higher-load protection remain acceptance work in the power/thermal
+queue rather than being declared complete by this test.
