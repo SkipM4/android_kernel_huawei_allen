@@ -918,3 +918,69 @@ mean broken. Earlier-version passes retain their original scope.
 This audit changes documentation only: no driver, build, flash, permission,
 SELinux, firmware, calibration, ramdisk or user-recording change is made.
 Raw diagnostic logs are removed after retaining these conclusions.
+
+## r31: Respect The Disabled Optional Battery OCV Provider
+
+### Cause And Change
+
+The r30 battery errors are traced to an optional-provider contract mismatch,
+not demonstrated corruption of a battery curve or missing sensor samples.
+The original retained running-device DT and current live DT both contain
+huawei,battery_ocv with status=disabled and no ocv_table property. The linked
+driver is present, but no platform device is instantiated or bound. Its
+global device pointer therefore remains null, and battery_ocv_get_ocv_by_cap
+returns -ENODEV before reading a table. BCI nevertheless requests the zero
+capacity OCV on every monitoring cycle, reports two errors and returns the
+unchanged current capacity. The r30 baseline reproduces this repeatedly while
+Battery and battery_gauge expose real measurements.
+
+Only platform_source/basicplatform/drivers/power/platform/bci_battery.c changes.
+During existing DT parsing, a private BASP OCV flag uses the build option and
+standard OF compatible-node availability; the node reference is released.
+Disabled/absent providers skip the optional capacity remapping and OCV-based
+zero/one-percent threshold updates. Existing gauge-derived capacity, DT
+low-voltage thresholds, debounce, capacity checks and charging control remain
+unchanged. Enabled providers still enter the original lookup path, including
+its error reporting if probing or data lookup fails. The flag reflects DT
+availability, not transient probe success, so an enabled-but-failing driver
+is not silently treated as intentionally disabled.
+
+No provider node is enabled, no replacement OCV table is invented, and no
+firmware, battery calibration, permissions, SELinux policy or independent
+Magisk ramdisk is modified. The scope is the unsupported consumer request,
+not implementing a new aging curve or changing the underlying coulomb driver.
+
+### Validation And Limits
+
+Source diff/whitespace review and the existing Clang 12 build pass. CFI,
+forced module signing and SELinux configuration remain enabled. The signed
+matching modem module has no missing versioned imports or CRC mismatches;
+signature/certificate, filesystem metadata and image round-trip checks pass.
+The image retains the original DT container and boot layout. Before flashing,
+device-side digests match the retained r30 boot/modem_driver rollback pair.
+
+Supported bootloader queries reconfirm ALN-AL00 and unlocked state; product/all
+queries remain unsupported. Both r31 partition flashes succeed and #31 reaches
+normal Android with sys.boot_completed=1. Device-side digests match both new
+images, and the full independent ramdisk digest matches the r30 baseline.
+The signed modem module is loaded, sig_enforce=Y and SELinux remains Enforcing.
+
+The complete early/observation ring begins at boot time zero. It records
+basp_ocv_enabled:0, successful BCI probing and continuing capacity work through
+more than one hundred cycles without either original OCV/capacity lookup
+failure. Battery voltage/current/temperature update and match battery_gauge
+in the snapshots; capacity remains consistent. Parsed low-voltage thresholds
+remain present. No kernel WARNING splat, BUG, CFI failure, panic, unbalanced
+enable or misconfigured-IRQ marker is found; taint stays 4. The device boot
+identity and audioserver remain stable during observation.
+
+This passes the disabled-provider path and normal short monitoring, not the
+enabled-provider runtime path, low-battery cutoff, aging/capacity accuracy,
+charging-mode safety or long-duration power parity. No deliberate low-battery
+discharge, heavy stress, new audio capture or repeated unrelated functional
+tests are performed. Earlier r30 functional checks retain their original scope.
+PCIe IRQ affinity errors and both inherited DAPM MUX diagnostics are still
+observed. The prior thermal-service fallback and missing RTG interface are
+not repaired by this change; audit thermal inputs/units next before stress.
+r30 is the immediate paired rollback. Original backups, accepted r17 and the
+latest r27-r31 pairs are retained; temporary build/audit logs are removed.

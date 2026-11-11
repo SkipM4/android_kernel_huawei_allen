@@ -29,7 +29,7 @@ The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3 voting remains unresolved.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r30: r21 retains full early logs,
+The current installed test candidate is r31: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -44,8 +44,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r26-r30 pairs are retained; r29 is
-the immediate r30 rollback and r27 is the pre-audio rollback.
+test limits. Accepted r17 and the latest r27-r31 pairs are retained; r30 is
+the immediate r31 rollback and r27 is the pre-audio rollback.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -103,11 +103,20 @@ result. The user subsequently confirms normal recording in the system
 recorder on r30. This adds a basic user-observed recording pass; no recorded
 content is requested or transferred. These checks are not microphone
 fidelity/channel or hardware timestamp certification.
-The later r30 runtime audit still finds recurring battery OCV/capacity lookup
+The later r30 runtime audit finds recurring battery OCV/capacity lookup
 failures, thermal-service fallback, PCIe PME/AER MSI affinity failures and a
-missing per-process RTG interface. Their root causes and functional impact
-are not yet established; see the remaining-runtime-diagnostics section of
-`docs/clang12-functional-tests.md` for coverage limits and prioritized tests.
+missing per-process RTG interface. r31 fixes the battery consumer's optional
+feature contract: the original and live DT both disable battery_ocv and
+provide no OCV table, so BCI now skips only its OCV-based BASP corrections
+when that provider is disabled. Existing gauge capacity and low-voltage
+thresholds remain; enabled-provider lookup errors are not hidden. Compilation,
+signed paired flash/readback and unchanged independent ramdisk checks pass.
+The full early/observation log has ongoing battery work without the two lookup
+errors or kernel WARNING, BUG, CFI failure or panic; taint remains 4 and battery
+properties update. This does not certify low-battery behavior, capacity
+accuracy or charging modes. PCIe affinity and inherited audio MUX diagnostics
+remain; thermal/RTG root causes remain unaudited. See the r31 and remaining
+runtime sections of `docs/clang12-functional-tests.md` for scope and next steps.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

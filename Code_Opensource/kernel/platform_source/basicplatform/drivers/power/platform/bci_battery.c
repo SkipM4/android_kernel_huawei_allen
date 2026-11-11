@@ -124,6 +124,7 @@ struct bci_device_info {
 	int bat_exist;
 	int bat_health;
 	int bat_capacity;
+	bool basp_ocv_enabled;
 	int recla_cap_one_en;
 	int cap_one_vth;
 	int bat_capacity_level;
@@ -477,6 +478,9 @@ static void bci_get_ocv_corresponds_to_zero_cap_by_basp(
 	int voltage = 0;
 	int ret;
 
+	if (!di->basp_ocv_enabled)
+		return;
+
 	ret = bci_get_get_ocv_by_cap(CAPACITY_ZERO, &voltage);
 	if (ret) {
 		bci_err("%s %d, get voltage by cap failed\n",
@@ -540,6 +544,9 @@ static void bci_get_ocv_corresponds_to_one_cap_by_basp(
 {
 	int voltage = 0;
 	int ret;
+
+	if (!di->basp_ocv_enabled)
+		return;
 
 	ret = bci_get_get_ocv_by_cap(CAPACITY_ONE, &voltage);
 	if (ret) {
@@ -810,7 +817,8 @@ static int capacity_changed(struct bci_device_info *di)
 			curr_capacity = 0;
 	}
 
-	basp_capacity = bci_get_capacity_map_by_basp(curr_capacity);
+	basp_capacity = di->basp_ocv_enabled ?
+		bci_get_capacity_map_by_basp(curr_capacity) : curr_capacity;
 
 	bci_info("%s %d, cap = %d, basp_capacity = %d, monitoring_interval = %d\n",
 		__func__, __LINE__, cap, basp_capacity, di->monitoring_interval);
@@ -2280,6 +2288,14 @@ static int bci_parse_dts(const struct device_node *np,
 	struct bci_device_info *di)
 {
 	int ret = 0;
+	struct device_node *ocv_np;
+
+	/* OCV-based BASP corrections require the optional DT provider. */
+	ocv_np = of_find_compatible_node(NULL, NULL, "huawei,battery_ocv");
+	di->basp_ocv_enabled = IS_ENABLED(CONFIG_HUAWEI_BATTERY_OCV) &&
+		of_device_is_available(ocv_np);
+	of_node_put(ocv_np);
+	bci_info("basp_ocv_enabled:%d\n", di->basp_ocv_enabled);
 
 	if (of_property_read_u32(np, "battery_design_fcc",
 		(u32 *)&di->bat_design_fcc)) {
