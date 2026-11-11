@@ -774,3 +774,51 @@ the immediate paired rollback. Temporary device probes, library/disassembly
 copies and consumed full logs are removed after recording these conclusions.
 Next global work must resolve the matching caller and non-force resume,
 owner retirement and depth/reset contracts before changing queue semantics.
+
+### Global Force-Init Depth Retirement
+
+The matching retained original Allen 5.10.43 Image is recovered offline with
+the same pinned marin-m/vmlinux-to-elf commit documented in the MIPS audit.
+The raw Image and recovered kernel section agree byte-for-byte; _text,
+linux_banner and independent embedded absolute string pointers corroborate
+the preferred base 0xffffffc010000000. Recovery supplies machine code and
+symbols, not original DWARF. No device Image or private data is uploaded.
+
+The original initializer at 0xffffffc0105e40f0 retains the numeric-PID
+non-force resume rule. The original destroy backend at 0xffffffc0105e49b4
+only clears the active pointer; it does not reset queues. These agree with
+the published source and establish that same-live-target pause/resume is
+not a missing-reset bug. No owner permission or resume behavior is changed.
+PID reuse after root retirement remains a separate unresolved identity issue.
+
+The depth transition does contain a concrete lifetime defect, also inherited
+by the original Image. At init+0x178, the new depth is stored before the call
+to reset_wake_queue at init+0x194. Reset at 0xffffffc0105e4334 traverses only
+that new depth. Its task write at reset+0xb0 skips entries only when their
+exited flag is set. The task-free hook reads the current depth at
+remove_render_rthread+0x128 and clears all membership bits at +0x16c.
+
+Consequently, force-init 4 -> 1 leaves queues 1-3 and their live memberships
+behind. If one of those tasks is freed while depth is 1, its hidden entries
+are not marked exited. Force-init 1 -> 4 can then dereference its stale task
+pointer when clearing the old queue. This is a source/machine-code-proven
+potential UAF, not a crash observed on the device. No unsafe reproduction is
+attempted on r43, and no matching caller has yet been proved to use this
+transition in normal operation.
+
+The minimal repair clears every old queue's memberships and sets its logical
+entry count to zero before publishing the new depth. It uses the existing
+reset_inqueue_tasks helper under g_wake_queue_rwlock, already shared with
+wakeup, reset and final task-free hooks. Thus a concurrent task free either
+marks an entry before retirement or sees it fully retired; later growth
+does not scan stale logical entries. Existing exited entries are not
+dereferenced. First init has no old queues, and the non-force path never
+enters init_wake_queue. Storage, task layout, ioctl ABI, credentials, packing,
+queue feedback/rotation and pause/resume policy remain unchanged.
+
+Diff/checkpatch and the frame-enabled render_rt.o build pass with no compiler
+diagnostic in the modified file. Optimized ThinLTO IR confirms the old-depth
+loop and zeroed logical counts precede the new-depth store. No branch-mirror
+test or dangerous old-kernel lifetime probe is added. Device remains r43;
+full current-source link, paired packaging and relevant runtime validation
+are still required before this source repair is an installed acceptance pass.

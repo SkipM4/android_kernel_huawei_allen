@@ -300,6 +300,14 @@ out:
  */
 static int init_wake_queue(int pid, int max_depth, struct task_struct *render)
 {
+	int i;
+
+	/* Retire every old queue before a smaller depth hides it from task exit. */
+	for (i = 0; i < g_wake_queue_num; i++) {
+		reset_inqueue_tasks(i);
+		g_ta_render[RENDER_RT_GLO + i].total_count = 0;
+	}
+
 	g_wake_queue_num = max_depth;
 	g_cur_queue = 0;
 	g_inited_pid = pid;
