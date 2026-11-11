@@ -37,10 +37,14 @@ and targeted checks pass; early PRMEM and duplicate-registration warnings remain
 See `docs/clang12-early-diagnostics.md` for attribution and
 test limits. Accepted r17 and functional r20 are retained for rollback.
 Audio follow-up finds no normal codec-backed sound card and an empty audio
-policy manager; required stock codec options and their implementation are
-absent from the active/public source build. Bluetooth command attempts fail
-in framework AppOps reporting. Neither functionality is certified; see
-`docs/clang12-functional-tests.md` before proceeding with audio/BT repairs.
+policy manager; the required V2C codec implementation is not supplied by
+the ALN archive. A newer Changsha implementation has incompatible register
+pages and is not adopted; see `docs/clang12-audio-source-audit.md`.
+A correctly attributed shell-context probe passes Bluetooth ON/OFF on r24;
+named hardware AVC/HEVC encoders each complete thirty synthetic frames and
+EOS, with VENC IRQ activity. Pairing/peer transfer, video decode fidelity,
+camera recording and audio remain outside these checks; see
+`docs/clang12-functional-tests.md` for the exact scope.
 
 ## Layout
 
@@ -58,6 +62,7 @@ in framework AppOps reporting. Neither functionality is certified; see
 - `docs/clang12-working-baseline.md`: accepted r17 boot baseline and test scope.
 - `docs/clang12-functional-tests.md`: functional repairs, checks and audio/BT gaps.
 - `docs/clang12-early-diagnostics.md`: r21-r24 log, lock, GPIO and PD iterations.
+- `docs/clang12-audio-source-audit.md`: missing V2C codec and rejected platform sources.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
 project root and are excluded from Git. Never overwrite them.

@@ -240,6 +240,6 @@ reference), and stock originals. Keep expanded printk retention during these
 diagnostic iterations. This is a boot/targeted-fix candidate, not complete
 audio, radio, suspend or long-term stability certification. See
 `clang12-functional-tests.md` for the newly attributed audio-codec gap and
-Bluetooth command/manager failures. Restore compatible audio implementation
+the later corrected Bluetooth-probe scope. Restore compatible audio implementation
 before enabling its absent configuration rules; PRMEM ordering and CPU-ID
 mask changes remain separate, security-sensitive analysis tasks.

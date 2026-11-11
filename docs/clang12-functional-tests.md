@@ -233,3 +233,66 @@ results; this does not prove that no compatible release exists. No external
 audio implementation has been adopted. Audio, microphone/call paths and
 Bluetooth remain open functionality gaps, alongside Wi-Fi association,
 multi-level L3 voting and long-duration/deep-suspend testing.
+
+## r24 Bluetooth Control And Hardware Encode (2026-11-11)
+
+No kernel/config/DT change or flash is required for this follow-up. Installed
+build remains #24. The missing-audio-source/platform audit is recorded in
+`clang12-audio-source-audit.md`; no incompatible external codec is adopted.
+
+### Correctly Attributed Bluetooth Probe
+
+The earlier standalone `svc` failure is not a valid negative hardware test:
+AppOps reporting lacks a normal bound application, and createPackageContext
+from a system context inherits its AppOps package `android`. A first temporary
+probe with only bound application fields still reports `Package android does
+not belong to 2000`, confirming the second identity mismatch rather than a
+driver diagnosis. Its observed state remains OFF.
+
+Use a temporary app_process probe under UID 2000 with the installed
+com.android.shell ApplicationInfo, an application ContextImpl with that same
+AppOps package, and process-local ActivityThread application identity.
+Validate package UID and OpPackageName before any adapter change. This uses
+the existing shell identity, not another application's identity, an AppOps
+policy override, SELinux permissive mode, an APK install or service spoofing.
+Reference: AOSP Android 12.0.0_r1 ActivityThread.java currentPackageName /
+currentOpPackageName and ContextImpl.java createAppContext semantics. These
+references guide the temporary probe, not a kernel change.
+
+The corrected probe returns successfully: Bluetooth reaches STATE_ON and
+stays enabled for three seconds, then returns to its original STATE_OFF.
+Persistent bluetooth_on remains 0. No discovery, pairing, nearby-device
+enumeration, audio routing or peer data transfer is requested. Adapter
+enable/disable is now a functional pass; these other Bluetooth paths remain
+untested. Do not retain the earlier STATE_ON timeout as proof of a hardware
+failure after a command was immediately followed by a failed restore path.
+
+### Named Hardware Video Encoders
+
+A temporary MediaCodec probe uses the same validated shell context and
+explicitly selects OMX.hisi.video.encoder.avc / OMX.hisi.video.encoder.hevc.
+Both are present as hardware-accelerated encoders; no software fallback is
+allowed. Their advertised capabilities support 320x240 byte-buffer YUV420
+semiplanar input (color format 21).
+
+Each encodes thirty synthetic video-only frames, at configured 30 fps and
+256 kbit/s, to thirty distinct matching output presentation timestamps and
+output EOS. Input uses generated moving luma and neutral chroma, never camera,
+microphone or user media. No media-library file is created. This checks
+configured encoder processing and output completion, not bitrate accuracy,
+bitstream decode/pixel fidelity, surfaces, camera recording or microphone
+capture.
+
+VENC registers the generic IRQ name DT_device only while its driver resources
+are active; an idle grep for `venc` is not a reliable counter query. Host
+snapshots during the configured codecs attribute IRQ 115 (GICv3 hardware IRQ
+229) to DT_device, with sixty interrupt increments across the two encodes.
+Both codecs are released, and temporary device DEX files/directories are
+removed after the tests.
+
+The post-test full root log retains the same four known early warnings and
+no BUG, CFI failure, panic or enabled-IRQ warning. Android remains booted on
+#24 with the matching modem module, sig_enforce=Y and SELinux Enforcing;
+taint remains 516. Wi-Fi and Bluetooth settings remain OFF. These short
+functional checks do not replace deep suspend, peer-radio transfer,
+long-duration stress or full OEM hardware certification.
