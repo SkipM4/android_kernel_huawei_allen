@@ -103,6 +103,11 @@ result. The user subsequently confirms normal recording in the system
 recorder on r30. This adds a basic user-observed recording pass; no recorded
 content is requested or transferred. These checks are not microphone
 fidelity/channel or hardware timestamp certification.
+The later r30 runtime audit still finds recurring battery OCV/capacity lookup
+failures, thermal-service fallback, PCIe PME/AER MSI affinity failures and a
+missing per-process RTG interface. Their root causes and functional impact
+are not yet established; see the remaining-runtime-diagnostics section of
+`docs/clang12-functional-tests.md` for coverage limits and prioritized tests.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

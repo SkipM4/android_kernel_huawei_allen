@@ -862,3 +862,59 @@ additional sampling, build, flash or device-setting change is made to record
 the result. It does not establish measured fidelity, exact recorder routing,
 each physical microphone, call/sidetone, hardware capture timing or audio/video
 sync. The previously identified stock HAL timestamp capability gap remains.
+
+### Remaining r30 Runtime Diagnostics And Test Coverage
+
+A subsequent read-only runtime audit finds recurring ordinary warning/error
+messages; the logs are not entirely clean. The retained kernel ring covers
+approximately 32 minutes of later runtime, not early boot. It contains no
+kernel WARNING splat, BUG, CFI failure, panic, unbalanced-enable or
+misconfigured-IRQ marker. Recent logcat contains no fatal-exception, native
+crash or ANR marker. The same r30 boot and audio services remain active,
+taint is 4, and the four successful deep suspends still have zero recorded
+freeze/suspend/resume failures. These are bounded observations, not complete
+startup or long-duration stability certification.
+
+- Battery bci_get_get_ocv_by_cap reports zero OCV and a failed voltage lookup;
+  bci_get_capacity_map_by_basp also reports failure repeatedly. Battery status,
+  capacity, voltage and temperature properties remain readable. The capacity
+  mapping failure does not establish that all battery sensing is broken.
+- Thermal-daemon repeatedly rejects shelltemp inputs 0 and 5 and reuses the
+  previous temperature. Some physical thermal zones remain readable. Audit
+  input mapping, virtual sensors and OEM units before interpreting individual
+  zone values or performing heavy load/charging stress; no overheat or root
+  cause is established by this snapshot.
+- CPU migration threads repeatedly report IRQ267 set affinity failed(-22).
+  The IRQ is attributed to PCI-MSI PCIe PME/aerdrv, not RTC, UFS or Wi-Fi.
+  Requested affinity spans the online CPUs, but effective affinity is empty
+  and the sampled interrupt counts are zero. Audit the MSI domain/parent
+  affinity contract; functional impact remains unconfirmed.
+- RtgSchedIpcFile cannot open a per-process /proc/<pid>/rtg interface, which
+  is absent in the root snapshot. CONFIG_SCHED_RTG and CONFIG_FFRT_RTG are
+  enabled, while CONFIG_SCHED_CGROUP_RTG is not. This is an OEM interface gap,
+  not evidence that all RTG scheduling support is disabled.
+- Screen-off gesture lookup failures, property/access denials and OEM
+  statistics-interface errors remain. One AudioFlinger record-read latency
+  diagnostic is present despite user-confirmed normal basic recording;
+  sustained recording latency/dropouts remain untested. Wi-Fi diagnostic
+  upload errors explicitly refer to an inactive device and do not establish
+  failure of the previously passing foreground scan/association path.
+
+Earlier L3 c1/c2 multilevel-voting, calibration-access and inherited DAPM MUX
+diagnostics remain unresolved according to their separate audit records.
+Early messages have rolled out of this ring, so this runtime check cannot
+establish their disappearance. The stock HAL capture-position capability
+gap also remains; no fabricated kernel timestamp or security bypass is added.
+
+Prioritize practical cellular calls/data, real Wi-Fi internet/transfer and
+Bluetooth pairing/headset audio, then charging/battery behavior and overnight
+unplugged idle. Audit battery/thermal errors before heavy stress. Current-r30
+camera video/audio sync, sustained recording/playback, active-audio sleep,
+individual microphones and long-duration storage/load remain beyond short
+checks. GNSS, NFC, biometric unlock, proximity/auto brightness, vibration and
+USB accessories lack comprehensive recorded validation; untested does not
+mean broken. Earlier-version passes retain their original scope.
+
+This audit changes documentation only: no driver, build, flash, permission,
+SELinux, firmware, calibration, ramdisk or user-recording change is made.
+Raw diagnostic logs are removed after retaining these conclusions.
