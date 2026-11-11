@@ -95,8 +95,12 @@ returns without restarting the device or audio services. Only aggregate
 statistics are retained; no audio file is saved and no permission or privacy
 setting is changed. A targeted follow-up obtains advancing application capture
 timestamps after startup without regression; HAL-side timestamp statistics
-remain unavailable. This is basic capture, not microphone fidelity/channel or
-hardware timestamp certification.
+remain unavailable. A read-only boundary audit identifies an unimplemented
+get_capture_position callback in the unchanged stock primary HAL's normal
+input initialization; the loaded HIDL layer returns NOT_SUPPORTED without an
+ALSA timestamp query. No kernel timestamp workaround is justified by that
+result. This is basic capture, not microphone fidelity/channel or hardware
+timestamp certification.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

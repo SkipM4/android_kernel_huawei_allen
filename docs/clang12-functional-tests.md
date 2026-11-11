@@ -838,3 +838,16 @@ Do not infer a codec/PCM timestamp root cause or add a fabricated timestamp
 implementation. Next audit the actual HAL capture-position/ALSA boundary
 before changing a driver; acoustic and per-microphone route checks remain
 separate from that audit.
+
+The subsequent read-only boundary audit finds that the stock primary HAL's
+normal input initialization leaves get_capture_position unimplemented. The
+loaded V7_0 HIDL implementation checks that slot and returns NOT_SUPPORTED
+without querying ALSA when it is null. This attributes the observed HAL-side
+capability gap to unchanged stock userspace, not a demonstrated kernel ioctl
+failure. The standard AudioFlinger server timestamp/error paths explain how
+application timestamps can progress while HAL timestamp statistics have no
+valid samples. See the HAL boundary section of clang12-audio-source-audit.md
+for the binary/source evidence and limits. No new microphone recording,
+timing probe, driver change, build or flash is needed for this attribution.
+Physical acoustic response, individual microphone routing and precise capture
+timing remain outside the completed checks.

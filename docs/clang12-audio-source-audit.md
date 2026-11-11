@@ -224,3 +224,61 @@ but HAL-side hardware timing statistics remain unavailable. Physical microphone
 mapping, acoustic fidelity, hardware capture timing, calls and active-audio
 sleep remain outside that result. See the r30 capture section of
 clang12-functional-tests.md; the current paired rollback is recorded in README.
+
+## r30: Read-Only HAL Capture-Position Boundary Audit
+
+The r30 MIC check receives nonzero PCM and advancing application timestamps,
+but AudioFlinger reports no valid HAL capture timestamps and accumulating
+timestamp errors. Do not infer a PCM/codec failure from those counters alone.
+Read-only process mappings identify the actual primary HAL and V7_0 HIDL
+implementation loaded by the unchanged audio service. The analysis uses
+verified read-only ELF copies, not an unrelated repository's HAL binary.
+The separate file-read denial is adbd to vendor_file, file:getattr; existing
+Magisk root reads suffice without changing SELinux, labels or permissions.
+
+In /vendor/lib64/hw/audio.primary.hisi.so, the normal adev_open_input_stream
+path allocates a zeroed input structure and installs its normal read and
+other supported methods, but leaves get_capture_position unimplemented.
+The audio_stream_in ABI places that callback after the fourteen common
+stream methods and set_gain/read/get_input_frames_lost. The loaded HIDL
+StreamIn::getCapturePositionImpl checks the corresponding offset, returns
+Result::NOT_SUPPORTED when it is null, and calls a populated callback only
+otherwise. Its behavior matches the AOSP Android 12 implementation. The
+initial candidate that directly returns -ENOSYS belongs to an offload output
+table, not this normal input; exclude it from MIC-path evidence.
+
+Finding a pcm_get_htimestamp import in the primary HAL or a capture-position
+helper in loaded libalsautils is insufficient: neither establishes that the
+normal MIC callback invokes it. The primary HAL's direct htimestamp call is
+in its output-position path. TinyALSA can synchronize status/control and
+retrieve PCM status timestamps, but this missing input callback prevents
+that query through the audited HAL entry point. No failed capture timestamp
+ioctl is demonstrated here.
+
+The standard AudioFlinger RecordThread updates LOCATION_SERVER from frames
+read and the read-completion time before obtaining a HAL capture position.
+A failed/unsupported HAL query increments the timestamp verifier's error
+counter without deleting the server timestamp. This explains the observed
+application/HAL distinction; it is not proof of hardware-origin precision.
+The local ALSA core owns STATUS/SYNC_PTR and default system timestamp updates;
+absence of a driver-specific get_time_info hook alone does not establish a
+missing status ioctl or justify adding a synthetic timestamp hook.
+
+References: AOSP android-12.0.0_r1 libhardware include/hardware/audio.h,
+hardware/interfaces audio/core/all-versions/default/StreamIn.cpp, and
+frameworks/av media/libaudiohal/impl/StreamHalHidl.cpp and
+services/audioflinger/Threads.cpp; compare the relevant contracts against the
+loaded ELF implementations rather than transplanting code by version alone.
+Kernel references are the unchanged official 5.10.43 audio_pcm_hifi.c and
+sound/core/pcm_native.c/pcm_lib.c, not a new codec timestamp implementation.
+
+This resolves the layer attribution, not the unimplemented stock HAL feature
+or exact hardware capture timing. No HAL source is supplied by the codec
+candidate; do not patch proprietary binaries, inject a replacement HAL,
+suppress verifier errors, synthesize positions, alter PCM capabilities or
+relax SELinux to manufacture a pass. No new capture, kernel change, build,
+flash or service restart occurs during this audit. r30 remains installed and
+the temporary ELF/disassembly/reference copies are removed after analysis.
+Next a local known-acoustic recorder/playback check can validate human speech
+response without sending a recording; call and hardware-timing work require
+their own evidence and scope.
