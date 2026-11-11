@@ -276,6 +276,16 @@ export CRCs/configuration/certificate, signed paired readback and two normal
 boots pass with unchanged ramdisk/security. No production global boost is
 injected: intended-caller expiry/restart stress and full frame scheduling
 remain open, not replaced by static or startup checks.
+A follow-up on unchanged r46 verifies real stock native frame calls through
+existing RTG, raw-syscall and instance-stack events. The system controller
+allocates a frame group; SystemUI begin/end requests and END_FREQ return
+success, the latter turns group scheduling off, and the controller clears
+members afterward. Actual RT/VIP-band scheduling is observed, but post-stop
+VIP/PI ownership remains unaudited; the OEM proc priority display alone
+cannot prove effective priority restoration. No kernel/policy change, build
+or flash occurs. This is bounded native lifecycle coverage, not production
+boost expiry, global-queue, complete frame-pacing or power certification.
+See `docs/clang12-rtg-source-audit.md` for the measured scope and next audit.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r46 Boost-Wake Ordering Installed; Intended Timeout/Global/Scheduling Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r46 Installed; Stock Native Frame/END_FREQ Bounded Pass; Post-Stop VIP/Timeout/Global Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -263,3 +263,29 @@ open, alongside the existing manual/hardware/source prerequisites. Original
 backups, r17 and the latest r42/r43/r44/r45/r46 pairs remain; r41 metadata is
 retained for frame-disabled comparison, while its superseded pair and
 consumed task-owned artifacts are removed. Whole-device acceptance is open.
+
+The unchanged-r46 follow-up verifies real stock native frame use without a
+kernel rebuild, flash, test APK, permission change or queue takeover. An
+independent trace instance records ten begin/end timestamp pairs and actual
+SystemUI/RenderThread scheduling. A targeted instance-stack window confirms
+the native frame ioctl path, and existing raw_syscalls events identify the
+real controller's successful group allocation and the application's successful
+BEGIN/END_FRAME and END_FREQ calls. The latter changes the group-enable
+counter to zero before returning 0, followed by successful controller clear.
+The observed allocation ID is not made into a platform constant.
+
+Actual internal priorities include 87 outside the source's VIP band and 89
+inside it. One cycle retains priority 89 after its frame-disable counter;
+the later proc display can translate VIP/PI priority back to the raw policy,
+so it cannot close effective-priority restoration. The next source/runtime
+audit must identify post-stop VIP vote/Binder/native-PI ownership rather than
+blindly forcing normal priority. This does not reopen the passed frame ioctl
+results or prove that the global boost timer ran.
+
+All capture buffers are loss-free, full interval kernel logs contain no
+warning/fatal markers, and boot/security state stays unchanged. The display,
+keyguard, radio settings, brightness mode and existing global tracer/instances
+are preserved; automatic brightness's naturally updated value is not
+overwritten. Copied binaries/DEX, complete traces/logs and temporary scripts
+are removed. Real permitted boost expiry/renewal, positive global lifecycle,
+complete frame/power acceptance and external prerequisites remain open.

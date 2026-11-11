@@ -1052,3 +1052,94 @@ r42/r43/r44/r45/r46 pairs remain. Superseded r41 images are removed with its
 useful configuration/export/signing metadata retained. Consumed task-owned
 library/IR/disassembly copies and full logs are removed; unrelated diagnostics
 remain. Workspace stays below 20 GB, and whole bring-up acceptance stays open.
+
+### r46 Stock Frame Caller And END_FREQ Verification
+
+This follow-up keeps the installed #46, its source/configuration and the r45
+paired rollback unchanged. No kernel patch, build, flash, application install,
+global queue takeover, boost injection or protection change is performed.
+The purpose is to distinguish real stock frame use from interface availability
+and earlier synthetic ownership/compat checks.
+
+Read-only SystemUI and system_server maps contain libiAwareRtgSched.so,
+libhwrmeRtgSched.so and libhwrme_client.so. Copies of the first two libraries,
+their libhwrme_scene.so backend and the relevant framework DEX containers are
+verified against the device files. The native IPC vtable identifies offsets
+0x20/0x28 as BeginFrameFreq/EndFrameFreq and 0x40 as EndFreq. The scene backend
+uses that EndFreq slot; its IPC implementation constructs 0xc010ab18.
+This is scoped installed-library evidence, not an all-caller proof.
+
+The retained kernel contracts remain distinct:
+
+- BEGIN_FRAME_FREQ (0xc010ab14) starts the current task's frame-frequency
+  state and supplies the frame-start timestamp through update_frame_state.
+- END_FRAME_FREQ (0xc010ab15) resets the individual frame timestamp/state;
+  it does not clear start_frame_freq or stop the global boost timer.
+- END_FREQ (0xc010ab18) validates the current TID, looks up its frame group,
+  clears start_frame_freq and calls set_frame_sched_state(false).
+- The global boost timer is still started only by the examined 0xc014ab64
+  entry. Neither the ordinary frame events nor END_FREQ execute its expiry.
+
+Two bounded lock-screen wake/sleep cycles use a new tracefs instance with
+selected rtg_frame_sched counters and SystemUI/RenderThread sched_switch
+events. They record ten start and ten end timestamps, changing frame-util
+values and 1,132 actual scheduled-in events for those two threads. A short
+instance-stack follow-up records four native begin/end pairs through
+__arm64_sys_ioctl, proc_rtg_ioctl_locked, ctrl_frame_state,
+update_frame_state and set_frame_timestamp. The first conditional stack
+trigger records no instance stacks because this source's stacktrace_trigger
+calls the global-buffer trace_dump_stack; its consumed counter is not counted
+as stack coverage. Per-instance options/stacktrace supplies the later stacks
+without enabling the global tracer.
+
+CONFIG_FTRACE_SYSCALLS is disabled, but existing raw_syscalls/sys_enter and
+sys_exit events are available. A final, separately filtered instance records
+native ioctl entry/return pairs from the observed system_server controller
+thread and SystemUI main thread, together with their frame-state counters.
+It reads no user payload contents and uses the actual proc RTG descriptors.
+Every recorded RTG request returns nonnegative, with no unpaired boundary
+calls or lost/overwritten events:
+
+| Real operation | Recorded result |
+| --- | --- |
+| Controller SET_RTG_THREAD (0xc018ab02) | Allocates observed group 10, returning 10 |
+| SystemUI BEGIN_FRAME_FREQ | Four requests return 0 |
+| SystemUI END_FRAME_FREQ | Five requests return 0, including the final idempotent reset |
+| SystemUI END_FREQ | Returns 0 with FRAME_SCHED_ENABLE_10 becoming 0 inside the same ioctl |
+| Controller SET_RTG_ATTR (0xc018ab04) | Returns 0 |
+| Controller SET_RTG_THREAD clear | Returns 0 after the observed END_FREQ |
+
+Group 10 is the observed live allocation, not a new hard-coded platform
+constant. This confirms bounded real native frame registration, begin/end,
+stop and member-clear behavior. No test process replaces the system group.
+It does not certify every application, 32-bit production frame integration,
+performance, frame pacing, long-term power or the independent global queue.
+
+Priority interpretation remains a separate gate. sched_switch records the
+actual internal task->prio, including 87 and 89 during these windows. With
+RT_PRIO_EXTEND_VIP and VIP_PRIO_WIDTH=10, is_vip_prio covers 89-98: 87 lies
+outside that VIP band, whereas 89 is a VIP priority. The second cycle still
+has internal priority 89 after its frame-disable counter. The subsequent
+idle proc read reports policy 0, UI priority 120 and RenderThread priority
+116, but sched/debug.c can display get_raw_kernel_priority for VIP/PI tasks.
+That read is not proof that the internal effective priority has reverted.
+Repeated FRAME_SCHED_ENABLE counters also include per-task update sites;
+they are not independent group activations or a scheduler transaction boundary.
+The post-stop VIP vote/Binder/native-PI owner must be traced before attributing
+it to a cleanup defect or declaring priority restoration complete. No forced
+priority reset is added.
+
+All capture buffers have zero overruns, commit overruns and dropped events.
+Kernel logs cover the complete capture interval without WARNING, BUG, Oops,
+panic or CFI failure. The boot ID stays unchanged, SELinux remains Enforcing,
+taint 4 and module sig_enforce Y. New instances are removed; the existing
+tracer/instance state, keyguard, radios and settings modes are preserved.
+Automatic brightness legitimately changes its stored output from 33 to 4
+at observed zero ambient lux; no brightness setting is written or forcibly
+restored. The display returns to Asleep. Task-owned copied libraries/DEX,
+full traces/logs and diagnostic scripts are removed after recording evidence.
+
+The next smallest audit is the post-stop VIP/PI vote source. Intended boost
+expiry/renewal, positive global lifecycle, complete frame scheduling/power
+and the existing manual/hardware/source prerequisites remain open. The
+installed pair and retained images are unchanged; whole bring-up is not done.
