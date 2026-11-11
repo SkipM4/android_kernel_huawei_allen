@@ -156,6 +156,15 @@ turns some lookup failures into successful zero values, so it is not imported.
 PERF_CTRL and frame scheduling remain explicitly disabled; no candidate is
 flashed, and the installed kernel remains r32. Complete the thermal query
 contract before attempting an enabled link or runtime test.
+A follow-up now supplies the missing thermal queries using Allen's existing
+DT-configured IPA sensor range and system_h provider, without changing thermal
+policy or units. Failed cooling/sensor queries propagate errors rather than
+successful zero values. A complete PERF_CTRL-enabled build succeeds; frame
+RTG, statistics-layout and DDR-provider options stay disabled. The dispatcher
+also corrects the standard four-byte compat capability-word query and rejects
+the absent HWP backend instead of its no-op fallback. This remains an unbooted
+candidate: device r32 is unchanged, and runtime query/permission checks are
+still required. See `docs/clang12-rtg-source-audit.md` for the build/ABI scope.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

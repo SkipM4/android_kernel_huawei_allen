@@ -1162,3 +1162,39 @@ There are no exported-symbol additions/removals or CRC changes relative to
 the saved r32 baseline. Enforcing CFI and forced module signing remain
 configured. This does not validate the enabled feature or certify a new
 boot/modem pair; no device reboot or unrelated functional retest is performed.
+
+## Thermal Performance Queries: Enabled-Build Preparation
+
+The missing thermal_perf_ctrl.c provider is implemented against Allen's
+existing IPA APIs. Live DT inspection identifies three CPU clusters plus
+GPU, with g_ipa_sensor_num set from the four-actor configuration. The maximum
+query follows that existing IPA range, not the older candidate's fixed three
+indices. Existing IPA and system_h acquisitions supply millidegrees; no
+conversion, compensation, clipping or protection policy is added.
+
+The live SoC and board thermal zones each bind all four CPU/GPU cooling
+devices. Query code now returns backend errors rather than leaving failed
+power fields at a successful zero. Valid zero power remains data when the
+backend succeeds. Fixed 24/20-byte query payloads are preserved.
+
+The initial full PERF_CTRL-enabled build succeeds. The standard compat
+capability-word path is then corrected to store four bytes rather than eight,
+and the inactive HWP backend's successful no-op is excluded from dispatch.
+The sampled stock 32/64-bit related-TID and render request encodings agree;
+this is not exhaustive ABI or runtime compatibility certification.
+
+This is source/build preparation only: device #32, its partitions, ramdisk,
+permissions, SELinux and user settings remain untouched. Native/compat query
+results, device-node accessibility, cooling failure transport and whole
+performance-control behavior await runtime checks. No earlier audio/network
+or suspend pass is reused as certification of the unbooted candidate. See
+`docs/clang12-rtg-source-audit.md` for provenance and the testing boundary.
+
+Final Clang build and checkpatch pass after the dispatcher changes. Final
+ELF inspection confirms both thermal callbacks and driver initialization,
+the four-byte compat capability store and the NULL inactive-HWP slot.
+The fresh modem module's 390 versioned imports have no missing exports or
+CRC mismatches; the complete kernel export set and CRCs are unchanged from
+the disabled baseline. CFI and forced signing remain configured. No new
+paired test images are packaged or installed; these results do not certify
+native/compat runtime transport, module loading or successful boot.

@@ -179,3 +179,100 @@ sensor/zone mapping, actual units and missing-cooling-device contract, then
 complete an enabled link before considering a runtime or frame-RTG step.
 Do not remove the required thermal object, disable thermal protection or
 return fake successful zero values just to obtain an enabled build.
+
+## Follow-up: Complete The Thermal Query Provider
+
+The new thermal_platform/thermal_perf_ctrl.c retains the two query entry
+points and fixed-width payloads from the pinned Kirin 9000 5.10.43 reference,
+but uses the local IPA contracts instead of its platform assumptions:
+
+- get_ipa_status supplies the four existing frequency-limit fields. These
+  are IPA limits, not newly measured instantaneous CPU/GPU frequencies.
+- Maximum SoC temperature uses ipa_get_sensor_value over g_ipa_sensor_num,
+  the same DT-configured range used by the existing IPA policy. Allen's live
+  ipa_sensors_info contains three CPU clusters and four IPA actors/sensors
+  named cluster0, cluster1, cluster2 and gpu, with identity actor indices.
+  The corresponding first four tsens entries include GPU at index 3.
+- ipa_get_sensor_value already converts its integer-degree source to
+  millidegrees. The new query adds no conversion, clipping, compensation,
+  smoothing or extra precision. It does not use the smoothed soc_thermal
+  value or include unrelated modem/NPU/peripheral/DDR sensors in this field.
+- The board-temperature field keeps the reference's named system_h
+  peripheral source. Its existing provider also returns millidegrees; it is
+  not substituted with the filtered board_thermal value.
+- Each backend must succeed before output is copied to userspace. Acquisition
+  errors are returned directly, rather than added together or overwritten.
+  GET_IPA_STAT is an output-only query, so it no longer reads a dummy input
+  payload. All six output fields are supplied by the existing providers.
+- Cooling-power queries validate the user-selected SoC/board zone and query
+  all four named CPU/GPU cooling devices through thermal_zone_cdev_get_power.
+  Allen's two live zones each bind thermal-devfreq-0 and thermal-cpufreq-0/1/2.
+  A missing binding or failed query returns the existing helper's error, not
+  a successful zero or partially populated result. The underlying helper's
+  error classification and power units are not changed.
+
+Only query code is added. Existing thermal sensor acquisition defaults,
+negative-value handling below this interface, filtering, trips, governors,
+frequency limits, protection, calibration and DT remain unchanged. This is
+not a repair of the separate stock shell-temperature calculation guard.
+The helper is compiled only when IPA_THERMAL is enabled, matching its public
+header contract. A zero measured power remains valid data when the backend
+actually returns success; missing power is not inferred to be zero.
+
+### Query ABI Boundaries
+
+ipa_stat has six 32-bit fields (24 bytes); thermal_cdev_power has a 32-bit
+zone selector and four 32-bit power fields (20 bytes). These two payloads
+have no native pointers or unsigned-long fields and keep the same layout
+for native and compat callers. Runtime query transport is not yet tested.
+
+The dispatcher reference has a separate unsigned-long capability query:
+native AArch64 requests eight bytes, while a standard compat request encodes
+four. The old compat forwarding path would still copy an eight-byte native
+word. The restored dispatcher now handles the exact four-byte compat
+GET_DEV_CAP encoding with put_user(compat_ulong_t). Native/eight-byte
+requests retain the existing route and value. The new route uses standard
+uaccess fault handling and changes no capability bits.
+
+Read-only inspection of the installed 32/64-bit libhwrme_client.so also finds
+matching GET_RELATED_TID (0xc8087805) and GET_RENDER_RT (0xc2007812) request
+encodings in both variants. The stock 32-bit caller uses the native-sized
+render request, not the smaller ordinary 32-bit C-struct encoding. This is
+sampled caller evidence, not a complete performance-control ABI audit.
+No library calls, scheduling commands or ioctl requests are injected into
+the current device.
+
+CPU_HWP_CTRL is not enabled in this build. Its existing header fallback
+returns a successful no-op, so the public dispatch slot is now populated
+only when the real HWP backend is enabled. Otherwise the established
+unsupported-command path returns EINVAL. The shared OEM fallback itself is
+not rewritten, and no backend or fake-success implementation is added.
+
+### Build Scope And Runtime Gate
+
+The compatibility fragment now enables built-in PERF_CTRL. FRAME_RTG,
+SCHED_STAT_YIELD and DDR_PERF_CTRL remain explicitly disabled; HW_RTG_SCHED
+and its Binder/task-layout paths remain unavailable through that dependency.
+The initial complete enabled build succeeds after adding the thermal helper.
+The final build after both dispatcher boundary changes also succeeds.
+checkpatch reports no errors or warnings in either changed C file. The final
+ELF contains both thermal query entry points and the misc-device init entry;
+the compat capability branch compares the exact four-byte command encoding
+and uses a 32-bit sttr store. Its 49-slot dispatch table contains 46 active
+handlers, with reserved, SET_TASK_UTIL and inactive HWP slots left NULL.
+
+The fresh modem module has 390 versioned imports, with no missing exports or
+CRC mismatches. The full kernel export set and every export CRC agree with
+the saved disabled baseline. Enforcing CFI, ThinLTO and forced module signing
+remain configured. These checks do not validate runtime CFI behavior, module
+loading, an installed image pair or userspace query results. No new paired
+images are packaged or flashed in this step.
+
+The device remains on r32. No new boot/modem image is flashed, no independent
+ramdisk, node permission, SELinux rule or user setting changes, and no prior
+audio/network/suspend functional pass is repeated. An enabled build is not
+proof of device-node ownership/labeling, native/compat ioctl behavior, query
+accuracy or full scheduling compatibility. Next perform bounded read-only
+query tests only after paired image, module-ABI and security checks; keep
+r32 as the immediate rollback for this unbooted candidate. Frame RTG
+restoration remains a separate iteration.

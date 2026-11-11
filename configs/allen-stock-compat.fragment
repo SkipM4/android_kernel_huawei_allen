@@ -11,8 +11,8 @@ CONFIG_SYSTEM_TRUSTED_KEYS="../../configs/allen-stock-module-signing.pem"
 # CONFIG_COMPAT_VDSO is not set
 # Retain pre-ADB boot warnings during the current diagnostic iterations.
 CONFIG_LOG_BUF_SHIFT=23
-# The ioctl dispatcher builds, but its thermal query provider is still absent.
-# CONFIG_PERF_CTRL is not set
+# Restore the ioctl dispatcher and its DT-aware thermal query provider.
+CONFIG_PERF_CTRL=y
 # Keep frame scheduling and task-layout changes separate from provider work.
 # CONFIG_FRAME_RTG is not set
 # CONFIG_SCHED_STAT_YIELD is not set

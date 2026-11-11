@@ -98,7 +98,9 @@ static const perf_ctrl_func g_func_array[PERF_CTRL_MAX_NR] = {
 	[SET_TASK_L3C_PART] = perf_ctrl_set_task_l3c_part,
 	[GET_HVGR_GPU_FENCE] = perf_ctrl_get_hvgr_gpu_fence,
 	[GET_HVGR_GPU_BUFFER_SIZE] = perf_ctrl_get_hvgr_gpu_buffer_size,
+#ifdef CONFIG_CPU_HWP_CTRL
 	[SET_TASK_CPU_HWP] = perf_ctrl_set_task_cpu_hwp,
+#endif
 	[SET_TASK_NO_SMT] = perf_ctrl_set_task_no_smt,
 	[GET_TID_NAME] = perf_ctrl_get_tid_name,
 	[GET_CGRP_NAME] = perf_ctrl_get_cgroup_name,
@@ -144,6 +146,11 @@ static long perf_ctrl_ioctl(struct file *file, unsigned int cmd,
 static long perf_ctrl_compat_ioctl(struct file *file, unsigned int cmd,
 				  unsigned long arg)
 {
+	/* The standard compat capability word is four bytes, not eight. */
+	if (cmd == _IOR(PERF_CTRL_MAGIC, GET_DEV_CAP, compat_ulong_t))
+		return put_user((compat_ulong_t)get_dev_cap(),
+				(compat_ulong_t __user *)compat_ptr(arg));
+
 	return perf_ctrl_ioctl(file, cmd, (unsigned long)compat_ptr(arg));
 }
 #endif

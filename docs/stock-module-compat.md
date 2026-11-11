@@ -127,6 +127,14 @@ this preserves the previous effective state during stock-config regeneration.
 Do not infer enabled-driver, module-ABI or runtime success from the individually
 compiled dispatcher/scheduler-query objects.
 
+The next source step completes the thermal query provider and permits a full
+PERF_CTRL-enabled link. The fragment now enables that built-in provider while
+keeping FRAME_RTG, SCHED_STAT_YIELD and DDR_PERF_CTRL disabled, so the separate
+RTG/task-layout paths are not restored automatically. Native/compat query ABI
+boundaries and the inactive HWP slot are also handled explicitly. Runtime
+and paired-image checks are still separate from enabled-build success; see
+`docs/clang12-rtg-source-audit.md` for the current gate.
+
 ## Reproduction
 
 From `/home/data/Allen`:
