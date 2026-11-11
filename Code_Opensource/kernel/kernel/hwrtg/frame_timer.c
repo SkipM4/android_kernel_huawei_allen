@@ -49,10 +49,10 @@ static int frame_thread_func(void *data)
 		wait_on_bit(&g_thread_flag, DISABLE_FRAME_SCHED,
 			TASK_INTERRUPTIBLE);
 		mutex_lock(&g_timer_lock);
-		/* Disable or re-enable may have retired this timeout while we waited. */
-		if (!atomic_read(&g_timer_on) ||
-		    test_bit(DISABLE_FRAME_SCHED, &g_thread_flag))
-			goto rearm;
+		/* Consume this wake first so a concurrent expiry remains queued. */
+		if (test_and_set_bit(DISABLE_FRAME_SCHED, &g_thread_flag) ||
+		    !atomic_read(&g_timer_on) || timer_pending(&g_frame_timer))
+			goto unlock;
 		set_frame_min_util(rtg_frame_info(DEFAULT_RT_FRAME_ID), 0, true);
 #ifdef CONFIG_HW_RTG_MULTI_FRAME
 		for (id = MULTI_FRAME_ID; id < (MULTI_FRAME_ID + MULTI_FRAME_NUM); id++)
@@ -69,8 +69,7 @@ static int frame_thread_func(void *data)
 				set_frame_sched_state(rtg_frame_info(id), false);
 		}
 #endif
-rearm:
-		set_bit(DISABLE_FRAME_SCHED, &g_thread_flag);
+unlock:
 		mutex_unlock(&g_timer_lock);
 	}
 	return 0;
@@ -157,6 +156,7 @@ void start_boost_timer(u32 duration, u32 min_util)
 		return;
 	}
 
+	start_rtg_boost();
 	if (timer_pending(&g_frame_timer) &&
 		time_after(g_frame_timer.expires, jiffies + dur)) {
 		mutex_unlock(&g_timer_lock);

@@ -958,3 +958,60 @@ r44 is the immediate paired rollback. Original backups, r17 and the latest
 r41/r42/r43/r44/r45 pairs remain. Consumed library/disassembly/IR copies,
 full logs and other task-owned artifacts are removed; unrelated diagnostics
 are preserved. Workspace stays below 20 GB; whole bring-up remains open.
+
+### Boost Restart And Timeout Notification Ordering
+
+The complete current-source call search finds one timer-start caller:
+ctrl_rtg_boost, reached through CMD_ID_ENABLE_RTG_BOOST (0xc014ab64).
+The enabled proc dispatcher checks the existing RTG feature/lifecycle gate;
+the handler accepts duration 1-5000 milliseconds and min_util 1-1024.
+start_boost_timer converts milliseconds with msecs_to_jiffies, boosts the
+default and configured multi-frame groups, AUX and configured boost threads,
+and arms the timer. Its callback only records expiry and wakes frame_sched;
+the worker clears those boost floors and disables groups without an ongoing
+frame-frequency request. Ordinary SET_MIN_UTIL and SET_MIN_UTIL_AND_MARGIN
+operate on the current task's frame group with is_boost=false; neither starts
+this timer. Successful ordinary frame calls cannot certify timer expiry.
+
+Read-only copies of the system_server-loaded libhwrmeRtgSched.so,
+libiAwareRtgSched.so and libhwrme_client.so match their exact device digests.
+The first links libhwrme_client and has no direct ioctl PLT call in the
+examined disassembly. The examined libiAwareRtgSched SetFrameMinUtil site
+constructs 0xc010ab1e, and EndFreq constructs 0xc010ab18 before forwarding to
+SetCommandFreq. No low-half 0xab64 MOV/MOVK immediate is located in these
+three text dumps. This bounded immediate/site inspection is not an all-caller,
+indirect-call, execution or permission proof. The previously examined
+application/system_server policy lists do not grant the boost command; no
+permission widening or injected global boost is used to claim production
+timer coverage.
+
+Source ordering and the accepted r45 optimized object expose two related
+restart races. After an old callback clears the wait bit, a new request can
+arm a later timer before the worker obtains g_timer_lock. The old worker
+then sees enabled/cleared-bit state and clears the newly applied boost before
+its deadline. Also, the handler enables frame scheduling before entering
+start_boost_timer's mutex; timeout cleanup can disable that state between
+activation and the new timer/min-util update.
+
+The small repair moves start_rtg_boost into the existing timer critical
+section, after the timer-on check and before the unchanged overlapping-duration
+guard. This preserves activation for a shorter ignored request and the
+existing duration/util policy. The worker now atomically consumes the wake
+bit before checking enabled state and whether a renewed timer is pending.
+It skips obsolete cleanup while that timer is pending. There is no final
+unconditional bit-set: merely adding a pending check followed by the old
+late rearm would lose a real callback that clears the bit between that check
+and rearm. A callback after the atomic consume remains queued for the next
+worker iteration; a consumed notification while disabled cannot spin on an
+uncleared bit. The callback remains mutex-free, preserving del_timer_sync's
+lock ordering. No extra thread, timer, reference, duration, ioctl layout or
+caller/security policy is introduced.
+
+Diff/checkpatch and both enabled objects pass. Optimized IR contains the
+atomic fetch-or, timer-on and timer-pending guards before all cleanup stores,
+and activation is inside the timer mutex; the proc handler calls only the
+timer entry after its existing argument checks. No branch-mirroring test or
+unsafe global injection is added. Device remains r45 at this source-check
+stage. Full link/paired installation follow separately; real intended-caller
+expiry/restart stress, full frame integration and power/performance acceptance
+remain open rather than being replaced by these static checks.

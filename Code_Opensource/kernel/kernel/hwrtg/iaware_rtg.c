@@ -474,7 +474,6 @@ static long ctrl_rtg_boost(unsigned long arg)
 		(min_util <= 0) || (min_util > DEFAULT_MAX_UTIL))
 		return -ERR_RTG_BOOST_ARG;
 
-	start_rtg_boost();
 	start_boost_timer(duration, min_util);
 	return 0;
 }
