@@ -447,7 +447,10 @@ int memcheck_createfs(void)
 {
 	proc_create_data("rss_topn", 0660, NULL,
 			 &rss_topn_info_fops, NULL);
+	/* ION registers these proc interfaces at subsys_initcall time. */
+#ifndef CONFIG_ION
 	memcheck_ion_createfs();
+#endif
 	memcheck_ashmem_createfs();
 #ifdef CONFIG_HISI_GPU
 	memcheck_gpumem_createfs();

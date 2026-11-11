@@ -24,18 +24,21 @@ Functional follow-up reaches r20: static sensorhub route-lock initialization
 and ION reuse eligibility repairs pass paired flash and targeted sensor/ION,
 storage, USB and display sleep/wake checks. r20 repairs video decoder IRQ-flags
 writeback and passes named hardware AVC/HEVC decode and live accel/gyro/mag
-event tests. r20 remains the hardware-functional reference, not full certification.
+event tests. r20 is the recorded hardware-functional reference, not full certification.
 The user reports preliminary front/rear camera switching and photos working
 on r19. Wi-Fi association and multi-level L3 voting remain unresolved or unverified.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r24: r21 retains full early logs,
+The current installed test candidate is r25: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
-without changing its effective creation mode or store callback. Paired readback
-and targeted checks pass; early PRMEM and duplicate-registration warnings remain.
+without changing its effective creation mode or store callback. r25 keeps ION
+as the sole owner of its existing proc interfaces, removing duplicate memcheck
+registration without changing their ABI. Paired readback, real ION allocation,
+mapping/content and proc accounting checks pass; early PRMEM and duplicate
+module-version warnings remain.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and functional r20 are retained for rollback.
+test limits. Accepted r17 and the latest r21-r25 pairs are retained for rollback.
 Audio follow-up finds no normal codec-backed sound card and an empty audio
 policy manager; the required V2C codec implementation is not supplied by
 the ALN archive. A newer Changsha implementation has incompatible register
@@ -61,7 +64,7 @@ camera recording and audio remain outside these checks; see
 - `docs/clang12-cfi-iterations.md`: targeted CFI fixes and subsequent paired tests.
 - `docs/clang12-working-baseline.md`: accepted r17 boot baseline and test scope.
 - `docs/clang12-functional-tests.md`: functional repairs, checks and audio/BT gaps.
-- `docs/clang12-early-diagnostics.md`: r21-r24 log, lock, GPIO and PD iterations.
+- `docs/clang12-early-diagnostics.md`: r21-r25 log, lock, GPIO, PD and proc iterations.
 - `docs/clang12-audio-source-audit.md`: missing V2C codec and rejected platform sources.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
@@ -131,7 +134,7 @@ For future versions, create a new boot candidate from the uncompressed Image:
 
 ```sh
 scripts/repack-allen-boot.sh out/allen-clang12-stock-compat/arch/arm64/boot/Image \
-  images/test/allen-boot-test-5.10.43-clang12-r25.img
+  images/test/allen-boot-test-5.10.43-clang12-r26.img
 ```
 
 The repacker refuses to overwrite an existing image and validates the actual
@@ -142,7 +145,7 @@ Stage that matching module partition from the same kernel output directory:
 
 ```sh
 scripts/stage-allen-modem.sh out/allen-clang12-stock-compat \
-  images/test/allen-modem_driver-test-5.10.43-clang12-r25.img
+  images/test/allen-modem_driver-test-5.10.43-clang12-r26.img
 ```
 
 Use a new versioned path for each iteration. This produces the companion signed
