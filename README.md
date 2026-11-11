@@ -91,16 +91,18 @@ attributed shell client receives 96,000 mono 48 kHz samples from the bottom
 built-in microphone, with nonzero PCM and no client silencing. The unchanged
 PCM/DSP path captures six S16_LE channels at 48 kHz underneath the mono HAL
 stream. Capture stops and closes, codec clocks disable and runtime autosuspend
-returns without restarting the device or audio services. Only aggregate
-statistics are retained; no audio file is saved and no permission or privacy
-setting is changed. A targeted follow-up obtains advancing application capture
-timestamps after startup without regression; HAL-side timestamp statistics
-remain unavailable. A read-only boundary audit identifies an unimplemented
+returns without restarting the device or audio services. For the probe, only
+aggregate statistics are retained; no audio file is saved and no permission
+or privacy setting is changed. A targeted follow-up obtains advancing
+application capture timestamps after startup without regression. HAL-side
+timestamp statistics remain unavailable. A read-only boundary audit identifies an unimplemented
 get_capture_position callback in the unchanged stock primary HAL's normal
 input initialization; the loaded HIDL layer returns NOT_SUPPORTED without an
 ALSA timestamp query. No kernel timestamp workaround is justified by that
-result. This is basic capture, not microphone fidelity/channel or hardware
-timestamp certification.
+result. The user subsequently confirms normal recording in the system
+recorder on r30. This adds a basic user-observed recording pass; no recorded
+content is requested or transferred. These checks are not microphone
+fidelity/channel or hardware timestamp certification.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

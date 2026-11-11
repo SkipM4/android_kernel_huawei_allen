@@ -279,6 +279,9 @@ suppress verifier errors, synthesize positions, alter PCM capabilities or
 relax SELinux to manufacture a pass. No new capture, kernel change, build,
 flash or service restart occurs during this audit. r30 remains installed and
 the temporary ELF/disassembly/reference copies are removed after analysis.
-Next a local known-acoustic recorder/playback check can validate human speech
-response without sending a recording; call and hardware-timing work require
+The subsequent local system-recorder check is reported normal by the user.
+This adds basic user-observed recording validation without requesting or
+receiving audio content; it does not certify measured fidelity, recorder route
+mapping or each physical microphone. No repeated sampling or device change
+is needed to record that report. Call and hardware-timing work still require
 their own evidence and scope.

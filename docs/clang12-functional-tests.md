@@ -851,3 +851,14 @@ for the binary/source evidence and limits. No new microphone recording,
 timing probe, driver change, build or flash is needed for this attribution.
 Physical acoustic response, individual microphone routing and precise capture
 timing remain outside the completed checks.
+
+### User-Observed System Recording
+
+Following the request for a local system-recorder check, the user reports
+normal recording on the installed r30 candidate. Record this separately as a
+basic user-observed recording pass, not merely nonzero synthetic/probe PCM.
+No recording content is requested, received or analyzed by the agent, and no
+additional sampling, build, flash or device-setting change is made to record
+the result. It does not establish measured fidelity, exact recorder routing,
+each physical microphone, call/sidetone, hardware capture timing or audio/video
+sync. The previously identified stock HAL timestamp capability gap remains.
