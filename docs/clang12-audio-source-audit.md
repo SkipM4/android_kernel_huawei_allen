@@ -210,7 +210,17 @@ clang12-functional-tests.md. The user subsequently confirms that playback
 in the system sound settings sounds normal on r28. This supplies the basic
 audible-output observation missing from the silent probe, not a measurement
 of fidelity or validation of other audio paths.
-Keep r27 as the immediate paired rollback and
+For the r28 integration step, keep r27 as the immediate paired rollback and
 preserve the original images and independent Magisk ramdisk. Microphone,
 audible fidelity, call/sidetone paths and recorded-video audio require their
 own meaningful checks; silent playback is not full audio certification.
+
+The r30 follow-up now passes basic unsilenced MIC-source streaming through the
+same imported codec and unchanged local PCM/DSP: a mono 48 kHz client receives
+all requested samples over the six-channel S16 hardware capture path, then
+the PCM closes and codec clocks/runtime power release. No recording is saved.
+Application capture timestamps advance after startup in a targeted follow-up,
+but HAL-side hardware timing statistics remain unavailable. Physical microphone
+mapping, acoustic fidelity, hardware capture timing, calls and active-audio
+sleep remain outside that result. See the r30 capture section of
+clang12-functional-tests.md; the current paired rollback is recorded in README.

@@ -86,9 +86,20 @@ disable with runtime autosuspend. Device and audio-service identities remain
 unchanged; full logs have no kernel WARNING and taint stays 4. r29 remains the
 immediate paired rollback. This validates short idle RTC/deep wake, not all
 alarm delivery cases or long-duration power parity.
+An r30 follow-up also passes a short MIC-source capture: the correctly
+attributed shell client receives 96,000 mono 48 kHz samples from the bottom
+built-in microphone, with nonzero PCM and no client silencing. The unchanged
+PCM/DSP path captures six S16_LE channels at 48 kHz underneath the mono HAL
+stream. Capture stops and closes, codec clocks disable and runtime autosuspend
+returns without restarting the device or audio services. Only aggregate
+statistics are retained; no audio file is saved and no permission or privacy
+setting is changed. A targeted follow-up obtains advancing application capture
+timestamps after startup without regression; HAL-side timestamp statistics
+remain unavailable. This is basic capture, not microphone fidelity/channel or
+hardware timestamp certification.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
-microphone, calls/sidetone and active-audio/long-duration deep suspend are not
-certified; see
+individual microphone mapping, hardware capture timing, calls/sidetone and
+active-audio/long-duration deep suspend are not certified; see
 `docs/clang12-audio-source-audit.md` and `docs/clang12-functional-tests.md`.
 A correctly attributed shell-context probe passes Bluetooth ON/OFF on r24;
 named hardware AVC/HEVC encoders each complete thirty synthetic frames and

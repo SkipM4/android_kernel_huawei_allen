@@ -769,3 +769,72 @@ userspace alarm delivery, power-off PMU alarms, long-duration sleep/idle power,
 active-DAPM/ULSR suspend, microphone/calls or audible post-resume fidelity.
 Keep the tested r29 pair as immediate rollback; isolate one remaining path
 before changing another subsystem or expanding the codec import.
+
+### Basic Microphone Capture And Release
+
+The next isolated r30 check targets AUDIO_SOURCE_MIC, not telephony, remote
+submix, speech recognition or playback capture. Read-only preflight confirms
+the bottom built-in input's published 48 kHz/mono capability, the shell's
+existing RECORD_AUDIO and RECORD_BACKGROUND_AUDIO grants, MODE_NORMAL,
+unchanged disabled sensor privacy, and microphone mute false for switch,
+API, restrictions and system sources. No other AudioRecord client is active.
+No permission grant, app-op override, mute/volume change or call is needed.
+
+A temporary UID 2000/com.android.shell-attributed AudioRecord marks its
+capture privacy-sensitive and reads two seconds of 48 kHz mono S16 PCM into
+a reused in-memory buffer. It produces only aggregate sample count, nonzero
+count, peak and RMS; raw samples are not saved, transmitted or interpreted as
+speech, and the buffer is cleared on release. All 96,000 requested samples
+arrive without negative read results; the data contains nonzero samples and
+does not reach the S16 clipping endpoints during this interval.
+
+AudioPolicy reports the active MIC client at UID 2000 and input address
+bottom; AudioFlinger identifies the same process/session, a 48 kHz mono
+built-in-microphone stream and an active track with Sil=n. AudioService
+records start/stop with the shell package and not silenced. RECORD_AUDIO
+app-op usage is allow for the approximately two-second capture, not a forced
+permission bypass. These checks rule out an all-zero permission-silenced
+client as the explanation for this short result.
+
+The normal card0/pcm0c substream is RUNNING with advancing hardware/application
+pointers. Its actual hardware parameters are 48 kHz S16_LE, six interleaved
+channels, 960-frame periods and a 7680-frame buffer. The HAL supplies one
+channel to the caller. Preserve that existing PCM/DSP contract; a mono API
+request does not imply that the kernel should be changed to capture a single
+hardware channel, nor does this check identify every physical microphone.
+
+After stop/release, the capture PCM and hw_params close, the policy input and
+active record client disappear, and codec/ASP clock-disable events are present.
+Runtime status returns to suspended with the original auto/200 ms policy.
+The same boot identity, audioserver and audio HAL remain; MODE_NORMAL,
+microphone mute and sensor privacy are unchanged. Complete boot/capture logs
+contain no kernel WARNING, BUG, CFI failure, panic, unbalanced enable or
+misconfigured IRQ; taint stays 4, module sig_enforce=Y and SELinux Enforcing.
+No kernel change, build, flash, firmware/DT/calibration change or audio file is
+introduced. The temporary probe and complete logs are removed after analysis.
+
+This passes basic unsilenced MIC streaming and capture resource release on
+the resumed r30 system. Ambient nonzero PCM is not a known acoustic stimulus
+and does not certify speech intelligibility, gain, noise, distortion, each
+physical microphone, camera/back-mic selection, voice-call/sidetone, duplex
+AEC or active-audio system sleep. The early AudioFlinger record-thread
+snapshot has no usable timestamp statistics and reports timestamp errors.
+That observation prompts one separately scoped two-second timestamp check,
+not an unrelated repetition of passed playback or deep-sleep tests.
+
+During that capture, AudioRecord.getTimestamp with TIMEBASE_MONOTONIC first
+returns unavailable twice, then succeeds nineteen times. Frame positions
+advance from 7680 to 96000, corresponding times advance, and neither value
+regresses. All requested samples arrive and capture again closes/autosuspends
+without an audio-service restart. This validates short application timestamp
+availability/progression after startup, not precision or its hardware origin.
+
+The mid-capture AudioFlinger snapshot still has zero valid HAL timestamp
+statistics and accumulating timestamp errors. A working application timestamp
+may use a server-side position/time when hardware capture positioning is
+unavailable; it does not resolve this separate HAL-side gap. Sustained capture
+clock accuracy, hardware capture latency and audio/video sync remain untested.
+Do not infer a codec/PCM timestamp root cause or add a fabricated timestamp
+implementation. Next audit the actual HAL capture-position/ALSA boundary
+before changing a driver; acoustic and per-microphone route checks remain
+separate from that audit.
