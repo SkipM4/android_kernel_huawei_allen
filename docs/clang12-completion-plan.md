@@ -23,7 +23,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
 | 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | Enabled #39 Link/Module Checks Pass; Render Ownership Decision Open |
-| 05 | L3 multi-level voting | Match DT/firmware vote contract, repair missing implementation and validate real level changes | Pending |
+| 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | Native Checks/#41 Link/Pair Checks Pass; Real Votes Pending |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Pending |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Pending |
 | 08 | Vendor-init WP action | Matching userspace/protection source, correct process-context reporting and genuine protection behavior | Needs Matching Source |
@@ -86,3 +86,16 @@ Long-term records omit personal network/subscription identifiers, temporary
 checksums and complete logs. Task-owned host/device probes and downloaded
 test data are removed after results are recorded. Workspace remains below
 20 GB; original backups and immediate rollback are preserved.
+
+The L3 audit also finds silently truncated two-level DDR tables. All six
+live tables match the original DT; the fixed two-column source is wrong.
+Original Allen machine-code recovery establishes independent level ratios,
+omitted-level zero semantics and a single maximum MHz vote. The source
+repair passes independent native selector/parser comparisons and object
+compilation. Final #41 link/pair checks pass, including startup/empty-sample
+corrections using r37's frame-disabled configuration, with
+r37 linked/configuration/signing metadata retained separately; no device
+installation or real vote acceptance is claimed yet. The filtered scheduler
+counter API is retained rather than copying the incompatible original raw
+producer. Factory memory-frequency scaling feedback remains a separate gap.
+See clang12-mips-multilevel-audit.md.

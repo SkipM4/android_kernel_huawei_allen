@@ -43,18 +43,24 @@ static struct kobject *g_mips_mem_global_kobject;
 static DEFINE_SPINLOCK(state_lock);
 struct core_dev_map {
 	unsigned int core_mhz;
-	unsigned long target_freq;
+	unsigned long *target_freq;
+};
+
+struct target_ratio {
+	u32 *ratios;
+	int nratios;
 };
 
 struct vote_reg {
 	void __iomem *reg; /* dev frequency vote register */
 	u32 mask;
 	u8 bit;
+	u32 max_freq;
 };
 
 struct dev_info {
-	u32 *ratios;
-	int nratios;
+	u32 nr_levels;
+	struct target_ratio *target_ratios;
 	unsigned int *ipc_min_sample_time_ns;
 	int nipc_min_sample_time;
 	u64 min_sample_time;
@@ -92,23 +98,21 @@ static DEFINE_PER_CPU(struct mipsmem_cpu_info, cpu_info);
 #define DEFAULT_IPC_MIN_SAMPLE_TIME 4000000
 #define DEFAULT_MEM_WINDOW_SIZE	4000000
 static unsigned int default_target_ratios[] = {DEFAULT_TARGET_RATIO};
+static unsigned int none_target_ratios[] = {0};
 static unsigned int default_ipc_min_sample_time[] = {DEFAULT_IPC_MIN_SAMPLE_TIME};
 
-static u32 core_to_dev_freq(struct dev_info *info, u16 coref)
+static u32 core_to_dev_freq(struct dev_info *info, unsigned int level, u16 coref)
 {
 	struct core_dev_map *map = info->freq_map;
 	unsigned long freq = 0;
+	unsigned int i;
 
 	if (unlikely(map == NULL))
 		goto out;
 
-	while (map->core_mhz && map->core_mhz < coref)
-		map++;
-
-	if (map->core_mhz == 0)
-		map--;
-
-	freq = map->target_freq / HZ_PER_MHZ;
+	for (i = 0; i < info->map_len - 1 && map[i].core_mhz < coref; i++)
+		;
+	freq = map[i].target_freq[level] / HZ_PER_MHZ;
 
 out:
 	pr_debug("freq: %lu -> dev: %lu\n", coref, freq);
@@ -196,16 +200,19 @@ static u32 freq_to_targetratio(u32 freq, u32 *ratios, int len)
 	return ratios[i];
 }
 
-static u32 get_max_possible_freq(struct dev_info *dev, u32 ratio, u32 freq)
+static u32 get_max_possible_freq(struct dev_info *dev, unsigned int level,
+				u32 ratio, u32 freq)
 {
 	int i;
+	unsigned int row;
 	u32 next_freq;
 	u32 max_possible_freq = 0;
 	int index = -1;
 	struct core_dev_map *map = dev->freq_map;
+	struct target_ratio *target = &dev->target_ratios[level];
 
-	for (i = dev->nratios - 1; i >= 0; i -= 2) {
-		if (ratio <= dev->ratios[i]) {
+	for (i = target->nratios - 1; i >= 0; i -= 2) {
+		if (ratio <= target->ratios[i]) {
 			index = i;
 			break;
 		}
@@ -213,14 +220,13 @@ static u32 get_max_possible_freq(struct dev_info *dev, u32 ratio, u32 freq)
 
 	if (index != -1) {
 		index++;
-		if (index >= dev->nratios)
+		if (index >= target->nratios)
 			return 0;
-		next_freq = dev->ratios[index];
+		next_freq = target->ratios[index];
 		if (next_freq <= freq) {
-			while (map->core_mhz < next_freq) {
-				max_possible_freq = map->core_mhz;
-				map++;
-			}
+			for (row = 0; row < dev->map_len &&
+			     map[row].core_mhz < next_freq; row++)
+				max_possible_freq = map[row].core_mhz;
 			return max_possible_freq;
 		}
 	}
@@ -244,22 +250,30 @@ static u64 ipc_to_min_sample_time(struct dev_info *info, unsigned int ipc)
 static u32 mips_mem_get_freq(struct dev_info *info, u32 ratio, u32 core_freq)
 {
 	u32 target_ratio_ceil;
-	u32 freq = 0;
+	u32 freq, vote = 0;
+	unsigned int level;
+	struct target_ratio *target;
 
 	if (info == NULL || !info->enable)
 		return 0;
 
-	target_ratio_ceil = freq_to_targetratio(core_freq, info->ratios, info->nratios);
-	if (ratio <= target_ratio_ceil)
-		freq = core_freq;
-	else
-		freq = get_max_possible_freq(info, ratio, core_freq);
-	return core_to_dev_freq(info, freq);
+	/* Each level selects independently; hardware receives one maximum MHz vote. */
+	for (level = 0; level < info->nr_levels; level++) {
+		target = &info->target_ratios[level];
+		target_ratio_ceil = freq_to_targetratio(core_freq, target->ratios,
+						      target->nratios);
+		if (ratio <= target_ratio_ceil)
+			freq = core_freq;
+		else
+			freq = get_max_possible_freq(info, level, ratio, core_freq);
+		vote = max(vote, core_to_dev_freq(info, level, freq));
+	}
+	return vote;
 }
 
 void check_l3_ddr_freq_change(int cpu)
 {
-	int i, freq;
+	int freq;
 	struct mipsmem_cpu_info *mem_cpu = &per_cpu(cpu_info, cpu);
 	struct mipsmem_cluster_policy *mem_policy = mem_cpu->policy;
 	u32 l3_ratio = UINT_MAX;
@@ -267,20 +281,23 @@ void check_l3_ddr_freq_change(int cpu)
 	int ipc;
 	struct pcounts pcount;
 	u64 now = walt_ktime_clock();
-	int new_window;
+	u64 mem_window_size;
+	int nr_window, nr_mem_load_window;
 	unsigned long flags;
 
 	spin_lock_irqsave(&state_lock, flags);
 	if (!mem_enable(mem_cpu))
 		goto unlock;
 
-	u64 mem_window_size = mem_policy->ddr_dev->mem_load_window_size_ns;
-	int nr_window = update_mips_window_start(&cpu_rq(cpu)->mips_mem_window_start,
-						 mem_window_size, now);
+	mem_window_size = mem_policy->ddr_dev->mem_load_window_size_ns;
+	nr_window = update_mips_window_start(&cpu_rq(cpu)->mips_mem_window_start,
+					   mem_window_size, now);
 	if (!nr_window)
 		goto unlock;
 
-	int nr_mem_load_window = mem_window_size / mips_window_size;
+	nr_mem_load_window = mem_window_size / mips_window_size;
+	if (!nr_mem_load_window)
+		goto unlock;
 
 	get_mips_mem_info(cpu, &pcount, nr_mem_load_window);
 	if (pcount.l2refill != 0)
@@ -289,7 +306,7 @@ void check_l3_ddr_freq_change(int cpu)
 		ddr_ratio = pcount.inst / pcount.l3refill;
 	freq = pcount.freq / KHZ_PER_MHZ;
 
-	ipc = pcount.inst * 100 / pcount.cycle;
+	ipc = pcount.cycle ? pcount.inst * 100 / pcount.cycle : 0;
 	mem_cpu->next_l3_freq = mips_mem_get_freq(mem_policy->l3c_dev, l3_ratio, freq);
 	mem_cpu->next_ddr_freq = mips_mem_get_freq(mem_policy->ddr_dev, ddr_ratio, freq);
 	mem_cpu->l3_min_sample_time = ipc_to_min_sample_time(mem_policy->l3c_dev, ipc);
@@ -343,82 +360,75 @@ static int get_mask_from_dev_handle(struct platform_device *pdev,
 	return 0;
 }
 
-static int cmd_parse(char *para_cmd, char *argv[], int max_args)
-{
-	int para_id = 0;
-
-	while (*para_cmd != '\0') {
-		if (para_id >= max_args)
-			break;
-
-		while (*para_cmd == ' ')
-			para_cmd++;
-
-		if (*para_cmd == '\0')
-			break;
-
-		argv[para_id] = para_cmd;
-		para_id++;
-
-		while ((*para_cmd != ' ') && (*para_cmd != '\0'))
-			para_cmd++;
-
-		if (*para_cmd == '\0')
-			break;
-
-		*para_cmd = '\0';
-		para_cmd++;
-	}
-
-	return para_id;
-}
-
 static ssize_t store_freq_map(struct dev_info *info, const char *buf, size_t count)
 {
-	char local_buf[PAGE_SIZE] = {0};
-	char *argv[3] = {0};
-	int argc, ret;
-	u32 core_freq, idx;
-	u64 target_freq;
-	struct core_dev_map *map = info->freq_map;
+	char *input, *cursor, *token;
+	unsigned long *targets, flags;
+	u32 core_freq = 0, idx = 0;
+	unsigned int arg = 0;
+	ssize_t ret = -EINVAL;
+	struct core_dev_map *map;
 
-	ret = strncpy_s(local_buf, PAGE_SIZE, buf,
-			min_t(size_t, sizeof(local_buf) - 1, count));
-	if (ret != EOK)
-		return -EINVAL;
-	argc = cmd_parse(local_buf, argv, ARRAY_SIZE(argv));
-	if (argc != 3) {
-		pr_err("error, only surport three para\n");
-		return -EINVAL;
+	input = kstrndup(buf, count, GFP_KERNEL);
+	if (!input)
+		return -ENOMEM;
+	targets = kcalloc(info->nr_levels, sizeof(*targets), GFP_KERNEL);
+	if (!targets) {
+		kfree(input);
+		return -ENOMEM;
 	}
+	cursor = input;
+	while ((token = strsep(&cursor, " \t\n"))) {
+		if (!*token)
+			continue;
+		if (arg == 0) {
+			if (kstrtouint(token, 10, &idx) || idx >= info->map_len)
+				goto out;
+		} else if (arg == 1) {
+			if (kstrtouint(token, 10, &core_freq) || !core_freq ||
+			    core_freq > USHRT_MAX)
+				goto out;
+		} else {
+			if (arg >= info->nr_levels + 2 ||
+			    kstrtoul(token, 10, &targets[arg - 2]) ||
+			    targets[arg - 2] / HZ_PER_MHZ > info->hw_vote->max_freq)
+				goto out;
+		}
+		arg++;
+	}
+	if (arg != info->nr_levels + 2)
+		goto out;
 
-	ret = sscanf_s(argv[0], "%u", &idx);
-	if (ret != 1 || idx >= info->map_len)
-		return -EINVAL;
-	ret = sscanf_s(argv[1], "%u", &core_freq);
-	if (ret != 1)
-		return -EINVAL;
-	ret = sscanf_s(argv[2], "%llu", &target_freq);
-	if (ret != 1)
-		return -EINVAL;
-
-	map = map + idx;
-	map->core_mhz = core_freq;
-	map->target_freq = target_freq;
-	return count;
+	spin_lock_irqsave(&state_lock, flags);
+	map = info->freq_map;
+	if ((!idx || core_freq > map[idx - 1].core_mhz) &&
+	    (idx == info->map_len - 1 || core_freq < map[idx + 1].core_mhz)) {
+		map[idx].core_mhz = core_freq;
+		memcpy(map[idx].target_freq, targets,
+		       info->nr_levels * sizeof(*targets));
+		ret = count;
+	}
+	spin_unlock_irqrestore(&state_lock, flags);
+out:
+	kfree(targets);
+	kfree(input);
+	return ret;
 }
 
 static ssize_t show_freq_map(const struct dev_info *info, char *buf)
 {
 	struct core_dev_map *map = info->freq_map;
 	unsigned int cnt = 0;
+	unsigned int row, level;
 
 	cnt += scnprintf(buf, PAGE_SIZE, "Core freq (MHz)\tDevice BW\n");
 
-	while (map->core_mhz && cnt < PAGE_SIZE) {
-		cnt += scnprintf(buf + cnt, PAGE_SIZE - cnt, "%15u\t%9lu\n",
-				 map->core_mhz, map->target_freq);
-		map++;
+	for (row = 0; row < info->map_len && cnt < PAGE_SIZE; row++) {
+		cnt += scnprintf(buf + cnt, PAGE_SIZE - cnt, "%15u", map[row].core_mhz);
+		for (level = 0; level < info->nr_levels; level++)
+			cnt += scnprintf(buf + cnt, PAGE_SIZE - cnt, "\t%9lu",
+					 map[row].target_freq[level]);
+		cnt += scnprintf(buf + cnt, PAGE_SIZE - cnt, "\n");
 	}
 	if (cnt < PAGE_SIZE)
 		cnt += scnprintf(buf + cnt, PAGE_SIZE - cnt, "\n");
@@ -432,6 +442,7 @@ static unsigned int *get_tokenized_data(const char *buf, int *num_tokens)
 	unsigned int i;
 	unsigned int ntokens = 1;
 	unsigned int *tokenized_data = NULL;
+	char *input, *cursor, *token;
 	int err = -EINVAL;
 
 	cp = buf;
@@ -447,20 +458,20 @@ static unsigned int *get_tokenized_data(const char *buf, int *num_tokens)
 		goto err;
 	}
 
-	cp = buf;
-	i = 0;
-	while (i < ntokens) {
-		if (sscanf_s(cp, "%u", &tokenized_data[i++]) != 1)
-			goto err_kfree;
-
-		cp = strpbrk(cp, " :");
-		if (cp == NULL)
-			break;
-		cp++;
-	}
-
-	if (i != ntokens)
+	input = kstrdup(buf, GFP_KERNEL);
+	if (!input) {
+		err = -ENOMEM;
 		goto err_kfree;
+	}
+	cursor = input;
+	for (i = 0; i < ntokens; i++) {
+		token = strsep(&cursor, " :");
+		if (kstrtouint(token, 10, &tokenized_data[i])) {
+			kfree(input);
+			goto err_kfree;
+		}
+	}
+	kfree(input);
 
 	*num_tokens = ntokens;
 	return tokenized_data;
@@ -471,40 +482,86 @@ err:
 	return ERR_PTR(err);
 }
 
+static void free_target_ratios(struct target_ratio *targets, unsigned int levels)
+{
+	unsigned int level;
+
+	for (level = 0; level < levels; level++)
+		if (targets[level].ratios != default_target_ratios &&
+		    targets[level].ratios != none_target_ratios)
+			kfree(targets[level].ratios);
+	kfree(targets);
+}
+
 static ssize_t store_target_ratio(struct dev_info *info, const char *buf, size_t count)
 {
-	int ntokens = 0;
-	unsigned int *new_target_ratios = NULL;
+	struct target_ratio *targets, *old_targets;
+	unsigned int level = 0;
+	unsigned long flags;
+	char *input, *cursor, *token;
+	ssize_t ret = -EINVAL;
 	int i;
 
-	new_target_ratios = get_tokenized_data(buf, &ntokens);
-	if (IS_ERR(new_target_ratios))
-		return PTR_ERR_OR_ZERO(new_target_ratios);
-
-	for (i = 0; i < ntokens; i++)
-		if (i & 0x1)
-			new_target_ratios[i] /= KHZ_PER_MHZ;
-
-	if (info->ratios != default_target_ratios)
-		kfree(info->ratios);
-
-	info->ratios = new_target_ratios;
-	info->nratios = ntokens;
+	input = kstrndup(buf, count, GFP_KERNEL);
+	if (!input)
+		return -ENOMEM;
+	targets = kcalloc(info->nr_levels, sizeof(*targets), GFP_KERNEL);
+	if (!targets) {
+		kfree(input);
+		return -ENOMEM;
+	}
+	cursor = input;
+	while ((token = strsep(&cursor, ","))) {
+		token = strim(token);
+		if (level == info->nr_levels || !*token)
+			goto out;
+		targets[level].ratios = get_tokenized_data(token, &targets[level].nratios);
+		if (IS_ERR(targets[level].ratios)) {
+			ret = PTR_ERR(targets[level].ratios);
+			targets[level].ratios = NULL;
+			goto out;
+		}
+		for (i = 1; i < targets[level].nratios; i += 2) {
+			targets[level].ratios[i] /= KHZ_PER_MHZ;
+			if (!targets[level].ratios[i] ||
+			    (i > 1 && targets[level].ratios[i] <= targets[level].ratios[i - 2]))
+				goto out;
+		}
+		level++;
+	}
+	/* A factory scalar write configures level zero, not every level. */
+	while (level < info->nr_levels) {
+		targets[level].ratios = none_target_ratios;
+		targets[level++].nratios = ARRAY_SIZE(none_target_ratios);
+	}
+	spin_lock_irqsave(&state_lock, flags);
+	old_targets = info->target_ratios;
+	info->target_ratios = targets;
+	spin_unlock_irqrestore(&state_lock, flags);
+	free_target_ratios(old_targets, info->nr_levels);
+	kfree(input);
 	return count;
+out:
+	free_target_ratios(targets, info->nr_levels);
+	kfree(input);
+	return ret;
 }
 
 static ssize_t show_target_ratio(const struct dev_info *info, char *buf)
 {
-	unsigned int i;
+	unsigned int i, level;
 	ssize_t ret = 0;
+	const struct target_ratio *target;
 
-	for (i = 0; i < (unsigned int)(info->nratios); i++)
-		ret += scnprintf(buf + ret, PAGE_SIZE - ret, "%u%s",
-				(i & 0x1) ? (info->ratios[i] * KHZ_PER_MHZ)
-					: info->ratios[i],
-				(i & 0x1) ? ":" : " ");
-
-	scnprintf(buf + ret - 1, PAGE_SIZE - ret + 1, "\n");
+	for (level = 0; level < info->nr_levels && ret < PAGE_SIZE - 1; level++) {
+		target = &info->target_ratios[level];
+		for (i = 0; i < target->nratios && ret < PAGE_SIZE - 1; i++)
+			ret += scnprintf(buf + ret, PAGE_SIZE - ret, "%u%s",
+					 (i & 0x1) ? target->ratios[i] * KHZ_PER_MHZ : target->ratios[i],
+					 (i & 0x1) ? ":" : " ");
+		buf[ret - 1] = level + 1 == info->nr_levels ? '\n' : ',';
+	}
+	buf[ret - 1] = '\n';
 	return ret;
 }
 
@@ -544,7 +601,8 @@ static ssize_t show_ipc_min_sample_time(const struct dev_info *info, char *buf)
 
 static ssize_t store_ipc_min_sample_time(struct dev_info *info, const char *buf, size_t count)
 {
-	unsigned int *new_ipc_min_sample_time;
+	unsigned int *new_ipc_min_sample_time, *old_ipc_min_sample_time;
+	unsigned long flags;
 	int ntokens;
 	int i;
 
@@ -559,10 +617,13 @@ static ssize_t store_ipc_min_sample_time(struct dev_info *info, const char *buf,
 		}
 	}
 
-	if (info->ipc_min_sample_time_ns != default_ipc_min_sample_time)
-		kfree(info->ipc_min_sample_time_ns);
+	spin_lock_irqsave(&state_lock, flags);
+	old_ipc_min_sample_time = info->ipc_min_sample_time_ns;
 	info->ipc_min_sample_time_ns = new_ipc_min_sample_time;
 	info->nipc_min_sample_time = ntokens;
+	spin_unlock_irqrestore(&state_lock, flags);
+	if (old_ipc_min_sample_time != default_ipc_min_sample_time)
+		kfree(old_ipc_min_sample_time);
 
 	return count;
 }
@@ -575,12 +636,15 @@ static ssize_t show_mem_load_window_size_ns(const struct dev_info *info, char *b
 static ssize_t store_mem_load_window_size_ns(struct dev_info *info, const char *buf, size_t count)
 {
 	unsigned int val;
+	unsigned long flags;
 
 	if (kstrtouint(buf, TRANS_BASE, &val) != 0)
 		return -EINVAL;
 	if (val < MIN_MIPS_WINDOW_SIZE || val > MAX_MIPS_WINDOW_SIZE)
 		return -EINVAL;
+	spin_lock_irqsave(&state_lock, flags);
 	info->mem_load_window_size_ns = val;
+	spin_unlock_irqrestore(&state_lock, flags);
 	return count;
 }
 
@@ -611,9 +675,12 @@ static ssize_t show(struct kobject *kobj, struct attribute *attr, char *buf)
 	struct dev_info *data = to_cluster_data(kobj);
 	struct mipsmem_attr *mattr = to_attr(attr);
 	ssize_t ret = -EIO;
+	unsigned long flags;
 
+	spin_lock_irqsave(&state_lock, flags);
 	if (mattr->show != NULL)
 		ret = mattr->show(data, buf);
+	spin_unlock_irqrestore(&state_lock, flags);
 
 	return ret;
 }
@@ -647,7 +714,12 @@ static const struct sysfs_ops sysfs_ops = {
 
 static void mipsmem_dev_release(struct kobject *kobj)
 {
-	kfree(container_of(kobj, struct dev_info, kobj));
+	struct dev_info *info = container_of(kobj, struct dev_info, kobj);
+
+	free_target_ratios(info->target_ratios, info->nr_levels);
+	if (info->ipc_min_sample_time_ns != default_ipc_min_sample_time)
+		kfree(info->ipc_min_sample_time_ns);
+	kfree(info);
 }
 
 static struct kobj_type ktype_mips = {
@@ -805,12 +877,11 @@ error:
 	return NULL;
 }
 
-#define NUM_COLS	2
-
 static struct core_dev_map *init_core_dev_map(struct device *dev,
-					      const char *prop_name, int *map_len)
+					      const char *prop_name, struct dev_info *info)
 {
 	int len, nf, i, j;
+	unsigned int level, cols;
 	u32 data;
 	struct core_dev_map *tbl = NULL;
 	int ret;
@@ -820,35 +891,47 @@ static struct core_dev_map *init_core_dev_map(struct device *dev,
 
 	len /= sizeof(data);
 
-	if ((len % NUM_COLS) != 0 || len == 0)
+	/* One CPU-frequency column followed by nr-level independent targets. */
+	if (!info->nr_levels || info->nr_levels >= len)
+		return NULL;
+	cols = info->nr_levels + 1;
+	if ((len % cols) != 0 || len == 0)
 		return NULL;
 
-	nf = len / NUM_COLS;
+	nf = len / cols;
 
 	tbl = devm_kzalloc(dev, (nf + 1) * sizeof(struct core_dev_map),
 			   GFP_KERNEL);
 	if (tbl == NULL)
 		return NULL;
 
-	for (i = 0, j = 0; i < nf; i++, j += 2) {
+	for (i = 0, j = 0; i < nf; i++, j += cols) {
 		ret = of_property_read_u32_index(dev->of_node, prop_name, j,
 						 &data);
 		if (ret != 0)
 			return NULL;
 
 		tbl[i].core_mhz = data / KHZ_PER_MHZ;
-
-		ret = of_property_read_u32_index(dev->of_node, prop_name, j + 1,
-						 &data);
-		if (ret != 0)
+		if (!tbl[i].core_mhz || tbl[i].core_mhz > USHRT_MAX ||
+		    (i && tbl[i].core_mhz <= tbl[i - 1].core_mhz))
 			return NULL;
 
-		tbl[i].target_freq = data * HZ_PER_MHZ;
-		pr_debug("Entry%d CPU:%u, Dev:%lu\n", i, tbl[i].core_mhz,
-			 tbl[i].target_freq);
+		tbl[i].target_freq = devm_kcalloc(dev, info->nr_levels,
+						 sizeof(*tbl[i].target_freq), GFP_KERNEL);
+		if (!tbl[i].target_freq)
+			return NULL;
+		for (level = 0; level < info->nr_levels; level++) {
+			ret = of_property_read_u32_index(dev->of_node, prop_name,
+							 j + level + 1, &data);
+			if (ret || data > info->hw_vote->max_freq)
+				return NULL;
+			tbl[i].target_freq[level] = (unsigned long)data * HZ_PER_MHZ;
+			pr_debug("Entry%d CPU:%u, Level:%u Dev:%lu\n", i,
+				 tbl[i].core_mhz, level, tbl[i].target_freq[level]);
+		}
 	}
 	tbl[i].core_mhz = 0;
-	*map_len = nf;
+	info->map_len = nf;
 
 	return tbl;
 }
@@ -859,12 +942,16 @@ static struct vote_reg *init_hw_vote(struct device *dev)
 {
 	void __iomem *reg_base = NULL;
 	struct vote_reg *hw_vote = NULL;
+	struct resource resource;
 	u32 temp[VOTE_REG_NUM] = {0};
 	u32 reg_mask = 0;
 	u32 reg_bit;
 	int ret;
 
-	reg_base = of_iomap(dev->of_node, 0);
+	ret = of_address_to_resource(dev->of_node, 0, &resource);
+	if (ret)
+		return NULL;
+	reg_base = devm_ioremap(dev, resource.start, resource_size(&resource));
 	if (reg_base == NULL) {
 		dev_err(dev, "fail to map io!\n");
 		return NULL;
@@ -873,7 +960,7 @@ static struct vote_reg *init_hw_vote(struct device *dev)
 	if (hw_vote == NULL) {
 		dev_err(dev, "[%s] node %s doesn't have hw_vote alloc fail!\n",
 			__func__, dev->of_node->name);
-		goto numap_base;
+		return NULL;
 	}
 	if (of_property_read_u32_array(dev->of_node, "vote-reg",
 				       &temp[0], VOTE_REG_NUM) != 0) {
@@ -896,19 +983,25 @@ static struct vote_reg *init_hw_vote(struct device *dev)
 			__func__, dev->of_node->name);
 		goto free_hw;
 	}
+	if (reg_bit >= 32 || resource_size(&resource) < sizeof(u32) ||
+	    temp[0] > resource_size(&resource) - sizeof(u32))
+		goto free_hw;
 	hw_vote->bit = reg_bit;
+	hw_vote->max_freq = temp[1] >> reg_bit;
 	return hw_vote;
 free_hw:
 	devm_kfree(dev, hw_vote);
-numap_base:
-	iounmap(reg_base);
 	return NULL;
 }
 
 static void init_vote_max_freq(struct dev_info *dev_info)
 {
-	unsigned long init_freq = dev_info->freq_map[dev_info->map_len - 1].target_freq / HZ_PER_MHZ;
-	set_hw_vote(dev_info, (int)init_freq, 0);
+	unsigned int level;
+	u32 init_freq = 0;
+
+	for (level = 0; level < dev_info->nr_levels; level++)
+		init_freq = max(init_freq, core_to_dev_freq(dev_info, level, USHRT_MAX));
+	set_hw_vote(dev_info, init_freq, 0);
 }
 
 static int mipsmem_dev_alloc_and_init(struct platform_device *pdev, struct mipsmem_cluster_policy *policy)
@@ -917,6 +1010,7 @@ static int mipsmem_dev_alloc_and_init(struct platform_device *pdev, struct mipsm
 	struct device *dev = &pdev->dev;
 	int ret;
 	unsigned long flags;
+	unsigned int level;
 
 	dev_info = kzalloc(sizeof(*dev_info), GFP_KERNEL);
 	if (dev_info == NULL) {
@@ -924,11 +1018,11 @@ static int mipsmem_dev_alloc_and_init(struct platform_device *pdev, struct mipsm
 			__func__, dev->of_node->name);
 		return -ENOMEM;
 	}
-	dev_info->freq_map = init_core_dev_map(dev, "core-dev-table", &dev_info->map_len);
-	if (dev_info->freq_map == NULL) {
-		dev_err(dev, "Couldn't find the freq map table!\n");
-		ret = -EINVAL;
-		goto error;
+	dev_info->nr_levels = 1;
+	if (of_find_property(dev->of_node, "nr-level", NULL)) {
+		ret = of_property_read_u32(dev->of_node, "nr-level", &dev_info->nr_levels);
+		if (ret)
+			goto error;
 	}
 
 	dev_info->hw_vote = init_hw_vote(dev);
@@ -938,8 +1032,22 @@ static int mipsmem_dev_alloc_and_init(struct platform_device *pdev, struct mipsm
 		goto error;
 	}
 
-	dev_info->nratios = ARRAY_SIZE(default_target_ratios);
-	dev_info->ratios = default_target_ratios;
+	dev_info->freq_map = init_core_dev_map(dev, "core-dev-table", dev_info);
+	if (dev_info->freq_map == NULL) {
+		dev_err(dev, "Couldn't find the freq map table!\n");
+		ret = -EINVAL;
+		goto error;
+	}
+	dev_info->target_ratios = kcalloc(dev_info->nr_levels,
+					 sizeof(*dev_info->target_ratios), GFP_KERNEL);
+	if (!dev_info->target_ratios) {
+		ret = -ENOMEM;
+		goto error;
+	}
+	for (level = 0; level < dev_info->nr_levels; level++) {
+		dev_info->target_ratios[level].nratios = ARRAY_SIZE(default_target_ratios);
+		dev_info->target_ratios[level].ratios = default_target_ratios;
+	}
 	dev_info->ipc_min_sample_time_ns = default_ipc_min_sample_time;
 	dev_info->nipc_min_sample_time = ARRAY_SIZE(default_ipc_min_sample_time);
 	dev_info->mem_load_window_size_ns = DEFAULT_MEM_WINDOW_SIZE;
@@ -951,9 +1059,9 @@ static int mipsmem_dev_alloc_and_init(struct platform_device *pdev, struct mipsm
 		kobject_put(&dev_info->kobj);
 		return ret;
 	}
-	init_vote_max_freq(dev_info);
 	/* Scheduler callbacks must never observe a partially initialized monitor. */
 	spin_lock_irqsave(&state_lock, flags);
+	init_vote_max_freq(dev_info);
 	if (strstr(pdev->name, "l3"))
 		policy->l3c_dev = dev_info;
 	else

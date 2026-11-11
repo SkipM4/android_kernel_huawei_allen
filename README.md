@@ -26,7 +26,10 @@ storage, USB and display sleep/wake checks. r20 repairs video decoder IRQ-flags
 writeback and passes named hardware AVC/HEVC decode and live accel/gyro/mag
 event tests. r20 is the recorded hardware-functional reference, not full certification.
 The user reports preliminary front/rear camera switching and photos working
-on r19. Multi-level L3 voting remains unresolved.
+on r19. Multi-level L3/DDR voting restoration passes independent native
+selector/parser checks and #41 full-link/pair checks; real vote validation
+remains open. The installed device is still r37.
+See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
 The current installed test candidate is r37: r21 retains full early logs,
@@ -44,7 +47,7 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r30-r32/r36-r37 pairs are retained;
+test limits. Accepted r17 and the latest r31/r32/r36/r37/r41 pairs are retained;
 r36 is the immediate r37 rollback. Original boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
