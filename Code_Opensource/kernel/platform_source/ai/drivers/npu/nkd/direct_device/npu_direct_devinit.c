@@ -126,4 +126,3 @@ module_exit(npu_direct_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("NPU direct driver");
-MODULE_VERSION("V1.0");

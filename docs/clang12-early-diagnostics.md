@@ -293,3 +293,54 @@ all original backups. Next repair the duplicate module version declarations:
 the final ELF has exactly two colliding owners, tcpc_class (core plus regmap)
 and nkd (platform plus direct-device component). Preserve the active version
 values and all component implementations; do not bypass sysfs checks.
+
+## r26: One Version Declaration Per Combined Module
+
+Base: r25, commit `bf6ddc74a`. The final ELF's __modver table confirms the
+only two duplicate groups: tcpc_class contains core 2.0.20_G and regmap
+1.2.1_G, while nkd contains two V1.0 declarations. Kbuild combines each
+pair of translation units under a single module name, so the second
+declaration attempts to create the same version attribute. WARN_ON_ONCE
+reports only one warning even though both paths collide.
+
+Remove MODULE_VERSION from the rt1715 rt-regmap helper and from NPU
+direct_device/npu_direct_devinit.c. Keep it in tcpci_core.c and
+npu_platform.c, preserving the values already visible on r25. Retain
+component code, initcalls, descriptions/licenses and the regmap's own
+version constant/log. No version_sysfs_builtin/sysfs guard changes or
+renamed module/interface are introduced. Reference: this tree's Linux
+5.10.43 MODULE_VERSION macro, composite Kbuild rules and attributed ELF
+entries; no external driver code is adopted.
+
+Checks after paired r26 flash:
+
+- Diff checks, Clang 12.0.7 ThinLTO, boot round-trip and signed matching
+  modem staging pass; all 390 imports, CMS and filesystem metadata match.
+- The linked __modver table drops from 31 entries to 29 with no duplicate
+  owners. Every previously visible version remains identical, including
+  tcpc_class=2.0.20_G and nkd=V1.0; unrelated metadata entries are unchanged.
+- Flash boot and one normal reboot reach #26, normal mode and
+  boot_completed=1, with the Huawei launcher present. Full boot/modem_driver
+  readback matches the r26 pair; independent Magisk ramdisk is unchanged.
+  The module is loaded, sig_enforce is Y and SELinux remains Enforcing.
+- Both logs begin at 0.000000 and contain no duplicate proc/version,
+  BUG, CFI failure or panic. Only the early PRMEM LRU-drain WARNING remains,
+  reducing the r24 count of four to one. CPU-feature S/W taint stays 516;
+  this does not resolve CPU-feature differences or certify PRMEM protection.
+- PD/CC/vbus-only state stays 1/1/0 and USB power remains present. NPU0,
+  manager and direct nodes retain their modes, ownership and SELinux types.
+  These are registration/state regression checks, not NPU inference,
+  PD negotiation, OTG or radio certification. Wi-Fi/Bluetooth remain OFF.
+
+Retain accepted r17, latest r22-r26 pairs and all original backups; retire
+r21's older candidate artifacts after this validation. Its diagnostic
+8-MiB printk configuration remains enabled in the current build.
+
+The remaining warning needs a separate security-sensitive lifecycle audit:
+prmem_init runs in mm_init, before workqueue_init and init_mm_internals
+create mm_percpu_wq. Its alloc_contig_range path invokes the LRU drain;
+PRMEM also requires its physical databases before __wr protection. Do not
+move all PRMEM initialization, suppress the drain guard or guess reserved
+memory addresses without tracing the earliest consumers and protection
+ordering. The newly inconclusive Wi-Fi scan test and calibration read
+context are recorded in clang12-functional-tests.md.
