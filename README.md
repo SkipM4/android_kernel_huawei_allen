@@ -76,11 +76,19 @@ r30 applies a SoC-only RTC IRQ flag correction after auditing the handler's
 MMIO lifetime and workqueue notification path. It preserves the PMU RTC,
 alarm programming and wake-enable pair. Compilation, signed paired flash,
 readback and read-only RTC time progression pass; wakeup remains enabled,
-boot logs have no kernel WARNING and taint is 4. No RTC IRQ or system sleep
-has occurred on this initial r30 check, so actual RTC-attributed deep wake
-testing remains pending, with r29 retained as the immediate rollback.
+boot logs have no kernel WARNING and taint is 4. The unplugged recheck completes
+four deep suspends with approximately 226 seconds of cumulative sleep and no
+suspend/resume failure. Two wakes are attributed to the SoC RTC, with its
+ordinary handler executed and no misconfigured-IRQ diagnostic. UFS and idle
+codec callbacks recover normally; post-resume silent playback consumes all
+96,000 target frames without underruns, then the PCM closes and codec clocks
+disable with runtime autosuspend. Device and audio-service identities remain
+unchanged; full logs have no kernel WARNING and taint stays 4. r29 remains the
+immediate paired rollback. This validates short idle RTC/deep wake, not all
+alarm delivery cases or long-duration power parity.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
-microphone, calls/sidetone and system/deep suspend are not certified; see
+microphone, calls/sidetone and active-audio/long-duration deep suspend are not
+certified; see
 `docs/clang12-audio-source-audit.md` and `docs/clang12-functional-tests.md`.
 A correctly attributed shell-context probe passes Bluetooth ON/OFF on r24;
 named hardware AVC/HEVC encoders each complete thirty synthetic frames and

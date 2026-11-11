@@ -710,3 +710,62 @@ notification, not just the final Type-C wake reason. Require an actual RTC
 event with preserved alarm delivery and no misconfigured-IRQ diagnostic
 before marking this path passed. Preserve r29 for paired rollback if wakeup,
 alarm handling or storage/audio after resume regresses.
+
+### Actual RTC Wake And Post-Resume Playback
+
+After the user disconnects USB with the display asleep and reconnects, the
+same #30 boot identity remains in normal Android with sys.boot_completed=1.
+Kernel and suspend-service counters agree on four successful deep suspends,
+approximately 226 seconds of cumulative sleep and zero failures at every
+freeze, device-suspend and resume stage. This includes the first real resume
+after the flag change, not merely later cycles in an already-resumed system.
+
+Two cycles explicitly log pm_system_irq_wakeup for IRQ 228 vendor-soc-rtc,
+followed by soc_rtc_interrupt and the ordinary Resume caused by IRQ 228
+message. The SoC RTC IRQ count advances from zero to two; the distinct PMU
+RTC IRQ count stays zero. The unchanged handler acknowledges status and
+calls rtc_update_irq; the subsequent suspend programs the next RTC alarm.
+There is no misconfigured-IRQ diagnostic, missing handler invocation or
+repeating IRQ storm in the captured interval. RTC wakeup policy stays enabled.
+No direct RTC alarm/time write, replacement of a user's alarm or synthetic
+wakeup is needed for this confirmation.
+
+The final wake is the Type-C port IRQ on reconnection. The remaining cycle is
+unknown in the generic suspend-service wake list; the OEM low-power log
+identifies IPC_AO_IOM3_ACPU_MBX1 from SENSORHUB to ACPU. Do not count that
+cycle as an additional RTC wake or infer a resume failure from the missing
+generic attribution. All four cycles have successful UFS platform callbacks
+and idle codec suspend/resume, have_dapm=0/is_ulsr=0 and resume from asp pd.
+The UFS unbalanced-enable warning remains absent.
+
+A shell-UID/package-validated AudioTrack check after actual resume streams
+generated silent 48 kHz stereo 16-bit PCM, with a small silence tail to avoid
+emptying the streaming buffer while observing the target. All 96,000 target
+frames are consumed with zero underruns and the built-in speaker route. PCM
+is RUNNING and codec runtime active during playback. After track release and
+audio-output standby, PCM closes, codec/ASP clocks disable and runtime status
+returns to suspended with the original auto policy and 200 ms delay. Device,
+audioserver and audio HAL identities remain unchanged.
+
+The temporary helper's initial attribution check rejects an inherited android
+context before opening an AudioTrack. Inspecting the installed framework
+confirms that ContextImpl.getOpPackageName uses AttributionSource, not the
+legacy mOpPackageName field. Correcting only the helper's in-process shell
+attribution and explicitly exiting its helper threads produces the completed
+check; no service identity, permission, SELinux policy or kernel change is
+used to bypass attribution. The temporary helpers and complete logs are
+removed after recording these results.
+
+The complete retained-for-analysis boot/resume/playback logs contain no kernel
+WARNING, BUG, CFI failure, panic, unbalanced enable or misconfigured IRQ;
+taint remains 4, module sig_enforce is Y and SELinux is Enforcing. No new
+kernel build, flash, ramdisk, DT, calibration or global volume change is
+made. The r29 post-resume O_DIRECT test is not repeated or relabeled as an
+r30 data-integrity test without a new storage failure.
+
+This passes the observed SoC RTC wake-IRQ contract repair and short idle deep
+resume, including post-resume playback/release. It does not certify every
+userspace alarm delivery, power-off PMU alarms, long-duration sleep/idle power,
+active-DAPM/ULSR suspend, microphone/calls or audible post-resume fidelity.
+Keep the tested r29 pair as immediate rollback; isolate one remaining path
+before changing another subsystem or expanding the codec import.
