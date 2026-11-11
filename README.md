@@ -27,12 +27,13 @@ writeback and passes named hardware AVC/HEVC decode and live accel/gyro/mag
 event tests. r20 is the recorded hardware-functional reference, not full certification.
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
-selector/parser checks and #41 full-link/pair checks; real vote validation
-remains open. The installed device is still r37.
+selector/parser checks, #41 full-link/pair checks and bounded real-vote
+validation. The installed device is r41; normalized vote-scale bookkeeping
+still needs a separate consumer audit before performance-parity claims.
 See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r37: r21 retains full early logs,
+The current installed test candidate is r41: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -48,7 +49,7 @@ Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
 test limits. Accepted r17 and the latest r31/r32/r36/r37/r41 pairs are retained;
-r36 is the immediate r37 rollback. Original boot/ramdisk/modem backups remain intact.
+r37 is the immediate r41 rollback. Original boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -197,6 +198,15 @@ none during startup or bounded link/IPv4/IPv6 route enumeration. Full build,
 paired readback and security checks pass. This repairs diagnostic accounting,
 not measured network performance; no forced long RTNL hold is injected. See
 `docs/clang12-early-diagnostics.md` and `docs/clang12-functional-tests.md`.
+r41 restores L3/DDR multi-level tables, independent ratios and maximum MHz
+votes from the original Allen contract, without changing the filtered counter
+API or DT. All six maps and actual compound userspace ratios pass device
+checks. Short streaming/cache/mixed workloads produce 26,078 selections that
+match original machine code, including genuine second-level maxima, and
+4,836 post-writel vote events. Paired readback, normal startup/reboot and
+Enforcing/CFI/signature gates pass; taint remains 4. Frame-enabled #39 remains
+unflashed. These are requested-vote checks, not effective-clock, power or
+complete OEM scheduler certification. See `docs/clang12-mips-multilevel-audit.md`.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

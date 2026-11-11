@@ -2,9 +2,10 @@
 
 ## Installed Baseline And Failure
 
-The installed r37 kernel remains the device baseline during this source
-iteration. No DT, calibration, voltage, ramdisk or user data changes are
-needed to recover the factory voting contract.
+The r41 pair is installed and passes normal Android startup and a subsequent
+normal reboot. Its paired rollback is r37. The failure analysis uses the
+recorded r37 baseline; no DT, calibration, voltage, ramdisk or user data
+changes are needed to recover the factory voting contract.
 
 All six live `core-dev-table` properties match the retained original Allen
 DT. The published `mips_mem.c` ignores `nr-level` and reads fixed two-column
@@ -112,9 +113,19 @@ this matches the factory ARM64 `udiv` result. If a memory interval contains
 no complete MIPS sampling window, the callback skips that incomplete sample
 instead of passing a zero-duration window to the filtered producer.
 
-The factory also has memory-frequency scaling feedback not present in the
-published source. This is a separate performance-contract gap, not restored
-by the table/selector repair. Do not claim complete OEM scheduling parity.
+The factory `set_hw_vote` additionally updates per-CPU normalized vote-scale
+bookkeeping, exposed by `mips_mem_get_freq_scale`. This state is absent from
+the published source. Its machine code multiplies the selected MHz vote by
+1,024,000 and divides by a CPU-policy field; the exact field/consumer contract
+still needs confirmation before any restoration.
+
+No direct call, direct branch, absolute/relative helper pointer or plain
+export-name string is found in the original Image. Known exported names are
+present; this getter is absent from the normal plaintext export-name table. An inlined or
+otherwise direct data consumer still needs audit: absence of calls alone
+does not establish harmlessness, and the getter alone does not establish
+active performance feedback. Do not invent a consumer, copy an incompatible
+policy layout or claim complete OEM scheduling parity.
 
 ## Validation And Remaining Work
 
@@ -133,17 +144,71 @@ by the table/selector repair. Do not claim complete OEM scheduling parity.
   The #41 boot round trip, retained OEM DTB/firmware stub, partition bounds,
   matching modem's 390 imports, PKCS#7 signature and filesystem/label readback
   checks pass. Original-feature #39 remains unflashed
-  and is not mixed into this iteration; r37 linked/configuration/signing
+  and is not mixed into this iteration; r37 export/configuration/signing
   metadata and paired rollback images are retained.
 
 The superseded unflashed #40 pair is discarded after #41 checks pass.
-Only r17 and the latest r31/r32/r36/r37/r41 pairs are retained; r37 remains
-installed and is the paired rollback for this candidate.
+Only r17 and the latest r31/r32/r36/r37/r41 pairs are retained; r41 is now
+installed and r37 is its paired rollback.
 
-Next: recheck the installed r37 pair and device identity before installing
-the #41 pair, with the independent ramdisk unchanged. After installation:
-verify all six full maps and userspace ratio grammar, then observe genuine
-votes/level selection with a bounded recoverable workload, unchanged thermal
-protection and a normal reboot. Initial max votes or sysfs presence alone
-are not acceptance. Performance/power equivalence and the separate feedback
-gap remain open until supported by evidence.
+## r41 Device Validation
+
+Before flashing, the installed r37 pair matches its retained rollback images.
+Supported bootloader serial/model/unlock checks confirm the recorded Allen.
+Product/all queries still report `Command not supported`, despite fastboot's
+zero process status; neither that status nor its reported zero partition size
+is accepted as a size/identity result. Bounds come from the confirmed ADB
+block-device layout. Both r41 flashes succeed and exact image-length
+device-side hashes match boot/modem_driver. The full independent ramdisk hash
+is unchanged; the matching modem module is loaded and Live.
+
+All six full maps match the original DT after both boots. Userspace configures
+DDR ratios 400/600, 300/600 and 250/500 across c0/c1/c2; L3 uses 1000,
+400/600 and 400/800. Commas now expose the second level that the r37 parser
+silently discarded. All monitors are enabled, with the observed 4 ms window
+and 3 ms minimum sample time. The read-only scheduler MIPS window is 4 ms;
+phase counters are enabled for CPUs 0-11 with events 17, 8, 23, 42 and 162.
+
+A freestanding ARM64 user process exercises streaming, cache-resident and
+mixed arithmetic/random-read phases, each lasting two seconds, on logical
+CPUs 0, 4 and 10. It uses bounded anonymous memory and the supported taskset
+mask interface; no CPU governor, vote ratios, thermal settings or global
+tracing state are changed. Each trace uses a task-owned isolated instance.
+All captures contain start/end markers and zero ring-buffer overruns.
+The target CPUs contribute 1,581/1,547/1,576 samples respectively.
+
+All 26,078 recorded L3/DDR selections match the original machine-code oracle,
+using the real instruction/refill counts and measured cycle/window estimate.
+This includes empty-cycle samples without a warning or divide failure.
+The second-level target strictly exceeds the first in the following samples:
+
+| Monitor | Second Level Determines Maximum |
+| --- | --- |
+| DDR c1 | 780 |
+| DDR c2 | 606 |
+| L3 c1 | 30 |
+| L3 c2 | 238 |
+
+DDR c0's second column is always 417 MHz, equal to the minimum primary
+target, so a strict second-level win is not expected there; both 417 and
+749 MHz votes are observed. Its full two-column targets still match DT.
+
+There are 4,836 filtered `power:clock_set_rate` events emitted by this driver
+after `writel()`, with varying DDR and L3 scalar votes including idle clears.
+These prove the live vote-update path is exercised; their state is the
+maximum desired per-CPU vote, not a register readback or measurement of
+effective hardware clock frequency. Existing DDR devfreq telemetry reports
+1531 MHz through its clock provider, but that single snapshot does not prove
+load-correlated physical clock transitions or performance/power parity.
+
+All ratios, enable flags, IPC sample times and memory windows remain unchanged
+after the workload. Thermal daemon/service remain running; no thermal control
+is disabled. The task-owned device binary and trace instance are removed;
+the existing wifi trace instance is untouched.
+
+Both full early boot logs and the post-workload log have no WARNING, BUG,
+panic or CFI failure. A new boot ID confirms the normal reboot, not a stale
+boot-completed property. SELinux remains Enforcing, taint remains 4, PRMEM
+remains enabled, the independent ramdisk is unchanged, and all six maps and
+enable flags persist. This completes the bounded table/ratio/vote validation,
+not the outstanding normalized-scale consumer audit or whole-device signoff.

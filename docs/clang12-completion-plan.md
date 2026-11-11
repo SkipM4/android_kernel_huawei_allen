@@ -3,8 +3,8 @@
 ## Acceptance Rule
 
 User requests stepwise repair and validation until all required work is
-complete. Baseline is installed r37 on bringup/clang12 at e920e7568; immediate
-paired rollback is r36. Each kernel iteration stays isolated, with matching
+complete. Baseline is installed r41 from bringup/clang12 at 6ec244014; immediate
+paired rollback is r37. Each kernel iteration stays isolated, with matching
 boot/modem_driver validation, unchanged independent ramdisk unless separately
 required, retained security controls and accurate functional scope.
 
@@ -23,7 +23,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
 | 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | Enabled #39 Link/Module Checks Pass; Render Ownership Decision Open |
-| 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | Native Checks/#41 Link/Pair Checks Pass; Real Votes Pending |
+| 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Tables/Ratios/Real Votes Pass; Normalized-Scale Consumer Audit Open |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Pending |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Pending |
 | 08 | Vendor-init WP action | Matching userspace/protection source, correct process-context reporting and genuine protection behavior | Needs Matching Source |
@@ -45,6 +45,10 @@ mobile data enabled and both SIM slots ABSENT. One saved Wi-Fi network exists.
 USB is supplying power; battery reports full at the snapshot, which is not
 enough to validate charging progression. The matching OEM init/plugin source
 is absent, as documented in clang12-system-wp-source-audit.md.
+
+A read-only r41 follow-up after its normal reboot still shows the keyguard,
+Wi-Fi OFF, both SIM slots ABSENT and no active default network. No new radio
+enable attempt or lock-screen bypass is performed during the MIPS validation.
 
 A bounded Wi-Fi enable attempt does not establish a default network within
 60 seconds. Service logs show screenOn=false; window policy shows the device
@@ -94,8 +98,14 @@ omitted-level zero semantics and a single maximum MHz vote. The source
 repair passes independent native selector/parser comparisons and object
 compilation. Final #41 link/pair checks pass, including startup/empty-sample
 corrections using r37's frame-disabled configuration, with
-r37 linked/configuration/signing metadata retained separately; no device
-installation or real vote acceptance is claimed yet. The filtered scheduler
+r37 configuration/signing metadata retained separately. Paired flash/readback,
+two normal boots and all six complete maps pass. Userspace's real compound
+ratios are no longer truncated. All 26,078 real-sample vote selections match
+the original machine code; the second level determines the maximum in both
+c1/c2 L3 and DDR monitors, and 4,836 post-writel events show real vote changes.
+These desired votes are not effective physical clock measurements. The filtered scheduler
 counter API is retained rather than copying the incompatible original raw
-producer. Factory memory-frequency scaling feedback remains a separate gap.
+producer. Original per-CPU normalized vote-scale bookkeeping still needs a
+consumer/field audit: the original getter has no located direct call/export,
+which is not enough to exclude inlined use or establish performance impact.
 See clang12-mips-multilevel-audit.md.
