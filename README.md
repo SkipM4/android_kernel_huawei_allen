@@ -28,13 +28,13 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is r46. A separate normalized vote-scale
+validation. The installed device is r47. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r46: r21 retains full early logs,
+The current installed test candidate is r47: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -49,8 +49,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r42/r43/r44/r45/r46 pairs are retained;
-r45 is the immediate r46 rollback. Original boot/ramdisk/modem backups remain intact.
+test limits. Accepted r17 and the latest r43/r44/r45/r46/r47 pairs are retained;
+r46 is the immediate r47 rollback. Original boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -280,11 +280,22 @@ A follow-up on unchanged r46 verifies real stock native frame calls through
 existing RTG, raw-syscall and instance-stack events. The system controller
 allocates a frame group; SystemUI begin/end requests and END_FREQ return
 success, the latter turns group scheduling off, and the controller clears
-members afterward. Actual RT/VIP-band scheduling is observed, but post-stop
-VIP/PI ownership remains unaudited; the OEM proc priority display alone
-cannot prove effective priority restoration. No kernel/policy change, build
-or flash occurs. This is bounded native lifecycle coverage, not production
-boost expiry, global-queue, complete frame-pacing or power certification.
+members afterward. At that checkpoint post-stop VIP/PI ownership is still
+unattributed; the OEM proc priority display alone cannot prove effective
+priority restoration. That follow-up changes no kernel/policy and performs
+no build or flash; it is bounded native lifecycle coverage, not full acceptance.
+r47 reproduces the post-stop priority-89 failure as a frame shutdown/member
+clear race, not an independent PI donation. It moves the existing frame-info
+writer lock ahead of the state transition so member removal cannot skip
+restoration, and protects the member-update counter reset with that same lock.
+Full build/final ELF, unchanged configuration/export CRCs/signing material,
+paired readback and normal startup pass. Two real END_FREQ calls return 0
+with both member-policy restorations completed before return; a concurrent
+controller clear follows restoration. Separate observed mutex/rwsem VIP
+donations still request and clear normally. This closes the reproduced frame
+stop race in the bounded native test, not all VIP/PI or frame-power behavior.
+Permitted boost expiry/renewal, global-queue lifecycle and full performance/
+power acceptance remain open; no unknown queue or global boost is injected.
 See `docs/clang12-rtg-source-audit.md` for the measured scope and next audit.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and

@@ -1208,6 +1208,55 @@ The staged modem PKCS#7 signature, embedded certificate, filesystem/label
 readback and boot kernel round-trip/OEM-container checks pass. r46 metadata
 and its boot/modem pair are retained as the immediate rollback.
 
-At this record point the device still runs r46. Paired installation, startup
-and real frame-stop/member-clear regression remain pending; static checks do
-not certify the runtime fix or complete VIP/PI behavior.
+Paired installation passes supported serial/model/unlock checks and reaches
+normal Android on #47. Exact image-length boot/modem readbacks match and the
+full independent ramdisk is unchanged. The full early kernel log contains no
+actual WARN, BUG, Oops, panic or CFI failure; exception matching uses token
+boundaries rather than substrings in unrelated notice text. SELinux remains
+Enforcing, signature enforcement is Y and taint remains 4; configuration
+retains enforcing CFI and PRMEM. The first successful startup is not repeated
+without a new fault or unmet requirement.
+
+Two real lock-screen cycles use the same bounded conditions as the failing
+r46 window: four seconds awake per cycle, six seconds between them and an
+18-second final sleep interval. The main trace records 6,025 events, with all
+1,952 selected ioctl entries paired. All 28 recorded RTG requests return 0.
+The separate narrow instance records 20 priority events and their 20 stacks,
+including four per-member restoration paths through set_frame_sched_state.
+Both buffers have zero overruns, commit overruns or dropped events.
+
+Both END_FREQ calls return 0 with UI and RenderThread NORMAL policy changes
+completed inside the ioctl. In the first cycle the controller is finishing
+the frame VIP update when END_FREQ enters; restoration changes both actual
+priorities from 89 to 110 before controller member-clear counters appear.
+Thus the original overlapping operations are observed in the corrected
+order, rather than treating a zero enable counter as proof of restoration.
+The first cycle subsequently schedules UI at ordinary priorities 110/120
+and RenderThread at 116, not 89. The second call restores both from 87 to 110;
+RenderThread does not run again in its tail window, so no extra scheduled-in
+sample is claimed for that dormant thread.
+
+Independent gpu-work-server donations are still observed: one mutex vote
+(type 2) and one rwsem vote (type 1) each request level 10, return 0, clear
+to zero and return 0. Their short VIP intervals precede the corresponding
+frame stop and are not suppressed. The kernel log covers the whole capture
+interval without actual WARN/fatal records. Boot ID/security/settings and
+the pre-existing tracer/instances stay unchanged, the display returns to
+Asleep and automatic brightness output is not overwritten. No test APK,
+global queue takeover, injected global boost or protection change is used.
+
+The reproduced frame shutdown/member-clear race has a bounded native pass.
+This does not certify all VIP/PI restoration, 32-bit production integration,
+frame pacing, performance or power. A separate source follow-up remains for
+the generic mutex VIP vote: the last cancelled waiter removes mutex flags,
+whereas vote clearing is in the slow unlock path. Its cancellation/fast-unlock
+and shared per-type vote contract must be audited before changing cleanup;
+it is not the source of the reproduced frame failure and r47 does not patch it.
+Intended boost expiry/renewal, positive global lifecycle and the existing
+manual/hardware/source prerequisites also remain open.
+
+r46 remains the immediate paired rollback. Original backups, accepted r17
+and the latest r43/r44/r45/r46/r47 pairs remain; superseded r42 images are
+removed with useful metadata retained. Consumed task-owned traces, complete
+logs, disassembly/IR and diagnostic scripts are removed. Workspace remains
+below 20 GB and whole bring-up acceptance is not complete.

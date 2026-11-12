@@ -3,8 +3,8 @@
 ## Acceptance Rule
 
 User requests stepwise repair and validation until all required work is
-complete. Baseline is installed r46 from bringup/clang12 at ea82efe4b; immediate
-paired rollback is r45. Each kernel iteration stays isolated, with matching
+complete. Baseline is installed r47 from bringup/clang12 at 3576bf358; immediate
+paired rollback is r46. Each kernel iteration stays isolated, with matching
 boot/modem_driver validation, unchanged independent ramdisk unless separately
 required, retained security controls and accurate functional scope.
 
@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r46 Installed; Stock Native Frame/END_FREQ Bounded Pass; Post-Stop VIP/Timeout/Global Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r47 Installed; Native Frame/Stop-Clear Race Bounded Pass; VIP Lock-Vote/Timeout/Global Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -277,8 +277,8 @@ The observed allocation ID is not made into a platform constant.
 Actual internal priorities include 87 outside the source's VIP band and 89
 inside it. One cycle retains priority 89 after its frame-disable counter;
 the later proc display can translate VIP/PI priority back to the raw policy,
-so it cannot close effective-priority restoration. The next source/runtime
-audit must identify post-stop VIP vote/Binder/native-PI ownership rather than
+so that checkpoint cannot close effective-priority restoration. The subsequent
+r47 audit attributes and fixes a frame state/member-clear race rather than
 blindly forcing normal priority. This does not reopen the passed frame ioctl
 results or prove that the global boost timer ran.
 
@@ -289,3 +289,37 @@ are preserved; automatic brightness's naturally updated value is not
 overwritten. Copied binaries/DEX, complete traces/logs and temporary scripts
 are removed. Real permitted boost expiry/renewal, positive global lifecycle,
 complete frame/power acceptance and external prerequisites remain open.
+
+r47 reproduces the missing restoration on unchanged r46 with actual native
+calls and separately filtered priority stacks. The controller assigns frame
+VIP level 10; END_FREQ writes the disabled flag outside the member lock, and
+a concurrent controller clear then skips resetting members because it sees
+that flag. END_FREQ acquires the lock after their pointers are gone and
+returns 0 while both threads remain at internal priority 89. This is an
+observed frame cleanup race, not the separate short lock donations also seen.
+
+The existing frame-info writer lock now covers the state check/change and
+per-member restoration. The member-update counter reset also uses that lock.
+No new global serialization, task layout/reference, ioctl ABI, permissions or
+priority policy is added. The #47 full build, final ELF ordering, identical
+configuration/complete export CRCs/signing material, matching modules and
+signed paired image checks pass. Paired flash reaches normal Android;
+boot/modem readbacks match, independent ramdisk is unchanged, SELinux remains
+Enforcing, module signature enforcement/CFI/PRMEM remain and taint is 4.
+
+Two bounded real wake/sleep cycles record 1,952 paired native ioctls, including
+28 RTG requests returning 0 and two END_FREQ calls. Both calls perform the
+UI/RenderThread NORMAL policy changes before returning; the first captures
+the overlapping controller VIP update and member clear in the corrected
+order. Independent mutex/rwsem votes still request and clear successfully.
+Main/stack trace buffers are loss-free and full-window logs have no actual
+kernel WARN, BUG, Oops, panic or CFI failure. No redundant second startup or
+repeat of passed frame tests is used. Display/keyguard/settings/tracer state
+are restored and task-owned diagnostics are removed after recording results.
+
+r46 is the immediate rollback, with the latest r43/r44/r45/r46/r47 pairs and
+accepted r17/original backups retained. Expired r42 images are removed while
+their useful metadata remains. The next smallest audit is the independent
+mutex VIP cancellation/fast-unlock lifetime; no blanket priority reset is
+added. Permitted boost expiry/renewal, positive global lifecycle, complete
+frame/power acceptance and manual/hardware/source prerequisites stay open.
