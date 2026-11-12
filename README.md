@@ -28,13 +28,13 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is r48. A separate normalized vote-scale
+validation. The installed device is r49. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r48: r21 retains full early logs,
+The current installed test candidate is r49: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -49,9 +49,9 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r44/r45/r46/r47/r48 pairs are retained;
-r47 is the immediate r48 rollback, with r46 also preserved. Original
-boot/ramdisk/modem backups remain intact.
+test limits. Accepted r17 and the latest r45/r46/r47/r48/r49 pairs are retained;
+r48 is the immediate r49 rollback. Original boot/ramdisk/modem backups remain
+intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -394,6 +394,42 @@ No kernel change, rebuild, flash or repeated scene follows this scoped
 ordinary-renewal pass. Stale-notification/restart stress, shorter-request
 retention, release/reuse, AUX/configured boost threads, positive global queue
 and full frame/power acceptance remain open.
+r49 fixes the newly attributed persistent boost-floor omission: released
+multi-frame slots are skipped by the old active-only expiry lookup, while
+global disable cancels the timer without withdrawing its floors. The existing
+timer mutex now protects a shared withdrawal of the default group, every
+persistent multi-frame slot, AUX and configured boost threads on expiry and
+after synchronous cancellation. No ABI, configuration, exported CRC or
+signing-material change occurs relative to r48.
+Full #49 compilation, final ELF, matched module signatures/imports, paired
+installation/readback and unchanged independent ramdisk pass. A normal stock
+Settings/Display-and-return regression directly samples a released slot with
+a pending boost, then observes its stored floor reach zero after final
+expiry. Five fully paired production boost calls return 0; ordinary renewal
+extends the real timer before the superseded deadlines, and all persistent
+slot floors clear. Global disable/re-enable and stale-notification stress are
+not certified by this runtime result.
+A separate positive global-render probe starts only after a read-only check
+shows no registration or active system queue. Owned ordinary-priority tasks
+pass depth-4 force initialization, wake relation/getter, pause, same-live-root
+non-force resume, depth-1 replacement, old-root exit and new-root exit cleanup.
+No production queue or task priority is overwritten. The signed read-only
+observer is unloaded; a necessary cleanup reboot restores taint 4 with only
+the matching modem module loaded. Scoped logs have no actual kernel WARN or
+fatal record; unrelated AVCs are recorded without relaxing SELinux.
+The r49 Wi-Fi follow-up associates an existing saved network and obtains a
+validated default Wi-Fi route. A correctly attributed shell probe resolves
+DNS and receives HTTP 403 through default HTTPS certificate validation from
+a public Linux mirror. Two other endpoints reset during TLS; the expected
+file/integrity transfer therefore remains unpassed, not a proven kernel
+failure or a sustained-network pass. Wi-Fi OFF, home foreground, Asleep,
+keyguard, other settings and security controls are restored.
+Per the user's latest scope, this iteration ends in the local source Git tree
+without an exported bundle, release packaging or publication. The records
+retain global-disable/stale-timeout stress, shorter-request retention,
+configured-thread/AUX lifetime, PID/address-reuse/32-bit integration, complete
+frame/power and external hardware/source prerequisites for the next stage.
+See `docs/clang12-completion-plan.md` for the local closeout and open conditions.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see
@@ -419,6 +455,7 @@ need separate lifecycle diagnosis without relaxing protection.
 - `tools/host/bin/bc`: local build dependency, extracted from the Arch package.
 - `out/allen-clang12/`: independent kernel output directory; not tracked.
 - `out/allen-clang12-stock-compat/`: stock-derived paired-test output; not tracked.
+- `out/allen-clang12-frame-rtg/`: current r49 frame-RTG paired-test output; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.

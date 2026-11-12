@@ -1344,3 +1344,90 @@ needed after this unchanged candidate passes its targeted validation.
 r36 remains immediate paired rollback. Temporary full logs/disassembly and
 superseded r29 artifacts are removed; originals, accepted r17 and the latest
 r30-r32/r36-r37 pairs remain within the workspace limit.
+
+## r49 Wi-Fi Association And External Endpoint Boundary
+
+This follow-up uses the already installed #49, without another kernel/config/
+DT change, build or flash. The r49 timer repair, signed matching pair and
+released-slot/global lifecycle results are in clang12-rtg-source-audit.md.
+The user explicitly authorizes normal passwordless unlock and stock Settings
+operation. No lock credential is bypassed, no network is added and no saved
+credentials or calibration parameters are read or changed.
+
+### Correct Shell Attribution
+
+The older temporary networking probe creates com.android.shell from a system
+Context. With no active network it does not reach the capabilities query;
+after association that query throws `Package android does not belong to 2000`.
+RuntimeInit then terminates the uncaught-exception process, yielding exit 137.
+Logcat attributes the failure to ConnectivityManager's package validation,
+not an OOM, Wi-Fi-driver fault or kernel crash. It is the same system-derived
+AppOps mismatch recorded in the r24 Bluetooth probe.
+
+A task-owned copy uses the installed shell ApplicationInfo, ActivityThread's
+process-local bound identity and ContextImpl.createAppContext/LoadedApk.
+Before a connectivity query it verifies UID 2000, package com.android.shell
+and OpPackageName com.android.shell. This reuses the AOSP Android 12 context
+contracts cited in the r24 record. It does not spoof another application's
+identity, install an APK or change AppOps, permissions or SELinux policy.
+The corrected probe successfully queries the real network capabilities.
+
+### Association And Bounded Endpoint Checks
+
+Wi-Fi starts OFF with no active default network. Normal foreground stock
+Wi-Fi settings enable the adapter; its existing saved network automatically
+associates and becomes a VALIDATED default Wi-Fi network. No personal network
+identifier is retained in the durable record.
+
+The probe uses Network.getAllByName and Network.openConnection so DNS and
+HTTPS remain bound to that Wi-Fi network rather than an assumed default
+route. Redirects and cache reuse are disabled; connect/read timeouts and
+response-length bounds are present, with ordinary certificate validation.
+Eight integrity-checked rounds are planned, not completed:
+
+- A pinned public kernel Makefile at raw.githubusercontent.com resolves DNS
+  but resets the connection during TLS handshake.
+- The same verified content at cdn.jsdelivr.net also resolves DNS and resets
+  during TLS. No proxy, certificate or firewall workaround is introduced.
+- A public Linux 5.10.42-to-5.10.43 incremental patch at the Tsinghua mirror is
+  verified by direct host HTTPS, XZ decoding and its expected version diff.
+  The phone resolves the mirror, completes default TLS and receives HTTP 403,
+  so its expected status/content/integrity check stops without claiming a
+  successful file transfer.
+
+These results establish association, a validated route, bound DNS and a
+default-TLS HTTP response. They do not establish sustained transfer or exact
+payload integrity. Host download success is not substituted for a phone
+transfer. The two connection resets and mirror 403 are endpoint observations;
+without further route/server evidence they are not attributed to the kernel,
+RF calibration or a proven external filtering mechanism. The user then
+narrows completion to local kernel/Git closeout, so no additional endpoints
+or network settings are tried to manufacture a pass.
+
+### Restoration And Limits
+
+Overlapping root snapshots cover the complete enable/association/probe/
+restoration interval without a log gap, despite later ring rotation. No
+actual kernel WARN, BUG, Oops, panic or CFI failure occurs. AVCs are retained
+and classified, not described as absent: shell property/idmap/proc/sysfs
+access, background logserver/storage/DRM/TEE/AOD denials and Wi-Fi-domain
+property/block-directory access coexist with successful association and
+the HTTPS response. No denial is fixed by weakening protection. The existing
+calibration permission/write-on-sync-failure contract remains independently
+open; network connectivity alone does not certify RF calibration.
+
+Wi-Fi is restored OFF, with no default network. Mobile-data, Bluetooth,
+airplane, always-scan, location, automatic-brightness mode and timeout settings
+match their baseline. Home foreground, Asleep and keyguard showing are
+restored. The device remains on the same #49 boot, SELinux Enforcing, taint 4,
+signature enforcement Y and the matching modem-only module baseline. Original
+stopped tracing instances are untouched; only the task-owned device DEX and
+consumed host diagnostics are removed. No user data or recorded media is
+transferred.
+
+This is a local scoped functional checkpoint, not full networking or release
+acceptance. Verified transfer, cellular with a supplied SIM, Bluetooth peer
+audio, charging/overnight power and manual audio/video fidelity remain for
+the next stage, alongside the documented source and ABI boundaries. Per the
+latest user request, no release package, exported artifacts or publication
+is created.

@@ -2,10 +2,12 @@
 
 ## Acceptance Rule
 
-User requests stepwise repair and validation until all required work is
-complete. Baseline is installed r48 from bringup/clang12 at 5dffb0337; immediate
-paired rollback is r47, with r46 also retained. Each kernel iteration stays
-isolated, with matching boot/modem_driver validation, unchanged independent
+User requests stepwise kernel repair and validation. The latest instruction
+ends this iteration in the local source Git tree, waiting for the next stage;
+no artifact export, release bundle or publication is requested. Baseline is
+installed r49 from bringup/clang12 at 09aeaf9ec; immediate paired rollback is
+r48. Each kernel iteration stays isolated, with matching boot/modem_driver
+validation, unchanged independent
 ramdisk unless separately required, retained security controls and accurate
 functional scope.
 
@@ -16,14 +18,14 @@ instead of suppressed, but its functional uncertainty must be resolved before
 closing the corresponding item. No dummy interface, fake success, protection
 bypass, speculative broad backport or implementation-mirroring test suite.
 
-## Work Queue
+## Next-Stage Work Queue
 
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
-| 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
+| 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | r49 Association/DNS/Default TLS Response Pass; Verified Transfer Open |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r48 Installed; Mutex/Native Clear/Direct END_FREQ/Single Boost Expiry Pass; Renewal/Global/Full Frame Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r49 Installed; Mutex/Native Clear/Direct END_FREQ/Ordinary Renewal/Released-Slot Expiry/Owned Global Lifecycle Pass; Stress/AUX/Full Frame Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -31,7 +33,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 09 | PCIe affinity/delivery | Verify physical/logical interrupt topology and classify functional impact before any affinity implementation | Endpoint INTx Delivery Pass; Root PME/AER/Migration Open |
 | 10 | Charging/standby | Appropriate charger and battery state; charging transitions, temperatures, overnight power and wake stability | Needs Hardware/Time |
 | 11 | Camera/audio integration | User-confirmed front/rear recording, audio-video sync, microphone routes and calls/headset integration | Needs Manual Check |
-| 12 | Final regression/security | Installed final pair, ABI/signatures/readback, enforcing controls and scoped regression with every required item closed | Pending |
+| 12 | Whole-device regression/security | Installed pair, ABI/signatures/readback, enforcing controls and complete required device coverage | r49 Pair/Security/Scoped Regression Pass; Whole-Device Acceptance Open |
 
 Existing bounded passes include storage/display/touch/USB, hardware video
 codec exercises, basic sensors, audible settings playback and recorder user
@@ -39,7 +41,54 @@ reports, bounded RTC/deep suspend, PERF_CTRL queries and repaired RTNL timing.
 They are not automatically recertified on each new kernel. Repeat or extend
 only when a relevant change, fault or uncovered requirement justifies it.
 
-## Current Prerequisites
+## Local Iteration Closeout
+
+r49 closes the persistent boost-floor defect established after r48's ordinary
+renewal observation. Full build, final ELF, identical configuration/export CRCs
+and signing material relative to r48, matching modem imports/signature,
+paired installation/readback and unchanged independent ramdisk pass. The real
+stock scene samples the released Settings slot while its boost is pending,
+then verifies its stored floor is zero after expiry. Five production boost
+ioctls return 0 and genuine overlapping renewal still works. All three trace
+buffers are loss-free. Global disable has source/final-ELF validation, not a
+production-disable runtime pass.
+
+A bounded positive global queue test runs only after the read-only observer
+shows registration 0 and no active queue. Its own ordinary-priority tasks
+pass force depth 4, real pipe wake relation/getter, pause, non-force same-root
+resume, force replacement at depth 1, old-root exit without damaging the new
+queue, and new-root exit returning ENOENT. This is not production/32-bit or
+PID/address-reuse certification. Diagnostic tasks, module and proc entry are
+removed, and the necessary cleanup reboot restores taint 4 and resets the
+historical registration token.
+
+The authorized passwordless foreground check removes the previous manual
+unlock prerequisite for Wi-Fi diagnosis. The saved network associates and
+becomes a validated default Wi-Fi network. The corrected UID-2000 shell
+context passes package/AppOps attribution, network-bound DNS and a default-TLS
+HTTP response from a public mirror. That response is 403; two other endpoints
+reset during TLS, so expected-file integrity transfer remains open. Do not
+infer a kernel or calibration defect from these endpoint results. Wi-Fi OFF,
+other settings, home foreground, Asleep/keyguard and enforcing controls are
+restored; no network credentials, policies or calibration parameters change.
+
+No new kernel edit, rebuild or flash is needed after these scoped checks.
+The local closeout commits only lasting source/result records and removes
+consumed task diagnostics. Original images, accepted r17, immediate rollback
+r48 and the latest r45-r49 pairs remain below the workspace limit. No release
+package, exported artifacts, release tag or publication is created. This
+completes the current local iteration, not every next-stage item in the table.
+
+The detailed r49 build/slot/timer/global evidence is in
+clang12-rtg-source-audit.md; the network attribution and endpoint limits are in
+clang12-functional-tests.md. The source-only global-disable/stale-timeout/
+shorter-request branches, AUX/configured-thread changes, native PI/legacy/
+opaque assembly/32-bit integration, frame pacing/power, missing SIM/peer/manual
+checks, stock vendor-init WP source and calibration write-safety contract stay
+explicitly open for the next stage. No dummy success or protection bypass is
+used to close them.
+
+## Prerequisite And Validation History
 
 Read-only r37 connectivity baseline has no active default network, Wi-Fi OFF,
 mobile data enabled and both SIM slots ABSENT. One saved Wi-Fi network exists.

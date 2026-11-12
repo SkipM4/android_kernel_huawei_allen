@@ -2033,3 +2033,115 @@ boot/modem pair and released-slot expiry regression are required next.
 Broader queued-timeout stress, configured-thread changes, positive global
 queue, functional/manual/hardware/source prerequisites and release acceptance
 remain open.
+
+### r49 Installed Build And Released-Slot Expiry Regression
+
+The prepared timer-local repair is committed as 09aeaf9ec and installed as
+5.10.43 #49. No further kernel change is made for this validation. Full Android
+Clang 12.0.7/ThinLTO/enforcing-CFI compilation and final ELF pass. Configuration,
+all 13,821 exported CRC entries and signing material are identical to r48;
+the modem module's 390 imports match, with PKCS#7/certificate and filesystem
+ownership/label checks passing. The final timer worker clears all persistent
+multi-frame slots, and deinit's actual call order is synchronous cancellation,
+floor withdrawal, then timer-mutex unlock. This does not relabel a build check
+as a production global-disable runtime pass.
+
+The local matched boot/modem_driver pair is installed only after identity,
+unlocked bootloader, partition aliases and the retained r48 rollback pair are
+checked. Full partition readbacks match; the independent Magisk ramdisk is
+unchanged. The boot image preserves the original header-2/LZ4/stub/DTB and
+partition bounds. It remains an unlocked-device test image, not OEM-signed
+AVB certification. A transport-disconnect return while entering bootloader
+is diagnosed in the already-entered mode rather than causing a duplicate
+transition or flash. Case-insensitive log matching also misclassifies the
+known initial-console and EXT4 mount notices; actual WARN/BUG/Oops/CFI/panic
+records are absent in both the installed and necessary cleanup boot logs.
+
+A genuine signed read-only observer module samples stored persistent-slot
+floors and allocation state under the existing timer/ID locks. Its matching
+imports and read-only proc interface are verified before loading. It cannot
+change group membership, timer state, priorities, queue registration or
+configuration. Temporary out-of-tree taint is recorded during observation,
+not hidden or treated as the final baseline.
+
+One authorized normal passwordless unlock and stock Settings -> Display ->
+Back/Home -> Sleep scene uses three mono-clock tracing instances. All current
+production uniperf threads and their actual RTG descriptor are identified.
+Five fully paired 0xc014ab64 requests on that descriptor return 0. Each starts
+the same timer at 163 jiffies/util 684. Actual now/expires values show pending
+deadlines extended by 33 then 50 jiffies in the opening episode and 13 jiffies
+in the return episode. Superseded deadlines do not produce an expiry callback;
+both final callbacks lead to the worker's default-plus-five-slot zero sweep.
+This is ordinary overlap/renewal, not adversarial queued-timeout stress.
+
+The return scene directly resolves the formerly unobserved stored value:
+Settings' released slot has active=0, uid=-1 and floor 684 while the timer is
+still pending. After final expiry it remains released and its floor is 0;
+the default and all persistent multi-frame slot floors are also 0. The source
+fix therefore withdraws a boost even when active-only lookup cannot return
+the released frame group. Reallocation timing itself is not separately
+certified by these two samples.
+
+The three buffers have no overruns, commit overruns or dropped events on all
+twelve CPUs. Two unknown-command boundary exits are excluded; two outstanding
+entries are Binder ioctls, not boost results. The complete unlock/scene log
+has no actual kernel fault. Nine other-domain AVCs occur: eight system-app
+qemu-property reads and one platform-app AOD/motion Binder denial. No uniperf
+RTG denial occurs, and no SELinux, permission or AppOps policy is relaxed.
+Original main/wifi trace settings, filters/triggers and stopped states are
+restored; only task-owned instances are removed. Home foreground, Asleep,
+keyguard showing, automatic-brightness mode and timeout are restored without
+overwriting a naturally changing automatic-brightness value.
+
+### r49 Positive Owned Global Queue Lifecycle
+
+The same observer reads global registration and active state under the
+existing global queue lock. Before this bounded test both registered PID and
+active queue are zero. Only then does a private freestanding ARM64 probe use
+the standard init/get/pause UAPI with its own ordinary-priority processes and
+pipe. No unknown system queue is force-replaced and no task priority is
+modified.
+
+The complete sequence passes:
+
+- Force initialization at depth 4 and getter return the actual root/parent
+  pipe-waker relation; both tasks remain priority 120.
+- Pause returns 0 and getter returns ENOENT; non-force resume of the same
+  live root returns 0 and reestablishes the relation.
+- Force replacement at depth 1 succeeds and retires the old-depth queue.
+- Old-root exit/reap leaves the new-root getter valid; new-root exit/reap
+  makes the getter return ENOENT.
+
+The complete snapshot-bounded probe log has no actual kernel fault or AVC.
+This is positive local ownership/wake/pause/resume/replace/exit coverage, not
+production-call, PID/address-reuse, high-contention or 32-bit integration
+certification. After root exit the existing historical registration token can
+remain while active is NULL; that number alone is not labelled a live queue
+or identity leak. All private children exit and the probe does not replace
+the production controller's membership.
+
+The observer is unloaded and its proc entry/device files are removed. A
+necessary diagnostic cleanup reboot resets the historical registration token
+and restores taint 4, with only the matching modem module loaded. #49, normal
+Android boot, SELinux Enforcing, signature enforcement, CFI/PRMEM and the
+independent ramdisk remain. This cleanup is not an extra repeated acceptance
+test.
+
+### r49 Local Source Closeout And Next-Stage Boundaries
+
+The user's latest instruction ends the work in the local source Git tree;
+no artifact export, release bundle, release tag or publication is requested.
+The accepted r49 repair and scoped evidence are recorded, consumed temporary
+diagnostics are removed, and originals/accepted r17/latest r45-r49 pairs plus
+the immediate r48 rollback are retained within the workspace limit.
+
+Production global disable/re-enable, queued stale-notification/restart stress,
+shorter-request retained deadlines, AUX/configured boost-thread changes and
+broader allocation/reuse interleavings remain open. So do complete frame
+pacing/power and native PI/legacy/opaque assembly/32-bit integration. Neither
+the ordinary renewal pass nor the owned global probe certifies those paths.
+The network follow-up and actual external endpoint limitations are recorded
+in clang12-functional-tests.md; SIM/peer/manual, vendor-init WP source and
+calibration write-safety requirements remain next-stage items in
+clang12-completion-plan.md. Local iteration closeout is not whole-device or
+production release acceptance.
