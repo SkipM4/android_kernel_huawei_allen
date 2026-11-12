@@ -1992,3 +1992,44 @@ restart, shorter-request retention, released-group reuse, AUX/configured
 boost threads, positive global queue, full frame/power, native PI/legacy/
 opaque assembly/32-bit and existing manual/hardware/source prerequisites
 remain open. Whole bring-up acceptance is incomplete.
+
+### r49 Persistent Boost-Floor Cleanup Preparation
+
+The authorized release-preparation follow-up traces the absent second-episode
+Settings floor-zero event through the actual source and current #48 ELF.
+Multi-frame slots are static frame_info objects initialized once at boot;
+release only clears their allocation bitmap. Their boost floor is written
+only by set_frame_min_util. The expiry worker calls rtg_frame_info, whose
+multi-frame lookup excludes released slots. Neither release, reallocation
+nor ordinary member clear resets frame_boost_min_util. Thus a slot released
+with a nonzero floor, absent from the final worker sweep, can retain an expired
+boost into later reuse. The previously observed release-before-expiry is a
+real trigger boundary, not an invented allocation-failure case.
+
+Global RTG disable has a related clear omission: deinit_frame_timer cancels
+the timer with g_timer_on cleared, so the worker deliberately skips its clear,
+while deinit_proc_state resets members but not the boost floors. A cancelled
+boost can therefore survive disable/re-enable. These are source/optimized-ELF
+defects; the preceding passive trace does not independently sample the
+released slot's stored value or certify a global disable runtime failure.
+
+The minimal timer-local repair factors the existing floor withdrawal into
+clear_boost_util. Under the existing g_timer_lock it clears the default group,
+all persistent multi-frame slots through rtg_multi_frame_info, AUX and the
+currently configured boost threads. Both real expiry and deinit after
+del_timer_sync use that helper. The startup/renewal branch keeps its original
+active-group selection, duration/floor rules and notification ordering.
+No new lock, task layout, exported symbol, ioctl payload, caller permission,
+allocation layer or OEM feature is introduced. Existing initialized-slot
+and timer-lock invariants are used rather than adding speculative guards.
+
+This uses Allen's existing static-slot accessor and the standard synchronous
+timer cancellation contract, not a new imported backport. Scoped diff and
+checkpatch pass. Android Clang 12/ThinLTO compilation and optimized bitcode
+show all five persistent slot clears and deinit's cancel -> clear -> unlock
+ordering. The source step is not an installed r49 pass: the phone still runs
+unchanged #48. Full link, identical layout/CRC/signature checks, matched
+boot/modem pair and released-slot expiry regression are required next.
+Broader queued-timeout stress, configured-thread changes, positive global
+queue, functional/manual/hardware/source prerequisites and release acceptance
+remain open.

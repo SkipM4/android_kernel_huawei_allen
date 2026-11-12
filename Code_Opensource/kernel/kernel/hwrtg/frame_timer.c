@@ -39,6 +39,23 @@ static struct task_struct *g_timer_thread;
 unsigned long g_thread_flag;
 #define DISABLE_FRAME_SCHED 0
 
+/* Caller holds g_timer_lock. */
+static void clear_boost_util(void)
+{
+#ifdef CONFIG_HW_RTG_MULTI_FRAME
+	int id;
+#endif
+
+	set_frame_min_util(rtg_frame_info(DEFAULT_RT_FRAME_ID), 0, true);
+#ifdef CONFIG_HW_RTG_MULTI_FRAME
+	/* Released slots retain their floor and may be reused after expiry. */
+	for (id = MULTI_FRAME_ID; id < MULTI_FRAME_ID + MULTI_FRAME_NUM; id++)
+		set_frame_min_util(rtg_multi_frame_info(id), 0, true);
+#endif
+	set_aux_boost_util(0);
+	set_boost_thread_min_util(0);
+}
+
 static int frame_thread_func(void *data)
 {
 #ifdef CONFIG_HW_RTG_MULTI_FRAME
@@ -53,13 +70,7 @@ static int frame_thread_func(void *data)
 		if (test_and_set_bit(DISABLE_FRAME_SCHED, &g_thread_flag) ||
 		    !atomic_read(&g_timer_on) || timer_pending(&g_frame_timer))
 			goto unlock;
-		set_frame_min_util(rtg_frame_info(DEFAULT_RT_FRAME_ID), 0, true);
-#ifdef CONFIG_HW_RTG_MULTI_FRAME
-		for (id = MULTI_FRAME_ID; id < (MULTI_FRAME_ID + MULTI_FRAME_NUM); id++)
-			set_frame_min_util(rtg_frame_info(id), 0, true);
-#endif
-		set_aux_boost_util(0);
-		set_boost_thread_min_util(0);
+		clear_boost_util();
 
 		if (!is_rtg_sched_enable(DEFAULT_RT_FRAME_ID))
 			set_frame_sched_state(rtg_frame_info(DEFAULT_RT_FRAME_ID), false);
@@ -141,6 +152,7 @@ void deinit_frame_timer(void)
 
 	atomic_set(&g_timer_on, 0);
 	del_timer_sync(&g_frame_timer);
+	clear_boost_util();
 
 	mutex_unlock(&g_timer_lock);
 }
