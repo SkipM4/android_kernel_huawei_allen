@@ -319,8 +319,9 @@ Two real native frame windows record 11 successful begin/end timestamp pairs;
 controller cleanup restores both members from VIP 89 before returning, with
 ordinary scheduled-in priorities afterward. Two production GPU-to-RenderThread
 mutex donations also request/withdraw successfully through the new code.
-The controller clears first, so a later END_FREQ returns FRAME_ERR_PID (-100);
-direct END_FREQ=0 is not re-observed on r48 and the r47 result is not relabelled.
+At that checkpoint the controller clears first, so a later END_FREQ returns
+FRAME_ERR_PID (-100); direct END_FREQ=0 is not yet re-observed on r48 and the
+r47 result is not relabelled.
 The genuine temporary out-of-tree probe is unloaded and a cleanup reboot
 restores taint 4. SELinux Enforcing, forced signatures, CFI, PRMEM and independent
 ramdisk remain. No actual kernel WARN/fatal record occurs in the scoped logs;
@@ -354,7 +355,19 @@ used; actual renewal remains unverified. Multi-group/AUX/configured boost-
 thread coverage, positive global queue lifecycle and full frame/power
 acceptance also remain open. No kernel rebuild, flash or permission/settings
 change occurs; boot/security/keyguard/display and existing tracers are
-preserved. See `docs/clang12-rtg-source-audit.md`.
+preserved.
+A later source-unchanged awake-idle observation fills the direct END_FREQ gap
+on r48: SystemUI's own ioctl returns 0, with UI/RenderThread restored from
+frame RT 87 to ordinary policy 0/priority 110 inside the stop stacks before
+return and before controller member clear. All 118 subsequent scheduled-in
+samples for those members are ordinary. Both planned taps are skipped;
+this is not click-trigger or boost-renewal acceptance. All six buffers are
+loss-free, complete-window logs have no actual kernel fault or AVC denial,
+and display/settings/keyguard/security plus existing tracers are restored.
+No rebuild, flash, reboot or additional test follows the pass. Renewal/
+stale-timeout restart, positive global queue, multi-group/AUX/configured boost
+threads, full frame/power and existing ABI/manual/hardware/source boundaries
+remain open. See `docs/clang12-rtg-source-audit.md`.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

@@ -23,7 +23,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r48 Installed; Mutex/Native Clear/Boost Expiry Pass; Direct END_FREQ on r48/Renewal/Global Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r48 Installed; Mutex/Native Clear/Direct END_FREQ/Single Boost Expiry Pass; Renewal/Global/Full Frame Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -371,11 +371,12 @@ native windows have no AVC denial. Display/settings/tracers and enforcing
 SELinux/signatures/CFI/PRMEM remain, with no system-priority or global-queue write.
 
 The controller clears first in both windows; a late END_FREQ returns -100
-because membership is already gone. Direct END_FREQ=0 is not re-observed on
-r48 and remains a frame acceptance boundary, not a mutex test failure or a
-relabelled r47 pass. Native PI/legacy shared-vote guarantees, opaque assembly
-and 32-bit production integration are not certified wholesale. An earlier
-full UAPI export also exposes pre-existing OEM CONFIG leaks; diagnostic header
+because membership is already gone. At that checkpoint direct END_FREQ=0
+is not re-observed on r48 and remains a frame acceptance boundary, not a
+mutex test failure or a relabelled r47 pass. Native PI/legacy shared-vote
+guarantees, opaque assembly and 32-bit production integration are not certified
+wholesale. An earlier full UAPI export also exposes pre-existing OEM CONFIG
+leaks; diagnostic header
 selection does not relax export checks or fix that separate portability issue.
 
 r47 is the immediate paired rollback, with r46, accepted r17 and original
@@ -438,7 +439,40 @@ write, trace instance, rebuild or flash occurs in this audit. A bounded
 renewal test needs an explicitly allowed ordinary foreground scene and
 complete real request/timer/floor evidence across overlap and final cleanup.
 Renewal and stale-notification/restart stress remain unverified, not failed
-or passed. Existing direct END_FREQ on r48, full frame/power and manual/
-hardware/source boundaries remain open. Boot/security/settings/display,
-matching r48 and rollback pairs are unchanged; task-owned diagnostics are
-removed after durable recording and the workspace stays below 20 GB.
+or passed. At this read-only checkpoint direct END_FREQ on r48, full frame/
+power and manual/hardware/source boundaries remain open. Boot/security/
+settings/display, matching r48 and rollback pairs are unchanged; task-owned
+diagnostics are removed after durable recording and the workspace stays below
+20 GB.
+
+The subsequent unchanged-r48 follow-up addresses that direct stop boundary.
+Installed RtgSched Handler code has default 2000 ms initial/click end delays
+and reaches RtgSchedImpl.endFreq -> nEndEventFreq(event 2); no override or
+global boost is written. Two bounded wake/awake-idle/sleep observations use
+three mono-clock instances each. Both planned taps are skipped: the first
+inspection wait expires, and the second screenshot guard fails comparison.
+Neither records a click, and the failed guard is not evidence that wallpaper
+changed. No unlock, explicit priority reset, policy/property write or injected
+ioctl occurs.
+
+The first window preserves the controller-first/-100 result. In the second,
+one fully paired SystemUI END_FREQ (0xc010ab18) returns 0. UI and RenderThread
+both restore from frame RT 87 to ordinary policy 0/priority 110 inside the
+stop_frame_freq/set_frame_sched_state stacks before that return. Controller
+attribute update and member clear start afterward. All 118 later actual
+scheduled-in samples are ordinary: UI 110/120 and RenderThread 116. This
+closes direct awake-idle END_FREQ restoration on r48 within the observed
+scope; it neither attributes a runtime click nor certifies every interleaving.
+
+All six buffers are loss-free, identified RTG calls have complete pairs and
+unknown boundary exits are not labelled as known RTG outcomes. Retained logs
+cover both complete capture intervals without actual kernel WARN/fatal
+records or AVC denial. Boot/security/keyguard/display/settings and original
+main/wifi tracers match their baselines, and diagnostic instances are removed.
+No source change, rebuild, flash, reboot or additional device test follows
+the pass. Task-owned diagnostics are removed after durable recording;
+original/accepted/r44-r48 pairs and r47/r46 rollback remain below 20 GB.
+Renewal/stale-notification restart, positive global queue lifecycle,
+multi-group/AUX/configured boost threads, full frame pacing/power,
+native PI/legacy/opaque assembly/32-bit integration and existing manual/
+hardware/source prerequisites remain open; whole bring-up is not complete.

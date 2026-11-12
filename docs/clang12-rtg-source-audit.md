@@ -1734,3 +1734,80 @@ not changed. Consumed task-owned bytecode, library copies, configuration
 replies and diagnostics are removed after durable recording; original
 backups, accepted r17 and r44-r48 pairs remain, with r47 as the immediate
 paired rollback and r46 also retained. Workspace stays below 20 GB.
+
+### r48 Awake-Idle Direct END_FREQ Verification
+
+This follow-up keeps the installed #48 kernel, matching module and independent
+Magisk ramdisk unchanged. It addresses the direct stop path left unobserved
+by the earlier r48 controller-first windows; the successful r47 direct calls
+remain historical evidence, not a substitute for current-kernel acceptance.
+No source change, rebuild, flash, reboot, injected ioctl, unlock, priority
+reset, queue takeover or property/policy change is performed.
+
+Read-only inspection of installed framework code locates the RtgSched
+dispatcher in hwPartIaware.jar and RtgSchedImpl in hwEmui.jar. The initial
+and click Handler end delays default to 2000 ms; the queried override
+properties are empty and hw.enableEOS is 1. Handler dispatch reaches
+RtgSchedImpl.endFreq -> nEndEventFreq with event 2, and the loaded RME backend
+has the corresponding EndFreq IPC route. HwAppInnerBoostImpl also has a
+motion-up route to markFrameSchedStart(1). These are trigger contracts, not
+runtime proof that a click or one particular Java Handler caused the stop.
+They justify observing an awake-idle tail rather than injecting a stop or
+repeating screen cycles blindly.
+
+Two bounded observations retain the locked, unoccluded keyguard and use only
+wake/sleep input plus screenshots. Neither issues a tap. The first planned
+tap is skipped when its inspection wait expires. In the second, the blank
+region comparison against the previously inspected wallpaper fails, so its
+safety guard skips the planned tap. The comparison failure does not establish
+that the wallpaper changed; screenshot readiness is also a possible cause.
+The successful direct stop occurs while awake, before that comparison guard
+and before sleep. This is awake-idle acceptance, not click-trigger acceptance.
+
+The first window remains controller-first: allocation, attribute update and
+member clear succeed, while the subsequent END_FRAME_FREQ and END_FREQ
+correctly return FRAME_ERR_PID (-100) after membership is gone. The second
+window records four successful BEGIN_FRAME_FREQ calls, five successful
+END_FRAME_FREQ calls, two GET_FRAME_ENABLE calls returning 0, successful
+allocation/attribute update/member clear, and one complete direct END_FREQ
+returning 0. The observed group 10 is a runtime allocation, not a platform
+constant. Commands are paired from raw syscall events on the verified
+SystemUI/controller-owned RTG descriptors; user buffers are not read.
+
+Inside SystemUI's own 0xc010ab18 ioctl, the group-enable counter becomes 0,
+then both UI and RenderThread change from frame RT priority 87 to ordinary
+policy 0/priority 110 before the ioctl returns 0. Both restoration stacks
+run through sched_rtg_set_task_scheduler -> set_rtg_sched ->
+set_frame_rtg_thread -> do_set_frame_sched_state -> set_frame_sched_state ->
+stop_frame_freq -> proc_rtg_ioctl_locked. The controller's attribute update
+and member-clear ioctl start only after this direct return. Thus restoration
+is attributed to END_FREQ itself and precedes member removal; a zero group
+counter or a later controller clear is not used as substitute evidence.
+
+Actual scheduled-in samples after the direct return are all ordinary:
+77 UI samples at 110/120 and 41 RenderThread samples at 116. No frame RT/VIP
+residual appears in those selected members during the observed tail. This
+does not imply that other valid priority contributions must be forcibly
+cleared or that every possible scheduling interleaving has been exercised.
+
+All six trace buffers have matching retained/written counts and zero overrun,
+commit overrun and dropped events. Every identified RTG request has a complete
+entry/exit pair. The raw syscall windows also contain 23 and 18 unknown
+boundary exits; their commands are not inferred or counted as RTG outcomes.
+The known outstanding entries are non-RTG ioctls. Kernel logs retain both
+complete capture intervals, including their event tails, and contain no
+actual WARN, BUG, Oops, panic, CFI failure or AVC denial in those intervals.
+Boot ID/#48, taint 4, modem-only module baseline, SELinux Enforcing, forced
+signatures and existing CFI/PRMEM configuration remain unchanged. Display
+returns to Asleep; keyguard, brightness mode, timeout and original main/wifi
+tracers match their baselines, and all task diagnostic instances are removed.
+
+Direct awake-idle END_FREQ restoration now has a bounded pass on r48. No
+further device test is added after these checks pass. Boost renewal and
+stale-notification/restart stress, positive global queue lifecycle,
+multi-group/AUX/configured boost-thread coverage, full frame pacing/power,
+native PI/legacy shared-vote guarantees, opaque assembly/32-bit integration
+and manual/hardware/source prerequisites remain open. Consumed task-owned
+diagnostics are removed after durable recording; original backups, accepted
+r17 and r44-r48 pairs remain, with r47 immediate paired rollback and r46 also
+retained. Workspace stays below 20 GB; whole bring-up acceptance is incomplete.
