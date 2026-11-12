@@ -1143,3 +1143,71 @@ The next smallest audit is the post-stop VIP/PI vote source. Intended boost
 expiry/renewal, positive global lifecycle, complete frame scheduling/power
 and the existing manual/hardware/source prerequisites remain open. The
 installed pair and retained images are unchanged; whole bring-up is not done.
+
+### r47 Frame Stop And Member-Clear Race
+
+The follow-up attributes the unexplained post-stop priority on unchanged r46
+before changing scheduler policy. A first independent lock-screen cycle
+observes ordinary restoration after END_FREQ. Its short RenderThread VIP
+boost is type 2 (VIP_BOOST_MUTEX), requested by the existing gpu-work-server
+and cleared by the mutex owner. That separate donation is not evidence of
+frame priority leakage and is not forcibly reset.
+
+A subsequent two-cycle window reproduces the open failure. The main instance
+records 6,446 events; a separately filtered instance records 14 priority events
+and their 14 call stacks. Both have zero overruns, commit overruns and dropped
+events. All 2,137 selected native ioctl entries have paired returns. Task
+selection uses process ownership rather than ambiguous truncated thread names.
+No test app, priority injection, queue takeover or protection change is used.
+
+The important failing order is:
+
+1. The system controller updates the still-active frame group's priority.
+   set_vip_prio requests level 10 for both UI and RenderThread, returning 0.
+   The stacks identify parse_rtg_attr -> set_frame_prio ->
+   do_update_frame_task_prio -> sched_rtg_set_task_scheduler; this is a normal
+   frame VIP assignment, not a cgroup vote or mutex/native-PI donation.
+2. SystemUI END_FREQ writes FRAME_SCHED_ENABLE to zero before acquiring the
+   frame-info writer lock. The controller concurrently clears the group.
+3. do_update_thread sees the zero state and skips restoring the old members,
+   then releases their references and clears the member pointers. END_FREQ
+   subsequently acquires the lock but has no members left to restore.
+4. END_FREQ returns 0, yet both threads are scheduled at internal priority 89
+   about 14.7 seconds later. The observed CPU group remains /vip with its
+   configured VIP vote zero throughout the sampled window.
+
+The other cycle clears members before the late end requests, which return the
+existing FRAME_ERR_PID (-100) with no attached frame group. That race ordering
+restores the members through the controller. It is distinct from the successful
+END_FREQ that misses restoration; the missing-group error contract is retained.
+Both complete capture intervals remain free of WARNING, BUG, Oops, panic and
+CFI failure, with unchanged boot ID/security/settings and the display restored
+to Asleep. Automatic brightness output changes normally; it is not overwritten.
+
+r47 moves the existing frame-info writer lock ahead of the enable-state check
+and update in set_frame_sched_state. The state change and per-member scheduler
+restoration now share the same critical section as priority/member updates.
+The no-change path still returns without resetting a group. The member-update
+thread counter reset also moves inside that existing lock. There is no new
+lock, task reference, task layout, ioctl ABI, priority policy or ownership rule.
+Normal scheduler restoration continues using the existing PI-aware setter;
+this is not a blanket reset of all VIP/PI activity.
+
+The inspected group-util path already follows the frame-info -> RTG-group
+lock order for member updates. The tick callback does not acquire the
+frame-info lock, and the frequency-update callback does not call its priority
+getter. The global lifecycle gate still drains ioctl users before resetting
+frame-info locks. No inverse lock order is introduced in this examined closure.
+
+Strict checkpatch and targeted object compilation pass. The #47 full build
+passes; configuration, complete export/CRC table, kernel release and signing
+material match r46. The final ELF acquires the writer lock before inspecting
+or storing the state and before the member-update counter reset. Both produced
+modules pass versioned-import checks (390 modem imports and two dummy imports).
+The staged modem PKCS#7 signature, embedded certificate, filesystem/label
+readback and boot kernel round-trip/OEM-container checks pass. r46 metadata
+and its boot/modem pair are retained as the immediate rollback.
+
+At this record point the device still runs r46. Paired installation, startup
+and real frame-stop/member-clear regression remain pending; static checks do
+not certify the runtime fix or complete VIP/PI behavior.

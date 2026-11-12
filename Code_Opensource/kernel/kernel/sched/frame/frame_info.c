@@ -305,9 +305,14 @@ void set_frame_sched_state(struct frame_info *frame_info, bool enable)
 
 	frame_sched_state = &(frame_info->frame_sched_state);
 	id = frame_info->rtg->id;
+	/* Member removal must not observe disabled state before restoration. */
+	write_lock(&frame_info->lock);
+	if (atomic_read(frame_sched_state) == enable) {
+		write_unlock(&frame_info->lock);
+		return;
+	}
+
 	if (enable) {
-		if (atomic_read(frame_sched_state) == 1)
-			return;
 		atomic_set(frame_sched_state, 1);
 		trace_perf(rtg_frame_sched, id, "FRAME_SCHED_ENABLE", 1);
 
@@ -316,8 +321,6 @@ void set_frame_sched_state(struct frame_info *frame_info, bool enable)
 		frame_info->frame_vload = 0;
 		frame_info_rtg_load(frame_info)->curr_window_load = 0;
 	} else {
-		if (atomic_read(frame_sched_state) == 0)
-			return;
 		atomic_set(frame_sched_state, 0);
 		trace_perf(rtg_frame_sched, id, "FRAME_SCHED_ENABLE", 0);
 
@@ -329,7 +332,6 @@ void set_frame_sched_state(struct frame_info *frame_info, bool enable)
 
 	/* reset curr_rt_thread_num */
 	atomic_set(&frame_info->curr_rt_thread_num, 0);
-	write_lock(&frame_info->lock);
 	prio = frame_info->prio;
 	if (frame_info->pid_task)
 		do_set_frame_sched_state(frame_info, frame_info->pid_task, enable, prio);
@@ -423,9 +425,9 @@ void update_frame_thread(struct frame_info *frame_info, struct frame_thread_info
 	if (thread_num > MAX_TID_NUM)
 		thread_num = MAX_TID_NUM;
 
+	write_lock(&frame_info->lock);
 	/* reset curr_rt_thread_num */
 	atomic_set(&frame_info->curr_rt_thread_num, 0);
-	write_lock(&frame_info->lock);
 	old_prio = frame_info->prio;
 	frame_info->pid_task = do_update_thread(frame_info, old_prio, prio, pid,
 						frame_info->pid_task);
