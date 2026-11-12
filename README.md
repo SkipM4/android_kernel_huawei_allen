@@ -339,8 +339,19 @@ expiry and worker cleanup; this is production single-expiry evidence, not a
 synthetic request or a direct END_FREQ restoration test.
 No second global request is observed, so renewal/stale-timeout restart stress
 remains open. Framework click reports have scene-reset, interval and count
-limits; repeated taps are not renewal evidence. Multi-group/AUX/configured
-boost-thread coverage, positive global queue lifecycle and full frame/power
+limits; repeated taps are not renewal evidence. A subsequent read-only audit
+locates the actual 3033 consumer in HwIAware's loaded optimized bytecode:
+IAwareSdkService -> AppInnerBoostARSPlugin -> AppInnerBoostDmePlugin (2019)
+-> UniPerf. Click traversal selects 4400; click jitter selects 4401 only for
+at least three skipped frames. Existing CMS getters confirm click 1000 ms/
+three reports, slide 5000 ms/16 reports and enabled switches. The additional
+application-type count limits apply to slides, not click deduplication.
+Same-channel report spacing is 250 ms, equal to nominal click boost duration;
+independent traversal/jitter channels can overlap in principle, but no safe
+blank-lockscreen operation is established that guarantees a second request
+before expiry. No additional input, forced jitter or injected request is
+used; actual renewal remains unverified. Multi-group/AUX/configured boost-
+thread coverage, positive global queue lifecycle and full frame/power
 acceptance also remain open. No kernel rebuild, flash or permission/settings
 change occurs; boot/security/keyguard/display and existing tracers are
 preserved. See `docs/clang12-rtg-source-audit.md`.

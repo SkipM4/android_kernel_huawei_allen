@@ -409,11 +409,36 @@ original main/wifi tracers are preserved. No rebuild or flash is performed.
 Only one global request is observed. Loaded framework code limits click
 scene reset to at least 2 seconds and traversal/jitter reporting to 250 ms
 intervals, with the current click window/count set to 1000 ms/three reports.
-This is not a complete attribution of the native click-policy consumer, nor
-proof that another tap must renew the timer. Arbitrary repeated input is not
-used to force overlap. Intended-caller single activation/expiry passes;
-renewal/stale-timeout restart stress, multi-group/AUX/configured boost-thread
-coverage and positive global queue lifecycle remain open. The existing r48
-direct END_FREQ, full frame/power and manual/hardware/source boundaries stay
-open. Matching r48 and rollback pairs are unchanged; task-owned diagnostics
-are removed after durable recording and the workspace stays below 20 GB.
+This checkpoint does not attribute the click-policy consumer or prove that
+another tap must renew the timer. Arbitrary repeated input is not used to
+force overlap. Intended-caller single activation/expiry passes; renewal/
+stale-timeout restart stress, multi-group/AUX/configured boost-thread coverage
+and positive global queue lifecycle remain open.
+
+The subsequent read-only audit locates the consumer in com.huawei.iaware's
+loaded HwIAware OAT/VDEX. IAwareSdk event 3033 reaches IAwareSdkService,
+AppInnerBoostARSPlugin and AppInnerBoostDmePlugin (2019), then UniPerf. Click
+traversal emits 4400; click jitter emits 4401 for at least three skipped
+frames. This is installed-code routing, not another runtime request capture.
+The APK lacking classes.dex does not mean its optimized implementation is
+absent.
+
+Five existing CMS getConfig replies are decoded using the inspected actual
+serializers. Click remains 1000 ms/3 reports, slide 5000 ms/16 reports, and
+both feature switches are enabled. The application-type table adds only
+slide-count limits (8/18:10, 36:3), not click deduplication; intelligent scene
+types also select the slide branch. This does not attribute the previously
+unobserved second click request to that table or native SDK flow state.
+
+Same-channel reporting has a 250 ms minimum interval, equal to the nominal
+click boost duration; separate traversal/jitter channels can theoretically
+overlap. Neither ensures a safe blank-lockscreen action generates a second
+request before the old expiry. No input, unlock, forced jitter, configuration
+write, trace instance, rebuild or flash occurs in this audit. A bounded
+renewal test needs an explicitly allowed ordinary foreground scene and
+complete real request/timer/floor evidence across overlap and final cleanup.
+Renewal and stale-notification/restart stress remain unverified, not failed
+or passed. Existing direct END_FREQ on r48, full frame/power and manual/
+hardware/source boundaries remain open. Boot/security/settings/display,
+matching r48 and rollback pairs are unchanged; task-owned diagnostics are
+removed after durable recording and the workspace stays below 20 GB.

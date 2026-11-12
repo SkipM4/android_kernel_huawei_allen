@@ -1618,10 +1618,11 @@ window/count properties are 1000 ms/three reports; reporting also requires
 eligible traversal or jitter rather than simply another input event. The
 report routes through IAwareSdk event 3033. The examined inputflinger touch
 boost function uses different event IDs, so its timestamp gate is not
-claimed as the explanation for the missing RTG request. The exact native
-click-policy consumer and a safe overlapping real scenario remain to be
-established. Repeated arbitrary taps or direct UniPerf/global requests are
-not substituted for that evidence.
+claimed as the explanation for the missing RTG request. At this checkpoint,
+the exact click-policy consumer and a safe overlapping real scenario remain
+to be established; the subsequent read-only consumer audit follows below.
+Repeated arbitrary taps or direct UniPerf/global requests are not substituted
+for that evidence.
 
 Intended-caller single boost expiry now passes on unchanged r48. Renewal,
 expiry/restart/stale-notification stress, positive global queue lifecycle,
@@ -1632,3 +1633,104 @@ No new source defect is established by this audit. Task-owned copied policy,
 tools, binaries/DEX, screenshots, complete logs/traces and scripts are removed
 after durable recording. The installed r48 and retained r47/r46 rollback
 pairs plus original backups remain unchanged; workspace stays below 20 GB.
+
+### r48 Click Consumer Configuration And Renewal Preconditions
+
+This follow-up inspects the installed production consumer and its existing
+configuration getter. It does not change kernel source, rebuild, flash,
+reboot, send input, unlock, create trace instances, inject reports or write
+priorities, policy, properties or settings. The preceding real single-expiry
+pass is retained, not repeated or relabelled as a renewal test.
+
+IAwareSdkService and IAwareCMSService belong to com.huawei.iaware in
+u:r:system_app:s0. The actual click-policy consumer is in HwIAware's loaded
+optimized bytecode, not established by inspecting only inputflinger or
+hwsched. Its small system APK has no classes.dex; the mapped dalvik-cache
+OAT/VDEX contains the implementation. Exact copies are verified against the
+device, and the installed ART tools provide scoped bytecode inspection.
+The absence of APK DEX is not evidence that the consumer is absent.
+
+The installed dispatch chain is:
+
+- android.rms.HwAppInnerBoostImpl reports event 3033 through IAwareSdk.
+- IAwareSdk/IAwareSdkCore in framework.jar build report transaction 10001;
+  libiAwareSdk_jni/libiAwareSdkCore target IAwareSdkService.
+- IAwareSdkManager forwards CollectData to g.e.C. Registry g.e.h resolves
+  APP_INNER_BOOST_EVENT_ID and registers g.b, AppInnerBoostARSPlugin, as 2019.
+- g.b forwards through o.i.B to o.b, AppInnerBoostDmePlugin. Its emission
+  bridge is com.huawei.iaware.s.U0 -> IAwareFunctionAL.uniPerfEvent -> UniPerf.
+
+The DME consumer requires an enabled plugin and six comma-separated fields:
+package, sceneType, msgType, reportCount, skippedFrames, lastDownTime. Click
+sceneType 2 with traversal msgType 1 emits 4400; click msgType 2 emits 4401
+only for at least three skipped frames. The intelligent-scheduling branch
+retains these click mappings. Slide paths select other commands. The other
+4401 occurrence in AppSdkConfigReader is configuration mapping, not a second
+demonstrated runtime trigger. This is installed-code attribution, not a new
+capture of every stage or an identification of the preceding single request
+as uniquely 4400 rather than 4401.
+
+Read-only IAwareCMSService getConfig requests use transaction 6, checked
+independently against installed IAwareCMSManager and the service stub. The
+existing root caller can retrieve these getters with SELinux Enforcing;
+no UID or policy change is needed. AwareConfig/Item/SubItem and the
+framework's AwareReadParcel serializers are inspected before decoding the
+five replies. Its size-checked wrappers use writeParcelableList/writeMap;
+the decoder consumes each complete reply, including exception/presence,
+class names, string16 fields and map value tags, rather than interpreting
+the service-call ASCII annotations as configuration.
+
+The returned configuration and corresponding plugin reader establish:
+
+- AppInnerBoost/BoostParams: clickReportDuration 1000 ms, clickReportTimes 3,
+  slideReportDuration 5000 ms and slideReportTimes 16. The current four
+  properties agree with these values.
+- AppInnerBoost/subSwitch and SocIntelligentSchedual/subSwitch both return
+  1; appboost.switch and hw.enableIntelligentScheduling are currently true.
+- AppInnerBoost/sceneParams sets slot 1 to 10 for application types 8/18 and
+  to 3 for type 36. o.b.j builds [slide duration, slide count, click duration,
+  click count], initially -1. These records add slide-count limits only;
+  their click duration/count slots remain unlimited.
+- SocIntelligentSchedual/sceneParams supplies the application-type set for
+  selecting the intelligent slide branch, not another click interval gate.
+
+For non-jitter reports, o.b.k checks the package's application-type table
+against uptimeMillis-lastDownTime and reportCount; -1 means unlimited and
+no matching table allows the report. Jitter skips this particular table
+check but still has the framework window/count/interval and skipped-frame
+requirements. The current slide-only table does not explain the missing
+second click request, and no per-tap deduplication is inferred from it.
+Native SDK code also has callback-controlled flow state; its current
+per-report state is not sampled or assumed to be the cause.
+
+HwAppInnerBoostImpl.onDown resets the scene/counts only after at least
+2000 ms. A click still needs subsequent eligible traversal or jitter within
+the 1000 ms window. Traversal and jitter maintain separate timestamps and
+counts, with each same-channel report spaced by at least 250 ms. This equals
+the configured nominal click boost duration; timer rounding and IPC timing
+mean it is not proof that renewal is impossible. Separate report channels
+can also overlap in principle. None of those facts guarantees another
+eligible traversal, three skipped frames or an ioctl before the old timer
+callback during harmless blank-lockscreen taps.
+
+No additional arbitrary input or forced jitter is used to chase that
+condition. A future bounded renewal observation needs an explicitly allowed
+ordinary foreground scene and two fully paired requests from the real
+uniperf RTG descriptor. It must show the second activation before the old
+expiry, timer rearming, no old cleanup clearing the renewed floor, and final
+expiry/cleanup. Two successful calls after separate expiries do not establish
+renewal; a normal overlap pass alone would not close stale-notification
+expiry/restart stress.
+
+No new kernel defect or real renewal is established here. Consumer routing
+and the queried configuration are now attributed; intended-caller renewal,
+stale-timeout/restart stress, positive global queue lifecycle, multi-group/
+AUX/configured boost-thread coverage, direct END_FREQ restoration on r48
+and complete frame/performance/power acceptance remain open. Boot ID/#48,
+SELinux Enforcing, taint 4, forced signatures and the modem-only module
+baseline are unchanged. The display stays Asleep, keyguard remains showing
+and unoccluded, and brightness mode, screen timeout and existing tracers are
+not changed. Consumed task-owned bytecode, library copies, configuration
+replies and diagnostics are removed after durable recording; original
+backups, accepted r17 and r44-r48 pairs remain, with r47 as the immediate
+paired rollback and r46 also retained. Workspace stays below 20 GB.
