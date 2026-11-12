@@ -506,3 +506,55 @@ settings and existing tracers unchanged. Only consumed task diagnostics are
 removed after recording, originals/rollback pairs remain below 20 GB, and
 the existing global queue/full frame/ABI/manual/hardware/source limits stay
 open.
+
+The user then authorizes normal passwordless unlock and direct use of the
+proposed stock foreground scene. On the same #48/boot, one normal upward
+unlock gesture precedes Settings -> Display Settings, a short observation,
+Back/Home and Sleep. Actual foreground/screenshot identify Display Settings;
+no control, policy, property or performance request is written. No rebuild,
+flash, reboot or repetition of accepted boot/mutex/END_FREQ tests occurs.
+
+Three mono-clock instances select all current uniperf service threads, its
+raw ioctl pairs and timer starts/cancels, existing boost/frame counters with
+instance stacks, and callback expiry events. Five complete real 0xc014ab64
+requests on the verified production descriptor return 0. Each records the
+same on_timer_timeout timer, duration 163 jiffies at HZ=250 and util 684.
+Exact now/expires fields prove renewal before pending deadlines: the
+three-request opening episode extends them by 37 then 81 jiffies; the
+two-request return episode adds 11 jiffies. No superseded deadline fires.
+Final callbacks occur about 659/651 ms after the respective last arms, at
+deadline+2/deadline jiffies. These observed timings are not performance or
+exact-latency certification.
+
+The first episode keeps floor 684 in the default and two allocated frame
+groups until the final callback, then clears all three through
+frame_thread_func. The second keeps and clears the default and still-active
+launcher group. Its Settings group is controller-cleared/released before
+expiry and has no worker floor-zero event; active-only lookup explains the
+coverage boundary, not successful stored-floor cleanup. Release/reallocation
+needs a separate audit. Ordinary overlapping renewal and retained-active
+group floor cleanup pass; stale queued timeout/restart stress, the shorter
+retained-deadline branch, released-group reuse, AUX and configured boost
+threads do not pass by implication.
+
+All three buffers are loss-free on all twelve CPUs and known boost pairs are
+complete. Two outstanding Binder entries and two unknown-command boundary
+exits are not boost outcomes. Snapshot-bounded kernel logs retain the full
+unlock/scene/restoration window without actual WARN/fatal/CFI records.
+Thirteen non-uniperf AVCs occur in that broader interval, including nine
+within the scene/restoration interval: qemu-property reads and an AOD/motion
+Binder denial. Background default-property and logserver capability denials
+also remain recorded. No uniperf RTG denial or policy relaxation occurs;
+this is not an AVC-free or whole-hardware pass.
+
+Boot/security and original main/wifi settings, filters/triggers and stopped
+states match. Task instances are removed, original home foreground and
+Asleep/keyguard showing=true/occluded=false are restored. Automatic mode and
+30000 ms timeout stay unchanged; dynamic brightness reads 26 -> 27 and is
+not overwritten. No new source defect or additional device scene follows
+this scoped pass. Consumed task diagnostics are removed after documentation;
+originals/accepted/r44-r48 pairs and r47/r46 rollback remain below 20 GB.
+Stale-notification restart, shorter-request retention, released-group reuse,
+positive global queue, AUX/configured boost threads, complete frame/power and
+existing ABI/manual/hardware/source prerequisites remain open. Whole-device
+acceptance remains incomplete.

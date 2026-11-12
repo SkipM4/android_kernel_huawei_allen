@@ -377,6 +377,23 @@ does not pass renewal. One non-writing stock Settings/Display foreground
 observation is proposed, pending user manual unlock and explicit scene
 confirmation; no input or trace preparation occurs while waiting. No new
 kernel defect or renewal pass is claimed. See `docs/clang12-rtg-source-audit.md`.
+The user's subsequent passwordless-unlock/foreground authorization permits
+one stock Settings/Display-and-return observation on unchanged #48. Five
+complete real uniperf boost ioctls return 0; the same timer is actually rearmed
+before expiry, extending pending deadlines by 37/81/11 jiffies. The first
+episode keeps util 684 in the default and two allocated frame groups across
+the old deadlines until final expiry, then the worker clears all three. The
+second clears the default and still-active group; its Settings group is
+released before expiry, so release/reuse cleanup is not certified. All three
+buffers are loss-free and no actual kernel fault occurs. Other-domain
+property/capability/AOD AVCs are recorded, not hidden or fixed by relaxing
+SELinux. The device returns to its original home foreground, Asleep and
+keyguard showing; automatic mode/timeout and security/tracers are preserved,
+but automatic brightness naturally reads 26 -> 27 and is not overwritten.
+No kernel change, rebuild, flash or repeated scene follows this scoped
+ordinary-renewal pass. Stale-notification/restart stress, shorter-request
+retention, release/reuse, AUX/configured boost threads, positive global queue
+and full frame/power acceptance remain open.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

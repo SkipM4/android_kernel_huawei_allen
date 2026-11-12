@@ -1881,3 +1881,114 @@ paired rollback and r46 retained. Workspace stays below 20 GB. Renewal,
 stale-notification restart, positive global queue, multi-group/AUX/configured
 boost threads, full frame/power and existing ABI/manual/hardware/source
 boundaries remain open.
+
+### r48 Stock Foreground Overlap And Real Timer Renewal
+
+The user subsequently confirms that the device has no screen password and
+authorizes direct normal operation for the proposed non-writing foreground
+scene. The same installed #48 kernel and boot are verified; there is no
+kernel/source/configuration change, rebuild, reboot, flash, test module,
+priority reset, injected UniPerf/RTG request or security-policy relaxation.
+The prior single-expiry, direct END_FREQ and private/native mutex passes are
+retained, not rerun.
+
+Normal wake and a visually checked upward swipe dismiss the passwordless
+keyguard. One bounded sequence opens the stock Settings activity, waits
+250 ms and opens Display Settings with their resolved standard intents.
+The captured foreground and screenshot confirm Display Settings. No setting
+control is touched; Back and Home restore the original launcher foreground,
+followed by Sleep. This is ordinary unlocked activity navigation, not a
+credential bypass, lock disable or arbitrary repeated input used to force
+boost overlap.
+
+The production iawareperf service remains in u:r:uniperf:s0, using its own
+/proc/<pid>/rtg descriptor and loaded libperfgenius_wrapper.so. All its current
+threads are resolved before capture and unchanged afterward. Three separate
+mono-clock instances record that service's raw ioctl entry/exit and timer
+start/cancel events, existing boost/frame counters with instance-owned stacks,
+and timer_expire_entry. Pointer restriction prevents using kallsyms addresses
+as filters; expiry events are therefore selected by the actual callback
+symbol and the same opaque timer token recorded at each start, not by a
+guessed address or globally changed kptr setting. No user request buffer is
+read. Event filters and clock/options are read back before the scene.
+
+Five complete 0xc014ab64 requests through the verified descriptor return 0.
+Each contains a timer_start for on_timer_timeout, with 163-jiffy duration at
+HZ=250 and boost floor 684. This agrees with the installed 650 ms window
+actions but does not uniquely distinguish their UniPerf command IDs or
+reconstruct user-buffer arguments. The exact timer now/expires fields and
+cancel/restart events prove three renewals, rather than treating successful
+requests or enable counters as sufficient:
+
+- The page-opening episode contains three requests. The second starts about
+  148 ms after the first, with 126 jiffies still before the old deadline, and
+  extends that deadline by 37 jiffies (148 ms). The third starts about 321 ms
+  later, with 82 jiffies remaining, extending the next deadline by 81 jiffies
+  (324 ms).
+- No callback or worker floor-zero event occurs at either superseded
+  deadline. The default group and both allocated frame groups retain floor
+  684 until the final callback; all three then record zero through
+  set_frame_min_util/frame_thread_func. The callback arrives about 659 ms
+  after the last arm, two jiffies beyond its deadline.
+- Returning through Back/Home produces a second episode with two requests.
+  Their arm interval is about 44 ms; 152 jiffies remain before the first
+  deadline, which is extended by 11 jiffies (44 ms). Only the final deadline
+  expires, about 651 ms after the last arm, at its recorded expiry jiffy.
+  The default and still-active launcher group retain 684 and are cleared by
+  the worker after that callback.
+
+Activation stacks pass through start_boost_timer/the RTG ioctl, callback
+stacks through on_timer_timeout/call_timer_fn/__run_timers, and zero-floor
+stacks through frame_thread_func. The observed group IDs are runtime
+allocations, not new platform constants. Timer timing under these diagnostic
+options is not an exact-latency, frame-pacing or power guarantee.
+
+The Settings group in the second episode is controller-cleared and released
+before timer expiry, as shown by its clear_rtg_frame_thread stack. It has no
+worker floor-zero event at that expiry. rtg_frame_info only exposes active
+multi-frame allocations to the timer worker, so its absence must not be
+labelled a successful clear or automatically treated as proof of a leak.
+Stored-floor behavior across release/reallocation remains a separate source
+and runtime audit. This observation passes ordinary renewal plus active-group
+floor continuity/cleanup in the first episode and the two retained groups in
+the second, not all multi-group release/reuse lifetimes, AUX or configured
+boost threads. There is no shorter request taking the retained-later-deadline
+branch and no queued stale notification/restart stress interleaving; those
+remain unverified.
+
+All three buffers have zero overruns, commit overruns and dropped events on
+all twelve CPUs, with matching entries-written/buffer counts. All five known
+boost entry/exit pairs are complete. Two outstanding entries are identified
+Binder 0xc0306201, not boost requests. Two entry-less exits have unknown
+commands and are excluded from known ioctl outcome counts.
+
+Kernel log snapshots retain the complete unlock/scene/restoration interval;
+snapshot boundaries, not raw comparison of dmesg timestamps with mono trace
+time, define the log window. No actual kernel WARNING, BUG, Oops, panic or
+CFI failure occurs. The broader interval contains thirteen non-uniperf AVC
+records: storage_info/default_prop read, hal_hyperhold_default/default_prop
+read, logserver dac_read_search/dac_override, system_app/qemu_hw_prop read
+and platform_app/AOD -> hal_motion_default Binder call. Nine occur in the
+snapshot-bounded scene/restoration interval: eight qemu-property reads and
+one AOD Binder denial. No uniperf RTG denial appears. These remain separate
+policy/property/hardware boundaries; this run is not described as AVC-free
+and SELinux remains Enforcing.
+
+Boot ID/#48, taint 4, forced module signatures and loaded-module baseline
+match exactly. CFI/PRMEM stay configured. Original main/wifi tracer settings,
+enabled-event filters/triggers, instance list and stopped states match their
+baselines; all three task instances are removed. The device returns to its
+original home foreground, Asleep, keyguard showing=true/occluded=false.
+Automatic brightness mode and 30000 ms timeout match, while the automatic
+brightness value naturally changes 26 -> 27. No settings write is made and
+the dynamic value is not forcibly restored.
+
+No new kernel defect is established and no additional scene follows the
+ordinary-renewal pass. Only documentation is committed; consumed task-owned
+screenshots, scripts, traces and logs are removed after durable recording.
+Original/accepted/r44-r48 pairs remain, r47 is immediate paired rollback and
+r46 remains available, with the workspace below 20 GB. Stale-notification
+restart, shorter-request retention, released-group reuse, AUX/configured
+boost threads, positive global queue, full frame/power, native PI/legacy/
+opaque assembly/32-bit and existing manual/hardware/source prerequisites
+remain open. Whole bring-up acceptance is incomplete.
