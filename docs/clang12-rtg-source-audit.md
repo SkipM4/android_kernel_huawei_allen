@@ -1535,3 +1535,100 @@ images/module and consumed task-owned diagnostic scripts, probe artifacts,
 complete logs/traces, layout dumps and disassembly are removed after durable
 recording. Useful prior build/layout metadata is retained separately. Workspace
 remains below 20 GB; whole bring-up acceptance is not complete.
+
+### r48 Stock Global Boost Caller And Single-Expiry Verification
+
+This follow-up keeps the installed #48 kernel, configuration, matching module
+and independent Magisk ramdisk unchanged. No rebuild, flash, direct global
+boost request, queue takeover, system-priority write or protection change is
+performed. The remaining question is real intended-caller timer behavior,
+not another startup or private-mutex regression.
+
+The stock vendor.huawei.hardware.iawareperf@1.0-service runs in
+u:r:uniperf:s0 and holds its own /proc/<pid>/rtg descriptor. Its exact loaded
+libperfgenius_wrapper.so copy contains
+HisiPerfAdapter::SetRtgSchedBoost(int, int), which constructs 0xc014ab64 and
+calls ioctl. DoAction and DoRtgSchedAction select the RTG min-util tag 900
+with a positive duration before reaching that function. This fills the
+caller gap left by the earlier scoped system_server/SystemUI library audit;
+those ordinary frame libraries do not establish global boost inactivity.
+
+The exact installed SELinux policy is decoded in MLS mode using libsepol/
+checkpolicy from the original ALN source archive. It grants uniperf self:file
+the file permissions and extended ioctl permission 0xab64. The kernel retains
+its existing open/enable/argument gates: boost duration must be 1..5000 ms
+and min-util 1..1024. No policy relaxation is necessary or applied, and this
+finding does not grant arbitrary applications global-boost access.
+
+The hardware-product uniperf_config_cust.xml and its runtime cached copy
+match. Eight of its 83 commands have isRtg actions: window-switch variants
+4098/13200/44098 specify 650 ms/util 684; click variants
+4400/13204/44400/4401/44401 specify 250 ms/util 600. screen_on 4102 has no RTG
+action. These are installed production configuration facts, not injected
+scenarios or evidence that every configured action has run.
+
+Two independent trace instances select the service's raw ioctl syscalls and
+existing boost/frame counters. Stack recording uses each instance's own
+option, not a global stack trigger. Three ordinary taps target visually
+confirmed blank lockscreen wallpaper in one bounded wake/tap/sleep sequence;
+no notification, setting, camera shortcut, swipe or unlock is used. A short
+sleep tail covers expiry. The one fully recorded RTG request uses the
+service's own descriptor, command 0xc014ab64 and return 0. No user request
+buffer is read.
+
+The native request records the observed default group enabling, boost floor
+600 and g_frame_timer arming for 63 jiffies. Running HZ=250 makes that count
+consistent with the configured 250 ms click action, but it does not uniquely
+identify 4400 versus 4401 or reconstruct the request buffer. About 273 ms
+after arming, the real timer callback records zero; frame_sched then clears
+that group's boost floor and disables it. The instance stacks separate the
+three actual paths:
+
+- Activation runs through start_rtg_boost/start_boost_timer and the RTG ioctl.
+- Expiry runs through on_timer_timeout/call_timer_fn/__run_timers in softirq.
+- Cleanup runs through set_frame_min_util and set_frame_sched_state from
+  frame_thread_func, not an application's END_FREQ.
+
+The observed default group ID is not made into a platform constant. This
+proves intended-domain single activation/expiry and the observed floor/group
+cleanup, not positive multi-group, AUX or configured boost-thread coverage.
+The coarse timer callback timing under stack tracing is not a frame-pacing,
+power or exact-expiry-latency certification. Ordinary frame-group activity
+also appears around sleep, but this capture lacks the selected UI/RenderThread
+ioctl/priority evidence needed to close direct END_FREQ restoration on r48.
+
+Both trace buffers have zero overruns, commit overruns or dropped events.
+The recorded boost entry/exit pair is complete. Two outstanding entries are
+blocking Binder ioctls, not RTG requests. Two entry-less exits at observation
+boundaries cannot identify their command and are excluded from success
+counts; they are not relabelled as known Binder or failed boost calls.
+The full successful window is retained in the captured kernel log and has
+no actual WARN, BUG, Oops, panic, CFI failure or AVC denial. Boot ID/#48,
+SELinux Enforcing, taint 4, forced module signatures and the loaded-module
+baseline remain unchanged. CFI/PRMEM stay configured. Brightness mode,
+screen-timeout setting and keyguard state match before/after; the display
+returns to Asleep and the original main/wifi tracer settings and instance
+list are restored. No diagnostic instance remains.
+
+The later two taps produce no second observed global request, so this window
+does not test renewal. Read-only inspection of the loaded hwEmui framework
+shows HwAppInnerBoostImpl limits click scene reset to at least 2000 ms and
+uses separate 250 ms traversal/jitter report intervals. Its current click
+window/count properties are 1000 ms/three reports; reporting also requires
+eligible traversal or jitter rather than simply another input event. The
+report routes through IAwareSdk event 3033. The examined inputflinger touch
+boost function uses different event IDs, so its timestamp gate is not
+claimed as the explanation for the missing RTG request. The exact native
+click-policy consumer and a safe overlapping real scenario remain to be
+established. Repeated arbitrary taps or direct UniPerf/global requests are
+not substituted for that evidence.
+
+Intended-caller single boost expiry now passes on unchanged r48. Renewal,
+expiry/restart/stale-notification stress, positive global queue lifecycle,
+multi-group/AUX/configured-thread coverage, r48 direct END_FREQ restoration
+and complete frame/performance/power acceptance remain open, alongside the
+existing native PI/legacy, opaque assembly, 32-bit and hardware/source limits.
+No new source defect is established by this audit. Task-owned copied policy,
+tools, binaries/DEX, screenshots, complete logs/traces and scripts are removed
+after durable recording. The installed r48 and retained r47/r46 rollback
+pairs plus original backups remain unchanged; workspace stays below 20 GB.

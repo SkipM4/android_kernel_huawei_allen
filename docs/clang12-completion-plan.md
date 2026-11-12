@@ -23,7 +23,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r48 Installed; Mutex Lifecycle/Native Clear Pass; Direct END_FREQ on r48/Timeout/Global Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r48 Installed; Mutex/Native Clear/Boost Expiry Pass; Direct END_FREQ on r48/Renewal/Global Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -384,4 +384,36 @@ module and consumed task-owned probes, logs/traces and build diagnostics are
 removed after recording useful metadata. Workspace remains below 20 GB.
 
 Permitted boost expiry/renewal, positive global lifecycle, complete frame/power
-acceptance and manual/hardware/source prerequisites stay open.
+acceptance and manual/hardware/source prerequisites stay open at that checkpoint.
+
+The unchanged-r48 boost follow-up identifies the actual permitted production
+caller: vendor.huawei.hardware.iawareperf@1.0-service in u:r:uniperf:s0, with
+its own /proc/<pid>/rtg descriptor and loaded libperfgenius_wrapper.so.
+HisiPerfAdapter::SetRtgSchedBoost constructs 0xc014ab64; the installed MLS
+policy grants uniperf self:file ioctl 0xab64. This complements, rather than
+invalidates, the earlier scoped SystemUI/system_server library inspection.
+No permission change or direct global request is needed.
+
+The hardware-product uniperf configuration matches the runtime cached copy.
+RTG window-switch actions specify 650 ms/util 684 and click actions 250 ms/
+util 600; screen_on has no RTG action. A bounded ordinary blank-lockscreen
+tap window records one complete real boost ioctl returning 0, default-group
+floor 600 and a 63-jiffy timer at running HZ=250. Instance stacks attribute
+activation to start_boost_timer, expiry to on_timer_timeout in the timer
+softirq and floor/group cleanup to frame_thread_func. The observed callback
+arrives about 273 ms after arming; this is not an exact-latency guarantee.
+Both trace buffers are loss-free, full-window logs have no actual kernel
+fault or AVC denial, and boot/security/settings/keyguard/display plus the
+original main/wifi tracers are preserved. No rebuild or flash is performed.
+
+Only one global request is observed. Loaded framework code limits click
+scene reset to at least 2 seconds and traversal/jitter reporting to 250 ms
+intervals, with the current click window/count set to 1000 ms/three reports.
+This is not a complete attribution of the native click-policy consumer, nor
+proof that another tap must renew the timer. Arbitrary repeated input is not
+used to force overlap. Intended-caller single activation/expiry passes;
+renewal/stale-timeout restart stress, multi-group/AUX/configured boost-thread
+coverage and positive global queue lifecycle remain open. The existing r48
+direct END_FREQ, full frame/power and manual/hardware/source boundaries stay
+open. Matching r48 and rollback pairs are unchanged; task-owned diagnostics
+are removed after durable recording and the workspace stays below 20 GB.

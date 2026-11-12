@@ -326,7 +326,24 @@ restores taint 4. SELinux Enforcing, forced signatures, CFI, PRMEM and independe
 ramdisk remain. No actual kernel WARN/fatal record occurs in the scoped logs;
 two unrelated logserver capability AVCs are classified, not called a zero-AVC
 private window. Boost expiry/renewal, positive global lifecycle and full frame/
-performance/power acceptance remain open. See `docs/clang12-rtg-source-audit.md`.
+performance/power acceptance remain open at that checkpoint.
+A source-unchanged r48 follow-up locates the real global boost caller in the
+stock iawareperf service's uniperf domain. Its loaded libperfgenius_wrapper
+issues 0xc014ab64 through HisiPerfAdapter::SetRtgSchedBoost; the installed
+SELinux policy already permits that command on its own RTG file. Ordinary
+blank-lockscreen taps yield one fully paired request returning 0, boost floor
+600 and a 63-jiffy timer at HZ=250. The real timer callback fires about 273 ms
+after arming, then frame_sched clears the observed default-group floor and
+disables that group. Loss-free instance stacks distinguish activation, timer
+expiry and worker cleanup; this is production single-expiry evidence, not a
+synthetic request or a direct END_FREQ restoration test.
+No second global request is observed, so renewal/stale-timeout restart stress
+remains open. Framework click reports have scene-reset, interval and count
+limits; repeated taps are not renewal evidence. Multi-group/AUX/configured
+boost-thread coverage, positive global queue lifecycle and full frame/power
+acceptance also remain open. No kernel rebuild, flash or permission/settings
+change occurs; boot/security/keyguard/display and existing tracers are
+preserved. See `docs/clang12-rtg-source-audit.md`.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see
