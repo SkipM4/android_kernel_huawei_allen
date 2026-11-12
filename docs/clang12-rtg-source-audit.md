@@ -1260,3 +1260,101 @@ and the latest r43/r44/r45/r46/r47 pairs remain; superseded r42 images are
 removed with useful metadata retained. Consumed task-owned traces, complete
 logs, disassembly/IR and diagnostic scripts are removed. Workspace remains
 below 20 GB and whole bring-up acceptance is not complete.
+
+### r47 Mutex VIP Cancellation And Fast-Unlock Audit
+
+This follow-up leaves the kernel at 3576bf358 and installed #47. The mutex
+extensions and VIP interface are unchanged since the official ALN HarmonyOS
+4.2 Linux 5.10.43 import (881d03c79), not introduced by the frame-stop repair.
+Comparison with the Linux stable v5.10.43 kernel/locking/mutex.c shows that
+the upstream waiter-removal and fast-unlock mechanics remain, while the OEM
+tree adds legacy HWCFS/QoS and SCHED_VIP_PI donations. The upstream code is a
+generic-SoC reference only; no external implementation is adopted in this audit.
+
+The active source and r47 ELF contain the following cleanup gap:
+
+- __mutex_remove_waiter clears MUTEX_FLAGS when the last waiter leaves,
+  including the OEM owner-boost bit as well as the upstream waiter flags.
+- The owner can then complete __mutex_unlock_fast without visiting cleanup.
+  Merely preserving the owner-boost bit is insufficient: slow unlock also
+  returns before donation cleanup when its saved owner has no WAITERS bit.
+- The SCHED_VIP_PI request records only the owner's VIP_BOOST_MUTEX slot;
+  it does not associate that slot with the particular mutex. Its clear is
+  at the end of slow unlock, after waiter wakeup.
+- request_vip_boost explicitly says that nested request/clear operations
+  for the same task and type are unsupported; the first clear removes all
+  requests of that type. Multiple held mutexes are valid kernel usage, so an
+  unconditional clear on every unlock or cancellation is not a safe repair.
+
+A bounded root-owned userspace observation uses a newly opened /dev/uhid
+file without creating a HID device. Each run has only its own owner/waiter
+tasks, descriptor and anonymous userfaultfd page. Holding that private page
+copy establishes the file's private devlock ownership before the waiter is
+started. The only write is the UHID_OPEN type word, which this write handler
+rejects with EOPNOTSUPP; there is no CREATE, report or input event. The waiter
+sets only its own normal VIP level to 10. The owner stays at normal VIP zero.
+Polls are bounded and both workers exit with the private file released.
+
+One normal-release control and one last-waiter cancellation complete:
+
+- In the control the owner starts at priority 120, receives a successful
+  type-2 level-10 request and runs at 89. Resolving the private copy lets it
+  unlock; the type-2 clear returns zero, priority restores to 120 and later
+  scheduled-in samples confirm 120. Both inert writes return EOPNOTSUPP.
+- In the cancellation case the owner again starts at 120 and receives the
+  same successful request. The last waiter is interrupted and its write
+  returns EINTR. The owner subsequently finishes its copy, unlocks and its
+  inert write returns EOPNOTSUPP, but priority stays at 89 with normal VIP
+  still zero. Later scheduled-in samples also show 89. No type-2 clear or
+  owner restoration event appears before the worker exits.
+
+The independent trace instance records two mutex requests and only the
+control's clear, all returning zero. Request stacks pass through __mutex_lock,
+mutex_lock_interruptible and uhid_char_write; the control's clear passes
+through __mutex_unlock_slowpath. No other VIP type or native PI transition
+targets these owners. ARM64 get_wchan intentionally skips __sched frames,
+so the blocking caller is uhid_char_write rather than a mutex symbol.
+All overrun, commit-overrun and dropped-event counters are zero. Thus the
+post-unlock 89 is an observed mutex vote leak, not a proc-display-only inference
+or another instance of the already repaired frame-stop/member-clear race.
+
+The complete successful capture window has no actual kernel WARNING, BUG,
+Oops, panic, CFI failure or AVC denial. Boot ID and #47 remain unchanged;
+SELinux stays Enforcing, signature enforcement Y and taint 4. The display
+stays Asleep, the main tracer and existing wifi instance are untouched, and
+unprivileged_userfaultfd remains zero. No protection change, system-thread
+priority write, frame ioctl, global boost/queue operation or flash is used.
+Task-owned workers, uploaded executable, trace instance, logs and generated
+header/disassembly/probe files are removed after recording these conclusions.
+
+Only the diagnostic executable is compiled. An attempted full headers_install
+is rejected by pre-existing OEM CONFIG leaks, including XENGINE, GPIO function
+keys and Binder options. The probe instead uses the required successfully
+sanitized generic/ARM64 UAPI headers and the exact UHID event enum. Export
+validation is not disabled, CONFIG branches are not suppressed and unrelated
+source is not changed. This portability issue is separate from a kernel build
+failure and remains outside the mutex repair scope.
+
+The recommended repair scope is to identify each mutex donation and aggregate
+the effective priority of still-active mutex donations for its owner, updating
+cancellation, acquisition/handoff and unlock under the corresponding lifetime
+and lock rules. Repeated waiter requests must not become unmatched reference
+counts. A lock flag alone cannot identify another mutex's vote, and a single
+count cannot recompute the maximum when different donation levels depart.
+Other VIP types, normal VIP and native PI must keep their existing ownership.
+
+This is a substantive scope increase and is not implemented before user
+confirmation. ANDROID_VENDOR_DATA, ANDROID_OEM_DATA and ANDROID_KABI_RESERVE
+macros in this tree expand to nothing, so their apparent reserve declarations
+cannot hold new bookkeeping without a layout change. Any new mutex/task state
+requires initialization/fork and lock-order review plus complete export/CRC,
+module layout/CFI and matching-module checks before a candidate installation.
+No ABI-neutral storage or unchanged module CRC is assumed. This experiment
+does not hold two simultaneously donated locks; that source-contract risk
+remains a required independent regression for the chosen repair.
+
+The mutex cancellation defect remains reproduced and unfixed. r47 and the r46
+paired rollback are retained; no new kernel candidate or image is produced.
+The already passed frame-stop test is not repeated. Intended boost expiry/
+renewal, positive global lifecycle and full performance/power/hardware acceptance
+remain open, with the workspace still below 20 GB.

@@ -22,7 +22,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r47 Installed; Native Frame/Stop-Clear Race Bounded Pass; VIP Lock-Vote/Timeout/Global Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r47 Installed; Stop-Clear Pass; Mutex Cancel Leak Reproduced/Unfixed; Timeout/Global Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -319,7 +319,33 @@ are restored and task-owned diagnostics are removed after recording results.
 
 r46 is the immediate rollback, with the latest r43/r44/r45/r46/r47 pairs and
 accepted r17/original backups retained. Expired r42 images are removed while
-their useful metadata remains. The next smallest audit is the independent
-mutex VIP cancellation/fast-unlock lifetime; no blanket priority reset is
-added. Permitted boost expiry/renewal, positive global lifecycle, complete
-frame/power acceptance and manual/hardware/source prerequisites stay open.
+their useful metadata remains. The independent mutex cancellation audit now
+confirms a separate defect on unchanged r47. A bounded root-owned probe uses
+only a fresh, uncreated UHID file, private tasks and a private anonymous page;
+it creates no HID device or input event and changes no system thread. With
+an active VIP waiter, the owner changes 120 -> 89 -> 120 on normal release.
+After the last waiter is cancelled and returns EINTR, the owner's inert write
+returns EOPNOTSUPP after unlocking, but its priority remains 89 and it runs
+at that priority. Its normal VIP setting remains zero. The control has a
+successful type-2 request/clear pair; cancellation has a successful request
+with no clear. Stacks identify the mutex/UHID route and the trace buffers are
+loss-free. No actual kernel WARN/fatal record or AVC denial occurs in the
+complete successful window; boot/security/display/tracer state is unchanged
+and all private tasks/files are released.
+
+The active VIP interface explicitly does not support nested requests of one
+type, so a flag-only change or unconditional clear cannot preserve donations
+from another held mutex. The proposed next scope is per-lock donation identity
+and priority with task-level aggregation, including cancellation and ownership
+transfer. This is not implemented pending user confirmation: OEM/vendor/KABI
+reserve macros in this tree expand to nothing, so added state can change
+mutex/task layout and module ABI. Initialization/fork, lock order, matching
+modules and multi-lock lifecycle regression must be checked before installation.
+The multi-lock case is a source-contract risk, not a runtime pass from this
+single-lock experiment. No blanket priority reset or new kernel build/flash
+is performed. An attempted full UAPI export also exposes pre-existing OEM
+CONFIG leaks; only the required sanitized header subset is used for the probe,
+without relaxing the export checks or changing unrelated source.
+
+Permitted boost expiry/renewal, positive global lifecycle, complete frame/power
+acceptance and manual/hardware/source prerequisites stay open.

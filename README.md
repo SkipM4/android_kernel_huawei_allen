@@ -297,6 +297,14 @@ stop race in the bounded native test, not all VIP/PI or frame-power behavior.
 Permitted boost expiry/renewal, global-queue lifecycle and full performance/
 power acceptance remain open; no unknown queue or global boost is injected.
 See `docs/clang12-rtg-source-audit.md` for the measured scope and next audit.
+The separate r47 mutex audit now reproduces a cancellation cleanup defect:
+a private lock's normal release restores priority 120, but after its last
+VIP waiter returns EINTR the owner unlocks and still runs at priority 89.
+Loss-free stacks attribute the remaining type-2 vote to that mutex, not RTG.
+The kernel remains unchanged at r47. A safe fix must distinguish donations
+from different locks; this tree's OEM/KABI reserve macros allocate no storage,
+so per-lock/task accounting needs explicit scope and module-ABI review before
+implementation. The reproduced leak remains open; no blanket reset is added.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see
