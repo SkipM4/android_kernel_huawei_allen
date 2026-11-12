@@ -164,6 +164,10 @@ void dynamic_prio_fork(struct task_struct *child)
 void dynamic_prio_init(struct task_struct *p)
 {
 	spin_lock_init(&p->dyn_prio.lock);
+#ifdef CONFIG_SCHED_VIP_PI
+	memset(p->mutex_vip_count, 0, sizeof(p->mutex_vip_count));
+	p->mutex_vip_prio = 0;
+#endif
 	dynamic_prio_clear(p);
 }
 

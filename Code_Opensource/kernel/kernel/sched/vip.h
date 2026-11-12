@@ -20,7 +20,6 @@
 #define __SCHED_VIP_H
 
 #ifdef CONFIG_RT_PRIO_EXTEND_VIP
-#define VIP_PRIO_WIDTH 10
 void spare_vip_width(struct task_struct *p, int policy, struct sched_attr *attr);
 unsigned int rt_priority_userspace(struct task_struct *p);
 #endif

@@ -1358,3 +1358,76 @@ paired rollback are retained; no new kernel candidate or image is produced.
 The already passed frame-stop test is not repeated. Intended boost expiry/
 renewal, positive global lifecycle and full performance/power/hardware acceptance
 remain open, with the workspace still below 20 GB.
+
+### r48 Mutex-Scoped VIP Contributions
+
+The user approves resource-specific donation accounting and its required ABI
+review. The repair applies only to SCHED_VIP_PI mutex donations; it does not
+replace the generic VIP engine or broadly rewrite legacy HWCFS/QoS handling.
+
+Each mutex waiter records the VIP level currently contributed to its owner.
+The owner's per-level counts aggregate all its held mutexes, with a cached
+maximum. Updating a lock's waiter contributions and applying the aggregate
+MUTEX vote use the same dyn_prio.lock critical section, beneath wait_lock.
+Repeated wake/retry requests update a contribution rather than accumulating
+unmatched requests. Removing a high-level donation lowers directly to the
+remaining maximum instead of clearing and re-requesting the whole type.
+The existing normal VIP and other-type maximum are retained. Higher real RT
+and the existing long-running RT downgrade guard still prevent an uplift.
+
+An atomic private owner flag makes unlock retain the owner until wait_lock
+can serialize donation updates/removal. If ownership was already released,
+the updater does not dereference that former task. Waiter removal excludes
+the departing waiter before list deletion or last-waiter flag clearing.
+Unlock withdraws this lock's contributions before publishing release or
+handoff, and handoff refreshes remaining contributions for the new owner
+without self-donation. Acquisition refreshes also cover trylock and optimistic
+success. Old slow unlocks that released ownership early must not clear a
+new owner's donation flag; cleanup checks the locally saved retained-owner
+state as well as the live flag. Uncontended lock/unlock fast CAS paths remain.
+
+Task/fork initialization zeros the counts and cache. Ordinary scheduler-policy
+override clears the applied dynamic slots but not contributions of still-held
+locks; existing policy-change/wakeup vote checks can reapply that valid mutex
+aggregate. The legacy HWCFS owner decoder now uses mutex_owner, avoiding a
+duplicated mask that would misinterpret the new owner flag. The VIP width
+definition moves to sched/prio.h under its existing feature dependency.
+No ioctl layout, caller permission, allocation/fallback layer or global lock
+is added. Existing native PI and the other VIP interfaces are not rewritten
+or certified wholesale by this change.
+
+The active C layouts and final ELF show mutex unchanged at 56 bytes with all
+member offsets intact. Mutex waiter grows from 32 to 40 bytes; its new level
+is at offset 32. Task size remains 4,672 bytes, but the new state consumes
+previous tail padding: counts are at 3,488 and the cached maximum at 3,528.
+The thread member moves from 3,488 to 3,536; all preceding existing named
+member offsets are unchanged. Thread size itself remains 1,136 bytes and the
+generated ARM64 context offset is updated. Thus unchanged task size is not
+an ABI-neutrality claim.
+
+Twenty original generated assembly units still carry their older task DWARF
+definition; they are not fresh C compilations merely because no prebuilt .o
+inputs exist. The scoped incremental review finds no new mutex-waiter or
+shifted task-tail dependency in those instruction bodies. Reviewed current
+accesses use unchanged thread-info/address-limit/flags fields; apparent tail
+range constants are allocation flags, page sizes or error bounds rather than
+newly shifted task members. This is not a blanket opaque OEM assembly ABI
+certification, and the inherited older metadata is not silently rewritten.
+
+The full Android Clang 12/ThinLTO/enforcing-CFI build produces #48 with the
+same configuration and signing material. The 13,821 export names are
+unchanged, but 8,948 CRCs change, including module_layout. Both new modules
+match their imports: modem 390 and the uninstalled dummy artifact two.
+Final instructions confirm aggregate updates and owner-retention cleanup,
+and __sched_fork calls the initializer that zeros all new contribution state.
+The matching boot round-trip and signed modem PKCS#7/certificate/ext4/label
+checks pass. Mixing the r47 modules with this candidate is prohibited.
+
+A temporary genuine out-of-tree private-lock probe builds against these same
+headers and has 49 matching imports. It is locally signed, not marked intree;
+loading it will add the genuine out-of-tree taint and requires unloading and
+a subsequent reboot to restore the taint-4 baseline. Cancellation, multiple
+locks, ownership handoff, other-source preservation and real frame-stop
+regression are still required before a runtime acceptance claim. At this
+build checkpoint the device remains #47, its paired rollback readback and
+independent ramdisk baseline match, and r47/r46 rollback images are retained.

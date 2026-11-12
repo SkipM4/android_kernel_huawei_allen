@@ -89,6 +89,9 @@ struct mutex_waiter {
 #ifdef CONFIG_DEBUG_MUTEXES
 	void			*magic;
 #endif
+#ifdef CONFIG_SCHED_VIP_PI
+	unsigned int		vip_prio;
+#endif
 };
 
 #ifdef CONFIG_DEBUG_MUTEXES

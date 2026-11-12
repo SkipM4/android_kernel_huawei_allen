@@ -1877,6 +1877,11 @@ struct task_struct {
 	u64				ftoken;
 #endif
 
+#ifdef CONFIG_SCHED_VIP_PI
+	unsigned int			mutex_vip_count[VIP_PRIO_WIDTH];
+	unsigned int			mutex_vip_prio;
+#endif
+
 	/*
 	 * New fields for task_struct should be added above here, so that
 	 * they are included in the randomized portion of task_struct.
@@ -2833,6 +2838,8 @@ void request_vip_boost(struct task_struct *p, unsigned int vip_prio,
 void clear_vip_boost(struct task_struct *p, unsigned int type);
 void set_vip_boost(struct task_struct *p, unsigned int vip_prio,
 			unsigned int type);
+bool sched_set_mutex_vip(struct task_struct *p, struct mutex *lock,
+			 struct mutex_waiter *exclude, bool donate);
 #endif
 
 #ifdef CONFIG_RT_ENERGY_EFFICIENT_SUPPORT

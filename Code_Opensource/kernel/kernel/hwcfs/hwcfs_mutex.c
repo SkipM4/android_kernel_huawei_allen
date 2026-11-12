@@ -25,7 +25,6 @@
 #include <chipset_common/hwcfs/hwcfs_common.h>
 
 #define MUTEX_FLAG_OWNER_BOOST  0x08
-#define MUTEX_FLAGS	0x0f
 
 static bool is_mutex_owner_boost(struct mutex *lock)
 {
@@ -81,11 +80,6 @@ void mutex_list_add(struct task_struct *task,
 		list_add_tail(entry, head);
 }
 
-static inline struct task_struct *hwcfs_mutex_owner(struct mutex *lock)
-{
-	return (struct task_struct *)(atomic_long_read(&lock->owner) & ~MUTEX_FLAGS);
-}
-
 void mutex_dynamic_vip_enqueue(struct mutex *lock, struct task_struct *task)
 {
 	bool is_vip = false;
@@ -96,7 +90,7 @@ void mutex_dynamic_vip_enqueue(struct mutex *lock, struct task_struct *task)
 
 	is_vip = test_set_dynamic_vip(task);
 #if KERNEL_VERSION(4, 14, 0) <= LINUX_VERSION_CODE
-	owner = hwcfs_mutex_owner(lock);
+	owner = mutex_owner(lock);
 #else
 	owner = lock->owner;
 #endif

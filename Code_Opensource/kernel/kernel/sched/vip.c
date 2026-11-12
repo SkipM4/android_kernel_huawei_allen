@@ -386,6 +386,92 @@ void set_wanted_vip_prio(struct task_struct *p, unsigned int wanted_vip_prio,
 	request_vip_boost(p, wanted_vip_prio, type);
 }
 
+/* p->dyn_prio.lock serializes the aggregate and its applied vote. */
+static void update_mutex_vip_prio(struct task_struct *p)
+{
+	unsigned int old = p->dyn_prio.vip_boost[VIP_BOOST_MUTEX];
+	unsigned int wanted = p->mutex_vip_prio;
+	unsigned int max_boost, new_prio;
+	int ret = 0;
+
+	if (wanted == old)
+		return;
+
+	if (wanted > old) {
+		if (p->rt_priority > VIP_PRIO_WIDTH ||
+		    (p->dyn_prio.dyn_switched_flag & LONG_RT_DOWNGRADE))
+			return;
+		ret = backup_sched_attr(p);
+		if (ret)
+			goto out;
+	}
+
+	p->dyn_prio.vip_boost[VIP_BOOST_MUTEX] = wanted;
+	max_boost = get_max_vip_boost(p);
+	if (max_boost) {
+		p->dyn_prio.dyn_switched_flag |= VIP_BOOSTED;
+		if (!p->dyn_prio.normal_vip_prio)
+			set_vip_flags(p);
+	} else {
+		p->dyn_prio.dyn_switched_flag &= ~VIP_BOOSTED;
+		if (!p->dyn_prio.normal_vip_prio)
+			clear_vip_flags(p);
+	}
+
+	new_prio = max(max_boost, p->dyn_prio.normal_vip_prio);
+	if (new_prio != task_vip_prio(p))
+		ret = restore_sched_attr(p);
+out:
+	trace_perf(vip_boost, wanted > old ? '+' : '-', p,
+		   VIP_BOOST_MUTEX, wanted, ret);
+}
+
+/* The mutex owner remains pinned by its owner flag while wait_lock is held. */
+bool sched_set_mutex_vip(struct task_struct *p, struct mutex *lock,
+			 struct mutex_waiter *exclude, bool donate)
+{
+	struct mutex_waiter *waiter;
+	unsigned long flags;
+	unsigned int prio;
+	bool active = false;
+
+	lockdep_assert_held(&lock->wait_lock);
+	spin_lock_irqsave(&p->dyn_prio.lock, flags);
+	list_for_each_entry(waiter, &lock->wait_list, list) {
+		unsigned int old = waiter->vip_prio;
+		unsigned int wanted = donate && waiter != exclude &&
+			waiter->task != p ? task_vip_prio(waiter->task) : 0;
+
+		active |= wanted != 0;
+		if (old == wanted)
+			continue;
+		if (old)
+			p->mutex_vip_count[old - 1]--;
+		if (wanted)
+			p->mutex_vip_count[wanted - 1]++;
+		waiter->vip_prio = wanted;
+	}
+	for (prio = VIP_PRIO_WIDTH; prio; prio--)
+		if (p->mutex_vip_count[prio - 1])
+			break;
+	p->mutex_vip_prio = prio;
+	update_mutex_vip_prio(p);
+	spin_unlock_irqrestore(&p->dyn_prio.lock, flags);
+	return active;
+}
+
+static void check_mutex_vip_vote(struct task_struct *p)
+{
+	unsigned long flags;
+
+	if (!READ_ONCE(p->mutex_vip_prio))
+		return;
+
+	spin_lock_irqsave(&p->dyn_prio.lock, flags);
+	update_mutex_vip_prio(p);
+	spin_unlock_irqrestore(&p->dyn_prio.lock, flags);
+}
+
 static const char * const specific_threads[] = {
 	"servicemanager",
 	"hwservicemanage",
@@ -423,6 +509,7 @@ void set_specific_threads_vip_prio(struct task_struct *p)
 
 void check_and_set_vip_vote(struct task_struct *p)
 {
+	check_mutex_vip_vote(p);
 #ifdef CONFIG_SCHED_VIP_CGROUP
 	set_cgroup_vip_prio(p);
 #endif

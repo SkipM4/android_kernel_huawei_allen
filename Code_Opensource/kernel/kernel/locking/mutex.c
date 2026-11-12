@@ -69,6 +69,7 @@ EXPORT_SYMBOL(__mutex_init);
  * Bit1 indicates unlock needs to hand the lock to the top-waiter
  * Bit2 indicates handoff has been done and we're waiting for pickup.
  * Bit3 indicates mutex owner has been boosted.
+ * Bit4 pins the owner until its mutex VIP donations are updated or removed.
  */
 #define MUTEX_FLAG_WAITERS	0x01
 #define MUTEX_FLAG_HANDOFF	0x02
@@ -76,10 +77,16 @@ EXPORT_SYMBOL(__mutex_init);
 
 #ifdef CONFIG_HW_VIP_THREAD
 #define MUTEX_FLAG_OWNER_BOOST  0x08
-#define MUTEX_FLAGS		0x0f
 #else
-#define MUTEX_FLAGS		0x07
+#define MUTEX_FLAG_OWNER_BOOST  0
 #endif
+
+#ifdef CONFIG_SCHED_VIP_PI
+#define MUTEX_FLAG_VIP		0x10
+#else
+#define MUTEX_FLAG_VIP		0
+#endif
+#define MUTEX_FLAGS		(0x07 | MUTEX_FLAG_OWNER_BOOST | MUTEX_FLAG_VIP)
 
 /*
  * Internal helper function; C doesn't allow us to hide it :/
@@ -217,6 +224,44 @@ static inline void __mutex_clear_flag(struct mutex *lock, unsigned long flag)
 	atomic_long_andnot(flag, &lock->owner);
 }
 
+#ifdef CONFIG_SCHED_VIP_PI
+static void mutex_update_vip(struct mutex *lock, struct mutex_waiter *exclude)
+{
+	struct mutex_waiter *waiter;
+	struct task_struct *task;
+	unsigned long owner;
+
+	list_for_each_entry(waiter, &lock->wait_list, list)
+		if (waiter->vip_prio ||
+		    (waiter != exclude && task_vip_prio(waiter->task)))
+			goto update;
+	return;
+update:
+	/* This atomic flag makes unlock retain the owner until it gets wait_lock. */
+	owner = atomic_long_fetch_or(MUTEX_FLAG_VIP, &lock->owner);
+	task = __owner_task(owner);
+	if (!task) {
+		__mutex_clear_flag(lock, MUTEX_FLAG_VIP);
+		return;
+	}
+	if (!sched_set_mutex_vip(task, lock, exclude, true))
+		__mutex_clear_flag(lock, MUTEX_FLAG_VIP);
+}
+
+static void mutex_vip_lock_acquired(struct mutex *lock)
+{
+	if (!(atomic_long_read(&lock->owner) & MUTEX_FLAG_WAITERS))
+		return;
+	spin_lock(&lock->wait_lock);
+	mutex_update_vip(lock, NULL);
+	spin_unlock(&lock->wait_lock);
+}
+#else
+static inline void mutex_update_vip(struct mutex *lock,
+				    struct mutex_waiter *exclude) {}
+static inline void mutex_vip_lock_acquired(struct mutex *lock) {}
+#endif
+
 static inline bool __mutex_waiter_is_first(struct mutex *lock, struct mutex_waiter *waiter)
 {
 	return list_first_entry(&lock->wait_list, struct mutex_waiter, list) == waiter;
@@ -247,6 +292,7 @@ __mutex_add_waiter(struct mutex *lock, struct mutex_waiter *waiter,
 static void
 __mutex_remove_waiter(struct mutex *lock, struct mutex_waiter *waiter)
 {
+	mutex_update_vip(lock, waiter);
 	list_del(&waiter->list);
 	if (likely(list_empty(&lock->wait_list)))
 		__mutex_clear_flag(lock, MUTEX_FLAGS);
@@ -1001,6 +1047,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
 	    mutex_optimistic_spin(lock, ww_ctx, NULL)) {
 		/* got the lock, yay! */
 		lock_acquired(&lock->dep_map, ip);
+		mutex_vip_lock_acquired(lock);
 		if (ww_ctx)
 			ww_mutex_set_context_fastpath(ww, ww_ctx);
 		preempt_enable();
@@ -1015,10 +1062,14 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
 		if (ww_ctx)
 			__ww_mutex_check_waiters(lock, ww_ctx);
 
+		mutex_update_vip(lock, NULL);
 		goto skip_wait;
 	}
 
 	debug_mutex_lock_common(lock, &waiter);
+#ifdef CONFIG_SCHED_VIP_PI
+	waiter.vip_prio = 0;
+#endif
 
 	lock_contended(&lock->dep_map, ip);
 
@@ -1079,10 +1130,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
 		dynamic_qos_enqueue(__mutex_owner(lock),
 			current, DYNAMIC_QOS_MUTEX);
 #endif
-#ifdef CONFIG_SCHED_VIP_PI
-		request_vip_boost(__mutex_owner(lock),
-			task_vip_prio(current), VIP_BOOST_MUTEX);
-#endif
+		mutex_update_vip(lock, NULL);
 
 		spin_unlock(&lock->wait_lock);
 		schedule_preempt_disabled();
@@ -1286,8 +1334,8 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
 	 * Release the lock before (potentially) taking the spinlock such that
 	 * other contenders can get on with things ASAP.
 	 *
-	 * Except when HANDOFF, in that case we must not clear the owner field,
-	 * but instead set it to the top waiter.
+	 * HANDOFF or active VIP donations retain the owner until wait_lock is
+	 * held, so donation removal cannot race ownership transfer or task exit.
 	 */
 	owner = atomic_long_read(&lock->owner);
 	for (;;) {
@@ -1298,7 +1346,7 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
 		DEBUG_LOCKS_WARN_ON(owner & MUTEX_FLAG_PICKUP);
 #endif
 
-		if (owner & MUTEX_FLAG_HANDOFF)
+		if (owner & (MUTEX_FLAG_HANDOFF | MUTEX_FLAG_VIP))
 			break;
 
 		old = atomic_long_cmpxchg_release(&lock->owner, owner,
@@ -1316,6 +1364,15 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
 	spin_lock(&lock->wait_lock);
 	debug_mutex_unlock(lock);
 
+#ifdef CONFIG_SCHED_VIP_PI
+	/* An early release may already have a new owner with its own donations. */
+	if ((owner & (MUTEX_FLAG_HANDOFF | MUTEX_FLAG_VIP)) &&
+	    (atomic_long_read(&lock->owner) & MUTEX_FLAG_VIP)) {
+		sched_set_mutex_vip(current, lock, NULL, false);
+		__mutex_clear_flag(lock, MUTEX_FLAG_VIP);
+	}
+#endif
+
 #ifdef CONFIG_HW_VIP_THREAD
 	clear_mutex_boost_tag(lock);
 #endif
@@ -1332,22 +1389,26 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
 		wake_q_add(&wake_q, next);
 	}
 
-	if (owner & MUTEX_FLAG_HANDOFF)
+	if (owner & MUTEX_FLAG_HANDOFF) {
 		__mutex_handoff(lock, next);
+		mutex_update_vip(lock, NULL);
+	} else if (owner & MUTEX_FLAG_VIP) {
+		__mutex_handoff(lock, NULL);
+	}
 
 	trace_android_vh_mutex_unlock_slowpath(lock);
 	spin_unlock(&lock->wait_lock);
 
 	wake_up_q(&wake_q);
 
+	if (!(owner & (MUTEX_FLAG_WAITERS | MUTEX_FLAG_HANDOFF)))
+		return;
+
 #ifdef CONFIG_HW_QOS_THREAD
 	dynamic_qos_dequeue(current, DYNAMIC_QOS_MUTEX);
 #endif
 #ifdef CONFIG_HW_VIP_THREAD
 	dynamic_vip_dequeue(current, DYNAMIC_VIP_MUTEX);
-#endif
-#ifdef CONFIG_SCHED_VIP_PI
-	clear_vip_boost(current, VIP_BOOST_MUTEX);
 #endif
 }
 
@@ -1487,8 +1548,10 @@ int __sched mutex_trylock(struct mutex *lock)
 #endif
 
 	locked = __mutex_trylock(lock);
-	if (locked)
+	if (locked) {
 		mutex_acquire(&lock->dep_map, 0, 1, _RET_IP_);
+		mutex_vip_lock_acquired(lock);
+	}
 
 	return locked;
 }
