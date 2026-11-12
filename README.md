@@ -367,7 +367,16 @@ and display/settings/keyguard/security plus existing tracers are restored.
 No rebuild, flash, reboot or additional test follows the pass. Renewal/
 stale-timeout restart, positive global queue, multi-group/AUX/configured boost
 threads, full frame/power and existing ABI/manual/hardware/source boundaries
-remain open. See `docs/clang12-rtg-source-audit.md`.
+remain open.
+A read-only follow-up attributes the longer 650 ms window-switch routes and
+the KeyBoost-gated key path. Current custom/base CMS configuration has no
+KeyBoost item; it is not enabled for testing. SystemUI's numeric 4098 sites
+are input-source IDs, not window-boost evidence. A shorter overlapping request
+may retain the existing later deadline, so a second successful ioctl alone
+does not pass renewal. One non-writing stock Settings/Display foreground
+observation is proposed, pending user manual unlock and explicit scene
+confirmation; no input or trace preparation occurs while waiting. No new
+kernel defect or renewal pass is claimed. See `docs/clang12-rtg-source-audit.md`.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

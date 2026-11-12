@@ -476,3 +476,33 @@ Renewal/stale-notification restart, positive global queue lifecycle,
 multi-group/AUX/configured boost threads, full frame pacing/power,
 native PI/legacy/opaque assembly/32-bit integration and existing manual/
 hardware/source prerequisites remain open; whole bring-up is not complete.
+
+The next read-only follow-up narrows renewal eligibility rather than running
+another blind lockscreen test. Window-switch RTG actions last 650 ms, click
+actions 250 ms. start_boost_timer retains a pending later deadline before
+floor update/mod_timer, although start_rtg_boost has already run. Thus a
+second successful request or enable event is not necessarily timer renewal.
+The acceptance evidence must distinguish a retained deadline from actual
+rearming and show floor continuity plus final expiry/cleanup.
+
+Installed service bytecode attributes window-switch routes to activity/
+package/screen and on-demand/Handler gates. The numeric 4098 SystemUI sites
+are MotionEvent touchscreen-source IDs, not window boost calls; no reliable
+non-writing lockscreen-panel 650 ms route is established. The separate key
+route reaches ContinuePowerDevMng message 3/UniPerf 13200 only after the
+AppQuickStartFeature KeyBoost gate. Its inspected default is false and
+configuration parser requires a KeyBoost item with Switch=1. Verified CMS
+custom/base getters (13/6) return the same two ContinuePowerDev items without
+KeyBoost. These are current configuration/installed-contract facts, not a
+sample of the running Java static field. No switch is changed for testing.
+
+Stock Settings/Display activities are resolved read-only as a candidate
+foreground scene. User manual unlock and explicit permission for one
+non-writing short page-switch observation are requested before any such
+operation; capture/input preparation waits for that answer. The candidate
+does not guarantee actual request overlap, and renewal/stale-notification
+restart remain unverified. The device stays #48/Asleep/locked with security,
+settings and existing tracers unchanged. Only consumed task diagnostics are
+removed after recording, originals/rollback pairs remain below 20 GB, and
+the existing global queue/full frame/ABI/manual/hardware/source limits stay
+open.

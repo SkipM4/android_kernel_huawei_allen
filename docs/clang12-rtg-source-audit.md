@@ -1811,3 +1811,73 @@ and manual/hardware/source prerequisites remain open. Consumed task-owned
 diagnostics are removed after durable recording; original backups, accepted
 r17 and r44-r48 pairs remain, with r47 immediate paired rollback and r46 also
 retained. Workspace stays below 20 GB; whole bring-up acceptance is incomplete.
+
+### r48 Window-Event Renewal Eligibility And KeyBoost Gate
+
+This follow-up remains read-only on the same installed #48 kernel and boot.
+The preceding direct awake-idle END_FREQ and single boost-expiry passes are
+retained, not repeated. No input, unlock, activity start, trace instance,
+kernel/source/configuration change or injected performance request occurs.
+
+The current uniperf configuration still assigns RTG 650 ms/util 684 to
+window-switch commands 4098/13200/44098 and 250 ms/util 600 to click commands.
+Reading the actual start_boost_timer branch adds a necessary interpretation:
+a pending timer whose existing deadline is later than jiffies plus the new
+duration is retained. That request returns before changing boost floors or
+calling mod_timer. It calls start_rtg_boost before the deadline comparison,
+so seeing an enable event or even a second successful ioctl is not by itself
+renewal evidence. A later/equal deadline reaches floor update and mod_timer;
+acceptance requires observing actual rearming and final cleanup.
+
+Installed hwServices/hwPartIawareService bytecode identifies genuine window
+routes through HwActivityStarterEx/HwIawareEffectiveUtils and
+CpuFeatureAmsCommunicator, with screen/activity/package eligibility and
+on-demand/Handler gates. Multi-window operations also emit 4098. These are
+not safely replaced by invoking UniPerf directly or assuming that any panel
+animation must be a window-switch event. The inspected SystemUI APK's two
+numeric 4098 matches are MotionEvent touchscreen-source handling, not UniPerf
+commands. Its directly observed UniPerf site is the separately guarded emoji
+wallpaper action 13290. No reliable lockscreen-panel 650 ms route is established
+by this bounded inspection; shared framework/native routes are not globally
+excluded.
+
+There is also an installed key route: HwPhoneWindowManager.reportMonitorData
+forwards to ContinuePowerDevMng.keyDownEvent, whose feature-enabled path queues
+Handler message 3 and emits 13200. The method name alone does not establish
+that every key activates it. AppQuickStartFeature.isKeyBoostEnable reads
+sKeyBoostEnable, initialized false; its inspected configuration parser enables
+it only for type KeyBoost with Switch equal to 1. Factory inspection confirms
+the real ContinuePowerDevMng implementation rather than treating the default
+empty base method as the production implementation.
+
+The loader first asks IAwareCMSService for the custom AppQuickStart/
+ContinuePowerDev configuration, falling back to the base getter only for a
+null custom result. Existing read-only transactions 13 and 6 are verified
+against installed IAwareCMSManager. Both current replies contain the same
+two items, PreloadApplication and PreloadExcludePkg, with no KeyBoost item.
+The complete replies are decoded using installed AwareConfig serializers and
+AwareReadParcel wrappers, including exception/presence, class names, lists,
+string16 and map tags. This establishes the current returned configuration
+and disabled-by-default contract, not a sample of a running Java static field
+or an exhaustive claim about historical configuration. The switch is not
+enabled for testing, and no blind key/tap/panel sequence is run.
+
+The installed package resolver identifies the stock Settings and Display
+activities as a non-writing foreground candidate. A bounded observation is
+proposed only after the user manually unlocks and explicitly allows those
+pages; this is an external prerequisite, not authorization inferred from a
+general request to continue. No option-dependent capture/input preparation
+occurs while that answer is pending. Even an allowed scene must produce two
+complete real uniperf RTG pairs, actual overlapping timer rearming, preserved
+floor across the old deadline and final expiry/cleanup before renewal can
+pass. A normal overlap result alone cannot certify stale-notification/restart
+stress.
+
+No new kernel defect or real renewal is established. Existing #48/security/
+keyguard/display/settings and original main/wifi tracers stay unchanged;
+consumed task-owned copies, bytecode and getter replies are removed after
+durable recording. Original/accepted/r44-r48 pairs remain, with r47 immediate
+paired rollback and r46 retained. Workspace stays below 20 GB. Renewal,
+stale-notification restart, positive global queue, multi-group/AUX/configured
+boost threads, full frame/power and existing ABI/manual/hardware/source
+boundaries remain open.
