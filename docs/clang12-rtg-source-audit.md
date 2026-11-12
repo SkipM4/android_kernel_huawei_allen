@@ -1431,3 +1431,107 @@ locks, ownership handoff, other-source preservation and real frame-stop
 regression are still required before a runtime acceptance claim. At this
 build checkpoint the device remains #47, its paired rollback readback and
 independent ramdisk baseline match, and r47/r46 rollback images are retained.
+
+The matching r48 boot/modem_driver pair is subsequently installed after the
+supported serial/model/unlock and real partition checks. Both flashes succeed,
+exact image-length readbacks match and the full independent Magisk ramdisk
+remains unchanged. Normal Android starts on #48 with the matching modem loaded,
+SELinux Enforcing, signature enforcement Y and taint 4. Enforcing CFI and PRMEM
+remain configured. The successful startup log has no actual kernel WARN, BUG,
+Oops, panic or CFI failure; substrings in ramoops/usb-debug notices are not
+classified as exception records. The retained r47 pair is the immediate
+rollback and must be restored together, not with an r48 module.
+
+The locally signed, genuine out-of-tree probe owns only private locks and
+three worker kthreads. Root changes normal VIP only on its own named workers,
+not system threads. Nine bounded scenarios provide 36 actual scheduled-in
+priority checkpoints, with independent trace buffers showing zero overruns,
+commit overruns or dropped events:
+
+- Last-waiter cancellation changes the owner 120 -> 89 -> 120 before unlock;
+  subsequent uncontended unlock and scheduled-in observations stay at 120.
+- Different held mutexes contribute levels 10 and 3. High cancellation or
+  release lowers directly to 96 while the low donation remains; the last
+  withdrawal restores 120. Cancelling the low donor preserves high priority 89.
+- Two different levels on one mutex recompute the remaining maximum. Repeated
+  wake/retry operations do not accumulate unmatched contributions.
+- A non-VIP first waiter requests the actual HANDOFF bit. The old owner clears
+  its donation before release, and the remaining level-10 waiter boosts the new
+  owner to 89. Cancellation restores the new owner to 120 while it still holds
+  the mutex, and its later uncontended unlock remains at 120.
+- Normal VIP level 4 survives mutex cancellation/unlock at 95. An independent
+  rwsem level-3 donation survives mutex cancellation at 96, then restores 120
+  when that rwsem is released.
+- Real RT priority 30 runs at internal 59 and mutex donors do not override it.
+  A NORMAL policy reset reapplies still-valid mutex contributions; subsequent
+  high/last cancellation lowers to 96/120 rather than losing or leaking votes.
+
+All private cases pass without actual kernel faults or diagnostic-related AVCs.
+Two background daily_control capability denials belong to u:r:logserver:s0,
+not the module/worker path; this is not a claim of no AVCs in the entire private
+window. Module unload removes its workers and proc node; its upload and trace
+instance are removed and the original main/wifi tracing settings are restored.
+The genuine load changes taint 4 to 4100. A required cleanup reboot, not a
+redundant startup test, restores taint 4 on #48 with only modem_driver loaded.
+The cleanup boot has no actual kernel faults and restores the Asleep display
+and original brightness mode without weakening security controls.
+
+After that reboot, two bounded ordinary lock-screen wake/sleep windows select
+SystemUI/UI/RenderThread and the control thread by owning process. No unlock,
+brightness/policy write, direct frame ioctl, global queue takeover or injected
+production boost is used. Each window has four seconds awake and an 18-second
+sleep tail. The second only supplements the still-unobserved direct END_FREQ
+path, narrowing syscall selection to the three already identified callers;
+it does not repeat the passed private-lock cases.
+
+The windows record seven and four successful BEGIN_FRAME_FREQ/END_FRAME_FREQ
+timestamp pairs. Both allocations return the group ID, which is a valid
+positive SET_RTG_THREAD result rather than an error. In each window the
+controller first assigns frame VIP 10, then clears the members successfully.
+Four NORMAL policy restoration events run inside those clear ioctls, with
+stacks through update_frame_thread and clear_rtg_frame_thread. In the first
+window both change 89 -> 110; in the second UI changes 89 -> 120 and RenderThread
+89 -> 116. The group-disable counters and clear returns follow restoration.
+Later actual scheduled-in samples remain ordinary: UI 110/120 and RenderThread
+116, not 89. A zero group counter alone is not used as restoration evidence.
+
+The first window's late END_FRAME_FREQ and END_FREQ return FRAME_ERR_PID (-100)
+after the controller has already removed membership. The second has a late
+BEGIN_FRAME_FREQ with the same valid rejection and no END_FREQ. Source lookup
+rejects these now nonmember callers; no buffer data is read to infer arguments.
+Thus this is a controller-first cleanup pass, not a newly observed direct
+END_FREQ=0 restoration pass on r48. The r47 direct-path evidence remains a
+historical result and is not relabelled. Further repeated screen cycles or
+injected calls are not used merely to force a particular ordering.
+
+The narrowed window also captures two real level-10 GPU-work-server donations
+to RenderThread. Each new sched_set_mutex_vip/update_mutex_vip_prio request
+returns zero through hvgr_ioctl_mem, with priority 110 -> 89; the unlock route
+through hvgr_mem_allocate withdraws the contribution, returns zero and restores
+110. This confirms production use of the new mutex code, not just the probe.
+The GPU worker's independent normal VIP level is 10, explaining its own 89
+samples; it is not incorrectly treated as the cleared frame member or reset.
+
+All six native buffers are loss-free, including 1,039 fully paired selected
+ioctls in the narrow window. The broader window's unmatched boundary calls
+do not involve the selected controller/UI/RenderThread; its outstanding entries
+are blocking non-RTG ioctls, not missing selected frame requests. Full-window
+kernel logs retain the interval and have no actual fault or AVC denial.
+Boot ID/#48, taint 4, security, settings and pre-existing main/wifi tracer
+configuration stay unchanged. Both sets of diagnostic instances are removed and
+the display returns to Asleep.
+
+The reproduced mutex cancellation leak and tested differing-level ownership
+lifecycles have bounded private and native passes on r48. This does not certify
+all native PI/legacy shared-vote behavior, original opaque assembly ABI, 32-bit
+production integration, direct END_FREQ restoration on r48, frame pacing,
+performance or power. Intended boost expiry/renewal, positive global queue
+lifecycle and the existing network/peripheral/manual/source prerequisites
+remain open. No unrelated subsystem or protection change is introduced.
+
+Original backups, accepted r17 and the latest r44/r45/r46/r47/r48 pairs remain;
+r47 is immediate rollback and r46 also remains available. Superseded r43
+images/module and consumed task-owned diagnostic scripts, probe artifacts,
+complete logs/traces, layout dumps and disassembly are removed after durable
+recording. Useful prior build/layout metadata is retained separately. Workspace
+remains below 20 GB; whole bring-up acceptance is not complete.

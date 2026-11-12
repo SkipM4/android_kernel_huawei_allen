@@ -28,13 +28,13 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is r47. A separate normalized vote-scale
+validation. The installed device is r48. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r47: r21 retains full early logs,
+The current installed test candidate is r48: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -49,8 +49,9 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r43/r44/r45/r46/r47 pairs are retained;
-r46 is the immediate r47 rollback. Original boot/ramdisk/modem backups remain intact.
+test limits. Accepted r17 and the latest r44/r45/r46/r47/r48 pairs are retained;
+r47 is the immediate r48 rollback, with r46 also preserved. Original
+boot/ramdisk/modem backups remain intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
 Local PCM/DSP, DT, firmware, calibration and independent Magisk ramdisk remain
@@ -297,14 +298,35 @@ stop race in the bounded native test, not all VIP/PI or frame-power behavior.
 Permitted boost expiry/renewal, global-queue lifecycle and full performance/
 power acceptance remain open; no unknown queue or global boost is injected.
 See `docs/clang12-rtg-source-audit.md` for the measured scope and next audit.
-The separate r47 mutex audit now reproduces a cancellation cleanup defect:
+The separate r47 mutex audit reproduces a cancellation cleanup defect:
 a private lock's normal release restores priority 120, but after its last
 VIP waiter returns EINTR the owner unlocks and still runs at priority 89.
 Loss-free stacks attribute the remaining type-2 vote to that mutex, not RTG.
-The kernel remains unchanged at r47. A safe fix must distinguish donations
-from different locks; this tree's OEM/KABI reserve macros allocate no storage,
-so per-lock/task accounting needs explicit scope and module-ABI review before
-implementation. The reproduced leak remains open; no blanket reset is added.
+r48 implements the user-approved waiter-level donation identity and owner
+per-level aggregation. Cancellation withdraws before last-waiter flag removal;
+unlock/handoff withdraw only that lock's contributions while retaining owner
+lifetime. Other locks, normal VIP and independent VIP types keep their votes;
+uncontended fast paths remain. Nine private scenarios and 36 actual scheduled-in
+checks pass, including cancellation, differing levels, handoff, ordinary VIP,
+rwsem coexistence and a higher real RT/policy-reset case. This closes the
+reproduced mutex leak within that tested scope, not all native PI/legacy votes.
+The full #48 build and matching signed boot/modem pair pass installation and
+readback. Mutex layout is unchanged, but waiter layout and the task thread
+offset change; 8,948 export CRCs change, including module_layout. Old modules
+must not be mixed with r48. The scoped review of 20 original generated assembly
+units is not blanket opaque-assembly ABI certification.
+Two real native frame windows record 11 successful begin/end timestamp pairs;
+controller cleanup restores both members from VIP 89 before returning, with
+ordinary scheduled-in priorities afterward. Two production GPU-to-RenderThread
+mutex donations also request/withdraw successfully through the new code.
+The controller clears first, so a later END_FREQ returns FRAME_ERR_PID (-100);
+direct END_FREQ=0 is not re-observed on r48 and the r47 result is not relabelled.
+The genuine temporary out-of-tree probe is unloaded and a cleanup reboot
+restores taint 4. SELinux Enforcing, forced signatures, CFI, PRMEM and independent
+ramdisk remain. No actual kernel WARN/fatal record occurs in the scoped logs;
+two unrelated logserver capability AVCs are classified, not called a zero-AVC
+private window. Boost expiry/renewal, positive global lifecycle and full frame/
+performance/power acceptance remain open. See `docs/clang12-rtg-source-audit.md`.
 Two source-inherited unconnected MUX diagnostics remain. Audible fidelity,
 individual microphone mapping, hardware capture timing, calls/sidetone and
 active-audio/long-duration deep suspend are not certified; see

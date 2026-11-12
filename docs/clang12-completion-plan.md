@@ -3,10 +3,11 @@
 ## Acceptance Rule
 
 User requests stepwise repair and validation until all required work is
-complete. Baseline is installed r47 from bringup/clang12 at 3576bf358; immediate
-paired rollback is r46. Each kernel iteration stays isolated, with matching
-boot/modem_driver validation, unchanged independent ramdisk unless separately
-required, retained security controls and accurate functional scope.
+complete. Baseline is installed r48 from bringup/clang12 at 5dffb0337; immediate
+paired rollback is r47, with r46 also retained. Each kernel iteration stays
+isolated, with matching boot/modem_driver validation, unchanged independent
+ramdisk unless separately required, retained security controls and accurate
+functional scope.
 
 An item is complete only after its real acceptance condition passes. Source
 availability, missing peers/SIMs and manual checks are external prerequisites,
@@ -22,7 +23,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | Needs Unlocked Foreground UI |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r47 Installed; Stop-Clear Pass; Mutex Cancel Leak Reproduced/Unfixed; Timeout/Global Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r48 Installed; Mutex Lifecycle/Native Clear Pass; Direct END_FREQ on r48/Timeout/Global Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -317,12 +318,12 @@ kernel WARN, BUG, Oops, panic or CFI failure. No redundant second startup or
 repeat of passed frame tests is used. Display/keyguard/settings/tracer state
 are restored and task-owned diagnostics are removed after recording results.
 
-r46 is the immediate rollback, with the latest r43/r44/r45/r46/r47 pairs and
-accepted r17/original backups retained. Expired r42 images are removed while
-their useful metadata remains. The independent mutex cancellation audit now
-confirms a separate defect on unchanged r47. A bounded root-owned probe uses
-only a fresh, uncreated UHID file, private tasks and a private anonymous page;
-it creates no HID device or input event and changes no system thread. With
+At the r47 checkpoint, r46 is the immediate rollback and r43-r47 pairs remain;
+the current r48 retention state is recorded below. Expired r42 images are
+removed while their useful metadata remains. The independent mutex audit
+confirms a separate cancellation defect on unchanged r47. A bounded root-owned
+probe uses only a fresh, uncreated UHID file, private tasks and a private
+anonymous page; it creates no HID device or input event and changes no system thread. With
 an active VIP waiter, the owner changes 120 -> 89 -> 120 on normal release.
 After the last waiter is cancelled and returns EINTR, the owner's inert write
 returns EOPNOTSUPP after unlocking, but its priority remains 89 and it runs
@@ -333,19 +334,54 @@ loss-free. No actual kernel WARN/fatal record or AVC denial occurs in the
 complete successful window; boot/security/display/tracer state is unchanged
 and all private tasks/files are released.
 
-The active VIP interface explicitly does not support nested requests of one
-type, so a flag-only change or unconditional clear cannot preserve donations
-from another held mutex. The proposed next scope is per-lock donation identity
-and priority with task-level aggregation, including cancellation and ownership
-transfer. This is not implemented pending user confirmation: OEM/vendor/KABI
-reserve macros in this tree expand to nothing, so added state can change
-mutex/task layout and module ABI. Initialization/fork, lock order, matching
-modules and multi-lock lifecycle regression must be checked before installation.
-The multi-lock case is a source-contract risk, not a runtime pass from this
-single-lock experiment. No blanket priority reset or new kernel build/flash
-is performed. An attempted full UAPI export also exposes pre-existing OEM
-CONFIG leaks; only the required sanitized header subset is used for the probe,
-without relaxing the export checks or changing unrelated source.
+The active generic VIP interface explicitly does not support nested requests
+of one type, so a flag-only change or unconditional clear cannot preserve
+donations from another held mutex. The user approves per-waiter contribution
+identity/priority with owner-level aggregation and necessary ABI review.
+OEM/vendor/KABI reserve macros allocate no storage; r48 consequently changes
+waiter layout and the task thread offset, though mutex layout and overall task
+size remain unchanged. Initialization/fork, ownership lifetime, lock order and
+20 original generated assembly units receive scoped review, not blanket opaque
+assembly certification. The full #48 build keeps the configuration/security
+and signing material; 8,948 export CRCs change, including module_layout. New
+matching modules and signed paired images pass; r47 modules must not be mixed
+with r48. Paired installation/readback and unchanged independent ramdisk pass.
+
+r48 withdraws cancellation before last-waiter flags permit fast unlock,
+withdraws only the releasing mutex's donations before ownership transfer and
+recomputes the remaining per-level maximum without clearing other lock votes.
+Existing normal VIP/other types remain and uncontended fast paths are kept.
+Nine private runtime scenarios and 36 actual scheduled-in checkpoints pass:
+single cancellation, different-lock release/cancellation at levels 10/3,
+different levels on one lock, retries, real handoff, normal VIP preservation,
+rwsem coexistence and higher real RT/policy reset. The owner returns to 120
+before unlock after its last donor cancels; a remaining low donor keeps 96.
+The genuine signed out-of-tree probe is unloaded and removed, and its necessary
+cleanup reboot restores taint 4100 -> 4 on #48 without security changes.
+
+Two bounded native lock-screen windows record 11 successful frame timestamp
+pairs. Controller cleanup restores UI/RenderThread from 89 to ordinary policy
+inside each clear ioctl and before returning; actual later samples are UI
+110/120 and RenderThread 116. The narrower window captures two production
+GPU-to-RenderThread mutex request/withdrawal pairs through the new code at
+110 -> 89 -> 110. All native buffers are loss-free, including 1,039 fully paired
+selected ioctls in that window. No actual kernel fault occurs in scoped logs.
+Two private-window daily_control/logserver capability AVCs are unrelated;
+native windows have no AVC denial. Display/settings/tracers and enforcing
+SELinux/signatures/CFI/PRMEM remain, with no system-priority or global-queue write.
+
+The controller clears first in both windows; a late END_FREQ returns -100
+because membership is already gone. Direct END_FREQ=0 is not re-observed on
+r48 and remains a frame acceptance boundary, not a mutex test failure or a
+relabelled r47 pass. Native PI/legacy shared-vote guarantees, opaque assembly
+and 32-bit production integration are not certified wholesale. An earlier
+full UAPI export also exposes pre-existing OEM CONFIG leaks; diagnostic header
+selection does not relax export checks or fix that separate portability issue.
+
+r47 is the immediate paired rollback, with r46, accepted r17 and original
+backups retained. Latest r44/r45/r46/r47/r48 pairs remain; superseded r43 images/
+module and consumed task-owned probes, logs/traces and build diagnostics are
+removed after recording useful metadata. Workspace remains below 20 GB.
 
 Permitted boost expiry/renewal, positive global lifecycle, complete frame/power
 acceptance and manual/hardware/source prerequisites stay open.
