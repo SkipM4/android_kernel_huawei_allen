@@ -1,0 +1,26 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	475312897ea6b4b9a9a56c838aec6370c42f7315	101b67abc2ccd9b62afed9d3b43b830da6ba0465	picked	tools: Allow proper CC/CXX/... override with LLVM=1 in Makefile.include	tools/scripts/Makefile.include	-
+002	6f5d7a45f58d3abe3a936de1441b8d6318f978ff	07310c895ab4a6ff5f6b1113c50c27274ebf4087	picked	io_uring: fix link timeout refs	fs/io_uring.c	-
+003	dee8119eaa9e00f0d1e14f050e1867813a49a1bb	5df026056d30646dab08b5dc799d554f90181d84	picked	KVM: x86: determine if an exception has an error code only when injecting it.	arch/x86/kvm/x86.c	-
+004	93c5951e0ce137e994237c19cd75a7caa1f80543	-	already-present	af_unix: fix garbage collect vs MSG_PEEK	net/unix/af_unix.c	Complete original patch reverse-applies; exact fixed code is already present.
+005	dcd00801f3d93bd898b697b7cfc5a5a8069648d2	f57c35583111f06c9d8655f7074c42de0c07146a	picked	workqueue: fix UAF in pwq_unbound_release_workfn()	kernel/workqueue.c	-
+006	df34f888628e961d8158dbd9712ebf04dfa4ad8c	7c5a9fe282f51caf2f74452885d6080a75c90ffb	picked	cgroup1: fix leaked context root causing sporadic NULL deref in LTP	fs/internal.h;include/linux/fs_context.h;kernel/cgroup/cgroup-v1.c	-
+007	5d93810761b4beda2341372bd9d34a78cb9b22c2	581adc6ef1e8b7e4c86f9425dcffa1a5c4553984	picked	net/802/mrp: fix memleak in mrp_request_join()	net/802/mrp.c	-
+008	92289f58f01d1a7f76c763dbdf1ae4f02ddfab75	5b443b62b5ce2211ca1abde829019b1a2f25e30c	picked	net/802/garp: fix memleak in garp_request_join()	net/802/garp.c	-
+009	915226f31fd489f9a37894caacd9b4e5f5904a26	9717bea2697327a65949a7330966e35ff1024cbf	picked	net: annotate data race around sk_ll_usec	include/net/busy_poll.h;net/core/sock.c	-
+010	4d972881f8d8e80e0320169e681284785cfe51e2	06ab83c1dd46e916041f919a8bf5a0ee79752ffe	picked	sctp: move 198 addresses from unusable to private scope	include/net/sctp/constants.h;net/sctp/protocol.c	-
+011	55ddab2bfd7035347765e62748fd1e30cb3528d6	614ce8123114e38caff1bc7c81985587ae0ca882	picked	rcu-tasks: Don't delete holdouts within trc_inspect_reader()	kernel/rcu/tasks.h	-
+012	86cb49e7314eb1ef53a4f7a015536febc889995e	ed1134188b0d4169bbcded35622ee1aac1aadd22	picked	rcu-tasks: Don't delete holdouts within trc_wait_for_one_reader()	kernel/rcu/tasks.h	-
+013	2323690eb05865a657709f4d28eb9538ea97bfc2	21815133465b4243dad3deb86a7a52158118243f	picked	ipv6: allocate enough headroom in ip6_finish_output2()	net/ipv6/ip6_output.c	-
+014	5c3d753b872a706af9317fef4edfb6b640d8a71e	d436007ccfb0de7e5d356b9fc20bd8873f6673a5	picked	drm/ttm: add a check against null pointer dereference	drivers/gpu/drm/ttm/ttm_range_manager.c	-
+015	680b2917e60ed0cf80d7d4479004844f9cddda81	91e8543d2c093ad5903d6d3c3cc7148062736bda	picked	hfs: add missing clean-up in hfs_fill_super	fs/hfs/super.c	-
+016	06b3d9923fa05f300c1d92a9259c01f7de72e670	23d349310c730e5a66b60ec61e0827ba6d93d3e4	picked	hfs: fix high memory mapping in hfs_bnode_read	fs/hfs/bnode.c	-
+017	d01328fef6afffd1bdce6e8ead707b6f5a5de7a7	b1a37e9b92bfae681c1dfc10dff6ef7931f98208	picked	hfs: add lock nesting notation to hfs_find_init	fs/hfs/bfind.c;fs/hfs/btree.h	-
+018	8f8e5475a369d5424b2cac061b47ee08ef285db0	f7f11b45b21ea7b06f9169a4dddfffc5cccd7f37	picked	firmware: arm_scmi: Fix possible scmi_linux_errmap buffer overflow	drivers/firmware/arm_scmi/driver.c	-
+019	fe5fe0b1c8b91877c3b35482fc08c35cc9586842	19b7a1e383d18bf799cee82ac3c855679be450e7	picked	firmware: arm_scmi: Fix range check for the maximum number of pending messages	drivers/firmware/arm_scmi/driver.c	-
+020	65039407489c3baddbd883acc243867c2c28f9c3	f5d656295dec61070b91b43f60772d06c611cd4d	picked	cifs: fix the out of range assignment to bit fields in parse_server_interfaces	fs/cifs/smb2ops.c	-
+021	8659186e72d0770720d052d39e4bee4a47366fd3	6274a3b8dc46b3507e52f4b9059bdca047a54ba4	picked	iomap: remove the length variable in iomap_seek_data	fs/iomap/seek.c	-
+022	3510b9b41c70e2d51a05e2c6f558b522de8ab646	095caab2bf62664843844c02113c7e002de827d3	picked	iomap: remove the length variable in iomap_seek_hole	fs/iomap/seek.c	-
+023	a74054ca75533dd9a0747b6c308daf27a6433ab4	341f4c656a978863b958867b79608ba40bb87c89	picked	ARM: dts: versatile: Fix up interrupt controller node names	arch/arm/boot/dts/versatile-ab.dts;arch/arm/boot/dts/versatile-pb.dts	-
+024	984e93b8e20731f83e453dd056f8a3931b4a66e5	dc8d9829b7b6eabb31a7b285fb002f116c5d9140	picked	ipv6: ip6_finish_output2: set sk into newly allocated nskb	net/ipv6/ip6_output.c	-
+025	11fe69a17195cf58eff523f26f90de50660d0100	3619be693282ac914fdb7e4044c8c6e554554fbf	backported	Linux 5.10.55	Makefile	Release marker only; preserve required Huawei Makefile exports and executable mode after all applicable entries are resolved.

@@ -582,3 +582,110 @@ reference/import state needed for the next batch remains below 20 GB.
 No release is exported, published or tagged. The pinned target remains
 5.10.274; subsequent ordered batches and GKI/core-vendor separation remain
 open.
+
+## Fourth Milestone: 5.10.51 Through 5.10.55
+
+The next bounded official range has 767 entries. Per-release ledgers record
+every official/local identity, outcome, path and integration reason:
+
+| Release | Official Commit | Entries | Exact | Code Adaptations | Marker | Present | Inapplicable |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 5.10.51 | `f68261346518c970aea06e6fb3eb031247340400` | 213 | 198 | 5 | 1 | 9 | 0 |
+| 5.10.52 | `2cd5fe24a7f025448f19d98c4f4c45ff79ce0784` | 240 | 229 | 1 | 1 | 9 | 0 |
+| 5.10.53 | `71046eac2db9aeccf10763d034a1a123911c9a81` | 123 | 111 | 2 | 1 | 9 | 0 |
+| 5.10.54 | `08277b9dde633e1447e96b8cb89da2b40f96ae69` | 166 | 151 | 4 | 1 | 8 | 2 |
+| 5.10.55 | `11fe69a17195cf58eff523f26f90de50660d0100` | 25 | 23 | 0 | 1 | 1 | 0 |
+
+The totals are 712 exact picks, 12 code adaptations, five release markers,
+36 already-present entries and two inapplicable entries. The final marker
+is `3619be693`. The separate early prerequisite and whitespace-only cleanup
+below end the candidate source at `2f2c2dc22de20eacf8dfe03c9551ee74975a6e3a`.
+
+### Real Context Adaptations
+
+| Area | Local Commit | Integration Decision |
+| --- | --- | --- |
+| BPF ringbuf ownership | `04a93e38a` | Add the upstream kmemleak annotation while retaining the existing VM_MAP mapping contract |
+| io_uring personalities | `756a58b3c` | Move only the io_ring_ctx structure hunk to its existing shared header; retain all original XArray behavioral changes |
+| io_uring buffers | `6975df25d` | Make the corresponding shared-header member change and retain the full XArray allocation/traversal/destruction transaction |
+| SD voltage switch | `23f2f5b9f` | Use the S18A-only test, preserving the independent retry guard and OEM diagnostic |
+| CPU hotplug/cpuset | `17555557d` | Omit only the already-present cpuset include; keep both upstream waits after hotplug unlock and skip frozen tasks |
+| Certificate ignore file | `45c3d7696` | Restore the omitted official three-line certs ignore file instead of excluding a source-tree maintenance fix |
+| THP/UFFD fork | `77344e0c8` | Update the declaration/definition/sole caller together; retain the existing pte_alloc_one(mm, addr) and maybe_mkwrite(pte, vm_flags) context APIs |
+| UDP GSO annotations | `9af38a85a` | Add all four original READ_ONCE/WRITE_ONCE accesses while retaining the independent XENGINE prelude |
+| Bonding RCU | `db10f555c` | Preserve the existing no-slave guard and add the complete upstream lock/error/success-unlock scope |
+| MMC alias ownership | `1d1412a36` | Adopt alias IDA bypass and paired release; consistently preserve the actual mshc namespace in allocation, reservation and release |
+| UFFD selftest allocation | `e16a9284b` | Use anonymous mmap/MAP_FAILED with the existing fatal err helper and balanced braces, not the older print/return flow |
+| UFFD range validation | `8596b91ae` | Retain minor-fault registration, remove pointer untagging and migrate all seven callers, including the later CONTINUE path |
+
+The two excluded patches target the absent legacy Hi6421 regulator, whose
+MFD dependency is disabled. Selected Allen platform regulators are different
+implementations; a matching vendor name does not justify transplanting old
+HiKey PMIC code. Existing SDHCI presets, F2FS cache/casefold lifetimes,
+ascending memmap initialization, XHCI lock coverage and endpoint helpers
+remain rather than being overwritten with older implementations. Both
+official swap/shmem reverts are recognized as already applied before #52.
+
+MMC integration is based on the actual retained running DT and all six
+firmware DTBs: their aliases are mshc1/mshc2, not mmc. The selected Zodiac
+probe/slot/reset path also requires mshc IDs. Core-only namespace migration
+can renumber exposed mmc/mmcblk devices; changing every lookup without
+changing the DT makes probe fail. Using mshc consistently preserves the
+required hardware/userspace contract and corrects the old reservation-stem
+mismatch exposed by alias IDA bypass. No dual-stem fallback, hard-coded
+index, DT rewrite or removable-media regression claim is added.
+
+### Official Follow-Up And Static Validation
+
+`51a646d37` exactly brings forward Linux 5.10.61 commit
+`695ab28a7fa107d0350ab19eba8ec89fac45a95d`, mainline
+`a30f895ad3239f45012e860d4f94c1a388b36d14`. The original personality XArray
+conversion treats xa_alloc_cyclic return 1 as failure although it means
+successful wrapping, freeing an identity still stored in the array. The
+official fix cleans up only on negative return and returns the allocated
+ID on either success value. It preserves original author/date/source lines
+and SHA provenance, sits outside the 767-entry ledger and must be recognized
+when the ordered 5.10.61 range is reached. Generic XArray semantics are not
+modified. Source: the official Linux stable repository and
+<https://kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.10.61>.
+
+`2f2c2dc22` removes five inherited trailing-whitespace findings and a final
+blank line exposed by exact stable picks. The original import commits stay
+exact; this separate cleanup changes no code semantics. The complete source
+range passes git diff --check. Diff-only strict checkpatch for the twelve
+code adaptations reports zero errors, two warnings and three checks: the
+warnings concern preserved SD diagnostic indentation and creation of the
+missing ignore file; the checks are original upstream XArray formatting.
+An independent ordered private-index reconstruction, overlaid with the
+official early fix and this cleanup, matches every source blob and mode in
+the final candidate. This is source validation, not a compilation or boot
+pass.
+
+### Selected Interface Gates
+
+The exported prepare_to_wait_exclusive return type changes from void to
+bool with its declaration, implementation and rq_qos first-waiter behavior.
+V4L2 core operations gain command before ioctl; ext4 superblock state gains
+the MMP buffer owner; private timer state gains timers_pending. The THP
+fork function gains distinct destination/source VMAs across all three sites.
+SCSI mode-sense success changes to zero and failures to negative errno;
+independent review confirms every selected SD caller is coordinated. These
+are real type/semantic gates, not an unchanged ABI claim. Disabled SAS/SR
+paths are not represented as tested; the upstream SAS malformed-header
+success-result behavior remains a conditional review item if enabled.
+
+Configured io_ring_ctx layout prediction keeps size 1216, alignment 64,
+CQ at 640, locking/completion blocks at 768/896 and OEM buf at 1184 after
+both XArray conversions. Their size decrease is absorbed by existing
+cacheline padding. Actual hyperframe instructions access buf at 1184, not
+the converted IDR fields; no compatibility padding or assembly rewrite is
+needed for this exact conversion. Final fresh-C layouts and CFI/export/
+module checks are still required. This scoped evidence does not certify
+every opaque OEM layout or a stable KMI.
+
+At this source checkpoint the device remains accepted #52/5.10.50 with its
+matching pair retained. Full #53/5.10.55 compilation is in progress; no
+candidate boot or automatic-module pass is claimed. Paired staging,
+installation/readback, enforcing security and normal Android/module checks
+must complete before acceptance. The pinned target remains 5.10.274, and
+stable updates alone do not establish Android common parity or GKI.
