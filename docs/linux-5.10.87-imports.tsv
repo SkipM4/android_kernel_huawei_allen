@@ -1,0 +1,35 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	c602863ad28ec86794cb4ab4edea5324f555f181	e6e0871d34eb582b797671600b8271ce3b9bc004	picked	nfc: fix segfault in nfc_genl_dump_devices_done	net/nfc/netlink.c	-
+002	990fd815ec88487f6191bbf5ae06919ced82902d	eee0ad79200d07e31bcacbcea6a3d339b3fe957b	picked	drm/msm/dsi: set default num_data_lanes	drivers/gpu/drm/msm/dsi/dsi_host.c	-
+003	9eab949e2b90b10720f24dd22cad7cc63452f14a	bad3498a2aeb05148d901e10fcd2884f1fc47c17	picked	KVM: arm64: Save PSTATE early on exit	arch/arm64/kvm/hyp/include/hyp/switch.h;arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h	-
+004	27f4ce02b31ad1b7ef627b0b7d0141f645a0df5b	4eea7a0078589604fd33f16d1023815ad486b56b	picked	s390/test_unwind: use raw opcode instead of invalid instruction	arch/s390/lib/test_unwind.c	-
+005	999069d8b0407a5423142662ae98fb977ab6f74b	1e1e9e62ad1fb3082a2719fa862a5a799ede220f	picked	Revert "tty: serial: fsl_lpuart: drop earlycon entry for i.MX8QXP"	drivers/tty/serial/fsl_lpuart.c	-
+006	6d22a96d12d736971d5b3e5007956fec5724f27e	06afc198c280e9dab1a212e4e981285aec6b7578	picked	net/mlx4_en: Update reported link modes for 1/10G	drivers/net/ethernet/mellanox/mlx4/en_ethtool.c	-
+007	701a07fd0274267626d34a088a172a36e967df2c	6b4f99af52b221852151a8b1d4fefa6d2b5923cd	picked	ALSA: hda: Add Intel DG2 PCI ID and HDMI codec vid	sound/pci/hda/hda_intel.c;sound/pci/hda/patch_hdmi.c	-
+008	cf520ccffd9a3d9de35e900b9ecda2f8c7b5c1ad	c8cc174639f2db984f8553dea83a287696b0be3b	picked	ALSA: hda/hdmi: fix HDA codec entry table order for ADL-P	sound/pci/hda/patch_hdmi.c	-
+009	d6edec8a7b55871db6e2faf7bd39a2e87b020b2b	05e70393f90b6749fef93424e6247eec45c5e8a1	picked	parisc/agp: Annotate parisc agp init functions with __init	drivers/char/agp/parisc-agp.c	-
+010	bca6af4325d6f1d5af95b24eed49bd4fb84c8f61	c7147d1f1c1f6cf2f21368e6bbe870226867d57d	picked	i2c: rk3x: Handle a spurious start completion interrupt flag	drivers/i2c/busses/i2c-rk3x.c	-
+011	dadce61247c6230489527cc5e343b6002d1114c5	-	already-present	net: netlink: af_netlink: Prevent empty skb by adding a check on len.	net/netlink/af_netlink.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+012	dd3cea3425226565c959a1a6b1a1cce2e3394713	eca0dfbfc3863d474fabc6411efb3cd2e0179fba	picked	drm/amd/display: Fix for the no Audio bug with Tiled Displays	drivers/gpu/drm/amd/display/dc/core/dc_resource.c	-
+013	f35f7f04aa80587bfe00c5e679df054918e79a63	0f564adea62b0e366e8a935a1eb9262b578c0108	picked	drm/amd/display: add connector type check for CRC source set	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c	-
+014	6f0d9d3e74dc30293eab77ace28d8bd8cd66213d	f07f5f1b739b432d265bc09e1290611a00ef32be	picked	tracing: Fix a kmemleak false positive in tracing_map	kernel/trace/tracing_map.c	-
+015	ac76adc87a7865497171a139af42615659ee8d65	c3da2bc9eaa2578cdadc3ba9fc9a58bd7a969647	picked	KVM: x86: Ignore sparse banks size for an "all CPUs", non-sparse IPI req	arch/x86/kvm/hyperv.c	-
+016	9099f3512678596de7200bf748294b5e757d9a63	ba4b5f53acca387fbfd4f3ee3cb51687c18d91dd	picked	staging: most: dim2: use device release method	drivers/staging/most/dim2/dim2.c	-
+017	613725436e69fc3ccdf39f827bb274f999288dba	-	already-present	bpf: Fix integer overflow in argument calculation for bpf_map_area_alloc	kernel/bpf/devmap.c;net/core/sock_map.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+018	c31470a30c0d8cf406cc71385d8c97dfd1a84f3f	2179204c73216ea67b12959a1de5d063c442c4d8	picked	fuse: make sure reclaim doesn't write the inode	fs/fuse/dir.c;fs/fuse/file.c;fs/fuse/fuse_i.h;fs/fuse/inode.c	-
+019	6992d8c215c872c208b895fba1e13e07c8c94a83	e2101ab82c72f6a7f20c1a33ea6c35a325395cb6	picked	hwmon: (dell-smm) Fix warning on /proc/i8k creation error	drivers/hwmon/dell-smm-hwmon.c	-
+020	7c26da3be1e9843a15b5318f90db8a564479d2ac	-	already-present	ethtool: do not perform operations on net devices being unregistered	net/ethtool/netlink.h	Complete unmodified original patch reverse-applies at its ordered historical state.
+021	b23f9252a41d33d10792c32a5e54724b1bc9a7fc	a1b5f962f97e96bb3c6a8e4d442ecf1881634c5f	picked	perf inject: Fix itrace space allowed for new attributes	tools/perf/builtin-inject.c	-
+022	731ff78841384877c7b36f78c8aafd60ed70ad3a	42011e5432af7ec34f7c5cde66ca722129e65d78	picked	perf intel-pt: Fix some PGE (packet generation enable/control flow packets) usage	tools/perf/util/intel-pt-decoder/intel-pt-decoder.c	-
+023	3bb7fd4be8c47a4c562dfeac1ef62ad85c9e3149	059fedfc98bb19ee2de9baf045f2b139924840e9	picked	perf intel-pt: Fix sync state when a PSB (synchronization) packet is found	tools/perf/util/intel-pt-decoder/intel-pt-decoder.c	-
+024	cbed09b44ce0048e12d9981a9f33b86fe42a6fb6	1b0dd7ccccd3611fd06f3d22abe2ab43e4d79db7	picked	perf intel-pt: Fix intel_pt_fup_event() assumptions about setting state type	tools/perf/util/intel-pt-decoder/intel-pt-decoder.c	-
+025	02681dd1780a3aeb31381f5f01b9f9b14909eb57	9399f9eba96e43c12b15adea2ad49abc54c9bffd	picked	perf intel-pt: Fix state setting when receiving overflow (OVF) packet	tools/perf/util/intel-pt-decoder/intel-pt-decoder.c	-
+026	71c795028b31946c7be3392dfa5302011acfa44e	e2a00c56f88acf6369c1578c256ac6d9bcd57c46	picked	perf intel-pt: Fix next 'err' value, walking trace	tools/perf/util/intel-pt-decoder/intel-pt-decoder.c	-
+027	0612aa02c2c8e5c0bb4a257c29ad7aaacf6876ba	8ceb0dda23a55d2ce27f93f4018f7fcb71f68e32	picked	perf intel-pt: Fix missing 'instruction' events with 'q' option	tools/perf/util/intel-pt-decoder/intel-pt-decoder.c	-
+028	b6a1cbd187fc7addddcb9c669f7362dec4d54595	af7c9e89494be4067ad4d46c6586c4f1632ade46	picked	perf intel-pt: Fix error timestamp setting on the decoder error path	tools/perf/util/intel-pt.c	-
+029	b4b54c7ba149ffa2dcb11b2a84ebf20189ff7f89	b48dfaa596fd0c99c2a019004b168484446bf278	picked	memblock: free_unused_memmap: use pageblock units instead of MAX_ORDER	arch/arm/mm/init.c	-
+030	74551f13c62fed411ea47457a31bbfc160e5d3fb	1f6db74de6ab622d2396fd0bf8ec080dc1731ff7	picked	memblock: align freed memory map on pageblock boundaries with SPARSEMEM	arch/arm/mm/init.c	-
+031	6e634c0e7155141c307958a600720bc418137554	ed7c1db63825f10d0cd3390207e34cccee1815b1	picked	memblock: ensure there is no overflow in memblock_overlaps_region()	mm/memblock.c	-
+032	65c578935bcc26ddc04e6757b2c7be95bf235b31	ca8013eaa8b7f29dcca149976f9dd767f4622ee1	picked	arm: extend pfn_valid to take into account freed memory map alignment	arch/arm/mm/init.c	-
+033	8dd559d53b3b2de960ca1ec1359f5a9b4a12e181	93fb8722924399cf30b13a70243b8c734958ba7d	picked	arm: ioremap: don't abuse pfn_valid() to check if pfn is in RAM	arch/arm/mm/ioremap.c	-
+034	272aedd4a3059e6e3b0c4c0f9a8b09e5a9fa2c21	9a9d2af476538e1a39283594bf01f1ffe75da0b4	backported	Linux 5.10.87	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.

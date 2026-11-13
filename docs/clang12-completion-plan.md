@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #58/5.10.85 on `upstream/linux-5.10.y`, kernel source
-through `0d678d58e`. Immediate paired rollback is #57/5.10.80; r49/5.10.43 remains on
+Installed candidate is #59/5.10.90 on `upstream/linux-5.10.y`, kernel source
+through `74057806b`. Immediate paired rollback is #58/5.10.85; r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
 Each kernel iteration stays isolated, with matching boot/modem_driver
 validation, unchanged independent
@@ -63,7 +63,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.85 Resolved; #58 Full Build/Actual UFS Offsets/Selected Layout-CFI/Scoped Continuity/Pair/Normal Boot/Auto Module Pass; Next Complete 5.10.86-90; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.90 Resolved; #59 Full Build/New MMC-BPF CFI/Selected Consumers/Scoped Continuity/Pair/Normal Boot/Auto Module Pass; Next Complete 5.10.91-95 And Separate Official MTIMER Fix; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -232,6 +232,31 @@ the legacy selected AMA mempolicy path remains separately unaudited. The
 pinned latest-stable target, Android common parity, GKI and full inherited
 hardware/power queue are not complete. No release export or publication
 occurs.
+
+The tenth milestone resolves all 259 official entries through 5.10.90:
+229 exact picks, seven code adaptations, five markers and eighteen PRESENT
+fixes. All 241 original-author commits and ordered historical inventories
+pass independent verification; source ends at `74057806b`, with no new
+integration commit. The earlier UFS repair remains. #59 passes full build
+and five final reports bound to 46 actual objects. Thirteen existing record
+proofs retain explicit continuity; only class and ctl_table are newly
+measured from natural selected objects. Actual MMC/BPF initializer pointers,
+types and enforcing indirect dispatch, selected TUN/PACKET inline helpers
+and FUSE direct callers pass. Unchanged layout/assembly/const/all-tag proofs
+are not recompiled or replayed. All 13,829 export CRCs are equal to #58 and
+390 modem/two optional imports match. Effective selections and signing
+material remain; the only emitted delta is the new BPF bool explicitly n.
+Signed paired installation, normal Android, automatic matching Live modem,
+full readbacks/build-id, CE storage/core services and unchanged ramdisk/
+security pass. Complete logs contain no actual kernel/module fault; 516
+AVCs remain visible, none for module loading. Tracing and Asleep are restored
+without a second boot or broad hardware replay. #58 is immediate rollback;
+#55-59 pairs and accepted #59 metadata remain below 20 GB after contract-
+checked retirement of #54 artifacts. Next is complete 5.10.91-95, then a
+separate early official `614811692` native XFRM MTIMER policy fix before
+building; that fix is not hidden in the original 663-entry range. Selected
+AMA mempolicy, latest stable, Android common, GKI and inherited hardware/
+power acceptance remain open. No release export or publication occurs.
 
 ## Next-Stage Work Queue
 

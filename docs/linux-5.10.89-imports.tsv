@@ -1,0 +1,77 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	b16b124a42e0c1daeafbea01094558f6cacbe059	-	already-present	arm64: vdso32: drop -no-integrated-as flag	arch/arm64/kernel/vdso32/Makefile	Complete unmodified original patch reverse-applies at its ordered historical state.
+002	8c0059a25cb1da1454354350ff1db5cb8e0ea326	a64c59bbbcaf4826175cb14c9380bcfb9b84e0c6	picked	arm64: vdso32: require CROSS_COMPILE_COMPAT for gcc+bfd	arch/arm64/Kconfig;arch/arm64/kernel/vdso32/Makefile	-
+003	f69a47fcbb9cdc0715610aabeae3849b03cfe24c	a2cca47f11026f69dc9e812d1dcfeb855c4c00d2	picked	net: usb: lan78xx: add Allied Telesis AT29M2-AF	drivers/net/usb/lan78xx.c	-
+004	1d4b1c4e8bbd8260569b59698edab5b00f8f6677	caf4860970527b8ed0fc596912c175cad395d802	picked	ext4: prevent partial update of the extent blocks	fs/ext4/extents.c	-
+005	76366c024f56545355c815f31837dd1175c60da6	dccc793ae14d59430182bc320a64ac9dd3884d7d	picked	ext4: check for out-of-order index extents in ext4_valid_extent_entries()	fs/ext4/extents.c	-
+006	0875873b2a97ab201fbb44ae4cd939ed52847d18	b7b38e450562e59167e5a1d169c4ffa91db5991d	backported	ext4: check for inconsistent extents between index and leaf block	fs/ext4/extents.c	Complete original index/leaf logical-block validation, readers and call sites across existing empty-nonleaf guard; retain guard unchanged.
+007	3110bc5862d213035c685ed607795e6abdb34d78	2615d88e48577220ae71230e0b8aed8c1c953818	picked	HID: holtek: fix mouse probing	drivers/hid/hid-holtek-mouse.c	-
+008	ef2dce43257df7488feb046de4706b9d657a4ad5	b4d18298178ec3db481e64411ef36a2a2b6d0f46	picked	HID: potential dereference of null pointer	drivers/hid/hid-vivaldi.c	-
+009	93a957bbf46ceb224b959de61fe85cfc6f71b6c7	a40da1d61739d8c8a6cd4020b59d9faa61d70465	picked	arm64: dts: allwinner: orangepi-zero-plus: fix PHY mode	arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts	-
+010	580ecf86e7720aa5e123009b390e47a7ebd6bde7	e44fdd17a49627e0f5ffeda423fb2dfb1d159c02	picked	spi: change clk_disable_unprepare to clk_unprepare	drivers/spi/spi-armada-3700.c	-
+011	cd9c90682b2f23432e457fb14e5260e9c07a4223	033d400cdc118c0aabde9db63aa4946c92428edc	picked	ASoC: meson: aiu: fifo: Add missing dma_coerce_mask_and_coherent()	sound/soc/meson/aiu-fifo.c	-
+012	7cf6466e00a77b0a914b7b2c28a1fc7947d55e59	0c4fb3fedd86cdcbc0eecb35ac38a5020d2a5b32	picked	IB/qib: Fix memory leak in qib_user_sdma_queue_pkts()	drivers/infiniband/hw/qib/qib_user_sdma.c	-
+013	579cefef7c425b99e6693f0f234f5be265aaf6e1	2416830d88970c7181d6c0d00ba9ef4bcbbc0308	picked	RDMA/hns: Replace kfree() with kvfree()	drivers/infiniband/hw/hns/hns_roce_srq.c	-
+014	d79f5e0d458bc07fe7734abde2a734f6261d7307	3e32d5e39318b19fddbb037f7ce46baec53da023	picked	netfilter: fix regression in looped (broad|multi)cast's MAC handling	net/netfilter/nfnetlink_log.c;net/netfilter/nfnetlink_queue.c	-
+015	861b4413e41da02231300eef5029f71ab5c700ac	d10f6c43310aa1f8fad2ffff051a3eed2ca9fc55	picked	ARM: dts: imx6qdl-wandboard: Fix Ethernet support	arch/arm/boot/dts/imx6qdl-wandboard.dtsi	-
+016	78e49d77e517c205e7c2c2f7a970468dd2f867b1	a0e9833ae61cd562656e8f36ce2e7ab61a45e172	picked	net: marvell: prestera: fix incorrect return of port_find	drivers/net/ethernet/marvell/prestera/prestera_main.c	-
+017	56b0bbba782b2dfec7d4c4afcf0c854e702c5cd8	64e34139eb3f3916482bbde5f05c4d11db949309	picked	qlcnic: potential dereference null pointer of rx_queue->page_ring	drivers/net/ethernet/qlogic/qlcnic/qlcnic_sriov.h;drivers/net/ethernet/qlogic/qlcnic/qlcnic_sriov_common.c;drivers/net/ethernet/qlogic/qlcnic/qlcnic_sriov_pf.c	-
+018	ed05e4dcfba63bcca36ec1d19d099a1ec6b000ec	3f4bb31f2b0f9023220684d5f3add5c0fd54ae1f	picked	net: accept UFOv6 packages in virtio_net_hdr_to_skb	include/linux/virtio_net.h	-
+019	e00eace2325c4d4715d1001b0e467123d36e6c9a	d0044797fe797cd5509c6b06e00342e35b6ef904	picked	net: skip virtio_net_hdr_set_proto if protocol already set	include/linux/virtio_net.h	-
+020	61e6b82e7b6c993c02084bb432c4bf6bd2f6cde9	a0a04f0420b004d41208d4f85d73efadb25f7b17	picked	igb: fix deadlock caused by taking RTNL in RPM resume path	drivers/net/ethernet/intel/igb/igb_main.c	-
+021	6809da5185141e61401da5b01896b79a4deed1ad	7031e26f4b60ef059b6798ebd8915c28c4e46af9	picked	ipmi: Fix UAF when uninstall ipmi_si and ipmi_msghandler module	drivers/char/ipmi/ipmi_msghandler.c	-
+022	c6d2754006c1b75d981dd1b3e4432eaafde81373	a84250aadb1c32a9cba53dda38f921f16dd4ae7e	picked	bonding: fix ad_actor_system option setting to default	Documentation/networking/bonding.rst;drivers/net/bonding/bond_options.c	-
+023	ca2a15053b07a34cbb4736f81a9ed2289a463bd5	bec30c636cf3a1f3aaa05c60f6a4b5d752b74f00	picked	fjes: Check for error irq	drivers/net/fjes/fjes_main.c	-
+024	9db0f8d395fd3af0952a6e4d66fbd11a83e34e8a	752b1ab9562019719d5bb21597828bc4becff99c	picked	drivers: net: smc911x: Check for error irq	drivers/net/ethernet/smsc/smc911x.c	-
+025	75c962f02a4ff639caaf1e5f075eb93b4e284972	32ba5c5f591faa5314a7f9f66a1a001d46300dd5	picked	net: ks8851: Check for error irq	drivers/net/ethernet/micrel/ks8851_par.c	-
+026	d70b4001ef741e044c7b173b678828c2740bc9cd	d8df2939a4659f3bc5633c0a4f360981ea8d7d0c	picked	sfc: Check null pointer of rx_queue->page_ring	drivers/net/ethernet/sfc/rx_common.c	-
+027	2792fde84cceebc54645974545bdf900ef41da63	f33931333a3ec3de05232e57a157475fa57a7c8b	picked	sfc: falcon: Check null pointer of rx_queue->page_ring	drivers/net/ethernet/sfc/falcon/rx.c	-
+028	676c572439e58b7ee6b7ca3f1e5595382921045c	36f056f2d9b3a4f1f058d9520215681ae00dd7c5	picked	Input: elantech - fix stack out of bound access in elantech_change_report_id()	drivers/input/mouse/elantech.c	-
+029	ba696b470839d70c6b8290c1f798bac7fb2a584c	1c86725013d1edbd1ad25228f069f5a01a2a993e	picked	pinctrl: bcm2835: Change init order for gpio hogs	drivers/pinctrl/bcm/pinctrl-bcm2835.c	-
+030	fa2e149260bf90bbbe83dbc1ed9c9113d13d3afd	29e6ccf813d5db74ced252d55999dc93aa0a39bb	picked	hwmon: (lm90) Fix usage of CONFIG2 register in detect function	drivers/hwmon/lm90.c	-
+031	196df56c3dc8bb36caf0bda25c26056a838ed273	8a50bdd24d06df91388a909f37cf8ef44ba352f0	picked	hwmon: (lm90) Add basic support for TI TMP461	Documentation/hwmon/lm90.rst;drivers/hwmon/Kconfig;drivers/hwmon/lm90.c	-
+032	2464738d0ee4ec57bd6f561acc3b178c79703c38	a5ac078e9e21c6c9639f90c58ca5131dd69f9163	picked	hwmon: (lm90) Introduce flag indicating extended temperature support	drivers/hwmon/lm90.c	-
+033	51c7b2a7b86a923cc410882f3b8bde09ba412f3c	e520cd147638a71873f5833ba28b4ec8a40873a7	picked	hwmon: (lm90) Drop critical attribute support for MAX6654	drivers/hwmon/lm90.c	-
+034	a96c08e0b41e022b440ee9c8327b14dd6eb094f7	af7f3d8fe6a7ab2b75e829033a3cb89aece42a81	picked	ALSA: jack: Check the return value of kstrdup()	sound/core/jack.c	-
+035	69e492161c7b563684caf0fad01382279c065213	ed084ec45c9e075b06ac0109885b2bdccdee1936	picked	ALSA: drivers: opl3: Fix incorrect use of vp->state	sound/drivers/opl3/opl3_midi.c	-
+036	4cb7dc2e307498f8e50eac438d1bece84fd853c6	5c63f332454ce11fdc3199d788afd9921763668c	picked	ALSA: hda/realtek: Amp init fixup for HP ZBook 15 G6	sound/pci/hda/patch_realtek.c	-
+037	7470780f3b0c2a8ef53562ed92fbb10b03024e47	e45b98fd92dce720f85bf443bb9820274d1ae241	picked	ALSA: hda/realtek: Add new alc285-hp-amp-init model	Documentation/sound/hd-audio/models.rst;sound/pci/hda/patch_realtek.c	-
+038	2b4c020b70cc943f5d3ae7cd59059e7b2e0cb0ab	6a7d76f8f92ce6afab0dfa32842a16afb17a020e	picked	ALSA: hda/realtek: Fix quirk for Clevo NJ51CU	sound/pci/hda/patch_realtek.c	-
+039	30140e252fdb74884d5ef34f5e48d2fc6a79a433	f7cce559c5abff5917b401bb80bd841623609b1e	picked	ASoC: meson: aiu: Move AIU_I2S_MISC hold setting to aiu-fifo-i2s	sound/soc/meson/aiu-encoder-i2s.c;sound/soc/meson/aiu-fifo-i2s.c	-
+040	bc674f1b2119fcf36ca28a5f8170307be70de333	6d3968d78e0be05d94628365f8368b1b7c75e13d	picked	Input: atmel_mxt_ts - fix double free in mxt_read_info_block	drivers/input/touchscreen/atmel_mxt_ts.c	-
+041	a5192f31160c1739ef6525ed77d6aafa8e6565dd	083efb66143c219eb8ae78cce299457da616688a	picked	ipmi: bail out if init_srcu_struct fails	drivers/char/ipmi/ipmi_msghandler.c	-
+042	1f6ab847461ce7dd89ae9db2dd4658c993355d7c	ac2e764943cf8c7313c46da4cb3f0d3d69400055	picked	ipmi: ssif: initialize ssif_info->client early	drivers/char/ipmi/ipmi_ssif.c	-
+043	8b745616ba8f2db389a59e5678fdbe28ad5883bf	0ffcb9f59e436ec3f50ec0d4dca45dbef706e572	picked	ipmi: fix initialization when workqueue allocation fails	drivers/char/ipmi/ipmi_msghandler.c	-
+044	5deeb9ad598b2b3b79c8d1455a276b3d9a8bac31	d41ad8f13b335dc78a5ca306f16aad3327ce3227	picked	parisc: Correct completer in lws start	arch/parisc/kernel/syscall.S	-
+045	0ffb9f83e4f6e6a8b68f926173a8d0646b57bedf	cf2bbdd778365297b54dd4c3992ea657d2c6b8ab	picked	parisc: Fix mask used to select futex spinlock	arch/parisc/include/asm/futex.h	-
+046	c05d8f66ec3470e5212c4d08c46d6cb5738d600d	87f4f95c278ffbe2260e6fe41e5a3c2fd1038e9f	picked	tee: handle lookup of shm with reference count 0	drivers/tee/tee_shm.c;include/linux/tee_drv.h	-
+047	b57afd124046065be7f4ca36bac610f059ad222a	c29f6ebd2d0bb10de783734733e9a973944f4b27	picked	x86/pkey: Fix undefined behaviour with PKRU_WD_BIT	arch/x86/include/asm/pgtable.h	-
+048	7a37f2e370699e2feca3dca6c8178c71ceee7e8a	ec9dda0db33d9275e4d9698ed83b7fb9bd443157	picked	platform/x86: intel_pmc_core: fix memleak on registration failure	drivers/platform/x86/intel_pmc_core_pltdrv.c	-
+049	28626e76baf50e6b37d8a92564844d873aa6b51f	3252f77c9f02aefbcb5d98167602e2e3b99c78ea	picked	KVM: VMX: Wake vCPU when delivering posted IRQ even if vCPU == this vCPU	arch/x86/kvm/vmx/vmx.c	-
+050	f5b02912e2dd89fe2386c19edd2c6f3e1296fc2b	985ee618497718b3be0408ff3cadb9d4e7294c87	picked	pinctrl: stm32: consider the GPIO offset to expose all the GPIO lines	drivers/pinctrl/stm32/pinctrl-stm32.c	-
+051	9a7ec7979785e97b33a6bbd79b95faa20e4882bb	20cca2c61b6c7c43d1a280ed4808215b76057eb0	picked	gpio: dln2: Fix interrupts when replugging the device	drivers/gpio/gpio-dln2.c	-
+052	4af79153617bd14677a69b4f4c6bb13e3ece2708	8a1b745055926915f1546483f123ba564a83d241	picked	mmc: sdhci-tegra: Fix switch to HS400ES mode	drivers/mmc/host/sdhci-tegra.c	-
+053	c8e366a01c20019a631d1aa151a918d67757ab8d	3457d9be319dcc338cc2b9acf31f71d9253a22ea	picked	mmc: meson-mx-sdhc: Set MANUAL_STOP for multi-block SDIO commands	drivers/mmc/host/meson-mx-sdhc-mmc.c	-
+054	0d66b395210c5084c2b7324945062c1d1f95487a	b7ef4c0b1429a666494dd964c837b4098d988f3a	backported	mmc: core: Disable card detect during shutdown	drivers/mmc/core/core.c;drivers/mmc/core/core.h;drivers/mmc/core/host.c	Complete original card-detect shutdown helper/callback split across existing Zodiac IRQ bypass and deferred-resume metadata; preserve both guards.
+055	c3253d3a38bc1f60caae6d06506cfc3b72b0ba11	added28aa58fef12f1f4ea50bb3d2af4c5d44286	picked	mmc: mmci: stm32: clear DLYB_CR after sending tuning command	drivers/mmc/host/mmci_stm32_sdmmc.c	-
+056	89876d10830db6ac55ae4379764c9e9dd1268277	3fb2f41fd3708fae1caa6a78045db3f16736a6df	picked	ARM: 9169/1: entry: fix Thumb2 bug in iWMMXt exception handling	arch/arm/kernel/entry-armv.S	-
+057	ac61b9c6c0549aaeb98194cf429d93c41bfe5f79	4048f98320feb20d0cf117e23b87cc8a09cba8b5	picked	mac80211: fix locking in ieee80211_start_ap error path	net/mac80211/cfg.c	-
+058	1f207076740101fed87074a6bc924dbe806f08a5	-	already-present	mm/hwpoison: clear MF_COUNT_INCREASED before retrying get_any_page()	mm/memory-failure.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+059	ad338d825e3f7b96ee542bf313728af2d19fe9ad	73ba7fa27a9ce9d82ea75037676360cd6d491fa1	picked	tee: optee: Fix incorrect page free bug	drivers/tee/optee/shm_pool.c	-
+060	fffb6581a23add416239dfcf7e7f3980c6b913da	1901a72ea8198dbb797c98395a6331c67a73ff39	backported	f2fs: fix to do sanity check on last xattr entry in __f2fs_setxattr()	fs/f2fs/xattr.c	Original last-entry validation already operational; add exact missing diagnostic while retaining newer ACL same-value route and explicit xattr terminator.
+061	6697f29bf56b6bd07ddf1218f2f8a48601a4b75f	70fee6e09baaaf503bd3dd41751040e844a741c5	picked	ceph: fix up non-directory creation in SGID directories	fs/ceph/file.c	-
+062	d91ed251fd7065b57d6c60964d15562fc4e73f7d	49c7c255052b1bd2eb7d5838d81454b1a891f2bd	backported	usb: gadget: u_ether: fix race in setting MAC address in setup phase	drivers/usb/gadget/function/u_ether.c	Complete original MAC publication before netdev registration; preserve existing quiet INFO logging and all original failure/carrier semantics.
+063	8008fc1d0be1c381aa8077dfab2d980188611ae2	148b74b15a978f4a0fbc6c111526c06d819cc3ce	picked	KVM: VMX: Fix stale docs for kvm-intel.emulate_invalid_guest_state	Documentation/admin-guide/kernel-parameters.txt	-
+064	ee6f34215c5dfa2257298cc362cd79e14af5a25a	83b29c687cfa2cfca08b7417d8c01cea4beac49f	backported	mm: mempolicy: fix THP allocations escaping mempolicy restrictions	mm/mempolicy.c	Exact original fallback nodemask call in non-AMA branch; retain selected AMA global-policy allocator unchanged and explicitly do not certify selected VMA-policy compliance.
+065	3bb3bf50d69f7fab57c5af293c745b586945f70d	1db1adbf749bf2b69dbb7c383a1eafeff001833f	picked	Input: elants_i2c - do not check Remark ID on eKTH3900/eKTH5312	drivers/input/touchscreen/elants_i2c.c	-
+066	c7282790c782f5216c50b6b83b815f03c48e73ad	e7c23a5157610eb282cf3df96fbc28a9239f362a	picked	Input: goodix - add id->model mapping for the "9111" model	drivers/input/touchscreen/goodix.c	-
+067	94caab5af19a295cbec1d7fa6e8b7310f058317f	cac8c87acd7e5648892eef19b318d94102061a8e	picked	ASoC: tas2770: Fix setting of high sample rates	sound/soc/codecs/tas2770.c	-
+068	9c75a9657bdc643e78719ecb139ebff4d5aefe53	8145ca81c954625899441192bf4fc08f95fa2a7e	picked	ASoC: rt5682: fix the wrong jack type detected	sound/soc/codecs/rt5682.c	-
+069	441d3873664d170982922c5d2fc01fa89d9439ed	e245a42620887be7c3e7afb82e9fe109613c8658	picked	pinctrl: mediatek: fix global-out-of-bounds issue	drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c	-
+070	ec1d222d37eaf6b2d2dbdcf2c4eb7903fd74fc1e	85fba881261d00d852d8d0b620191a5ab96841ca	picked	hwmom: (lm90) Fix citical alarm status for MAX6680/MAX6681	drivers/hwmon/lm90.c	-
+071	50f78486f90b91484001bfccc652d66fc308255a	c11b123afb834302ca791e5b9545fd67893b8428	picked	hwmon: (lm90) Do not report 'busy' status bit as alarm	drivers/hwmon/lm90.c	-
+072	8e34d07dd4d9f7811d8ae35adee24e78a4576844	-	already-present	ax25: NPD bug when detaching AX25 device	net/ax25/af_ax25.c	Complete original detach/socket locking already present with newer NULL-socket and socket hold/put lifetime refinement; preserve refinements.
+073	450121075a6a6f1d50f97225d3396315309d61a1	f2f209b787cf3ae8f18da66c58f88e9b695b406a	picked	hamradio: defer ax25 kfree after unregister_netdev	drivers/net/hamradio/mkiss.c	-
+074	7dd52af1eb5798f590d9d9e1c56ed8f5744ee0ca	0525f029fe867eb28b19ceb70ee14d3937adad56	picked	hamradio: improve the incomplete fix to avoid NPD	drivers/net/hamradio/mkiss.c	-
+075	52ad5da8e316fa11e3a50b3f089aa63e4089bf52	b8231252498fba13d816c44ee211b7e06184c234	picked	phonet/pep: refuse to enable an unbound pipe	net/phonet/pep.c	-
+076	eb967e323f7fb073c51401070f7d2cb381a003f7	f435026b9f31b1ef675df11a601b00b69854129d	backported	Linux 5.10.89	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.

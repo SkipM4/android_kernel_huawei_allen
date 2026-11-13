@@ -1576,3 +1576,162 @@ separate mempolicy integration issue; a standard non-AMA stable fix does
 not certify it. The pinned 5.10.274 target, Android common parity, GKI and
 full hardware/power acceptance remain open. No release export, publication
 or push occurs.
+
+## Tenth Milestone: 5.10.86 Through 5.10.90
+
+The complete next range resolves all 259 official entries: 229 exact picks,
+seven code adaptations, five release markers and eighteen already-present
+fixes. The 241 original-author source commits end at `74057806b`, without a
+separate integration commit. The accepted two-file UFS offset repair remains
+intact. No intermediate 86-89 kernel is built or installed. Five per-release
+ledgers retain every original/local identity and disposition.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.86 | `37050f17f2d243f0d6ebe63ed3df84f91abce614` | 2 | 1 | 0 | 1 | 0 |
+| 5.10.87 | `272aedd4a3059e6e3b0c4c0f9a8b09e5a9fa2c21` | 34 | 30 | 0 | 1 | 3 |
+| 5.10.88 | `856f88f27bbc4d3b4b88ce6fe23964ffe60ea649` | 99 | 90 | 1 | 1 | 7 |
+| 5.10.89 | `eb967e323f7fb073c51401070f7d2cb381a003f7` | 76 | 67 | 5 | 1 | 3 |
+| 5.10.90 | `d3e491a20d152e5fba6c02a38916d63f982d98a5` | 48 | 41 | 1 | 1 | 5 |
+
+Sources are the original stable range and official ChangeLog-5.10.86 through
+ChangeLog-5.10.90 at <https://cdn.kernel.org/pub/linux/kernel/v5.x/>. Actual
+independent import verification checks all 241 original authors, dates,
+complete messages and stable trailers; 229 exact picks cover 276 complete
+file sections. Two existing executable-mode variants are preserved, and
+the original selftest permission change is applied exactly. Seven code
+adapters, five SUBLEVEL-only markers, fourteen historical PRESENT cases with
+23 complete post-hunks and four semantic PRESENT contracts are bound to
+actual historical blobs/modes. All 259 ordered source inventories, five
+ledgers and the final kernel tree match the approved reconstruction. The
+accepted #58 documentation root is rebound explicitly without replaying the
+source review or replacing the actual tree with a private snapshot.
+
+### Standard Callbacks And Preserved Platform Contracts
+
+MMC receives the complete upstream `shutdown_pre` callback and internal
+host-stop helper, separating card-detect cancellation from the existing
+ordinary remove path. Zodiac's GPIO IRQ bypass and deferred-resume guards
+remain, as do selected MMC interfaces and records. This change requires a
+fresh actual class callback/CFI check rather than another private UFS layout
+measurement.
+
+BPF retains the full bounds-propagation helper change and optional
+`BPF_UNPRIV_DEFAULT_OFF` configuration, kernel initializer and sysctl
+handler. The standard handler permits values 0..2, retains the privileged
+write boundary and irreversible state 1, and does not silently change the
+selected default. No live BPF permission or sysctl setting is modified.
+The existing atomic write-count helper is unchanged.
+
+Ext4 applies the complete inconsistent index/leaf extent check while
+retaining its selected OEM extent caching context. USB Ethernet applies the
+original setup/MAC-address locking across the existing private-info hook,
+without changing the hardware callbacks. Standard F2FS completes the
+original final-xattr sanity-check diagnostic; the bounds, FSCK marking and
+error path already existed. Standard F2FS remains unselected, so this is
+not selected OEM F2FS xattr acceptance.
+
+The THP fallback uses the original standard nodemask allocator only in the
+non-AMA branch. Selected `CONFIG_MM_AMA=y` retains a separate legacy
+allocator that changes `mems_allowed` and ignores the VMA nodemask. That
+behavior is not fixed or certified by this standard branch patch; it remains
+a named OEM mempolicy integration issue, not an undisclosed equivalence.
+
+Audit queue robustness, AX25 detach, SCTP endpoint RCU and FunctionFS eventfd
+cleanup are semantic PRESENT cases with complete source contracts. Existing
+locking/reference behavior and newer local guards are retained. AX25/SCTP
+remain unselected; FunctionFS's source classification is not proof of every
+concurrent OEM reset path. Other PRESENT entries use the complete original
+reverse patch at their ordered historical source state.
+
+### Selected Source And Configuration Gates
+
+The seven original include-directory patches affect six paths; four include
+files and 25 total headers actually change. All changed headers are
+classified against the selected configuration. Forty-one unique legacy
+declarations, thirteen previously measured record names, fourteen generated
+offsets and the corrected assembly sources have unchanged source contracts.
+No extra private compiler frontend or repeat of thirteen UFS instructions is
+required. Const-sort and all-tag declaring/implementation files remain
+identical; fresh final-address continuity is still checked.
+
+The new MMC and BPF callback types match the existing class and ctl-table
+members. TUN/PACKET are selected and consume the changed virtio helpers even
+though `VIRTIO_NET=n`, so actual consumer objects are checked rather than
+misclassified as disabled. Standard TEE is unselected; its real refcount
+record/file-operation changes and lock-protected get/put lifecycle receive
+source review, not a fabricated current compiled or OEM firmware guarantee.
+FUSE's new time-update helper preserves four existing private record
+declarations and is checked through selected direct consumers.
+
+One actual olddefconfig/prepare run preserves every effective selection and
+all fourteen generated OEM values. Emitted configuration options increase
+from 6,431 to 6,432 only because the new BPF default-off bool is explicitly
+disabled. General COMPAT remains selected; COMPAT_VDSO was disabled and
+remains disabled despite its upstream dependency broadening for Clang/LLD.
+The existing compiler flags, signing material and enforcing protections
+remain. The following final build and installed gates are separate from
+this source/configuration evidence.
+
+### Full Build And Installed Acceptance
+
+The complete build succeeds naturally as 5.10.90 #59 without another source
+repair. Ordinary OEM compiler/linker warnings and the inherited boot-time
+exit/init section-mismatch notice remain visible. Five final reports bind
+the same source, configuration, ELF and 46 distinct actual objects. Fifteen
+selected physical record names are covered: thirteen previous records retain
+explicit source/command/configuration continuity, and only the real class
+and ctl_table callback members are newly measured from eleven selected
+natural build objects. No private compiler frontend or repeat of unaffected
+UFS machine operands is performed.
+
+The class is 120 bytes with shutdown_pre at offset 72; ctl_table is 64 bytes
+with proc_handler at offset 32. The actual MMC class initializer and BPF
+sysctl table point to the final canonical functions. Their precise types,
+CFI membership and enforcing device_shutdown/proc_sys_call_handler indirect
+branches pass. MMC's direct stop helper cancels delayed card-detect work.
+BPF's actual body retains CAP_SYS_ADMIN and the compiled min/max conversion;
+its kernel initializer is zero under the selected disabled default-off bool.
+Inlining is read from the actual object, not mistaken for an absent check.
+No live permission or sysctl setting is changed.
+
+Selected TUN/PACKET consume the updated virtio helpers through their actual
+compiled inline paths; selected FUSE callers use the direct time-update
+helper. Existing const-sort and MAS all-tag objects are byte-identical to
+#58, so old implementation IR is not decoded again. Their source, exact
+commands and configuration remain bound, with fresh final canonical targets
+and enforcing type memberships checked. All fourteen generated offsets and
+both accepted affected/unrelated assembly proof scopes retain explicit
+continuity. These bounded checks do not certify all opaque OEM ABI, actual
+MMC shutdown stress, packet traffic or filesystem concurrency.
+
+All 13,829 export CRCs are unchanged versus #58, with no addition or removal.
+The 390 rebuilt modem imports and two optional dummy imports match. The
+project still uses same-build pairing rather than inferring arbitrary binary
+reuse from CRC equality. The new stripped modem's CMS signature, embedded
+kernel certificate, original ext4 ownership/label and file readback pass.
+The boot image retains the original header, firmware stub and OEM DTB with
+verified kernel roundtrip and real partition bounds.
+
+One paired installation reaches normal Android with automatic matching Live
+modem loading. Full boot/modem partition, signed module and independent
+ramdisk readbacks pass, as do the loaded build-id, user 0 CE storage,
+RUNNING_UNLOCKED and three core services. SELinux Enforcing, taint 4,
+enforcing CFI, forced signatures and PRMEM remain. Complete time-zero and
+subsequent logs contain no actual kernel or module fault. All 516 AVC denials
+remain visible, none for module loading. Original tracing state and the
+Asleep screen are restored; no second boot or broad hardware replay is run.
+
+The #58/5.10.85 pair is the immediate rollback. Accepted #59 metadata and the
+latest #55-59 pairs remain local below 20 GB. Obsolete #54 test artifacts
+are retired only after matching their retained build contract; original
+images, the first accepted bring-up pair and source history remain intact.
+Next is the complete 5.10.91-95 range, with fresh selected clocksource,
+packet-scheduler, XFRM and cgroup trace-record gates and a changed block-PM
+signature. The original 5.10.94 XFRM patch omits native MTIMER attribute
+length policy: official stable follow-up `614811692` from 5.10.192 is planned
+as a separate early pick after the complete ordered range, before building.
+It is not included in the 663-entry range or counted as already installed.
+The selected AMA mempolicy issue, pinned 5.10.274 target, Android common
+parity, GKI and full inherited hardware/power acceptance remain open.
+No release export, publication or push occurs.

@@ -1,0 +1,3 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	32414491834c80ab39519467deb3f8d1e4f5bade	4d3e883035cde2d13d6077ee52a6d78cafa9cdd2	picked	netfilter: selftest: conntrack_vrf.sh: fix file permission	tools/testing/selftests/netfilter/conntrack_vrf.sh	-
+002	37050f17f2d243f0d6ebe63ed3df84f91abce614	d47786c5a1c38111fab9ac0f69386920bd2995cb	backported	Linux 5.10.86	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.

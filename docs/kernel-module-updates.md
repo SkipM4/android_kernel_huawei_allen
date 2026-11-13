@@ -156,6 +156,23 @@ only the already-disabled FORTIFY line disappears from emitted configuration.
 Required modules continue to follow the kernel through rebuilding and paired
 installation, not resigning old modules or spoofing version tables.
 
+The installed 5.10.90/#59 milestone retains all 13,829 export CRCs exactly,
+without added or removed exports. All 390 rebuilt modem and two optional
+dummy imports match. The new MMC shutdown and BPF sysctl callbacks are not
+exports; their actual class/table initializers, final canonical pointers,
+precise types and enforcing dispatch are checked independently of CRCs.
+Five reports bind 46 actual objects, with scoped continuity for thirteen
+previous records and two newly measured natural callback-member records.
+Selected TUN/PACKET inline and FUSE direct consumers are rebuilt; unchanged
+layout/assembly/const-sort/all-tag implementation proofs are not replayed.
+The CMS-signed matching modem loads automatically on normal Android with
+matching runtime build-id and complete file/partition readbacks. Effective
+configuration, signing material, independent ramdisk and enforcing controls
+remain. CRC equality is not a blanket old-binary reuse guarantee; same-build
+pairing remains the verified method. The next range changes selected XFRM,
+clocksource, packet-scheduler and cgroup trace records plus a block-PM public
+signature, so it requires fresh bounded checks in addition to rebuilding.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -196,13 +213,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #58's immediate rollback:
+overwrite existing candidates. The previous pair is #59's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.80-clang12-r57.img`.
-- `images/test/allen-modem_driver-test-5.10.80-clang12-r57.img`.
-- `images/test/allen-modem_driver-test-5.10.80-clang12-r57.ko`.
+- `images/test/allen-boot-test-5.10.85-clang12-r58.img`.
+- `images/test/allen-modem_driver-test-5.10.85-clang12-r58.img`.
+- `images/test/allen-modem_driver-test-5.10.85-clang12-r58.ko`.
 
-The installed next pair uses `5.10.85-clang12-r58` with the same device/purpose
+The installed next pair uses `5.10.90-clang12-r59` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 
