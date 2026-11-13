@@ -30,8 +30,9 @@ power or GKI certification. See `docs/linux-5.10-upstream-sync.md`,
 The next source milestone resolves all 298 entries through 5.10.49: 258
 exact picks, 14 code adaptations, five version markers, 18 already-present
 fixes and three absent/unselected regulator drivers. Kernel source ends at
-`41fba098d`; its matched build and device gate are in progress, so #50 remains
-the installed candidate until that gate passes. Per-release ledgers and
+`41fba098d`; Linux 5.10.49 #51 full build, matched installation, normal Android
+boot and automatic Live modem pass. #50 is its immediate paired rollback.
+Per-release ledgers and
 adaptation details are in `docs/linux-5.10-upstream-sync.md`. The refreshed
 latest target is 5.10.274, not yet imported.
 
@@ -65,7 +66,7 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is #50/5.10.44. A separate normalized vote-scale
+validation. The installed device is #51/5.10.49. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
@@ -86,8 +87,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r46/r47/r48/r49/r50 pairs are retained;
-r49 is the immediate #50 rollback. Original boot/ramdisk/modem backups remain
+test limits. Accepted r17 and the latest r47/r48/r49/r50/r51 pairs are retained;
+#50 is the immediate #51 rollback. Original boot/ramdisk/modem backups remain
 intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
@@ -493,7 +494,8 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12/`: default independent build output path; not tracked.
 - `out/allen-clang12-r41-metadata/`: retained metadata for the retired #41 build cache; not tracked.
 - `out/allen-clang12-r49-metadata/`: verified metadata for the retired r49 cache; rollback images/source remain retained; not tracked.
-- `out/allen-clang12-upstream-5.10/`: independent output reused for the next matched stable milestone; #50 image pair remains retained; not tracked.
+- `out/allen-clang12-r50-metadata/`: retained configuration/export/build metadata for the replaced #50 output; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.49 #51 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.

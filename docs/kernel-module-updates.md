@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The current 5.10.44
-#50 kernel and module are built together with the r49-derived effective
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.49
+#51 kernel and module are built together with the r49-derived effective
 configuration, Android Clang/LLD 12.0.7, enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
 
@@ -67,6 +67,12 @@ Current GKI vendor modules use verified partitions and a different signing/
 allowlist policy. Allen retains `CONFIG_MODULE_SIG_FORCE=y` and its existing
 trusted keys. Disabling that protection does not create GKI compatibility.
 
+The next 5.10.49/#51 milestone preserves all 13,821 exports but changes the
+get_net_ns CRC after the upstream namespace implementation move. This is not
+an unchanged complete export table. The rebuilt modem does not import that
+symbol; all of its 390 imports match, and the matching signed module loads
+automatically on #51. A successful CRC check still is not complete KMI proof.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -96,7 +102,7 @@ boot and automatic matching-module loading. Keep the integrity/security and
 necessary boot-log checks in this flow, but do not repeat already-passed full
 hardware tests without a new relevant change, fault or unresolved issue.
 
-For the retained #50 build, the existing project commands are:
+For the sequential upstream build output, the existing project commands are:
 
 ```sh
 cd /home/data/Allen
@@ -107,11 +113,15 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. Current local paired test images are:
+overwrite existing candidates. The first stable pair is #51's immediate rollback:
 
 - `images/test/allen-boot-test-5.10.44-clang12-r50.img`.
 - `images/test/allen-modem_driver-test-5.10.44-clang12-r50.img`.
 - `images/test/allen-modem_driver-test-5.10.44-clang12-r50.ko`.
+
+The installed next pair uses `5.10.49-clang12-r51` with the same device/purpose
+naming. It passes full matching kernel/module build, signed ext4 staging,
+paired installation/readback and normal Android with automatic Live modem.
 
 These are local test/recovery files, not an exported release bundle or an
 OEM-signed AVB claim. Their build, installation and runtime evidence is in

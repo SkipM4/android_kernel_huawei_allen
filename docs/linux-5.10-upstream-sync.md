@@ -375,9 +375,32 @@ is reformatted solely to make the older checker silent.
 
 Kernel source ends at `41fba098de021480fba9c732b2b3c0622d92a457`.
 The independent upstream output is reused with the #50 configuration and
-identical signing material; the installed #50 image pair remains untouched
-until the new build and packaging checks pass. Build/runtime results are
-pending at this source checkpoint. The pinned latest target is not reached.
+identical signing material. Full compilation produces 5.10.49 #51, with
+AArch64 final ELF, enforcing CFI/ThinLTO and unchanged effective selections;
+the configuration differs only by its version comment. All 13,821 exports
+remain, with no added/removed symbols and one changed get_net_ns CRC following
+the namespace implementation move. The modem does not import that symbol;
+all 390 rebuilt modem imports match. This is not an unchanged complete KMI.
+
+Final ELF inspection confirms endpoint cleanup precedes kfree, the debugfs
+lookup reference reaches dput, and whole-root teardown clears root/regset.
+Signed-module CMS/certificate, ext4/label/ownership readbacks and boot
+kernel-round-trip/stub/DTB/header/partition bounds pass. The verified #50
+image pair remains the immediate rollback, and independent ramdisk is not
+rewritten. The local matched files use `5.10.49-clang12-r51` naming.
+
+Serial-pinned fastboot identity checks and both partition writes succeed.
+One normal #51 boot reaches sys.boot_completed=1, normal mode, CE storage
+available/RUNNING_UNLOCKED and SurfaceFlinger/activity/power services. The
+modem is automatically loaded Live; its runtime build-id and file agree with
+the new signed module. Full boot/modem readbacks match, ramdisk is unchanged,
+SELinux stays Enforcing, taint 4, signature enforcement Y and PRMEM enabled.
+Complete time-zero and subsequent boot snapshots contain no actual kernel
+WARN/BUG/Oops/panic/CFI/module-version/signature faults. There are 489 initial
+AVCs, none for module loading; no claim of AVC-free operation is made.
+The device is Asleep, no diagnostic tracer/probe is installed, and no broad
+hardware regression or second reboot is performed after the required gate
+passes. The pinned latest target is not reached.
 
 The superseded full r49 build cache is retired only after retaining and
 verifying its configuration, export table, build identity and signing/image
