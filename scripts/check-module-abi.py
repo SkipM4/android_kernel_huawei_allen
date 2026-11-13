@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare an installed module's versioned imports with a built kernel."""
+"""Check same-build packaging policy and a module's versioned imports."""
 
 import argparse
 import subprocess
@@ -37,11 +37,12 @@ def main():
     release_matches = vermagic.split()[0] == release
 
     print(f"Module vermagic: {vermagic}")
-    print(f"Kernel release: {release}; release matches: {release_matches}")
+    print(f"Kernel release: {release}; same-build release policy: {release_matches}")
     print(f"Versioned imports: {len(imports)}")
     print(f"Missing exports: {len(missing)}; sample: {', '.join(missing[:12])}")
     print(f"CRC mismatches: {len(mismatched)}; sample: {', '.join(mismatched[:12])}")
-    print("This checks versioned imports, not runtime CFI behavior or successful boot.")
+    print("Release equality is project policy; MODVERSIONS can allow other releases.")
+    print("This checks versioned imports, not complete ABI, runtime CFI or successful boot.")
     return int(not release_matches or bool(missing) or bool(mismatched))
 
 
