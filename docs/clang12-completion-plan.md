@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #51/5.10.49 on `upstream/linux-5.10.y`, kernel source
-through `41fba098d`. Immediate paired rollback is #50/5.10.44; r49/5.10.43 remains on
+Installed candidate is #52/5.10.50 on `upstream/linux-5.10.y`, kernel source
+through `75f387b5d`. Immediate paired rollback is #51/5.10.49; r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
 Each kernel iteration stays isolated, with matching boot/modem_driver
 validation, unchanged independent
@@ -63,7 +63,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | 5.10.45-49 All 298 Entries Resolved; #51 Full Build/Pair/Normal Boot/Auto Module Pass; Next 5.10.50; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | 5.10.45-49 And All 596 Entries Of 5.10.50 Resolved; #52 Full Build/Pair/Normal Boot/Auto Module Pass; Next 5.10.51-55; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -90,6 +90,22 @@ immediate rollback, latest r47-r51 pairs are kept, and replaced #50 build
 metadata is retained. The retired r49 cache also has verified metadata;
 its rollback pair and bring-up branch remain intact. Per-release ledgers and
 real DWC3, kthread, THP and DMA adaptations are in the synchronization record.
+
+The third milestone imports all 596 official 5.10.50 entries and minimal
+proven credential/PSI follow-ups. Two unsafe intermediate swap fixes are
+officially reverted before installation because their percpu_ref prerequisite
+is absent. A separate DWC3 integration repair drains debugfs readers before
+endpoint release. Source `75f387b5d` builds as #52 with the unchanged effective
+configuration/signing material. Final layout and machine-code lifetime checks
+pass. The export table changes substantially: two additions, one removal and
+8,878 changed CRCs; all 390 rebuilt modem imports and two optional dummy imports
+match. Signed paired staging/installation/readback and one normal Android boot
+with automatic matching Live modem pass. Ramdisk, CE storage/services and
+Enforcing/taint4/CFI/signatureY/PRMEM hold; complete early logs show no actual
+WARN/fatal/module fault. The 494 later boot AVCs remain classified, not hidden.
+No broad hardware regression is repeated. #51 is immediate rollback and
+latest r48-r52 pairs remain local; metadata is preserved before output reuse.
+Next is an ordered 5.10.51-55 batch, not a claim of reaching 5.10.274 or GKI.
 
 ## Next-Stage Work Queue
 

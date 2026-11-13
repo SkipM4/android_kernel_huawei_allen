@@ -36,6 +36,17 @@ Per-release ledgers and
 adaptation details are in `docs/linux-5.10-upstream-sync.md`. The refreshed
 latest target is 5.10.274, not yet imported.
 
+The third milestone resolves all 596 entries in 5.10.50: 566 exact picks,
+12 code adaptations, one version marker, ten already-present fixes and seven
+inapplicable entries. Minimal official follow-ups and a separate DWC3
+reader-lifetime repair end the source at `75f387b5d`. Linux 5.10.50 #52 passes
+full build, final ELF/layout checks, signed matched installation, normal
+Android and automatic Live modem loading. Its 8,878 changed export CRCs
+require rebuilt modules; all 390 modem imports match. #51 is the immediate
+paired rollback. Effective configuration and security controls remain;
+complete boot logs contain no actual WARN/fatal/module fault. This is a
+scoped stable-milestone pass, not full hardware, stable KMI or GKI acceptance.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
@@ -66,7 +77,7 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is #51/5.10.49. A separate normalized vote-scale
+validation. The installed device is #52/5.10.50. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
@@ -87,8 +98,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r47/r48/r49/r50/r51 pairs are retained;
-#50 is the immediate #51 rollback. Original boot/ramdisk/modem backups remain
+test limits. Accepted r17 and the latest r48/r49/r50/r51/r52 pairs are retained;
+#51 is the immediate #52 rollback. Original boot/ramdisk/modem backups remain
 intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
@@ -495,7 +506,9 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12-r41-metadata/`: retained metadata for the retired #41 build cache; not tracked.
 - `out/allen-clang12-r49-metadata/`: verified metadata for the retired r49 cache; rollback images/source remain retained; not tracked.
 - `out/allen-clang12-r50-metadata/`: retained configuration/export/build metadata for the replaced #50 output; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.49 #51 output, reused sequentially for stable milestones; not tracked.
+- `out/allen-clang12-r51-metadata/`: retained configuration/export/build metadata for the replaced #51 output; not tracked.
+- `out/allen-clang12-r52-metadata/`: accepted #52 metadata retained before the next build; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.50 #52 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -522,7 +535,7 @@ scripts/build-allen.sh
 ```
 
 These commands describe the initial released-configuration build, not the
-stock-derived configuration used for the retained r49 or installed #50.
+stock-derived configuration used for the retained r49 or installed #52.
 For the retained upstream output and its r49-derived configuration, use:
 
 ```sh
@@ -533,7 +546,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.49` on the upstream
+Makefile still controls the release, currently `5.10.50` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.

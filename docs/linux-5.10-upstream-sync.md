@@ -535,10 +535,50 @@ access. HKIP_PROTECT_CRED and DEBUG_CREDENTIALS remain disabled, and active
 HHEE root checks rebuild from C. No concrete new opaque-layout break is
 identified; this scan is not complete binary ABI certification.
 
-At this source checkpoint the device remains the validated 5.10.49 #51,
-with its matching pair retained as immediate rollback. The corrected full
-build is in progress; no 5.10.50 boot pass, module-load pass or release claim
-is made. Final ELF/layout, export/import CRCs, signatures, image bounds and
-paired runtime results must pass before the checkpoint is accepted. The
-pinned latest target remains 5.10.274; GKI/core-vendor separation is still a
-later architectural task.
+The corrected full build produces Linux 5.10.50 #52 from `75f387b5d` with
+Android Clang/LLD 12.0.7, enforcing CFI and ThinLTO. Effective enabled/value
+configuration and signing material match #51; configuration text differs
+by the version comment and the removed disabled PSTORE_BLK entry. The final
+ELF is AArch64, the credential layout is 176 bytes with ucounts at 144 and
+group_info at 152, reserved_pg_dir precedes swapper_pg_dir by 4096 bytes,
+and the OEM protected-region end retains 64 KiB alignment.
+
+The final export table has 13,822 entries: `__xfrm_state_mtu` and
+`tracepoint_probe_register_prio_may_exist` are added, `xfrm_state_mtu` is
+removed, and 8,878 retained export CRCs change. This is a substantial KMI
+change, not independent old-module compatibility. Both configured modules
+rebuild; all 390 modem imports and two dummy-module imports match. The dummy
+module remains outside the installed inventory. Final machine-code review
+confirms ucounts acquisition before security callbacks, replacement
+allocation before releasing the old reference, endpoint debugfs reader
+draining before TRB/endpoint frees, and final PSI timer synchronization
+before group memory release.
+
+The signed matching modem filesystem and repacked boot image pass CMS,
+certificate, label/ownership, filesystem, kernel round-trip, firmware-stub,
+DTB/header and partition-bound checks. Their local names use
+`5.10.50-clang12-r52`. Only boot and modem_driver are flashed, with verified
+#51 images as the immediate paired rollback; independent Magisk ramdisk and
+user data are unchanged. Both partition readbacks and the installed signed
+module match. Its runtime build-id matches the newly rebuilt module, which
+loads automatically as Live without force-loading.
+
+One normal #52 boot reaches sys.boot_completed=1, CE storage available and
+RUNNING_UNLOCKED, with SurfaceFlinger/activity/power services present.
+Complete time-zero and subsequent boot logs contain no actual kernel WARN,
+BUG/Oops/panic, CFI failure or module-load/signature fault. The later capture
+contains 494 AVC denials, including existing OEM property/calibration/access
+boundaries; none requests module loading. Initial-console and data=journal
+notices remain classified rather than suppressed. Enforcing, taint 4,
+signature enforcement Y and enabled PRMEM hold. No broad hardware regression
+is repeated under the user's stable-milestone acceptance rule. The screen
+is Asleep, global tracing is off, and only the original wifi instance remains.
+
+The accepted #52 pair, immediate #51 rollback, latest r48-r52 pairs and
+original/r17 recovery files remain local. Replaced #51 and accepted #52
+build metadata are retained before output reuse. Consumed diagnostics and
+the superseded r47 pair are removed under the retention rule; upstream
+reference/import state needed for the next batch remains below 20 GB.
+No release is exported, published or tagged. The pinned target remains
+5.10.274; subsequent ordered batches and GKI/core-vendor separation remain
+open.
