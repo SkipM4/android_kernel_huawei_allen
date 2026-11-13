@@ -63,7 +63,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | Next Source Stage; Observed Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | 5.10.45-49 All 298 Entries Resolved; Build/Runtime Pending; Refreshed Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -77,6 +77,14 @@ recent r46-r50 rollback pairs remain local and below 20 GB. This closes only
 U01's source/build and named runtime gates, not the complete stable series
 or inherited device acceptance queue. No exported release or publication
 is created; local test/recovery images are retained as required for this test.
+
+The next source milestone resolves 5.10.45-49 with 258 exact picks, 14 code
+adaptations, five release markers, 18 already-present fixes and three absent
+unselected regulator drivers. Source ends at `41fba098d`; the reused upstream
+output is building with #50 configuration/signing material while #50 remains
+installed. The retired r49 cache has verified metadata retained separately;
+its rollback pair and bring-up branch remain intact. Per-release ledgers and
+real DWC3, kthread, THP and DMA adaptations are in the synchronization record.
 
 ## Next-Stage Work Queue
 

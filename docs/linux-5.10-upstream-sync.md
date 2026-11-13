@@ -306,6 +306,86 @@ hardware regressions are not repeated unless a new relevant change, fault or
 unresolved issue requires them. This narrower gate does not certify full
 hardware functionality or convert stable maintenance into GKI compliance.
 
+## Second Milestone: 5.10.45 Through 5.10.49
+
+The official `linux-5.10.y` head and kernel.org release data are refreshed on
+2026-11-13 and agree on 5.10.274 at
+`3a323bc22b881a5bdc1646080f93f5ecb22850bf`. This remains the pinned long-term
+target, not an imported or installed version. The next bounded milestone
+groups five adjacent releases, 5.10.45 through 5.10.49, with 298 entries.
+The following 5.10.50 release alone has 596 entries and stays separate.
+
+| Release | Official Commit | Picked | Code Adaptations | Marker Adaptation | Already Present | Not Applicable |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.45 | `037a447b7a0baa71593cb9a57ac7bdb7b9303c01` | 36 | 0 | 1 | 1 | 0 |
+| 5.10.46 | `3de043c6851d7c604e0cabdf8e2aca7797952aa9` | 122 | 5 | 1 | 14 | 3 |
+| 5.10.47 | `4357ae26d4cd133a86982f23cb6b321304faac50` | 88 | 9 | 1 | 3 | 0 |
+| 5.10.48 | `a09a52277207fa79fc1aa7c32be6035c264a79c4` | 6 | 0 | 1 | 0 | 0 |
+| 5.10.49 | `904ad453baa0aae7189ebd07f0d43cb694fb2987` | 6 | 0 | 1 | 0 | 0 |
+
+The per-release `linux-5.10.45-imports.tsv` through
+`linux-5.10.49-imports.tsv` ledgers record all stable/local identities and
+decisions. All 258 exact picks retain original added/deleted lines. All 277
+imported commits retain original authors/dates and stable-SHA trailers.
+The remaining 18 fixes are already present; three missing, unselected
+regulator drivers (ChromeOS EC, RTMV20 and RT4801) do not affect Allen.
+These exclusions are not an all-platform vanilla-kernel claim.
+
+### Adapted Contracts
+
+| Area | Local Commit | Integration Decision |
+| --- | --- | --- |
+| mlx5 software steering | `3e7ae7830` | Retain the later err.h/IS_ERR/PTR_ERR UAR allocation fix while adding original SW-owner-v2 handling |
+| Network namespace | `a58aeddd1` | Move get_net_ns into CONFIG_NET_NS implementation and add disabled stub; retain maybe_get_net zero-reference rejection |
+| Cypress hub | `734c7b8c1` | VID/PID constants already exist, but the autosuspend-disable match does not; add only the missing original entry |
+| Swap/UFFD | `360c68cc9` | Add upstream flag normalization and both call sites without changing PARA_SWAPD UFS/extent encoding |
+| DWC3 endpoint debugfs | `d09dd4341` | Dynamic creation already exists but per-endpoint removal does not; add balanced lookup/remove/dput and preserve whole-root OEM teardown safely |
+| ARM64 DMA zones | `63f10c908` | Use upstream standard-mode calculation; retain active dma_zone_only=true full-DRAM boot contract |
+| Crashkernel mapping | `c9fa43489` | Add upstream early mapping flag/removal of reservation-specific mappings; retain KFENCE/L3, tagged memory, protected page tables and secure-memory mapping |
+| Lockdep instrumentation | `5c4c8f4ea` | Apply original annotations/scopes without replacing the existing debug_locks_off body |
+| Inet race annotation | `4fc264c52` | Retain later READ_ONCE protocol snapshot while adding both original inet_num annotations |
+| Kthread cancellation | `9e3940767` | Replace post-removal OEM recheck with upstream timer-cancel, counter-check and locked remove/requeue transaction; retain raw worker locks |
+| Rmap termination | `d79b5a216` | Use upstream page_not_mapped while retaining targeted-reclaim target_vma interface |
+| THP truncation | `a887e5eb4` | Preserve full original single-page zap/truncate fix and existing header wrappers/speculative-fault declarations |
+| THP split reporting | `3e981fe34` | Preserve original warning/freeze fix; pass NULL for the existing targeted-reclaim parameter |
+| Certificate revocation | `d6971efc0` | Add original preload support alongside existing signing branches; do not change trusted keys or force-signature policy |
+
+The DWC3 adaptation is recorded after its incomplete status is discovered,
+not silently classified as already present. The OEM role switch removes the
+whole debugfs root before freeing endpoints, while core removal, OTG changes
+and init-failure cleanup also reach endpoint freeing. Root/regset pointers
+are cleared at whole-root teardown; endpoint creation/removal skip an absent
+root rather than use a stale dentry or the global debugfs root. The removal
+helper balances the reference obtained by debugfs_lookup. It adds no struct
+member or public ABI. Exact failed-init/OTG races are not runtime-certified.
+
+The kthread change adopts upstream return-value semantics rather than merely
+adding a second canceling check. Removing a queued work item before learning
+that it cannot be requeued can break caller reference accounting. The upstream
+transaction checks cancellation after releasing/reacquiring the worker lock
+for timer synchronization, then removes/requeues atomically under that lock.
+
+`git diff --check` passes for this milestone. Eleven code adaptations have
+clean checkpatch results; the other three retain original stable findings:
+hub indentation (1 error/5 warnings), inet data_race annotation comments
+(2 warnings) and certificate extern/MAINTAINERS notices (2 warnings). None
+is reformatted solely to make the older checker silent.
+
+### Build And Runtime Gate
+
+Kernel source ends at `41fba098de021480fba9c732b2b3c0622d92a457`.
+The independent upstream output is reused with the #50 configuration and
+identical signing material; the installed #50 image pair remains untouched
+until the new build and packaging checks pass. Build/runtime results are
+pending at this source checkpoint. The pinned latest target is not reached.
+
+The superseded full r49 build cache is retired only after retaining and
+verifying its configuration, export table, build identity and signing/image
+contract in `out/allen-clang12-r49-metadata`. Its local rollback images and
+`bringup/clang12` source remain intact, and signing material remains in the
+upstream output. This avoids a third full output and keeps the workspace
+below 20 GB without deleting original images or unrelated diagnostics.
+
 GKI requires an Android common core, suitable configuration/KMI, and vendor
 hardware support separated into modules. This stable batch removes no
 required platform support and does not attempt that architectural split.

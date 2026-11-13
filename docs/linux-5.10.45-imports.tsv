@@ -1,0 +1,39 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	c7836de2cadd88bc2f20f2c5a3d4ef4c73aef627	80dec37aab3db888cfd295f0e1071ae4e5737cdf	picked	net: ieee802154: fix null deref in parse dev addr	net/ieee802154/nl802154.c	-
+002	be6c9887920560b59b9d7d38261ebccdb876c470	990d3c44ac43ea005fa39e9f7d823da88900fad6	picked	HID: quirks: Set INCREMENT_USAGE_ON_DUPLICATE for Saitek X65	drivers/hid/hid-ids.h;drivers/hid/hid-quirks.c	-
+003	b3c5bfc43c5efc0ba6fec752bf5f5e852a1ef913	cb2fda9c144c778bd176d6b60a9dab9137820527	picked	HID: a4tech: use A4_2WHEEL_MOUSE_HACK_B8 for A4TECH NB-95	drivers/hid/Kconfig;drivers/hid/hid-a4tech.c;drivers/hid/hid-ids.h;drivers/hid/hid-quirks.c	-
+004	0bd8a4b46cdb46541044b784a515a0f6613002ee	428f9a5282fecac895e0a3e0c85d220aed21a1ad	picked	HID: hid-input: add mapping for emoji picker key	drivers/hid/hid-debug.c;drivers/hid/hid-input.c;include/uapi/linux/input-event-codes.h	-
+005	716a087adc22db5b2c4dc869fae85b1eeedd28ad	c17595dc51ac693aecdc4be1ed3cc6e1c205668b	picked	HID: hid-sensor-hub: Return error for hid_set_field() failure	drivers/hid/hid-sensor-hub.c	-
+006	6a142ea61074b9268fc03f0cb2de93972450de0a	cba5541c5d744fad6c4bfa545770f50f92398115	picked	HID: quirks: Add quirk for Lenovo optical mouse	drivers/hid/hid-ids.h;drivers/hid/hid-quirks.c	-
+007	258d3fdbb15e73d40f498b2f9632a99e980c24a9	b33d561e936a08d61b8d57d8c8afb158d34f9cf2	picked	HID: multitouch: set Stylus suffix for Stylus-application devices, too	drivers/hid/hid-multitouch.c	-
+008	1dfd9f18ca64475d9d34e2b03955b6308b2282b1	22ea3a8bb78c1d24e23fda9fa96251299af3812d	picked	HID: Add BUS_VIRTUAL to hid_connect logging	drivers/hid/hid-core.c	-
+009	b1e3596416d74ce95cc0b7b38472329a3818f8a9	-	already-present	HID: usbhid: fix info leak in hid_submit_ctrl	drivers/hid/usbhid/hid-core.c;include/linux/hid.h	Complete original patch reverse-applies; exact fixed code is already present.
+010	570b3e4020f2aa7ab6908042e7f3a41ab24ce261	84a57243e29fef13f7b36cd9969d49086ea4b3e6	picked	drm/tegra: sor: Do not leak runtime PM reference	drivers/gpu/drm/tegra/sor.c	-
+011	9c1d492baa9128b970524b9baa4b9baa7dc01c64	3f3971e6738a1a7ebf8f1c0bc94a50852467775f	picked	gpu: host1x: Split up client initalization and registration	drivers/gpu/host1x/bus.c;include/linux/host1x.h	-
+012	3c0ad70cba1f103e829bd4f233f9f4a63d30f5bb	857191781f7113f09dd04552c2de1026c0c8eeb1	picked	drm/tegra: sor: Fully initialize SOR before registration	drivers/gpu/drm/tegra/sor.c	-
+013	247ec8ee0bf2d89b7075c11d9d40563d2fb0a92c	35221b00c9ab6f998c6c0538b44ca14721a17a57	picked	ARM: OMAP1: Fix use of possibly uninitialized irq variable	arch/arm/mach-omap1/pm.c	-
+014	864b5a8d5390765ddb8e82b86b111de86868d65f	c35ba45cd3d5e88245ecd03e68a8a27a6c25470b	picked	ARM: OMAP2+: Fix build warning when mmc_omap is not built	arch/arm/mach-omap2/board-n8x0.c	-
+015	c3e9ea16adc1ce378e7c1416dace0c93631e2fcc	5521d513c70573da5649ed5192dcbb4e13fda1de	picked	gfs2: Prevent direct-I/O write fallback errors from getting lost	fs/gfs2/file.c	-
+016	7a557de07917600a12bcb9867acad771e4b29837	c4e9d66dc452fa09545353cf6d1a085557ed3ec4	picked	gfs2: fix a deadlock on withdraw-during-mount	fs/gfs2/glock.c	-
+017	35277c1a6669033823d983daa9a1df66e366b688	9504f888fcda54915ce6d8d666da6a82da11341c	picked	HID: gt683r: add missing MODULE_DEVICE_TABLE	drivers/hid/hid-gt683r.c	-
+018	bb73f2f789695028a4cc8baf9d6a8df03fb5ae14	f327a5f6928a4e6014db8f119779e71e50331db5	picked	riscv: Use -mno-relax when using lld linker	arch/riscv/Makefile	-
+019	a61156314b66456ab6a291ed5deba1ebd002ab3c	b2c22503dd2c9e45e8720d17cac03ca4e2bca708	picked	gfs2: Fix use-after-free in gfs2_glock_shrink_scan	fs/gfs2/glock.c	-
+020	5d5f0d945d475b01e0d81894345f0b36acaf4d02	451ff1297b178167d7c2166f2353b3278ea0e505	picked	scsi: target: core: Fix warning on realtime kernels	drivers/target/target_core_transport.c	-
+021	609b56e9791c27d9b07a30a811b6868453950d4c	9d4ff84560626cb87750bf05a88b5eda0f9b66f0	picked	ethernet: myri10ge: Fix missing error code in myri10ge_probe()	drivers/net/ethernet/myricom/myri10ge/myri10ge.c	-
+022	5491d97078fe173b1b16966d2c4ec78f14e07eef	5441d4bc76c85b8966671bcd40010a6019c64b5a	picked	scsi: qedf: Do not put host in qedf_vport_create() unconditionally	drivers/scsi/qedf/qedf_main.c	-
+023	f8ac1bd5270b9d51d474cc39617a2e97b8e30275	f1c6fcb6408f1b79041de7305610efaac1617c98	picked	Bluetooth: Add a new USB ID for RTL8822CE	drivers/bluetooth/btusb.c	-
+024	b8fdea0695fd7ac382a35fe958a9e7c8f1f71685	9a0a880e333a444c090640e1194bdcdedba18ba6	picked	scsi: scsi_devinfo: Add blacklist entry for HPE OPEN-V	drivers/scsi/scsi_devinfo.c	-
+025	1c80ca596cab61ee03f20b591eea8c51a2c85b4d	3d16673201a26165928bd3d472541cd1310f7f8a	picked	nvme-loop: reset queue count to 1 in nvme_loop_destroy_io_queues()	drivers/nvme/target/loop.c	-
+026	620424df29a0bf8fe0da7b9c96692e61bba704cf	c17ad2052689da3f6446821cac1348fcd488493f	picked	nvme-loop: clear NVME_LOOP_Q_LIVE when nvme_loop_configure_admin_queue() fails	drivers/nvme/target/loop.c	-
+027	155c2fea4b31fc0ca5b3028c1ceea03c49ec8884	aa254b692840b89c5c564376db5293f87ef2d47b	picked	nvme-loop: check for NVME_LOOP_Q_LIVE in nvme_loop_destroy_admin_queue()	drivers/nvme/target/loop.c	-
+028	511a01029115e94226e52bad6052ef1f5da8cb6f	ef19e25c4e0ca220c85e48e60d82290759103713	picked	nvme-loop: do not warn for deleted controllers during reset	drivers/nvme/target/loop.c	-
+029	ecd26536ec5b2490ac3089413cd7013b3890b6d6	43f0e5ad3fce05c1168a532f61af6e484847d33e	picked	net: ipconfig: Don't override command-line hostnames or domains	net/ipv4/ipconfig.c	-
+030	34fe4ccb1fe52b5c58d3730c6732e6971dc3564b	3281e268b8ca6ed12f5ffde9e7a5206f32ac9af1	picked	drm/amd/display: Allow bandwidth validation for 0 streams.	drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c	-
+031	75fa7fbef1325ab56404b0afcd5822d11b844664	96b2dad967efe6f6df90d46122dc9dd1571846fa	picked	drm/amdgpu: refine amdgpu_fru_get_product_info	drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c	-
+032	9e8c2af010463197315fa54a6c17e74988b5259c	14b18240ed92aa75851a1dd71993686953ce8804	picked	drm/amd/display: Fix potential memory leak in DMUB hw_init	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c	-
+033	9250f97fd59416448299f923fba2c69c1a308a07	5f6d30552db1e7a57bba5ecd64b1eb3c33932b23	picked	drm/amd/amdgpu:save psp ring wptr to avoid attack	drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h;drivers/gpu/drm/amd/amdgpu/psp_v11_0.c;drivers/gpu/drm/amd/amdgpu/psp_v3_1.c	-
+034	0aa356950800e18a96c78633cadaf1d1c6c33d7d	b543adada1c833baeeef43a0a07add9fa6412c8a	picked	rtnetlink: Fix missing error code in rtnl_bridge_notify()	net/core/rtnetlink.c	-
+035	04c1556bfc79734ae91af632aff2f754a501c36c	6213157d054d39a042c3149f71b976b76a4f6904	picked	net/x25: Return the correct errno code	net/x25/af_x25.c	-
+036	d8b2e3e17c33ab4874a7431d6c314c4939145160	f207f232196fbc622ad5c5dae6d4baa73eb9e02a	picked	net: Return the correct errno code	net/compat.c	-
+037	808fcc1e707c21a2a6492c8bec65a7cc6eb8b94e	5d6333deec1db263f6e8fc27861cf438b4bb7289	picked	fib: Return the correct errno code	net/core/fib_rules.c	-
+038	037a447b7a0baa71593cb9a57ac7bdb7b9303c01	adb163854ac71767561f377b4369efc6cf17e01e	backported	Linux 5.10.45	Makefile	Release marker only; preserve required Huawei Makefile exports and executable mode after all applicable entries are resolved.

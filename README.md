@@ -27,6 +27,14 @@ power or GKI certification. See `docs/linux-5.10-upstream-sync.md`,
 `docs/kernel-module-updates.md` and the complete
 `docs/linux-5.10.44-imports.tsv` ledger.
 
+The next source milestone resolves all 298 entries through 5.10.49: 258
+exact picks, 14 code adaptations, five version markers, 18 already-present
+fixes and three absent/unselected regulator drivers. Kernel source ends at
+`41fba098d`; its matched build and device gate are in progress, so #50 remains
+the installed candidate until that gate passes. Per-release ledgers and
+adaptation details are in `docs/linux-5.10-upstream-sync.md`. The refreshed
+latest target is 5.10.274, not yet imported.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
@@ -484,8 +492,8 @@ need separate lifecycle diagnosis without relaxing protection.
 - `tools/host/bin/bc`: local build dependency, extracted from the Arch package.
 - `out/allen-clang12/`: default independent build output path; not tracked.
 - `out/allen-clang12-r41-metadata/`: retained metadata for the retired #41 build cache; not tracked.
-- `out/allen-clang12-frame-rtg/`: retained r49 frame-RTG rollback output; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.44 #50 paired-test output; not tracked.
+- `out/allen-clang12-r49-metadata/`: verified metadata for the retired r49 cache; rollback images/source remain retained; not tracked.
+- `out/allen-clang12-upstream-5.10/`: independent output reused for the next matched stable milestone; #50 image pair remains retained; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -523,7 +531,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.44` on the upstream
+Makefile still controls the release, currently `5.10.49` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.

@@ -1,0 +1,8 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	f77f97238496aeab597d573aa1703441626da999	e3c70996e13d6a9162c3d92d1e186dab2dfbf215	picked	scsi: sr: Return appropriate error code when disk is ejected	drivers/scsi/sr.c	-
+002	d191c3d6ad330a686bfe41e923442594766cc619	e1310e1fd971106f6a69ccbd3c3a78d13820fd8f	picked	gpio: mxc: Fix disabled interrupt wake-up support	drivers/gpio/gpio-mxc.c	-
+003	45ca6df5df11da7f19c85591e093479d5c60262f	a5845b5fb21b2fc95f71d041437864e193305fbe	picked	drm/nouveau: fix dma_address check for CPU/GPU sync	drivers/gpu/drm/nouveau/nouveau_bo.c	-
+004	348143a38012656f914cc7d3f016849e08a76d82	5079658a9c8846dd7a292d3ce74c493095e7cbc9	picked	gpio: AMD8111 and TQMX86 require HAS_IOPORT_MAP	drivers/gpio/Kconfig	-
+005	4ab869e0289dbab0aeeedea5e5c4536e13af47b2	6bbf476a775897d6af91e928bec14840ec04980e	picked	RDMA/mlx5: Block FDB rules when not in switchdev mode	drivers/infiniband/hw/mlx5/fs.c	-
+006	4dc96804286498f74beabcfb7603bb76d9905ad9	be34a16716ea928c2fd973371b107a7c6f1eacc6	picked	Revert "KVM: x86/mmu: Drop kvm_mmu_extended_role.cr4_la57 hack"	arch/x86/include/asm/kvm_host.h;arch/x86/kvm/mmu/mmu.c	-
+007	a09a52277207fa79fc1aa7c32be6035c264a79c4	375bdd2670117198e5c86ca157c0f94fdac9263e	backported	Linux 5.10.48	Makefile	Release marker only; preserve required Huawei Makefile exports and executable mode after all applicable entries are resolved.
