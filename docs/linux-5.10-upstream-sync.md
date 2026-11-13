@@ -416,3 +416,129 @@ After the stable base is established, audit the matching Android common
 delta, KMI/module dependencies and OEM core hooks one subsystem at a time.
 The remaining r49 functional/manual/source prerequisites remain recorded in
 [clang12-completion-plan.md](clang12-completion-plan.md).
+
+## Third Milestone: 5.10.50
+
+The adjacent official range is v5.10.49
+`904ad453baa0aae7189ebd07f0d43cb694fb2987` through v5.10.50
+`43b0742ef44c30f202afbf8355e9326710af9ca1`. All 596 entries are resolved in
+[linux-5.10.50-imports.tsv](linux-5.10.50-imports.tsv): 566 exact picks,
+12 code adaptations, one release-marker adaptation, ten already-present
+fixes and seven inapplicable entries. Independent verification confirms the
+official order, unique identities, subjects and paths; all 579 imported
+commits retain original authors/dates and stable-SHA trailers, and all 566
+exact picks retain original added/deleted lines, modes and binary changes.
+The release marker is `728994cfb`; the additional safety prerequisites below
+end the candidate source at `75f387b5d75dd5cea2d79c984a986f945e6938f6`.
+
+### Adapted Contracts
+
+| Area | Local Commit | Integration Decision |
+| --- | --- | --- |
+| DWC3 debugfs creation | `bbe4eec9d` | Create the root before core-mode/endpoint initialization and retain it for the controller lifetime; remove OEM role-switch root churn while retaining vendor files and final/error cleanup |
+| GUP compound pages | `8c65621b3` | Adopt the post-reference compound-head recheck, pin bias and reference rollback while preserving OEM page-pinner accounting |
+| Credential ucounts | `8ec1f29ec` | Add upstream credential/namespace references, preserving HKIP/checkroot and scheduler UID hooks; check allocation before committing credentials |
+| Uclamp group minimum | `a133caf22` | Replace the OEM user-defined-dependent bypass with upstream group minimum protection and maximum limiting; retain independent HISI and Android hooks |
+| Uclamp group locking | `1e1171e0a` | Add upstream mutex/RCU scope and assertions; retain the Android group-online hook outside that scope |
+| ARM64 reserved page table | `a55474c32` | Adopt standard TTBR/trampoline/linker offsets; retain the OEM 64 KiB protected-region alignment and end marker |
+| Uclamp range refresh | `750c054c6` | Clamp requests to the group range and refresh both active clamps; retain the existing helper's transient IDLE clearing |
+| PSI trigger lifetime | `51c3850ad` | Initialize waitqueue/timer once per group; stop only the retired worker after RCU, and move the OEM scheduling reset into new-worker creation under the trigger lock |
+| Swap fault lifetime | `751bdd285` | Initially adapt the original guard across every regular/speculative-fault exit, retaining CMA/memcg/zram contracts; explicitly reverted before installation below |
+| IPv6/GRE segmentation | `0e0377766` | Set the inner IP protocol only in the IP-over-IPv6 caller; retain the later headroom READ_ONCE/WRITE_ONCE fix |
+| FunctionFS cross-references | `d099acca0` | Adopt the full upstream bind/release transaction and callback nesting; retain the OEM kill_sb informational log |
+| Read-only file THP eligibility | `f1ab0e985` | Adopt the active query and shared VMA helper; retain later file-offset alignment, VM_NO_KHUGEPAGED and OEM hihugepage policies |
+
+Nine adaptations have clean diff-only checkpatch results. The credential,
+initial uclamp-minimum and ARM64 changes retain one error/five warnings on
+original upstream lines; their original patches report the same findings.
+Commit-message checks cannot resolve absent upstream ancestors in the
+whole-tree Huawei Git history and are not substituted for source checks.
+`git diff --check` passes for the complete source range.
+
+The seven exclusions are absent/unselected UniPhier, MT6358, DA9052,
+FAN53880 and Hi655x regulator sources, the absent/unselected legacy Hi6210
+I2S source, and a BPF selftest `.gitignore` rule omitted from the published
+tree. The last case already leaves tracked `test_progs.h` searchable.
+These are not removals of selected Allen hardware support. Existing later
+BPF/GSO, block request lifetime and IRQ fixes are preserved rather than
+replaced with older intermediate implementations.
+
+### Known Upstream Follow-Ups Brought Forward
+
+Source review identifies real defects in the intermediate upstream release,
+not merely context conflicts. The following minimal proven repairs precede
+the first installation; they are outside the 596-entry ledger and must be
+recognized when their later stable ranges are processed.
+
+| Official Source | Local Commit | Reason |
+| --- | --- | --- |
+| Linux 5.10.y `b493af3a66e067f93e5e03465507866ddeabff9e`, mainline `bbb6d0f3e1feb43d663af089c7dedb23be6a04fb` | `79d8100ee` | Acquire ucounts before the fallible security hook in both credential constructors; cleanup must not release a borrowed reference |
+| Mainline `34dc2fd6e6908499b669c7b45320cddf38b332e1` | `94269d6b1` | Keep the old owned ucounts reference until replacement allocation succeeds; original code loses it on failure |
+| Linux 5.10.y `4addb102154b7cf6e2310ccbe20c3c08619e520d`, mainline `5457025fa8ca3c0d2732109513de839e3e797190` | `88fdb3d60` | Synchronize the PSI timer at final cgroup release, using this tree's equivalent del_timer_sync API; a scheduler reader can rearm it after trigger-level deletion |
+| Linux 5.10.53 `277b311ae170b90fcc30551d1a30d17fceb113a4` | `1c635e048` | Revert the swap fault guard because the required mainline percpu_ref prerequisite is absent from this RCU-based 5.10 tree |
+| Linux 5.10.53 `7d7d0e84ac0d80815abfb7db3ba3e683830b310d` | `75f387b5d` | Apply the matching official shmem swapin revert for the same missing prerequisite |
+
+Sources are original commits from
+<https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git> and
+<https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git>.
+The mainline allocation-failure fix at `94269d6b1` preserves its original
+author/date and exact source patch; its explicit source mapping is recorded
+in the table because its commit message lacks a SHA trailer. No existing
+commit is amended to repair that documentation omission.
+
+PSI kernfs removal drains pressure files and destroys their triggers; the
+old poll worker stops and final cgroup freeing follows an RCU grace period.
+No remaining scheduler/worker can arm the timer, and its callback does not
+rearm itself. Final-group `del_timer_sync()` therefore closes the freed-group
+callback window without deleting a replacement trigger's timer. A separate
+pre-existing worker wake-consumption race has only an unmerged proposal in
+the reviewed sources; it is not presented as an accepted upstream pick or
+runtime-certified fix.
+
+The official swap revert discussion is
+<https://lists.openwall.net/linux-kernel/2021/07/19/494>. Mainline
+`63d8620ecf93` provides the missing percpu_ref-based serialization. Here,
+`get_swap_device()` still opens an RCU critical section, so the imported
+sleeping fault/I/O paths cannot safely hold it. The first local build is
+deliberately stopped before linking/installation when this dependency is
+confirmed. The official reverts are preferred over a larger unreviewed swap
+reconstruction. The final fault function returns exactly to its pre-guard
+implementation, including the earlier OEM policies. This avoids the newly
+introduced sleep-in-RCU defect; it does not certify every historical swapoff
+race as resolved.
+
+The credential series is itself later reverted by Linux 5.10.y. Those
+reverts must be verified and processed in order, not skipped to retain an
+unintended permanent feature. The two small early fixes make the interim
+series safe on the identified error paths without changing its ABI policy.
+
+### Separate DWC3 Integration Repair
+
+`22e101b95` removes and drains each endpoint debugfs directory before freeing
+its TRB ring and endpoint. The controller-lifetime root means role switching
+no longer happens to drain all readers through an early whole-root deletion.
+The guarded `trb_ring` read can otherwise dereference released ring memory.
+Existing debugfs removal waits for active readers and runs outside the DWC3
+spinlock; no extra lock, speculative NULL check or hardware policy change is
+added. This is a local integration repair, not an attributed upstream pick.
+
+### Candidate ABI Review And Validation Boundary
+
+The credential structure gains a pointer after `user_ns`; the expected
+configured size changes from 168 to 176 bytes, with `group_info` and the RCU
+union shifted by eight bytes. Existing preceding fields remain unchanged.
+All 262 modem object inputs resolve to available C sources, and its source
+and undefined-symbol inventory do not use credential/ucount APIs. Twenty
+retained OEM assembly units have old credential debug metadata, but scoped
+instruction/relocation checks find no corresponding runtime credential
+access. HKIP_PROTECT_CRED and DEBUG_CREDENTIALS remain disabled, and active
+HHEE root checks rebuild from C. No concrete new opaque-layout break is
+identified; this scan is not complete binary ABI certification.
+
+At this source checkpoint the device remains the validated 5.10.49 #51,
+with its matching pair retained as immediate rollback. The corrected full
+build is in progress; no 5.10.50 boot pass, module-load pass or release claim
+is made. Final ELF/layout, export/import CRCs, signatures, image bounds and
+paired runtime results must pass before the checkpoint is accepted. The
+pinned latest target remains 5.10.274; GKI/core-vendor separation is still a
+later architectural task.
