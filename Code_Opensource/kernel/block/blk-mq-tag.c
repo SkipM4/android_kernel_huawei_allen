@@ -287,6 +287,7 @@ struct bt_tags_iter_data {
 	busy_tag_iter_fn *fn;
 	void *data;
 	unsigned int flags;
+	unsigned int tag_offset;
 };
 
 #define BT_TAG_ITER_RESERVED		(1 << 0)
@@ -302,8 +303,7 @@ static bool bt_tags_iter(struct sbitmap *bitmap, unsigned int bitnr, void *data)
 	bool ret = true;
 	bool iter_static_rqs = !!(iter_data->flags & BT_TAG_ITER_STATIC_RQS);
 
-	if (!reserved)
-		bitnr += tags->nr_reserved_tags;
+	bitnr += iter_data->tag_offset;
 
 	/*
 	 * We can hit rq == NULL here, because the tagging functions
@@ -335,15 +335,18 @@ static bool bt_tags_iter(struct sbitmap *bitmap, unsigned int bitnr, void *data)
  *		to continue iterating tags, false to stop.
  * @data:	Will be passed as second argument to @fn.
  * @flags:	BT_TAG_ITER_*
+ * @tag_offset: Index of the first tag covered by @bt.
  */
 static void bt_tags_for_each(struct blk_mq_tags *tags, struct sbitmap_queue *bt,
-			     busy_tag_iter_fn *fn, void *data, unsigned int flags)
+			     busy_tag_iter_fn *fn, void *data, unsigned int flags,
+			     unsigned int tag_offset)
 {
 	struct bt_tags_iter_data iter_data = {
 		.tags = tags,
 		.fn = fn,
 		.data = data,
 		.flags = flags,
+		.tag_offset = tag_offset,
 	};
 
 	if (tags->rqs)
@@ -358,15 +361,22 @@ static void __blk_mq_all_tag_iter(struct blk_mq_tags *tags,
 #ifdef CONFIG_MAS_BLK
 	if (tags->set && tags->set->mas_tagset_ops &&
 			tags->set->mas_tagset_ops->tagset_all_tag_busy_iter_fn) {
-		tags->set->mas_tagset_ops->tagset_all_tag_busy_iter_fn(
-				tags, fn, priv);
+		bt_tags_for_each(tags, tags->bitmap_tags, fn, priv, flags, 0);
+		if (tags->nr_high_prio_tags)
+			bt_tags_for_each(tags, &tags->highprio_tags, fn, priv,
+					 flags, tags->high_prio_tags_id_offset);
+		if (tags->nr_reserved_tags)
+			bt_tags_for_each(tags, tags->breserved_tags, fn, priv,
+					 flags | BT_TAG_ITER_RESERVED,
+					 tags->reserved_tags_id_offset);
 		return;
 	}
 #endif
 	if (tags->nr_reserved_tags)
 		bt_tags_for_each(tags, tags->breserved_tags, fn, priv,
-				 flags | BT_TAG_ITER_RESERVED);
-	bt_tags_for_each(tags, tags->bitmap_tags, fn, priv, flags);
+				 flags | BT_TAG_ITER_RESERVED, 0);
+	bt_tags_for_each(tags, tags->bitmap_tags, fn, priv, flags,
+			 tags->nr_reserved_tags);
 }
 
 /**
