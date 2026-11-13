@@ -105,7 +105,7 @@ static inline void __cfi_ufs_tagset_all_tag_busy_iter(
 static inline void __cfi_ufs_tagset_tag_busy_iter(
 	struct blk_mq_hw_ctx *hctx, busy_iter_fn *fn, void *priv)
 {
-	ufs_tagset_tag_busy_iter(hctx, fn, priv);
+	blk_mq_mas_tag_busy_iter(hctx, fn, priv);
 }
 
 static inline int __cfi_ufs_mq_iosched_init(struct request_queue *q)
