@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #54/5.10.64 on `upstream/linux-5.10.y`, kernel source
-through `378a72fba`. Immediate paired rollback is #53/5.10.55; r49/5.10.43 remains on
+Installed candidate is #55/5.10.70 on `upstream/linux-5.10.y`, kernel source
+through `a08144e8a`. Immediate paired rollback is #54/5.10.64; r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
 Each kernel iteration stays isolated, with matching boot/modem_driver
 validation, unchanged independent
@@ -63,7 +63,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.64 Resolved; #54 Full Build/Actual Layout/CFI/Pair/Normal Boot/Auto Module Pass; Next Complete 5.10.65-70; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.70 Resolved; #55 Full Build/Actual Layout/Const-CFI/All-Tag/Pair/Normal Boot/Auto Module Pass; Next Complete 5.10.71-75; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -140,6 +140,25 @@ complete logs contain no actual fault and retain 546 AVC denials, none for
 module loading. Screen/trace state is restored without a broad hardware
 replay. #53 is immediate rollback, latest r50-r54 pairs and metadata remain
 local. Next is complete 5.10.65-70, not latest stable or GKI completion.
+
+The sixth milestone resolves all 842 official entries through 5.10.70:
+798 exact picks, twenty code adaptations, six markers, thirteen already
+present and five absent/unselected alternatives. Standard const list_sort
+is coordinated across its real callers without the earlier private cast.
+The separate MAS all-tag migration reuses standard static/dynamic flags,
+protected tag/ref lookup and flush-aware put with the existing three-bank
+numbering. Source `a08144e8a` builds as #55. Fresh C records, final const
+CFI/canonical entries, all-tag control flow and twelve-offset continuity
+pass; unchanged nine assembly sources reuse the accepted scoped #54 proof
+without a second 29-operand audit. All 390 modem and two optional imports
+match, despite fifteen changed CRCs and one new export. Existing selections
+remain; one corrected Kconfig dependency makes a disabled clock selector
+visible. Signed matched installation, normal Android, automatic Live modem,
+full readbacks/build-id, unchanged ramdisk/security and complete logs pass.
+The screen returns to Asleep, with no broad hardware replay. #54 is immediate
+rollback, r51-r55 pairs and metadata remain local below 20 GB. Next is
+complete 5.10.71-75 with real MDIO-layout/FIB-function gates, not latest
+stable, full hardware or GKI completion.
 
 ## Next-Stage Work Queue
 

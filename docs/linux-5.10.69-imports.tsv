@@ -1,0 +1,66 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	9e766b86a9ef653a8ca48a9f70d3dbb580284594	d2e5035f334226e8019784800527b90f1318ba09	picked	PCI: pci-bridge-emul: Add PCIe Root Capabilities Register	drivers/pci/pci-bridge-emul.h	-
+002	9493e92a395330787def2b1980e930f5082de2f4	f9838b787f53776076fbec5cbda03ff36b76491a	picked	PCI: aardvark: Fix reporting CRS value	drivers/pci/controller/pci-aardvark.c	-
+003	74d54e5ceba3f50b9b695e4740172d876327815a	9aa3c46bb82927509f9172e2ba5953f0226d2a5f	picked	console: consume APC, DM, DCS	drivers/tty/vt/vt.c	-
+004	79286ea830b3922b38bcefbd150b2010f91a55ce	1ee39f4c67dcf05b73aa90395e4d478b02039a6b	picked	s390/pci_mmio: fully validate the VMA before calling follow_pte()	arch/s390/pci/pci_mmio.c	-
+005	eb46d7c8ae838b37ad4acee44fa3828af3062ce7	2b3588d01da72860b4d502d31e4752a1504c5bb7	picked	ARM: Qualify enabling of swiotlb_init()	arch/arm/mm/init.c	-
+006	ce90c6706d5a95ddda8d3cea01768bd0b4445851	ab66fd26c0025733c26bf2ce3a39203bf29bd30f	picked	ARM: 9077/1: PLT: Move struct plt_entries definition to header	arch/arm/include/asm/module.h;arch/arm/kernel/module-plts.c	-
+007	ad00533858f7b1436f7dc9c555ccac85c0e28c9a	69add8096b0f7fe6d5c636eeb36fbe935a5fa2db	picked	ARM: 9078/1: Add warn suppress parameter to arm_gen_branch_link()	arch/arm/include/asm/insn.h;arch/arm/kernel/ftrace.c;arch/arm/kernel/insn.c	-
+008	f91d25a7c89e2f246a541603430ce2420bab58c5	82aab65035068c256040a7426a56ee78ccb062fd	picked	ARM: 9079/1: ftrace: Add MODULE_PLTS support	arch/arm/include/asm/ftrace.h;arch/arm/include/asm/module.h;arch/arm/kernel/ftrace.c;arch/arm/kernel/module-plts.c	-
+009	5ce134e65f3b8034220c416ab8cecd8652fdeb2d	762615a599ca6fd2cb193af253f8941328cac38d	picked	ARM: 9098/1: ftrace: MODULE_PLT: Fix build problem without DYNAMIC_FTRACE	arch/arm/kernel/module-plts.c	-
+010	473cea4983b582fedb10f84b43e8924716ebc4fc	57bcdae56624a8b16994331de6a3b60ef43dcc24	picked	Revert "net/mlx5: Register to devlink ingress VLAN filter trap"	drivers/net/ethernet/mellanox/mlx5/core/devlink.c	-
+011	ffca46766850d4b96a26ad511a7997f74da2df8c	91901152774c6a71701f85ac3ed5f2bdfe0aa6cb	picked	sctp: validate chunk size in __rcv_asconf_lookup	net/sctp/input.c	-
+012	ccb79116c37242c07c34c991868acded87509e4c	7b7bb4c65745b76106c9a5a2a49cd1c11a8473fb	picked	sctp: add param size validation for SCTP_PARAM_SET_PRIMARY	net/sctp/sm_make_chunk.c	-
+013	6b24588708fe7cb680d433a0492abb651bb1d5b0	38ff8dcd725dd868100705cca1eb817b4dedcb6c	picked	staging: rtl8192u: Fix bitwise vs logical operator in TranslateRxSignalStuff819xUsb()	drivers/staging/rtl8192u/r8192U_core.c	-
+014	5d0e6a5e44416cdfd8b391fa46c69f7d08f9dd0d	e07d242ba4e75fdbb11501059ae09514b31558c5	picked	coredump: fix memleak in dump_vma_snapshot()	fs/coredump.c	-
+015	9d49973b08488f59dd0ada269d9dca210d1fd365	420a77452f1145e4c301dcd8b28b6c876c638916	picked	um: virtio_uml: fix memory leak on init failures	arch/um/drivers/virtio_uml.c	-
+016	fa64b08931ee27bec3513aed8f7936e99b8d1212	0a543f0e02adb6bd2e50962a1493d31ccbe6dd18	picked	dmaengine: acpi: Avoid comparison GSI with Linux vIRQ	drivers/dma/acpi-dma.c	-
+017	ebcd3fd9207c98f0c01c317ef3aca7f2df41b72d	dfe924c380482c132a1f41cd02a6a3152e1c6b65	picked	perf test: Fix bpf test sample mismatch reporting	tools/perf/tests/bpf.c	-
+018	87c4144450e6f09afeb2adc336f35b5f5274205c	0e4b3762606398eaecb99fd5a2ba63c88b3dda0d	picked	tools lib: Adopt memchr_inv() from kernel	tools/include/linux/string.h;tools/lib/string.c	-
+019	38ab04186fb3f3b50f33e5cfde38066c5227e89d	43336dc362ca485c3175db4fe31346960bc47c1d	picked	perf tools: Allow build-id with trailing zeros	tools/perf/util/dso.c	-
+020	375e779ec32a87edeb6bb26582c1c9a1f59876f9	b8b3e7ceef3ebb8f70320e9c134dde39217b93c6	picked	thermal/drivers/exynos: Fix an error code in exynos_tmu_probe()	drivers/thermal/samsung/exynos_tmu.c	-
+021	e464b3876b022c0c4e0eb21518c491c6eb38130c	14868ee610b70dde5100f0a991abb314d088e9fa	picked	9p/trans_virtio: Remove sysfs file on probe failure	net/9p/trans_virtio.c	-
+022	30417cbeccffeaaf5d7fa5a9e9feffe246a1430f	b3e0337b760030dda0e9b1a8bcd5ce2f4a1dcd03	picked	prctl: allow to setup brk for et_dyn executables	kernel/sys.c	-
+023	0796d99c1b16f03fd34024a26da2e81ec1c728c1	06fd6785358c80b19b41bbdc917de76896607e36	picked	nilfs2: use refcount_dec_and_lock() to fix potential UAF	fs/nilfs2/the_nilfs.c	-
+024	74190973ab01fb88e8b685f417651e30112ed4a1	5b71643240d1edd486cfaeec6c69e2c6924b08b3	picked	profiling: fix shift-out-of-bounds bugs	kernel/profile.c	-
+025	c63df77c40ca40979ed8bb02b4a07500eef6cd28	-	already-present	PM: sleep: core: Avoid setting power.must_resume to false	drivers/base/power/main.c	Complete original patch reverse-applies.
+026	322b70b522abe03cd59712bb47a72eddd835d19d	4afae2be657701f4a1515be72ad26054e895d4ec	picked	pwm: lpc32xx: Don't modify HW state in .probe() after the PWM chip was registered	drivers/pwm/pwm-lpc32xx.c	-
+027	777344da345a374eb74f2a743b5399e6e60d566b	44ea8581929d18978c3d3bdd5cda03cd34bbbf00	picked	pwm: mxs: Don't modify HW state in .probe() after the PWM chip was registered	drivers/pwm/pwm-mxs.c	-
+028	48271d10bf4cbdd4693ad4f94fb14c2aa7fcc4c5	3d4f9923e40bab7fca01b7eea668f09b0f3691de	picked	dmaengine: idxd: fix wq slot allocation index check	drivers/dma/idxd/submit.c	-
+029	113a69460de5e82ae3be12b01ec1daee81fd9929	c3a496c0243c52b011a03d882d470830d1b0aee6	picked	platform/chrome: sensorhub: Add trace events for sample	drivers/platform/chrome/Makefile;drivers/platform/chrome/cros_ec_sensorhub_ring.c;drivers/platform/chrome/cros_ec_trace.h	-
+030	41aa215734868ba7cb195e2cc5f00cdba5bd1578	7c1b6315fc96a9546ee6defa46360c8accafa675	picked	platform/chrome: cros_ec_trace: Fix format warnings	drivers/platform/chrome/cros_ec_trace.h	-
+031	8193ad306ea0005bbe1f2f8fc600ab270d27c8dd	e8949197efa80a1de69ae214dd1dc34261065781	picked	ceph: allow ceph_put_mds_session to take NULL or ERR_PTR	fs/ceph/dir.c;fs/ceph/inode.c;fs/ceph/mds_client.c;fs/ceph/metric.c	-
+032	e418ce8b8dfd47c3555b6e53757382d1fb609b54	ee1ceeab882f30e7268f5e52ba9fabf7490d9c68	picked	ceph: cancel delayed work instead of flushing on mdsc teardown	fs/ceph/mds_client.c;fs/ceph/metric.c	-
+033	912afe602eacf4c9cf75a74d3cdb5c9f9c7c4698	1c19d89f13417cfb05b20c4134b23b53413a6f22	picked	Kconfig.debug: drop selecting non-existing HARDLOCKUP_DETECTOR_ARCH	lib/Kconfig.debug	-
+034	d1f9ecc00da1bb6af558251d3eb88ea33aa0c307	941da014c6621d9e730bd2b0ff5453e11e05b5b9	picked	tools/bootconfig: Fix tracing_on option checking in ftrace2bconf.sh	tools/bootconfig/scripts/ftrace2bconf.sh	-
+035	c9538018cb2d61c269c4c622131545763f24a9ee	1c31e53ec3a62b69d85ceac05a10e324e425cfce	picked	thermal/core: Fix thermal_cooling_device_register() prototype	include/linux/thermal.h	-
+036	45bd9dd1bee8aedc4cbd409b1ba7f9b4f941eea6	ab88d4601640ba642cc0f83b53e9934571fa0571	picked	drm/amdgpu: Disable PCIE_DPM on Intel RKL Platform	drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c	-
+037	b9a1526d51744075a6245d3f3a5544b10a5405c9	4a2cd8ff79f9574d224a3c4cdcd4369959677e57	backported	drivers: base: cacheinfo: Get rid of DEFINE_SMP_CALL_CACHE_FUNCTION()	arch/arm64/kernel/cacheinfo.c;arch/mips/kernel/cacheinfo.c;arch/riscv/kernel/cacheinfo.c;arch/x86/kernel/cpu/cacheinfo.c;include/linux/cacheinfo.h	Complete direct CPU-hotplug cacheinfo calls and SMP wrapper removal across all architectures. Adapt ARM64 signed fw_level declaration, retaining existing firmware error check and GPL cache_line_size export.
+038	ca907291e11619843ea8b555ca30cf322a8d2514	343e718d3e9cddc6e2427bf4b8ed9e1da6d3406e	picked	dma-buf: DMABUF_MOVE_NOTIFY should depend on DMA_SHARED_BUFFER	drivers/dma-buf/Kconfig	-
+039	2a07348e9821d7014b27ba3cd7a27318cbc5f4c9	e4b280880a3003e4501a540434cfb99b7d081ce2	picked	parisc: Move pci_dev_is_behind_card_dino to where it is used	drivers/parisc/dino.c	-
+040	b4bb0b171b6ef63474bbbcfcb0b90660c27f8fcc	e82a22d8b4e6d2546475281a4a5a2b5c53c6d7cf	picked	iommu/amd: Relocate GAMSup check to early_enable_iommus	drivers/iommu/amd/init.c	-
+041	c12cf7f9afe23eef40cb5cff5fd28a0f39745232	d84e15f442cfb295813effcc0a145ee4c20b4520	picked	dmaengine: idxd: depends on !UML	drivers/dma/Kconfig	-
+042	35492619e010b312d0d3fe94bbe182bce0bae5ee	9f6d1da419dd0ddebdaf82587881108d6795d0ee	picked	dmaengine: sprd: Add missing MODULE_DEVICE_TABLE	drivers/dma/sprd-dma.c	-
+043	9c1ea8537730790ee183fa32379932f777c95d17	715ebd08e5164ad91094d2e08db6867554b5f297	picked	dmaengine: ioat: depends on !UML	drivers/dma/Kconfig	-
+044	b26ced26251cc26cc6c8327535687b77af0c55db	bd28e777230ed09f0db14e4c5976fdf0ec16271d	picked	dmaengine: xilinx_dma: Set DMA mask for coherent APIs	drivers/dma/xilinx/xilinx_dma.c	-
+045	386fd6fd01bd1ee92640f97c0d0e06e204641c9f	ef29594ea66ee7e26af6acd376a2b5ed0f4ee908	picked	ceph: request Fw caps before updating the mtime in ceph_write_iter	fs/ceph/file.c	-
+046	487ead34a208c1da9da7fc9f776b517680255ca1	d37c2b72cfcb0b55e89e3610da6be2c128d701ae	picked	ceph: remove the capsnaps when removing caps	fs/ceph/caps.c;fs/ceph/mds_client.c;fs/ceph/super.h	-
+047	921ef7cfef15a7e25511089c9941ee37c3dc9fec	565a97efc435b9f2cc168e941439a9695eb82caf	picked	ceph: lockdep annotations for try_nonblocking_invalidate	fs/ceph/caps.c	-
+048	c43803c1aa76f2cc15ee641564412741a18028ff	f1c4ea1e32ae6d117740df970078745e458fb495	picked	btrfs: update the bdev time directly when closing	fs/btrfs/volumes.c	-
+049	aa1af89a6697ed8f1f0d3d62029036158a4486d9	c8f9c0ed84e991f63594cbb1f92bb5206fa95e7f	picked	btrfs: fix lockdep warning while mounting sprout fs	fs/btrfs/volumes.c	-
+050	d95b50ff07b831495a87eb47dd3a7f23eaec2a40	6e3b7053fe9e721bf8199d9e3e314d6a9b9298f4	picked	nilfs2: fix memory leak in nilfs_sysfs_create_device_group	fs/nilfs2/sysfs.c	-
+051	0480f7a480bccdd5e747e64365b703105ccae350	ad72a79c1eb9cd74bd37a235de6a66cbec914d01	picked	nilfs2: fix NULL pointer in nilfs_##name##_attr_release	fs/nilfs2/sysfs.c	-
+052	5acb21e30d85f90b658bae7fb3f53b5e42952292	37bcb6f61ee45c225f8c9160ac99842e110bd10f	picked	nilfs2: fix memory leak in nilfs_sysfs_create_##name##_group	fs/nilfs2/sysfs.c	-
+053	5770b54b112e3ea252fc0547dd1fbc5af5c7e7c3	800bd5c8300e8d8cf2ac05dc53527ad63852339e	picked	nilfs2: fix memory leak in nilfs_sysfs_delete_##name##_group	fs/nilfs2/sysfs.c	-
+054	0f36028d01339976c0d3dd67f11dd99f374f2e49	042f0351fd7ac35df93ddf6ce0a487169a4b5a12	picked	nilfs2: fix memory leak in nilfs_sysfs_create_snapshot_group	fs/nilfs2/sysfs.c	-
+055	d7736e2faa13b0c0b677b901044d1e21879bd314	fce9746fe774f7414024c9bb3f3e6bbbae6c23b2	picked	nilfs2: fix memory leak in nilfs_sysfs_delete_snapshot_group	fs/nilfs2/sysfs.c	-
+056	db8838e48a0a7f30bc6d4d6f0f9cd4e2f06c289f	86550d7ce949ee64fe0124933af79b3b062a54f5	picked	habanalabs: add validity check for event ID received from F/W	drivers/misc/habanalabs/gaudi/gaudi.c;drivers/misc/habanalabs/goya/goya.c	-
+057	0a2ea5c0e5d1076fc189f695f18f6341f58f469d	9634054aa694f3b44f3a3e26283a0aa33abc91d1	picked	pwm: img: Don't modify HW state in .remove() callback	drivers/pwm/pwm-img.c	-
+058	a6a2b36a8cc45bf9063cdc4bde7434e8eac66ecd	42f8f176e9458ca22b8064ed3ae07fbc405a41a9	picked	pwm: rockchip: Don't modify HW state in .remove() callback	drivers/pwm/pwm-rockchip.c	-
+059	a2551d0a29e937515a9711b604d88cd1a31c386f	06ee9b5e7ed059c691628e390d7aec7c1203c763	picked	pwm: stm32-lp: Don't modify HW state in .remove() callback	drivers/pwm/pwm-stm32-lp.c	-
+060	23dfb959c6cbb8346a5143f44a970373fcb4ce8f	2d09e0290e4d9f18d8c6fe0bb9b941f0806d04fa	picked	blk-throttle: fix UAF by deleteing timer in blk_throtl_exit()	block/blk-throttle.c	-
+061	9a14014df72d00d87a199e1f77896f7ea62cc126	3ef8b44fbd3cae9254795f87c9621a5686d77295	picked	blk-mq: allow 4x BLK_MAX_REQUEST_COUNT at blk_plug for multiple_queues	block/blk-mq.c	-
+062	647c19bc61023b305389f5b027b2f7edab0feca2	7c4af466eebbc14d4d8cf60f53b01b2ec4abb69b	picked	rtc: rx8010: select REGMAP_I2C	drivers/rtc/Kconfig	-
+063	83a3cb200effb8f61d51516bd64fd94dea4c7805	a95ad0aecc67402e3754385fa1eb1841abd48bfe	picked	sched/idle: Make the idle timer expire in hard interrupt context	kernel/sched/idle.c	-
+064	7c09505e9e6b1461cddf7c85fdb4f4ff1cc3fd23	3986d7c9de21ca469e89df519ad4b2881571912f	picked	drm/nouveau/nvkm: Replace -ENOSYS with -ENODEV	drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c	-
+065	5f4196eaa90c139ac470111b8e2deabf5f283baa	64f405634ba91ec2a49786d2575ee588bf3855e3	backported	Linux 5.10.69	Makefile	Release marker only; preserve Huawei Makefile exports.

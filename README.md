@@ -72,6 +72,19 @@ configuration and enforcing controls remain; complete logs contain no actual
 kernel/module fault. #53 is the immediate paired rollback. Next is the
 bounded complete 5.10.65-70 range; latest stable and GKI remain open.
 
+The sixth milestone resolves all 842 official entries through 5.10.70:
+798 exact picks, twenty code adaptations, six version markers, thirteen
+already present and five inapplicable entries. The coordinated standard
+const list_sort interface replaces the earlier private cast; a separate
+MAS all-tag migration retains three-bank numbering and uses the standard
+request-reference/STATIC/STARTED contract. Source ends at `a08144e8a`;
+#55 passes the full build, actual layout/const-CFI/all-tag gates, signed
+matched installation, normal Android and automatic matching Live modem.
+All 390 modem imports match, despite fifteen changed export CRCs. Existing
+configuration, ramdisk and security controls remain; complete logs have
+no actual kernel/module fault. #54 is the immediate paired rollback.
+Next is the complete 5.10.71-75 range; latest stable and GKI remain open.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
@@ -102,7 +115,7 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is #54/5.10.64. A separate normalized vote-scale
+validation. The installed device is #55/5.10.70. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.

@@ -1,0 +1,6 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	d3c3f4e07826acf1ddcdca44057927e3a1ca3072	fec631267516930902c9244303943cfee98e3964	picked	Revert "Bluetooth: Move shutdown callback before flushing tx and rx queue"	net/bluetooth/hci_core.c	-
+002	0daa75bf750c400af0a0127fae37cd959d36dee7	73b71c7086c9e96c888806d77829a780e1e1fa94	picked	Revert "block: nbd: add sanity check for first_minor"	drivers/block/nbd.c	-
+003	f49fd9882f54a5c91d211f5f37432d50f4a1bb1c	b152dc17d41fefaa6cc3673da20d1dc29803a65a	picked	Revert "posix-cpu-timers: Force next expiration recalc after itimer reset"	kernel/time/posix-cpu-timers.c	-
+004	1de280adb209e5b95528b00b878e0d9e35594102	2a015c30f9f1e1a3d4233e3dc2437193c24ee3f3	picked	Revert "time: Handle negative seconds correctly in timespec64_to_ns()"	include/linux/time64.h	-
+005	44a32dcb2fb5598dc8b61645852df0ea829aeace	11bf3332bc5666dc43acca1abcccbbf5b42d418f	backported	Linux 5.10.66	Makefile	Release marker only; preserve Huawei Makefile exports.
