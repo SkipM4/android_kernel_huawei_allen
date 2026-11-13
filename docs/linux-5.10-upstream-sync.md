@@ -683,9 +683,51 @@ needed for this exact conversion. Final fresh-C layouts and CFI/export/
 module checks are still required. This scoped evidence does not certify
 every opaque OEM layout or a stable KMI.
 
-At this source checkpoint the device remains accepted #52/5.10.50 with its
-matching pair retained. Full #53/5.10.55 compilation is in progress; no
-candidate boot or automatic-module pass is claimed. Paired staging,
-installation/readback, enforcing security and normal Android/module checks
-must complete before acceptance. The pinned target remains 5.10.274, and
-stable updates alone do not establish Android common parity or GKI.
+### Final Build And Paired Runtime Acceptance
+
+Source `2f2c2dc22` completes the full Linux 5.10.55 #53 build with Android
+Clang/LLD 12.0.7, ThinLTO and enforcing CFI. Effective configuration values
+and signing material remain equal to #52. The 13,823-entry export table adds
+tcp_mtu_to_mss, removes no exports and changes 58 CRCs, including the new
+prepare_to_wait_exclusive return type and V4L2 operation layout. All 390
+fresh modem imports and two optional dummy-module imports match; this is
+not an unchanged complete ABI claim.
+
+Fresh C object layouts confirm io_ring_ctx size 1216 and OEM buf offset
+1184, and io_kiocb size 240 with ctx/buf at 80/232, matching the inspected
+hyperframe instructions. V4L2 core operations are 104 bytes with ioctl/
+compat_ioctl32 at 56/64 and their selected consumers are rebuilt. ext4 state
+is 2176 bytes, with journal at 648 and later cacheline-aligned state unchanged;
+the timer boolean occupies existing padding without shifting vectors.
+Credentials remain 176 bytes with ucounts/group_info at 144/152. The final
+wait-function implementation returns bool, and its canonical jump-table
+entry belongs to the new bool CFI type in __cfi_check. The reserved page-table
+interval is 4096 bytes and the OEM protection end remains 64-KiB aligned.
+These checks cover the affected selected contracts, not every opaque OEM
+object or a stable KMI.
+
+Signed matching boot/modem_driver images use `5.10.55-clang12-r53` naming.
+Kernel round-trip, preserved firmware stub/DTB/header, CMS certificate and
+ext4 ownership/label/readback checks pass. Only boot and modem_driver are
+written after live #52 rollback and device/partition identity checks; the
+independent Magisk ramdisk and user-data partitions are untouched.
+
+One normal #53 Android boot reaches sys.boot_completed=1, available CE
+storage/RUNNING_UNLOCKED and all three checked core services. The new modem
+loads automatically as Live, with matching file and runtime build-id; both
+partition readbacks and the unchanged ramdisk match. SELinux Enforcing,
+taint 4, forced signatures, enforcing CFI and enabled PRMEM remain. Complete
+time-zero and subsequent logs show no actual kernel WARN, BUG, Oops, panic,
+CFI or module-load fault. The final window contains 545 AVC denial records,
+none requesting module loading; they remain visible, not suppressed.
+The screen is restored to Asleep and tracing remains disabled with only
+the original wifi instance. No broader hardware regression is replayed.
+
+The accepted #53 pair, immediate #52 rollback, latest r49-r53 pairs and
+original/r17 recovery files remain local. Accepted build metadata is saved
+before output reuse; consumed task-owned logs and superseded r48 images
+are removed without touching unrelated diagnostics. No release bundle,
+publication or push is made. Next is the ordered 5.10.56-63 batch, with a
+separate actual OEM offset gate for the 5.10.60 MSI device-layout change.
+The pinned target remains 5.10.274; stable synchronization alone does not
+establish Android common parity or GKI.
