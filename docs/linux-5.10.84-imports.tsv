@@ -1,0 +1,127 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	60ae63ef194aac3a11619e83dfbfcf11c78bd271	de87914dd5ee323eacf159e70e35e10673f0c6f2	picked	NFSv42: Fix pagecache invalidation after COPY/CLONE	fs/nfs/nfs42proc.c	-
+002	7774dd934a659a714e76b68b271713997c57776d	4cffbffebb64cba0e58b4082ee519418067ac6d2	picked	can: j1939: j1939_tp_cmd_recv(): check the dst address of TP.CM_BAM	net/can/j1939/transport.c	-
+003	dca4f9a581967a81cf4420bdd26162112d546031	58e06f30d32dca1fb37e79cbb9aa762cfeedf685	backported	ovl: simplify file splice	fs/overlayfs/file.c	Full original redundant read/write splice helper removal and generic callbacks; preserve real-fd/credential override in unchanged iter functions and existing credential wrapper semantics.
+004	bcce010f92308368ac27248342e6ccd058e8c596	5493bbb371cce4ad7e76997deca212931935410c	backported	ovl: fix deadlock in splice write	fs/overlayfs/file.c	Complete original pipe-safe splice write; adapt only the new revert call to existing ovl_revert_creds for actual default override_creds=false and balanced true path.
+005	664cceab6f705d2405a546d0c0e24d30565c0b2a	20b1bc88c51db73e9258336e251bb9a279a21ced	picked	gfs2: release iopen glock early in evict	fs/gfs2/super.c	-
+006	7b2b7e03e8eae9b8e83e6e936507ed33d5c954f1	2c845932e9c95a2b90ba0c7eb4991a9ca6fb1fd7	picked	gfs2: Fix length of holes reported at end-of-file	fs/gfs2/bmap.c	-
+007	57e36973fadbe34571d41e9dae2fdde8eeccb82d	ac2075326b5c03b28891d20746545f4819357893	picked	powerpc/pseries/ddw: Revert "Extend upper limit for huge DMA window for persistent memory"	arch/powerpc/platforms/pseries/iommu.c	-
+008	c386d7aa59f5040dbcbc02499a31474859546d6d	bdae486d1c68b0d22474ed3ad05c7408b17f739d	picked	drm/sun4i: fix unmet dependency on RESET_CONTROLLER for PHY_SUN6I_MIPI_DPHY	drivers/gpu/drm/sun4i/Kconfig	-
+009	e1a165599aadf27fad43338578c42a863c68cd91	40c43e5030fd63e3e1193ace01815cada4adb03b	picked	mac80211: do not access the IV when it was stripped	net/mac80211/rx.c	-
+010	ff6eeb627898c179aac421af5d6515d3f50b84df	1645b9f8dfe3f6fd5b816366ce01094ae1df4e5f	picked	net/smc: Transfer remaining wait queue entries during fallback	net/smc/af_smc.c	-
+011	2c514d25003ac89bb7716bb4402918ccb141f8f5	13b6628fe9eb89faf754ca7d3757a5b9ebb94d2c	picked	atlantic: Fix OOB read and write in hw_atl_utils_fw_rpc_wait	drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_utils.c	-
+012	3fc88660ede60a5f6a7a8bf48efe6f5bfaae6cb1	f67f1baa4f873d0978ba1cbb481ba62964e8d037	picked	net: return correct error code	net/ipv4/devinet.c	-
+013	226b21ad01ae5ef6428feb0c6b31937000564c6c	6ec44a2cf7df328406064614061c81cfb7765147	picked	platform/x86: thinkpad_acpi: Add support for dual fan control	drivers/platform/x86/thinkpad_acpi.c	-
+014	fd1e70ef65ee5ad52f86dd689a498192caddf79e	6a213d889fdf0fc504234a4952af930c236133e0	picked	platform/x86: thinkpad_acpi: Fix WWAN device disabled issue after S3 deep	drivers/platform/x86/thinkpad_acpi.c	-
+015	03957229053119e3359e866a5ccb0df0bfe0195e	e62ec6036f0631d464dc0fa6aedfca5b0ffda19b	picked	s390/setup: avoid using memblock_enforce_memory_limit	arch/s390/kernel/setup.c	-
+016	8e4d2ac4348a55d6ac9a3bc8a5bc044c7bca6d71	52843801e179e6cb52c891bb93c91e738491553e	picked	btrfs: check-integrity: fix a warning on write caching disabled disk	fs/btrfs/disk-io.c	-
+017	bc8c423a286a47195bbb7e8a57d67bef60d7419f	946ea538a2e2fbe66008d131b5f947b628daeadc	picked	thermal: core: Reset previous low and high trip during thermal zone init	drivers/thermal/thermal_core.c	-
+018	f0c9f49b0cafe27a94b9885fc0088bdf28093268	7494ef459e2842c21f1580f0f2c1f1ae0cc26d1b	picked	scsi: iscsi: Unblock session then wake up error handler	drivers/scsi/scsi_transport_iscsi.c	-
+019	74aafe99efb68f15e50be9f7032c2168512f98a8	37ce556eaaa1092944c9d31a313d001e6e63738d	picked	drm/amd/amdkfd: Fix kernel panic when reset failed and been triggered again	drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c	-
+020	c746945fb6bcbe3863c9ea6369c7ef376e38e5eb	5d48d430722de34a627da12654ab766ba50f1de3	picked	drm/amd/amdgpu: fix potential memleak	drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c	-
+021	9a32d3c08d8ee2c3bf005399bbe17ca71d2536ea	7c069d536fffd9ac5f280fffbea6cfa0de44ddd1	picked	ata: ahci: Add Green Sardine vendor ID as board_ahci_mobile	drivers/ata/ahci.c	-
+022	22519eff7df2d88adcc2568d86046ce1e2b52803	3b7d4c07cd3b8aa4513fc3d170d747ea4320e9da	picked	ethernet: hisilicon: hns: hns_dsaf_misc: fix a possible array overflow in hns_dsaf_ge_srst_by_port()	drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c	-
+023	4d5968ea06fbfc7f6bb88dee7ce459f4755cebb5	ca3c2faeacb4d4cbc8d8cd46171b731e10173660	picked	ipv6: check return value of ipv6_skip_exthdr	net/ipv6/esp6.c	-
+024	f059fa40f0fcc6bc7a12e0f2a2504e9a4ff74f1f	a9448425aa92d537631f9e590962b453a94bd49a	picked	net: tulip: de4x5: fix the problem that the array 'lp->phy[8]' may be out of bound	drivers/net/ethernet/dec/tulip/de4x5.c	-
+025	2c15d2a6ba2709dd8e209e597d1ff2a1a1996936	f35dd461dac192ba9d918d7199b6ffa9171b3718	picked	net: ethernet: dec: tulip: de4x5: fix possible array overflows in type3_infoblock()	drivers/net/ethernet/dec/tulip/de4x5.c	-
+026	d9b72274f32a3357a6180862f363de9ef2d3d1d8	16da6a4ef4bb601999ead0354ab31aabb927a29e	picked	perf inject: Fix ARM SPE handling	tools/perf/util/arm-spe.c	-
+027	a4c17ebdd6249cb4e061358d3693383f6628e069	cc9b59ac70772dbf8feda949d4def87545da8916	picked	perf hist: Fix memory leak of a perf_hpp_fmt	tools/perf/ui/hist.c;tools/perf/util/hist.h	-
+028	ff061b5bda73c4f785b4703eeb0848fd99e5608a	e68bd3f15a533eeea0871f121132c33a85c7d4f4	picked	perf report: Fix memory leaks around perf_tip()	tools/perf/builtin-report.c;tools/perf/util/util.c;tools/perf/util/util.h	-
+029	cc443ac5bb3135e21c49dd10bb947c50e261a2eb	2d3b70000cb235d0f342b43e06f8a408416d5824	picked	net/smc: Avoid warning of possible recursive locking	net/smc/af_smc.c	-
+030	136cabf15779bff94838c1068cbb9e9f200ac56e	ca400b785c7dec1759b12faa5351c445268c5d90	picked	ACPI: Add stubs for wakeup handler functions	include/linux/acpi.h	-
+031	2a74c13dfe83f3c22fdd4326b39a6ed2b41107e7	f8d6b4dd2602978d81d102c0c7db34fb43cb4006	picked	vrf: Reset IPCB/IP6CB when processing outbound pkts in vrf dev xmit	drivers/net/vrf.c	-
+032	c200721f8eda1c704af09b41e3d77c006672d572	e4f7b1d5e4b828182623e06478237c70fdf1b65d	picked	kprobes: Limit max data_size of the kretprobe instances	include/linux/kprobes.h;kernel/kprobes.c	-
+033	de4f5eb02cfea68fcfe6b9dde7e0e1dde14043ea	e684f34f43044248184566798432151c69731e42	picked	rt2x00: do not mark device gone on EPROTO errors during start	drivers/net/wireless/ralink/rt2x00/rt2x00usb.c	-
+034	f717f29e84688b0327ae6e51fabaf397fbcd18d3	881a56d26d9ea869735b60c997b55c1bc8e721d9	picked	ipmi: Move remove_work to dedicated workqueue	drivers/char/ipmi/ipmi_msghandler.c	-
+035	92283c2728a9c40fbdbbb2de760c37adb8838654	9e649ca020e9adeda865c3012cedcbf49b1f1991	picked	cpufreq: Fix get_cpu_device() failure in add_cpu_dev_symlink()	drivers/cpufreq/cpufreq.c	-
+036	80bfed369be9083fec6bf51157167b286f9dd218	b35f70d07c895b021801f531cd673e4ad99516ca	picked	s390/pci: move pseudo-MMIO to prevent MIO overlap	arch/s390/include/asm/pci_io.h	-
+037	4baba6ba56eb91a735a027f783cc4b9276b48d5b	-	already-present	fget: check that the fd still exists after getting a ref to it	fs/file.c	Entire original post-ref FD identity recheck already present using byte-identical renamed files_lookup_fd_raw helper; ref undo/retry/RCU contract complete, no mutation.
+038	4a46b2f5dce02539e88a300800812bd24a45e097	f32073f4fc53ecd90a4dccfe22fad33c5ee1f341	picked	sata_fsl: fix UAF in sata_fsl_port_stop when rmmod sata_fsl	drivers/ata/sata_fsl.c	-
+039	16c242b09106e80bc6244d0a6c840277e6a2cc25	24d3ae35e85f5dd84debd8766987b80e5a51ba19	picked	sata_fsl: fix warning in remove_proc_entry when rmmod sata_fsl	drivers/ata/sata_fsl.c	-
+040	209d35ee34e25f9668c404350a1c86d914c54ffa	-	already-present	ipv6: fix memory leak in fib6_rule_suppress	include/net/fib_rules.h;net/core/fib_rules.c;net/ipv4/fib_rules.c;net/ipv6/fib6_rules.c	Complete original patch reverse-applies.
+041	775191dd4c1bcf546ab7ce87f3476537615437b7	6281dad1bd00ad4db80dae37a8c603f500137039	picked	drm/amd/display: Allow DSC on supported MST branch devices	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c	-
+042	6a44f200f1f15d041dc381dd13dd840ac36af863	d09263a7b40e30bd52e969cbf81081f252162a06	picked	KVM: Disallow user memslot with size that exceeds "unsigned long"	virt/kvm/kvm_main.c	-
+043	7722e88505226d64d7b2158b470e6945ef759832	df0fa9cf4b730db8bf36ad5e1f72432acd14c4ad	picked	KVM: nVMX: Flush current VPID (L1 vs. L2) for KVM_REQ_TLB_FLUSH_GUEST	arch/x86/kvm/vmx/vmx.c	-
+044	5f33887a36824f1e906863460535be5d841a4364	8b9aaf2c80e88c8e376939401bc4dfc7f9633756	picked	KVM: x86: Use a stable condition around all VT-d PI paths	arch/x86/kvm/vmx/posted_intr.c	-
+045	c71b5f37b5ff1a673b2e4a91d1b34ea027546e23	f3af8f3cd863f58ffde2bd14146c08a0453b56cc	picked	KVM: arm64: Avoid setting the upper 32 bits of TCR_EL2 and CPTR_EL2 to 1	arch/arm64/include/asm/kvm_arm.h	-
+046	d4af6d9749512b6f706d7815a06c8efbe61898c9	8f67a1475f50f8b8117766995b52672c02591de3	picked	KVM: X86: Use vcpu->arch.walk_mmu for kvm_mmu_invlpg()	arch/x86/kvm/mmu/mmu.c	-
+047	3d73021f8d74e81b150b2307d26325858d0955aa	547d8d4820764dcca10675da4e51c60ae4bd2dbd	picked	tracing/histograms: String compares should not care about signed values	kernel/trace/trace_events_hist.c	-
+048	4caf965f6cbecb73e8394ab59310309667e3e8ec	d009fb6f5dca047f9157ad2c4bf0b884eaf11376	picked	wireguard: selftests: increase default dmesg log size	tools/testing/selftests/wireguard/qemu/kernel.config	-
+049	3d1dc3c67773065019e31aca227a58b6234f5e0b	8994bf94f6cd12dcb8358eca84a5045446cee182	picked	wireguard: allowedips: add missing __rcu annotation to satisfy sparse	drivers/net/wireguard/allowedips.c	-
+050	0584bf51c31583352648e78b032f1261084e46dd	274ac7a5504c3fde5b8277d7b1a620e7c9591256	picked	wireguard: selftests: actually test for routing loops	tools/testing/selftests/wireguard/netns.sh	-
+051	f7b6672fab701765bbfe56d5ee3f1923791cdc45	ed876491ecf619882ad2d493511ebcba74f7d255	picked	wireguard: selftests: rename DEBUG_PI_LIST to DEBUG_PLIST	tools/testing/selftests/wireguard/qemu/debug.config	-
+052	e3be118327a1d791d04fcc29742912c2fd3bdbf7	f747a87ab3596a2a626ab50e8c78f7af48e59230	picked	wireguard: device: reset peer src endpoint when netns exits	drivers/net/wireguard/device.c;drivers/net/wireguard/socket.c;include/net/dst_cache.h;net/core/dst_cache.c;tools/testing/selftests/wireguard/netns.sh	-
+053	8a29a50dbdb11052cfcbe5ca4fe497e5f41129ed	b631377f093f6a27d48c88ec413de38dd95e071b	picked	wireguard: receive: use ring buffer for incoming handshakes	drivers/net/wireguard/device.c;drivers/net/wireguard/device.h;drivers/net/wireguard/queueing.c;drivers/net/wireguard/queueing.h;drivers/net/wireguard/receive.c	-
+054	cb2d7c1992cb7019499831abf0f32759905bc248	b193b7bb9d85b3f6b9f2faedb9327af34ed3e145	picked	wireguard: receive: drop handshakes if queue lock is contended	drivers/net/wireguard/receive.c	-
+055	1c75779dd90c727d1a7fdb65a330e1f5dd05dbbb	d20f0f9b28c7f4bdf7dbd23d31a7bba1e58da927	picked	wireguard: ratelimiter: use kvcalloc() instead of kvzalloc()	drivers/net/wireguard/ratelimiter.c	-
+056	8de6ea757c885800baab0bd64316a81a5ccc3aa3	7f722f206b93956b14a27e211ca50a83cd7ef6a1	picked	i2c: stm32f7: flush TX FIFO upon transfer errors	drivers/i2c/busses/i2c-stm32f7.c	-
+057	c221244917528397295848a16b9708d2c335afc9	646e0377455c170a1be1e945ad3fca652acee02c	picked	i2c: stm32f7: recover the bus on access timeout	drivers/i2c/busses/i2c-stm32f7.c	-
+058	58d5c53f258986401a4f49c24343bb39d65b8f85	5d12dd59e608ecc69f72d757d103bbfd85575870	picked	i2c: stm32f7: stop dma transfer in case of NACK	drivers/i2c/busses/i2c-stm32f7.c	-
+059	289ee320b5ed5ac91954bd96133480a3e629bb14	f41b81c845192eeb61e9ec945cb70ef5d568b33f	picked	i2c: cbus-gpio: set atomic transfer callback	drivers/i2c/busses/i2c-cbus-gpio.c	-
+060	aa6c393a3c3ff0d7db8df00387ed1ad7636e2301	2d0c984e1deb9c64300a167c11860ed0d24794dd	picked	natsemi: xtensa: fix section mismatch warnings	drivers/net/ethernet/natsemi/xtsonic.c	-
+061	c6f340a331fb72e5ac23a083de9c780e132ca3ae	-	already-present	tcp: fix page frag corruption on page fault	include/net/sock.h	Complete original patch reverse-applies.
+062	15fa12c119f869173f9b710cbe6a4a14071d2105	52b9f77276e2dc6fa6543a0938f0648d7fadb074	picked	net: qlogic: qlcnic: Fix a NULL pointer dereference in qlcnic_83xx_add_rings()	drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_hw.c	-
+063	fd52e1f8c09344b86214cbbdb35d7ff86c8d190a	ac08c653c3967010dec33d5f25b88e7135e8eb69	picked	net: mpls: Fix notifications when deleting a device	net/mpls/af_mpls.c	-
+064	ef55f0f8af2b64ddf9e23518bd11475f9fc7e16d	84a115b7ba86b52b41976b121336e1a92b223aea	picked	siphash: use _unaligned version by default	include/linux/siphash.h;lib/siphash.c	-
+065	59d2dc771006ccb950a0a024c8c00a922fe4d97e	cb5a27fd8bcccfa73ddcf425009491fce1ebc6bc	picked	arm64: ftrace: add missing BTIs	arch/arm64/kernel/entry-ftrace.S	-
+066	f1d43efa59f1edd3e7eca0e94559b4c6b1cd4e2b	b96d946e849c533d4753c8d99adfd3ffe322b641	picked	net/mlx4_en: Fix an use-after-free bug in mlx4_en_try_alloc_resources()	drivers/net/ethernet/mellanox/mlx4/en_netdev.c	-
+067	a0335cda6d921462af0c6d9d33103cada4862523	910e841b3fe632e3b051c5c70e854aa96326c367	picked	selftests: net: Correct case name	tools/testing/selftests/net/fcnal-test.sh	-
+068	932b338f4e5c4cb0c2ed640da3bced1e63620198	e1cb0703a22e5e84225293abd8a9db311c1af391	picked	mt76: mt7915: fix NULL pointer dereference in mt7915_get_phy_mode	drivers/net/wireless/mediatek/mt76/mt7915/mcu.c	-
+069	6b54c0d845e5bfe0471d09d7a1b6c72d9b9a9259	d4f76837e8f366d108badda7aa46c7520e4024e6	picked	ASoC: tegra: Fix wrong value type in ADMAIF	sound/soc/tegra/tegra210_admaif.c	-
+070	e66e75fb2278b4a14ce1536f9bb9d0a8163db38f	4ba3e010809864af6cc9622ccc4561ef5d61c917	picked	ASoC: tegra: Fix wrong value type in I2S	sound/soc/tegra/tegra210_i2s.c	-
+071	0265ef0dff5ec46042ca07f781084f4ad402b76d	5b42bf19681017c81480e674f0e4d1ba74020c45	picked	ASoC: tegra: Fix wrong value type in DMIC	sound/soc/tegra/tegra210_dmic.c	-
+072	e6fb4c3fd35b40ddb7ab6f79fad3b98ddd22b9f6	c166460be00ee8e5520a4e6eb1060bcff6173a4b	picked	ASoC: tegra: Fix wrong value type in DSPK	sound/soc/tegra/tegra186_dspk.c	-
+073	0ee53a1d888998b9b88793696d63a11122d6ad4f	4bd3b911e04271045a94b3712caa38acbc0babd5	picked	ASoC: tegra: Fix kcontrol put callback in ADMAIF	sound/soc/tegra/tegra210_admaif.c	-
+074	1cf1f9a1f3ed4c4f77dcb3b652bb5f6624afe94c	6b3b0fb96765bf3e97df3dafaaca39befe1f8d27	picked	ASoC: tegra: Fix kcontrol put callback in I2S	sound/soc/tegra/tegra210_i2s.c	-
+075	256aa15aac6d3c585524c5af82d2d0b5e16211a7	fb2dea78a9ef3d7002cd7acaf231dceeeeefca84	picked	ASoC: tegra: Fix kcontrol put callback in DMIC	sound/soc/tegra/tegra210_dmic.c	-
+076	fe4eb5297ac3693d21e2b6b1dece82121ab25b26	39470a1fc27dd9d3044fc4cefdca8b26639de7b6	picked	ASoC: tegra: Fix kcontrol put callback in DSPK	sound/soc/tegra/tegra186_dspk.c	-
+077	4afb32090a1518e3325970ee9eb6ddbd9e3dd6ef	5720b08b03878285cd1b2e96a038c19ea82151a0	picked	ASoC: tegra: Fix kcontrol put callback in AHUB	sound/soc/tegra/tegra210_ahub.c	-
+078	35b40f724c4ef0f683d94dab3af9ab38261d782b	6f31a2afeff9b5152b04316642e8e131d666a37b	picked	rxrpc: Fix rxrpc_peer leak in rxrpc_look_up_bundle()	net/rxrpc/conn_client.c	-
+079	60f0b9c42cb80833a03ca57c1c8b078d716e71d1	e40483a7df20272dbbb1e8bdf326f268032e637f	picked	rxrpc: Fix rxrpc_local leak in rxrpc_lookup_peer()	net/rxrpc/peer_object.c	-
+080	acef1c2b15964c9068de2f034c893cb7f72c843b	0c49210ae956583ce518dcc7208b121688748aa5	picked	ALSA: intel-dsp-config: add quirk for CML devices based on ES8336 codec	sound/hda/intel-dsp-config.c	-
+081	3260b8d12057faa9f7428fc7a2709de1ad39f731	0a812be0e543c41d4849c477bdb720e2652fd59c	picked	net: usb: lan78xx: lan78xx_phy_init(): use PHY_POLL instead of "0" if no IRQ is available	drivers/net/usb/lan78xx.c	-
+082	dde240695d97de12a5d9f8ebe520f8dd655d5b35	694e42d8dc8af2cada3438af96f87d15e2aaeb56	picked	net: marvell: mvpp2: Fix the computation of shared CPUs	drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c	-
+083	e26dab79e16b73efe878335d8cbab8a03f4995f4	3460918ac7753dbcdf43cd67325fcecbff69d747	picked	dpaa2-eth: destroy workqueue at the end of remove function	drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c	-
+084	fa973bf5fd0fda6f0bf9a5d3d403078824dc27ac	91ce3560290b33b77fb02ffde1da63c12b45a53f	picked	net: annotate data-races on txq->xmit_lock_owner	include/linux/netdevice.h;net/core/dev.c	-
+085	9a40a1e0eb50c49bee7286126341937c136c78f3	68f8531a19820b7e9a13c6e38f9fc7af6056bef2	picked	ipv4: convert fib_num_tclassid_users to atomic_t	include/net/ip_fib.h;include/net/netns/ipv4.h;net/ipv4/fib_frontend.c;net/ipv4/fib_rules.c;net/ipv4/fib_semantics.c	-
+086	77731fede297a23d26f2d169b4269466b2c82529	bda1a724b2572b73b446cbe288cfee2903132c6f	picked	net/smc: fix wrong list_del in smc_lgr_cleanup_early	net/smc/smc_core.c	-
+087	e226180acc49cf78fa1502b5b7e7f1b7ebc017c1	8f1ae97b55384d3ef44715a226aced2f9f4e265f	picked	net/rds: correct socket tunable error in rds_tcp_tune()	net/rds/tcp.c	-
+088	a792b3d56438edee560074362320cd0ef7ed580a	2ff79bc66046db037dbdba9fa55a6391dedb42a6	picked	net/smc: Keep smc_close_final rc during active close	net/smc/smc_close.c	-
+089	d646856a600e8635ba498f20b194219b158626e8	8e8ee8c6f85066c314e218f3d0d20c0d3c720c01	picked	drm/msm/a6xx: Allocate enough space for GMU registers	drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c	-
+090	13f290d5aa4a4f7f01297a46f4674642c092a122	244c16502581201e7d27a88e0ab5e023f70d8308	picked	drm/msm: Do hw_init() before capturing GPU state	drivers/gpu/drm/msm/msm_debugfs.c	-
+091	44812111a3b1d816cbb905d20a73758a1b65a0a0	ebc3c70695530f14ad812460f81d42ae90b68ea2	picked	atlantic: Increase delay for fw transactions	drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils_fw.c	-
+092	93a4f3f4fdb511327c4cee5e72e7d518beaa5c06	bd07c38f65300d2701c83bff8e4775db63b1334f	picked	atlatnic: enable Nbase-t speeds with base-t	drivers/net/ethernet/aquantia/atlantic/aq_common.h;drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_utils_fw2x.c;drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils_fw.c	-
+093	ca350298bccbfb843183311f33b6e440377f4577	2b34ceb4e39ac4fe8844a89e2a546cd8c8558253	picked	atlantic: Fix to display FW bundle version instead of FW mac version.	drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils_fw.c	-
+094	0c67e7b98fab376847891d2c325473512e54eaeb	7d786309f83052dc90088b94adc96887dbf9f24d	picked	atlantic: Add missing DIDs and fix 115c.	drivers/net/ethernet/aquantia/atlantic/aq_common.h;drivers/net/ethernet/aquantia/atlantic/aq_pci_func.c;drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c;drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.h	-
+095	695d9c6bc67144e337e845989cc181b6d277a164	1719d31502eda80f933993a4dbd121b850e0a060	picked	Remove Half duplex mode speed capabilities.	drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c	-
+096	95f6fae9a0dbd0c1a04eb19d7e7f9ef95036914e	2aa4094b36ad74098db4c0bab1579434aadaf701	picked	atlantic: Fix statistics logic for production hardware	drivers/net/ethernet/aquantia/atlantic/aq_hw.h;drivers/net/ethernet/aquantia/atlantic/aq_nic.c;drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_utils.c;drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils.h;drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils_fw.c	-
+097	cfebd5a277ad88f8295be385572d7f7b65a258ce	0f963739ed0fa75b3abd36eadfa750a6c2f50ab7	picked	atlantic: Remove warn trace message.	drivers/net/ethernet/aquantia/atlantic/aq_vec.c	-
+098	60ce9a754060c6a5833926d28319759d47c16720	6c57a2d7dbbea33dd6e7911d439f3722a50a3d5d	picked	KVM: x86/pmu: Fix reserved bits for AMD PerfEvtSeln register	arch/x86/kvm/svm/pmu.c	-
+099	64ca109bf8758766b10bc80a036745b4bc343dd1	109d29a69d59ed14c1a03e4139f897426e55295a	picked	KVM: VMX: Set failure code in prepare_vmcs02()	arch/x86/kvm/vmx/nested.c	-
+100	c8e341191849a6b3a962b234926bec30b9d159fe	82b541da61409eaa772e2b08c742e98fdeb1c892	picked	x86/sev: Fix SEV-ES INS/OUTS instructions for word, dword, and qword	arch/x86/kernel/sev-es.c	-
+101	8b9279cad291da564fc2b10636cbdea925d57e50	342d7f14455ffaca2df096ee1f4f791d6c28dfff	picked	x86/entry: Use the correct fence macro after swapgs in kernel CR3	arch/x86/entry/entry_64.S	-
+102	2015ffa3a4c2b058627558ef39b3cce6fe422bf4	a9dc6b26cde4d7fa009ea4e37cb7f89ecb310ea9	picked	x86/xen: Add xenpv_restore_regs_and_return_to_usermode()	arch/x86/entry/entry_64.S;arch/x86/xen/xen-asm.S	-
+103	4d42b7bcf09dc5baffcdbb26f093c692371a24da	47433ec406dcf3c3f68f48474e1d17062d882d1f	picked	sched/uclamp: Fix rq->uclamp_max not set on first enqueue	kernel/sched/core.c	-
+104	4bbbc9c4f313351b5c087b2135fb232dd0bdd41d	b3d137434f3057e9b965019a67dadce71d0771e7	picked	x86/pv: Switch SWAPGS to ALTERNATIVE	arch/x86/entry/entry_64.S;arch/x86/include/asm/irqflags.h;arch/x86/include/asm/paravirt.h;arch/x86/include/asm/paravirt_types.h;arch/x86/kernel/asm-offsets_64.c;arch/x86/kernel/paravirt.c;arch/x86/kernel/paravirt_patch.c;arch/x86/xen/enlighten_pv.c	-
+105	92f309c838fc2dd4954edf785f02b895c43fc184	6ad2d71db947e8aa7da405810fd1a398e0f67807	picked	x86/entry: Add a fence for kernel entry SWAPGS in paranoid_entry()	arch/x86/entry/entry_64.S	-
+106	c27a548d3f294f5e7e70689986795f654d5c103d	7b55fcb44ef25a2187c932d54c37d167338ae962	picked	parisc: Fix KBUILD_IMAGE for self-extracting kernel	arch/parisc/Makefile	-
+107	92b9113c6df0a2731e500b9d49ecf377b35a0f0b	6457b4e7f311c6e7c5ae88ac28779f3017b9e92d	picked	parisc: Fix "make install" on newer debian releases	arch/parisc/install.sh	-
+108	1235485c633e029e0bf806dece4758c27c99af3e	dbff46202d0348285c38e4d645da4874ca3a39ff	picked	vgacon: Propagate console boot parameters before calling `vc_resize'	drivers/video/console/vgacon.c	-
+109	90c915051c3df2d6d98d506323ab805bc1da7ae3	-	already-present	xhci: Fix commad ring abort, write all 64 bits to CRCR register.	drivers/usb/host/xhci-ring.c	Complete original patch reverse-applies.
+110	6d8c191bf4649c64f12761017d91ffdc7e7e8816	7227b93b6083fcb3356ba97fd36e269b0f0b53e5	picked	USB: NO_LPM quirk Lenovo Powered USB-C Travel Hub	drivers/usb/core/quirks.c	-
+111	a92f044a9fcb523dd9c29bad39a6d2b07880499c	161b8e8e32cd54fde0878c5b21ea835dea875bc9	backported	usb: typec: tcpm: Wait in SNK_DEBOUNCED until disconnect	drivers/usb/typec/tcpm/tcpm.c	Complete original sink no-VBUS reset removal; retain existing debouncing metadata clear in the surviving else branch and all OEM/Android attach/contaminant hooks.
+112	1ed4a8fd363cd3d3e8b2853673b3ed84920a868e	0adee7496ad2f5db1a96d65340e19a7351c9c755	picked	x86/tsc: Add a timer to make sure TSC_adjust is always checked	arch/x86/kernel/tsc_sync.c	-
+113	b3a519b5a58058c47e608802b7c01902a1ada0d9	2dc1dfe4047edd6965e5a2dbcc26765200051b95	picked	x86/tsc: Disable clocksource watchdog for TSC on qualified platorms	arch/x86/kernel/tsc.c	-
+114	67d08450a08d7d7c264038a3cb3fb4756827c5ec	c845631af0852db5d6abe56c0ee762ea4801d077	picked	x86/64/mm: Map all kernel memory into trampoline_pgd	arch/x86/realmode/init.c	-
+115	946ded2287a0dede1d2e32e51f4ecb7bec7d6c0b	50a8da0c435d449f423d628897b7fefefcc3de66	picked	tty: serial: msm_serial: Deactivate RX DMA for polling support	drivers/tty/serial/msm_serial.c	-
+116	901f7e0aa4a6a62ec336d8478abafef8149d71fd	381a70c6f7b8531cec381456844391ae103fa088	picked	serial: pl011: Add ACPI SBSA UART match id	drivers/tty/serial/amba-pl011.c	-
+117	bda142bbeb311509850b9d5e8858083c7282828a	0ad88591314effefc1b9e6f48266bdf8e5554799	picked	serial: tegra: Change lower tolerance baud rate limit for tegra20 and tegra30	drivers/tty/serial/serial-tegra.c	-
+118	e1722acf4f0d4d67b60f57e08ce16f8b66cd4b8f	-	already-present	serial: core: fix transmit-buffer reset and memleak	drivers/tty/serial/serial_core.c	Complete original patch reverse-applies.
+119	50b06889c86fcf760a5d148d3bfc2acf8e55069a	a0ae07cc2032afe9cbb5967628350159a2098142	picked	serial: 8250_pci: Fix ACCES entries in pci_serial_quirks array	drivers/tty/serial/8250/8250_pci.c	-
+120	f9802d7049f52bbcad47919ab83b9c6cbf6e91c5	df415f71a3aa0d78fe534cec6589e95d4397f6bd	picked	serial: 8250_pci: rewrite pericom_do_set_divisor()	drivers/tty/serial/8250/8250_pci.c	-
+121	a5d0a72b805ec34d193828da698bf35e7fe30ee2	5fd190859d9360c28580d9e292c5778f2ed585d8	picked	serial: 8250: Fix RTS modem control while in rs485 mode	drivers/tty/serial/8250/8250_port.c;drivers/tty/serial/serial_core.c	-
+122	01300d21505d30784a2085f0c5e3a79d76ab5af6	6024ce57893463ceec2abd8fba2c947ed52d063e	picked	iwlwifi: mvm: retry init flow if failed	drivers/net/wireless/intel/iwlwifi/iwl-drv.c;drivers/net/wireless/intel/iwlwifi/iwl-drv.h;drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c;drivers/net/wireless/intel/iwlwifi/mvm/mvm.h;drivers/net/wireless/intel/iwlwifi/mvm/ops.c	-
+123	dbe73dace94cb1a9e8657909b3551680a52e6bc0	c0cf75f4e6f96ee14fc3afa720f0abe892c174a3	picked	parisc: Mark cr16 CPU clocksource unstable on all SMP machines	arch/parisc/kernel/time.c	-
+124	a8d18fb4d11bdac881931b9ca305d3ce5daa0eea	97fe4db61100f8eec7f0f77fd4afc1a15de764bc	picked	net/tls: Fix authentication failure in CCM mode	net/tls/tls_sw.c	-
+125	e6edaf2677939a8cf57e9152b1ab07b80f83fa11	52ccd56004590b8f1c0c6616c33ce549cfa24fcf	picked	ipmi: msghandler: Make symbol 'remove_work_wq' static	drivers/char/ipmi/ipmi_msghandler.c	-
+126	a0582e24d371d62a749a14e4187af304bd64ef42	f9786792582a6e16001ad395af528e581671ec2c	backported	Linux 5.10.84	Makefile	Release marker only; preserve Huawei Makefile exports.

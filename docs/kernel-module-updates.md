@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.80
-#57 kernel and module are built together with the r49-derived effective
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.85
+#58 kernel and module are built together with the r49-derived effective
 configuration, Android Clang/LLD 12.0.7, enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
 
@@ -138,6 +138,24 @@ remain. Substantial CRC changes are retained, not concealed by version-table
 patching or old-binary resigning. The next UFS change requires fresh actual
 layout/assembly verification in addition to rebuilding modules.
 
+The installed 5.10.85/#58 milestone has 13,829 exports: four additions, two
+removals and 2,575 changed CRCs versus #57. All 390 rebuilt modem and two
+optional dummy imports match. A separate integration replaces two proven
+stale UFS state/nested-mutex assembly literals with `offsetof` generators;
+fourteen actual generated constants, thirteen affected machine operands and
+selected C consumers agree with the new upstream pointer layout. Eighteen
+unrelated operands and unchanged const-sort/all-tag implementation proofs
+retain explicit scoped continuity, not a blanket opaque-ABI promise. Five
+final reports bind 29 distinct actual objects and thirteen selected physical
+record names, including the new IPv6/inode interfaces, existing five-argument
+SDHCI dispatch, atomic BPF and selected OEM F2FS trace-name consumers.
+The CMS-signed matching modem loads automatically on normal Android with
+matching runtime build-id and complete readbacks. Effective configuration,
+signing material, independent ramdisk and enforcing protections remain;
+only the already-disabled FORTIFY line disappears from emitted configuration.
+Required modules continue to follow the kernel through rebuilding and paired
+installation, not resigning old modules or spoofing version tables.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -178,13 +196,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #57's immediate rollback:
+overwrite existing candidates. The previous pair is #58's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.75-clang12-r56.img`.
-- `images/test/allen-modem_driver-test-5.10.75-clang12-r56.img`.
-- `images/test/allen-modem_driver-test-5.10.75-clang12-r56.ko`.
+- `images/test/allen-boot-test-5.10.80-clang12-r57.img`.
+- `images/test/allen-modem_driver-test-5.10.80-clang12-r57.img`.
+- `images/test/allen-modem_driver-test-5.10.80-clang12-r57.ko`.
 
-The installed next pair uses `5.10.80-clang12-r57` with the same device/purpose
+The installed next pair uses `5.10.85-clang12-r58` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

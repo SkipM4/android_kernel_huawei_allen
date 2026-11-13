@@ -1400,3 +1400,179 @@ Next is the complete bounded 5.10.81-85 range, including a fresh selected UFS
 layout/generated-offset/assembly gate. Later releases toward the pinned
 5.10.274 target, Android common parity, GKI and full hardware/power acceptance
 remain open. No release export, publication or push occurs.
+
+## Ninth Milestone: 5.10.81 Through 5.10.85
+
+The complete next range resolves all 557 official entries: 519 exact picks,
+sixteen code adaptations, five release markers, sixteen already-present
+fixes and one inapplicable entry. The 540 original-author source commits end
+at `392b1a551`; a separate two-file UFS integration ends the kernel source at
+`0d678d58e`. No intermediate 81-84 kernel is built or installed. Five
+per-release ledgers retain every original/local identity and disposition.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present | N/A |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 5.10.81 | `99957dcea4e9702cc9060f576233ac1ac84c2a39` | 22 | 18 | 2 | 1 | 1 | 0 |
+| 5.10.82 | `d5259a9ba6993a843278203323902bc0c049097e` | 154 | 143 | 6 | 1 | 3 | 1 |
+| 5.10.83 | `a324ad794566ae2ad2d5aa7f7e3c1825fb5cd5b7` | 122 | 115 | 5 | 1 | 1 | 0 |
+| 5.10.84 | `a0582e24d371d62a749a14e4187af304bd64ef42` | 126 | 117 | 3 | 1 | 5 | 0 |
+| 5.10.85 | `e4f2aee6612e56c2a9a5da6131ccd80e57d5075b` | 133 | 126 | 0 | 1 | 6 | 0 |
+
+Sources are the original stable range and official ChangeLog-5.10.81 through
+ChangeLog-5.10.85 at <https://cdn.kernel.org/pub/linux/kernel/v5.x/>. Actual
+independent import verification checks all 540 original authors, dates,
+complete messages and stable trailers; 519 exact picks cover 702 complete
+file sections. Existing executable-mode differences in 28 file sections
+across 27 commits are preserved rather than silently normalized. Sixteen
+code adapters, five SUBLEVEL-only markers, ten historical PRESENT cases with
+thirty complete post-hunks, six semantic PRESENT contracts and the sole N/A entry are
+independently bound to actual historical pre/post blobs and modes. All 557
+ordered source inventories, five TSV ledgers and the final kernel tree
+match the approved reconstruction. The UFS integration is not counted as an
+upstream pick.
+
+### Standard Lifecycle And Context Adaptations
+
+UFS retains the complete upstream task-management request pointer index,
+publication, completion, retirement and managed allocation. The existing
+host-lock wrapper and selected HUFS waitqueue/runtime-PM behavior remain;
+the already-absent deleted helpers are not reintroduced. SDHCI retains the
+upstream ADMA splitting/default/quirk changes and the real `int max_adma`
+member. Zodiac's constants, callback interface and selected 4 KiB page size
+remain unchanged; this is not a 64 KiB hardware test.
+
+EROFS keeps the original safe attach/enqueue pagevec reuse contract and both
+caller booleans while preserving OEM short-lived page tagging/allocation.
+The block-size validation helper is complete; redundant blkcg issue
+initialization is removed only after throttle ownership transfer, retaining
+OEM foreground tags and success accounting. The IOPRIO ADMIN-before-NICE
+patch is N/A because the complete existing RT boundary grants only ADMIN;
+an order-only patch must not introduce a missing NICE-only permission.
+
+DWC3 moves NoStream retirement to ENDTRANSFER completion and adds the
+original early descriptor guards without removing its post-callback recheck
+or OEM PM/error paths. Binder applies the original sender-euid partial
+revert across the existing credential wrapper while retaining credential
+references and security checks. Hotplug receives the complete upstream
+SCS/KASAN reset operations. TCPM preserves OEM attach/debounce metadata
+while removing the upstream sink no-VBUS reset.
+
+Overlay uses the original pipe-safe splice implementation and existing
+credential wrapper, including the selected `override_creds=false` default;
+it does not silently force a credentials switch. The existing FD
+post-reference identity/retry/RCU contract remains intact. All five
+POLLFREE/wait/Binder/signalfd/AIO entries are already present, including the
+complete keep-queued AIO lifecycle and later POLLFREE protection. USB
+endpoint-zero limits retain the stronger existing OUT-direction guard.
+Thermal NULL-ops protection and SELinux's empty-on-OOM hashtab handling
+remain, including the protected PRMEM allocator.
+
+Standard F2FS remains unselected while `HW_F2FS_FS=y`; the WHINT parser
+adaptation is source-only. The changed shared F2FS lookup trace header is
+checked in the actual selected OEM consumers separately. Compat VDSO flag
+handling preserves the real compiler/target options and does not invoke a
+clean command. SLOB's NOLEAKTRACE flag fix retains adjacent OEM cache masks.
+
+### Compiler-Generated UFS Assembly Integration
+
+The new `ufs_hba.tmf_rqs` pointer moves the record's later fields by eight
+bytes. A bounded pointer-flow audit of the two annotated UFS assembly units
+finds two additional stale literals in `ufshcd_query_hi1861_bkops`: a state
+load and the nested `dev_cmd.lock` mutex address. Accepted #57 C-object
+evidence measures state at 17,648 and `dev_cmd` at 20,312, with its mutex at
+relative offset eight, hence absolute 20,320. These are measured fields,
+not an inferred lock at the start of `dev_cmd`.
+
+Separate integration `0d678d58e` adds `OEM_UFS_STATE` and
+`OEM_UFS_DEV_CMD_LOCK` through `offsetof` in ARM64 asm-offsets and replaces
+only the two corresponding assembly operands. The complete 104-instruction
+function retains its registers, control flow and lock order. No structure
+padding, old offset freeze, callback cast or permissive CFI is introduced.
+This extends the selected mapped-operand audit, not a blanket certificate
+for every opaque OEM assembly ABI.
+
+### Selected Source And Real C Layouts
+
+One actual Clang compilation measures eight selected records under the
+accepted effective configuration. UFS grows by exactly one pointer to
+23,504 bytes; all old named fields retain their width and their expected
+position before/after the insertion. The measured state and nested command
+mutex now occupy 17,656 and 20,328. All fourteen generated OEM constants
+agree: eight earlier UFS values move by eight, the two new fields are
+generated, and the four unrelated existing values remain unchanged.
+
+The real SDHCI host is 1,472 bytes with the new 32-bit `max_adma` field and
+its existing five-argument ADMA callback. TCP zerocopy UAPI grows to forty
+bytes while preserving all five legacy field positions. BPF `writecnt` is
+the real 64-bit atomic type; the IPv6 stub's new `fib6_nh_release_dsts` slot
+and `inode_update_time` function type are measured. BPF JIT/dispatcher
+remains unselected, without a fake external declaration or selected-CFI
+claim.
+
+Effective feature selections, signing material and enforcing protections
+are unchanged. Emitted configuration entries decrease from 6,432 to 6,431
+solely because upstream 5.10.81 excludes Clang from FORTIFY and the already
+disabled `CONFIG_FORTIFY_SOURCE` line disappears. It remains effectively
+disabled; byte-identical emitted configuration is not claimed. Fresh final
+objects/ELF, matched-module and installed acceptance are separate gates.
+
+### Full Build And Installed Acceptance
+
+The complete build succeeds as 5.10.85 #58 without another source repair.
+The inherited OEM boot-time exit/init section-mismatch notice and ordinary
+compiler/linker warnings remain visible; a warning-free build is not
+claimed. Five final reports bind the same integrated source, configuration,
+ELF and 29 distinct actual objects. Thirteen distinct selected physical
+record names are checked; this is not an inventory of every OEM layout.
+
+All fourteen generated offsets match the single frontend. Thirteen affected
+HUFS machine operands are freshly checked; eighteen unrelated operands
+reuse the earlier proof only through explicit source/value/configuration
+continuity. Selected generic/HUFS UFS consumers match the new pointer
+layout. SDHCI's actual host packing and five-argument ADMA dispatch agree.
+IPv6's real new stub initializer, typed consumer slot, final function pointer
+and enforcing CFI match the canonical target. The new inode export and
+existing time-update indirect type pass. BPF atomic reads are checked as
+actual ARM64 acquire assembly and direct-helper dataflow, not an assumed
+LLVM load or new callback. Shared F2FS lookup names are copied into dynamic
+trace records in the selected OEM consumers.
+
+Current const-sort and MAS all-tag proofs retain explicit implementation,
+object and final-address continuity. Changed objects are decoded once;
+shared hosts/blk-mq IR is reused by the two readers. The all-tag gate checks
+fresh final bitmap/request/endio canonical memberships and flush
+assignment/getter/put identity, without replaying old implementation tests.
+These bounded gates do not certify TMF, 64 KiB ADMA, network stress or every
+opaque OEM contract.
+
+The export table has 13,829 symbols: four additions, two removals and 2,575
+changed CRCs versus #57. Additions are the two unaligned siphash helpers,
+`dst_cache_reset_now` and `inode_update_time`; the aligned siphash helpers
+are removed. All 390 rebuilt modem imports and two optional dummy imports
+match. CRC churn is retained, not concealed by old-binary resigning or
+version-table patching. The stripped modem's CMS signature, embedded kernel
+certificate, original ext4 ownership/label and file readback pass. Original
+boot header, firmware stub and DTB roundtrip checks pass.
+
+One paired installation reaches normal Android with automatic matching Live
+modem loading. Full boot/modem partition, signed module and unchanged
+independent ramdisk readbacks pass, as do the loaded module build-id, user 0
+CE storage/RUNNING_UNLOCKED and three core services. SELinux Enforcing,
+taint 4, enforcing CFI, forced signatures and PRMEM remain. Complete
+time-zero/subsequent logs contain no actual kernel or module fault. All 501
+AVC denials remain visible, none for module loading. Original tracing state
+and the Asleep screen are restored; no second boot or broad hardware replay
+is run after the scoped pass.
+
+The #57/5.10.80 pair is the immediate rollback. Accepted #58 metadata and
+the latest #54-58 pairs remain local below 20 GB. Obsolete #53 test images
+are retired only after matching their retained build contract; original
+images, the first accepted bring-up pair and source history remain intact.
+Next is the complete 5.10.86-90 range. Its selected MMC shutdown callback,
+BPF default-control interface and actual virtio-header consumers require
+fresh bounded checks, while unchanged layout/assembly contracts retain
+scoped continuity. The existing selected AMA allocation path remains a
+separate mempolicy integration issue; a standard non-AMA stable fix does
+not certify it. The pinned 5.10.274 target, Android common parity, GKI and
+full hardware/power acceptance remain open. No release export, publication
+or push occurs.

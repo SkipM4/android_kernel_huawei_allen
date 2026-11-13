@@ -112,6 +112,21 @@ visible, none for module loading. #56 is the immediate paired rollback.
 Next is complete 5.10.81-85 with a fresh UFS layout/assembly gate; the pinned
 5.10.274 target, Android common parity and GKI remain open.
 
+The ninth milestone resolves all 557 official entries through 5.10.85:
+519 exact picks, sixteen code adaptations, five markers, sixteen already
+present fixes and one inapplicable entry. A separate two-file UFS integration
+replaces proven stale state/mutex assembly literals with generated offsets
+while retaining the upstream task-management pointer layout. Source ends at
+`0d678d58e`; #58 passes full build, five final ABI/CFI gates, fourteen generated
+constants and thirteen affected assembly operands, signed paired installation,
+normal Android and automatic matching Live modem. All 390 modem imports match
+the 2,575 changed export CRCs. Effective configuration, ramdisk and security
+remain; only the already-disabled FORTIFY entry disappears from emitted
+configuration. Complete logs contain no actual kernel/module fault; 501 AVCs
+remain visible, none for module loading. #57 is immediate rollback and recent
+#54-58 pairs remain local. Next is complete 5.10.86-90; latest stable, Android
+common parity, GKI and full hardware/power acceptance remain open.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
@@ -575,7 +590,8 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12-r52-metadata/`: accepted #52 metadata retained before the next build; not tracked.
 - `out/allen-clang12-r53-metadata/`: accepted #53 metadata retained before the next build; not tracked.
 - `out/allen-clang12-r57-metadata/`: accepted #57 layout/CFI/build/runtime metadata retained before output reuse; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.80 #57 output, reused sequentially for stable milestones; not tracked.
+- `out/allen-clang12-r58-metadata/`: accepted #58 source/layout/CFI/build/runtime metadata retained before output reuse; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.85 #58 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -602,7 +618,7 @@ scripts/build-allen.sh
 ```
 
 These commands describe the initial released-configuration build, not the
-stock-derived configuration used for the retained r49 or installed #57.
+stock-derived configuration used for the retained r49 or installed #58.
 For the retained upstream output and its r49-derived configuration, use:
 
 ```sh
@@ -613,7 +629,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.80` on the upstream
+Makefile still controls the release, currently `5.10.85` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.
