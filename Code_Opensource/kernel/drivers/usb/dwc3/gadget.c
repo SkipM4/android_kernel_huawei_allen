@@ -3296,6 +3296,8 @@ static void dwc3_gadget_free_endpoints(struct dwc3 *dwc)
 		dep = dwc->eps[epnum];
 		if (!dep)
 			continue;
+		/* Drain debugfs readers before releasing their TRB ring. */
+		dwc3_debugfs_remove_endpoint_dir(dep);
 		/*
 		 * Physical endpoints 0 and 1 are special; they form the
 		 * bi-directional USB endpoint 0.
@@ -3310,7 +3312,6 @@ static void dwc3_gadget_free_endpoints(struct dwc3 *dwc)
 			list_del(&dep->endpoint.ep_list);
 		}
 
-		dwc3_debugfs_remove_endpoint_dir(dep);
 		kfree(dep);
 		dwc->eps[epnum] = NULL;
 	}
