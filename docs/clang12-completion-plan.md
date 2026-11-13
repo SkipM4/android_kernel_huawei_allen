@@ -5,9 +5,15 @@
 User requests stepwise kernel repair and validation. The latest instruction
 ends work in the local source Git tree; no artifact export, release bundle
 or publication is requested. The newly requested stage imports Linux 5.10
-stable patches before progressively aligning with Android common/GKI.
-Installed baseline is r49 from `bringup/clang12`, source `09aeaf9ec` and
-validation record `13570860d`; immediate paired rollback is r48.
+stable patches before progressively aligning with Android common/GKI, then
+explicitly authorizes matched-module installation and boot testing.
+For subsequent stable milestones, normal Android boot and automatic matching
+module loading are the user's required runtime gate. Keep paired-build,
+readback, security and boot-log sanity checks; do not replay passed full
+hardware regressions without a new relevant change, fault or unresolved issue.
+Installed candidate is #50/5.10.44 on `upstream/linux-5.10.y`, kernel source
+through `dcb7a62fb`. Immediate paired rollback is r49/5.10.43, retained on
+`bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
 Each kernel iteration stays isolated, with matching boot/modem_driver
 validation, unchanged independent
 ramdisk unless separately required, retained security controls and accurate
@@ -22,7 +28,7 @@ bypass, speculative broad backport or implementation-mirroring test suite.
 
 ## Upstream Synchronization Stage
 
-`upstream/linux-5.10.y` preserves the installed r49 branch and imports the
+`upstream/linux-5.10.y` preserves the r49 bring-up branch and imports the
 first adjacent stable range, 5.10.43 -> 5.10.44. All 131 entries are resolved:
 103 exact picks, four code adaptations, one release-marker adaptation,
 17 already present and six absent/unselected platform-driver patches.
@@ -36,37 +42,54 @@ configuration and signing material, enforcing CFI and ThinLTO. All 13,821
 export CRCs remain equal; all 390 new modem imports match. Final ELF and
 temporary-module CMS signature checks pass. The configuration files differ
 by their version comment and newly visible disabled NVME_TCP entry, not by
-effective selections. Changed vermagic still forbids mixing old modules.
-No image is staged/exported, no device command is run and r49 stays installed.
-Build success and export equality do not certify runtime behavior or GKI/KMI.
+effective selections. Initially no image is staged or installed. A later
+module-reference audit corrects the claim that changed vermagic always
+forbids loading: MODVERSIONS/version sections allow the loader to ignore
+the release token, while the project deliberately retains same-build pairing.
+Export equality alone does not certify complete ABI or GKI/KMI.
+
+The user-requested follow-up stages and installs matching #50 boot/modem
+images while retaining the independent ramdisk and r49 rollback. Two normal
+#50 boots have complete logs without actual kernel WARN/fatal/module-load
+faults. The first succeeds but an unsupported user-state diagnostic triggers
+an unnecessary automatic r49 rollback; after correcting that script, the same
+pair is installed again with no new kernel edit or compilation. Matching readbacks,
+live rebuilt modem build-id, CE storage/services and Enforcing/taint4/signatureY/
+PRMEM pass. USB2MiB transfer, O_DIRECT2MiB write/fsync/read/compare and bounded
+real frame-stop/scheduling regression pass; six activity-QoS refusals and
+boot/regression AVCs remain classified, not hidden. Task files/traces are
+removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
-| U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and isolated full build/module checks | Source/Build Pass; Runtime Not Tested |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Repeat bounded import/review gates against a pinned target without overwriting the installed baseline | Next Source Stage; Observed Target 5.10.274 Not Imported |
+| U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | Next Source Stage; Observed Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
 Detailed sources, adaptations and validation limits are recorded in
 `linux-5.10-upstream-sync.md`; `linux-5.10.44-imports.tsv` records every
-stable/local identity and exclusion. Consumed upstream diagnostics are
+stable/local identity and exclusion. `kernel-module-updates.md` records
+official module/KMI references and the repeatable same-build update method.
+Consumed upstream diagnostics are
 removed after recording, while original images, r49 output, #50 output and
-recent rollback pairs remain local and below 20 GB. This closes only U01's
-source/build gate, not the complete stable series or the inherited device
-acceptance queue.
+recent r46-r50 rollback pairs remain local and below 20 GB. This closes only
+U01's source/build and named runtime gates, not the complete stable series
+or inherited device acceptance queue. No exported release or publication
+is created; local test/recovery images are retained as required for this test.
 
 ## Next-Stage Work Queue
 
-These installed-r49 follow-ups remain open independently of source
-synchronization. Their existing passes are not transferred to the uninstalled
-5.10.44 build.
+These inherited bring-up follow-ups remain open independently of source
+synchronization. Only explicitly observed #50 regressions extend the r49
+results; older hardware/performance passes are not automatically transferred.
 
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | 01 | Wi-Fi external networking | Existing-network association, network-bound DNS/TLS and verified transfer; classify calibration access separately | r49 Association/DNS/Default TLS Response Pass; Verified Transfer Open |
 | 02 | Cellular service | With an active SIM: registration, data and user-confirmed incoming/outgoing audio call; no guessed dial target | Needs SIM/Manual Check |
 | 03 | Bluetooth peer audio | Pair/connect a supplied headset, playback/capture route and reconnect checks | Needs Peer/Manual Check |
-| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r49 Installed; Mutex/Native Clear/Direct END_FREQ/Ordinary Renewal/Released-Slot Expiry/Owned Global Lifecycle Pass; Stress/AUX/Full Frame Open |
+| 04 | Frame RTG | Audit configuration/task/Binder/module ABI; restore real interface and validate intended caller behavior | r49 Scoped Lifetime Passes Retained; #50 Real Frame/Stop Regression Pass; Stress/AUX/Full Frame Open |
 | 05 | L3/DDR multi-level voting | Match DT/firmware vote contract, restore full tables/ratios and validate real level changes | r41 Bounded Pass; Unused Normalized Bookkeeping Classified |
 | 06 | Thermal daemon fallback | Resolve calculated-result/source/unit contract and validate without disabling thermal protection | Normal-Screen Warm/Cool Recovery Pass; Charging/High-Temperature Safety Open |
 | 07 | Wi-Fi calibration access | Identify caller/lifecycle/permission contract; prove correct access or justified non-use without widening protection | Two Empty Records Confirmed; Usage/Write-Safety Contract Open |
@@ -74,7 +97,7 @@ synchronization. Their existing passes are not transferred to the uninstalled
 | 09 | PCIe affinity/delivery | Verify physical/logical interrupt topology and classify functional impact before any affinity implementation | Endpoint INTx Delivery Pass; Root PME/AER/Migration Open |
 | 10 | Charging/standby | Appropriate charger and battery state; charging transitions, temperatures, overnight power and wake stability | Needs Hardware/Time |
 | 11 | Camera/audio integration | User-confirmed front/rear recording, audio-video sync, microphone routes and calls/headset integration | Needs Manual Check |
-| 12 | Whole-device regression/security | Installed pair, ABI/signatures/readback, enforcing controls and complete required device coverage | r49 Pair/Security/Scoped Regression Pass; Whole-Device Acceptance Open |
+| 12 | Whole-device regression/security | Installed pair, ABI/signatures/readback, enforcing controls and complete required device coverage | #50 Pair/Boot/Security/Named Scoped Regression Pass; Whole-Device Acceptance Open |
 
 Existing bounded passes include storage/display/touch/USB, hardware video
 codec exercises, basic sensors, audible settings playback and recorder user

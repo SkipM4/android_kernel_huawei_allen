@@ -1,20 +1,22 @@
 # Linux 5.10 Upstream Synchronization
 
-## Current Boundary
+## Initial Source-Only Boundary
 
 The first source-only synchronization batch advances the Allen tree from
 5.10.43 to 5.10.44 on `upstream/linux-5.10.y`. The branch starts at
 `13570860d872d99f8930a61bc5f2841a1778f41c`, the r49 validation record.
 `bringup/clang12` remains at that baseline, and `stock-5.10.43` retains the
 official source import at `881d03c79e8c20d7265fb2667c591e4d858564cd`.
-The installed device remains r49, Linux 5.10.43; this stage performs no
-ADB/fastboot operation, module installation or device regression.
+At that checkpoint the installed device remains r49, Linux 5.10.43; the
+source-only stage performs no ADB/fastboot operation, module installation
+or device regression.
 
 All 131 commits in the adjacent stable range are accounted for. There are
 108 imported commits and one separate OEM integration repair, ending at
 `dcb7a62fb2f0458b37a0ea1062cedb5a75574ca3`. Independent full compilation
-produces Linux 5.10.44 #50. This is not a boot pass, complete 5.10.y update,
-release candidate certification or GKI conversion.
+produces Linux 5.10.44 #50. That checkpoint is not a boot pass, complete
+5.10.y update, release candidate certification or GKI conversion. The later
+user-requested paired installation and scoped runtime results are below.
 
 ## Verified Sources
 
@@ -117,9 +119,10 @@ unlocking. It preserves the successful return, `gadget_pullup` update and
 OEM suspend/notification policy. It is not claimed as an exact upstream pick.
 Final-ELF inspection confirms the suspended branch unlocks, sets return 0
 and reaches IRQ enable followed by the PM put implementation before return.
-This closes the source/compiled cleanup defect, not runtime USB certification.
+This closes the source/compiled cleanup defect. The later runtime USB check
+below does not establish coverage of the exact suspended-pullup branch.
 
-## Validation
+## Initial Build Validation
 
 - Independent full build in `out/allen-clang12-upstream-5.10` completes with
   Android Clang/LLD 12.0.7, ThinLTO and enforcing CFI. Final ELF is AArch64,
@@ -156,11 +159,16 @@ scripts/check-module-abi.py \
 
 The generic released defconfig is not a substitute for the r49-derived
 configuration/signing seed. `LOCALVERSION=` suppresses a Git suffix but does
-not override the new 5.10.44 release. Old 5.10.43 modem modules must not be
-mixed with this kernel despite equal CRCs. Export equality alone does not
-prove compatibility for opaque OEM code, internal layouts or Android KMI.
+not override the new 5.10.44 release. The project installs only same-build
+kernel/module pairs. The earlier claim that a changed release alone forbids
+module loading was too strong: with MODVERSIONS and a version section,
+Linux/ACK/Allen `same_magic()` ignores the release token while checking the
+remaining attributes and symbol CRCs. That permission is not full ABI safety;
+export equality does not prove opaque OEM, layout or Android KMI compatibility.
+See [kernel-module-updates.md](kernel-module-updates.md) for the actual rules
+and the retained stricter project packaging policy.
 
-## Local Closeout And Next Stage
+## Initial Local Closeout
 
 The installed r49 output, original images, accepted r17 and recent r45-r49
 image pairs remain retained. Only the superseded #41 build cache is retired
@@ -171,12 +179,132 @@ diagnostic logs are removed after their lasting results enter the records.
 No new boot/modem image, exported bundle, release tag, push or publication
 is created; the workspace stays below the 20 GB limit.
 
+## Paired Installation Follow-Up
+
+The user subsequently requests official module-update references, compilation
+confirmation and a device boot test. The source remains the same #50 kernel;
+the complete make invocation confirms its existing full build without a new
+compile/link or kernel edit. Only the host ABI checker explanation changes
+at `9b2cbcc9b`, distinguishing same-build policy from loader eligibility.
+
+### Images And Installation
+
+The device is reconfirmed as ALN-AL00 / HWALN / ALN with the recorded Huawei
+Charlotte platform and normal #49 Android. The empty SoC property is not a
+different-hardware claim; DT/platform/model agree with the retained device
+baseline. Boot, modem filesystem/module and independent ramdisk hashes match
+the retained r49 pair and Magisk ramdisk before installation. Read-only normal
+Android inventory contains only the loaded modem; the optional dummy-module
+init command targets a missing directory on both r49 and #50.
+
+The matched new modem is stripped then signed with the existing trusted
+SHA-512 policy. Import CRC, CMS certificate, ext4 consistency, module/label
+readback and ownership/mode checks pass. The boot repack passes kernel
+decompression round-trip, original firmware stub/OEM DTB/header preservation
+and real partition bounds. No independent ramdisk, firmware, data or
+high-risk partition is flashed.
+
+Local paired test/recovery files are:
+
+- `images/test/allen-boot-test-5.10.44-clang12-r50.img`.
+- `images/test/allen-modem_driver-test-5.10.44-clang12-r50.img`.
+- `images/test/allen-modem_driver-test-5.10.44-clang12-r50.ko`.
+
+Serial-pinned fastboot device/product/all checks run before both installations.
+The standard product/all queries remain unsupported; supported OEM model and
+unlock queries reconfirm ALN-AL00/unlocked. Only the verified `boot` and
+`modem_driver` partitions are flashed from the local matched pair.
+
+The first #50 installation reaches normal Android, passes matching partition/
+module readbacks and Enforcing/taint4/signatureY. The diagnostic script then
+misclassifies an unsupported `cmd user is-user-unlocked` command as candidate
+failure and automatically restores both r49 partitions. This is a diagnostic
+failure, not a kernel boot fault. The actual supported user-state contract
+uses CE availability and `dumpsys user` RUNNING_UNLOCKED. After correcting that
+and boot-log attribution, the same #50 pair is installed again successfully;
+no speculative kernel edit or repeated compilation follows.
+
+Both #50 boots have complete time-zero logs without actual kernel WARNING,
+BUG, Oops, panic, CFI failure, bad module version/CRC or signature error.
+The inherited unconditional wiphy stack is not mislabelled as a warning.
+Each completed-boot snapshot has 483 AVC records, not an AVC-free pass;
+no module-load AVC is found. Logserver capability/property denials, the
+missing dummy-module path and unsupported `cpuset_noprefix` name remain
+classified against r49 rather than suppressed.
+
+The retained second boot has `sys.boot_completed=1`, user 0 CE storage
+available/RUNNING_UNLOCKED, read-write encrypted F2FS data, SurfaceFlinger/
+activity/power services and a Live modem module. Boot/modem/module readbacks
+match #50 and the full ramdisk readback remains equal. The running modem
+build-id matches the new local module, not the r49 module. CFI remains
+enforcing, PRMEM reports enabled, SELinux is Enforcing, signature enforcement
+is Y and taint stays 4.
+
+### Relevant Scoped Regression
+
+- A task-owned 2 MiB pattern transfers host -> device -> host over the actual
+  USB ADB transport with matching device SHA-256 and local byte integrity.
+  The new DWC3 IRQ remains active; this is not NCM tethering or exact
+  suspended-pullup race coverage.
+- A temporary freestanding AArch64 probe uses this tree's ARM64 O_DIRECT flag,
+  creates an exclusive owned file, writes 512 aligned 4096-byte blocks,
+  fsyncs, rereads and compares every byte. The file is removed, and actual
+  UFS hub/core interrupt counts increase. No buffered fallback, shared
+  data file or partition write is used for the test.
+- One normal passwordless wake/unlock -> stock Settings -> Display Settings
+  -> Home -> Sleep sequence is observed without changing a control or
+  scheduling configuration. Window/activity state and the temporary
+  screenshot confirm Display Settings. The already-bound touch SPI peer
+  remains present and has IRQ activity; synthetic UI input is not physical
+  touch-controller or SPI hot-unbind certification.
+- Two task-owned mono-clock instances record 940 complete real RTG ioctl
+  entry/return pairs, including 433 BEGIN_FRAME_FREQ=0, 289 END_FRAME_FREQ=0
+  and three END_FREQ=0. The latter show frame disable and ordinary-policy
+  restoration of visible selected members before ioctl return. Real UI/
+  RenderThread scheduling and final ordinary priorities are observed.
+  Full frame timing/power is not certified.
+- Six activity requests return the existing ACT_ERR_QOS (-103); the QoS gate
+  is preserved and those calls are not counted as successful activity
+  coverage. The two buffers have no overrun, commit overrun or dropped events
+  on all twelve CPUs. Unknown ioctl boundary exits and outstanding non-RTG
+  entries are not assigned RTG results; no known RTG entry is left unpaired.
+- Complete overlapping pre/post kernel snapshots plus a live log stream
+  cover the regression interval without actual kernel WARN/fatal/module
+  faults. Eleven AVCs in the post-baseline log suffix are kept classified:
+  five qemu-property reads, five mediaprovider accesses to owned shell data,
+  and one motion-HAL Binder denial. No SELinux relaxation occurs. Snapshot
+  overlap, not assumed equality of dmesg and monotonic clocks, defines scope.
+
+The second boot ID stays unchanged during regression. Original main/wifi
+tracers, module/security state, USB configuration and SPI peer set match.
+Owned files, probe process and trace instances are removed; the final
+foreground is Home and the device is Asleep with keyguard showing/not
+occluded. Automatic brightness and 30000 ms timeout remain unchanged;
+automatic brightness output changes normally and is not overwritten.
+
+## Current Local Closeout And Next Stage
+
+#50/5.10.44 now remains installed and has the scoped boot/module/USB/storage/
+UI regression above. Its immediate paired rollback is r49/5.10.43. Keep
+accepted r17, the latest r46-r50 pairs, the original backups, r49 output and
+useful #50 output. Only the superseded r45 test pair and consumed task
+diagnostics are retired after validation. No release bundle, tag, push or
+publication is made; local test images exist solely for installation/recovery.
+The workspace stays below 20 GB.
+
 The next minimal import is 5.10.44 -> 5.10.45, using the same ordered ledger,
-duplicate review and isolated compilation. Continue bounded stable batches
-toward a newly pinned 5.10.y target before adding Android-specific deltas.
-Relevant scheduler, SPI, USB, storage and other runtime changes need scoped
-device regression when a later installation stage is requested; r49 results
-are not inherited by the uninstalled 5.10.44 build.
+duplicate review and isolated matched kernel/module compilation. Continue
+bounded stable batches toward a newly pinned 5.10.y target before adding
+Android-specific deltas. The #50 pass does not transfer all older hardware
+results or cover every changed scheduler/USB/SPI path.
+
+The latest user instruction makes normal Android boot and automatic loading
+of matching modules sufficient for subsequent stable milestones. Ordered
+source review, matched full builds, signature/import checks, paired readback,
+retained security controls and necessary boot-log review still apply. Broader
+hardware regressions are not repeated unless a new relevant change, fault or
+unresolved issue requires them. This narrower gate does not certify full
+hardware functionality or convert stable maintenance into GKI compliance.
 
 GKI requires an Android common core, suitable configuration/KMI, and vendor
 hardware support separated into modules. This stable batch removes no

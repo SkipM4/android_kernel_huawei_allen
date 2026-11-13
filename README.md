@@ -6,7 +6,7 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The source-only upstream track is `upstream/linux-5.10.y`, forked from the
+The upstream track is `upstream/linux-5.10.y`, forked from the
 r49 validation record `13570860d`. Its first adjacent stable batch advances
 5.10.43 -> 5.10.44: 103 exact picks, four code backports and one release-marker
 backport, with 17 already-present fixes and six absent/unselected driver
@@ -15,12 +15,22 @@ in the Huawei suspended-pullup branch. The 108 imported commits plus this
 repair end at `dcb7a62fb`.
 
 Independent Linux 5.10.44 #50 full compilation, final ELF, module imports,
-export CRC comparison and signing verification pass. It is not packaged,
-flashed or runtime-certified. The installed device remains r49/5.10.43 and
-`bringup/clang12` retains its baseline. Later 5.10.y batches and Android/GKI
-architectural work remain open; stable picks alone do not make this a GKI
-kernel. See `docs/linux-5.10-upstream-sync.md` and the complete
+export CRC comparison and signing verification pass. At the user's later
+request, the matched boot/modem pair is installed and #50 reaches normal
+Android on two boots. Matching partition/module readbacks, unchanged Magisk
+ramdisk, live new modem, encrypted user storage and enforcing controls pass.
+Bounded USB transfer, direct I/O and real framework frame-stop regression
+also pass. r49/5.10.43 is the immediate paired rollback; `bringup/clang12`
+retains that baseline. No release export/publication occurs. Later 5.10.y
+batches and Android/GKI architecture remain open; this is not full hardware,
+power or GKI certification. See `docs/linux-5.10-upstream-sync.md`,
+`docs/kernel-module-updates.md` and the complete
 `docs/linux-5.10.44-imports.tsv` ledger.
+
+For later stable milestones, the user's acceptance gate is normal Android
+boot with automatic loading of the matching module. Retain build, signing,
+partition readback, security and necessary boot-log checks; repeat broader
+hardware tests only when a new change, fault or unresolved issue requires it.
 
 ### Installed Bring-up Baseline
 
@@ -47,13 +57,13 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is r49. A separate normalized vote-scale
+validation. The installed device is #50/5.10.44. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.
 See `docs/clang12-functional-tests.md` for results and the next isolated fix.
 
-The current installed test candidate is r49: r21 retains full early logs,
+The preserved bring-up baseline is r49: r21 retains full early logs,
 r22 initializes the TCP recovery rule lock, and r23 uses sleeping GPIO reads
 in the satellite init thread. r24 removes invalid PD sysfs executable bits
 without changing its effective creation mode or store callback. r25 keeps ION
@@ -68,8 +78,8 @@ log; taint falls from 516 to 4 (the recorded CPU-feature S bit remains).
 Database capacity/accounting, Reserved page ownership and protected SELinux
 pools pass targeted checks, not adversarial protection certification.
 See `docs/clang12-early-diagnostics.md` for attribution and
-test limits. Accepted r17 and the latest r45/r46/r47/r48/r49 pairs are retained;
-r48 is the immediate r49 rollback. Original boot/ramdisk/modem backups remain
+test limits. Accepted r17 and the latest r46/r47/r48/r49/r50 pairs are retained;
+r49 is the immediate #50 rollback. Original boot/ramdisk/modem backups remain
 intact.
 r28 imports the audited Linux 5.10.43 Hepburn/Charlotte CLT codec, absent from
 the ALN archive, and maps its six pages within the existing Allen DT resources.
@@ -474,8 +484,8 @@ need separate lifecycle diagnosis without relaxing protection.
 - `tools/host/bin/bc`: local build dependency, extracted from the Arch package.
 - `out/allen-clang12/`: default independent build output path; not tracked.
 - `out/allen-clang12-r41-metadata/`: retained metadata for the retired #41 build cache; not tracked.
-- `out/allen-clang12-frame-rtg/`: current r49 frame-RTG paired-test output; not tracked.
-- `out/allen-clang12-upstream-5.10/`: independent 5.10.44 #50 source-sync output, not installed; not tracked.
+- `out/allen-clang12-frame-rtg/`: retained r49 frame-RTG rollback output; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.44 #50 paired-test output; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -487,6 +497,7 @@ need separate lifecycle diagnosis without relaxing protection.
 - `docs/clang12-audio-source-audit.md`: codec source audit and scoped r28 CLT integration.
 - `docs/linux-5.10-upstream-sync.md`: stable source provenance, adaptations, build checks and GKI boundaries.
 - `docs/linux-5.10.44-imports.tsv`: complete first-batch stable/local commit ledger.
+- `docs/kernel-module-updates.md`: matched rebuild/signing workflow, actual MODVERSIONS rule and stable-KMI limits.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
 project root and are excluded from Git. Never overwrite them.
@@ -501,7 +512,7 @@ scripts/build-allen.sh
 ```
 
 These commands describe the initial released-configuration build, not the
-stock-derived configuration used for the installed r49 or source-sync #50.
+stock-derived configuration used for the retained r49 or installed #50.
 For the retained upstream output and its r49-derived configuration, use:
 
 ```sh
@@ -513,8 +524,9 @@ The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
 Makefile still controls the release, currently `5.10.44` on the upstream
-branch. This alone does not establish module ABI compatibility, and old
-5.10.43 modem modules must not be mixed with the new kernel.
+branch. This alone does not establish module ABI compatibility. Project
+packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
+different release token, but is not a full binary-compatibility guarantee.
 ThinLTO links use two backend jobs and a bounded cache to avoid the observed
 Full LTO memory failure and excessive cache growth.
 

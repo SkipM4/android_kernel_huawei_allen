@@ -1,0 +1,147 @@
+# Kernel Module Updates
+
+## Policy For Allen
+
+Update the kernel and all required loadable modules as a matched build while
+the Huawei tree has no independently maintained stable KMI. For the installed
+normal Android system, the required loadable module is `modem_driver.ko` on
+the independent read-only ext4 `modem_driver` partition. The current 5.10.44
+#50 kernel and module are built together with the r49-derived effective
+configuration, Android Clang/LLD 12.0.7, enforcing CFI and the existing signing
+certificate. No loader, version CRC, signature or SELinux check is bypassed.
+
+This is the immediate solution for modules to follow stable updates. It does
+not make the module ABI stable across arbitrary versions. Every later batch
+must rebuild required modules and recheck their contracts, not just change
+the release string or resign an old incompatible binary.
+
+## Upstream References
+
+References checked on 2026-11-13:
+
+| Source | Applicable Guidance |
+| --- | --- |
+| [Linux 5.10 external modules](https://www.kernel.org/doc/html/v5.10/kbuild/modules.html) | Build through Kbuild against the configured/built target kernel; `modules_prepare` does not produce the required `Module.symvers` for MODVERSIONS |
+| [Linux 5.10 module signing](https://www.kernel.org/doc/html/v5.10/admin-guide/module-signing.html) | Kernel must trust the signing certificate; strip before signing; appended signature presence alone is not verification |
+| [Android loadable modules](https://source.android.com/docs/core/architecture/kernel/loadable-kernel-modules) | MODVERSIONS detects versioned interface changes, but does not repair ABI breakage; incompatible modules must be rebuilt |
+| [Android stable KMI](https://source.android.com/docs/core/architecture/kernel/stable-kmi) | Independent module reuse requires constrained configuration/toolchain and monitored KMI symbols within the same Android/LTS KMI branch |
+| [Android ABI monitoring](https://source.android.com/docs/core/architecture/kernel/abi-monitor) | Monitor symbol lists and associated types; different Android KMI branches do not share an ABI guarantee |
+| [GKI versioning](https://source.android.com/docs/core/architecture/kernel/gki-versioning) | The stable sublevel is not part of the KMI identity; a matching KMI version can span multiple kernel releases |
+
+The original Android common 5.10.44 merge loader is checked at
+<https://android.googlesource.com/kernel/common/+/82658bfd8898b71f700cba34de6923d344214fef/kernel/module.c>.
+Its `same_magic()` behavior matches Allen's `kernel/module.c`.
+Do not apply newer kernel-only build syntax or a GKI signing-policy change
+to this vendor 5.10 tree without a separate integration review.
+
+## Release, CRC And Signature Are Separate Gates
+
+The earlier source-sync record was too categorical about release mismatch.
+With `CONFIG_MODVERSIONS=y`, `same_magic()` ignores the first space-delimited
+vermagic token when the module contains a `__versions` section. It still
+compares the remaining vermagic attributes. `check_modstruct_version()` and
+`check_version()` then check `module_layout` and versioned symbol CRCs.
+Without version CRCs, the full vermagic must match; force-loading is not used.
+
+Therefore, a 5.10.43 module is not automatically rejected by 5.10.44 solely
+because those release tokens differ. Conversely, a matching release is not
+proof of compatible ABI. MODVERSIONS is a consistency check for exported
+interfaces, not proof that opaque OEM objects, private offsets, CFI function
+types, compiler behavior and runtime assumptions still agree.
+
+`scripts/check-module-abi.py` intentionally enforces a stricter same-build
+release policy for this project's packaging, in addition to import CRCs.
+Its explanation now distinguishes policy from the kernel loader's actual
+rule. It does not predict all permitted loader cases or certify a stable KMI.
+No old modem binary is intentionally loaded into #50 to turn this inspection
+into an unneeded live ABI experiment.
+
+The matching module is stripped before signing with the existing SHA-512
+policy. The signature is verified against the certificate embedded in the
+target kernel, and image readback must match the signed bytes. Signatures
+prove authenticity/integrity, not ABI compatibility; resigning is not a
+substitute for rebuilding. Private signing material remains untracked and
+must not be published with artifacts.
+
+Current GKI vendor modules use verified partitions and a different signing/
+allowlist policy. Allen retains `CONFIG_MODULE_SIG_FORCE=y` and its existing
+trusted keys. Disabling that protection does not create GKI compatibility.
+
+## Repeatable Matched-Build Flow
+
+1. Pin the source batch, target configuration, LLVM revision and signing
+   material. Build in an independent output directory with the real device
+   feature selections. Do not replace it with the generic released defconfig.
+2. Complete the full kernel build to produce `Module.symvers`, generated
+   headers and the required modules. In-tree modem code is already built in
+   the same invocation; do not compile it independently with guessed flags.
+3. For a genuine external module, use Kbuild against that exact configured
+   output, preserving ARCH/LLVM/CFI settings. Build dependent modules together,
+   or provide their version information through `KBUILD_EXTRA_SYMBOLS`.
+4. Review missing/changed exports and relevant internal/OEM contracts. Check
+   each required module's versioned imports. A later batch with changed CRCs
+   requires the new module, not a patched `__versions` section.
+5. Strip and sign the rebuilt module, verify CMS and the target certificate,
+   stage it on the actual module partition with unchanged labels/ownership,
+   and verify its filesystem and byte readback.
+6. Repack the target kernel with the original boot layout, preserving the
+   firmware stub and OEM DTB. Install the kernel and required module partition
+   together before reboot; preserve the independent Magisk ramdisk.
+7. Confirm normal boot, automatic module loading, matching runtime module
+   build-id/file, full partition readback and enforcing security. Run only
+   relevant regression gates, then retain the pair and immediate rollback.
+
+For subsequent stable batches the user explicitly accepts normal Android
+boot and automatic matching-module loading. Keep the integrity/security and
+necessary boot-log checks in this flow, but do not repeat already-passed full
+hardware tests without a new relevant change, fault or unresolved issue.
+
+For the retained #50 build, the existing project commands are:
+
+```sh
+cd /home/data/Allen
+OUTPUT_DIR=out/allen-clang12-upstream-5.10 JOBS=8 scripts/build-allen.sh
+scripts/check-module-abi.py \
+  out/allen-clang12-upstream-5.10/drivers/platform_drivers/modem/modem_driver.ko \
+  out/allen-clang12-upstream-5.10/Module.symvers
+```
+
+The original staging scripts take a new output image path and refuse to
+overwrite existing candidates. Current local paired test images are:
+
+- `images/test/allen-boot-test-5.10.44-clang12-r50.img`.
+- `images/test/allen-modem_driver-test-5.10.44-clang12-r50.img`.
+- `images/test/allen-modem_driver-test-5.10.44-clang12-r50.ko`.
+
+These are local test/recovery files, not an exported release bundle or an
+OEM-signed AVB claim. Their build, installation and runtime evidence is in
+[linux-5.10-upstream-sync.md](linux-5.10-upstream-sync.md).
+
+## Actual Module Inventory And Limits
+
+The full configured build also produces `hisi_dummy_ko.ko`. Read-only normal
+Android inventory finds only the modem module file and only that module
+loaded. The existing `init.ko.rc` requests the dummy module under a missing
+`/vendor/lib/modules` directory; the command exits with status 1 on both r49
+and #50. The dummy module is not substituted for hardware, manually loaded
+to fake coverage, or added to a new partition. Its optional userspace/source
+integration remains a separate issue.
+
+Published modem code also retains opaque/original objects and OEM internal
+contracts. Same-build compilation and a successful modem initialization do
+not establish working calls or cellular data. Available hardware/SIM/manual
+gates remain in [clang12-completion-plan.md](clang12-completion-plan.md).
+
+## Independent Module Reuse Later
+
+To update the core without rebuilding vendor binaries, first establish a
+version-matched Android common base, a chosen/frozen KMI generation, explicit
+vendor symbol lists and type-level ABI monitoring under a pinned toolchain.
+Separate hardware-specific core hooks into vendor modules only after their
+dependencies and runtime contracts are understood. Stay within that KMI
+branch and enforce its allowlist/CRC constraints. A new Android KMI branch
+or incompatible API/layout requires rebuilding/adapting vendor modules.
+
+The present stable batch establishes neither that architecture nor a blanket
+promise of module reuse. Its working update method is paired rebuilding and
+verified installation, without spoofing versions or weakening protections.
