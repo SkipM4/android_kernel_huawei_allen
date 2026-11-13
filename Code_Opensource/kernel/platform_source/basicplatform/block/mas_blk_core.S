@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -316,7 +318,7 @@ blk_dio_ck:                             // @blk_dio_ck
 	//DEBUG_VALUE: blk_dio_ck:dio_op <- $w2
 	//DEBUG_VALUE: blk_dio_ck:dio_page_count <- $w3
 	//DEBUG_VALUE: blk_dio_ck:dio_start <- $x1
-	ldr	x8, [x0, #1064]
+	ldr	x8, [x0, #OEM_GENDISK_QUEUE]
 .Ltmp20:
 	.loc	2 134 6 is_stmt 0               // kernel/platform_source/basicplatform/block/mas_blk_core.c:134:6
 	cbz	x8, .LBB2_12
@@ -1056,7 +1058,7 @@ mas_blk_generic_make_request_check:     // @mas_blk_generic_make_request_check
 .Ltmp113:
 	//DEBUG_VALUE: mas_blk_generic_make_request_check:bio <- $x19
 	.loc	2 416 42                        // kernel/platform_source/basicplatform/block/mas_blk_core.c:416:42
-	ldr	x20, [x8, #1064]
+	ldr	x20, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp114:
 	//DEBUG_VALUE: mas_blk_generic_make_request_check:q <- $x20
 	.loc	2 439 2                         // kernel/platform_source/basicplatform/block/mas_blk_core.c:439:2
@@ -2014,7 +2016,7 @@ mas_blk_check_partition_done:           // @mas_blk_check_partition_done
 .Ltmp237:
 	//DEBUG_VALUE: mas_blk_check_partition_done:disk <- $x0
 	//DEBUG_VALUE: mas_blk_check_partition_done:disk <- $x0
-	ldr	x8, [x0, #1064]
+	ldr	x8, [x0, #OEM_GENDISK_QUEUE]
 	and	w9, w1, #0x1
 .Ltmp238:
 	//DEBUG_VALUE: mas_blk_check_partition_done:has_part_tbl <- $w9
@@ -3107,7 +3109,7 @@ blk_dev_write_order_preserved:          // @blk_dev_write_order_preserved
 	//DEBUG_VALUE: blk_dev_write_order_preserved:bdev <- $x0
 	//DEBUG_VALUE: blk_dev_write_order_preserved:lld <- 0
 	//DEBUG_VALUE: blk_dev_write_order_preserved:q <- 0
-	ldr	x8, [x8, #1064]
+	ldr	x8, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp391:
 	.loc	2 856 6 is_stmt 0               // kernel/platform_source/basicplatform/block/mas_blk_core.c:856:6
 	cbz	x8, .LBB40_7

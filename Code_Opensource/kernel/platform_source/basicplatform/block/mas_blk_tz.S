@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -258,7 +260,7 @@ blk_lld_tz_query:                       // @blk_lld_tz_query
 	ldr	x8, [x8, #176]
 .Ltmp8:
 	.loc	15 1757 24 is_stmt 0            // kernel/include/linux/blkdev.h:1757:24
-	ldr	x22, [x8, #1064]
+	ldr	x22, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp9:
 	//DEBUG_VALUE: blk_lld_tz_query:q <- $x22
 	.loc	144 36 6 is_stmt 1              // kernel/platform_source/basicplatform/block/mas_blk_tz.c:36:6
@@ -412,7 +414,7 @@ blk_lld_tz_ctrl:                        // @blk_lld_tz_ctrl
 	.loc	15 1757 15                      // kernel/include/linux/blkdev.h:1757:15
 	ldr	x8, [x0, #176]
 	.loc	15 1757 24 is_stmt 0            // kernel/include/linux/blkdev.h:1757:24
-	ldr	x21, [x8, #1064]
+	ldr	x21, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp28:
 	//DEBUG_VALUE: blk_lld_tz_ctrl:q <- $x21
 	.loc	144 62 6 is_stmt 1              // kernel/platform_source/basicplatform/block/mas_blk_tz.c:62:6

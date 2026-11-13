@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -256,7 +258,7 @@ ufshcd_bkops_status_query:              // @ufshcd_bkops_status_query
 	bl	__pm_runtime_resume
 .Ltmp6:
 	.loc	167 217 13                      // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:217:13
-	ldr	x8, [x20, #23104]
+	ldr	x8, [x20, #OEM_UFS_BKOPS_OPS]
 	.loc	167 217 8 is_stmt 0             // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:217:8
 	mov	x0, x20
 	mov	x1, x21
@@ -364,7 +366,7 @@ ufshcd_bkops_start_stop:                // @ufshcd_bkops_start_stop
 	bl	__pm_runtime_resume
 .Ltmp20:
 	.loc	167 243 13                      // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:243:13
-	ldr	x8, [x19, #23104]
+	ldr	x8, [x19, #OEM_UFS_BKOPS_OPS]
 	.loc	167 243 8 is_stmt 0             // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:243:8
 	mov	x0, x19
 	.loc	167 243 32                      // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:243:32
@@ -507,10 +509,10 @@ hufs_manual_bkops_config:               // @hufs_manual_bkops_config
 	ldr	x9, [x20, #8]
 .Ltmp38:
 	//DEBUG_VALUE: hufs_manual_bkops_config:q <- $x9
-	ldr	x19, [x26, #26248]
+	ldr	x19, [x26, #OEM_SHOST_UFS_BLACKLIST]
 .Ltmp39:
 	//DEBUG_VALUE: hufs_is_bkops_supported:node <- $x19
-	mov	w8, #26168
+	mov	w8, #OEM_SHOST_UFS_MANUFACTURER
 .Ltmp40:
 	add	x8, x26, x8
 .Ltmp41:
@@ -519,7 +521,7 @@ hufs_manual_bkops_config:               // @hufs_manual_bkops_config
 .Ltmp42:
 	//DEBUG_VALUE: hufs_manual_bkops_config:q <- [DW_OP_plus_uconst 16] [$sp+0]
 	//DEBUG_VALUE: hufs_manual_bkops_config:q <- [DW_OP_plus_uconst 16] [$sp+0]
-	mov	w9, #26248
+	mov	w9, #OEM_SHOST_UFS_BLACKLIST
 .Ltmp43:
 	//DEBUG_VALUE: hufs_is_bkops_supported:bkops_id <- 0
 	//DEBUG_VALUE: hufs_is_bkops_supported:hba <- [DW_OP_plus_uconst 3112, DW_OP_stack_value] $x26
@@ -684,10 +686,10 @@ hufs_manual_bkops_config:               // @hufs_manual_bkops_config
 	//DEBUG_VALUE: hufs_manual_bkops_config:q <- [DW_OP_plus_uconst 16] [$sp+0]
 	//DEBUG_VALUE: hufs_manual_bkops_config:ufs_bkops <- 0
 	//DEBUG_VALUE: hufs_manual_bkops_config:hba <- undef
-	ldr	x19, [x26, #26232]
+	ldr	x19, [x26, #OEM_SHOST_UFS_WHITELIST]
 .Ltmp62:
 	//DEBUG_VALUE: hufs_is_bkops_supported:node <- $x19
-	mov	w8, #26232
+	mov	w8, #OEM_SHOST_UFS_WHITELIST
 	.loc	167 345 2 is_stmt 1             // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:345:2
 	add	x28, x26, x8
 .Ltmp63:
@@ -707,7 +709,7 @@ hufs_manual_bkops_config:               // @hufs_manual_bkops_config
 	adrp	x22, .L.str.4
 	adrp	x23, .L.str.3
 	ldrh	w27, [x8]
-	add	x8, x26, #3112                  // =3112
+	add	x8, x26, #OEM_SCSI_HOSTDATA
 .Ltmp65:
 	//DEBUG_VALUE: hufs_manual_bkops_config:hba <- $x8
 	add	x22, x22, :lo12:.L.str.4
@@ -964,7 +966,7 @@ hufs_manual_bkops_config:               // @hufs_manual_bkops_config
 	str	w9, [x20]
 	orr	x9, x10, #0x1c
 	str	x9, [x20, #128]
-	str	x8, [x26, #26216]
+	str	x8, [x26, #OEM_SHOST_UFS_BKOPS_OPS]
 .Ltmp97:
 .LBB2_29:
 	//DEBUG_VALUE: hufs_manual_bkops_config:ufs_bkops <- $x20
@@ -977,7 +979,7 @@ hufs_manual_bkops_config:               // @hufs_manual_bkops_config
 	mov	w19, #1
 	mov	w9, #3600
 	.loc	167 417 17                      // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:417:17
-	str	x20, [x26, #26224]
+	str	x20, [x26, #OEM_SHOST_UFS_BKOPS]
 	.loc	167 418 24                      // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:418:24
 	stp	x8, x11, [x20, #8]
 	.loc	167 420 28                      // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:420:28
@@ -986,7 +988,7 @@ hufs_manual_bkops_config:               // @hufs_manual_bkops_config
 	str	x9, [x20, #208]
 .Ltmp98:
 	.loc	167 423 56                      // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:423:56
-	ldr	x2, [x26, #24384]
+	ldr	x2, [x26, #OEM_SHOST_UFS_DEBUGFS_ROOT]
 	.loc	167 423 6 is_stmt 0             // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:423:6
 	mov	x1, x20
 	bl	mas_bkops_enable
@@ -1254,7 +1256,7 @@ ufshcd_query_hi1861_bkops:              // @ufshcd_query_hi1861_bkops
 	//DEBUG_VALUE: ufshcd_query_hi1861_bkops:response <- 0
 	//DEBUG_VALUE: ufshcd_query_hi1861_bkops:request <- 0
 	.loc	167 0 6 is_stmt 0               // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:0:6
-	mov	w8, #23352
+	mov	w8, #OEM_UFS_EH_MUTEX
 	.loc	167 116 19 is_stmt 1            // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:116:19
 	add	x19, x22, x8
 	.loc	167 116 2 is_stmt 0             // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:116:2

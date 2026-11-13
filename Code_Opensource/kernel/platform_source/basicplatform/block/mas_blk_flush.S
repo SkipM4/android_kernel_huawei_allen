@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -2620,7 +2622,7 @@ blk_flush_async_support:                // @blk_flush_async_support
 	.loc	13 1757 15                      // kernel/include/linux/blkdev.h:1757:15
 	ldr	x8, [x0, #176]
 	.loc	13 1757 24 is_stmt 0            // kernel/include/linux/blkdev.h:1757:24
-	ldr	x8, [x8, #1064]
+	ldr	x8, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp358:
 	//DEBUG_VALUE: blk_flush_async_support:q <- $x8
 	.loc	1 457 6 is_stmt 1               // kernel/platform_source/basicplatform/block/mas_blk_flush.c:457:6

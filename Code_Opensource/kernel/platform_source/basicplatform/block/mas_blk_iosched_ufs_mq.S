@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -4275,7 +4277,7 @@ ufs_mq_make_request_v5:                 // @ufs_mq_make_request_v5
 	//DEBUG_VALUE: ufs_mq_bio_is_sync:q <- $x24
 	//DEBUG_VALUE: ufs_mq_bio_is_sync:dispatch_op <- [DW_OP_constu 255, DW_OP_and, DW_OP_stack_value] $w8
 	.loc	1 2068 42 is_stmt 0             // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:2068:42
-	ldr	x24, [x8, #1064]
+	ldr	x24, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp517:
 	//DEBUG_VALUE: ufs_mq_make_request_v5:q <- $x24
 	.loc	1 2070 27 is_stmt 1             // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:2070:27
@@ -12167,7 +12169,7 @@ blk_mq_get_io_in_list_count:            // @blk_mq_get_io_in_list_count
 	.loc	1 4267 12                       // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:4267:12
 	ldr	x8, [x0, #176]
 	.loc	1 4267 21 is_stmt 0             // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:4267:21
-	ldr	x8, [x8, #1064]
+	ldr	x8, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp1703:
 	//DEBUG_VALUE: blk_mq_get_io_in_list_count:q <- $x8
 	.loc	1 4272 6 is_stmt 1              // kernel/platform_source/basicplatform/block/mas_blk_iosched_ufs_mq.c:4272:6

@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -228,7 +230,7 @@ mas_blk_latency_bio_submit_func:        // @mas_blk_latency_bio_submit_func
 	//DEBUG_VALUE: mas_blk_latency_bio_submit_func:q <- 0
 	//DEBUG_VALUE: mas_blk_latency_bio_submit_func:bio <- $x0
 	.loc	151 204 20 is_stmt 1            // kernel/platform_source/basicplatform/block/mas_blk_latency.c:204:20
-	ldr	x21, [x8, #1064]
+	ldr	x21, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp3:
 	//DEBUG_VALUE: mas_blk_latency_bio_submit_func:q <- $x21
 	.loc	151 205 6                       // kernel/platform_source/basicplatform/block/mas_blk_latency.c:205:6
@@ -1324,7 +1326,7 @@ mas_blk_latency_check_timer_expire:     // @mas_blk_latency_check_timer_expire
 	//DEBUG_VALUE: mas_blk_latency_check_timer_expire:q <- 0
 	//DEBUG_VALUE: mas_blk_latency_check_timer_expire:lld <- 0
 	.loc	151 332 38                      // kernel/platform_source/basicplatform/block/mas_blk_latency.c:332:38
-	ldr	x21, [x8, #1064]
+	ldr	x21, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp169:
 	.loc	151 332 6                       // kernel/platform_source/basicplatform/block/mas_blk_latency.c:332:6
 	cbz	x21, .LBB4_11

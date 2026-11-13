@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -5886,7 +5888,7 @@ hyperframe_io_rw_buf:                   // @hyperframe_io_rw_buf
 	stp	x22, x21, [sp, #64]             // 16-byte Folded Spill
 	stp	x20, x19, [sp, #80]             // 16-byte Folded Spill
 	mov	x29, sp
-	sub	sp, sp, #928                    // =928
+	sub	sp, sp, #OEM_HYPERFRAME_DEVICE_FRAME
 	.cfi_def_cfa w29, 96
 	.cfi_offset w19, -8
 	.cfi_offset w20, -16
@@ -5939,7 +5941,7 @@ hyperframe_io_rw_buf:                   // @hyperframe_io_rw_buf
 	//DEBUG_VALUE: hyperframe_prepare_bvec_ion:attach <- 0
 	.loc	1 377 16                        // kernel/platform_source/basicplatform/fs/hyperframe.c:377:16
 	add	x0, sp, #48                     // =48
-	mov	w2, #872
+	mov	w2, #OEM_DEVICE_SIZE
 	mov	w1, wzr
 	bl	memset
 .Ltmp840:
@@ -6650,7 +6652,7 @@ hyperframe_io_rw_buf:                   // @hyperframe_io_rw_buf
 	//DEBUG_VALUE: hyperframe_io_rw_buf:iter <- [DW_OP_plus_uconst 8, DW_OP_stack_value] $sp
 	.loc	1 459 1 is_stmt 1               // kernel/platform_source/basicplatform/fs/hyperframe.c:459:1
 	mov	w0, w23
-	add	sp, sp, #928                    // =928
+	add	sp, sp, #OEM_HYPERFRAME_DEVICE_FRAME
 .Ltmp947:
 	ldp	x20, x19, [sp, #80]             // 16-byte Folded Reload
 .Ltmp948:

@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -1763,7 +1765,7 @@ mas_blk_busyidle_check_bio_endio:       // @mas_blk_busyidle_check_bio_endio
 .Ltmp216:
 	//DEBUG_VALUE: mas_blk_busyidle_check_bio_endio:bio <- $x19
 	//DEBUG_VALUE: mas_blk_busyidle_check_bio_endio:bio <- $x19
-	add	x10, x8, #1064                  // =1064
+	add	x10, x8, #OEM_GENDISK_QUEUE
 	cmp	x8, #0                          // =0
 	csel	x8, x9, x10, eq
 	ldr	x0, [x8]
@@ -1946,7 +1948,7 @@ blk_busyidle_event_subscribe:           // @blk_busyidle_event_subscribe
 	ldr	x8, [x8, #176]
 .Ltmp246:
 	.loc	3 1757 24 is_stmt 0             // kernel/include/linux/blkdev.h:1757:24
-	ldr	x0, [x8, #1064]
+	ldr	x0, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp247:
 	//DEBUG_VALUE: blk_queue_busyidle_event_subscribe:event_node <- $x19
 	//DEBUG_VALUE: blk_queue_busyidle_event_subscribe:q <- $x0

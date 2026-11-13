@@ -1,3 +1,5 @@
+#include <asm/asm-offsets.h>
+
 	.text
 	.section	.note.gnu.property,"a",@note
 	.p2align	3
@@ -119,7 +121,7 @@ blk_dev_health_query:                   // @blk_dev_health_query
 	ldr	x8, [x8, #176]
 .Ltmp7:
 	.loc	15 1757 24 is_stmt 0            // kernel/include/linux/blkdev.h:1757:24
-	ldr	x0, [x8, #1064]
+	ldr	x0, [x8, #OEM_GENDISK_QUEUE]
 .Ltmp8:
 	//DEBUG_VALUE: blk_dev_health_query:q <- $x0
 	.loc	17 34 8 is_stmt 1               // kernel/platform_source/basicplatform/block/mas_blk_health.c:34:8

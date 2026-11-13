@@ -23,6 +23,16 @@
 #include <asm/suspend.h>
 #include <linux/kbuild.h>
 #include <linux/arm-smccc.h>
+#ifdef CONFIG_BLOCK
+#include <linux/genhd.h>
+#endif
+#ifdef CONFIG_HYPERFRAME
+#include <linux/device.h>
+#endif
+#ifdef CONFIG_HUFS_MANUAL_BKOPS
+#include <scsi/scsi_host.h>
+#include "scsi/ufs/ufshcd.h"
+#endif
 
 int main(void)
 {
@@ -175,6 +185,34 @@ int main(void)
   DEFINE(PTRAUTH_KERNEL_KEY_APDB,	offsetof(struct ptrauth_keys_kernel, apdb));
   DEFINE(PTRAUTH_KERNEL_KEY_APGA,	offsetof(struct ptrauth_keys_kernel, apga));
   BLANK();
+#endif
+  /* Keep audited OEM assembly accesses tied to the current C layouts. */
+#ifdef CONFIG_BLOCK
+  DEFINE(OEM_GENDISK_QUEUE, offsetof(struct gendisk, queue));
+#endif
+#ifdef CONFIG_HYPERFRAME
+  DEFINE(OEM_DEVICE_SIZE, sizeof(struct device));
+  DEFINE(OEM_HYPERFRAME_DEVICE_FRAME,
+	 ALIGN(48 + sizeof(struct device) + sizeof(unsigned long), 16));
+#endif
+#ifdef CONFIG_HUFS_MANUAL_BKOPS
+  DEFINE(OEM_SCSI_HOSTDATA, offsetof(struct Scsi_Host, hostdata));
+  DEFINE(OEM_UFS_BKOPS_OPS, offsetof(struct ufs_hba, ufs_dev_bkops_ops));
+  DEFINE(OEM_UFS_EH_MUTEX, offsetof(struct ufs_hba, eh_mutex));
+  DEFINE(OEM_SHOST_UFS_BKOPS_OPS, offsetof(struct Scsi_Host, hostdata) +
+	 offsetof(struct ufs_hba, ufs_dev_bkops_ops));
+  DEFINE(OEM_SHOST_UFS_BLACKLIST, offsetof(struct Scsi_Host, hostdata) +
+	 offsetof(struct ufs_hba, bkops_blacklist));
+  DEFINE(OEM_SHOST_UFS_WHITELIST, offsetof(struct Scsi_Host, hostdata) +
+	 offsetof(struct ufs_hba, bkops_whitelist));
+  DEFINE(OEM_SHOST_UFS_MANUFACTURER, offsetof(struct Scsi_Host, hostdata) +
+	 offsetof(struct ufs_hba, manufacturer_id));
+  DEFINE(OEM_SHOST_UFS_BKOPS, offsetof(struct Scsi_Host, hostdata) +
+	 offsetof(struct ufs_hba, ufs_bkops));
+#ifdef CONFIG_DEBUG_FS
+  DEFINE(OEM_SHOST_UFS_DEBUGFS_ROOT, offsetof(struct Scsi_Host, hostdata) +
+	 offsetof(struct ufs_hba, debugfs_files.debugfs_root));
+#endif
 #endif
   return 0;
 }
