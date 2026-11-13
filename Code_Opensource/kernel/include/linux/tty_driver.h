@@ -249,6 +249,7 @@
 
 struct tty_struct;
 struct tty_driver;
+struct termiox;
 struct serial_icounter_struct;
 struct serial_struct;
 
