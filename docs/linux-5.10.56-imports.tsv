@@ -1,0 +1,70 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	e44d22fdf75613503b31a38fa824a98c970ea119	-	already-present	selftest: fix build error in tools/testing/selftests/vm/userfaultfd.c	tools/testing/selftests/vm/userfaultfd.c	The newer fatal err() MAP_FAILED path is already balanced; the old missing-opening-brace defect is absent after the 5.10.54 mmap adaptation. Do not restore the older fprintf/NULL error path.
+002	65b2658634fedc0a34fb04832a702834e77791e5	a87c1c8d3c8d7497608df3f4e9f8dc2a7659c454	picked	io_uring: fix null-ptr-deref in io_sq_offload_start()	fs/io_uring.c	-
+003	02210a5e1894d5da89fbc67f44a182b7739fbaa3	67a041efc728e5ca5fcba09e24c3d9c199f2ddc8	picked	x86/asm: Ensure asm/proto.h can be included stand-alone	arch/x86/include/asm/proto.h	-
+004	27aa7171fe2b00c3de01e8e3a3298a3639f37fa3	-	already-present	pipe: make pipe writes always wake up readers	fs/pipe.c	The original unconditional epoll wakeup, nonempty buffer merge check and page-align rationale are already present; the WATCH_QUEUE guard is only different surrounding context.
+005	4e1a57d75264dd4f10f3497c35dda521947368df	a7d7028675af5b1a825890ef95a87abf644608bd	picked	btrfs: fix rw device counting in __btrfs_free_extra_devids	fs/btrfs/volumes.c	-
+006	0a421a2fc516f39caf3d253c04b76a12fe632011	43de9fde421613cd89f03712757aef9eb272db5f	picked	btrfs: mark compressed range uptodate only if all bio succeed	fs/btrfs/compression.c	-
+007	0d6afa25975e73fef3537678e98386020661eed0	e2debcb564b24d8146e93f9871a71d72c91ecdea	picked	Revert "ACPI: resources: Add checks for ACPI IRQ override"	drivers/acpi/resource.c	-
+008	2388c7674fbdb9d8944caee768e599b02a21b33e	ee6dfbca6adb2c4c692f224a34db73d31fef7cd9	picked	ACPI: DPTF: Fix reading of attributes	drivers/acpi/dptf/dptf_pch_fivr.c	-
+009	7d67d4ab28e3c7daa6151d64e1be8da478b77f3d	327a2c2fb1a3696c9f9f6ee4e6cbcf6bc23aef30	picked	x86/kvm: fix vcpu-id indexed array sizes	arch/x86/kvm/ioapic.c;arch/x86/kvm/ioapic.h	-
+010	52acb6c147b30aef1e178249620c81b41da4ae8b	d1b1022dea78df1159ba31a8bdb203a5af486c82	picked	KVM: add missing compat KVM_CLEAR_DIRTY_LOG	virt/kvm/kvm_main.c	-
+011	94301459306115e007966bd607638232423d15d9	1d61bcd8052f7cdfc667bf72f65e8b45dedd72c9	picked	ocfs2: fix zero out valid data	fs/ocfs2/file.c	-
+012	da4f4916dab2b55cd38eec2f9a33800a7abc6bb9	dfbda6bf481bd7f762b373d82843c9df749ea61f	picked	ocfs2: issue zeroout to EOF blocks	fs/ocfs2/file.c	-
+013	a9c02d0e1513df9b6124599ed2c05695d1d7ff0c	5ffa47e632a5ed92ff305d3ad65454f0fb196794	picked	can: j1939: j1939_xtp_rx_dat_one(): fix rxtimer value between consecutive TP.DT to 750ms	net/can/j1939/transport.c	-
+014	afe2ffd920615fb50d2f6d94588110b0cdcf5470	fbf07d893be37b28eba692f136074f616d4e65a3	picked	can: raw: raw_setsockopt(): fix raw_rcv panic for sock UAF	net/can/raw.c	-
+015	2fc2c2816cb76fd39bf446f12a72e3bd20b52018	3ea4a2651988c57958d27620e4ed2ac305c3dae9	picked	can: peak_usb: pcan_usb_handle_bus_evt(): fix reading rxerr/txerr values	drivers/net/can/usb/peak_usb/pcan_usb.c	-
+016	a6ebfbdaca3da6ba66c68fbe6636217bcb98b06a	1347fc5b453a789f0e97a105d3f92038dec93205	picked	can: mcba_usb_start(): add missing urb->transfer_dma initialization	drivers/net/can/usb/mcba_usb.c	-
+017	f58ac91ff87daf7362b1acd6445d14f7cc90c6ad	33947628e42b1c30e4dda23516abc2d522d8e402	picked	can: usb_8dev: fix memory leak	drivers/net/can/usb/usb_8dev.c	-
+018	88b40258162b277016bbec2a9679418c223dca25	b7665bad6841ee8771077b03e876e482a9307f29	picked	can: ems_usb: fix memory leak	drivers/net/can/usb/ems_usb.c	-
+019	30e19d072ea08766adcb280f4562b05fba88d37d	4cb2ec98d631f649ac5703ec4ffb4f2dd053982a	picked	can: esd_usb2: fix memory leak	drivers/net/can/usb/esd_usb2.c	-
+020	7bca5da0053941131ba30479b22ac7091a2da91b	a6790c22d1030a42d37154b7832273844a1b509b	picked	alpha: register early reserved memory in memblock	arch/alpha/kernel/setup.c	-
+021	cb71730a6312ae363f31350976cb378e53be7433	c406331f856014834493d907406715b069779040	picked	HID: wacom: Re-enable touch by default for Cintiq 24HDT / 27QHDT	drivers/hid/wacom_wac.c	-
+022	2eab387507fd449e08014cca0de79a37b2d27744	6cff090e6b424730383cf18a73025fdf45c4727e	picked	NIU: fix incorrect error return, missed in previous revert	drivers/net/ethernet/sun/niu.c	-
+023	63570e578094b4f0b6b8c6ac4a68195455733e31	4d0593c8e5b1b003a406b37af57202c7aca982af	picked	drm/amd/display: ensure dentist display clock update finished in DCN20	drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c	-
+024	ccc7a1bb322e4169b738aa3fc8b5dfcfefdacb37	408664fd61e54448bd8a96ee9bf6833da9178b93	picked	drm/amdgpu: Avoid printing of stack contents on firmware load error	drivers/gpu/drm/amd/amdgpu/psp_v12_0.c	-
+025	fc2756cce06f9833ebabd309b5b5080ed5c56897	188714958c85fb0790acdf0f6244a04f02440ac0	picked	drm/amdgpu: Fix resource leak on probe error path	drivers/gpu/drm/amd/amdgpu/amdgpu_device.c	-
+026	ea04a3b5727e571f628e59b907db9f0c8bdd0d5d	5059abe71dec03d37063cbc512ca0442998841d7	picked	blk-iocost: fix operation ordering in iocg_wake_fn()	block/blk-iocost.c	-
+027	9ab284bc35307ffde4f385dd8f3cf853fd9bb264	253bfc9bca4e7725450939b40474673276320cc8	picked	nfc: nfcsim: fix use after free during module unload	drivers/nfc/nfcsim.c	-
+028	c8667cb406fdae6718e7dbd4d0b2c85ad1eb9d9d	aee9d36a3db5766f642c4a5a0ae1e19bdfa394ee	picked	cfg80211: Fix possible memory leak in function cfg80211_bss_update	net/wireless/scan.c	-
+029	e6a06a13ec6f6a9b88d5fdc11e3ea0cc8860890e	eef6c2a9cde2b289e950aec468b9973f26b1d339	picked	RDMA/bnxt_re: Fix stats counters	drivers/infiniband/hw/bnxt_re/main.c;drivers/infiniband/hw/bnxt_re/qplib_res.c;drivers/infiniband/hw/bnxt_re/qplib_res.h	-
+030	076bc6ebce48e8144ba9d73c4f37f3a7b7ea66bf	4ce9c1b6c6e0e1f5be7af56e2f80fdab83be8356	picked	bpf: Fix OOB read when printing XDP link fdinfo	include/linux/bpf_types.h	-
+031	ac038f4152efd8b4ad86e50df913bd318dc6daa8	59e04fa51ffd7546b1a2aec3b6bb9c44c077efaa	picked	mac80211: fix enabling 4-address mode on a sta vif after assoc	net/mac80211/cfg.c;net/mac80211/ieee80211_i.h;net/mac80211/mlme.c	-
+032	3dbda8483f4256530a926dcb6063656a17fe62d9	7b841297358566afeb9b89b3d18cd6a3a383d126	backported	netfilter: conntrack: adjust stop timestamp to real expiry value	net/netfilter/nf_conntrack_core.c	Preserve the selected cloud-network session deletion hook before timestamp lookup; apply the original expiry timestamp adjustment without changing OEM teardown ordering.
+033	cbc8012902b34516cae039f12435b78be80493a3	96da23cb2eaedcbcb34d8d4586e80d3d695070a7	picked	netfilter: nft_nat: allow to specify layer 4 protocol NAT only	net/netfilter/nft_nat.c	-
+034	e090ffdf056361230797fc170b226bd6ab81b4aa	6c53d273f2f93d64a538748bd2eac5f6a3b4d062	picked	i40e: Fix logic of disabling queues	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+035	4382cca179153d08e0a938d4e97514e5d31e08e2	825c0cc0e78729ddbd8de76544ec8a27ffe49aa5	picked	i40e: Fix firmware LLDP agent related warning	drivers/net/ethernet/intel/i40e/i40e_ethtool.c	-
+036	c1cc6bce1afd096b2a3a482de6278e4d181e33ff	bcfbc51b4bfe90412b0fd78fb518efcc9cfd2aaf	picked	i40e: Fix queue-to-TC mapping on Tx	drivers/net/ethernet/intel/i40e/i40e_main.c;drivers/net/ethernet/intel/i40e/i40e_txrx.c;drivers/net/ethernet/intel/i40e/i40e_txrx.h	-
+037	bb60616162113653d181fe7490354ef57e520fa9	3d126e3389c79aeb84267fcf8568204065f10ad7	picked	i40e: Fix log TC creation failure when max num of queues is exceeded	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+038	10f585740cf0bf5b037a70a4d4eb3096fd713490	cf4ef66bb2f9ef5ac641cb6ab8fff95276155de6	picked	tipc: fix implicit-connect for SYN+	net/tipc/socket.c	-
+039	a41282e82a1d13ad2cca0f07879d7042780d8e78	54d10c886b154f7b18479ef1b930075b4a988a55	picked	tipc: fix sleeping in tipc accept routine	net/tipc/socket.c	-
+040	91350564ea8c0d72b9d60d1bace5adb090c97193	d74d4ffffc32b8167339a613ef2074f9bff1e172	backported	net: Set true network header for ECN decapsulation	net/ipv4/ip_tunnel.c	Change the inner network-header offset exactly as upstream; retain the newer outer-offset, pskb_inet_may_pull and header-reload sequence before ECN access.
+041	6961323eed46d6aee7b87ec758580d334579438c	ff3ad109ef2baee53944d69b09391995662f40fc	picked	net: qrtr: fix memory leaks	net/qrtr/qrtr.c	-
+042	a7c85a516cd0e7dc73912311f8b1ab40b6b53cad	5ffcdaef469a34f991a37f406d634f8426addf1e	picked	ionic: remove intr coalesce update from napi	drivers/net/ethernet/pensando/ionic/ionic_lif.c;drivers/net/ethernet/pensando/ionic/ionic_txrx.c	-
+043	60decbe01d7d711d4626a855213350ea02bfd41c	027da22a2c9ec0f023f082fc6e2bf88c106170cf	picked	ionic: fix up dim accounting for tx and rx	drivers/net/ethernet/pensando/ionic/ionic_txrx.c	-
+044	7eefa0b74f3e55dec85edfe5f5270c6f8b598155	dd7f22a017b70c3efd66293ac6586b91abc427f9	picked	ionic: count csum_none when offload enabled	drivers/net/ethernet/pensando/ionic/ionic_txrx.c	-
+045	4951ffa3fac8892949a09b630191ff12f35f4b72	165a7b835d6cfa52ff57fc66727f05a10eb73f0b	picked	tipc: do not write skb_shinfo frags when doing decrytion	net/tipc/crypto.c	-
+046	51b751fc06b8dd4fd787586eed373a563e3bd991	8de8e84cf243f05dfbf14052c9da8d83384b0b44	picked	octeontx2-pf: Fix interface down flag on error	drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c;drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c	-
+047	f5f78ae5f1bed58742cfe07b10c8233ec163f2ce	59bd159bacf16a6082dcbed6893fd870950af369	picked	mlx4: Fix missing error code in mlx4_load_one()	drivers/net/ethernet/mellanox/mlx4/main.c	-
+048	01f3581d4400f6586403409c5c3a3128fbb3e336	11c48d84262b9120dd438165e2488557bf1bbb3e	picked	KVM: x86: Check the right feature bit for MSR_KVM_ASYNC_PF_ACK access	arch/x86/kvm/x86.c	-
+049	e6097071a4ff4b9543adb1c041a3708d5606c35c	9e5a713e5017a7e95c9549d4359454a56c624a8e	picked	net: llc: fix skb_over_panic	include/net/llc_pdu.h;net/llc/af_llc.c;net/llc/llc_s_ac.c	-
+050	4a6841921cc818ebaa10a74b799867d149de2d1e	2ae3b35a66fa94750f10103fa474e67737a54bfe	picked	drm/msm/dpu: Fix sm8250_mdp register length	drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c	-
+051	645a1d3bef5f149f853a5815c437b16b290583e0	91e8a6bdf1cd60259e49e91cc7d88eca57380f2d	picked	drm/msm/dp: Initialize the INTF_CONFIG register	drivers/gpu/drm/msm/dp/dp_catalog.c	-
+052	1b148bd72e507543c4cac5689a204053bf877337	f338dd584114ff02dda55ecfe777432809070b9d	picked	skmsg: Make sk_psock_destroy() static	include/linux/skmsg.h;net/core/skmsg.c	-
+053	bd744f2a275573f29811ebf4f0716b120c0036fd	d61011fe9ef7494f38d39e1441f22c587110f04c	picked	net/mlx5: Fix flow table chaining	drivers/net/ethernet/mellanox/mlx5/core/fs_core.c	-
+054	362e9d23cf70896c65a436667449cb2d277b930f	5001f424125666dbef0378405af8fda62ed2ed55	picked	net/mlx5e: Fix nullptr in mlx5e_hairpin_get_mdev()	drivers/net/ethernet/mellanox/mlx5/core/en_tc.c	-
+055	58b8c812c7641d9d9bfd1663f42dac2dbba3a560	29413526ff0e569f7d13e01d2ffb66a0130eb9b1	picked	sctp: fix return value check in __sctp_rcv_asconf_lookup	net/sctp/input.c	-
+056	93e5bf4b2925cfec5299791913a118adb3f62846	d27637c57e576924f998fd9b573a4bdfe5f3942a	picked	tulip: windbond-840: Fix missing pci_disable_device() in probe and remove	drivers/net/ethernet/dec/tulip/winbond-840.c	-
+057	65dfa6cb22337d21cc8a441e4e324c86eb886c72	1a831ddfcab474c4cebab6b0087ef24791e2a2cb	picked	sis900: Fix missing pci_disable_device() in probe and remove	drivers/net/ethernet/sis/sis900.c	-
+058	cd61e665a16615a00257d2974ba3db14bea33446	423634bca84c7e13889dc03f03eb7f54351979b6	picked	can: hi311x: fix a signedness bug in hi3110_cmd()	drivers/net/can/spi/hi311x.c	-
+059	bea9e2fd180892eba2574711b05b794f1d0e7b73	-	already-present	bpf: Introduce BPF nospec instruction for mitigating Spectre v4	arch/arm/net/bpf_jit_32.c;arch/arm64/net/bpf_jit_comp.c;arch/mips/net/ebpf_jit.c;arch/powerpc/net/bpf_jit_comp64.c;arch/riscv/net/bpf_jit_comp32.c;arch/riscv/net/bpf_jit_comp64.c;arch/s390/net/bpf_jit_comp.c;arch/sparc/net/bpf_jit_comp_64.c;arch/x86/net/bpf_jit_comp.c;arch/x86/net/bpf_jit_comp32.c;include/linux/filter.h;kernel/bpf/core.c;kernel/bpf/disasm.c	All 13 original files retain the nospec opcode/macro, ten JIT cases, interpreter dispatch/barrier and disassembly. The interpreter uses the existing generic nospec.h no-op on arm64 instead of CONFIG_X86 context; preserve PRMEM/CFI and newer code.
+060	0e9280654aa482088ee6ef3deadef331f5ac5fb0	-	already-present	bpf: Fix leakage due to insufficient speculative store bypass mitigation	include/linux/bpf_verifier.h;kernel/bpf/verifier.c	Complete original patch reverse-applies; exact fixed code is already present.
+061	a11ca29c65c147c9d52896304e9761e2c4ed70dc	01b8f72f855c78b629d758d85877f0848c998f18	picked	bpf: Remove superfluous aux sanitation on subprog rejection	kernel/bpf/verifier.c	-
+062	ffb9d5c48b4bba47cf926530de45187ecdfd31b5	f577799609acccd0f09ba2e45414ca56dd8433f4	picked	bpf: verifier: Allocate idmap scratch in verifier env	include/linux/bpf_verifier.h;kernel/bpf/verifier.c	-
+063	be561c0154dca82c3e399648bfe1b21b717af144	9600180710825a46db2785dd869a46cb9a95bff3	picked	bpf: Fix pointer arithmetic mask tightening under state pruning	include/linux/bpf_verifier.h;kernel/bpf/verifier.c	-
+064	bfc8e67c60b911ee5605c1234fcb58239e5c20de	22767e7a5bb9c71880045b246cf59791fc0978fd	picked	SMB3: fix readpage for large swap cache	fs/cifs/file.c	-
+065	c14cee5bc466dd09918e2b749bcf2ba9babfb7d5	4ed0adb63ff8bba8700947f80433fd33a20f7efb	picked	powerpc/pseries: Fix regression while building external modules	arch/powerpc/platforms/pseries/setup.c	-
+066	2ca5ec188b2097f5b93299638e0b74e2126031a8	1188b2f208d8694a8fa0217810af3c73ae1bf507	picked	Revert "perf map: Fix dso->nsinfo refcounting"	tools/perf/util/map.c	-
+067	75ebe1d355b5b179568009ef35042d3c7be7ee00	0bab0f5f9dab2cdf65d9832af6fdbd5610b58037	picked	i40e: Add additional info to PHY type error	drivers/net/ethernet/intel/i40e/i40e_ethtool.c	-
+068	55dd22c5d029423f513fd849e633adf0e9c10d0c	413dd42fc02385e7b1ee972d80b8958803576531	picked	can: j1939: j1939_session_deactivate(): clarify lifetime of session object	net/can/j1939/transport.c	-
+069	9746c25334cb364ab6651ee6dfd4cab3218d0c06	43e79e5cc8d8a1acfc6fc12c1f14f78227619807	backported	Linux 5.10.56	Makefile	Release marker only; preserve required Huawei Makefile exports and executable mode after all applicable entries are resolved.

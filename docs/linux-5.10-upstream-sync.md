@@ -731,3 +731,209 @@ publication or push is made. Next is the ordered 5.10.56-63 batch, with a
 separate actual OEM offset gate for the 5.10.60 MSI device-layout change.
 The pinned target remains 5.10.274; stable synchronization alone does not
 establish Android common parity or GKI.
+
+## Fifth Milestone: 5.10.56 Through 5.10.64
+
+The next ordered range resolves all 614 official entries from v5.10.55
+through v5.10.64: 562 exact picks, nineteen code adaptations, nine version
+markers, 23 already-present fixes and one absent/unselected driver patch.
+The initial 587-entry range ends at b108b2631/5.10.63. A concrete flush
+publication dependency of the MAS iterator migration extends the same
+installation milestone through the complete 27-entry 5.10.64 range, ending
+at `03d07321d`. No 5.10.63 intermediate candidate is installed.
+
+| Release | Official Tip | Entries | Exact | Code Adaptations | Markers | Present | N/A |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 5.10.56 | `9746c25334cb364ab6651ee6dfd4cab3218d0c06` | 69 | 62 | 2 | 1 | 4 | 0 |
+| 5.10.57 | `1cd6e30b83d741562b55bf5b7763b1238a91150c` | 31 | 27 | 2 | 1 | 0 | 1 |
+| 5.10.58 | `132a8267adabd645476b542b3b132c1b91988fe8` | 135 | 128 | 2 | 1 | 4 | 0 |
+| 5.10.59 | `5805e5eec901e830c7741d4916270d0b9cfd6743` | 19 | 16 | 1 | 1 | 1 | 0 |
+| 5.10.60 | `2c5bd949b1df3f9fb109107b3d766e2ebabd7238` | 103 | 100 | 1 | 1 | 1 | 0 |
+| 5.10.61 | `452ea6a15ed2ac74789b7b3513777cc94ea3b751` | 95 | 88 | 4 | 1 | 2 | 0 |
+| 5.10.62 | `f6dd002450bf7b9143aff3af42ad1e12efe9a4f8` | 105 | 94 | 3 | 1 | 7 | 0 |
+| 5.10.63 | `e07f317d5a289f06b7eb9025d2ada744cf22c940` | 30 | 26 | 2 | 1 | 1 | 0 |
+| 5.10.64 | `cb83afdc0b865d7c8a74d2b2a1f7dd393e1d196d` | 27 | 21 | 2 | 1 | 3 | 0 |
+
+Sources are the same official Linux stable repository, ordered release
+ranges and matching ChangeLog-5.10.56 through ChangeLog-5.10.64 files at
+kernel.org. Each local identity and outcome is recorded in the nine
+`linux-5.10.<sublevel>-imports.tsv` ledgers. The unselected absent driver
+is Richtek RTMV20; it is not the active Allen regulator.
+
+### Context Adaptations And Standardization
+
+Conntrack timestamp/GC adaptations preserve the existing cloud-network
+teardown hook and resize-mutex context while applying the complete upstream
+expiry and bounded full-table cycle. ECN uses the original corrected inner
+header offset without reverting newer packet-pull/header-reload code.
+SCMI checks probe and delayed-response status inside the newer protocol
+lifecycle rather than restoring obsolete handles. Pipe quota and poll_usage
+changes preserve neighboring OEM includes and apply the original two-buffer
+minimum and epoll wakeup contracts.
+
+`4564a653f` adopts the full upstream sched/rt single PI-priority snapshot
+and class-setting refactor from stable `a3e6bd0c71bb5e4821aff9ab8f221bfc08039d73`,
+mainline `f558c2b834ec27e75d37b1c860c139e7b7c3a8e4`. It removes the OEM
+ARCH_PLATFORM always-MOVE workaround only after the same effective priority
+governs dequeue and final class/priority. Existing VIP normalization, the
+fair-nice clamp/graded setter, Android RVH, successful-parameter dynamic-prio
+clearing and latency/uclamp/re-vote boundaries remain. Independent source
+review confirms these contracts. The old configured workaround already
+suppresses the upstream double-enqueue scenario; no prior device crash or
+new scheduling performance pass is claimed.
+
+The BPF lockdown reason moves into the existing private LSM table, and the
+linker sanitizer selectors retain Android TEXT_CFI_JT. Virtio XDP/GRO changes
+preserve the has_cvq invariant. The MSM timeout callback retains newer CQE
+crypto members. Memcontrol updates its two-output API and only caller, with
+the scan_control explanation placed in its existing mm/internal.h definition.
+Encrypted-symlink getattr is inserted before existing F2FS dedup helpers.
+These context adjustments do not erase required hardware functionality.
+
+The three ordered 5.10.63 credential reverts complete together, removing
+the entire temporary per-credential ucounts feature and the local
+allocation-before-put repair `94269d6b1`. Ordinary namespace ucounts,
+HKIP/checkroot, sched_core_setuid and independent fork_idle changes remain.
+No build or installation occurs between the three reverts. Actual configured
+C headers restore credential size 168 and group_info offset 144; final object
+and module checks remain required.
+
+### MSI Assembly Layout Integration
+
+The exact 5.10.60 MSI lock insertion is retained. Actual configured
+raw_spinlock_t is 24 bytes, moving device size 872 to 896, gendisk.queue
+1064 to 1088 and Scsi_Host.hostdata 3112 to 3160. Existing OEM assembly
+really loads these fields; rebuilding C modules alone cannot repair it.
+Nested SCSI-host/UFS tail accesses can move by 72, not a blanket 24 bytes.
+Hyperframe also allocates and zeros a real local struct device before
+dma_buf_attach, so its stack allocation must grow with the object.
+
+Separate integration `a59c7f232` generates twelve offsetof/sizeof constants
+through the existing ARM64 Kbuild asm-offsets flow and changes only 29
+proven operands in nine assembly files. It retains opcode forms, CFI and
+unrelated instructions/debug metadata. The local hyperframe device frame
+is derived from its actual fixed prefix, C object size, canary and alignment,
+giving 960 rather than 928 bytes. Independent instruction/type tracing and
+actual Clang 12 headers confirm each field equation; ordinary numeric
+matches for request/queue/io_uring and other objects are not rewritten.
+No ABI compatibility padding, dummy field, runtime indirection or skipped
+upstream lock is introduced. This is bounded integration, not certification
+of all future opaque OEM layouts.
+
+### MAS Request References And Flush Publication
+
+Stable `26ee94ba343c63d9d23112521c68fa72c82a8805` assumes the queue tag iterator
+already owns a request reference before the expiry callback. The selected
+OEM three-bank assembly iterator instead reads tags->rqs and calls directly,
+without protected get/put. Keeping only the MAS timeout hook while deleting
+the callback's extra reference would violate that prerequisite.
+
+Separate integration `d5a3f2b02` routes the existing typed UFS queue wrapper
+to the standard C bt_iter, reusing lock-protected find_and_get_req, the
+callback and flush-aware blk_mq_put_rq_ref. Only private iterator metadata
+gains an explicit tag offset. Normal/high-priority/reserved banks retain
+their allocation numbering and scan order, while normal queues retain their
+existing two-bank offsets. The standard hardware-context filter and false
+return stopping the current bitmap now apply; this is not instruction-for-
+instruction equivalence with the opaque loop. Public layouts, exports and
+all-tag dispatch remain unchanged.
+
+That migration makes the missing 5.10.64 flush publication fixes directly
+relevant. A reused flush request can become visible through an old tag alias
+while blk_rq_init is rebuilding it; publishing ref=1 before end_io allows
+the standard iterator to acquire an incompletely initialized generation.
+Stable `ceffaa61b5bb5296e07cb7f4f494377eb659058f`, mainline
+`c2da19ed50554ce52ecbad3655c98371fe58599f`, moves reference publication after
+end_io and smp_wmb. Stable `cad6239f5080fdb1acdfb7faeaa8b252125a68d1`, mainline
+`a9ed27a764156929efe714033edb3e9023c5f321`, recognizes flush requests by that
+initialized callback identity instead of a racy mq_hctx dereference.
+Local `7299e3048`/`d9fb9db87` apply these original changes while preserving
+MAS routing/sync flags and removing the obsolete NULL guards. The third
+flush mapping-clear patch is already present and is classified accordingly.
+The unfinished 5.10.63 build is stopped, not accepted or installed; complete
+5.10.64 is imported before the next full build. Sources: the official
+ChangeLog-5.10.64 and linked original commit messages.
+
+### Compile-Time Interface Integration
+
+The first complete 5.10.64 build identifies two concrete vendor integration
+errors. Separate `ae19ca7fe` coordinates the Android/HCK restricted-hook
+calls with the two-argument tracepoint_update_call introduced by stable
+`7799ad4d181f4694f62e668e1b86bc64f7fac88b`, mainline
+`231264d6927f6740af36855a622d0e240be9d94c`. Only the two obsolete false
+arguments are removed. These permanent two-slot hooks register but cannot
+unregister, so the old no-sync semantics, callback-data guard, mutex,
+WRITE_ONCE, static-key enabling and exports remain; the upstream normal
+registration/unregistration state transitions are not reverted.
+
+Separate `378a72fba` adds only a file-scope opaque struct termiox declaration
+after stable `d24347e2ff1193164224e5c0558e8682e28e91f6`, mainline
+`c762a2b846b619c0f92f23e2e8e16f70d20df800`, removes the dead UAPI definitions.
+The existing vendor tty/operation pointers are ABI-only, with no initializer
+or active operation, and the four termiox ioctls already return ENOTTY.
+Forward declaration fixes the real connectivity Werror without restoring
+the unused UAPI, shifting existing fields or weakening compiler checks.
+Both official imports remain exact in the ledgers; these are separate
+integration commits. Kernel source now ends at `378a72fba`.
+
+### Source And Final Build Validation
+
+Independent checks confirm all original ordering, identities and outcomes,
+and all exact changed lines/newline/mode transitions and original author/
+date/stable trailers. The eight semantic-PRESENT cases are checked against
+their historical source context, not inferred solely from patch failure.
+The complete source matches an independent ordered reconstruction overlaid
+with the assembly/reference integrations, `9e6d738f0` whitespace cleanup
+and the two compile-time interface integrations.
+Original picks remain exact. Complete source git diff --check passes.
+
+Complete Linux 5.10.64 #54 compilation and final AArch64 ELF linking pass
+from `378a72fba` with all 6,431 effective configuration values and signing
+materials equal to #53. Fresh C objects confirm the restored cred168/
+group_info144 and the selected device, disk, SCSI/UFS, pipe, virtio, XFRM,
+IGMP, OTG and signed SPI layouts. Twelve generated constants and all 29
+mapped assembly operands match those actual types. Hyperframe's device ends
+before its canary, its frame remains 16-byte aligned, and saved-register/CFA
+rules are unchanged. This is evidence from current objects and instructions,
+not stale embedded OEM debug types.
+
+The changed __do_once_done four-argument interface has its new module
+parameter, matching export CRC and final CFI canonical acceptance path.
+Both actual modem call sites pass __this_module. Final flush instructions
+write the same callback canonical address later compared by is_flush_rq
+and blk_mq_put_rq_ref, then execute dmb ishst before publishing the reference;
+the CFI jump-table entry branches to the real flush_end_io implementation.
+No CFI exception or runtime flush stress result is claimed. Diagnostic
+parsers are corrected only for observed zero-operand ret and quoted/hash
+ThinLTO local symbols; these are not new kernel changes or device faults.
+
+The full table has 13,826 exports: four additions, one removal and 8,949
+changed CRCs versus #53. Additions are fscrypt_symlink_getattr and the three
+SRCU polling/state helpers; sk_psock_destroy is removed. All 390 rebuilt
+modem imports and two optional dummy imports match. The large CRC change is
+retained rather than hidden with old modules or patched version tables.
+CMS verification, embedded certificate, boot round-trip/firmware/DTB/header,
+signed ext4 filesystem and original label/ownership checks pass.
+
+### Installed Runtime Acceptance And Boundary
+
+One matched boot/modem_driver installation reaches normal Android as
+5.10.64 #54. The modem loads automatically as Live, with matching runtime
+build-id and complete signed file and partition readbacks. The independent
+Magisk ramdisk is unchanged. CE storage is available/RUNNING_UNLOCKED and
+SurfaceFlinger, activity and power services are present. Enforcing SELinux,
+taint4, signatureY, CFI and enabled PRMEM remain.
+
+Complete time-zero and subsequent logs contain no actual WARN, BUG, Oops,
+panic, CFI or module fault. The final window retains 546 AVC denials, none
+requesting module loading. The screen returns to Asleep, tracing remains
+off with only the original wifi instance, and no broad hardware regression
+is repeated. #53/5.10.55 is the immediate paired rollback; recent r50-r54
+pairs and the original/first-accepted recovery files remain local, with
+metadata saved before build-output reuse and the workspace below 20 GB.
+
+Next is the bounded complete 5.10.65-70 range, including the shared request
+getter's stale-tag check and standard const list_sort callback migration.
+Later stable releases, Android common parity and GKI remain open; no release
+is exported, published or pushed. Normal boot/module acceptance does not
+certify calls/data, whole hardware, performance or power.

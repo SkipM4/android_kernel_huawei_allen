@@ -59,6 +59,19 @@ boot logs contain no actual kernel or module fault. #52 is the immediate
 paired rollback. Next is 5.10.56-63, including an actual OEM assembly-offset
 gate before accepting the upstream MSI device-layout change.
 
+The fifth milestone resolves all 614 official entries through 5.10.64:
+562 exact picks, nineteen code adaptations, nine version markers, 23 already
+present and one inapplicable entry. Separate integrations replace 29 proven
+OEM assembly operands with twelve generated offsets, move MAS queue
+iteration onto the standard request-reference lifecycle, and coordinate two
+real compile-time vendor interfaces. Source ends at `378a72fba`; #54 passes
+full build, actual layout/assembly/once/flush CFI checks, signed matched
+installation, normal Android and automatic matching Live modem loading.
+All 390 modem imports match despite 8,949 changed export CRCs. Ramdisk,
+configuration and enforcing controls remain; complete logs contain no actual
+kernel/module fault. #53 is the immediate paired rollback. Next is the
+bounded complete 5.10.65-70 range; latest stable and GKI remain open.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
@@ -89,7 +102,7 @@ event tests. r20 is the recorded hardware-functional reference, not full certifi
 The user reports preliminary front/rear camera switching and photos working
 on r19. Multi-level L3/DDR voting restoration passes independent native
 selector/parser checks, #41 full-link/pair checks and bounded real-vote
-validation. The installed device is #53/5.10.55. A separate normalized vote-scale
+validation. The installed device is #54/5.10.64. A separate normalized vote-scale
 reference audit classifies it as unused original bookkeeping within the
 examined scope; no dummy state is restored or performance parity claimed.
 See `docs/clang12-mips-multilevel-audit.md`.

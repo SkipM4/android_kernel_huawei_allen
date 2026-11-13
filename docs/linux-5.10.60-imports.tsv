@@ -1,0 +1,104 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	d0532ed064d117dc5310eae138f2e64b49cbab79	81ac1e810b77844178f4df11e9336cd4d9a3a51b	picked	iio: adc: ti-ads7950: Ensure CS is deasserted after reading channels	drivers/iio/adc/ti-ads7950.c	-
+002	45de224b1332577f3e7aac60332a7000939c068a	6a94c6c93e2ea189c85f44f9965d2ac05e7e1856	picked	iio: adis: set GPIO reset pin direction	drivers/iio/imu/adis.c	-
+003	632279e5057ce39f43789e696dc9976d4a2e27a3	4342f3a7adf882c9c410b8b7595dbd121fa4798b	picked	iio: humidity: hdc100x: Add margin to the conversion time	drivers/iio/humidity/hdc100x.c	-
+004	0c9adae1170100cad584ac07a7660485822891a7	d5ce4d5161b0ba40ee214175d44f1512e59b560a	picked	iio: adc: Fix incorrect exit of for-loop	drivers/iio/adc/palmas_gpadc.c	-
+005	c419c4c91b30072651440d8c9c6f56a7cc38b619	ce8e523823e01738c7d8ec35e315bfa5897b70c1	picked	ASoC: amd: Fix reference to PCM buffer address	sound/soc/amd/acp-pcm-dma.c;sound/soc/amd/raven/acp3x-pcm-dma.c;sound/soc/amd/renoir/acp3x-pdm-dma.c	-
+006	209eb62b45fe72b03144445c12e3d814852fe78e	f06ac54efb01c3e7e8afa4a9b60ad494b41f6493	picked	ASoC: xilinx: Fix reference to PCM buffer address	sound/soc/xilinx/xlnx_formatter_pcm.c	-
+007	7e5a7fa68b27f33a3d2dd8f7fcb02e494ee6bc12	074c91239bcfb940e5c691cceb35cc929193c7f7	picked	ASoC: uniphier: Fix reference to PCM buffer address	sound/soc/uniphier/aio-dma.c	-
+008	261613ef340b63cdd054a1320ce9682e5c6660c5	e8dfa266acc27f626feb49b35fd56ba00c24ca60	picked	ASoC: tlv320aic31xx: Fix jack detection after suspend	sound/soc/codecs/tlv320aic31xx.c	-
+009	b8bceace43dd8c0cd9239c09eb7fe526328d4b44	a85704349971a207e8fe25dfc91ee6346933a486	picked	ASoC: intel: atom: Fix reference to PCM buffer address	sound/soc/intel/atom/sst-mfld-platform-pcm.c	-
+010	d1398e3715b15c7dc766d91daf2bdd534d374cd8	74159d1d2554ebb2b83943a7d832b0ce9dc5b21f	picked	i2c: dev: zero out array used for i2c reads from userspace	drivers/i2c/i2c-dev.c	-
+011	3db5cb922800c83c966a1763fb1a443327dafe06	bc2645e5fbf4671e61a2925d5ee2d0ed15750a17	picked	cifs: create sd context must be a multiple of 8	fs/cifs/smb2pdu.c	-
+012	54916988a0fbddc6401120cc3b12dc3400c08983	57fecdac922613c2a7b0fa67a7607d84a114bc85	picked	scsi: lpfc: Move initialization of phba->poll_list earlier to avoid crash	drivers/scsi/lpfc/lpfc_init.c	-
+013	561d13128bb825f4e628d03c4f64a2cddb958ac8	7483859dfca8a4b3a27a360be85a46177089858e	picked	seccomp: Fix setting loaded filter count during TSYNC	kernel/seccomp.c	-
+014	4716a2145bbf14bd0eaba81a521fda1ce3de5b9a	90fc30b02435fec17ff6702aa068f4d31c018a4d	picked	net: ethernet: ti: cpsw: fix min eth packet size for non-switch use-cases	drivers/net/ethernet/ti/cpsw_new.c;drivers/net/ethernet/ti/cpsw_priv.h	-
+015	ca6dea44bd8cf953a11866fd63d1a5fd9eec81a9	1dd674c798ce12cbb85b3e6929993bfec83d51e2	picked	ARC: fp: set FPU_STATUS.FWE to enable FPU_STATUS update on context switch	arch/arc/kernel/fpu.c	-
+016	f3fcf9d1b759915dcc1a93bceada910287c54e76	e9fc724bedff3a9ad8c5c56ea9bf338ff1526ae6	picked	ceph: reduce contention in ceph_check_delayed_caps()	fs/ceph/caps.c;fs/ceph/mds_client.c;fs/ceph/super.h	-
+017	366de90ccfa2765ea1f79e6baf0b5bb71f4acb78	bf61964a4bd7f9aa5668f6804504bc1d02fb8b3a	picked	ACPI: NFIT: Fix support for virtual SPA ranges	drivers/acpi/nfit/core.c	-
+018	c2351e5faa3e1e9406aaf0c24b9cfc7e1d636021	7e66fc10928355fc0d2fd0f6ef186adab908702d	picked	libnvdimm/region: Fix label activation vs errors	drivers/nvdimm/namespace_devs.c	-
+019	ae311a7418f13be375c29ec4178baa51cd9101ba	eb31e1cc6a0445255662c03335413f6ba368fb6e	picked	drm/amd/display: Remove invalid assert for ODM + MPC case	drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c	-
+020	bd80d11a516c78fb74d11e69c67082f36f8ef8e3	a753850e8f1bfd6bb2498face9e6ce9505194cc7	picked	drm/amd/display: use GFP_ATOMIC in amdgpu_dm_irq_schedule_work	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c	-
+021	95de3592f87e46df63119dd52b4a0e544e519c6b	fd68c27ee8971fda54091a2217a8105ad0f727dd	picked	drm/amdgpu: don't enable baco on boco platforms in runpm	drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c	-
+022	528f17c02db93fe7bde62602e3d8b194f8481ce8	498f4ba0d73a200ff4af31d92d1105bc991c7486	picked	ieee802154: hwsim: fix GPF in hwsim_set_edge_lqi	drivers/net/ieee802154/mac802154_hwsim.c	-
+023	27188a938291e41c0d1442ea5f065cc06c0bdc23	5dc6e4c41b8a71a3243b3dde1b2162197e57306c	picked	ieee802154: hwsim: fix GPF in hwsim_new_edge_nl	drivers/net/ieee802154/mac802154_hwsim.c	-
+024	a21963c35f167b7325faddd277800ced8c5b715e	20b5c3425cb4f35cd848254f5186ee853f06abf2	picked	pinctrl: mediatek: Fix fallback behavior for bias_set_combo	drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c	-
+025	576939671f742f43bcb61ebcab81463c1c0d0b47	50bf9384846bbf7482a2a9527c70ee964b4cade5	picked	ASoC: cs42l42: Correct definition of ADC Volume control	sound/soc/codecs/cs42l42.c	-
+026	0e47f99e868001181fbb0336286f85c870af1fe0	bb5241f7b469ca8990d67d296c759351d0e41f44	picked	ASoC: cs42l42: Don't allow SND_SOC_DAIFMT_LEFT_J	sound/soc/codecs/cs42l42.c	-
+027	2386a8cde18e1c25bc77db0ba465cd5d6c5b7ddb	08ec5d7bebabcc9e6d04d2c12d9984d4a18df0a9	picked	ASoC: SOF: Intel: hda-ipc: fix reply size checking	sound/soc/sof/intel/hda-ipc.c	-
+028	b268f9f6b73f4a9842e17498a0f1c26a48bede12	5514d249e52af42a4bc7f5b6f9ed0d3bc3c3664f	picked	ASoC: cs42l42: Fix inversion of ADC Notch Switch control	sound/soc/codecs/cs42l42.c	-
+029	aa6b17bfefbcfe3f34fb5a678b72f2cf73597c02	e012eb2f95863569ef9440ad99336ae1ed6af491	picked	ASoC: cs42l42: Remove duplicate control for WNF filter frequency	sound/soc/codecs/cs42l42.c	-
+030	be49d5437d1a7ed2ce98d12b9f787091b455475b	aa1e78b6a4dc094f0ab9b3f2e980a3eabde53c7a	picked	netfilter: nf_conntrack_bridge: Fix memory leak when error	net/bridge/netfilter/nf_conntrack_bridge.c	-
+031	750503aecf4ef243c51597441f8364e0aa4708a6	7ff2b06d88c557c2304186154343a6067a007d32	picked	pinctrl: tigerlake: Fix GPIO mapping for newer version of software	drivers/pinctrl/intel/pinctrl-tigerlake.c	-
+032	20a80319028c68e5fd29b89379950f3d69846aeb	af378342954f6bca3543fa0559ec9a0cb01aabb3	picked	ASoC: cs42l42: Fix LRCLK frame start edge	sound/soc/codecs/cs42l42.c	-
+033	784320edb6c54cc888f993b3017aef7a24cf414d	be2a9c0701cb55f9f39c831513d40d8381edb866	picked	net: dsa: mt7530: add the missing RxUnicast MIB counter	drivers/net/dsa/mt7530.c	-
+034	53ebbfdd0e370073fa5fc2dfb6f14d15a775c351	82e28b1d9a108345b2f5b07f97dc2f0a348429fa	picked	net: mvvp2: fix short frame size on s390	drivers/net/ethernet/marvell/mvpp2/mvpp2.h	-
+035	a3e9a3e228446af156389e1af8936b4e2cb675b7	07fcf34247d40cb30b846f5c27ad4fed6b0695a1	picked	platform/x86: pcengines-apuv2: Add missing terminating entries to gpio-lookup tables	drivers/platform/x86/pcengines-apuv2.c	-
+036	1960c3ac5268d8b3411989543f21acbc92faa906	14a185475e384275256f0defb69f227b77f9c6e4	picked	libbpf: Fix probe for BPF_PROG_TYPE_CGROUP_SOCKOPT	tools/lib/bpf/libbpf_probes.c	-
+037	e95620c3bdff83bdb15484e6ea7cc47af36fbc6d	-	already-present	bpf: Fix integer overflow involving bucket_size	kernel/bpf/hashtab.c	Complete original patch reverse-applies; exact fixed code is already present.
+038	046579c9fc281f51ef36cf660dc2fc43a1c4d6ca	a7af148e63ecf78ca6bfab0f73c8851754cd45f6	picked	net: phy: micrel: Fix link detection on ksz87xx switch"	drivers/net/phy/micrel.c	-
+039	51f4965d775ef9cf1fe7ed3e4dfd2586d4964ffc	13a342a6f6806192554ea88b35462641007e4c91	picked	ppp: Fix generating ifname when empty IFLA_IFNAME is specified	drivers/net/ppp/ppp_generic.c	-
+040	f15f7716b04774636487b410e040d20b26b7ed33	124ab7183d47a686704213bbbca0547af056e89f	picked	net/smc: fix wait on already cleared link	net/smc/smc_core.h;net/smc/smc_llc.c;net/smc/smc_tx.c;net/smc/smc_wr.c	-
+041	059238c52c61542757889952cf6a368cd0bf79f0	3dca95a5cf7b9bcfe76eeaccf3523102b8fdefe2	picked	net: sched: act_mirred: Reset ct info when mirror/redirect skb	net/sched/act_mirred.c	-
+042	bae5b521feaa9ce08d7cf0a60c9c955ca76b2cf1	9709b46233ece41b5ecaab54230ea84158064980	picked	ice: Prevent probing virtual functions	drivers/net/ethernet/intel/ice/ice_main.c	-
+043	a6192bae12e40e5f6d9e104691ae491a501cf1cd	ebc059d1cf710134fed0c1991a25d00f7679f31e	picked	ice: don't remove netdev->dev_addr from uc sync list	drivers/net/ethernet/intel/ice/ice_main.c	-
+044	b3f0b170842c92e120bf77b949df03cc4838a0b3	17144ab60b243f6e930d7f524cd821b5a80a32e9	picked	iavf: Set RSS LUT and key in reset handle path	drivers/net/ethernet/intel/iavf/iavf_main.c	-
+045	30b1fc47f7657da952a20c16892e8d21190eefbf	0d2efe050209310548e19e08b1bfe67c14245fa0	picked	psample: Add a fwd declaration for skbuff	include/net/psample.h	-
+046	00a0c11ddd72c85a71335b0b5b28738c37093632	b20687a366da093e9c58997285cc7fd3fb309869	picked	bareudp: Fix invalid read beyond skb's linear data	drivers/net/bareudp.c	-
+047	303ba011f5e1ca6a66be8bc16ff1c4aaaeafa96f	3a4e4b8766efc1ecdfc5475dfe46f626caa2ba86	picked	net/mlx5: Synchronize correct IRQ when destroying CQ	drivers/infiniband/hw/mlx5/cq.c;drivers/infiniband/hw/mlx5/devx.c;drivers/net/ethernet/mellanox/mlx5/core/cq.c;drivers/net/ethernet/mellanox/mlx5/core/en_main.c;drivers/net/ethernet/mellanox/mlx5/core/eq.c;drivers/net/ethernet/mellanox/mlx5/core/fpga/conn.c;drivers/net/ethernet/mellanox/mlx5/core/lib/eq.h;drivers/net/ethernet/mellanox/mlx5/core/steering/dr_send.c;drivers/vdpa/mlx5/net/mlx5_vnet.c;include/linux/mlx5/driver.h	-
+048	6e1886465deade57ac97e8977692ccac077c4f91	dceac4a6abca9f629876d6fc85984feff1cd88e1	picked	net/mlx5: Fix return value from tracer initialization	drivers/net/ethernet/mellanox/mlx5/core/diag/fw_tracer.c	-
+049	558092b8ed31add3a2c681cf79289f0ae28fafb4	ed3dbc0ab7a5d752ca1e9d500225396bcf2e4f32	picked	drm/meson: fix colour distortion from HDR set during vendor u-boot	drivers/gpu/drm/meson/meson_registers.h;drivers/gpu/drm/meson/meson_viu.c	-
+050	ccc1fe82c87858a0543fd5afa784086fe0512040	6459b6814352b03fe348482ac2ea724276a8ed34	picked	net: dsa: microchip: Fix ksz_read64()	drivers/net/dsa/microchip/ksz_common.h	-
+051	dbfaf7a6a23a1fa06e83e3b7bec878ee85f5a5c6	4fdae8e61061fd22d48ef69a9600a9a381460dd8	picked	net: dsa: microchip: ksz8795: Fix VLAN filtering	drivers/net/dsa/microchip/ksz8795.c	-
+052	69b13167a636c737475a749e035fa3325558a252	176cf21f69cb7ada49ed99845f3f11d2a3392836	picked	net: Fix memory leak in ieee802154_raw_deliver	net/ieee802154/socket.c	-
+053	24e1b7dbb1744c9919afc2285b676300e57fa246	5f9fba94d9a2dea9fe1822e2b7c45c64fda41448	picked	net: igmp: fix data-race in igmp_ifc_timer_expire()	net/ipv4/igmp.c	-
+054	f7720b35cd3232de0e30ce534a6587aef1d36689	2fdf05c24fa806b13aa0751366349fa235cb40b8	picked	net: dsa: lan9303: fix broken backpressure in .port_fdb_dump	drivers/net/dsa/lan9303-core.c	-
+055	56cc3408ff2a601b7fb99c5831b17e8e1eee0ccd	01833ec3dfee3f38d41bd040ac410f1bed533daa	picked	net: dsa: lantiq: fix broken backpressure in .port_fdb_dump	drivers/net/dsa/lantiq_gswip.c	-
+056	1cad01aca1fa76151a5a913d8a2d7a912425e836	2fb8ad08f08fac7541c404a5ed26a51b7da96a7e	picked	net: dsa: sja1105: fix broken backpressure in .port_fdb_dump	drivers/net/dsa/sja1105/sja1105_main.c	-
+057	e3b949b86d09d96d35a59ce6247054c8cd7c6c8d	96009ceb65567bb2d3e206cd77e4bdbc3c7e27cf	picked	net: bridge: validate the NUD_PERMANENT bit when adding an extern_learn FDB entry	net/bridge/br.c;net/bridge/br_fdb.c;net/bridge/br_private.h	-
+058	f333a5ca71c3054a2420545a200a3c80983190b8	4a8159c119691c30f5638c6a41fe652d698943d7	picked	net: bridge: fix flags interpretation for extern learn fdb entries	include/uapi/linux/neighbour.h;net/bridge/br.c;net/bridge/br_fdb.c;net/bridge/br_private.h	-
+059	4c2af90119ea5c702b6f59d8c73734da5e5b2e3a	6117ee5d1b7c39faa2f6870cebe244b67ed7097f	picked	net: bridge: fix memleak in br_add_if()	net/bridge/br_if.c	-
+060	8976606ca34714223fc0ab13b611c490a37a10c7	3634427b6e4266076a8f592d2d5f2b1cfddd01e8	picked	net: linkwatch: fix failure to restore device state across suspend/resume	net/core/link_watch.c	-
+061	696afe28dc515f3987f4dc2ad071e8fc1e058ea8	033755bfc36f9c8a2457aef1978d0755de1d6b03	picked	tcp_bbr: fix u32 wrap bug in round logic if bbr_init() called after 2B packets	net/ipv4/tcp_bbr.c	-
+062	4344440d91b347bd2b1c7367a7a523e1d2afd8ba	71aa2332f6af1d4d4036bd4083b418750dc296cc	picked	net: igmp: increase size of mr_ifc_count	include/linux/inetdevice.h;net/ipv4/igmp.c	-
+063	65395b053d03cb662e63cbf2c7e0faef8c15cb8c	e471d55dd94ffde2ae590b01f5a9e2589d25ae1f	picked	drm/i915: Only access SFC_DONE when media domain is not fused off	drivers/gpu/drm/i915/i915_gpu_error.c	-
+064	dff830e5e7237a60f6c91b3f028b914a1001790f	2a9a4353aed29c2b063a6e62287133e76f42b865	picked	xen/events: Fix race in set_evtchn_to_irq	drivers/xen/events/events_base.c	-
+065	f5cefe9a52a637f9fc39d05bd70de0d4acb890d6	5bb94b12bb878ff35ddb11eb43158ab967242021	picked	vsock/virtio: avoid potential deadlock when vsock device remove	net/vmw_vsock/virtio_transport.c	-
+066	e0ee8d9c31b5a670f35a4ff7e2daf59967f2f27a	98103d31824d78cc079f5851c69e26aed3439356	picked	nbd: Aovid double completion of a request	drivers/block/nbd.c	-
+067	afcb84e6cf8cf8ab1fb8b4bfa44c6caad64ae581	a3ae37468362e5d5c4050e6847cbc5ce5248a952	picked	arm64: efi: kaslr: Fix occasional random alloc (and boot) failure	drivers/firmware/efi/libstub/randomalloc.c	-
+068	feb4a01d3ece8bed055a47366ca20c257c03868f	3ba552369a28a13f16f2707ab7efb84aeadd6a21	picked	efi/libstub: arm64: Force Image reallocation if BSS was not reserved	drivers/firmware/efi/libstub/arm64-stub.c	-
+069	015e2c900b5da5f8cf1ce728fa723d802f725634	290aa8459c1ff8f3452265e3e0535834b0d491d4	picked	efi/libstub: arm64: Relax 2M alignment again for relocatable kernels	drivers/firmware/efi/libstub/arm64-stub.c	-
+070	4acc0d987141f4a5e1e4aee4909f6c10dc34646a	91299bbd9e247e2e9b92e58e7aeef0cacd030d3a	picked	powerpc/kprobes: Fix kprobe Oops happens in booke	arch/powerpc/kernel/kprobes.c	-
+071	2a28b52306f2d0797159b7e9819d4af3f0c4ef22	57e105fd0d9932b548ac8522d05f3d8ce0cd0a54	picked	x86/tools: Fix objdump version check again	arch/x86/tools/chkobjdump.awk	-
+072	4e52a4fe6f445a59a88c7ba60dd253a3643f0589	bc350960f003baa280434a352aa78fce416db545	picked	genirq: Provide IRQCHIP_AFFINITY_PRE_STARTUP	include/linux/irq.h;kernel/irq/chip.c	-
+073	19fb5dabedca56216732e35ec256ddb18d05c91e	c7497ac18882e56163b9fc52945abaef93c48f3f	picked	x86/msi: Force affinity setup before startup	arch/x86/kernel/apic/msi.c	-
+074	25216ed97da8f2cbea9a5ef6f22ca614b8ec971b	cd286cf17ffde7e49304ef0f8a631649ec9d0c4a	picked	x86/ioapic: Force affinity setup before startup	arch/x86/kernel/apic/io_apic.c	-
+075	f0736bed18fb13f7509ded58c7d9c6ab50583038	06518dd0139ed5120c6cf4bbd08cc317c1cf4cbd	picked	x86/resctrl: Fix default monitoring groups reporting	arch/x86/kernel/cpu/resctrl/monitor.c	-
+076	355754194b483275d6a5378bfe49a6a4d73327cb	762bb18bb310933300c4dba8339c71259d99eb50	picked	genirq/msi: Ensure deactivation on teardown	kernel/irq/msi.c	-
+077	2d2c668480278dffcd0167b012d196e30d953b09	abaa36d484952c77ad550e4d364fd7253ff1b531	picked	genirq/timings: Prevent potential array overflow in __irq_timings_store()	kernel/irq/timings.c	-
+078	7e90e81a4b59128cd81d909dba8e3ea3cdc9a831	fc0cc286e2367da72bc1f4a094614d813a87270d	picked	PCI/MSI: Enable and mask MSI-X early	drivers/pci/msi.c	-
+079	aa8092c1d1f142f797995d0448afb73a5148f4ae	ac6910ee5b51abc55ba3b414cd17f510aab57b89	picked	PCI/MSI: Mask all unused MSI-X entries	drivers/pci/msi.c	-
+080	0b2509d7a90c11666280acf9ada4add767c2b819	fe1e5b4d76773529f383aeaf192412c4b821a461	picked	PCI/MSI: Enforce that MSI-X table entry is masked for update	drivers/pci/msi.c	-
+081	042e03c9cdab2f553921838b3083575f92492a64	ab220638d74c3f4e44a730982347eabdae3f8c3e	picked	PCI/MSI: Enforce MSI[X] entry updates to be visible	drivers/pci/msi.c	-
+082	e42fb8e6161e6cbfd74bc28787823a9928752297	3e468bf36c10d486148f9c36b9f6f8050a319d18	picked	PCI/MSI: Do not set invalid bits in MSI mask	drivers/pci/msi.c	-
+083	923368751866babfc8924e24cd19f61fda1bca23	4273c46123f8b48e7545901276b1e037a495f421	picked	PCI/MSI: Correct misleading comments	drivers/pci/msi.c	-
+084	724d0a9850866ce2cc7df71b1497f49066535ccc	bd66dfc982bf629d79b06e8f4bba0fe029c0703a	picked	PCI/MSI: Use msi_mask_irq() in pci_msi_shutdown()	drivers/pci/msi.c	-
+085	312730cd15e097c11c4d0a0b8583a89a9ffd3d96	2450537215b3718a1feef060fbe862fa3dbff98b	picked	PCI/MSI: Protect msi_desc::masked for multi-MSI	drivers/base/core.c;drivers/pci/msi.c;include/linux/device.h;include/linux/msi.h	-
+086	fc7da433fa16b7e9a9efa92b41f684670535d99e	9222388707bb8337438fe4b2ec3ca42d3fe3ae6f	picked	powerpc/smp: Fix OOPS in topology_init()	arch/powerpc/kernel/sysfs.c	-
+087	4a948c579ed6a12e248da57b9422a69b1ca2261c	cd8acad56d5d4540d1bee18ace6d2c5f68eee5bd	picked	efi/libstub: arm64: Double check image alignment at entry	drivers/firmware/efi/libstub/arm64-stub.c	-
+088	0ab67e3dfc4d7af799b76b405eba2dc6f36935f3	322de01298fec54a10ba69351f024953114fec8f	picked	KVM: VMX: Use current VMCS to query WAITPKG support for MSR emulation	arch/x86/kvm/vmx/vmx.h	-
+089	433f0b31ebec09bb89c2414eb76571ced670a202	b0dc81ea39c58296799360daab6a18f3cffcd5e3	picked	KVM: nVMX: Use vmx_need_pf_intercept() when deciding if L0 wants a #PF	arch/x86/kvm/vmx/nested.c	-
+090	7cd14c1a7fed9fd5669c8578abd34ef35d4afc1a	57df35c2f3d0ee69f9825b6b7ee5959a4a93b837	picked	vboxsf: Add vboxsf_[create|release]_sf_handle() helpers	fs/vboxsf/file.c;fs/vboxsf/vfsmod.h	-
+091	dcdb587ac470f1c2476688318c81897f3ee1c233	af69d857d232733b2318df34deb9e1818e9b6ca8	picked	vboxsf: Add support for the atomic_open directory-inode op	fs/vboxsf/dir.c	-
+092	b0efc93271caf3868885a953f7f71c3aced7ba61	0d189426a0dd5f28217cc45989eafcb12e3fb0d4	picked	ceph: add some lockdep assertions around snaprealm handling	fs/ceph/snap.c	-
+093	a23aced54c2c9053a0956fc1a8a6d7c0a0fff96f	9333a8655fb9c87f685a03cbfd7ba9dd8c0ed858	picked	ceph: clean up locking annotation for ceph_get_snap_realm and __lookup_snap_realm	fs/ceph/snap.c	-
+094	2fe07584a6236d22be17f3866c4c45e0a3058d2a	1677f6b4ee0de76e21347a92e0207bc3f6ce3657	picked	ceph: take snap_empty_lock atomically with snaprealm refcount change	fs/ceph/snap.c	-
+095	b5f05bdfda28847305e80839477a1160ddb68b94	d3b8ecc8329602085e254c28f770735feca63918	backported	vmlinux.lds.h: Handle clang's module.{c,d}tor sections	include/asm-generic/vmlinux.lds.h	Add the exact sanitizer module ctor/dtor text selectors beside ref.text; preserve the existing Android TEXT_CFI_JT placement and enforcing CFI layout.
+096	c0883f693187c646c0972d73e525523f9486c2e3	f335926940b9f04511ce247f1db1b941f0045c75	picked	KVM: nSVM: avoid picking up unsupported bits from L2 in int_ctl (CVE-2021-3653)	arch/x86/include/asm/svm.h;arch/x86/kvm/svm/nested.c;arch/x86/kvm/svm/svm.c	-
+097	3dc5666baf2a135f250e4101d41d5959ac2c2e1f	c2d3dfcc3ec3a5cb57fd1d69e8a12b18088d71df	picked	KVM: nSVM: always intercept VMLOAD/VMSAVE when nested (CVE-2021-3656)	arch/x86/kvm/svm/nested.c	-
+098	f365d53c868725c472d515fa1ce4f57d0eaff5ae	94426ef0fd2753ed84f530d2e67857cad0ddcecf	picked	net: dsa: microchip: Fix probing KSZ87xx switch with DT node for host port	drivers/net/dsa/microchip/ksz_common.c	-
+099	60c007b52779fdea6ae5116c00079cb6a7017c02	3cd7081e240ccdc3f27142fb26061fd99a58ee9e	picked	net: dsa: microchip: ksz8795: Fix PVID tag insertion	drivers/net/dsa/microchip/ksz8795.c	-
+100	5033d5e231551162e7830c6cb42851b37ea4ff65	f9ab11147a8a9067d3f399b25a0dc873e7f337e7	picked	net: dsa: microchip: ksz8795: Reject unsupported VLAN configuration	drivers/net/dsa/microchip/ksz8795.c;drivers/net/dsa/microchip/ksz_common.h	-
+101	1e78179d75fb796b015f4d71d01d8e8725fde466	63104af51f13ad11e3c2ee1609054f4175c5687a	picked	net: dsa: microchip: ksz8795: Fix VLAN untagged flag change on deletion	drivers/net/dsa/microchip/ksz8795.c	-
+102	3a24e121304abd9b09ceca201e2a344e722fa974	dfd3d85cd2c13bdebd000bdde709c8ef1efdc0c1	picked	net: dsa: microchip: ksz8795: Use software untagging on CPU port	drivers/net/dsa/microchip/ksz8795.c	-
+103	2c5bd949b1df3f9fb109107b3d766e2ebabd7238	54ff544f8af48d54b21a9196b18365903d9356a8	backported	Linux 5.10.60	Makefile	Release marker only; preserve required Huawei Makefile exports and executable mode after all applicable entries are resolved.

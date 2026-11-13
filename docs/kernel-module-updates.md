@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.55
-#53 kernel and module are built together with the r49-derived effective
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.64
+#54 kernel and module are built together with the r49-derived effective
 configuration, Android Clang/LLD 12.0.7, enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
 
@@ -80,13 +80,24 @@ loads automatically on #52 and its runtime build-id matches the staged file.
 The required modem is updated with the kernel; CRC churn is not hidden by
 resigning an old module or patching its version table.
 
-The installed 5.10.55/#53 milestone has 13,823 exports, one addition, no
+The 5.10.55/#53 milestone has 13,823 exports, one addition, no
 removals and 58 changed CRCs versus #52. All 390 freshly rebuilt modem imports
 and the two optional dummy-module imports match. Final affected layouts and
 the changed bool wait-function CFI are checked separately. The new signed
 modem loads automatically on normal Android, with matching runtime build-id,
 file and partition readbacks. The next MSI/device-layout gate illustrates why
 rebuilding modules alone cannot validate OEM assembly's private offsets.
+
+The installed 5.10.64/#54 milestone has 13,826 exports, four additions,
+one removal and 8,949 changed CRCs versus #53. All 390 freshly rebuilt modem
+imports and two optional dummy imports match. Twelve generated offsets and
+29 actual assembly operands are checked against fresh C layouts, not old
+OEM debug metadata. The changed __do_once_done interface and final CFI type
+agree with both real modem call sites passing __this_module. Flush callback
+assignment/recognition and ordered reference publication are independently
+verified in the final ELF. The signed matching modem loads automatically
+on normal Android with matching runtime build-id, file/partition readbacks
+and retained security. These checks are not an independent stable KMI.
 
 ## Repeatable Matched-Build Flow
 
@@ -128,13 +139,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #53's immediate rollback:
+overwrite existing candidates. The previous pair is #54's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.50-clang12-r52.img`.
-- `images/test/allen-modem_driver-test-5.10.50-clang12-r52.img`.
-- `images/test/allen-modem_driver-test-5.10.50-clang12-r52.ko`.
+- `images/test/allen-boot-test-5.10.55-clang12-r53.img`.
+- `images/test/allen-modem_driver-test-5.10.55-clang12-r53.img`.
+- `images/test/allen-modem_driver-test-5.10.55-clang12-r53.ko`.
 
-The installed next pair uses `5.10.55-clang12-r53` with the same device/purpose
+The installed next pair uses `5.10.64-clang12-r54` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 
