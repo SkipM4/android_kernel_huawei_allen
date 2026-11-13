@@ -1,9 +1,28 @@
 # Allen Kernel Bring-Up
 
-Build the official ALN HarmonyOS 4.2 Linux 5.10.43 sources on x86_64 Linux
-before attempting newer kernels. Project safety rules are in `AGENTS.md`.
+Bring up the official ALN HarmonyOS 4.2 Linux 5.10.43 sources on x86_64 Linux,
+then move the tested baseline toward Linux stable and Android common/GKI.
+Project safety rules are in `AGENTS.md`.
 
 ## Current Status
+
+The source-only upstream track is `upstream/linux-5.10.y`, forked from the
+r49 validation record `13570860d`. Its first adjacent stable batch advances
+5.10.43 -> 5.10.44: 103 exact picks, four code backports and one release-marker
+backport, with 17 already-present fixes and six absent/unselected driver
+patches accounted for. A separate DWC3 repair balances IRQ/runtime-PM cleanup
+in the Huawei suspended-pullup branch. The 108 imported commits plus this
+repair end at `dcb7a62fb`.
+
+Independent Linux 5.10.44 #50 full compilation, final ELF, module imports,
+export CRC comparison and signing verification pass. It is not packaged,
+flashed or runtime-certified. The installed device remains r49/5.10.43 and
+`bringup/clang12` retains its baseline. Later 5.10.y batches and Android/GKI
+architectural work remain open; stable picks alone do not make this a GKI
+kernel. See `docs/linux-5.10-upstream-sync.md` and the complete
+`docs/linux-5.10.44-imports.tsv` ledger.
+
+### Installed Bring-up Baseline
 
 Clang 12.0.7 builds a signed, ABI-matched boot/modem_driver pair with enforcing
 CFI. r16 reaches the Huawei home screen on two boots, but fails after about an
@@ -449,13 +468,14 @@ need separate lifecycle diagnosis without relaxing protection.
 
 ## Layout
 
-- `Code_Opensource/kernel/`: official sources with targeted bring-up fixes.
+- `Code_Opensource/kernel/`: official sources with bring-up fixes and the first stable synchronization batch.
 - `configs/allen-stock-5.10.43.config`: configuration read from the running phone.
 - `tools/toolchains/clang-r416183b1/`: local Android Clang 12.0.7 toolchain.
 - `tools/host/bin/bc`: local build dependency, extracted from the Arch package.
-- `out/allen-clang12/`: independent kernel output directory; not tracked.
-- `out/allen-clang12-stock-compat/`: stock-derived paired-test output; not tracked.
+- `out/allen-clang12/`: default independent build output path; not tracked.
+- `out/allen-clang12-r41-metadata/`: retained metadata for the retired #41 build cache; not tracked.
 - `out/allen-clang12-frame-rtg/`: current r49 frame-RTG paired-test output; not tracked.
+- `out/allen-clang12-upstream-5.10/`: independent 5.10.44 #50 source-sync output, not installed; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -465,6 +485,8 @@ need separate lifecycle diagnosis without relaxing protection.
 - `docs/clang12-functional-tests.md`: functional repairs, checks and audio/BT gaps.
 - `docs/clang12-early-diagnostics.md`: r21-r27 log, lock, GPIO, PD, registration and PRMEM fixes.
 - `docs/clang12-audio-source-audit.md`: codec source audit and scoped r28 CLT integration.
+- `docs/linux-5.10-upstream-sync.md`: stable source provenance, adaptations, build checks and GKI boundaries.
+- `docs/linux-5.10.44-imports.tsv`: complete first-batch stable/local commit ledger.
 
 The original source archive, `boot.img` and `ramdisk-magisk.img` remain at the
 project root and are excluded from Git. Never overwrite them.
@@ -478,12 +500,21 @@ scripts/build-allen.sh merge_charlotte_defconfig
 scripts/build-allen.sh
 ```
 
+These commands describe the initial released-configuration build, not the
+stock-derived configuration used for the installed r49 or source-sync #50.
+For the retained upstream output and its r49-derived configuration, use:
+
+```sh
+OUTPUT_DIR=out/allen-clang12-upstream-5.10 scripts/build-allen.sh
+```
+
 The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
-independent output directory. `LOCALVERSION=` keeps the
-stock `5.10.43` release string instead of adding a Git suffix; this alone does
-not establish module ABI compatibility.
+independent output directory. `LOCALVERSION=` prevents a Git suffix; the
+Makefile still controls the release, currently `5.10.44` on the upstream
+branch. This alone does not establish module ABI compatibility, and old
+5.10.43 modem modules must not be mixed with the new kernel.
 ThinLTO links use two backend jobs and a bounded cache to avoid the observed
 Full LTO memory failure and excessive cache growth.
 
