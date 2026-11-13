@@ -1,0 +1,24 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	d7a15e1e4fd7db751739d04141390fa6699fd870	7443954c78f2a24b27d0d22dc7fee7deb0e74ab4	picked	ext4: check and update i_disksize properly	fs/ext4/inode.c	-
+002	14cbfeeee41b83167bc308f01983618cc5851b53	20be1e82db47748e21402e20054897699a65d942	picked	ext4: correct the error path of ext4_write_inline_data_end()	fs/ext4/inline.c;fs/ext4/inode.c	-
+003	0bcfa99e8faeef75567e6d3a5ac9680d28240b21	af0093d9a4d8ac118e6d30f5f5799c0bb7bbb6cb	picked	ASoC: Intel: sof_sdw: tag SoundWire BEs as non-atomic	sound/soc/intel/boards/sof_sdw.c	-
+004	ddf026d6ae9aa6ba188800c9e3f2e79ec1597a67	07996ff7fb5c93a38588cb249e53163f9d423c84	picked	HID: apple: Fix logical maximum and usage maximum of Magic Keyboard JIS	drivers/hid/hid-apple.c	-
+005	ddc4ba737bcb31c227192af4e194ec0f01516700	17e49eb1fb38feff96fd2b3f57731b2012ce178c	picked	netfilter: ip6_tables: zero-initialize fragment offset	net/ipv6/netfilter/ip6_tables.c	-
+006	f6952b1e22c2de8f23d59f944b0f17cb2733a846	52d1838db9e10e93f069321c0235fb4005f4dee6	picked	HID: wacom: Add new Intuos BT (CTL-4100WL/CTL-6100WL) device IDs	drivers/hid/wacom_wac.c	-
+007	bcb647c1e15d3ddd8ab94d556aa38d77448b40d9	b8a5e42b5cb2668679722be673fc335d4ae44360	picked	ASoC: SOF: loader: release_firmware() on load failure to avoid batching	sound/soc/sof/core.c;sound/soc/sof/loader.c	-
+008	5182d6db80bb2f08a7d700c5c4b8c3d0db58411c	e53b632766e39b3be3c617b40ccba644318f4f64	picked	netfilter: nf_nat_masquerade: make async masq_inet6_event handling generic	net/netfilter/nf_nat_masquerade.c	-
+009	9ec9a975ea374f8290265ad1e4447df73ffb0ecc	098053273dd59266aafb2e7fc09eac2eae97c682	picked	netfilter: nf_nat_masquerade: defer conntrack walk to work queue	net/netfilter/nf_nat_masquerade.c	-
+010	977aee58142a19ccf9ef8fe56f1430e2ef99931f	a11ffb63ac2ee9ca8c70cd416e7c567667571f4c	picked	mac80211: Drop frames from invalid MAC address in ad-hoc mode	net/mac80211/rx.c	-
+011	194e8a4f0acd8a9d2915fd5fb8249e2797393078	953b2f859ea2c2cda02acc59448c67575144b498	picked	m68k: Handle arrivals of multiple signals correctly	arch/m68k/kernel/signal.c	-
+012	3d68c7b0ab5b5b9fd7a2a8b13114ac0336e23a30	99b963bed1cd758fb0f278ecf70b0dccf4d3e46c	picked	hwmon: (ltc2947) Properly handle errors when looking for the external clock	drivers/hwmon/ltc2947-core.c	-
+013	bda06aff03a1fe0530a8245ef0988e5ba01ea915	7abb1f0e3687ea7a82b3fa47d28f1261833727ba	picked	net: prevent user from passing illegal stab size	include/net/pkt_sched.h;net/sched/sch_api.c	-
+014	42c871d38e3d3c2272ead31a846ad58eef66d690	d9140c6b26e8b0915d250920218995895bd4c9a3	picked	mac80211: check return value of rhashtable_init	net/mac80211/mesh_pathtbl.c	-
+015	db868b45324d0473db165f43a9d3730413993080	aa37dbd3c44f2c95cd40b45c274c3fc6e9f3a696	picked	vboxfs: fix broken legacy mount signature checking	fs/vboxsf/super.c	-
+016	a5ba615fbeb30e9c9df62e25997c5d2011c1a400	ef0260b936477532a4a884f8bd6af6414118a402	picked	net: sun: SUNVNET_COMMON should depend on INET	drivers/net/ethernet/sun/Kconfig	-
+017	621ddffb70db824eabd63d18ac635180fe9500f9	de7d19a68564c97b8a46f3d77bbbc05d5d19d964	picked	drm/amdgpu: fix gart.bo pin_count leak	drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c	-
+018	d993d1e1c4113cebe32cf56f3b4c5b9fb405274c	b59d443d0aed891609f6132d3d2ebadfc1b62eed	picked	scsi: ses: Fix unsigned comparison with less than zero	drivers/scsi/ses.c	-
+019	57c7ca3d5592d153dd5459894ffb63f2a40ac17c	04073dc86a25c1203c938fc7ef6fa6fcf45a965d	picked	scsi: virtio_scsi: Fix spelling mistake "Unsupport" -> "Unsupported"	drivers/scsi/virtio_scsi.c	-
+020	bdae2a08343613782be6c5be97b6c3a1ebccbfff	a25af501623218018e39f650b7ef9bddf3327d41	picked	perf/core: fix userpage->time_enabled of inactive events	include/linux/perf_event.h;kernel/events/core.c	-
+021	bb893f075431e97dd72cde0721957a73d26578a8	5dec8daacce528691b5131c8f3f737672ae19c79	picked	sched: Always inline is_percpu_thread()	include/linux/sched.h	-
+022	42b49f012b6a8c5b012a666971dab6ce38725dff	11e186f1fd86011e7862b982ea06e8a271201619	picked	hwmon: (pmbus/ibm-cffps) max_power_out swap changes	drivers/hwmon/pmbus/ibm-cffps.c	-
+023	77434fe5a077f05f0851931d6a71d1098b6004f8	84d7a9e846f14f010d77424e1d67e49d20a7520e	backported	Linux 5.10.74	Makefile	Release marker only; preserve Huawei Makefile exports.

@@ -1,0 +1,83 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	16d728110bd76d1ebb4aad8bcf36596f7ce11be0	4e2dff598951094619886d7635103da939f095fc	picked	Partially revert "usb: Kconfig: using select for USB_COMMON dependency"	drivers/usb/common/Kconfig	-
+002	b3265b88e83b16c7be762fa5fb7e0632bce0002c	9b76bc37149ac2673e2aebc4db8a57f2413c5a6b	picked	usb: chipidea: ci_hdrc_imx: Also search for 'phys' phandle	drivers/usb/chipidea/ci_hdrc_imx.c	-
+003	fc8b3e838bdf343e3341df176fa7d8170ea5c691	a0f68ec16759735f79d639ccbd818391305b03b7	picked	USB: cdc-acm: fix racy tty buffer accesses	drivers/usb/class/cdc-acm.c	-
+004	feb3fe702a589ccf95ad5c5312db35462ab80733	81bec4fdce3e3ad990d138bfeb236c5f5b9e1664	picked	USB: cdc-acm: fix break reporting	drivers/usb/class/cdc-acm.c	-
+005	1d4e9f27d20d73dd3f5b65b2febb4ef887b94b9b	9f07831d4b574453abc11ef9e05b57bad5e64ea9	picked	usb: typec: tcpm: handle SRC_STARTUP state if cc changes	drivers/usb/typec/tcpm/tcpm.c	-
+006	de1e8bd36ab4ba9a34911802f9c8f029621dcb67	c88606f95cfdfaf7d712f07419adb29ff1b3c755	picked	drm/nouveau/kms/tu102-: delay enabling cursor until after assign_windows	drivers/gpu/drm/nouveau/dispnv50/head.c	-
+007	13d17cc717d58034a472353ab0e3a84fb675c678	33c57daf78bb364cec9ef34957ed1e2611a46905	picked	xen/privcmd: fix error handling in mmap-resource processing	drivers/xen/privcmd.c	-
+008	e5cb3680b958ed3eb66504c0865f767d760cc9cd	a2f929b7e2646c9b9688f3a0476b26c78852da0b	picked	mmc: meson-gx: do not use memcpy_to/fromio for dram-access-quirk	drivers/mmc/host/meson-gx-mmc.c	-
+009	3a0feae5f642258f6a217560a2d8f8a773e79cf0	37d256d82b7bec40f31b5b49eeb44441b027ed7a	picked	mmc: sdhci-of-at91: wait for calibration done before proceed	drivers/mmc/host/sdhci-of-at91.c	-
+010	1500f0c83670294b786e0cbf62c15da23fae1a26	30b32d009c4d76c238c9a276ba4114566dbf841c	picked	mmc: sdhci-of-at91: replace while loop with read_poll_timeout	drivers/mmc/host/sdhci-of-at91.c	-
+011	9763ffd4da217adfcbdcd519e9f434dfa3952fc3	-	already-present	ovl: fix missing negative dentry check in ovl_rename()	fs/overlayfs/dir.c	Complete original patch reverse-applies.
+012	1bc2f315a215585f8bc07257542e67373c86e801	8c4737aa11e3c3cff17cb90dc7a3e596eaf09a3f	backported	ovl: fix IOCB_DIRECT if underlying fs doesn't support direct IO	fs/overlayfs/file.c	Complete both upstream direct-IO unsupported-filesystem rejections and fdput labels; preserve Android ovl_revert_creds helper in success paths. Validation happens before credential override and write completion, preserving balanced fd/inode cleanup.
+013	12d4b179022ac7d07aa263b46159779536b3c6a6	3e82ca74e241c276fbdf2b37b0f9206b5465050a	picked	nfsd: fix error handling of register_pernet_subsys() in init_nfsd()	fs/nfsd/nfsctl.c	-
+014	8f174a208c4c7dae73b36db2ca84d06ee901ecb1	988809913d96e013d4c73fd3f7aedbb15841a3bd	picked	nfsd4: Handle the NFSv4 READDIR 'dircount' hint being zero	fs/nfsd/nfs4xdr.c	-
+015	9aac782ab0ab0fd0a8e507a6294359c2f5cf182d	725f6fc6a3c6ad2702b7a9c40e619fbf6138ea4e	picked	SUNRPC: fix sign error causing rpcsec_gss drops	net/sunrpc/auth_gss/svcauth_gss.c	-
+016	f9a855d1bcb2630db6163de363945c9c84feaa46	81bbd4763bd2473799c1a4b244533f3dba10659a	picked	xen/balloon: fix cancelled balloon action	drivers/xen/balloon.c	-
+017	71d3ce62ac88190c63eb470e86fe76fc7e19bb0f	e552d054f169ccfb0998b6d075d91a9bd44b8c35	picked	ARM: dts: omap3430-sdp: Fix NAND device node	arch/arm/boot/dts/omap3430-sdp.dts	-
+018	ac06fe40e8896c96786b47857ddc50738a103f6e	e6eb0da59fb415e097b892234d53891899ff4121	picked	ARM: dts: imx6dl-yapp4: Fix lp5562 LED driver probe	arch/arm/boot/dts/imx6dl-yapp4-common.dtsi	-
+019	05287407dedf5275ce2e98eb5cd0dd03922eb3cd	84edb134103ae84efa0240c8d18d94fe2d44c906	picked	ARM: dts: qcom: apq8064: use compatible which contains chipid	arch/arm/boot/dts/qcom-apq8064.dtsi	-
+020	427faa29e06f0709476ea1bd59758f997ec8b64e	29509e1417697cf540ac1de81e432638535cb1ee	picked	riscv: Flush current cpu icache before other cpus	arch/riscv/mm/cacheflush.c	-
+021	ab8073794be3316ae6928225dd795c657eb8b05a	64c45928edc7ef5281991881096d43e5ce0c25e0	picked	bus: ti-sysc: Add break in switch statement in sysc_init_soc()	drivers/bus/ti-sysc.c	-
+022	25ac88e601ebc7c44a5aa0a5fa094e59e53eaaae	930fb89af168ca2e317ed108d73fda4bd652b708	picked	soc: qcom: socinfo: Fixed argument passed to platform_set_data()	drivers/soc/qcom/socinfo.c	-
+023	d89a313a573953074e57fc42170dd32a315659c1	bc389d688630226b962c3608ab0e009887e80aa7	picked	ARM: dts: qcom: apq8064: Use 27MHz PXO clock as DSI PLL reference	arch/arm/boot/dts/qcom-apq8064.dtsi	-
+024	14f52004bda51ce7695abada3470752a73fa6b60	fe0fd3d07c8533fe5caf2df14a49c9d4bae2271a	picked	ARM: at91: pm: do not panic if ram controllers are not enabled	arch/arm/mach-at91/pm.c	-
+025	8f977e97b2b9284b76af46ccf64ce6ceecf60144	5720ca529172a059069a810274796d11901fd9e2	picked	soc: qcom: mdt_loader: Drop PT_LOAD check on hash segment	drivers/soc/qcom/mdt_loader.c	-
+026	2ba34cf0c16cbe381c9625b8133648036600012f	34f284149edcf308a97bd320586ef1a10934bf0b	picked	ARM: dts: imx: Add missing pinctrl-names for panel on M53Menlo	arch/arm/boot/dts/imx53-m53menlo.dts	-
+027	9e99ad4194a503bba830a148a8447b39a46299c0	1b69043c4150b4f84c341ec1ab8adbf796e1e7d4	picked	ARM: dts: imx: Fix USB host power regulator polarity on M53Menlo	arch/arm/boot/dts/imx53-m53menlo.dts	-
+028	d9b838ae390e6867c62fd7330ddcc540350825d3	3ab97e22728e55315e4f121ae6d683041dff01d0	picked	ARM: dts: imx6qdl-pico: Fix Ethernet support	arch/arm/boot/dts/imx6qdl-pico.dtsi	-
+029	8aef3824e9469445e748d00b89a9f18bb77cab03	d0b6fa45bb647140d229f50c5047978f7fb00df4	picked	PCI: hv: Fix sleep while in non-sleep context when removing child devices from the bus	drivers/pci/controller/pci-hyperv.c	-
+030	fbca14abc11154683c9ebf534e6f23846a5318f4	adc26ba964e19e0b88466e67464ef345ec6e974c	picked	ath5k: fix building with LEDS=m	drivers/net/wireless/ath/ath5k/Kconfig;drivers/net/wireless/ath/ath5k/led.c	-
+031	997bec509a83aeb7f02a795c26ed0280f9a9ceab	33f4bc3134796d4e853d696df6cffe209d9ad3c7	picked	arm64: dts: qcom: pm8150: use qcom,pm8998-pon binding	arch/arm64/boot/dts/qcom/pm8150.dtsi	-
+032	3d288ed98314f31607832ba759f5fb1b90cd9e98	4ed244c5adc62423cc4b5ce4ca58eff15fd013f6	picked	xtensa: use CONFIG_USE_OF instead of CONFIG_OF	arch/xtensa/include/asm/kmem_layout.h;arch/xtensa/kernel/setup.c;arch/xtensa/mm/mmu.c	-
+033	6b0132f73094d1f8d77ab20e02d7d2bf59c3496c	cb89fa6e8c5d864d1ab218ca1eb1c78d0c6aeaef	picked	xtensa: call irqchip_init only when CONFIG_USE_OF is selected	arch/xtensa/kernel/irq.c	-
+034	29a19eaeb29d57f4576cf57ccac5a2740f1384db	d858b6d16ca914799932d20fcc723d89ed7a6e41	picked	iwlwifi: pcie: add configuration of a Wi-Fi adapter on Dell XPS 15	drivers/net/wireless/intel/iwlwifi/pcie/drv.c	-
+035	1d8f4447e8c442f8d2aeabfd3653957015043179	a02152aa43574693d535fef3fa31cf7d1e909770	picked	bpf, arm: Fix register clobbering in div/mod implementation	arch/arm/net/bpf_jit_32.c	-
+036	d5f4b27c3cfcf8be787035d61cf254b747257ac7	8fb59fdeb5f60567a8f5c1d6f361fc01ca4e9106	picked	soc: ti: omap-prm: Fix external abort for am335x pruss	drivers/soc/ti/omap_prm.c	-
+037	064faa8e8a9b50f5010c5aa5740e06d477677a89	-	already-present	bpf: Fix integer overflow in prealloc_elems_and_freelist()	kernel/bpf/stackmap.c	Complete original patch reverse-applies.
+038	d70cb6c77ad983f37a401fd29017da4546c57093	8b705878725fd99a56f21e58fee65821629a8dda	picked	net/mlx5e: IPSEC RX, enable checksum complete	drivers/net/ethernet/mellanox/mlx5/core/en_rx.c	-
+039	6e6f79e39830708f05179cc2d18f552e5cd8c43b	8bccc33b36efa3fe616b3b288afececcfa5e4ab0	picked	net/mlx5: E-Switch, Fix double allocation of acl flow counter	drivers/net/ethernet/mellanox/mlx5/core/esw/acl/egress_lgcy.c;drivers/net/ethernet/mellanox/mlx5/core/esw/acl/ingress_lgcy.c	-
+040	0d2dd40a7be61b89a7c99dae8ee96389d27b413a	-	already-present	phy: mdio: fix memory leak	drivers/net/phy/mdio_bus.c	Complete original patch reverse-applies.
+041	acff2d182c0768a713cee77442caeb07668bd68f	-	already-present	net_sched: fix NULL deref in fifo_set_limit()	net/sched/sch_fifo.c	Complete original patch reverse-applies.
+042	442ea65d0ccb375588ee24027085ba121c9e0653	911c99bf852596f3fe5e3044eaf4c2494241d0f7	picked	powerpc/fsl/dts: Fix phy-connection-type for fm1mac3	arch/powerpc/boot/dts/fsl/t1023rdb.dts	-
+043	95ba03fb4cb12fb72f6c3d28a1d0388ad4ad9290	b730b4e5ca14bd98413f0c279ecbd20c0a6505d3	picked	ptp_pch: Load module automatically if ID matches	drivers/ptp/ptp_pch.c	-
+044	10afd15972630267b01393ae1e133ee48ba814c7	e09d7c902055b93d370e7e6b929dd0bfcc51e7bf	picked	arm64: dts: ls1028a: add missing CAN nodes	arch/arm64/boot/dts/freescale/fsl-ls1028a.dtsi	-
+045	2b0035d1058a8535f99e57f55f6045bda08f81c6	abf47e046433fad77f2d60b1aa7ae34e31c89011	picked	dt-bindings: drm/bridge: ti-sn65dsi86: Fix reg value	Documentation/devicetree/bindings/display/bridge/ti,sn65dsi86.yaml	-
+046	cb8880680bdfde95aa4836807d81400f0a449117	bb1ee94d1497a1a92cb3b26933b1d4b96f559157	picked	ARM: imx6: disable the GIC CPU interface before calling stby-poweroff sequence	arch/arm/mach-imx/pm-imx6.c	-
+047	c480d15190eba5a552aa66570dceeaba4863048b	bdb14d4c2b1db4a8d04cfe77b0b5054a105b48e9	picked	net: bridge: use nla_total_size_64bit() in br_get_linkxstats_size()	net/bridge/br_netlink.c	-
+048	60955b65bd6a7dca624dd36c9a77b3326a6851a6	8493215356f130770c865b9fb7ec3164f75a872f	picked	net: bridge: fix under estimation in br_get_linkxstats_size()	net/bridge/br_netlink.c	-
+049	3ec73ffeef54596c32aff0e73fe60971b9c8b866	9d4782a2a07d2b8f1a6a1ce145eb29cf7a059336	picked	net/sched: sch_taprio: properly cancel timer from taprio_destroy()	net/sched/sch_taprio.c	-
+050	144715fbab1be6a2fbb0062ae2a33da6eeee7935	80046f50f851a09b864a21186d6201f239c35c5b	picked	net: sfp: Fix typo in state machine debug string	drivers/net/phy/sfp.c	-
+051	628b31d96711ebacca39a961ee676861ec2d63d0	f752bafc25a753f2b4786a60cd4a4ee8b867719c	picked	netlink: annotate data races around nlk->bound	net/netlink/af_netlink.c	-
+052	40a84fcae2bf3003cc4f84ea8d6040838031f7ff	495d28ae260c91c6fa49b41a744a39905674e5c4	picked	perf jevents: Tidy error handling	tools/perf/pmu-events/jevents.c	-
+053	18d2568cc7ffb05537a503bd2852d414e51b4fe9	9950db801405a2361328a4f809cd018806dcb404	picked	bus: ti-sysc: Use CLKDM_NOAUTO for dra7 dcan1 for errata i893	arch/arm/mach-omap2/omap_hwmod.c;drivers/bus/ti-sysc.c	-
+054	d2ccbaaa6615332e4c28c6f99f54876414de1d1f	3773ad82dc43a01a095d6303bf08da3dcb89b07c	picked	drm/sun4i: dw-hdmi: Fix HDMI PHY clock setup	drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c;drivers/gpu/drm/sun4i/sun8i_dw_hdmi.h;drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c	-
+055	008224cdc12628d21a3eb92259fa3aa3ea5b22a1	ff045869492d22ae4f8580baccbcbdbc1d07efb6	picked	video: fbdev: gbefb: Only instantiate device when built for IP32	drivers/video/fbdev/gbefb.c	-
+056	f86e19d918a85492ad1a01fcdc0ad5ecbdac6f96	9d7b4376bc1dfab375277e819415cc35605688b7	picked	drm/nouveau: avoid a use-after-free when BO init fails	drivers/gpu/drm/nouveau/nouveau_gem.c	-
+057	65fff0a8efcdca8d84ffe3e23057c3b32403482d	11f023b16cadcd0c50e38002666969d61710689a	picked	drm/nouveau/kms/nv50-: fix file release memory leak	drivers/gpu/drm/nouveau/dispnv50/crc.c	-
+058	f69556a42043b5444ca712ee889829ba89fdcba8	cbd30299bb7e315f54fa87ff17f5be7cb07dfcf2	picked	drm/nouveau/debugfs: fix file release memory leak	drivers/gpu/drm/nouveau/nouveau_debugfs.c	-
+059	5d903a694b087f2aec9f18b0e0dedeeebd66f7af	7b0770bbf0aeb7f3fd5b415f668f74fa10ed1929	picked	gve: Correct available tx qpl check	drivers/net/ethernet/google/gve/gve.h	-
+060	72c2a68f1d833d2793ee63c626c376a054e2dfe4	b6878f2ea5cd058d44a76e7cc65cd89500ca75c7	picked	gve: Avoid freeing NULL pointer	drivers/net/ethernet/google/gve/gve_main.c	-
+061	9a043022522e7966f87c39fd6248cbf8fc617046	0c421d5931a58b83bc5524a0470bd09c41fcdb8b	picked	rtnetlink: fix if_nlmsg_stats_size() under estimation	net/core/rtnetlink.c	-
+062	35f6ddd934e6a2c9eb52a8bdf8fae72529c9a282	677556d764149d3b3600bc81cdfea2fd4b7c34fa	picked	gve: fix gve_get_stats()	drivers/net/ethernet/google/gve/gve_main.c	-
+063	d3a07ca78acecae90a7c8b1af7a26cbfc59ba2c8	f5aceca3ed4888def386e6fb9e354d2b44237186	picked	gve: report 64bit tx_bytes counter from gve_handle_report_stats()	drivers/net/ethernet/google/gve/gve_main.c	-
+064	2dc768a98c9b83f33a2bc98a275bf4b352d946f1	3974628966ee771871c95de837512885c6f94be6	picked	i40e: fix endless loop under rtnl	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+065	97aeed72af4f83ae51534f0a2473ff52f8d66236	7d7ec3ecedece2dc21db387be7e38ec23b8116a2	picked	i40e: Fix freeing of uninitialized misc IRQ vector	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+066	985cca1ad11ed9c84b3922c6f05aef2d11e13e76	3d487d8e92eb0af57baf26a0c390465e5392dbaf	picked	net: prefer socket bound to interface when not in VRF	net/ipv4/inet_hashtables.c;net/ipv4/udp.c;net/ipv6/inet6_hashtables.c;net/ipv6/udp.c	-
+067	87990a60b45ff820e6ffb10d2f779892f400f7b5	7a86473d83d4ad6f40743a09bca51a9828b0eec7	picked	powerpc/iommu: Report the correct most efficient DMA mask for PCI devices	arch/powerpc/kernel/dma-iommu.c	-
+068	f86de018fd7a24ee07372d55ffa7824f0c674a95	333fad583a05dc2c621b426a54f9d44367202f82	picked	i2c: acpi: fix resource leak in reconfiguration device addition	drivers/i2c/i2c-core-acpi.c	-
+069	de834e12b96d90d7edd1374c9b12a62baa8cdb9b	c69eea3c7cd011fa04c849974a07f116d2857ead	picked	i2c: mediatek: Add OFFSET_EXT_CONF setting back	drivers/i2c/busses/i2c-mt65xx.c	-
+070	2c152d9da8fed3cade515eb5249fab805c87d831	663f470ac9d18350944837840c5154a6217e04a2	picked	riscv/vdso: make arch_setup_additional_pages wait for mmap_sem for write killable	arch/riscv/kernel/vdso.c	-
+071	29fdb11ca88d3c490a3d56f0dc77eb9444d086be	bce5fe67f85fbb89a59baad2ff372c6473bac9da	picked	bpf, s390: Fix potential memory leak about jit_data	arch/s390/net/bpf_jit_comp.c	-
+072	a4037dded56bb82eb4fbb37b5bdbf18a55e2bb96	ed5bf4c604471bfe19cd3e00bbec51081c60de2f	picked	RISC-V: Include clone3() on rv32	arch/riscv/include/uapi/asm/unistd.h	-
+073	18a2a2cafcf93ece4bde3a4f0b76324a7bfc0872	cbc6983267d6e1c28e5ec668346340b8ccca5be7	picked	powerpc/bpf: Fix BPF_SUB when imm == 0x80000000	arch/powerpc/net/bpf_jit_comp64.c	-
+074	411b38fe68ba20a8bbe724b0939762c3f16e16ca	1af0532e2b157459ad71c90030600fc1eafc24d0	picked	powerpc/64s: fix program check interrupt emergency stack path	arch/powerpc/kernel/exceptions-64s.S	-
+075	f73ca4961d51304a8f1418a6b6b9d9c77ea95041	db39223a5dd5aae468975739047b857ffe980fca	picked	pseries/eeh: Fix the kdump kernel crash during eeh_pseries_init	arch/powerpc/platforms/pseries/eeh_pseries.c	-
+076	d7c36115fb8177e58a8aa99e79e7e076f6f07395	2b5f64de1f16f23dd6cba6624b01aa7543e5b2ed	picked	x86/platform/olpc: Correct ifdef symbol to intended CONFIG_OLPC_XO15_SCI	arch/x86/platform/olpc/olpc.c	-
+077	df121cf550032175454e325d816af27b89cf0447	eadae4a1eca94a9be676a5cdcf23bce048081ad0	picked	x86/Kconfig: Correct reference to MWINCHIP3D	arch/x86/Kconfig	-
+078	5d637bc6f98ae7f980f4773608f997f222176ef5	2ebc53cb6154e3ed73eb55f598429cf13681f10b	picked	x86/sev: Return an error on a returned non-zero SW_EXITINFO1[31:0]	arch/x86/kernel/sev-es-shared.c	-
+079	6bfe1f6fc8769c728d4de87aa8e30ec36e706a9d	579cbcb77bc3e9c8347b5c1d834b8d6e387e746f	picked	x86/entry: Correct reference to intended CONFIG_64_BIT	arch/x86/include/asm/entry-common.h	-
+080	f2447f6587b8ffe42ba04d14ce67d429a1163e5e	ae50ca71d54525b9695d8d747e7ff9c80307cd53	picked	x86/entry: Clear X86_FEATURE_SMAP when CONFIG_X86_SMAP=n	arch/x86/kernel/cpu/common.c	-
+081	825c00c2ee143eff1d869605c318270686f689e0	ee93e03ee7e58e1a2ed84747ef5bf33ce40c86fc	picked	x86/hpet: Use another crystalball to evaluate HPET usability	arch/x86/kernel/early-quirks.c;arch/x86/kernel/hpet.c	-
+082	0268aa579b1f741b12300bc7f084ffe990cfde5f	4e52f0969d8320619c2a15d6e93323469fc90fff	backported	Linux 5.10.73	Makefile	Release marker only; preserve Huawei Makefile exports.

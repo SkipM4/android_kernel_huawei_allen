@@ -1,0 +1,31 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	2ababcd8c2ababe7f11032b928b9e8ab35af5e8c	6a738d8f94c422444ad56ba9285df819f0a97f42	picked	spi: rockchip: handle zero length transfers without timing out	drivers/spi/spi-rockchip.c	-
+002	e5611503249fd0cfa0c8262ee18cca39865ed972	d68f5a764d8098613153289925b026b258c80b64	picked	platform/x86: touchscreen_dmi: Add info for the Chuwi HiBook (CWI514) tablet	drivers/platform/x86/touchscreen_dmi.c	-
+003	f986cf270284e0dff977d95b33deebb590708583	7e4039414bf9a4284a83d73002836044522e38c2	picked	platform/x86: touchscreen_dmi: Update info for the Chuwi Hi10 Plus (CWI527) tablet	drivers/platform/x86/touchscreen_dmi.c	-
+004	83050cc23909ae7fe788af2ff67cfe314fb714cd	54f63c8e9b6a5523130e7affff8072aeef45e88b	picked	nfsd: back channel stuck in SEQ4_STATUS_CB_PATH_DOWN	fs/nfsd/nfs4state.c	-
+005	50628b06e604401138c767b7b57600cbaae1597b	5a3a7282268bfd069b25763082d09462f4285bc1	picked	btrfs: replace BUG_ON() in btrfs_csum_one_bio() with proper error handling	fs/btrfs/file-item.c	-
+006	63c89930d4b5f6205b4f4f13498a37cee86d80fa	32a29e9d92a93211abfc687e4ca2d055d7691c89	picked	btrfs: fix mount failure due to past and transient device flush error	fs/btrfs/volumes.c	-
+007	a41938d07201d0e7793f5aade5574a49f32ae82f	9d34edf7420b41899d2a0c056f7ab4d6f84423e7	picked	net: mdio: introduce a shutdown method to mdio device drivers	drivers/net/phy/mdio_device.c;include/linux/mdio.h	-
+008	fdfb3bc87381e46b43bb521dfa8b02628b38a955	af3d9f7cb769562de911f43016caacb6400af88f	picked	xen-netback: correct success/error reporting for the SKB-with-fraglist case	drivers/net/xen-netback/netback.c	-
+009	b114f2d18e0f97e2776ccfd877f88b3f30ba54a9	a1b47c0f3e7e00f8cafe347e9a2f58b31ce4ed85	picked	sparc64: fix pci_iounmap() when CONFIG_PCI is not set	arch/sparc/lib/iomap.c	-
+010	76c7063c7405f30758876af25cfc5e9e39b7bc6e	04bfd547d1e4e09eb30844d14cd9d9ef84e44995	picked	ext2: fix sleeping in atomic bugs on error	fs/ext2/balloc.c	-
+011	60df9f55562a57173a11b6c7011eee40dfa48157	d398cafc55f17385743a78ce72c878ea3bf7b97a	picked	scsi: sd: Free scsi_disk device via put_device()	drivers/scsi/sd.c	-
+012	ed6574d4846936a063940c2c7a552d0bce52dc49	947168b7b6142e62989a30d7765d44037059ae84	picked	usb: testusb: Fix for showing the connection speed	tools/usb/testusb.c	-
+013	2754fa3b73df7d0ae042f3ed6cfd9df9042f6262	c66a1df2841b562e9e2463485c6df0660adcfb62	picked	usb: dwc2: check return value after calling platform_get_resource()	drivers/usb/dwc2/hcd.c	-
+014	6a4aaf1d84f75fc86961d5982f2b43d1897de1d3	d75e90b1c9860715a148e8b2b6b2f4dfb8567b81	picked	habanalabs/gaudi: fix LBW RR configuration	drivers/misc/habanalabs/gaudi/gaudi_security.c	-
+015	bcc4b4de63a44130608d9cb68aa8707c130163d2	d16459aee5f9bb37c4d641d7e81ae757f0753e06	picked	selftests: be sure to make khdr before other targets	tools/testing/selftests/lib.mk	-
+016	c4506403e1f32fc41a83a693a0a8f9f0bc13e171	3c73979e1b076fdff1fb6c38b13ba54c44baf92f	picked	selftests:kvm: fix get_warnings_count() ignoring fscanf() return warn	tools/testing/selftests/kvm/x86_64/mmio_warning_test.c	-
+017	c251d023ed22732fa9b0c367240afe1187b4fa6f	bf77dc338d0e4b8f35f4bb879b20f579cbf76a2f	picked	nvme-fc: update hardware queues before using them	drivers/nvme/host/fc.c	-
+018	7a670cfb0f4cba692a2cc0caa60810986ceeab3d	a3ee0358b0a9a6fd9e0a29b60e7f3c6955d44fad	picked	nvme-fc: avoid race between time out and tear down	drivers/nvme/host/fc.c	-
+019	2e28f7dd3743bf8f386fa72b96e5da2898039df5	2a5b5e6ec5b3e482fdcc0082f2d24b878cf2fd5c	picked	thermal/drivers/tsens: Fix wrong check for tzd in irq handlers	drivers/thermal/qcom/tsens.c	-
+020	8724a2a0e6d95242fd9e5c5dcffbd55ab4194b66	cec32b383a5b56a5959f72f13af6b187758ff7ee	picked	scsi: ses: Retry failed Send/Receive Diagnostic commands	drivers/scsi/ses.c	-
+021	a7be240d1703784be96d23715a0b716a0d2fcc34	7760612176411e12a2149b361db065c92c133359	picked	irqchip/gic: Work around broken Renesas integration	drivers/irqchip/irq-gic.c	-
+022	84778fd66d3d48638d34512a4b496955ff6b0b86	7a1f83004b116c75ed28b4c47726af2105443e3e	picked	smb3: correct smb3 ACL security descriptor	fs/cifs/smb2pdu.c	-
+023	352b02562a3e01a640bf7d242ebf61003cf93c59	4eb3432e64757fa1ee3f113f96283191fa50d90f	picked	tools/vm/page-types: remove dependency on opt_file for idle page tracking	tools/vm/page-types.c	-
+024	b8add3f47ae7fee564a941aa9ade3eb51ea997f0	d7e7f5783289b43425f1fc17624d34ac72670e7f	picked	selftests: KVM: Align SMCCC call with the spec in steal_time	tools/testing/selftests/kvm/steal_time.c	-
+025	6d0ff920599960a22ea520afda99eed3096c0e12	64b791a136b084800d54065806e2205e952aa5b3	picked	KVM: do not shrink halt_poll_ns below grow_start	virt/kvm/kvm_main.c	-
+026	ae34f26d4a8487e37ab9cfdca72f447c1ef49aa5	52cbf5fe8b1a6ce81fe0183443b29cc86e37b2bc	picked	kvm: x86: Add AMD PMU MSRs to msrs_to_save_all[]	arch/x86/kvm/x86.c	-
+027	b56475c29bd82589c5cab0c349476206ae7a2e40	310680ac5ef8e7bbf372c25157fdff6c5361452b	picked	KVM: x86: nSVM: restore int_vector in svm_clear_vintr	arch/x86/kvm/svm/svm.c	-
+028	02bf504bc32b2b29e0c30d1d55fb0a504962282b	281d9aefb47e32d7143a4a3971e6b3ebd97edc28	picked	perf/x86: Reset destroy callback on event init failure	arch/x86/events/core.c	-
+029	387aecdab7facf7af40ff1ce8ba2d819b1f11829	2bc12042baea22d6b61add110696e1ad08557e19	picked	libata: Add ATA_HORKAGE_NO_NCQ_ON_ATI for Samsung 860 and 870 SSD.	drivers/ata/libata-core.c;include/linux/libata.h	-
+030	5aa003b38148d584f20455ecac85c51187d0b71e	53663dbc65c196802f2033d42a4dc1d0b5b4709c	backported	Linux 5.10.72	Makefile	Release marker only; preserve Huawei Makefile exports.

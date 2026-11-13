@@ -1097,3 +1097,122 @@ r17 recovery pair remain local and below 20 GB. The next bounded range is
 5.10.71-75, with explicit FIB/MDIO interface gates. Later releases toward
 the pinned 5.10.274 target, Android common parity and GKI remain open. No
 release export, publication or push occurs.
+
+## Seventh Milestone: 5.10.71 Through 5.10.75
+
+The next complete range resolves 330 official entries: 309 exact picks,
+five code adaptations, five release markers and eleven already-present
+fixes, with no inapplicable entry. Source ends at `99ff6138b`; no intermediate
+71-74 candidate is installed. The five per-release ledgers retain every
+original/local identity and decision.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.71 | `5cd40b137cba45a5a3d0b9a8554f779a3e0e93b4` | 93 | 84 | 3 | 1 | 5 |
+| 5.10.72 | `5aa003b38148d584f20455ecac85c51187d0b71e` | 30 | 29 | 0 | 1 | 0 |
+| 5.10.73 | `0268aa579b1f741b12300bc7f084ffe990cfde5f` | 82 | 76 | 1 | 1 | 4 |
+| 5.10.74 | `77434fe5a077f05f0851931d6a71d1098b6004f8` | 23 | 22 | 0 | 1 | 0 |
+| 5.10.75 | `3a9842b42e421f6496a78a42a123639cf6d7ed31` | 102 | 98 | 1 | 1 | 2 |
+
+Sources are the original stable range and official ChangeLog-5.10.71 through
+ChangeLog-5.10.75 at <https://cdn.kernel.org/pub/linux/kernel/v5.x/>.
+Independent actual-import checks cover all 319 original authors/dates,
+messages and stable trailers, 309 exact picks with 374 file sections, five
+approved code pre/post states, five SUBLEVEL-only markers and all 330 ledger
+rows. Nine historical PRESENT cases match nineteen complete post-hunks;
+two semantic PRESENT cases retain independently verified complete function
+implementations. The whole actual kernel subtree exactly matches the
+independently ordered private reconstruction, including every file mode.
+Source diff --check and strict checkpatch for the five code adaptations pass.
+
+### Schedutil Lifetime And Other Adaptations
+
+Stable `a7d4fc84404d45d72f4490417e8cc3efa4af93f1` moves tunable freeing to
+the standard kobject release callback. The selected OEM SCHEDUTIL_OPT exit
+also saves settings after gov_attr_set_put drops the last policy reference.
+Mechanical free-to-release conversion would let that save access freed
+memory. `504bc8279` takes a temporary kobject reference around the existing
+put/last-save/global-clear sequence, then releases it, without changing the
+last-policy decision or cache contents. Exact following stable
+`3945c481360caee7d496c95b5c73afe923a1c7cd` destroys the attr-set mutex before
+the final kobject_put. Both changes complete in order before compilation;
+no intermediate installation or live sysfs lifetime stress is claimed.
+
+The UFS TM UPIU trace tag correction retains the intervening Android hook.
+Its native trace uses the local tag addressing utmrdl_base_addr; the selected
+HUFS implementation uses a separate TMF bitmap path. The ext4 htree iteration
+fix retains all original progress/error returns in the relocated directory
+context. Overlayfs rejects unsupported direct I/O before credential override,
+preserving Android credential restoration, balanced fd/inode cleanup and
+existing asynchronous ownership. Device links reject consumer==supplier
+at the original boundary without losing existing extended flag validation.
+These changes do not delete required hardware behavior.
+
+The conntrack resize/cleanup mutex implementation is already present, with
+complete functions matching the original post-state except the unchanged
+cloud-network hook. The xHCI command abort function retains the official
+superseding `09f736aa95476631227d2dc0e6b9aeee1ad7ed58` implementation. Its
+full 64-bit CRCR update must not be downgraded to the earlier low-half-only
+write. These classifications are based on complete source states, not
+inferred from an unsuccessful forward patch or a live abort test.
+
+### Selected Interface Gates
+
+Exact stable `8de12ad9162ca2648c82d631c47c2f7de565aa73` changes
+fib_add_nexthop to five arguments so the RTA_FLOW attribute contributes to
+the rtnexthop length. Selected IPv4, IPv6 and nexthop callers must coordinate
+with its actual new function type and export CRC. Exact stable
+`a41938d07201d0e7793f5aade5574a49f32ae82f` appends mdio_driver.shutdown and
+wires the standard device shutdown dispatch. Both interfaces require
+fresh target C objects and final enforcing CFI checks, not old-module reuse.
+
+The nine public-header changes are reviewed against selected configuration
+and opaque assembly dependencies. Actual frozen source measurements confirm
+sixteen records and six CFI declarations: fifteen records keep all direct
+field offsets/widths, while mdio_driver grows from 168 to 176 with its sole
+new pointer at 168. Mapped nine assembly sources and relevant selected
+declarations remain continuous; no new sock padding or MDIO/FIB assembly
+operand is found. Existing const list_sort and MAS all-tag implementation
+evidence is reused only where source, types and configuration agree.
+
+### Build And Installed Acceptance
+
+The full build completes as 5.10.75 #56 with all 6,432 effective configuration
+entries and signing material unchanged from #55. Fresh selected C objects
+confirm the existing credential and other reviewed layouts. Actual MDIO
+objects confirm the 176-byte driver, shutdown pointer at 168, registration
+assignment and enforcing indirect-call CFI. Actual FIB objects use the
+standard five-argument definition, including all three selected IPv6 calls.
+Final named function/callback canonical entries and enforcing machine-code
+checks pass. The three real changed CRCs are fib_add_nexthop and the two
+MDIO driver registration exports; all 13,827 exports remain, without an
+addition or removal. All 390 rebuilt modem imports and two optional dummy
+imports match. No old module, spoofed CRC or permissive CFI path is used.
+
+The nine mapped assembly sources, relevant declarations and twelve generated
+values retain the accepted offset contract. The accepted #55 const sorter
+and MAS all-tag implementation proofs are reused only after source, selected
+configuration, current object types and final canonical-address checks.
+Changed all-tag objects retain the approved executable control-flow and
+callback identities. These bounded continuity checks do not repeat the old
+29-operand audit or claim a new full implementation/runtime test.
+
+The repacked boot and matching CMS-signed modem filesystem pass kernel
+round-trip, firmware stub/DTB/header preservation, signature verification,
+filesystem and original label/ownership readbacks. One paired installation
+reaches normal Android as 5.10.75 #56. Automatic Live modem loading has the
+matching new runtime build-id and complete signed-file/partition readbacks.
+Independent Magisk ramdisk, Enforcing SELinux, taint4, forced signatures,
+CFI and enabled PRMEM remain. CE storage is available/RUNNING_UNLOCKED and
+the three core services are present. Complete time-zero and subsequent logs
+contain no actual WARN, BUG, Oops, panic, CFI or module fault; 517 AVC denials
+remain visible, none requesting module loading. Tracing remains off with
+only the original wifi instance, and the screen returns to Asleep. No broad
+hardware regression is repeated.
+
+The immediate paired rollback is #55/5.10.70. Metadata is saved before output
+reuse; recent r52-r56 pairs, originals and the first accepted r17 recovery
+pair remain local and below 20 GB. The next bounded range is 5.10.76-80,
+with selected header/layout and callback changes audited before compilation.
+Later releases toward the pinned 5.10.274 target, Android common parity and
+GKI remain open. No release export, publication or push occurs.

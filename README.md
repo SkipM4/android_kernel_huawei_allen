@@ -85,6 +85,18 @@ configuration, ramdisk and security controls remain; complete logs have
 no actual kernel/module fault. #54 is the immediate paired rollback.
 Next is the complete 5.10.71-75 range; latest stable and GKI remain open.
 
+The seventh milestone resolves all 330 official entries through 5.10.75:
+309 exact picks, five code adaptations, five markers and eleven already
+present fixes. The schedutil adaptation uses the standard kobject lifetime
+while retaining the selected last-policy cache behavior. Source ends at
+`99ff6138b`; #56 passes full build, fresh MDIO/FIB C-layout and enforcing
+CFI checks, scoped offset/const-sort/all-tag continuity, signed matched
+installation, normal Android and automatic matching Live modem. All 390
+modem imports match the three changed MDIO/FIB export CRCs. All 6,432
+configuration entries, ramdisk and security controls remain unchanged;
+complete logs have no actual kernel/module fault. #55 is the immediate
+paired rollback. Next is complete 5.10.76-80; latest stable and GKI remain open.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
