@@ -445,7 +445,7 @@ static void usx2y_usb_disconnect(struct usb_device *device, void* ptr)
 		list_for_each(p, &usx2y->midi_list) {
 			snd_usbmidi_disconnect(p);
 		}
-		if (usx2y->us428ctls_sharedmem) 
+		if (usx2y->us428ctls_sharedmem)
 			wake_up(&usx2y->us428ctls_wait_queue_head);
 		snd_card_free(card);
 	}

@@ -171,7 +171,7 @@ static int usx2y_create_alsa_devices(struct snd_card *card)
 			snd_printk(KERN_ERR "usx2y_create_alsa_devices: usx2y_create_usbmidi error %i \n", err);
 			break;
 		}
-		if ((err = usx2y_audio_create(card)) < 0) 
+		if ((err = usx2y_audio_create(card)) < 0)
 			break;
 		if ((err = usx2y_hwdep_pcm_new(card)) < 0)
 			break;

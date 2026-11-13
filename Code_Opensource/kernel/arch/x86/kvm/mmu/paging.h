@@ -11,4 +11,3 @@
 	(GUEST_PT64_BASE_ADDR_MASK & ((1ULL << (PAGE_SHIFT + (((level) - 1) \
 						* PT64_LEVEL_BITS))) - 1))
 #endif /* __KVM_X86_PAGING_H */
-

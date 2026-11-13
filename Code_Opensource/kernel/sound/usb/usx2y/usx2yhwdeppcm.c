@@ -456,7 +456,7 @@ static int usx2y_usbpcm_urbs_start(struct snd_usx2y_substream *subs)
  cleanup:
 	if (err) {
 		usx2y_subs_startup_finish(usx2y);	// Call it now
-		usx2y_clients_stop(usx2y);		// something is completely wroong > stop evrything			
+		usx2y_clients_stop(usx2y);		// something is completely wroong > stop evrything
 	}
 	return err;
 }
@@ -671,7 +671,7 @@ static int snd_usx2y_hwdep_pcm_mmap(struct snd_hwdep * hw, struct file *filp, st
 
 	/* if userspace tries to mmap beyond end of our buffer, fail */ 
 	if (size > PAGE_ALIGN(sizeof(struct snd_usx2y_hwdep_pcm_shm))) {
-		snd_printd("%lu > %lu\n", size, (unsigned long)sizeof(struct snd_usx2y_hwdep_pcm_shm)); 
+		snd_printd("%lu > %lu\n", size, (unsigned long)sizeof(struct snd_usx2y_hwdep_pcm_shm));
 		return -EINVAL;
 	}
 
