@@ -197,6 +197,8 @@ int main(void)
 #endif
 #ifdef CONFIG_HUFS_MANUAL_BKOPS
   DEFINE(OEM_SCSI_HOSTDATA, offsetof(struct Scsi_Host, hostdata));
+	DEFINE(OEM_UFS_STATE, offsetof(struct ufs_hba, ufshcd_state));
+	DEFINE(OEM_UFS_DEV_CMD_LOCK, offsetof(struct ufs_hba, dev_cmd.lock));
   DEFINE(OEM_UFS_BKOPS_OPS, offsetof(struct ufs_hba, ufs_dev_bkops_ops));
   DEFINE(OEM_UFS_EH_MUTEX, offsetof(struct ufs_hba, eh_mutex));
   DEFINE(OEM_SHOST_UFS_BKOPS_OPS, offsetof(struct Scsi_Host, hostdata) +

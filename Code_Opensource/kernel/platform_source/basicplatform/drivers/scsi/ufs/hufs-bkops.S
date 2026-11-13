@@ -1226,7 +1226,7 @@ ufshcd_query_hi1861_bkops:              // @ufshcd_query_hi1861_bkops
 .Ltmp126:
 	.loc	167 0 0                         // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:0:0
 	ldr	x8, [x22, #15344]
-	mov	w9, #17648
+	mov	w9, #OEM_UFS_STATE
 .Ltmp127:
 	.loc	167 109 11 is_stmt 1            // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:109:11
 	ldr	w19, [x22, x9]
@@ -1264,7 +1264,7 @@ ufshcd_query_hi1861_bkops:              // @ufshcd_query_hi1861_bkops
 	bl	mutex_lock
 .Ltmp133:
 	.loc	167 0 2                         // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:0:2
-	mov	w8, #20320
+	mov	w8, #OEM_UFS_DEV_CMD_LOCK
 	.loc	167 117 27 is_stmt 1            // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:117:27
 	add	x20, x22, x8
 	.loc	167 117 2 is_stmt 0             // kernel/platform_source/basicplatform/drivers/scsi/ufs/hufs-bkops.c:117:2
