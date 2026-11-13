@@ -135,7 +135,7 @@ static inline bool is_cpu_idle(struct rcc_module *rcc)
 
 #ifdef arch_idle_time
 
-static u64 get_idle_time(int cpu)
+static u64 rcc_get_idle_time(int cpu)
 {
 	u64 idle;
 
@@ -147,7 +147,7 @@ static u64 get_idle_time(int cpu)
 
 #else
 
-static u64 get_idle_time(int cpu)
+static u64 rcc_get_idle_time(int cpu)
 {
 	u64 idle, idle_time = -1ULL;
 
@@ -192,7 +192,7 @@ static int _get_cpu_load(clock_t *last_cpu_stat)
 		user += kcpustat_cpu(i).cpustat[CPUTIME_USER];
 		nice += kcpustat_cpu(i).cpustat[CPUTIME_NICE];
 		system += kcpustat_cpu(i).cpustat[CPUTIME_SYSTEM];
-		idle += get_idle_time(i);
+		idle += rcc_get_idle_time(i);
 	}
 
 	total_time = user + nice + system + idle;

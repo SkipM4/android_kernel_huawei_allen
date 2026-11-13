@@ -113,7 +113,7 @@ static u64 perf_sysinfo_get_iowait_time(struct kernel_cpustat *kcs, int cpu)
 
 #ifdef arch_idle_time
 
-static u64 get_idle_time(struct kernel_cpustat *kcs, int cpu)
+static u64 perf_get_idle_time(struct kernel_cpustat *kcs, int cpu)
 {
 	u64 idle;
 
@@ -125,7 +125,7 @@ static u64 get_idle_time(struct kernel_cpustat *kcs, int cpu)
 
 #else
 
-static u64 get_idle_time(struct kernel_cpustat *kcs, int cpu)
+static u64 perf_get_idle_time(struct kernel_cpustat *kcs, int cpu)
 {
 	u64 idle = -1ULL;
 	u64 idle_usecs = -1ULL;
@@ -155,7 +155,7 @@ void perf_sysinfo_get_per_core_cpu_time(
 	per_cpu_time->user    = cpustat[CPUTIME_USER];
 	per_cpu_time->nice    = cpustat[CPUTIME_NICE];
 	per_cpu_time->system  = cpustat[CPUTIME_SYSTEM];
-	per_cpu_time->idle    = get_idle_time(&kcpustat, cpu);
+	per_cpu_time->idle    = perf_get_idle_time(&kcpustat, cpu);
 	per_cpu_time->iowait  = perf_sysinfo_get_iowait_time(&kcpustat, cpu);
 	per_cpu_time->irq     = cpustat[CPUTIME_IRQ];
 	per_cpu_time->softirq = cpustat[CPUTIME_SOFTIRQ];
