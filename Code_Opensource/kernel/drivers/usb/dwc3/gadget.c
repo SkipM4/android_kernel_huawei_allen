@@ -2706,7 +2706,8 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 	if (dwc->pcd_suspended) {
 		pr_info("%s: pcd suspended, not pullup %d\n", __func__, is_on);
 		spin_unlock_irqrestore(&dwc->lock, flags);
-		return 0;
+		ret = 0;
+		goto out_enable_irq;
 	}
 
 	if (!is_on) {
@@ -2749,6 +2750,7 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 	if (!is_on)
 		dwc3_wait_event_clear(dwc);
 
+out_enable_irq:
 	enable_irq(dwc->irq_gadget);
 
 	pm_runtime_put(dwc->dev);
