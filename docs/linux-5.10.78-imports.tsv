@@ -1,0 +1,16 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	7b57c38d12aed1b5d92f74748bed25e0d041729f	-	already-present	scsi: core: Put LLD module refcnt after SCSI device is released	drivers/scsi/scsi.c;drivers/scsi/scsi_sysfs.c	Complete original patch reverse-applies.
+002	748786564a358945922aa43a5b90710c81ed133e	553e59921c3ba6a0438ff9a7f9f2efeef42dc784	picked	Revert "io_uring: reinforce cancel on flush during exit"	fs/io_uring.c	-
+003	0382fdf9ae78e01e83580fb0603cdb3e20224804	a09e6bab5b18c252e603323d53f9ceb6c51636e1	picked	sfc: Fix reading non-legacy supported link modes	drivers/net/ethernet/sfc/ethtool_common.c	-
+004	b9c85a71e1b4898e978c594a44e881456313a855	13edd4be3ba2f43940c8b1e9d9745768a7f5e438	picked	vrf: Revert "Reset skb conntrack connection..."	drivers/net/vrf.c	-
+005	b93a70bf2b5756dc088d7b7f41dc7d25cc765de8	ec5e115e4eb076d2a723241da5dddea66e3a7f5e	picked	net: ethernet: microchip: lan743x: Fix skb allocation failure	drivers/net/ethernet/microchip/lan743x_main.c	-
+006	d7fc85f6104259541ec136199d3bf7c8a736613d	6e99e0d636ca64d66d61cdf3f461024fdf5a8dd6	picked	media: firewire: firedtv-avc: fix a buffer overflow in avc_ca_pmt()	drivers/media/firewire/firedtv-avc.c;drivers/media/firewire/firedtv-ci.c	-
+007	50f46bd3094992305cdde8832203634f01d46eea	2ced1621cdba920550e48f82d50621114e3aca86	picked	Revert "xhci: Set HCD flag to defer primary roothub registration"	drivers/usb/host/xhci.c	-
+008	5a7957491e31c5d6bbffa2e5d471402e931f14ca	3df3cdb595161734838998f2c17ce6050175c71d	picked	Revert "usb: core: hcd: Add support for deferring roothub registration"	drivers/usb/core/hcd.c;include/linux/usb/hcd.h	-
+009	6d67b2a73b8e3a079c355bab3c1aef7d85a044b8	-	already-present	mm: khugepaged: skip huge page collapse for special files	mm/khugepaged.c	Complete original alignment, shmem and regular-file restriction already present in vendor baseline; keep coordinated newer VM_EXEC plus no-open-writer THP eligibility (matches file_thp_enabled), do not restore obsolete DENYWRITE-only contract.
+010	bbc920fb320f1c241cc34ac85edaa0058922246a	b35fb0f4124372730606a76e2f79d63efb115862	picked	Revert "drm/ttm: fix memleak in ttm_transfered_destroy"	drivers/gpu/drm/ttm/ttm_bo_util.c	-
+011	f84b791d4c3b459ef404c32fc5986f18758461e9	f0e8fbc1aceb83efd41a1ea8c0b4d023e543bf9d	backported	ARM: 9120/1: Revert "amba: make use of -1 IRQs warn"	drivers/amba/bus.c	Remove exactly the two original obsolete minus-one IRQ warnings across the added hck_ret declaration; retain all AMBA resource/probe/ID hook behavior, IRQ initialization and public layout.
+012	68765fc977629f79f68f016802246d3d2f308fa6	876dfcbcac3fc16dbb6ccdafd1555554043ec2d4	picked	Revert "wcn36xx: Disable bmps when encryption is disabled"	drivers/net/wireless/ath/wcn36xx/main.c;drivers/net/wireless/ath/wcn36xx/pmc.c;drivers/net/wireless/ath/wcn36xx/wcn36xx.h	-
+013	f3eb44f496ef09a7df20f264879a396f642e73a7	b3f7cc462facd95d777c51f1f5362608c58d8621	picked	ALSA: usb-audio: Add Schiit Hel device to mixer map quirk table	sound/usb/mixer_maps.c	-
+014	4c7c0243275b926d35e6904c20ded6463bd69a82	c9cb123102dfadf2461aed01c965af6240c44175	picked	ALSA: usb-audio: Add Audient iD14 to mixer map quirk table	sound/usb/mixer_maps.c	-
+015	5040520482a594e92d4f69141229a6dd26173511	fd4d41d292ca74eae9201450d723c52da37d984a	backported	Linux 5.10.78	Makefile	Release marker only; preserve Huawei Makefile exports.

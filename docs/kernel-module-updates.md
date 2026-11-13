@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.75
-#56 kernel and module are built together with the r49-derived effective
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.80
+#57 kernel and module are built together with the r49-derived effective
 configuration, Android Clang/LLD 12.0.7, enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
 
@@ -124,6 +124,20 @@ runtime build-id and complete file/partition readbacks; all 6,432 configuration
 entries, ramdisk and security remain. This remains a same-build update method,
 not independent stable KMI or GKI certification.
 
+The installed 5.10.80/#57 milestone retains all 13,827 exports, with no
+addition or removal and 2,051 CRC changes versus #56. All 390 rebuilt modem
+and two optional dummy imports match. Actual BPF owner, console, Qdisc,
+stream-buffer and bare per-CPU TCP orphan types agree with their selected C
+consumers; the new callback assignments, canonical targets and enforcing
+dispatches pass. Unchanged const-sort, all-tag and generated-offset
+implementation proofs are reused through explicitly bound current evidence.
+The CMS-signed matching modem loads automatically on normal Android with
+matching runtime build-id and full file/partition readbacks. Existing
+configuration, signing material, independent ramdisk and enforcing controls
+remain. Substantial CRC changes are retained, not concealed by version-table
+patching or old-binary resigning. The next UFS change requires fresh actual
+layout/assembly verification in addition to rebuilding modules.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -164,13 +178,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #56's immediate rollback:
+overwrite existing candidates. The previous pair is #57's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.70-clang12-r55.img`.
-- `images/test/allen-modem_driver-test-5.10.70-clang12-r55.img`.
-- `images/test/allen-modem_driver-test-5.10.70-clang12-r55.ko`.
+- `images/test/allen-boot-test-5.10.75-clang12-r56.img`.
+- `images/test/allen-modem_driver-test-5.10.75-clang12-r56.img`.
+- `images/test/allen-modem_driver-test-5.10.75-clang12-r56.ko`.
 
-The installed next pair uses `5.10.75-clang12-r56` with the same device/purpose
+The installed next pair uses `5.10.80-clang12-r57` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

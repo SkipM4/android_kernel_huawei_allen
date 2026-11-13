@@ -1,0 +1,21 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	ecf58653f1e4ab88b4eb62db8fe799826d99d5ec	58366b7f1b69628aa5da5c02651ea7353796842e	picked	KVM: x86: avoid warning with -Wbitwise-instead-of-logical	arch/x86/kvm/mmu/mmu.c	-
+002	a8db6fd04d58b92d0698ee56e42134f26b236a90	d46d19fa709bb9f9ecc52fd90bb7ea42c77a680f	picked	Revert "x86/kvm: fix vcpu-id indexed array sizes"	arch/x86/kvm/ioapic.c;arch/x86/kvm/ioapic.h	-
+003	94e5305a381658064949e2f427f4a7591f4194aa	5e09d79872f1316b86e2ee7ef6b6133005bc699a	picked	usb: ehci: handshake CMD_RUN instead of STS_HALT	drivers/usb/host/ehci-hcd.c;drivers/usb/host/ehci-platform.c;drivers/usb/host/ehci.h	-
+004	27409143122f9c68f74da42ce987cc6badb40784	5efde02962d40d1988914ed9994d1a18dbc0bc4a	picked	usb: gadget: Mark USB_FSL_QE broken on 64-bit	drivers/usb/gadget/udc/Kconfig	-
+005	1309753b7841db412063bcce3f2a0eddf1443e9d	76cf930e6ef4391f04102884a4fe6bd57e354eb4	picked	usb: musb: Balance list entry in musb_gadget_queue	drivers/usb/musb/musb_gadget.c	-
+006	42681b90c4db8bf29fc2cc93789ec093bb209296	7e4f2b9c3a536c6e52fdbf1bf0207d6343123f70	picked	usb-storage: Add compatibility quirk flags for iODD 2531/2541	drivers/usb/storage/unusual_devs.h	-
+007	07d1db141e478917600fa32be11e5b828ff9ed13	ead4c7bf4279990a06487282097e6ba88c2c1a04	picked	binder: don't detect sender/target during buffer cleanup	drivers/android/binder.c	-
+008	ab4af56ae2508df3bdabcb192874086f5f07d98c	5e1b0c59f0cf6ae37c48c74b31660350a5265192	picked	printk/console: Allow to disable console output by using console="" or console=null	kernel/printk/printk.c	-
+009	c430094541a80575259a94ff879063ef01473506	b3f20550032fc7512cd9e9387406acb732351970	picked	staging: rtl8712: fix use-after-free in rtl8712_dl_fw	drivers/staging/rtl8712/usb_intf.c	-
+010	86d4aedcbc69c0f84551fb70f953c24e396de2d7	f34f5e38d641851e92cd0833cb310828fba1a8a6	picked	isofs: Fix out of bound access for corrupted isofs image	fs/isofs/inode.c	-
+011	786f5b03450454557ff858a8bead5d7c0cbf78d6	b0408af14ea0c1908ba5bc8b251181c66ed87b33	picked	comedi: dt9812: fix DMA buffers on stack	drivers/staging/comedi/drivers/dt9812.c	-
+012	ef143dc0c3defe56730ecd3a9de7b3e1d7e557c1	82c861ad5a51298492b37b3f16925cbba7a2095d	picked	comedi: ni_usb6501: fix NULL-deref in command paths	drivers/staging/comedi/drivers/ni_usb6501.c	-
+013	33d7a470730dfe7c9bfc8da84575cf2cedd60d00	281ffc981fcd5967741f48adda48ba295083805f	picked	comedi: vmk80xx: fix transfer-buffer overflows	drivers/staging/comedi/drivers/vmk80xx.c	-
+014	b7fd7f3387f070215e6be341e68eb5c087eeecc0	35b515dd273893fe566e22eb402a5922f4418b77	picked	comedi: vmk80xx: fix bulk-buffer overflow	drivers/staging/comedi/drivers/vmk80xx.c	-
+015	844b02496eaca61c3eb2e7430dfc25a06302bff3	15cf667d0c18fcfadd6bcccf69d075aa043d50b3	picked	comedi: vmk80xx: fix bulk and interrupt message timeouts	drivers/staging/comedi/drivers/vmk80xx.c	-
+016	9963ba5b9d495d05bf32f37dc42d69afed46639b	e2a0fb457418d599180d78d866a9737c8dd761ba	picked	staging: r8712u: fix control-message timeout	drivers/staging/rtl8712/usb_ops_linux.c	-
+017	1cf43e928954f5d511d3bb28c045ab430e9440a8	1ab060dec995e537b46bb057e042309f7f3e169e	picked	staging: rtl8192u: fix control-message timeouts	drivers/staging/rtl8192u/r8192U_core.c	-
+018	8971158af1e0138bf0576c16f9aa153f151fb6b4	61c551fe45758b5dc8871f620ee7718c2296df0d	picked	media: staging/intel-ipu3: css: Fix wrong size comparison imgu_css_fw_init	drivers/staging/media/ipu3/ipu3-css-fw.c;drivers/staging/media/ipu3/ipu3-css-fw.h	-
+019	62424fe4c2cf38f27c1eef66cbfa226ffe233e90	f8fba78b8903c1281bf913c887af9ccbe54a2b62	picked	rsi: fix control-message timeout	drivers/net/wireless/rsi/rsi_91x_usb.c	-
+020	bd816c278316f20a5575debc64dde4422229a880	16644e80d156018fd0bfba11ffab075b7672f30d	backported	Linux 5.10.79	Makefile	Release marker only; preserve Huawei Makefile exports.

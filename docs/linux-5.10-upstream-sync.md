@@ -1216,3 +1216,187 @@ pair remain local and below 20 GB. The next bounded range is 5.10.76-80,
 with selected header/layout and callback changes audited before compilation.
 Later releases toward the pinned 5.10.274 target, Android common parity and
 GKI remain open. No release export, publication or push occurs.
+
+## Eighth Milestone: 5.10.76 Through 5.10.80
+
+The next complete range resolves all 779 official entries: 732 exact picks,
+nineteen code adaptations, five release markers, twenty-two already-present
+fixes and one inapplicable entry. The 756 source commits end at `0253fdc1d`.
+No intermediate 76-79 kernel is compiled or installed. Five per-release
+ledgers retain every original/local identity and disposition.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present | N/A |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 5.10.76 | `378e85d1aeb5c93db43f2089630ec40c7385bd54` | 95 | 86 | 3 | 1 | 5 | 0 |
+| 5.10.77 | `09df347cfd189774130f8ae8267324b97aaf868e` | 78 | 67 | 2 | 1 | 8 | 0 |
+| 5.10.78 | `5040520482a594e92d4f69141229a6dd26173511` | 15 | 11 | 1 | 1 | 2 | 0 |
+| 5.10.79 | `bd816c278316f20a5575debc64dde4422229a880` | 20 | 19 | 0 | 1 | 0 | 0 |
+| 5.10.80 | `f884bb85b8d877d4e0c670403754813a7901705b` | 571 | 549 | 13 | 1 | 7 | 1 |
+
+Sources are the original stable range and official ChangeLog-5.10.76 through
+ChangeLog-5.10.80 at <https://cdn.kernel.org/pub/linux/kernel/v5.x/>. Actual
+import verification checks all 756 original authors/dates, complete messages
+and stable trailers, 732 exact picks with 932 file sections, nineteen code
+pre/post contracts and five SUBLEVEL-only markers. Fifteen historical
+PRESENT cases match forty-four complete post-hunks; seven semantic PRESENT
+cases have complete independent source contracts. The accepted 208-entry
+76-79 prefix is reused by identity while the 571-entry tail is checked once.
+All five ledgers and every kernel file mode/blob at the `0253fdc1d` import
+checkpoint match the independently ordered, revised reconstruction. Source
+diff --check passes. The nineteen
+adaptation diffs have no checkpatch errors or warnings; the ESR macro-name
+and task-header extern checks are inherited from the original stable patches.
+
+### Real Context And Ownership Adaptations
+
+The xHCI DCS quirk retains the already-newer cancellation/dequeue traversal
+and full 64-bit CRCR abort repair while applying the original VIA selector,
+quirk bit and complete hardware-cycle correction. Both SLUB fixes preserve
+OEM sanitization, KFENCE/KASAN and bulk memcg accounting: reconstructed count
+and freelist depth move together, without changing public alloc/free types.
+CQHCI's HALT correction follows the Android crypto split into cqhci-core.c;
+the controller remains unselected, so this is not hardware acceptance.
+SDHCI's voltage mapping retains the 1.8 V override and does not advertise a
+new supply range. AMBA removes only the obsolete IRQ warnings.
+
+Binder uses `binder_get_cred(proc)->euid` rather than the mutable task euid.
+The existing Android KMI-preserving extension already owns the open-time
+credential reference and releases it at final free. It is retained instead
+of adding a field to binder_proc. The following credential/LSM patches are
+already complete; no invented callback migration or extra credential field
+is needed.
+
+The pinctrl failed-enable fix cannot free a two-stage registration handle
+inside pinctrl_enable. It keeps the corrected non-freeing enable ownership
+from upstream `5038a66dad0199de60e5671603ea6623eb9e5c79`, and performs descriptor,
+mutex and object cleanup at the legacy pinctrl_register failure boundary,
+matching the uninitialization semantics of
+`ae1cf4759972c5fe665ee4c5e0c29de66fe3cf4a`. These later upstream references
+prevent double-free or dangling devres/V500 handles; no public type changes.
+CTI pairs the runtime-PM put with the existing parent-device get. The ARM64
+ESR extraction keeps the stub-HVC dispatch and stack-restoration order.
+
+Block completes the standard resource-budget/restart logic, moves the
+32-request plug limit and factor-two multi-queue threshold to the private
+header, and removes the inaccurate requeue BUG_ON in both MAS branches.
+Existing MAS reference, end/flush publication and sorter contracts remain.
+The regulator patch updates the complete S5M8767 binding documentation, but
+its driver hunk has no implementation to repair. DW MMC's reported defective
+wait-DATA branch is absent from the complete OEM state machine; it is N/A,
+not a falsely claimed existing fix or a new controller workaround.
+
+The full UFS keep-link-active refactor, including the phase guard, is already
+present and does not change the selected storage layout. The ZRAM fix changes
+only the original read-count comparison across an OEM debug argument. Its
+unselected memory-tracking branch has a separate pre-existing missing comma;
+that unrelated defect is not silently bundled. POSIX CPU timers gain the
+complete helper, initialization reuse, fork reset and configured-off stub
+while retaining HHEE placement. The task-work option remains disabled, so
+this patch does not add a selected task_struct field.
+
+### Fork Group Lifetime And Standard TCP Counters
+
+Stable `c85c6fadbef0a3eab41540ea628fa8fe8928c820` moves group/CPU/class-fork
+initialization to the two-argument sched_post_fork. The group comes from the
+css_set pinned between cgroup_can_fork and cgroup_post_fork, rather than a
+possibly freed group pointer copied from the parent. The complete upstream
+function and existing early dynamic-priority/RTG resets are retained.
+
+The first private adaptation kept OEM inheritance before the new group
+initialization. Independent transitive review found a real selected path:
+QoS inheritance emits sched_qos, whose enabled trace assignment calls
+get_task_min_util -> uclamp_eff_value -> uclamp_tg_restrict. With
+UCLAMP_TASK_GROUP enabled and the child's effective clamp inactive, this
+reads the stale copied sched_task_group. The revised adaptation moves the
+single sched_post_fork call immediately after proc_fork_connector and before
+the unchanged QoS/VIP blocks. Their mutual order and notifications remain;
+all run before cgroup_post_fork releases the pin. The class-fork and clamp
+initialization do not require the later QoS/VIP state. Trace CPU/min-util
+values now describe initialized state; their numeric values are not promised
+to remain identical. The four early Android hook positions and interfaces
+are unchanged, and ANDROID_VENDOR_HOOKS is disabled. This closes the concrete
+selected trace hazard, not a blanket proof about arbitrary opaque probes.
+
+Stable `a342cb4772f44915b1e6688b101a41c01f9e71aa` completes the standard
+eleven-file TCP/DCCP migration from percpu_counter to bare per-CPU unsigned
+counters. Declarations, exports, every producer/consumer, DCCP lifecycle,
+full possible-CPU summation and the 100 ms deferrable TCP cache timer move
+together. The proto orphan_count pointee type changes even though its field
+offset does not; this requires actual C types, final CFI and rebuilt modules,
+not only a matching physical struct size.
+
+### Selected Source And C-Layout Gates
+
+The thirty-one original header patches cover thirty-four include paths;
+twenty-nine include files and two ARM64 headers actually change. Complete
+source/configuration binding and one fresh C compilation cover twenty-two
+selected records, the new fork/qdisc/timer interfaces and existing const
+credential, MDIO/FIB and sorter contracts. All 6,432 emitted configuration
+entries remain unchanged. The new hidden ARCH_HAS_CC_PLATFORM symbol is not
+selected or emitted on ARM64; no synthetic disabled entry is inserted.
+
+Actual selected layouts measure BPF array aux at 144 bytes: its new owner
+contains a 24-byte debug spinlock and occupies 32 bytes. Console grows to
+104 bytes with the speed fields at 80/84; Qdisc_ops grows to 176 bytes with
+the new callback at 112. Proto remains 416 bytes with its changed unsigned
+per-CPU pointer at 320. The 32-byte skb overlay and 20-byte stream message at
+offset 20 fit the existing 48-byte control buffer. Binder's 688-byte public
+record and 696-byte credential extension remain unchanged. Five selected
+fundamental named-field layouts retain the accepted baseline; current
+anonymous credential-union evidence is also kept for actual/final matching.
+
+Nine mapped assembly sources remain identical. Existing offset, const-sort
+and MAS all-tag implementation evidence is reused only through the scoped
+source/configuration/type contracts and still requires final object/ELF
+continuity. These checks are not a blanket opaque OEM ABI certificate.
+
+### Build And Installed Acceptance
+
+The first full build finds a real namespace collision from the exact
+proc/uptime idle-accounting fix: its public
+get_idle_time(struct kernel_cpustat *, int) declaration conflicts with the
+selected OEM RCC and PERF translation units' private static helpers.
+Separate integration `02e9deb3a` prefixes both conditional definitions and
+their direct callers by subsystem. Their bodies and CPU accounting remain
+unchanged, as do the upstream public declaration and callers; PERF's missing
+final newline is also added. No export, public type, feature selection or
+protection is weakened. The existing C-layout measurement is reused only
+after explicit two-file namespace-delta and input-identity binding.
+
+The repaired full build produces 5.10.80 #57. Five final ABI/source-context/
+CFI reports bind the same source, final ELF and 31 distinct actual objects.
+The actual final records cover seventeen distinct selected names; the earlier
+twenty-two-record frontend has a broader source scope, not twenty-two final
+object layout certificates. BPF owner, console, Qdisc, stream-buffer and TCP
+orphan types match their actual consumers. The changed callback assignments,
+canonical targets and enforcing indirect dispatches pass. Timer validation
+uses actual BTI/branch decoding and the real call_timer_fn range/type/slow-path
+checks; it does not assume every allowed canonical entry has a .cfi_jt name.
+Accepted const-sort, all-tag and assembly implementation proofs are reused
+only through their explicit current source/configuration/object contracts.
+
+All 13,827 exports remain, with no addition or removal and 2,051 real CRC
+changes versus #56. All 390 rebuilt modem imports and two optional dummy
+imports match. Existing signing material is unchanged, and the stripped,
+CMS-verified modem is staged on the original labelled ext4 partition.
+Original boot header, firmware stub and DTB roundtrip checks pass. These
+are same-build integration gates, not an independently stable KMI.
+
+One paired installation reaches normal Android with automatic matching Live
+modem loading. Full boot/modem partition and signed module file readbacks,
+runtime module build-id, encrypted user storage/RUNNING_UNLOCKED and all three
+core services pass. The independent ramdisk remains unchanged. SELinux
+Enforcing, taint 4, enforcing CFI, forced signatures and PRMEM remain enabled.
+Complete time-zero/subsequent logs contain no actual kernel or module fault;
+517 AVC denials remain visible and none requests module loading. Existing
+tracing state and the Asleep screen are restored without a broad hardware
+replay. No second build or boot is run after this scoped pass.
+
+The #56/5.10.75 pair is the immediate rollback. Accepted #57 metadata and
+the latest #53-57 pairs remain local below 20 GB; obsolete #52 test images
+are retired only after matching their retained build contract. Originals,
+the first accepted bring-up pair and durable source history remain intact.
+Next is the complete bounded 5.10.81-85 range, including a fresh selected UFS
+layout/generated-offset/assembly gate. Later releases toward the pinned
+5.10.274 target, Android common parity, GKI and full hardware/power acceptance
+remain open. No release export, publication or push occurs.
