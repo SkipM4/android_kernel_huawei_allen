@@ -853,7 +853,7 @@ static int android_rvh_add_func(struct tracepoint *tp, struct tracepoint_func *f
 	ret = rvh_func_add(tp, func);
 	if (ret)
 		return ret;
-	tracepoint_update_call(tp, tp->funcs, false);
+	tracepoint_update_call(tp, tp->funcs);
 	static_key_enable(&tp->key);
 
 	return 0;
@@ -931,7 +931,7 @@ static int hck_rvh_add_func(struct tracepoint *tp, struct tracepoint_func *func)
 	ret = rvh_func_add(tp, func);
 	if (ret)
 		return ret;
-	tracepoint_update_call(tp, tp->funcs, false);
+	tracepoint_update_call(tp, tp->funcs);
 	static_key_enable(&tp->key);
 
 	return 0;
