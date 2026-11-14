@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #62/5.10.105 on `upstream/linux-5.10.y`, kernel source
-through `5b0828436`. Immediate paired rollback is #61/5.10.100; r49/5.10.43 remains on
+Installed candidate is #63/5.10.110 on `upstream/linux-5.10.y`, kernel source
+through `18c37e107`. Immediate paired rollback is #62/5.10.105; r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
 Each kernel iteration stays isolated, with matching boot/modem_driver
 validation, unchanged independent
@@ -63,7 +63,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.105 Resolved; #62 Full Build/Changed CPU-IPv6-PM-Netfilter-BHB/Scoped Continuity/Pair/Normal Boot/Auto Module Pass; Next Complete 5.10.106-110; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.110 Resolved; #63 Full Build/Changed Pstore-PCI-Audit-SELinux-Coredump-Ext4/Public Interfaces/Scoped Continuity/Pair/Normal Boot/Auto Module Pass; Next Complete 5.10.111-115; Selected Fixed-File Lifetime Finding Open; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -351,6 +351,41 @@ Next is complete 5.10.106-110. Selected AMA mempolicy, the pinned latest-stable
 target, Android common, GKI and inherited hardware/power acceptance remain
 open. No release export, publication or push occurs.
 
+The fourteenth milestone resolves all 762 official 5.10.106-110 entries:
+706 exact picks, eleven code adaptations, five markers, 35 PRESENT decisions
+and five missing prerequisites. The 722 original-author commits and two
+separate interleaved ALSA/sixpack lifetime integrations end at `18c37e107`.
+Complete source/provenance review distinguishes historical reverse checks,
+semantic presence and superseding implementations without downgrading stronger
+inherited code. All 6,433 effective/emitted configuration options, signing
+material and required protections remain. The actual source binder contains
+605 identities. #63 full compilation succeeds naturally; five final reports
+bind 101 current objects/entire commands. Only thirteen new natural C objects
+are decoded once to check eight changed pstore/PCI/audit/SELinux/coredump/ext4
+records and XFRM/UDP/UART/xHCI interfaces. Old layouts, OEM/BHB assembly,
+sort and MAS proofs retain scoped continuity, with fresh final CFI/data
+identities and no implementation replay. All 13,835 exports are recorded,
+with five additions, one removal and 3,904 real CRC changes; every rebuilt
+modem/dummy import matches. Signed paired staging and one normal Android
+boot with automatic matching Live modem pass, including full readbacks/
+build-id, CE storage/core services and unchanged ramdisk/security. Complete
+same-boot logs contain no actual kernel/module fault; all 517 AVCs remain
+visible, none for module loading. Tracing and Asleep are restored without
+another boot or broad hardware replay. #62 is immediate rollback; recent
+#59-63 pairs and accepted #63 metadata remain below 20 GB after retiring
+obsolete #58 test artifacts by their retained contract.
+
+The selected io_uring fixed-file lifecycle has an independent inherited
+finding: a premature registration return bypasses ref-node initialization,
+and UNIX teardown lacks symmetric fput after removal of the SCM producer.
+The missing old uid-helper entry does not fix it, and normal boot does not
+certify it. A separate minimal direct-fput/node-initialization repair is under
+review; no unsafe old-kernel reproduction, forced disable or speculative
+fallback is used. Next is complete 5.10.111-115 plus that independently
+reviewed lifetime repair. Selected AMA mempolicy, the pinned latest-stable
+target, Android common, GKI and inherited hardware/power acceptance remain
+open. No release export, publication, tag or push occurs.
+
 ## Next-Stage Work Queue
 
 These inherited bring-up follow-ups remain open independently of source
@@ -371,6 +406,7 @@ results; older hardware/performance passes are not automatically transferred.
 | 10 | Charging/standby | Appropriate charger and battery state; charging transitions, temperatures, overnight power and wake stability | Needs Hardware/Time |
 | 11 | Camera/audio integration | User-confirmed front/rear recording, audio-video sync, microphone routes and calls/headset integration | Needs Manual Check |
 | 12 | Whole-device regression/security | Installed pair, ABI/signatures/readback, enforcing controls and complete required device coverage | #50 Pair/Boot/Security/Named Scoped Regression Pass; Whole-Device Acceptance Open |
+| 13 | io_uring fixed-file lifetime | Reachable ref-node initialization and balanced table/deferred/error ownership, with a scoped post-fix registration/update/unregister check | Selected Inherited Source Defect Confirmed; Separate Minimal Repair Under Review; Not Fixed Or Runtime-Reproduced By #63 |
 
 Existing bounded passes include storage/display/touch/USB, hardware video
 codec exercises, basic sensors, audible settings playback and recorder user

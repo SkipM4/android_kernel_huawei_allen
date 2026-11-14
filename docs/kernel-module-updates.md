@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.105
-#62 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.110
+#63 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -233,6 +233,34 @@ runtime build-id. The independent ramdisk, Enforcing/CFI/forced signatures
 and PRMEM remain. This is same-build updating, not independent old-binary
 reuse, hardware-mitigation certification or a stable GKI KMI guarantee.
 
+The installed 5.10.110/#63 milestone has 13,835 exports, five additions,
+one removal and 3,904 real CRC changes versus #62. New exports are the
+pelt_thermal tracepoint/iterator/static-call key, uart_xchar_out and
+udp_encap_disable; virtio_finalize_features is now private and not exported.
+The two XFRM migration interfaces genuinely gain if_id arguments.
+xfrm_state_migrate retains its source signature but its dependency-derived
+CRC changes too, so signature equality alone is not a module ABI guarantee.
+ufshcd_init and list_sort CRCs remain equal for this batch.
+
+All 390 freshly rebuilt modem imports and two optional dummy imports match.
+Five final reports bind the successful/reaped complete build, actual source
+and unchanged configuration, final ELF/export table and 101 current
+objects/entire compiler commands. Thirteen new natural C objects check eight
+changed pstore/PCI/audit/SELinux/coredump/ext4 records and actual XFRM/UDP/
+UART/xHCI interfaces. Inherited layout, OEM/BHB assembly, sort and MAS proofs
+retain scoped continuity without old implementation replay; final canonical
+CFI memberships and data identities are fresh. The independent selected
+io_uring fixed-file lifecycle finding remains open, not certified by these
+module/interface gates.
+
+Stripped modem CMS/certificate, ext4 label/ownership, boot format and local
+roundtrip checks pass before installation. One paired installation reaches
+normal Android with automatic matching Live modem, identical runtime
+build-id and full partition/module readbacks. All 6,433 configuration
+options, signing material, independent ramdisk, Enforcing/CFI/forced
+signatures and PRMEM remain. This is the repeatable same-build update method,
+not independent old-module reuse or a stable GKI KMI claim.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -273,13 +301,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #62's immediate rollback:
+overwrite existing candidates. The previous pair is #63's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.100-clang12-r61.img`.
-- `images/test/allen-modem_driver-test-5.10.100-clang12-r61.img`.
-- `images/test/allen-modem_driver-test-5.10.100-clang12-r61.ko`.
+- `images/test/allen-boot-test-5.10.105-clang12-r62.img`.
+- `images/test/allen-modem_driver-test-5.10.105-clang12-r62.img`.
+- `images/test/allen-modem_driver-test-5.10.105-clang12-r62.ko`.
 
-The installed next pair uses `5.10.105-clang12-r62` with the same device/purpose
+The installed next pair uses `5.10.110-clang12-r63` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

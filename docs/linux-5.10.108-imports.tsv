@@ -1,0 +1,32 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	0f9b7b8df17525e464294c916acc8194ce38446b	49cd59e04bb599e1d54d9f944dd08e00fb8734aa	picked	crypto: qcom-rng - ensure buffer for generate is completely filled	drivers/crypto/qcom-rng.c	-
+002	df3301dc60a3d364023365d0a29cc91f70e5f755	aa21bc5cc31aa9d8f65736232489b45ff9d64e22	picked	ocfs2: fix crash when initialize filecheck kobj fails	fs/ocfs2/super.c	-
+003	fa3aa103e79c7e7628e7c0ac55c80f0cb7a668b4	ff55a7ca9e4974512642f1cf7376c42d75811b29	picked	mm: swap: get rid of livelock in swapin readahead	mm/swap_state.c	-
+004	ac7dd60946c06b993ccee0147e9353b3085d42bf	b4bdf5423ccc2a39359aad23fb38fbf9b45731ba	picked	efi: fix return value of __setup handlers	drivers/firmware/efi/apple-properties.c;drivers/firmware/efi/efi.c	-
+005	d9fe590970c463163098d7ecca902690b2ad9467	73906d454273ec2a723249dd47994fbc1b90874f	picked	vsock: each transport cycles only on its own sockets	drivers/vhost/vsock.c;include/net/af_vsock.h;net/vmw_vsock/af_vsock.c;net/vmw_vsock/virtio_transport.c;net/vmw_vsock/vmci_transport.c	-
+006	01fac1ca8ab9c950a0c37d6d639404a275cae910	6fcb4534c5ffecc5b44d07a6d53c291bbfe08617	picked	esp6: fix check on ipv6_skip_exthdr's return value	net/ipv6/esp6.c	-
+007	169add82d20130125df73f681377a047959e5378	3e64e7d2d0b6053d301c0ab8840e4eff16921c6c	picked	net: phy: marvell: Fix invalid comparison in the resume and suspend functions	drivers/net/phy/marvell.c	-
+008	70b7b3c055fd4a464da8da55ff4c1f84269f9b02	-	already-present	net/packet: fix slab-out-of-bounds access in packet_recvmsg()	net/packet/af_packet.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+009	09a7264fb0d020c2ba38f283d17221cb2c31a5ab	3bbba7b8027673f0e951cb794c6d9ce63217ed46	picked	atm: eni: Add check for dma_map_single	drivers/atm/eni.c	-
+010	9b763ceda6f8963cc99df5772540c54ba46ba37c	-	already-present	hv_netvsc: Add check for kvmalloc_array	drivers/net/hyperv/netvsc_drv.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+011	9d45aec02f7be2ca5a296bf2f33f630e4de9a3f3	648bc9a78173568d30a8a6402031f4897047bc09	picked	drm/imx: parallel-display: Remove bus flags check in imx_pd_bridge_atomic_check()	drivers/gpu/drm/imx/parallel-display.c	-
+012	336b6be6ad097de00201518ba10b5ce02b7a7515	1c2ce43c0a021f1aba28f9e170fc3041a7020321	picked	drm/panel: simple: Fix Innolux G070Y2-L01 BPP settings	drivers/gpu/drm/panel/panel-simple.c	-
+013	a630ad5e8b2d85ff6c4e97a33b5ba0af5a49028e	48417032ee0e45cd7485b731bba9ee06ed00374e	picked	net: handle ARPHRD_PIMREG in dev_is_mac_header_xmit()	include/linux/if_arp.h	-
+014	ba50073cf4af619f8cec3b50622adbf3ff5e9abd	7b03eee484ce5856c1e3812732318888eeeb75b8	picked	net: dsa: Add missing of_node_put() in dsa_port_parse_of	net/dsa/dsa2.c	-
+015	c07fdba12fb058a9c894d8a256db185a5ccd9511	777f074d61129487a573fa6bb1e29f98f1c1e921	picked	net: phy: mscc: Add MODULE_FIRMWARE macros	drivers/net/phy/mscc/mscc_main.c	-
+016	bf5b7aae86d3c1ee5dc4bbcd6adde528cbf7b412	e0f809fd2a725fcbc2e6d034311ec81c85247292	picked	bnx2x: fix built-in kernel driver load failure	drivers/net/ethernet/broadcom/bnx2x/bnx2x.h;drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c;drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c	-
+017	2550afba2a3040405e92301327d2488c7b34addc	3f57a89f2cf6a51b2f42d618c217e333dc016729	picked	net: bcmgenet: skip invalid partial checksums	drivers/net/ethernet/broadcom/genet/bcmgenet.c	-
+018	277b7f63948b285144a145afb4a4941a6b86a6c7	746d94bc320ecd687fd5575449806a28a5cfb812	picked	net: mscc: ocelot: fix backwards compatibility with single-chain tc-flower offload	drivers/net/ethernet/mscc/ocelot_flower.c	-
+019	2c010c61e614f3ae5d26bf0803797075cc649f0b	40483d77abd915145fef4fd2bbdc25b725f4efce	picked	arm64: fix clang warning about TRAMP_VALIAS	arch/arm64/include/asm/vectors.h	-
+020	28bc0267399f42f987916a7174e2e32f0833cc65	-	already-present	usb: gadget: rndis: prevent integer overflow in rndis_set_response()	drivers/usb/gadget/function/rndis.c	Complete original early BufOffset upper-bound overflow guard already present; entire RNDIS_SET function equals original post except retained actual-transfer/message validation. No weaker guard/parser signature or source change.
+021	00bdd9bf1ac6d401ad926d3d8df41b9f1399f646	-	already-present	usb: gadget: Fix use-after-free bug by not setting udc->dev.driver	drivers/usb/gadget/udc/core.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+022	10a805334a11acd547602d6c4cf540a0f6ab5c6e	2ee9046bf3a6cf0743be097bc1e3ea72eed10b93	picked	usb: usbtmc: Fix bug in pipe direction for control transfers	drivers/usb/class/usbtmc.c	-
+023	98e7a654a5bebaf1a28e987af5e44c002544a413	64816cf3077e00d567a87af69837afabe417f139	picked	scsi: mpt3sas: Page fault in reply q processing	drivers/scsi/mpt3sas/mpt3sas_base.c	-
+024	f0d43d22d24182b94d7eb78a2bf6ae7e2b33204a	-	already-present	Input: aiptek - properly check endpoint type	drivers/input/tablet/aiptek.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+025	204d38dc6a8196ad57bd53f55d2cd4b13c1fa3e1	f05e56681d43f88215c435fef739e8eef447b989	picked	perf symbols: Fix symbol size calculation condition	tools/perf/util/symbol.c	-
+026	b54daeafc1b0daa2ca402611a4bf0829b05e6b70	d214ba121ce26717a62b3168deadbc7b8c78b3a0	picked	net: usb: Correct PHY handling of smsc95xx	drivers/net/usb/smsc95xx.c	-
+027	e27b51af54493a1ea17e41469a64db24e5d7983c	e6b3ebacaa295cc3a2d8a19332e9759eac5c4a81	picked	net: usb: Correct reset handling of smsc95xx	drivers/net/usb/smsc95xx.c	-
+028	96340cdd552677a6bc9bfc6e3a749ff0bd49d3f8	b179a0b81c645ab863b3046e64db46419a438ba6	picked	smsc95xx: Ignore -ENODEV errors when device is unplugged	drivers/net/usb/smsc95xx.c	-
+029	9248694dac20eda06e22d8503364dc9d03df4e2f	-	already-present	esp: Fix possible buffer overflow in ESP transformation	include/net/esp.h;include/net/sock.h;net/ipv4/esp4.c;net/ipv6/esp6.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+030	37119edab8f41f0adbb4cddb5bde12301b0ec148	2f3a77e0064f1a2a96fe9c16fffcc4b8386496c8	picked	Revert "selftests/bpf: Add test for bpf_timer overwriting crash"	tools/testing/selftests/bpf/prog_tests/timer_crash.c;tools/testing/selftests/bpf/progs/timer_crash.c	-
+031	9940314ebfc61cb7bc7fca4a0deed2f27fdefd11	7e51ba6a03f040ffae2450543fc13eb9a5bb649e	backported	Linux 5.10.108	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.

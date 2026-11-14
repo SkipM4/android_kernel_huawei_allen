@@ -2303,3 +2303,167 @@ source proofs and needed reference dependencies remain. Next is complete
 5.10.106-110. Selected AMA mempolicy, the pinned 5.10.274 target, Android common
 parity, GKI and inherited hardware/power acceptance remain open. No release
 export, publication, tag or push occurs.
+
+## Fourteenth Milestone: 5.10.106 Through 5.10.110
+
+The complete range resolves all 762 official entries: 706 exact picks, eleven
+code adaptations, five release markers, 35 PRESENT decisions and five missing
+prerequisites. The PRESENT scope distinguishes 22 complete-original historical
+reverse checks, twelve whole-context semantic contracts and one superseded
+SWIOTLB implementation. These are not interchangeable forms of evidence.
+All 722 original-author source commits and two separately interleaved
+integrations end at build source `18c37e107`. No intermediate 106-109 kernel is
+built or installed. Five per-release ledgers retain every original/local
+identity, disposition and applicable source decision.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present | Missing |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 5.10.106 | `327f1e7d813c77eceadafbdc498f5eb680fd9fb2` | 72 | 68 | 0 | 1 | 3 | 0 |
+| 5.10.107 | `4c8814277b5dc2b9d2745c6493614b1ce10cef09` | 23 | 20 | 0 | 1 | 1 | 1 |
+| 5.10.108 | `9940314ebfc61cb7bc7fca4a0deed2f27fdefd11` | 31 | 24 | 0 | 1 | 6 | 0 |
+| 5.10.109 | `d9c5818a0bc09e4cc9fe663edb69e4d6cdae4f70` | 38 | 29 | 0 | 1 | 8 | 0 |
+| 5.10.110 | `3238bffaf9928c10173d88415f6815f6df3e7771` | 598 | 565 | 11 | 1 | 17 | 4 |
+
+Sources are the original Linux stable range and official ChangeLog-5.10.106
+through ChangeLog-5.10.110 at <https://cdn.kernel.org/pub/linux/kernel/v5.x/>.
+Independent full-source review and actual ordered-import checks bind the
+original objects, authors/dates, full messages, patch contents, historical
+modes, all dispositions, five release roots and every ledger row. Additive
+approval retains the original source-review package. The accepted #62
+assembly-only READ_ONCE guard and nonkernel documentation root are carried
+separately, not replayed or counted as new integrations.
+
+### Standard Interfaces And Retained Platform Contracts
+
+The complete four-file xHCI timeout change adopts u64 handshake/reset
+arguments and updates all four short and two long caller policies. Only the
+shutdown context adapts around existing IRQ locks, port-power loops, quirks
+and offload hooks. XFRM migration propagates the upstream u32 interface ID
+through real producers and consumers; UDP encapsulation teardown gains the
+standard decrement helper, and UART high-priority output gains its standard
+typed helper. These are real interface changes, not release-string edits.
+
+Mempolicy installs policy after VMA merge while retaining the Android
+anonymous-name argument. Ext4 propagates empty-directory I/O errors with the
+existing directory/fscrypt API and full reference cleanup. Queue teardown
+removes children before the parent kobject while retaining MAS and locking
+contracts. VFIO keeps the already inherited standard void AMBA remove
+callback. PCI adds the original per-bus RW1C warning bit without artificial
+padding or removal of Android KABI reservations. Clock orphan-rate
+initialization retains the existing hold hook. ADV7535 HPD handling retains
+only the existing EDID-settling context.
+
+SELinux imports the complete policy-capability-gated FIOCLEX/FIONCLEX change.
+Absent or false policy capability continues the existing ioctl permission
+checks; Android helpers and HKIP/PRMEM state remain. No policy or protection
+is weakened. Pstore adopts the complete atomic spinlock dump-buffer contract
+and matching initialization/core/backend consumers. Coredump adopts the
+shared VMA snapshot producer/ELF consumer, and ext4 trace statistics expose
+the original reason array. ARM64 crashkernel ordering retains secure-memory,
+HKIP, KFENCE and LB mapping hooks; selected KEXEC_CORE remains disabled, so
+this is source coherence rather than crashkernel runtime certification.
+
+PRESENT decisions preserve stronger cgroup namespace/credential checks,
+ALSA serialization, RNDIS/NFC bounds, AMBA lifetime and ext4 page-buffer
+handling. SWIOTLB retains the full later unconditional map-bounce
+implementation and OEM cache attributes rather than restoring the older
+optional overwrite flag. Missing driver declarations do not justify adding
+obsolete infrastructure or guessing platform configuration.
+
+### Separate Interleaved Lifetime Integrations
+
+Original 5.10.109#18 imports exactly and reintroduces four older ALSA
+buffer-mutex operations around inherited copy-refcount code. Separate commit
+`87eed541c` immediately removes those four operations, restoring the already
+inherited later implementation and avoiding its documented mutex/mmap-lock
+inversion. References are upstream `bc55cfd5718c7c23e5524582e9fa70b4d10f2433`
+and stable `9017201e8d8c6d1472273361389ed431188584a0`. The original entry is
+not rewritten or reclassified as PRESENT.
+
+Before original 5.10.110#92, exact upstream
+`81b1d548d00bcd028303c4f3150fa753b9b8aa71` is imported as separate original-
+author commit `81187193f`. It deletes only needs_free_netdev=true from
+sixpack setup, preserving the manual close/failure owner. The subsequent
+timer-order fix can then unregister before synchronous timer cancellation
+without auto-freeing the owner before the remaining timer/buffer accesses.
+This prerequisite is not hidden inside the original stable adaptation.
+
+### Selected Fixed-File Finding Remains Open
+
+The five missing prerequisites are the old stable-only BHB copied templates,
+the QCOM SMD regulator implementation, the ATTINY/RPi panel regulator
+implementation, generic arm64 defconfig and the old io_uring SCM uid helper
+and producer. Their original ledger entries retain metadata and order; none
+is a claim that the absent implementation's issue was functionally fixed.
+
+IO_URING and UNIX are selected. Review of the complete fixed-file context
+separately establishes two inherited source defects: successful registration
+returns before ref-node initialization, and UNIX teardown searches/drains
+SCM records although no corresponding producer remains. Later fixed-file
+replacement therefore uses an uninitialized node, while acquired fget
+references lack symmetric release in the selected branch. This finding is
+not runtime-reproduced or repaired by this batch. It remains distinct from
+the one-line missing SCM uid-helper entry and from normal boot acceptance.
+
+The next repair must retain coherent table, deferred-removal, ref-node and
+allocation-failure ownership. A minimal direct-fput/reference-initialization
+proposal is under separate review; no old SCM restoration, forced config
+disable, null fallback or unsafe live reproduction is part of #63. The
+existing selected AMA mempolicy audit likewise remains open.
+
+### Full Build And Installed Acceptance
+
+One actual olddefconfig/prepare run retains all 6,433 options with no effective
+or emitted delta. Fourteen generated OEM offsets, signing material, Werror,
+ThinLTO, enforcing CFI, forced signatures, PRMEM and the BHB selection remain.
+The selected-source binder contains 605 explicit identities. Full compilation
+exits zero and naturally produces 5.10.110 #63 without changing the counter.
+
+Five final reports bind the successful/reaped full build, actual source and
+configuration, final ELF/export table and 101 current objects/entire compiler
+commands. Twenty-nine accepted physical records, fourteen generated offsets,
+nine whole OEM assembly sources and the scoped thirteen corrected/eighteen
+other operands retain exact source/configuration/command continuity. Sort,
+MAS all-tag/reference/flush and BHB machine implementation proofs are inherited;
+actual final canonical jumps, type memberships and relocated data are fresh.
+Old implementation IR and assembly are not decoded again.
+
+Only thirteen new natural C objects are decoded once. Eight changed physical
+records measure pstore_info at 176 bytes, ramoops_context at 328, pci_bus at
+1216, audit_context at 1000, selinux_state at 168, coredump_params at 80,
+core_vma_metadata at 48 and the ext4 statistics event at 80. Real memory,
+field-width and producer/consumer checks agree with the selected compiler
+output. The pstore IRQ lock and by-value backend, PCI warning bit, SELinux
+eight-byte capability array and retained protected state, coredump metadata,
+ten-element ext4 reason array, XFRM/UART/UDP interfaces and 64-bit xHCI
+timeouts pass. Actual pstore/coredump/UART indirect dispatch retains enforcing
+CFI; direct-only or disabled targets do not gain fabricated CFI/export claims.
+
+The table has 13,835 exports: five additions and removal of
+virtio_finalize_features, with 3,904 real CRC changes versus #62.
+xfrm_migrate and xfrm_migrate_state_find genuinely change interfaces;
+xfrm_state_migrate retains its source signature but its dependency-derived
+CRC also changes. ufshcd_init and list_sort CRCs remain equal, not an all-ABI
+guarantee. All 390 rebuilt modem imports and two optional dummy imports match.
+Stripped modem CMS/certificate, ext4 ownership/label and readback pass. Boot
+roundtrip retains the original header, firmware stub, OEM DTB and partition
+bounds. Local staged identities are bound to the successful final build before
+installation; no signature, loader or CRC check is bypassed.
+
+One paired boot/modem_driver installation reaches normal Android with an
+automatically loaded matching Live modem. Complete partition/module readbacks,
+runtime build-id, unchanged independent ramdisk, user 0 CE storage and
+RUNNING_UNLOCKED, three core services and PRMEM pass. SELinux Enforcing,
+taint 4, enforcing CFI and forced signatures remain. Complete same-boot
+time-zero/subsequent logs contain no actual kernel or module fault; all 517
+AVCs remain visible and none requests module loading. Original tracing state
+and Asleep are restored without a second boot or broad hardware replay.
+
+The #62/5.10.105 pair is immediate rollback. Accepted #63 metadata and recent
+#59-63 pairs remain local below 20 GB after contract-checked retirement of
+obsolete #58 test artifacts. Originals, first accepted bring-up recovery,
+immutable source proofs and required reference dependencies remain. Next is
+complete 5.10.111-115 and separately reviewed fixed-file lifetime repair.
+The pinned 5.10.274 target, Android common parity, GKI and full inherited
+hardware/power acceptance remain open. No release export, publication, tag
+or push occurs.

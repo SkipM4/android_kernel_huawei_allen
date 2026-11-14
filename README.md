@@ -201,6 +201,30 @@ recent #58-62 pairs and accepted #62 metadata remain local. Next is complete
 5.10.106-110, not completion of the pinned 5.10.274 target, Android common
 parity, GKI or inherited hardware/power acceptance.
 
+The fourteenth milestone resolves all 762 official entries through 5.10.110:
+706 exact picks, eleven code adaptations, five markers, 35 PRESENT decisions
+and five missing prerequisites. The 722 original-author commits and two
+separate interleaved ALSA/sixpack integrations end at `18c37e107`. Complete
+source/provenance review preserves stronger inherited implementations instead
+of downgrading them to older stable context. #63 passes full compilation and
+five final ABI/CFI reports bound to 101 current objects/entire commands. Only
+thirteen new natural C objects are decoded once to check eight changed
+pstore/PCI/audit/SELinux/coredump/ext4 records and actual XFRM/UDP/UART/xHCI
+interfaces. Old layouts, OEM/BHB assembly, sort and MAS proofs retain scoped
+continuity. All 6,433 configuration options and signing material remain.
+The table has 13,835 exports, five additions, one removal and 3,904 real CRC
+changes; every rebuilt modem/dummy import matches. Signed paired installation
+reaches normal Android with automatic matching Live modem, full readbacks/
+build-id and unchanged ramdisk/security. Complete same-boot logs contain no
+actual kernel/module fault; 517 AVCs remain visible, none for module loading.
+Tracing and Asleep are restored without a second boot or broad hardware
+replay. #62 is immediate rollback; recent #59-63 pairs and accepted #63
+metadata remain local. A separate inherited, selected io_uring fixed-file
+initialization/reference-release defect remains open, not fixed by the absent
+old SCM-helper entry or certified by boot. Next is complete 5.10.111-115 and
+its independently reviewed lifetime repair; the pinned latest-stable target,
+Android common parity, GKI and inherited hardware/power acceptance remain open.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
@@ -668,7 +692,9 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12-r59-metadata/`: accepted #59 source/continuity/callback-CFI/build/runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r60-metadata/`: accepted #60 source/layout/callback-CFI/build/runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r61-metadata/`: accepted #61 integrated-source/Perf-layout/CFI/build/runtime metadata retained before output reuse; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.100 #61 output, reused sequentially for stable milestones; not tracked.
+- `out/allen-clang12-r62-metadata/`: accepted #62 source/BHB/changed-layout/CFI/build/runtime metadata retained before output reuse; not tracked.
+- `out/allen-clang12-r63-metadata/`: accepted #63 source/changed-interface/CFI/build/runtime metadata retained before output reuse; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.110 #63 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -695,7 +721,7 @@ scripts/build-allen.sh
 ```
 
 These commands describe the initial released-configuration build, not the
-stock-derived configuration used for the retained r49 or installed #61.
+stock-derived configuration used for the retained r49 or installed #63.
 For the retained upstream output and its r49-derived configuration, use:
 
 ```sh
@@ -706,7 +732,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.100` on the upstream
+Makefile still controls the release, currently `5.10.110` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.

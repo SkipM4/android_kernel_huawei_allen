@@ -1,0 +1,24 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	bdf0316982f00010d6e56f1379a51cd0568d51cd	6ccd21dd6a529fd6777dba6ee5bd99d14b326759	picked	Revert "xfrm: state and policy should fail if XFRMA_IF_ID 0"	net/xfrm/xfrm_user.c	-
+002	6056abc99b58fe55033577f3ad6e28d001a27641	28b8cd5c4278d25fce29d6ac31ab23e2a5d4d8f6	picked	sctp: fix the processing for INIT chunk	net/sctp/sm_statefuns.c	-
+003	d8889a445b538dbcc25d9a8c118d18228b5bbab5	e0a1e84e818e0332d80e4e721430efbf3484fb62	picked	xfrm: Check if_id in xfrm_migrate	include/net/xfrm.h;net/key/af_key.c;net/xfrm/xfrm_policy.c;net/xfrm/xfrm_state.c;net/xfrm/xfrm_user.c	-
+004	ca142038a54f44ffd407ae2f6c65958f5e382ec6	10bc10f95616da9dcb1ce68bcbb3e30936db4a3d	picked	xfrm: Fix xfrm migrate issues when address family changes	net/xfrm/xfrm_state.c	-
+005	f7f062919f4101505ff7ce2efccc9dcec5c334cd	0d3079e9336ffff29a1ba0e905a5bf9e544b0998	picked	arm64: dts: rockchip: fix rk3399-puma eMMC HS400 signal integrity	arch/arm64/boot/dts/rockchip/rk3399-puma.dtsi	-
+006	c5c8c649fee0833c69c0f768cc3e9531c7701b3b	9dd9e01151784773a62f45f6748b8261ad8efa3f	picked	arm64: dts: rockchip: reorder rk3399 hdmi clocks	arch/arm64/boot/dts/rockchip/rk3399.dtsi	-
+007	6493c6aa8b4467c587444aa4b12805f6cc7307c9	dd21e836c9146c7b76d5563574a5f29f425bc085	picked	arm64: dts: agilex: use the compatible "intel,socfpga-agilex-hsotg"	arch/arm64/boot/dts/intel/socfpga_agilex.dtsi	-
+008	6f0a94931c479632f1875aec0b53dd33d90dfe11	4d9b2d696362b128ec9c48c171852628797f52aa	picked	ARM: dts: rockchip: reorder rk322x hmdi clocks	arch/arm/boot/dts/rk322x.dtsi	-
+009	d687d7559e2460ad306484f64b85a943d7127508	2596b191056587c431dc7f89fddb617588feaf8a	picked	ARM: dts: rockchip: fix a typo on rk3288 crypto-controller	arch/arm/boot/dts/rk3288.dtsi	-
+010	8c70b9b470046c9c5f2badfa3048f120d89722e8	fb94b44eb84e2cb2357d18733948c32890cb23cc	picked	mac80211: refuse aggregations sessions before authorized	net/mac80211/agg-tx.c	-
+011	e8ad9ecc406974deb5e7c070f51cc1d09d21dc4b	b38fad7eb5c9c2dd037fb0593dd59756fad3f7ad	picked	MIPS: smp: fill in sibling and core maps earlier	arch/mips/kernel/smp.c	-
+012	ebe106eac68675a1e6373723d0d8765a6adf3290	63b13e81403b4248e2635951576d41790f746eb9	picked	ARM: 9178/1: fix unmet dependency on BITREVERSE for HAVE_ARCH_BITREVERSE	lib/Kconfig	-
+013	efdd92c18ed4f39602d50dbc4a9d918109715b8d	a9ebcc097346ecc8acf387bbc0f333b90e6fc4c5	picked	can: rcar_canfd: rcar_canfd_channel_probe(): register the CAN device when fully ready	drivers/net/can/rcar/rcar_canfd.c	-
+014	c5ea0221c8161350c61983479cb3d088fbf6ede4	f0dbf86722cbe077e3e0264c3f7d9d43292bcf56	picked	atm: firestream: check the return value of ioremap() in fs_init()	drivers/atm/firestream.c	-
+015	9a8e4a5c5b73b4445ccb6bc71f23bbc18bc96d42	352450007c7a1719e205641ea6a19ded5aef2d9a	picked	iwlwifi: don't advertise TWT support	drivers/net/wireless/intel/iwlwifi/iwl-nvm-parse.c;drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c	-
+016	0ba557d330946c23559aaea2d51ea649fdeca98a	a265ab05eb2e3cc5d7a732a0a0c85331e043fff8	picked	drm/vrr: Set VRR capable prop only if it is attached to connector	drivers/gpu/drm/drm_connector.c	-
+017	3f9a8f8a952c4678594d22b601943ad95c62fa18	2d99fba958759d58d342ba92168f2e27197240ba	picked	nl80211: Update bss channel on channel switch for P2P_CLIENT	net/wireless/nl80211.c	-
+018	2fad5b6948963bac235eac8261d4cd9165eaf1c2	8c3ac1eddc0e2aca65ea2e27e5791156d42b6fdd	picked	tcp: make tcp_read_sock() more robust	net/ipv4/tcp.c	-
+019	2490695ffdbafbe79fb9c204df33a4597b1473b4	ec3d287f05ad64bc0edfb5e7811d94a8d2f504f8	picked	sfc: extend the locking on mcdi->seqno	drivers/net/ethernet/sfc/mcdi.c	-
+020	8fdaab341bad8a8449fcdca349e5081e6f62db09	6615c4a69a220f47ba1dc9ac5174bda3812dc057	picked	kselftest/vm: fix tests build with old libc	tools/testing/selftests/vm/userfaultfd.c	-
+021	dc1163203ae6e24b86168390fe5b4a3295fcba7f	-	already-present	io_uring: return back safer resurrect	fs/io_uring.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+022	7a0d13ef67a1084e1a77bf4d2334cc482699f861	-	not-applicable	arm64: kvm: Fix copy-and-paste error in bhb templates for v5.10 stable	arch/arm64/kvm/hyp/smccc_wa.S	Complete original stable-only k24/k32 copied-template fix targets absent smccc_wa.S/symbols/dynamic slot infrastructure. Current modern prebuilt KVM uses original CPU-loop alternative callback; no legacy restoration or runtime claim.
+023	4c8814277b5dc2b9d2745c6493614b1ce10cef09	590c4508f071debada69ecba66986015f3b1ce4c	backported	Linux 5.10.107	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.
