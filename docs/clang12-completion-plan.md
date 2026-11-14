@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #59/5.10.90 on `upstream/linux-5.10.y`, kernel source
-through `74057806b`. Immediate paired rollback is #58/5.10.85; r49/5.10.43 remains on
+Installed candidate is #60/5.10.95 on `upstream/linux-5.10.y`, kernel source
+through `ec2b3b670`. Immediate paired rollback is #59/5.10.90; r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
 Each kernel iteration stays isolated, with matching boot/modem_driver
 validation, unchanged independent
@@ -257,6 +257,35 @@ separate early official `614811692` native XFRM MTIMER policy fix before
 building; that fix is not hidden in the original 663-entry range. Selected
 AMA mempolicy, latest stable, Android common, GKI and inherited hardware/
 power acceptance remain open. No release export or publication occurs.
+
+The eleventh milestone resolves all 663 official entries through 5.10.95:
+641 exact picks, eight code adaptations, five markers, seven PRESENT fixes
+and two missing-driver exceptions. Independent ordered import verification
+covers all 654 original-author source commits through `e4353a21c`. A separate
+exact official native XFRM MTIMER NLA_U32 policy fix ends build source at
+`ec2b3b670`; it is not folded into the original range. Its selected deprecated
+parser rejects undersized payloads before the reader, without a live malformed
+input probe or whole-XFRM safety claim. The accepted UFS offset repair remains.
+#60 passes full compilation and five final ABI/CFI reports binding 72 actual
+objects. Fifteen previous record proofs, fourteen generated offsets and the
+accepted assembly scopes retain explicit continuity. Eight changed records
+plus one same-source XFRM callback-member context, nine typed public exports,
+selected Perf acquire/RCU dispatch and UFS early publication are checked from
+necessary natural objects. Only list_sort.o is byte-identical; five changed
+sort callers and four changed MAS all-tag objects receive bounded current
+checks. No private frontend or old implementation/assembly replay is needed.
+All 13,829 exports remain with 838 real CRC changes; all 390 rebuilt modem and
+two optional dummy imports match. Every effective/emitted configuration option
+and signing material remain. Signed paired installation, normal Android,
+automatic matching Live modem, complete readbacks/build-id, CE storage/core
+services, unchanged ramdisk, Enforcing/CFI/forced signatures and PRMEM pass.
+Complete logs contain no actual kernel/module fault; 517 AVC denials remain,
+none for module loading. Tracing and Asleep are restored without another boot
+or broad hardware replay. #59 is immediate rollback; #56-60 pairs and accepted
+#60 metadata remain below 20 GB after contract-checked retirement of #55 test
+artifacts. Next is complete 5.10.96-100. Selected AMA mempolicy, pinned latest
+stable, Android common, GKI and inherited hardware/power acceptance remain
+open. No release export, publication or push occurs.
 
 ## Next-Stage Work Queue
 

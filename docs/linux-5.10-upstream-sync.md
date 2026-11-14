@@ -1735,3 +1735,193 @@ It is not included in the 663-entry range or counted as already installed.
 The selected AMA mempolicy issue, pinned 5.10.274 target, Android common
 parity, GKI and full inherited hardware/power acceptance remain open.
 No release export, publication or push occurs.
+
+## Eleventh Milestone: 5.10.91 Through 5.10.95
+
+The complete range resolves all 663 official entries: 641 exact picks,
+eight code adaptations, five release markers, seven already-present fixes
+and two missing-prerequisite driver entries. All 654 original-author source
+commits end at `e4353a21c`. A separate exact official XFRM policy follow-up
+ends the build source at `ec2b3b670`; it is not counted in the original range.
+The accepted two-file UFS offset repair remains. No intermediate 91-94
+kernel is built or installed. Five per-release ledgers retain every
+original/local identity and disposition.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present | N/A |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 5.10.91 | `df395c763ba08b8b4385481af07d5d1c658dd917` | 44 | 41 | 0 | 1 | 2 | 0 |
+| 5.10.92 | `c982c1a83932dccbfe8b8106bd6385be8330e5a5` | 26 | 25 | 0 | 1 | 0 | 0 |
+| 5.10.93 | `fd187a4925578f8743d4f266c821c7544d3cddae` | 24 | 21 | 0 | 1 | 2 | 0 |
+| 5.10.94 | `c525532e4f872078206789f5bcd12bba7f689780` | 561 | 547 | 8 | 1 | 3 | 2 |
+| 5.10.95 | `77656fde3c0125d6ef6f7fb46af6d2739d7b7141` | 8 | 7 | 0 | 1 | 0 | 0 |
+
+Sources are the original stable range and official ChangeLog-5.10.91 through
+ChangeLog-5.10.95 at <https://cdn.kernel.org/pub/linux/kernel/v5.x/>. Actual
+independent import verification checks all 654 original authors, dates,
+complete messages and stable trailers. The 641 exact picks cover 788 complete
+file sections. Existing executable-mode differences are retained in fifteen
+exact picks: sixteen file sections across fourteen distinct paths. No mode
+transition is introduced.
+Eight code adapters, five SUBLEVEL-only markers, four historical PRESENT
+cases with seven complete post-hunks, three semantic PRESENT contracts and
+two actual absent-driver exceptions are bound to historical blobs/modes.
+All 663 ordered source inventories, five ledgers and the final original
+kernel tree match the approved reconstruction. The accepted #59 docs root
+is rebound additively without replacing it with a private source snapshot
+or replaying the already-reviewed source decisions.
+
+### Standard Interfaces And Preserved Platform Contracts
+
+UFS moves device driver-data publication ahead of its core callback setup
+and removes the original three redundant upstream setters. The conditional
+HUFS timer_irq argument and existing OEM probe/core body remain; this is
+not a claim about every pre-core OEM lifetime race. ARM LPAE uses the
+complete original physical-address-to-descriptor formatter with both
+caller data arguments, retaining the existing multi-page map/unmap API
+and explicit one-PTE sync count. No unrelated Apple or Huawei IOMMU
+hardware certification is inferred.
+
+The managed-DMA helper and declaration are applied across the appended OEM
+bulk allocator without replacing it. PL011 removes redundant MMIO request
+callbacks while retaining devm resource ownership, mapbase validation and
+OEM PM/ioctl members. The standard block-PM runtime-resume helper changes
+to its actual single queue argument together with the selected SCSI caller;
+no cast or old-signature shim is added.
+
+The standard F2FS IO-align reserve/accounting/mount/sysfs contract is complete,
+but standard F2FS is unselected and the selected HW_F2FS implementation is
+separate and unchanged. UNIX's global inflight/GC ONCE annotations retain
+the existing plain per-socket counters, listener locks and io_uring cleanup
+refinements. MCEUSB's four timeout sites, PPP's minimum packet size and
+host libelf linker flags are semantic PRESENT cases; their retained stronger
+checks and actual disabled-device guards are explicit. The absent Qualcomm
+DWC3/regulator drivers are recorded as missing prerequisites, not restored
+or misclassified as successful picks. MEDIA_TEST_SUPPORT changes help text
+only. These source contracts do not certify hardware or stress behavior.
+
+### Separate Official Native XFRM Policy Follow-Up
+
+The original 5.10.94 mapping-rate-limit patch adds three xfrm_state members,
+the UAPI MTIMER attribute and complete clone, mapping and user lifecycle
+changes, preserving the existing ESN-pointer guard. It also adds the compat
+NLA_U32 entry but omits the native entry in the original upstream patch.
+The selected native reader can therefore consume an undersized attribute;
+faithful source adaptation alone does not close that validation boundary.
+
+Separate local commit `ec2b3b670` applies official stable
+`614811692e21cef324d897202ad37c17d4390da3`, upstream
+`5e2424708da7207087934c5c75211e8584d553a0`, without altering the original
+663-entry ledger. The fix first appears in 5.10.192 as entry 81 of 130 and
+addresses CVE-2023-3773. One native policy line declares NLA_U32. Its complete
+original author, message, upstream/stable provenance and one-file/one-line
+scope pass independent actual-source verification before building. Every
+other source file remains unchanged.
+
+The existing deprecated native parser then rejects payloads shorter than
+four bytes with `-ERANGE` before the AE reader. This is a minimum-length
+guarantee, not strict exact-four-byte or whole-XFRM safety certification.
+No malformed-input device probe, live XFRM configuration or permission
+change is performed. When the later original stable entry is reached,
+its disposition must account explicitly for this retained early pick.
+
+### Selected Source And Configuration Gates
+
+All 73 changed headers and sixteen include paths are classified against
+actual device selections. Forty-one previous declarations retain their
+contracts; three Qdisc declarations use exact token continuity because
+other records in their whole header change. Fifteen accepted physical
+record proofs, fourteen generated values and nine assembly sources retain
+explicit source, actual configuration and compiler-command continuity.
+No extra private frontend or old layout/assembly implementation replay is
+required.
+
+The changed selected clocksource, psched_ratecfg, HTB/police embeddings,
+xfrm_state and three cgroup raw trace records require natural full-build
+object checks. Existing perf/XFRM callback member contracts need only
+bounded actual type/dispatch context, not invented callbacks. COMPAT and
+Android compat routing do not select the absent standard XFRM_USER_COMPAT
+module. Standard F2FS and DEVTMPFS remain unselected; no compiled or device
+node behavior is attributed to them. The selected clocksource record still
+matters with WATCHDOG disabled.
+
+One actual olddefconfig/prepare run leaves all 6,432 emitted options and
+every effective selection unchanged. Nine Kconfig file changes are reviewed
+against ARM64 rather than assuming new ARM/MIPS or unselected-driver options
+are enabled. Signing material, CFI/ThinLTO, forced signatures, SELinux and
+PRMEM configuration remain. All fourteen OEM-generated values match #59.
+The actual fixed source and 285 selected source inputs bind the separate
+follow-up explicitly. The following full-build, final record/CFI, module and installed gates are
+separate from this passed source/configuration evidence.
+
+### Full Build And Installed Acceptance
+
+The complete build succeeds naturally as 5.10.95 #60, with no additional
+source repair or forced build counter. Inherited OEM compiler/linker warnings
+and the boot-time exit/init section-mismatch notice remain visible. Five
+final reports bind the fixed source, configuration, ELF and 72 distinct actual
+objects. Fifteen accepted physical record proofs retain complete declaration,
+configuration and compiler-command continuity; fourteen generated offsets,
+nine assembly sources and the accepted thirteen affected plus eighteen other
+machine-operand scopes are inherited without unchanged measurement replay.
+
+Only sixteen necessary natural objects are decoded for eight changed records:
+clocksource, psched_ratecfg, HTB and police embeddings, xfrm_state and three
+cgroup trace records. The same-source xfrm_mgr callback member is measured as
+an explicit ninth context, not another changed record. Clocksource uncertainty,
+packet-rate MPU and by-value embeddings, the three mapping-state fields and
+64-bit cgroup trace IDs match the selected compiled layouts. Nine real public
+export signatures and final canonical CFI memberships pass. The standard
+single-queue block-PM resume signature matches the actual selected SCSI call;
+no old-parameter cast or CRC shim is used.
+
+The actual XFRM static manager initializer points to its final canonical
+new_mapping function, with precise type and enforcing dispatch membership.
+Selected ARM64 Perf reads its guest callback pointer once with acquire
+semantics under the actual RCU lifetime, then uses the correct typed indirect
+branches. No unselected KVM callback is invented. The selected UFS core stores
+its typed hba pointer in device driver_data before the first core error/callback
+and mutex initialization; the conditional HUFS timer argument remains. LPAE's
+actual formatter receives both caller data arguments. Selected PM/MM helpers
+and affected consumers bind their natural current types and bodies. These
+bounded gates do not certify all opaque OEM layout, pre-core lifetime races,
+packet/filesystem concurrency or hardware behavior.
+
+Only lib/list_sort.o is byte-identical to #59. Its old implementation proof is
+reused; the five changed comparator-caller objects receive current typed-call
+checks and fresh final canonical/type-membership checks. All four MAS all-tag
+objects change despite complete compiler-command continuity. Current tag
+executable CFG/types match the stored standard reference, STATIC and STARTED
+contract; MQ last-reference/end_io and the three SCSI callbacks retain actual
+precise types and calls. Flush saves its nonzero rq_status, clears the reusable
+request status and completes with the saved value. Fresh bitmap/request/end_io
+canonical membership and flush assignment/getter/put identity pass. Across
+these bounded consumers, 24 distinct current IR objects require 25 decodes:
+MQ is read once for sort and once for different ref/end_io bodies after the
+first cache was consumed. No successful sort gate is rerun, no old IR or
+assembly is decoded again, and no private compiler frontend is added.
+
+All 13,829 exports remain, with no addition/removal and 838 real CRC changes
+versus #59. The 390 rebuilt modem imports and two optional dummy imports all
+match. Public block-PM, clocksource, packet-rate and XFRM CRC changes are
+retained, not concealed; perf registration and the conditional ufshcd_init CRC
+remain unchanged. CRC matching is not whole-binary or stable-KMI certification.
+The stripped modem's CMS signature, embedded kernel certificate, original ext4
+ownership/label and byte readback pass. The boot kernel roundtrip, original
+header/stub/OEM DTB and actual partition bounds pass.
+
+One paired boot/modem_driver installation reaches normal Android with automatic
+matching Live modem loading. Full boot/modem partition, signed module and
+independent ramdisk readbacks pass, together with loaded module build-id,
+user 0 CE storage, RUNNING_UNLOCKED and three core services. SELinux Enforcing,
+taint 4, enforcing CFI, forced signatures and PRMEM remain. Complete time-zero
+and subsequent logs contain no actual kernel or module fault. All 517 AVC
+denials remain visible, none for module loading. Original tracing state and
+the Asleep screen are restored; no second boot or broad hardware replay is run.
+
+The #59/5.10.90 pair is the immediate rollback. Accepted #60 metadata and the
+latest #56-60 pairs remain local below 20 GB. Obsolete #55 test artifacts are
+retired only after matching the retained build contract; original images,
+the first accepted bring-up pair and source history remain intact. Next is
+the complete 5.10.96-100 range. The selected AMA mempolicy issue, pinned
+5.10.274 target, Android common parity, GKI and full inherited hardware/power
+acceptance remain open. No release export, publication or push occurs.

@@ -1,0 +1,45 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	384111e123675a39f461a0004e00e14f8c81918d	ce5dd7d258ac91ecbf1d2ca1d819e4b43ad792ee	picked	f2fs: quota: fix potential deadlock	fs/f2fs/checkpoint.c	-
+002	c1e2da4b3f72a0dc312f6b35ec3d3a39777f54e2	c665e890f67bd35de340037c1e464579133cc505	picked	selftests: x86: fix [-Wstringop-overread] warn in test_process_vm_readv()	tools/testing/selftests/x86/test_vsyscall.c	-
+003	760c6a62550660f500bc48fc78f94a2a483151da	5f2ac973598a4b70d8d8aafdbaaeecb520dcc996	picked	tracing: Fix check for trace_percpu_buffer validity in get_trace_buf()	kernel/trace/trace.c	-
+004	7db1e245cb71885753bde56555c919a7b3170655	13396478702567fbce92c168451d065b4198920b	picked	tracing: Tag trace_percpu_buffer as a percpu pointer	kernel/trace/trace.c	-
+005	7f13d14e563c130991d0452508ecba4dadd9c118	fbb0ab3ba249a62f2fbdbc05db1f6c238781bf38	picked	ieee802154: atusb: fix uninit value in atusb_set_extended_addr	drivers/net/ieee802154/atusb.c	-
+006	396e3016905de566de42af304b2d97b76138b08b	c26dbbed9f95172b06c1a3529075a60a9d8bd0f9	picked	i40e: Fix to not show opcode msg on unsuccessful VF MAC change	drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c	-
+007	3ca132e6b06505e554ccf05282975c71a3768834	1c398fe9382e061645700904981c8aa2782272fd	picked	iavf: Fix limit of total number of queues to active queues of VF	drivers/net/ethernet/intel/iavf/iavf_main.c	-
+008	beeb0fdedae802a7fb606e955a81a56a2e3bbac1	-	already-present	RDMA/core: Don't infoleak GRH fields	drivers/infiniband/core/uverbs_marshall.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+009	a7c2cae997db6d39a858f42d898d866058a7e035	5241cad68bd3879ed05332d45d6e44dc1af18103	picked	netrom: fix copying in user data in nr_setsockopt	net/netrom/af_netrom.c	-
+010	16e5cad6eca1e506c38c39dc256298643fa1852a	-	already-present	RDMA/uverbs: Check for null return of kmalloc_array	drivers/infiniband/core/uverbs_uapi.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+011	2b3f34da0d79a5d2e833a2aef472becb9930e27e	2f5fbca645ca1049402110ef39b55c3f6a51916a	picked	mac80211: initialize variable have_higher_than_11mbit	net/mac80211/mlme.c	-
+012	f7edb6b9438b98549e72652f7d505c77ccf593dc	4dc580f4586f29b0a29c7543d91e8486a9c8df73	picked	sfc: The RX page_ring is optional	drivers/net/ethernet/sfc/falcon/rx.c;drivers/net/ethernet/sfc/rx_common.c	-
+013	32845aa6020347fcae8d5e25548ecaef1f0c3e8a	50d27828680da89e3b63696f810433726337b77a	picked	i40e: fix use-after-free in i40e_sync_filters_subtask()	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+014	d0ad64438fb5019947988bbf9b4af5275f4596a0	6e73cf6979a3934feadcb7d01024b1dc355a67ab	picked	i40e: Fix for displaying message regarding NVM version	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+015	c859c4de0bd7f97415569d4c4febd6316701b31a	3af409d0e07512730bb2220250ffb1f63373669e	picked	i40e: Fix incorrect netdev's real number of RX/TX queues	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+016	786a335fef1838077c9192878bc2e88f925abbef	621481483e77016297dd7bb44d3e3c97b3654997	picked	ftrace/samples: Add missing prototypes direct functions	samples/ftrace/ftrace-direct-modify.c;samples/ftrace/ftrace-direct-too.c;samples/ftrace/ftrace-direct.c	-
+017	a8fe915be6c23b70de7c2172b8a31a730b6bde86	0156b94e29a38d3e96c323f451e3a3442926fdd6	picked	ipv4: Check attribute length for RTA_GATEWAY in multipath route	net/ipv4/fib_semantics.c	-
+018	914420a2a6c5d72b9e9f0396a988810b6716b4b5	6f2f232eb2a4e019a3b646923b6e66626c13a6ca	picked	ipv4: Check attribute length for RTA_FLOW in multipath route	net/ipv4/fib_semantics.c	-
+019	173bfa2782fa5ca3678e72133190eb1b22913bc9	68a663d1afa4163f8e8cba10bff4cd943d9a7101	picked	ipv6: Check attribute length for RTA_GATEWAY in multipath route	net/ipv6/route.c	-
+020	48d5adb08d60116e9d05f01dcdbe698b5d54cdbb	2d055952e9bdf565186c55f81cc0d5004df2ea0e	picked	ipv6: Check attribute length for RTA_GATEWAY when deleting multipath route	net/ipv6/route.c	-
+021	f403b5f96e9a153f00d1f3503b4e4dbb066601f8	f56719240d94b7a572682359d845420f91dafec7	picked	lwtunnel: Validate RTA_ENCAP_TYPE attribute length	net/core/lwtunnel.c;net/ipv4/fib_semantics.c;net/ipv6/route.c	-
+022	4c34d5fd8c96a088098c24b09f0f18dc17ee76ed	da729fb9ebe587116af9cbde21a42f771d10b360	picked	batman-adv: mcast: don't send link-local multicast to mcast routers	net/batman-adv/multicast.c;net/batman-adv/multicast.h;net/batman-adv/soft-interface.c	-
+023	2de3d961f8e7b19fd84b727fdee40a8ee1b28dee	b0635f4401204cb46b9a6cda70a726718ac6b88d	picked	sch_qfq: prevent shift-out-of-bounds in qfq_init_qdisc	net/sched/sch_qfq.c	-
+024	e7f5480978fd245762380d40fed03930ee21ccea	f449f1d0cdf6948f95827e82c9ae95501ba4efc4	picked	net: ena: Fix undefined state when tx request id is out of bounds	drivers/net/ethernet/amazon/ena/ena_netdev.c	-
+025	aa606b82cdfb292f144dcf5be9c29c928e026ecd	c7e5e8639e062f7c3f133c603e276954208da975	picked	net: ena: Fix error handling when calculating max IO queues number	drivers/net/ethernet/amazon/ena/ena_netdev.c	-
+026	16d8568378f9ee2d1e69216d39961aa72710209f	a66d3c2cb892399fb11f60448a197d52989412e6	picked	xfs: map unwritten blocks in XFS_IOC_{ALLOC,FREE}SP just like fallocate	fs/xfs/xfs_ioctl.c	-
+027	998d157e3b2acf5f605e49805f4c34947f3bad56	e55e4a0630f1f02f9d554944ab32f71fa92b68af	picked	power: supply: core: Break capacity loop	drivers/power/supply/power_supply_core.c	-
+028	62cbde77d9c1360deef75f080993f30015dedd8d	5f2f69f7570dc28aec2cfe0485a9bb61993d8c65	picked	power: reset: ltc2952: Fix use of floating point literals	drivers/power/reset/ltc2952-poweroff.c	-
+029	61952934608cf6b8a66584f60c113ff9f035d2aa	db47825a1676d5f3cfead7650656323155e0e1bb	picked	rndis_host: support Hytera digital radios	drivers/net/usb/rndis_host.c	-
+030	4f260ea5537db35d2eeec9bca78a74713078a544	e1c3e563552d513331ed68d83ec6ea1eba6c52b4	picked	phonet: refcount leak in pep_sock_accep	net/phonet/pep.c	-
+031	5a7d650bb181c658719dcabb25702d502530092f	eeb8852442440f279a3887dc02364fc0be97a08c	picked	power: bq25890: Enable continuous conversion for ADC at charging	drivers/power/supply/bq25890_charger.c	-
+032	72b0d14a0a882262d1c38a12be5f9042f53aa10e	47d8a6d531d4cc59c30fd378672f42b7db8af5ee	picked	ipv6: Continue processing multipath route even if gateway attribute is invalid	net/ipv6/route.c	-
+033	498d77fc5e38880599853cf74139cea74dac8f08	c02a06ca28eba5923594e825716d002a9cf58402	picked	ipv6: Do cleanup if attribute validation fails in multipath route	net/ipv6/route.c	-
+034	b798b677f94d0bfc5e79c6f6fd87d90a8abc742c	06344b102181b2a185cdc4a901a8812f03fb8ae9	picked	usb: mtu3: fix interval value for intr and isoc	drivers/usb/mtu3/mtu3_gadget.c	-
+035	8c87a83ef891aff7f8d620abac841dadbf780035	278773da5f3b997fe9d20060241a5275354eeed7	picked	scsi: libiscsi: Fix UAF in iscsi_conn_get_param()/iscsi_conn_teardown()	drivers/scsi/libiscsi.c	-
+036	f82b48d1d86b50daaf379a68cbc7f2a2216eff8e	cf43115f31d6a614d2f8231721af0c457d1ade09	picked	ip6_vti: initialize __ip6_tnl_parm struct in vti6_siocdevprivate	net/ipv6/ip6_vti.c	-
+037	c2f4bb251eb4dedb045ee1c7787db6467c4c6a8b	40a2462df020028196aec3b0d9b56e3ecde9ddbe	picked	net: udp: fix alignment problem in udp4_seq_show()	net/ipv4/udp.c	-
+038	dd8a09cfbb999154039468d371f8cc23ae05eaf4	3ab1c85fa93f1ae3deb452c720ab9c870563d1fa	picked	atlantic: Fix buff_ring OOB in aq_ring_rx_clean	drivers/net/ethernet/aquantia/atlantic/aq_ring.c	-
+039	10b9ccd0674df02992a7e02b877fbd2eed4b1e14	215d4127eec0a27eeea2b7af87cf2473003f8ceb	picked	mISDN: change function names to avoid conflicts	drivers/isdn/mISDN/core.c;drivers/isdn/mISDN/core.h;drivers/isdn/mISDN/layer1.c	-
+040	cf07884e6becbc654bc0b4932415faa0ba3db6cf	463f5b4e2ee58c90a78a82700d941cf91741c2a7	picked	drm/amd/display: Added power down for DCN10	drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c	-
+041	f63fa1a0d4df66448c045676f2b1e722d07697a4	cfce894bd620605f8e73bfbcba4fa3a44bcbeeca	picked	ipv6: raw: check passed optlen before reading	net/ipv6/raw.c	-
+042	ef81f7d406c2f77fa0942db732adb8de1f4dca11	8a81ce01ee612cfe8c2cfc7998dba5d33dff0e0d	picked	ARM: dts: gpio-ranges property is now required	arch/arm/boot/dts/bcm2711.dtsi;arch/arm/boot/dts/bcm283x.dtsi	-
+043	674071c9eb26ae75a63dd7d6a49857a00c903754	654302a3ef9903528bfb895a41ba8e4b05da9e81	picked	Input: zinitix - make sure the IRQ is allocated before it gets enabled	drivers/input/touchscreen/zinitix.c	-
+044	df395c763ba08b8b4385481af07d5d1c658dd917	8f7c6de562b770c77a30c07dfda40591d0fd1cf4	backported	Linux 5.10.91	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.

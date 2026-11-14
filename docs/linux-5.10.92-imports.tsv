@@ -1,0 +1,27 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	c39d68ab38369265a73a34d8ffb189221a6e230f	414730c7a7c059741962a87710e0927aae5ee25e	picked	md: revert io stats accounting	drivers/md/md.c;drivers/md/md.h	-
+002	c84fbba8a9458aaaa7d0ccae51ef05739ded54fb	e0170ff2bdf147176cdc0bd8f22916770e17c4a7	picked	workqueue: Fix unbind_workers() VS wq_worker_running() race	kernel/workqueue.c	-
+003	35ab8c9085b0af847df7fac9571ccd26d9f0f513	a571da46c5566c7fefda40a7e24d17fd5432a758	picked	bpf: Fix out of bounds access from invalid *_or_null type verification	kernel/bpf/verifier.c	-
+004	294c0dd80d8a2202fc5f883005730900e72ece58	38fc002f5c56a0e298b60ec6b320ccb3ccea19d9	picked	Bluetooth: btusb: fix memory leak in btusb_mtk_submit_wmt_recv_urb()	drivers/bluetooth/btusb.c	-
+005	83493918380f6da219113967da7cb5bfb5d2e25e	d2122a7e5eec2ffbd3052bb8bcd68f6f8f8e6573	picked	Bluetooth: btusb: Add two more Bluetooth parts for WCN6855	drivers/bluetooth/btusb.c	-
+006	c20021ce945f38e8597551687fdb115bfca7ae86	c10a36e4b06675173895836c91de7c7e82bed53e	picked	Bluetooth: btusb: Add support for Foxconn MT7922A	drivers/bluetooth/btusb.c	-
+007	869e1677a058db069911ed2c4e2f55772bc213fe	97b1b6fb3812301e15cad292594708f6a43133de	picked	Bluetooth: btusb: Add support for Foxconn QCA 0xe0d0	drivers/bluetooth/btusb.c	-
+008	b6dd0702369945f3b08abe991910f20b6ec281ff	3d0107d722b3d1fa4749864db0501e3389a4002a	picked	Bluetooth: bfusb: fix division by zero in send path	drivers/bluetooth/bfusb.c	-
+009	413108ce3b569d3ccfee88ff6d570f0af4801460	ece6b3dd3409e9bc48bd70c1b946ef98652313f8	picked	ARM: dts: exynos: Fix BCM4330 Bluetooth reset polarity in I9100	arch/arm/boot/dts/exynos4210-i9100.dts	-
+010	15982330b61d7d6aa53580aaff18d8db2972c094	82b7d8c073161dc85af50a4a80bd19a5494d4efd	picked	USB: core: Fix bug in resuming hub's handling of wakeup requests	drivers/usb/core/hub.c	-
+011	a87cecf94375926e47c292c121fdbf3d3abd4782	335f9d09e64f045aaab13484af4f7fc57f8791c7	picked	USB: Fix "slab-out-of-bounds Write" bug in usb_hcd_poll_rh_status	drivers/usb/core/hcd.c	-
+012	2e691f9894ccbc6186898ada8f801187178448de	ee896d02811b5a8a7a385cf2f710a358d16e4b27	picked	ath11k: Fix buffer overflow when scanning with extraie	drivers/net/wireless/ath/ath11k/wmi.c	-
+013	ddfa53825f3d624f1cd6d3e176a37169c7700a3b	483c694ed4dc790e5a8fa6ef47e4d4f4bc14ba51	picked	mmc: sdhci-pci: Add PCI ID for Intel ADL	drivers/mmc/host/sdhci-pci-core.c;drivers/mmc/host/sdhci-pci.h	-
+014	5f76445a31b79be85b337cce5f35affb77cc18fc	eb4ba1956af1cd95cb6fc7bc12be99f405c9e9ed	picked	veth: Do not record rx queue hint in veth_xmit	drivers/net/veth.c	-
+015	f68e600017354e75e696b2c6883c64bfa0072c67	f5c5f38ff723031b18c2ffce83779621924e6b28	picked	mfd: intel-lpss: Fix too early PM enablement in the ACPI ->probe()	drivers/mfd/intel-lpss-acpi.c	-
+016	bd61ae808b1516ad577d37a256838e1665c5ffb4	13f9abf63134aeb4fc1f560e6d18f26df1dc53c1	picked	can: gs_usb: fix use of uninitialized variable, detach device on reception of invalid USB data	drivers/net/can/usb/gs_usb.c	-
+017	45221a57b609fecceff5f66a016443e88ca9eb00	14721ba3f9065a63229fb27f85489609aa52c0bf	picked	can: isotp: convert struct tpcon::{idx,len} to unsigned int	net/can/isotp.c	-
+018	43c494294f30a3899c07cf27f6dc76e0b8f8b133	0a20e857b427c943d1089417c1b1ffa832142268	picked	can: gs_usb: gs_can_start_xmit(): zero-initialize hf->{flags,reserved}	drivers/net/can/usb/gs_usb.c	-
+019	3de9478230c3e3ae0ae599847ca2ac6b7781e780	dcc26d856434f64554667bf582eb2d8ab31ef621	picked	random: fix data race on crng_node_pool	drivers/char/random.c	-
+020	61cca7d191c7c143bc8f3e779859f8b3d5100c89	fd34f3d7cb75f8893e422960837f7440e168a0ac	picked	random: fix data race on crng init time	drivers/char/random.c	-
+021	9b3c761e78d53a510e56b69e625e515d9d41d0ba	6e042f662a3b16fc6e6a68a30ad967159142d8a8	picked	random: fix crash on multiple early calls to add_bootloader_randomness()	drivers/char/random.c	-
+022	3609fed7ac8bdd6c9dfbb0a41bf03879944f738f	f595260e699c0701d18c2eee1d6d8de841f7d676	picked	media: Revert "media: uvcvideo: Set unique vdev name based in type"	drivers/media/usb/uvc/uvc_driver.c	-
+023	2d4fda471dc33a25024f65887d2e8289740a02e9	596725be09d4b9a41719960b6e995c67aff3ec30	picked	staging: wlan-ng: Avoid bitwise vs logical OR warning in hfa384x_usb_throttlefn()	drivers/staging/wlan-ng/hfa384x_usb.c	-
+024	66d21c005d9beaf874e466d63538ed37aa153c5e	aef3b58127b32781acb54b8d6ca46150f56fcfd4	picked	drm/i915: Avoid bitwise vs logical OR warning in snb_wm_latency_quirk()	drivers/gpu/drm/i915/intel_pm.c	-
+025	c0091233f3d8f4c49a76546a387a783324a6b0ec	5e23fd4f56621dc8a566fa4871ef46aa851edfd0	picked	staging: greybus: fix stack size warning with UBSAN	drivers/staging/greybus/audio_topology.c	-
+026	c982c1a83932dccbfe8b8106bd6385be8330e5a5	2b7937e7afd1145bffaa9edb8bdf302ae4786b5f	backported	Linux 5.10.92	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.
