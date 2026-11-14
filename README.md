@@ -161,6 +161,24 @@ replay. #59 is immediate rollback and #56-60 pairs remain local. Next is
 complete 5.10.96-100; the pinned latest-stable target, Android common parity,
 GKI and inherited hardware/power acceptance remain open.
 
+The twelfth milestone resolves all 208 official entries through 5.10.100:
+189 exact picks, three code adaptations, five markers and eleven PRESENT
+fixes. The 197 original-author commits end at `25e0e4b59`; separate one-line
+cpuset assertion integration `96e409478` matches the retained hierarchy mutex
+without changing the original import accounting. #61 passes full build and
+five final ABI/CFI reports bound to 75 current objects. Three changed Perf
+records and their core/ARM PMU/ARM64/OEM consumers require only four natural
+object decodes; unchanged layout, assembly, sort and all-tag proofs retain
+explicit continuity. The table has 13,831 exports, two additions, no removals
+and 1,512 real CRC changes; every rebuilt modem/dummy import matches. Signed
+paired installation reaches normal Android with automatic matching Live
+modem, full readbacks/build-id and unchanged ramdisk/security. Complete logs
+contain no actual kernel/module fault; 517 AVCs remain visible, none for
+module loading. Tracing and Asleep are restored without a second boot or
+broad hardware replay. #60 is immediate rollback and #57-61 pairs remain
+local. Next is complete 5.10.101-105; the pinned 5.10.274 target, Android
+common parity, GKI and inherited hardware/power acceptance remain open.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
@@ -627,7 +645,8 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12-r58-metadata/`: accepted #58 source/layout/CFI/build/runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r59-metadata/`: accepted #59 source/continuity/callback-CFI/build/runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r60-metadata/`: accepted #60 source/layout/callback-CFI/build/runtime metadata retained before output reuse; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.95 #60 output, reused sequentially for stable milestones; not tracked.
+- `out/allen-clang12-r61-metadata/`: accepted #61 integrated-source/Perf-layout/CFI/build/runtime metadata retained before output reuse; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.100 #61 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -654,7 +673,7 @@ scripts/build-allen.sh
 ```
 
 These commands describe the initial released-configuration build, not the
-stock-derived configuration used for the retained r49 or installed #60.
+stock-derived configuration used for the retained r49 or installed #61.
 For the retained upstream output and its r49-derived configuration, use:
 
 ```sh
@@ -665,7 +684,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.95` on the upstream
+Makefile still controls the release, currently `5.10.100` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.

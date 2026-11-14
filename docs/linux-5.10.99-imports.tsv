@@ -1,0 +1,76 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	f446089a268c8fc6908488e991d28a9b936293db	-	already-present	selinux: fix double free of cond_list on error paths	security/selinux/ss/conditional.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+002	0ff6b805069506318fb7385304b864d6694d9363	-	already-present	audit: improve audit queue handling when "audit=1" on cmdline	kernel/audit.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+003	a9394f21fba027147bf275b083c77955864c366a	d53da51076924189b0b83e16f7d293e9e9c778d3	picked	ASoC: ops: Reject out of bounds values in snd_soc_put_volsw()	sound/soc/soc-ops.c	-
+004	038f8b7caa74d29e020949a43ca368c93f6b29b9	9f13394feb8a0b957130bb73ba0c4aacdaad9465	picked	ASoC: ops: Reject out of bounds values in snd_soc_put_volsw_sx()	sound/soc/soc-ops.c	-
+005	6877f87579ed830f9ff6d478539074f035d04bfb	8fcef902df490a74cc39f2fc46467196f07d0df3	picked	ASoC: ops: Reject out of bounds values in snd_soc_put_xr_sx()	sound/soc/soc-ops.c	-
+006	470bbb9cbd8fe115d844222317666f672d32c1fc	0559dfd54423852b8c651b596f4b1856a1252e10	picked	ALSA: usb-audio: Correct quirk for VF0770	sound/usb/quirks-table.h	-
+007	a7de1002135cf94367748ffc695a29812d7633b5	73e523435e86bd550d2bbb0e7f2ff5413c731480	picked	ALSA: hda: Fix UAF of leds class devs at unbinding	sound/pci/hda/hda_generic.c;sound/pci/hda/hda_generic.h	-
+008	410f231fd70c891469ff7c7c76fcd59a86b29a65	4f5f328fd9c17810cb94929c2603d1dd7901b8ce	picked	ALSA: hda: realtek: Fix race at concurrent COEF updates	sound/pci/hda/patch_realtek.c	-
+009	532cde962f5f1a3963729ed748f858ca5baddd05	aa597b0f0449d94fc684239cced1f9807555378d	picked	ALSA: hda/realtek: Add quirk for ASUS GU603	sound/pci/hda/patch_realtek.c	-
+010	3a8a8072e32be002804cf1d029a2eef8c61b2fe0	270986ce6b2288bd22669a42cab9dcdd1610cc98	picked	ALSA: hda/realtek: Add missing fixup-model entry for Gigabyte X570 ALC1220 quirks	sound/pci/hda/patch_realtek.c	-
+011	d4aa3a98596f6d6968881942b9b70cbd1fffae6d	e00dd87df086044b04791a36b39f2f4291940c9f	picked	ALSA: hda/realtek: Fix silent output on Gigabyte X570S Aorus Master (newer chipset)	sound/pci/hda/patch_realtek.c	-
+012	aa5d406153c53d12e1c4a09f657a3b1e55220ef2	a826bd51297473836b14079f06c1b8724672fb75	picked	ALSA: hda/realtek: Fix silent output on Gigabyte X570 Aorus Xtreme after reboot from Windows	sound/pci/hda/patch_realtek.c	-
+013	32747e01436aac8ef93fe85b5b523b4f3b52f040	aeb35522000006ca8582fdfd50e00d7148fa55ef	picked	btrfs: fix deadlock between quota disable and qgroup rescan worker	fs/btrfs/qgroup.c	-
+014	f071d9fa857582d7bd77f4906691f73d3edeab73	8f2b409c11adffaf06c3d6ed35b961026e09c604	picked	drm/nouveau: fix off by one in BIOS boundary checking	drivers/gpu/drm/nouveau/nvkm/subdev/bios/base.c	-
+015	a0c73dbdd197cc78289cd56a9df8d00f53dcfada	90a90904648b027d693b1630a3b60c6dfe44226e	picked	drm/amd/display: Force link_rate as LINK_RATE_RBR2 for 2018 15" Apple Retina panels	drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c	-
+016	2d83a7463d75661715616277f9664b2f0d6a513e	54cba1c96c7844b1ca177c6eb93e309d0479a9a7	picked	nvme-fabrics: fix state check in nvmf_ctlr_matches_baseopts()	drivers/nvme/host/fabrics.h	-
+017	bce7f5d74d74d6f97c8ce0a0dcb741f667ce68a5	2ba2ab09fc904a6bacca48f68dfb16a501e2c551	picked	mm/debug_vm_pgtable: remove pte entry from the page table	mm/debug_vm_pgtable.c	-
+018	7053188ddba3f6e7402000c94496066fa700891e	a59a368c25031bbd264b01c57b6d3210d9dc3398	picked	mm/pgtable: define pte_index so that preprocessor could recognize it	include/linux/pgtable.h	-
+019	352715593e81b917ce1b321e794549815b850134	2f9b0a838b7e8fb1d96f2d63b9d919b1744271aa	picked	mm/kmemleak: avoid scanning potential huge holes	mm/kmemleak.c	-
+020	30de3bc099780232129c3737844ac37a809514a9	fb50e3cac6bb6719d77d40231ce5d0bdd719c191	picked	block: bio-integrity: Advance seed correctly for larger interval sizes	block/bio-integrity.c	-
+021	5d40f1bdad3dd1a177f21a90ad4353c1ed40ba3a	5b1f00cc6ee727f03f3ce768cb2a71199a3345b5	picked	dma-buf: heaps: Fix potential spectre v1 gadget	drivers/dma-buf/dma-heap.c	-
+022	4a9bd1e6780fc59f81466ec3489d5ad535a37190	3da424bb5d17a9126071af25c0e805634c2972d7	picked	IB/hfi1: Fix AIP early init panic	drivers/infiniband/hw/hfi1/ipoib_main.c	-
+023	080f371d984e8039c66db87f3c54804b0d172329	65f9dc2cf348eddeccf948972d2eec315027b4d2	picked	Revert "ASoC: mediatek: Check for error clk pointer"	drivers/soc/mediatek/mtk-scpsys.c	-
+024	aa4ecd995f591013bca21d3ce599691772c193b5	2c4b8957b48f3fa064a9ab11bd041255030a3a98	picked	memcg: charge fs_context and legacy_fs_context	fs/fs_context.c	-
+025	371979069a577ee5bc1bcaaa39fb53d9e4dc7e3f	84298343c78e9019008ac489b025d64d53f6114d	picked	RDMA/cma: Use correct address when leaving multicast group	drivers/infiniband/core/cma.c	-
+026	75c610212b9f1756b9384911d3a2c347eee8031c	8a4f7706ded58c36fa67f7adf1166bcbf6afb292	picked	RDMA/ucma: Protect mc during concurrent multicast leaves	drivers/infiniband/core/ucma.c	-
+027	c7db20f5be73b6b3768d15b075a09e4b0d5c13f7	fc9280f7662fe5d152e163ef4f851478eecbfbc3	picked	IB/rdmavt: Validate remote_addr during loopback atomic tests	drivers/infiniband/sw/rdmavt/qp.c	-
+028	d3f8b927df2fcfc19f43137094d7defe704f3403	0226e8530f100475b7793e1354b04eecdf308a8c	picked	RDMA/siw: Fix broken RDMA Read Fence/Resume logic.	drivers/infiniband/sw/siw/siw.h;drivers/infiniband/sw/siw/siw_qp_rx.c	-
+029	b3958d315163d1f5e0c6c2bff2c02d06f03e853b	345b4a2de3e636bcf18dbc43903569246525d538	picked	RDMA/mlx4: Don't continue event handler after memory allocation failure	drivers/infiniband/hw/mlx4/main.c	-
+030	9d9995b0371e4e8c18d4f955479e5d47efe7b2d4	3ac63683b5fed0e47fa8a1287423f5a788fcc218	picked	iommu/vt-d: Fix potential memory leak in intel_setup_irq_remapping()	drivers/iommu/intel/irq_remapping.c	-
+031	6d226e8afe88534e74df18e4f06fe425abb8e0dc	eec73c1bead603361aeee571f5bce05ff18db882	picked	iommu/amd: Fix loop timeout issue in iommu_ga_log_enable()	drivers/iommu/amd/init.c	-
+032	30e05c98b99d138306e948afd0c7eaa7ce07f6dc	de49694678928d568ec0a394b0c4ac48bf066e8a	picked	spi: bcm-qspi: check for valid cs before applying chip select	drivers/spi/spi-bcm-qspi.c	-
+033	c2cf65e1008ba50d1688b94a887dc1d10743f877	0a7c226ba8ebfc70d2c7262e3d3fc2f689bf3937	picked	spi: mediatek: Avoid NULL pointer crash in interrupt	drivers/spi/spi-mt65xx.c	-
+034	ec942d08e0706c882ff8d7c5b724c6744cd3fea8	1f52e50e43fab8a190c8fb8142e931cb66fecfdb	picked	spi: meson-spicc: add IRQ check in meson_spicc_probe	drivers/spi/spi-meson-spicc.c	-
+035	e895e067d73e154b1ebc84a124e00831e311d9b0	e02eeeed1789032807aaa4b38fec358e2f4d659f	picked	spi: uniphier: fix reference count leak in uniphier_spi_probe()	drivers/spi/spi-uniphier.c	-
+036	75bbda318987975905ad159c0bf30a350f847f49	10833a06efcdafc0fd50511074a4827fbcf012a5	picked	net: ieee802154: hwsim: Ensure proper channel selection at probe time	drivers/net/ieee802154/mac802154_hwsim.c	-
+037	0bfe50dc5d91f6ab445088ef25f2f0fb163fb631	e0ab83158e9055e04a7f659846fd2cca8ba018e4	picked	net: ieee802154: mcr20a: Fix lifs/sifs periods	drivers/net/ieee802154/mcr20a.c	-
+038	78b3f20c17cbcb7645bfa63f2ca0e11b53c09d56	09cdc05a3ed602b7a47d5a656dfc7c451e9b3beb	picked	net: ieee802154: ca8210: Stop leaking skb's	drivers/net/ieee802154/ca8210.c	-
+039	87b1c9fab6fe570182abcf7908e13a86478bc996	72da5dd4139c438b675faa065ba2f9d0740acd5d	picked	net: ieee802154: Return meaningful error codes from the netlink helpers	net/ieee802154/nl802154.c	-
+040	2e7f5b6ee1a7a2c628253a95b0a95b582901ef1b	6dd10f1e9f678b59c5362315fe48041b38342e11	picked	net: macsec: Fix offload support for NETDEV_UNREGISTER event	drivers/net/macsec.c	-
+041	114bf9350413f00fe5ae1edb566593135c7c99c3	47450b8a7b686db786fc6bb21dc2e645da0cc7fd	picked	net: macsec: Verify that send_sci is on when setting Tx sci explicitly	drivers/net/macsec.c	-
+042	41df2da2c1f396c6f049a205073845a48364e15a	c826fa2576482407f05a5eff7d62a899775b6da4	picked	net: stmmac: dump gmac4 DMA registers correctly	drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h;drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c	-
+043	9ea01853611114567a0207b774eb76bfeed74878	00d6525dee23fab08954191089408ddfa3a722a8	picked	net: stmmac: ensure PTP time register reads are consistent	drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c	-
+044	3e698375517d0684224b7d4fa5df682efb84613b	af5ca1b677086b4a748a05485d904b5a3e636165	picked	drm/i915/overlay: Prevent divide by zero bugs in scaling	drivers/gpu/drm/i915/display/intel_overlay.c	-
+045	56e0747d59accbd4785680b140bdc4130bec1217	5d83aa8f942f117a58062630569a13ff190d963a	picked	ASoC: fsl: Add missing error handling in pcm030_fabric_probe	sound/soc/fsl/pcm030-audio-fabric.c	-
+046	cb5f1fbd1f2233fc3f7c27fbb04e3f283f46f7b9	5cb3696d23d42a179e992fba22af2677161abe4d	picked	ASoC: xilinx: xlnx_formatter_pcm: Make buffer bytes multiple of period bytes	sound/soc/xilinx/xlnx_formatter_pcm.c	-
+047	02f4597198329076f4f02f27906447a90357ae66	22adecead118aec22c48dce636b9505d1729a5af	picked	ASoC: cpcap: Check for NULL pointer after calling of_get_child_by_name	sound/soc/codecs/cpcap.c	-
+048	5a45448ac95b715173edb1cd090ff24b6586d921	bad7995715b86cdd48a6be8890a03d09bd93f64b	picked	ASoC: max9759: fix underflow in speaker_gain_control_put()	sound/soc/codecs/max9759.c	-
+049	14bc9978b486d0780f1d1d834202c899da68c47d	dfe4cbfb5b78d6fb3be843b3610eb682d64027e2	picked	pinctrl: intel: Fix a glitch when updating IRQ flags on a preconfigured line	drivers/pinctrl/intel/pinctrl-intel.c	-
+050	752d9eafc64e7a1f8a62f6b3fad2086ba8c73058	62eef0a462ebc5e7ba9b2fe9e7ef88dcd4d25d40	picked	pinctrl: intel: fix unexpected interrupt	drivers/pinctrl/intel/pinctrl-intel.c	-
+051	fd482f2d63dbc9f2fe179de2de9202021ed7e6fe	9e7e7060e2c2d8c386c4970dae27f7986cc1f6d2	picked	pinctrl: bcm2835: Fix a few error paths	drivers/pinctrl/bcm/pinctrl-bcm2835.c	-
+052	ec4334152dae175dbd8fd5bde1d2139bbe7b42d0	bc8b0479c0c94b87521271557e580620f5f93953	picked	scsi: bnx2fc: Make bnx2fc_recv_frame() mp safe	drivers/scsi/bnx2fc/bnx2fc_fcoe.c	-
+053	51e88e8922734ea137dbeeeab87d27fe8dccfcc5	82b1f5774e36b818346158fe025414827a854ca2	picked	nfsd: nfsd4_setclientid_confirm mistakenly expires confirmed client.	fs/nfsd/nfs4state.c	-
+054	f744a064041cc1d84e1ad9d6a8e571f371850648	00fdfdc355f07b6288d32fa3218a2a970e7a8b9f	picked	gve: fix the wrong AdminQ buffer queue index check	drivers/net/ethernet/google/gve/gve_adminq.c	-
+055	6304a613a97d6dcd49b93fbad31e9f39d1e138d6	-	already-present	bpf: Use VM_MAP instead of VM_ALLOC for ringbuf	kernel/bpf/ringbuf.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+056	8f0fff8b5968a840379f66ef9453ae87636b41fe	7b3c1f243b1048f561f53f2abe478fc512c0af43	picked	selftests/exec: Remove pipe from TEST_GEN_FILES	tools/testing/selftests/exec/Makefile	-
+057	1536fafa23ac072ab1a8293ed8efca808b20cfa7	ef4ca36b48900686180f3036f40bcacddacd994d	picked	selftests: futex: Use variable MAKE instead of make	tools/testing/selftests/futex/Makefile	-
+058	2324f5fcdf9dd104b996d12cd0c173ddcc3c950f	1c7144aaa10dc085c10e8b2d99ee7711698bbdd1	picked	tools/resolve_btfids: Do not print any commands when building silently	tools/bpf/resolve_btfids/Makefile	-
+059	460aa9d8734084628abae7b11b03d8daeff0955d	ca32ee9967a301b1449f116ac9c7805a405c22be	picked	rtc: cmos: Evaluate century appropriate	drivers/rtc/rtc-mc146818-lib.c	-
+060	460f6b1a238d2ee1d69a4911f81ee1728242f0dd	3c7a524e3cc1dd5b288d8049db05c4052f765d5c	picked	Revert "fbcon: Disable accelerated scrolling"	Documentation/gpu/todo.rst;drivers/video/fbdev/core/fbcon.c	-
+061	57e8859acc6024ca9041f7fa58a0afed2ed6ea87	970718d3e6741258e3c41db61b1050c7b45977fe	picked	fbcon: Add option to enable legacy hardware acceleration	drivers/video/console/Kconfig;drivers/video/fbdev/core/fbcon.c;drivers/video/fbdev/core/fbcon.h;drivers/video/fbdev/core/fbcon_ccw.c;drivers/video/fbdev/core/fbcon_cw.c;drivers/video/fbdev/core/fbcon_rotate.h;drivers/video/fbdev/core/fbcon_ud.c	-
+062	8c0e6a8a630e7abd4bcba1c50facce84587fadaf	97d06693d8816f8bda2bb39a0924f1ef05c62eac	picked	perf stat: Fix display of grouped aliased events	tools/perf/util/stat-display.c	-
+063	456f041e035913fcedb275aff6f8a71dfebcd394	64dc8ac6155def49c48b816e0e9f27f82287abdc	picked	perf/x86/intel/pt: Fix crash with stop filters in single-range mode	arch/x86/events/intel/pt.c	-
+064	dd274cf85269a24a60282ae21268cf3bf83514e3	1bd7a6a852cdd5f5d8ffcf37f706456e9ce0ec0c	picked	x86/perf: Default set FREEZE_ON_SMI for all	arch/x86/events/intel/core.c	-
+065	2a12faf55baed67c343e8bc5f1e54d2a5b4336a4	d9f4f90a9b4b03399c85a3f104524630fa9fe273	picked	EDAC/altera: Fix deferred probing	drivers/edac/altera_edac.c	-
+066	ef2053afd71e5b1f3a94e81293f8f67bb3c7807b	ef6da1f1bba0e15de4d3d77c9b6a6b8b4c575490	picked	EDAC/xgene: Fix deferred probing	drivers/edac/xgene_edac.c	-
+067	8d71fc23fcb895739803bbddd16542ff566788b3	5d7a6fd4a4dcbe77a263a77641ba691ca5ee6970	picked	ext4: prevent used blocks from being allocated during fast commit replay	fs/ext4/ext4.h;fs/ext4/extents.c;fs/ext4/fast_commit.c	-
+068	6c5bd55e36d3bdcbd723902b29bcf083e5592c6f	fdeb109674e6cb62ee819e208be91eb497360dd5	picked	ext4: modify the logic of ext4_mb_new_blocks_simple	fs/ext4/mballoc.c	-
+069	764793b4a5d0b4040c5ceeeeb859c42933f8532b	bbd25bfa6d940e30f70c062efe8ccdfc840274c3	picked	ext4: fix error handling in ext4_restore_inline_data()	fs/ext4/inline.c	-
+070	62e46e0ffc02daa8fcfc02f7a932cc8a19601b19	0aa8b0abd90822412c959a26a0e62ec7720cad0d	picked	ext4: fix error handling in ext4_fc_record_modified_inode()	fs/ext4/fast_commit.c	-
+071	84b76a509cc3ee713d79da28a5cdfb3841effe45	70b87b3f499a66eaa5727bd83a5e25f8e0e3dd64	picked	ext4: fix incorrect type issue during replay_del_range	fs/ext4/fast_commit.c	-
+072	f1f7d1a22fd73034af73d51086b2fe2981d02028	250ca0cd2c267e4aba548c7600545e392ef303de	picked	net: dsa: mt7530: make NET_DSA_MT7530 select MEDIATEK_GE_PHY	drivers/net/dsa/Kconfig	-
+073	557727313534d9f92e782179372833fd3499f231	7a36fb33032c34fa5b35344f8867c0930103faef	picked	cgroup/cpuset: Fix "suspicious RCU usage" lockdep warning	kernel/cgroup/cpuset.c	-
+074	4889d6ee9e483c7221bc94692541632f15ffbd50	74ad29f927090e6eb6f2b5d008c63a54759c3a85	picked	selftests: nft_concat_range: add test for reload with no element add/del	tools/testing/selftests/netfilter/nft_concat_range.sh	-
+075	fb063a6465f9d17a1bd46a678bc1ffaa84e2f486	08b86aa64e7af3f21a7221b9aae06a78a552a7e7	backported	Linux 5.10.99	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.

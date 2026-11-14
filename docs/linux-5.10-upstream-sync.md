@@ -1925,3 +1925,212 @@ the first accepted bring-up pair and source history remain intact. Next is
 the complete 5.10.96-100 range. The selected AMA mempolicy issue, pinned
 5.10.274 target, Android common parity, GKI and full inherited hardware/power
 acceptance remain open. No release export, publication or push occurs.
+
+## Twelfth Milestone: 5.10.96 Through 5.10.100
+
+The complete range resolves all 208 official entries: 189 exact picks, three
+code adaptations, five release markers and eleven already-present fixes.
+All 197 original-author source commits end at `25e0e4b59`, without
+an integration commit in the original range. A separate one-line cpuset lock
+assertion repair ends the build source at `96e409478`; it is not counted in the
+original 208 entries. The accepted native XFRM policy fix and UFS generated-
+offset repair remain intact. No intermediate 96-99 kernel
+is built or installed. Five per-release ledgers retain every original/local
+identity and disposition.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.96 | `f255ac9e8776ffe10c6b31a27bb438debca85a81` | 101 | 93 | 3 | 1 | 4 |
+| 5.10.97 | `c8ed22bd97d47b7803173c4e2bd3cfd52693cf7f` | 24 | 19 | 0 | 1 | 4 |
+| 5.10.98 | `12a0a56cbae34596d3cc771d461e73ec95606e91` | 3 | 2 | 0 | 1 | 0 |
+| 5.10.99 | `fb063a6465f9d17a1bd46a678bc1ffaa84e2f486` | 75 | 71 | 0 | 1 | 3 |
+| 5.10.100 | `d4f7d322a4ad1d1a280f1b1f36df8d0eb855966c` | 5 | 4 | 0 | 1 | 0 |
+
+Sources are the original stable range and official ChangeLog-5.10.96 through
+ChangeLog-5.10.100 at <https://cdn.kernel.org/pub/linux/kernel/v5.x/>. Independent
+original-source review covers all 208 raw commit objects, authors/dates,
+complete messages, patches and historical modes. The 189 exact picks cover
+237 complete file sections. Existing executable-mode variants remain in six
+picks: eight sections across six distinct paths, with no new mode transition.
+Three complete code adapters, five SUBLEVEL-only markers, three semantic
+PRESENT contracts and eight complete original reverse-PRESENT checks with
+twenty post-hunks are bound to immutable historical blobs/modes.
+
+The actual 197 linear source commits retain those exact authors/dates,
+complete messages and stable trailers. All 208 actual before/after file
+inventories, all 197 changed-path sets, every row in five ledgers and the
+five version roots match the approved historical reconstruction. Exact
+historical identities carry the earlier full source/semantic proofs without
+another original/local patch-stream or implementation replay. The accepted
+#60 documentation root is rebound additively; it is not replaced with the
+private preview tree. All 213 source-path inventories, 198 real changed paths,
+25 changed headers and seven changed include paths remain explicit.
+
+### Standard Interfaces And Preserved Platform Contracts
+
+The ARM64 erratum 1418040 change applies the complete original helper/comment
+and switch/new-exec hooks, while retaining ptrauth, MTE, compatibility migration
+and vendor-hook context. This erratum is disabled in the accepted configuration,
+so the source adaptation is not a hardware-workaround runtime certificate.
+Generic TCPM uses the original SNK_ATTACH_WAIT/SNK_DEBOUNCED VBUS-off no-op;
+the OEM debounce reset tied to the removed disconnect is removed with it.
+Every other handler branch remains. Generic TYPEC is unselected and is not
+confused with the separate selected OEM Type-C implementation.
+
+Fsnotify invalidates the dcache before sending IN_DELETE using the complete
+original 5.10 changed functions and both new helpers. Existing surrounding
+OEM namei context and executable mode remain, as does the original NFS
+sillyrename exception. No broad VFS rewrite or newer API shim is substituted.
+This paragraph records source adaptation; full-build evidence is below and
+does not establish filesystem/network race acceptance.
+
+The /proc/net/ptype namespace filter and packet/fanout constructors already
+match the complete original post-state; the packet_type record retains its
+existing KABI reserve suffix without layout changes. PSI's one-trigger
+lifetime fix already spans all five relevant files. Its complete trigger,
+cgroup and kernfs release/acquire/serialization contracts retain the existing
+cgroup context slot and accepted poll_scheduled reset; no source or record
+change is introduced by the PRESENT classification.
+
+Both release_agent privilege paths already match the original fix, with a
+later official correction retained in the write handler. Upstream
+`467a726b754f474936980da793b4ff2ec3e382a7` checks the opener's file credentials
+and the cgroup namespace owner rather than the current caller's credentials.
+The full mount parser remains the original post-state. These stronger checks
+must not be reverted to the older intermediate capable() implementation.
+No live release_agent configuration, permission or userspace setting changes.
+
+### Separate Cpuset Lock-Assertion Integration
+
+The first actual full build fails at the newly added sibling-update assertion.
+Official stable `557727313534d9f92e782179372833fd3499f231`, upstream
+`2bdfd2825c9662463371e6691b1a794e97fa36b4`, names cpuset_rwsem, while this
+Huawei tree retains cpuset_mutex for the same sleepable hierarchy transaction.
+The exact original source patch is still recorded as such; its source fidelity
+alone does not make that lock name compile in this older locking context.
+
+Separate local commit `96e409478` changes only that assertion to the standard
+lockdep_assert_held(&cpuset_mutex), matching three existing assertions in the
+same file. Both direct sibling-update callers and all three outer write/offline
+paths hold this mutex. No new lock, include or layout change is introduced;
+callback_lock remains confined to the same short assignments. The full sibling
+helper retains the original css_tryget_online reference, RCU unlock before the
+sleepable update, relock and css_put sequence.
+
+Independent actual-source review confirms exactly one line replaced in one
+mode-preserved file, with every other source file and both direct/three outer
+functions unchanged. The original 197 commits, five ledgers and their full
+historical source proofs remain separately frozen. LOCKDEP is unselected, so
+this source assertion is not a claim of runtime lockdep stress acceptance.
+The integrated selected-source binder inherits the original 328 identities
+and adds the real cpuset file explicitly, for 329 sources; it does not pretend
+that the original scope included that file. The same successful actual
+configuration run and generated-input hashes are reused without repeating
+olddefconfig/prepare. Successful full build and installed acceptance remain
+separate from this one-line source/configuration review.
+
+### Selected Source And Configuration Gates
+
+The exact Perf time fix removes perf_event.shadow_ctx_time and adds
+perf_event_context.timeoffset. Selected perf_cpu_context embeds that context
+by value, so it is an explicit third changed physical record. PERF_EVENTS=y
+requires fresh natural build evidence from the actual core, ARM_PMU, ARM64
+and OEM phase_perf consumers. The fourth changed declaration,
+perf_cgroup_info, is not selected because CGROUP_PERF=n; no artificial current
+object or layout certificate is constructed for it. Existing Perf guest
+callback types and their enclosing public API remain unchanged.
+
+All 25 changed headers and seven include paths are classified against the
+actual device configuration. Twenty-three previously accepted physical
+records and forty-one legacy declaration-file contracts retain exact source
+continuity. Nine assembly sources, their generator, all fourteen generated
+values, const-sort and MAS all-tag source contracts remain whole-file
+identical. The original selected source binder covers 328 paths; the separate
+cpuset integration makes that 329, retaining 75 accepted #60
+object/entire-command witnesses. These inherited proofs do not imply blanket
+opaque-OEM ABI or stable GKI KMI certification.
+
+Only two Kconfig files change. The framebuffer-console legacy-acceleration
+option depends on an unselected FRAMEBUFFER_CONSOLE and its y default is
+PARISC-only; ARM64 leaves it disabled. NET_DSA_MT7530's new MEDIATEK_GE_PHY
+selection is inactive because that switch is disabled. The actual option
+name is CONFIG_MEDIATEK_GE_PHY. PowerPC's latent-entropy per-file compiler
+flag changes do not select any ARM64 implementation. BLK_DEV_INTEGRITY and
+standard F2FS remain unselected; selected OEM filesystem code is separate.
+
+One actual olddefconfig/prepare run preserves all 6,432 emitted options and
+every effective selection. All fourteen generated OEM values, signing
+material, CFI/ThinLTO, forced signatures, SELinux and PRMEM settings remain.
+The actual 197-commit source, reviewed configuration and original selected-
+source/command binder pass before the first full compilation. After the
+cpuset source integration, its independent source review and new 329-source
+binder preserve the unchanged actual configuration and command witnesses.
+Full build, final natural record/CFI, module and installed acceptance remain
+separate gates.
+
+### Full Build And Installed Acceptance
+
+After the separate one-line cpuset assertion repair, the complete build
+succeeds naturally as 5.10.100 #61, without a forced counter or configuration
+change. Inherited compiler/linker warnings and the boot-time exit/init section
+notice remain visible. Five final reports bind the integrated source,
+configuration, final ELF, export table and 75 distinct current objects with
+their complete build commands.
+
+The twenty-three accepted physical records and forty-one declaration-file
+contracts retain exact selected-source, effective-configuration and compiler
+continuity. Their old measurements are not replayed. Fourteen actual generated
+offsets, nine whole assembly sources, thirteen corrected and eighteen other
+scoped machine operands retain the accepted proof without re-disassembly or
+numeric layout padding. These are bounded contracts, not all opaque OEM ABI.
+
+Only four necessary natural objects are decoded, once each: Perf core, ARM
+PMU, ARM64 Perf and selected OEM phase_perf. Three changed physical records
+measure perf_event at 1072, perf_event_context at 304 and perf_cpu_context at
+504 bytes; timeoffset is at byte 240 of the context. The by-value embedding,
+real field widths, memory operations, precise types and actual indirect
+dispatch agree across the selected consumers. Incomplete opaque-pointee DWARF
+descriptions do not constitute a layout difference; each consumer's descriptor
+is retained. CGROUP_PERF=n, so no fourth-record layout proof is fabricated.
+Existing public signatures, selected PM/MM/LPAE/UFS/XFRM and Perf acquire/RCU
+implementation proofs retain source/command continuity; fresh final canonical
+CFI memberships and static callback targets are checked separately.
+
+Only list_sort.o is byte-identical to #60. Its implementation proof and the
+five changed caller objects' precise comparator/direct-call contracts are
+inherited under complete source/command continuity; fresh canonical jumps
+and type memberships pass without another IR decode. All four MAS all-tag
+objects also change, but their seventeen complete sources and four complete
+commands remain identical. Accepted tag/reference/STATIC/STARTED, callback and
+flush saved-status/reset contracts are inherited; fresh typed canonical and
+flush assignment/getter/put identities pass. Neither gate replays unchanged
+implementation tests or reads old IR.
+
+The final table has 13,831 exports: two additions, no removals and 1,512 real
+CRC changes versus #60. New exports are jbd2_journal_grab_journal_head and
+jbd2_journal_put_journal_head. Perf interface changes are recorded. Despite
+unchanged conditional ufshcd_init signature source, its real transitive CRC
+changes from 0xba066086 to 0x06aac99b; it is not disguised as equality.
+perf_register_guest_info_callbacks and blk_post_runtime_resume CRCs remain
+equal. All 390 rebuilt modem imports and two optional dummy imports match.
+Same-build pairing is retained, not an arbitrary old-module or stable-KMI
+guarantee. The stripped modem's CMS signature, kernel certificate, original
+ext4 ownership/label and byte readback pass. Boot roundtrip, original header,
+firmware stub, OEM DTB and actual partition bounds pass.
+
+One paired boot/modem_driver installation reaches normal Android with
+automatic matching Live modem loading. Complete partition and signed-module
+readbacks, live build-id, unchanged independent ramdisk, user 0 CE storage,
+RUNNING_UNLOCKED and three core services pass. SELinux Enforcing, taint 4,
+enforcing CFI, forced signatures and PRMEM remain. Complete time-zero and
+subsequent logs contain no actual kernel or module fault. All 517 AVC denials
+remain visible, none for module loading. Original tracing and the Asleep
+screen are restored; no second boot or broad hardware replay is run.
+
+The #60/5.10.95 pair is the immediate rollback. Accepted #61 metadata and the
+latest #57-61 pairs remain local below 20 GB. Obsolete #56 test artifacts are
+retired only after matching the retained build contract; original images,
+the first accepted bring-up pair and source history remain intact. Next is
+the complete 5.10.101-105 range. Selected AMA mempolicy, the pinned 5.10.274
+target, Android common parity, GKI and inherited hardware/power acceptance
+remain open. No release export, publication or push occurs.

@@ -1,0 +1,4 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	e27042060f81cb3b36556ef382fcd5a417b87961	3b224fffa3efee8a21713e9ecda1536a4f6444c6	picked	Revert "drm/vc4: hdmi: Make sure the device is powered with CEC"	drivers/gpu/drm/vc4/vc4_hdmi.c	-
+002	97a47e25559e7d68b9640f9c22d784d7c5ada88e	91b041b3ec941563ebb852920300c44c1d9c6f63	picked	Revert "drm/vc4: hdmi: Make sure the device is powered with CEC" again	drivers/gpu/drm/vc4/vc4_hdmi.c	-
+003	12a0a56cbae34596d3cc771d461e73ec95606e91	1c659a0e0e72c56e2132b143474822f779002ca8	backported	Linux 5.10.98	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.
