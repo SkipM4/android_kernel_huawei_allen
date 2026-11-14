@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #61/5.10.100 on `upstream/linux-5.10.y`, kernel source
-through `96e409478`. Immediate paired rollback is #60/5.10.95; r49/5.10.43 remains on
+Installed candidate is #62/5.10.105 on `upstream/linux-5.10.y`, kernel source
+through `5b0828436`. Immediate paired rollback is #61/5.10.100; r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
 Each kernel iteration stays isolated, with matching boot/modem_driver
 validation, unchanged independent
@@ -63,7 +63,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.100 Resolved; #61 Full Build/Changed Perf Layout-CFI/Scoped Continuity/Pair/Normal Boot/Auto Module Pass; Next Complete 5.10.101-105; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.105 Resolved; #62 Full Build/Changed CPU-IPv6-PM-Netfilter-BHB/Scoped Continuity/Pair/Normal Boot/Auto Module Pass; Next Complete 5.10.106-110; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -316,6 +316,40 @@ and accepted #61 metadata remain below 20 GB after contract-checked retirement
 of #56 test artifacts. Next is complete 5.10.101-105. Selected AMA mempolicy,
 the pinned latest-stable target, Android common, GKI and inherited hardware/
 power acceptance remain open. No release export, publication or push occurs.
+
+The thirteenth milestone resolves all 483 official entries through 5.10.105:
+440 exact picks, eighteen code adaptations, five markers, sixteen PRESENT
+fixes and four missing prerequisites. All 463 original-author commits through
+`138273525` and five ordered ledgers pass source/provenance review. Five
+separate PM/modern ARM64 integrations retain the public wakeup reader,
+capability allocation and newer Android/pKVM vector model. A real LTO assembly
+include-order failure is repaired separately by the complete upstream
+`52c9f93a9c482251cb0d224faa602ba26d462be8` READ_ONCE guard change, ending
+the build source at `5b0828436`. It preserves the C READ_ONCE/RCpc implementation
+and all protections, without rewriting SMCCC instructions or restoring legacy
+KVM templates. Original source/configuration proofs remain immutable; the
+additive binder has 452 source identities. The only effective configuration
+addition selects `CONFIG_MITIGATE_SPECTRE_BRANCH_HISTORY=y`.
+#62 full compilation and five final reports bind 85 current objects/entire
+commands. Nine new natural C objects are decoded once to measure CPU 1176,
+IPv6 namespace 832 and by-value net 4800 byte records, actual PM/netfilter APIs
+and BHB typed callbacks. Twenty-six accepted physical records, fourteen OEM
+offsets, nine assembly sources, const sort and MAS lifecycle proofs retain
+continuity without old IR or disassembly replay. Three non-KPTI vector banks,
+per-CPU VBAR values and final capability-62 pointers pass; unselected KVM/KPTI
+and hardware-mitigation effectiveness are not certified. All 13,831 exports
+are recorded, with one addition, one removal and 2,646 real CRC changes.
+All 390 rebuilt modem and two optional imports match. Signed paired
+installation, normal Android, automatic matching Live modem, full readbacks/
+build-id, CE storage/core services, unchanged ramdisk and enforcing controls
+pass. Complete same-boot time-zero/subsequent logs contain no actual kernel/
+module fault; all 517 AVCs remain visible, none for module loading. Tracing
+and Asleep are restored without another boot or broad hardware replay.
+#61 is immediate rollback; recent #58-62 pairs and accepted #62 metadata
+remain below 20 GB after contract-checked retirement of #57 test artifacts.
+Next is complete 5.10.106-110. Selected AMA mempolicy, the pinned latest-stable
+target, Android common, GKI and inherited hardware/power acceptance remain
+open. No release export, publication or push occurs.
 
 ## Next-Stage Work Queue
 

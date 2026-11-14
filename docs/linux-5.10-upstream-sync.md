@@ -2134,3 +2134,172 @@ the first accepted bring-up pair and source history remain intact. Next is
 the complete 5.10.101-105 range. Selected AMA mempolicy, the pinned 5.10.274
 target, Android common parity, GKI and inherited hardware/power acceptance
 remain open. No release export, publication or push occurs.
+
+## Thirteenth Milestone: 5.10.101 Through 5.10.105
+
+The complete range resolves all 483 official entries: 440 exact picks,
+eighteen code adaptations, five release markers, sixteen PRESENT decisions
+and four missing-prerequisite entries. The PRESENT scope contains seven
+semantic contracts and nine complete historical reverse checks. All 463
+original-author source commits end at `138273525`. Five separate integrations
+and one exact early upstream follow-up end the build source at `5b0828436`;
+none changes the original import counts or dispositions. No intermediate
+101-104 kernel is built or installed. Five per-release ledgers retain every
+original/local identity and classification.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present | Missing |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 5.10.101 | `3969aba589d663b2a704f31555c2caead75a1646` | 117 | 106 | 3 | 1 | 7 | 0 |
+| 5.10.102 | `47667effb7d2f54dab3be33749c5a05152c07db0` | 121 | 110 | 3 | 1 | 6 | 1 |
+| 5.10.103 | `915a747ac7f368a9979638e86fb9097d6a903672` | 80 | 73 | 2 | 1 | 2 | 2 |
+| 5.10.104 | `97581b56b59fc79d6c376994a2e219349c31873f` | 106 | 102 | 2 | 1 | 1 | 0 |
+| 5.10.105 | `67c781d938b850db236f6eb0bccc9737c29df57c` | 59 | 49 | 8 | 1 | 0 | 1 |
+
+Sources are the original stable range and official ChangeLog-5.10.101 through
+ChangeLog-5.10.105 at <https://cdn.kernel.org/pub/linux/kernel/v5.x/>. Independent
+whole-source review and actual ordered-import checks bind original commit
+objects, authors/dates, complete messages, patch contents, historical modes,
+all adaptations/PRESENT decisions, the five release roots and every ledger
+row. Additive approval preserves the original review inputs rather than
+replacing them with a later private preview. The accepted #61 documentation
+root is carried separately from the kernel-source reconstruction.
+
+### Standard Interfaces And Retained Lifetimes
+
+The complete six-path PM wakeup change adopts the standard two-slot IRQ queue,
+raw lock, clear-by-IRQ semantics and `pm_wakeup_irq()` reader. Existing
+first-wakeup diagnostics run outside the raw lock using the captured first-slot
+decision; suspend-abort diagnostics and independent s2idle reason clearing
+remain. Separate integration `271544ce2` converts the unselected OEM sensor
+reader from direct variable access to the new API. This preserves source API
+coherence, not sensorhub selection or runtime coverage. The core PM change is
+a genuine API migration, not an ABI-preservation claim.
+
+Network qdisc pointers gain the standard RCU annotation and matching
+publication/access operations. The existing publish-before-notify graft
+ordering and noqueue class rejection remain; the annotation itself does not
+change physical net_device layout. Cpuset attachment acquires the CPU-hotplug
+read lock before cpuset_mutex and releases it after the complete attachment
+transaction. Per-task masks, Android affinity hooks, memory policy and counters
+remain. The accepted #61 mutex assertion repair is inherited separately, not
+folded into the original 5.10.103 patch or replayed.
+
+File lookup adopts the full standard RCU fd-table retry algorithm, including
+bounds/nospec validation, reference acquisition and table/entry identity
+rechecks. Only the existing newer helper name changes adaptation context.
+Pidfd installation moves outside both fork locks while retaining OEM/security
+hooks and failure cleanup. IPv6 shutdown snapshots readiness before clearing
+flags and calls multicast shutdown at most once, preserving the newer
+address-list teardown. These are full-source changes and later build checks,
+not dedicated live filesystem/network race stress acceptance.
+
+The selected LTO/CFI module linker already retains the standard split-section
+merge, page-aligned CFI checks/jump tables and unwind discard, so both related
+5.10.102 entries are PRESENT without regressing the newer linker. AX88179 RX
+retains the stronger official later implementation and its packet/metadata
+bounds. UFS link-loss classification, FunctionFS file locking, RNDIS command
+bounds and AX25 lifetime likewise retain complete-function presence proofs,
+not isolated matching tokens.
+
+### ARM64 Security And Separate Integrations
+
+The complete AA64ISAR2 register definition, capture, initialization, update
+and read paths retain the ISAR1 override and separate AArch32 record. The new
+u64 field genuinely changes cpuinfo_arm64. Trampoline source keeps three text
+slots, full leaf-page mapping, readonly data and original page permissions;
+only the requested size assertion changes in the linker. CFI/HYP/PRMEM,
+protected boundaries and the extra reserved page directory remain, including
+the required two-page TTBR adjustment. Literal reads retain both KASLR and
+non-KASLR branches and existing map/unmap/SDEI exits.
+
+The stable 105#38 KVM backport requires absent legacy template/slot/SMCCC
+machinery. Its missing-prerequisite outcome does not mean the issue is fixed.
+Separate integration `d809ea3b8` adopts the complete modern upstream
+`5bdf3437603d4af87f9c7f424b0c8aeed2420745` implementation, including its extra
+mapping consumer, instead of downgrading the retained Android/pKVM model.
+Integration `798842d1a` allocates BHB to the retained free capability 62,
+preserving LDAPR 59, pKVM 60, HHEE 61 and ARM64_NCAPS 76. Integrations
+`ce4603098` and `b8c4b1c83` complete modern BHB nVHE aliases and the modern
+ClearBHB alias/hyp-entry additions. These are separate source integrations,
+not extra original stable entries or KVM runtime certification.
+
+The other missing prerequisites are outgoing-CPU deferred RCU IRQ-work,
+absent Bay Trail DWC3-PCI tables and absent voluntarily threaded gadget IRQ
+context. None justifies recreating obsolete infrastructure or adding duplicate
+bottom-half handling to the retained tasklet path.
+
+### Actual Build Failure And Exact Upstream Follow-Up
+
+The first full build reaches an unexpanded ARM_SMCCC_ARCH_WORKAROUND_3 operand
+in entry.o. Preprocessing identifies the LTO assembly include chain through
+arm-smccc.h, init.h, compiler.h, rwonce.h and assembler.h before SMCCC constants
+are defined. It is not an unencodable resolved immediate. The complete
+official upstream `52c9f93a9c482251cb0d224faa602ba26d462be8`, "arm64: Do not
+include __READ_ONCE() block in assembly files", is imported separately as
+`5b0828436`. Its two-line guard/comment change excludes the C-only LTO block
+from assembly. Native C READ_ONCE, atomic/type handling and RCpc/LDAPR remain
+unchanged; no SMCCC instruction rewrite, protection bypass or feature disable
+is used. Original source/configuration proofs remain immutable, with one-path
+additive source/configuration bindings after this exact follow-up.
+
+One actual olddefconfig/prepare run produces 6,433 options from 6,432. The only
+effective/emitted change is CONFIG_MITIGATE_SPECTRE_BRANCH_HISTORY=y; all other
+selections remain. KVM, UNMAP_KERNEL_AT_EL0 and EXT_INPUTHUB are disabled.
+Fourteen generated OEM offsets, signing material, Werror, ThinLTO, enforcing
+CFI, forced signatures and PRMEM remain. The assembly-only follow-up reuses
+the same actual configuration; olddefconfig/prepare is not repeated. The
+integrated selected-source binder grows from 451 to 452 explicit identities.
+
+### Full Build And Installed Acceptance
+
+The corrected full build succeeds naturally as 5.10.105 #62 without a forced
+counter. Five final reports bind the successful build, source/configuration,
+final ELF/export table and 85 distinct current objects/entire commands. The
+twenty-six accepted physical records, fourteen generated offsets, nine whole
+OEM assembly sources and thirteen corrected/eighteen other scoped operands
+retain source/selection/compiler continuity without old IR/disassembly replay
+or numeric padding. Const-sort and MAS all-tag/reference/flush implementation
+proofs are inherited; final canonical jumps, typed memberships and relocated
+flush pointer identities are freshly checked.
+
+Only nine new natural C objects are decoded once: wakeup, power/main, IPv6
+flowlabel/fib6_rules, cpuinfo/cpufeature, nf_queue/nfnetlink_queue and proton-pack.
+The three changed physical records measure cpuinfo_arm64 at 1176 bytes,
+netns_ipv6 at 832 and its by-value net container at 4800. ISAR2 is at byte 1024;
+the IPv6 member is at byte 1856 of net. Real field widths, memory operations,
+types and consuming paths agree. The PM public reader/clear and void-to-bool
+netfilter API are checked against actual optimized emitted consumers.
+
+The new entry.o/final-ELF scope verifies three 2048-byte non-KPTI banks, each
+with sixteen 128-byte slots, actual return/branch targets, WA3 firmware operand
+and saved/restored registers. Natural BHB callback types, real cpufeature CFI
+dispatch, capability-62 canonical pointers and per-CPU store-to-VBAR values
+agree. Existing __apply_alternatives remains __nocfi; no new protection claim
+is made for it. KVM/KPTI unselected targets are not fabricated, and normal boot
+does not certify hardware-mitigation effectiveness or performance/power.
+
+The final table has 13,831 exports: xfrm_state_mtu replaces __xfrm_state_mtu,
+with 2,646 real CRC changes versus #61. nf_queue_entry_get_refs changes from
+0xc2188a94 to 0xcd33a110; ufshcd_init and list_sort CRCs remain equal. All 390
+fresh modem imports and two optional dummy imports match. Stripped modem
+CMS, embedded certificate, ext4 ownership/label and readback pass. Boot
+roundtrip, original header, firmware stub, OEM DTB and partition bounds pass.
+Staged hashes are bound to the successful final build before flashing, not
+merely checked after installation.
+
+One paired boot/modem_driver installation reaches normal Android with
+automatic matching Live modem. Complete partition/module readbacks, loaded
+build-id, unchanged independent ramdisk, user 0 CE storage/RUNNING_UNLOCKED
+and three core services pass. SELinux Enforcing, taint 4, enforcing CFI,
+forced signatures and PRMEM remain. Complete same-boot time-zero/subsequent
+logs contain no actual kernel/module fault; all 517 AVCs remain visible and
+none requests module loading. Tracing and Asleep are restored without a
+second boot or broad hardware replay.
+
+The #61/5.10.100 pair is immediate rollback. Accepted #62 metadata and recent
+#58-62 pairs remain local below 20 GB after contract-checked retirement of #57
+test artifacts. Original images, the first accepted bring-up pair, immutable
+source proofs and needed reference dependencies remain. Next is complete
+5.10.106-110. Selected AMA mempolicy, the pinned 5.10.274 target, Android common
+parity, GKI and inherited hardware/power acceptance remain open. No release
+export, publication, tag or push occurs.

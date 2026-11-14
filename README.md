@@ -179,6 +179,28 @@ broad hardware replay. #60 is immediate rollback and #57-61 pairs remain
 local. Next is complete 5.10.101-105; the pinned 5.10.274 target, Android
 common parity, GKI and inherited hardware/power acceptance remain open.
 
+The thirteenth milestone resolves all 483 official entries through 5.10.105:
+440 exact picks, eighteen code adaptations, five markers, sixteen PRESENT
+fixes and four missing-prerequisite entries. The 463 original-author commits
+end at `138273525`; five separate PM/modern ARM64 integrations and the complete
+upstream READ_ONCE assembly follow-up end the build source at `5b0828436`.
+The sole effective configuration addition enables the new BHB mitigation.
+#62 passes full compilation and five final ABI/CFI reports bound to 85 current
+objects. Only nine new natural C objects are decoded once to check three
+changed CPU/IPv6 records and actual PM, netfilter and BHB consumers; old
+layout, OEM assembly, sort and MAS proofs retain scoped continuity. Three
+non-KPTI vector banks and actual final callback targets pass, without a KVM
+or hardware-mitigation effectiveness claim. All 13,831 exports are recorded,
+with one addition, one removal and 2,646 real CRC changes; every rebuilt
+modem/dummy import matches. Signed paired installation reaches normal Android
+with automatic matching Live modem, full readbacks/build-id and unchanged
+ramdisk/security. Complete logs contain no actual kernel/module fault; 517
+AVCs remain visible, none for module loading. Tracing and Asleep are restored
+without a second boot or broad hardware replay. #61 is immediate rollback;
+recent #58-62 pairs and accepted #62 metadata remain local. Next is complete
+5.10.106-110, not completion of the pinned 5.10.274 target, Android common
+parity, GKI or inherited hardware/power acceptance.
+
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader

@@ -5,9 +5,10 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.100
-#61 kernel and module are built together with the r49-derived effective
-configuration, Android Clang/LLD 12.0.7, enforcing CFI and the existing signing
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.105
+#62 kernel and module are built together with the r49-derived configuration
+and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
+enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
 
 This is the immediate solution for modules to follow stable updates. It does
@@ -211,6 +212,27 @@ module/partition readbacks. Configuration, signing material, independent
 ramdisk, Enforcing/CFI/forced signatures and PRMEM remain. This matched
 rebuild is not independent old-binary reuse or a stable GKI KMI guarantee.
 
+The installed 5.10.105/#62 milestone retains 13,831 exports, with one addition,
+one removal and 2,646 real CRC changes versus #61. `xfrm_state_mtu` replaces
+`__xfrm_state_mtu`; the genuine void-to-bool `nf_queue_entry_get_refs` interface
+changes its CRC from `0xc2188a94` to `0xcd33a110`. Its actual emitted callers
+consume the returned value. The UFS `ufshcd_init` and standard `list_sort`
+CRCs remain equal this time; neither equality is an all-ABI guarantee.
+All 390 freshly rebuilt modem imports and two optional dummy imports match.
+Five final reports bind 85 current objects/entire commands, retaining scoped
+old proofs and measuring only three changed CPU/IPv6 records across nine
+new natural C objects. Public PM reader/clear, netfilter bool and BHB callback
+types are checked against the actual build; KVM/KPTI unselected paths are not
+fabricated. The sole effective configuration addition is the standard BHB
+mitigation, with the existing toolchain and signing material retained.
+The stripped modem CMS/certificate, ext4 labels/ownership and local staging
+pass. Staged image identities are bound to the successful final build before
+the first reboot and to the installed partition/module readbacks afterward.
+Normal Android automatically loads the matching Live modem, with an equal
+runtime build-id. The independent ramdisk, Enforcing/CFI/forced signatures
+and PRMEM remain. This is same-build updating, not independent old-binary
+reuse, hardware-mitigation certification or a stable GKI KMI guarantee.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -251,13 +273,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #61's immediate rollback:
+overwrite existing candidates. The previous pair is #62's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.95-clang12-r60.img`.
-- `images/test/allen-modem_driver-test-5.10.95-clang12-r60.img`.
-- `images/test/allen-modem_driver-test-5.10.95-clang12-r60.ko`.
+- `images/test/allen-boot-test-5.10.100-clang12-r61.img`.
+- `images/test/allen-modem_driver-test-5.10.100-clang12-r61.img`.
+- `images/test/allen-modem_driver-test-5.10.100-clang12-r61.ko`.
 
-The installed next pair uses `5.10.100-clang12-r61` with the same device/purpose
+The installed next pair uses `5.10.105-clang12-r62` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

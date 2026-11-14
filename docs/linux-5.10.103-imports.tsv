@@ -1,0 +1,81 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	fcec42dd28d62247765d40d3ee61c37dcc98ab0b	9530565c54ff937ad70112cf8cc548c375c737a9	backported	cgroup/cpuset: Fix a race between cpuset_attach() and cpu hotplug	kernel/cgroup/cpuset.c	Only original CPU-hotplug read lock pair outside existing cpuset_mutex attach transaction; retain per-task masks/Android affinity hook/MM/counters. Parent100 mutex lockdep carry remains separate; no runtime acceptance.
+002	5c967dd07311da972a68eb318e9b43bb4b0f0c3a	7dd3758ba1958a82d686f404419cd92c82b9a53a	picked	btrfs: tree-checker: check item_size for inode_item	fs/btrfs/tree-checker.c	-
+003	72a5b01875b279196b30af9cca737318fbf3f634	d9d27ea6252ba96b5dcebc55fbb41b3f1c8679a8	picked	btrfs: tree-checker: check item_size for dev_item	fs/btrfs/tree-checker.c	-
+004	84e303b4d53fb348cb9179d35ddac3c71d7cfbf5	29806728fd5bd6fbe121fac7cfe3ca66a30726ab	picked	clk: jz4725b: fix mmc0 clock gating	drivers/clk/ingenic/jz4725b-cgu.c	-
+005	698dc7d13c4e972214458996455447651a657264	24d7ba706defb004db00a55c19789cf9c8bb1fa9	picked	vhost/vsock: don't check owner in vhost_vsock_stop() while releasing	drivers/vhost/vsock.c	-
+006	397b5433f7420376149220780e0fdd57bff8cc39	aff7f903b2ca9b5beaff6edfca264c3f446a67a2	picked	parisc/unaligned: Fix fldd and fstd unaligned handlers on 32-bit kernel	arch/parisc/kernel/unaligned.c	-
+007	646b532f32eafff0e3cda1ece4da1091b936cf88	bc9873e8a069de5a73cd32ece06bf8581a890eee	picked	parisc/unaligned: Fix ldw() and stw() unalignment handlers	arch/parisc/kernel/unaligned.c	-
+008	72fdfc75d4217b32363cc80def3de2cb3fef3f02	6c422c7e7c042b1828f174beeef066ddb999b28d	picked	KVM: x86/mmu: make apf token non-zero to fix bug	arch/x86/kvm/mmu/mmu.c	-
+009	ff9134882dfafcab4cd3204a4c901f95544d66a9	a528ac94b51f92a632e4a5e41e16f609b6bacb1f	picked	drm/amdgpu: disable MMHUB PG for Picasso	drivers/gpu/drm/amd/amdgpu/soc15.c	-
+010	55eec5c630eac8034bbfb772bb2e2bccc0777a2b	4252fd8b2769606f85b78b141650d3faa4964d00	picked	drm/i915: Correctly populate use_sagv_wm for all pipes	drivers/gpu/drm/i915/intel_pm.c	-
+011	4f5f5411f0c14ac0b61d5e6a77d996dd3d5b5fd3	-	already-present	sr9700: sanity check for packet length	drivers/net/usb/sr9700.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+012	2aeba1ea7ce8bf82b688cdffb844d26014e243b2	80f29f848f2f13a135bee1d9d6bb311a1f4188b4	picked	USB: zaurus: support another broken Zaurus	drivers/net/usb/cdc_ether.c;drivers/net/usb/zaurus.c	-
+013	69560efa001397ebb8dc1c3e6a3ce00302bb9f7f	ed46ffca42b81d3bfa5ea41dc4627d063df88915	picked	CDC-NCM: avoid overflow in sanity checking	drivers/net/usb/cdc_ncm.c	-
+014	68f19845f580a1d3ac1ef40e95b0250804e046bb	-	already-present	netfilter: nf_tables_offload: incorrect flow offload action array size	include/net/netfilter/nf_tables.h;include/net/netfilter/nf_tables_offload.h;net/netfilter/nf_tables_offload.c;net/netfilter/nft_dup_netdev.c;net/netfilter/nft_fwd_netdev.c;net/netfilter/nft_immediate.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+015	bae7fc6f0dc66d8a80316c09ed7ee286f33cd731	cfd7383491953d4afb98d99dd955d2fb841a68d1	picked	x86/fpu: Correct pkru/xstate inconsistency	arch/x86/include/asm/fpu/internal.h;arch/x86/kernel/process_32.c;arch/x86/kernel/process_64.c	-
+016	eb354613847d824f268d2c985c7b4d30a209799e	3910e68ab5bf0c43669e01426752db1a99342a01	picked	tee: export teedev_open() and teedev_close_context()	drivers/tee/tee_core.c;include/linux/tee_drv.h	-
+017	5da17865c7f31b52743536dbcb417fb804dc667a	c262e5b4a87ff18e8f48305811c90ccdbd417fd8	picked	optee: use driver internal tee_context for some rpc	drivers/tee/optee/core.c;drivers/tee/optee/optee_private.h;drivers/tee/optee/rpc.c	-
+018	5419b5be883bb5459192618c42d6c919906e16b1	c55dd70d3cb71e314a739f790a368770fffc971d	picked	ping: remove pr_err from ping_lookup	net/ipv4/ping.c	-
+019	51e96061c66c22a6fc5df5923e7c036303ff59e1	d02704cfc9dfbd30dce571c0d7b2df4fbf06a3f6	picked	perf data: Fix double free in perf_session__delete()	tools/perf/util/data.c	-
+020	7e1eae5d1a7c3992c599910a9dac955cd0390d79	1e3eb238f1738571fc828df77d08a77f21473ebe	picked	bnx2x: fix driver load from initrd	drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c	-
+021	d8b78314c5ba09e17a0df652c68a7be59511f999	e9deed691586379f8fc51726cdccf308d0ce15ba	picked	bnxt_en: Fix active FEC reporting to ethtool	drivers/net/ethernet/broadcom/bnxt/bnxt_ethtool.c	-
+022	962b2a3188bfa5388756ffbc47dfa5ff59cb8011	b5110f00bd3550312fef2bd29c679c95111c86b6	picked	hwmon: Handle failure to register sensor with thermal zone correctly	drivers/hwmon/hwmon.c	-
+023	d0caa7218d76b373d404545b4e63d72af338939f	0bfcf4fd51f5a15480a3d385950bbe002029c69e	picked	bpf: Do not try bpf_msg_push_data with len 0	net/core/filter.c	-
+024	4f5d47e6b43f518f0bafbab1a1343d8b410a11b6	9a18b55b53d76347ff7a3569615983e25eaf079a	picked	selftests: bpf: Check bpf_msg_push_data return value	tools/testing/selftests/bpf/progs/test_sockmap_kern.h	-
+025	7ef94bfb08fb9e73defafbd5ddef6b5a0e2ee12b	23c941c3271d9f7925d0c18fd62b61f08022474c	picked	bpf: Add schedule points in batch ops	kernel/bpf/syscall.c	-
+026	4a93c6594613c3429b6f30136fff115c7f803af4	25208e5dd0ec19968455330cd91c56901add7eb1	picked	io_uring: add a schedule point in io_add_buffers()	fs/io_uring.c	-
+027	c5722243d0e5428f3f62682fb38f03a1698578ba	dfc3c1172a9c9d12a17ee3e734c0d6ef62afbac2	picked	net: __pskb_pull_tail() & pskb_carve_frag_list() drop_monitor friends	net/core/skbuff.c	-
+028	b692d5dc6f541961379e123e31c4bea8ba0725f1	a128dc931ce7836b9e5ab3d8cd4b87bf33d782dc	picked	tipc: Fix end of loop tests for list_for_each_entry()	net/tipc/name_table.c;net/tipc/socket.c	-
+029	dac2490d9ee0b89dffc72f1172b8bbeb60eaec39	d66b3c504c7745b1da55de2643c7fd6a13a30fd8	picked	gso: do not skip outer ip header in case of ipip and net_failover	net/ipv4/af_inet.c;net/ipv6/ip6_offload.c	-
+030	1df9d552fe84bb7d7a6a361b5bb8a9273f9f799d	d02d2d255534cf046ece7a3c24625424a6ab7ef8	picked	openvswitch: Fix setting ipv6 fields causing hw csum failure	include/net/checksum.h;net/openvswitch/actions.c	-
+031	fd020eaaa24a676f11a58c527dcd928f18d66a6c	f59041137d7b2dda80ca9f36541f1fbba9850804	picked	drm/edid: Always set RGB444	drivers/gpu/drm/drm_edid.c	-
+032	bc8f768af342dd63232346078828a7e932f8be8d	076074ef221da7523ada1714369a0a7dd15555a6	picked	net/mlx5e: Fix wrong return value on ioctl EEPROM query failure	drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c	-
+033	0fc1847359964e95e521cf2bb2b10f8e33dd0970	9e2e2e03aaf9bf2f494e86fb2a735b94e37be531	picked	net/sched: act_ct: Fix flow table lookup after ct clear or switching zones	net/sched/act_ct.c	-
+034	550d98ab3007af7627694ba915f85681d4276ffa	d6d46f9a275434635f4fc745b7e6b29906471194	picked	net: ll_temac: check the return value of devm_kmalloc()	drivers/net/ethernet/xilinx/ll_temac_main.c	-
+035	58a6d5f24f49ab87f56b0045bb7abc3b701fa5c8	91d915b625346dd2e1b946fc333ae29c018200e8	picked	net: Force inlining of checksum functions in net/checksum.h	include/net/checksum.h	-
+036	af4bc921d39dffdb83076e0a7eed1321242b7d87	26fcee849c4d3318246de3a0da422e11de22a6d1	picked	nfp: flower: Fix a potential leak in nfp_tunnel_add_shared_mac()	drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c	-
+037	7e9880e81d3fd6a43c202f205717485290432826	572464d2f4c4c3d94f353c540adef9fc76f134f5	picked	netfilter: nf_tables: fix memory leak during stateful obj update	net/netfilter/nf_tables_api.c	-
+038	91f56a85278ebd6440ded1a6f82a9706cfcb0a7f	be3b5e3110c49a982f43a32eabeb619b3cb634fb	picked	net/smc: Use a mutex for locking "struct smc_pnettable"	net/smc/smc_pnet.c;net/smc/smc_pnet.h	-
+039	a184f4dd9b330d57b997ee7b4b20e05ef22ef0cc	c5f22a21bc4941c42f435d221a0bbb2a7afe3171	picked	surface: surface3_power: Fix battery readings on batteries without a serial number	drivers/platform/x86/surface3_power.c	-
+040	1c5912895545038aebce0596209e5c95f4fc8dfb	e895049b5cc175593852f99853c736be97b6f678	picked	udp_tunnel: Fix end of loop test in udp_tunnel_nic_unregister()	net/ipv4/udp_tunnel_nic.c	-
+041	8d617110d78e734a2c79060d8d36b822cb533053	31b4065254c675e869bf84bf807cab511e478553	picked	net/mlx5: Fix possible deadlock on rule deletion	drivers/net/ethernet/mellanox/mlx5/core/fs_core.c	-
+042	be55d3e76c0ed422c35f8e98c09bce77886609af	664243df99051e92d66958a892fc88ef2b7f6ab0	picked	net/mlx5: Fix wrong limitation of metadata match on ecpf	drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c	-
+043	67819b983eb3f3e6a72b663f04090f8f7d404551	494077a47b436e63ff82e78c39303ca04b1dadcb	picked	net/mlx5e: kTLS, Use CHECKSUM_UNNECESSARY for device-offloaded packets	drivers/net/ethernet/mellanox/mlx5/core/en_rx.c	-
+044	2efece1368aeee2d2552c7ec36aeb676c4d4c95f	bdadfc22ee6a6e9de7f4bd2ccb22ddad649e5b09	picked	spi: spi-zynq-qspi: Fix a NULL pointer dereference in zynq_qspi_exec_mem_op()	drivers/spi/spi-zynq-qspi.c	-
+045	dc64aa4c7dc0cea2088facb6009c0811812121de	adc0ed5f39f7f32d53070ed52d3fb686db343c82	picked	regmap-irq: Update interrupt clear register for proper reset	drivers/base/regmap/regmap-irq.c	-
+046	8260f1800f83e667f26c80baa7f0b9d92ae271d7	71e8348792cf6acd4fd3a06c48ec464ccecac361	picked	RDMA/rtrs-clt: Fix possible double free in error case	drivers/infiniband/ulp/rtrs/rtrs-clt.c	-
+047	b0ecf9e5941432aace7ca4d4850ead4acb462d45	de98865b6cacea13436e88e7f8388802ddb65133	picked	RDMA/rtrs-clt: Kill wait_for_inflight_permits	drivers/infiniband/ulp/rtrs/rtrs-clt.c	-
+048	0ecd3e35d78ee083d9663c85669272a8eecd6c95	d9fb8dcb7ab650e2cee8d5661df7440915a1a58c	picked	RDMA/rtrs-clt: Move free_permit from free_clt to rtrs_clt_close	drivers/infiniband/ulp/rtrs/rtrs-clt.c	-
+049	a7ab53d3c27dfe83bb594456b9f38a37796ec39b	14dacf8df21b71dbc03c6511b5af6a21293834f1	picked	configfs: fix a race in configfs_{,un}register_subsystem()	fs/configfs/dir.c	-
+050	99eb8d694174c777558dc902d575d1997d5ca650	7657c088f96c9cf5fc55fdc64b2e989ff68f7826	picked	RDMA/ib_srp: Fix a deadlock	drivers/infiniband/ulp/srp/ib_srp.c	-
+051	afbeee13beb5f0e7b88b7ca80278dec6f5eea584	dbb0f0c45b96a60fef635bf6c4b5e85365d4f468	picked	tracing: Have traceon and traceoff trigger honor the instance	kernel/trace/trace_events_trigger.c	-
+052	1aa12ecfdcbafebc218910ec47acf6262e600cf5	9ed800e59655daf90660d4b0aa692b3a7b7d2a20	picked	iio: adc: men_z188_adc: Fix a resource leak in an error handling path	drivers/iio/adc/men_z188_adc.c	-
+053	b8d411a96227cf182061c4761d77c96615b515c7	ee0ea5f4081b1476839c00076385073cf5255481	picked	iio: adc: ad7124: fix mask used for setting AIN_BUFP & AIN_BUFM bits	drivers/iio/adc/ad7124.c	-
+054	eabcc609cb8accf16a5c53fd9b91a827854b1ca9	50f5b8db4d8ba9fbfc2351486152ac2f7191f056	picked	iio: imu: st_lsm6dsx: wait for settling time in st_lsm6dsx_read_oneshot	drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c	-
+055	d5ddd7343adf7bfbe8b702eddb112446f2b0ad8c	7db84f90b69d72ab677bf6831876130552093fb8	picked	iio: Fix error handling for PM	drivers/iio/accel/bmc150-accel-core.c;drivers/iio/accel/kxcjk-1013.c;drivers/iio/accel/mma9551.c;drivers/iio/accel/mma9553.c;drivers/iio/gyro/bmg160_core.c;drivers/iio/imu/kmx61.c;drivers/iio/magnetometer/bmc150_magn.c	-
+056	18701d8afaa1c609b3cbf7c63ef5423ab2c8d252	e26f9b648082cad7c922df91090e1c8f3e692683	picked	sc16is7xx: Fix for incorrect data being transmitted	drivers/tty/serial/sc16is7xx.c	-
+057	d3fce1b6bd95d6c90b92df41d72e3db6be63fbd5	84b6c3e97052e95ec7e7f94746101e3328307087	picked	ata: pata_hpt37x: disable primary channel on HPT371	drivers/ata/pata_hpt37x.c	-
+058	ddc254fc8873b3517aeaa6859f78d7fb949866f4	cf1034af28dcb3045ddcfa14cb728c315fdb4050	picked	Revert "USB: serial: ch341: add new Product ID for CH341A"	drivers/usb/serial/ch341.c	-
+059	4ce247af3f30078d5b97554f1ae6200a0222c15a	235c0781d30f6f0a507856672220848938a074ac	backported	usb: gadget: rndis: add spinlock for rndis response list	drivers/usb/gadget/function/rndis.c;drivers/usb/gadget/function/rndis.h	Complete original free/get response-list locking using existing resp_queue_lock, already initialized/used by producer; header/layout/parser API unchanged, no duplicate lock or RNDIS runtime claim.
+060	bfa8ffbaaaaf9752f66bc7cabcef2de715e7621f	434c1915d383bffbc222c9b7971e57e7c33cf6da	picked	USB: gadget: validate endpoint index for xilinx udc	drivers/usb/gadget/udc/udc-xilinx.c	-
+061	3a1dd56e566fa71419da2c145a6850e63f17fbf0	9ae747b4baab8d1dce265fd017a94e26126d6bf1	picked	tracefs: Set the group ownership in apply_options() not parse_options()	fs/tracefs/inode.c	-
+062	220ba174f192dee88cff9ba24b2de912225d4d5d	d74bf33704138ef06b1369108d3b5c10e1a41b2a	picked	USB: serial: option: add support for DW5829e	drivers/usb/serial/option.c	-
+063	c7866880377b73a809e6f08852b0b05452ab6296	597f52ab242ad6c06af855c807a805ddf4d558ec	picked	USB: serial: option: add Telit LE910R1 compositions	drivers/usb/serial/option.c	-
+064	99b2425d9178b0939ac000893c5d889d63f5234d	f6106508beae9d31f226fa2549abd64995260233	picked	usb: dwc2: drd: fix soft connect when gadget is unconfigured	drivers/usb/dwc2/core.h;drivers/usb/dwc2/drd.c	-
+065	e57bdee8661e7233f18e9a37a5c926da19db5e7b	-	not-applicable	usb: dwc3: pci: Fix Bay Trail phy GPIO mappings	drivers/usb/dwc3/dwc3-pci.c	Original Intel Bay Trail DWC3-PCI target file and tables are absent; retain USB_PCI+ACPI build gate without restoring unused driver. Missing-prerequisite, not semantic-present or runtime acceptance.
+066	328faee6d4099de2e8d9dc18ded9ea31f62b5b5f	-	not-applicable	usb: dwc3: gadget: Let the interrupt handler disable bottom halves.	drivers/usb/dwc3/gadget.c	Original voluntary-threaded DWC3 IRQ context absent; sole static caller is tasklet with established BH-off/softirq-exit processing. No duplicate BH pair or OEM IRQ/suspend change; missing-prerequisite, no runtime acceptance.
+067	0b0a229da1f22f04b356b8ede564d95e046137b4	ee7abd6b52af3f0b9dd43ba29e202d4cae7ceba7	picked	xhci: re-initialize the HC during resume if HCE was set	drivers/usb/host/xhci.c	-
+068	214824764308ae9b3dc0a99e369ef9a68af05923	3250d63facf5c125294545f3cee879fadcd81ad7	picked	xhci: Prevent futile URB re-submissions due to incorrect return value.	drivers/usb/host/xhci.c	-
+069	8fe4da55246ac3cff5947485f466e5537c5bc294	1e129ea2e4eae7f13cb22a2729bb7e74c2ec3f8b	picked	driver core: Free DMA range map when device is released	drivers/base/dd.c	-
+070	5b1cef5798b4fd6e4fd5522e7b8a26248beeacaa	d4157b35813c173a71b9f25ddb7856ff1b5a51b7	picked	RDMA/cma: Do not change route.addr.src_addr outside state checks	drivers/infiniband/core/cma.c	-
+071	e098933866f9e1dd3ef4eebbe2e3d504f970f599	402abb5cdf76f066b2beacb0dc5ff2d601e55764	picked	thermal: int340x: fix memory leak in int3400_notify()	drivers/thermal/intel/int340x_thermal/int3400_thermal.c	-
+072	9e2dbc31e367d08ee299a0d8aeb498cb2e12a1c3	6abe86eeaacf38d37e5e6a8d34cb97f864270d75	picked	riscv: fix oops caused by irqsoff latency tracer	arch/riscv/kernel/Makefile;arch/riscv/kernel/entry.S;arch/riscv/kernel/trace_irq.c;arch/riscv/kernel/trace_irq.h	-
+073	90b47e617fb277173dd62df2f2d900ea42b7cefc	01f54e4f86cd596ceb5f2cadf1e4808b5bc7587c	picked	tty: n_gsm: fix encoding of control signal octet bit DV	drivers/tty/n_gsm.c	-
+074	1e35cb9e1271816035089d80b867e2662e3bee54	3975d11c948cf96a693d56f9dd07fc357d529a38	picked	tty: n_gsm: fix proper link termination after failed open	drivers/tty/n_gsm.c	-
+075	1f0641dd0b6c60093825337563e1c9abec41757c	ec4de27a9d711e2b170786fe827304d896fede54	picked	tty: n_gsm: fix NULL pointer access due to DLCI release	drivers/tty/n_gsm.c	-
+076	e4c8cb95d03543c721e7a1265253eda2ce1b8370	af3cc2c005cea23b73aae5b726fb6ecbcb896d37	picked	tty: n_gsm: fix wrong tty control line for flow control	drivers/tty/n_gsm.c	-
+077	bb2e0a77235a1b083a255c462cbacfb40def9a58	f4c04c9862bf1d20124d957b00b6e33adfbc77e1	picked	tty: n_gsm: fix deadlock in gsmtty_open()	drivers/tty/n_gsm.c	-
+078	4185b788d3adc9e66b5b9c959b91ae17b8488fc3	780d01702954585526cde0f69e46ccada12a30d2	picked	gpio: tegra186: Fix chip_data type confusion	drivers/gpio/gpio-tegra186.c	-
+079	78706b051a8a314b55f13bcef3351e7d8e974a88	ef6040481a0e3362cf75ebd80a077bff039c28b3	picked	memblock: use kfree() to release kmalloced memblock regions	mm/memblock.c	-
+080	915a747ac7f368a9979638e86fb9097d6a903672	6cf2dcdf937e8ca15f358a052a7376454993b98d	backported	Linux 5.10.103	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.
