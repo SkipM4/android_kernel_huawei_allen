@@ -528,7 +528,7 @@ void commu_suspend(enum commu_driver driver)
 
 void commu_resume(enum commu_driver driver)
 {
-	if (commu_data_tbl[driver] && commu_data_tbl[driver]->wake_irq == pm_wakeup_irq)
+	if (commu_data_tbl[driver] && commu_data_tbl[driver]->wake_irq == pm_wakeup_irq())
 		notify_commu_wakeup(true, driver);
 
 	commu_data_tbl[driver]->resumed = true;
