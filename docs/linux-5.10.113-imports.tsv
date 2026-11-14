@@ -1,0 +1,88 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	08ad7a770efacfecf903143f8de88d1e351a1f2d	0660f61a25841f4a4b65ad5fdf457944f9dcfbeb	picked	etherdevice: Adjust ether_addr* prototypes to silence -Wstringop-overead	include/linux/etherdevice.h	-
+002	69848f9488bc1088bcd9a73987dff8d2cb47a060	9bbd8538dcf8b149ea8315850d3d5c1c29f2318b	picked	mm: page_alloc: fix building error on -Werror=array-compare	mm/page_alloc.c	-
+003	5e8446e3820c67b644573f7d1387d22dc41ef71e	bf83eb06d2d3aca4c9fa16683c276ee2f8505726	picked	tracing: Dump stacktrace trigger to the corresponding instance	kernel/trace/trace_events_trigger.c	-
+004	378061c9b886994fa045186390d61a5e7c696ae3	d5acc6d40ab7fdff1501f248d9d7dd8b9b5936b6	picked	perf tools: Fix segfault accessing sample_id xyarray	tools/lib/perf/evlist.c	-
+005	04dd45d9776eb4802df8b0a0a6fcdf27842fbdd1	7de5ab917f80f2f21480ba7ed157f4a9c82dba38	picked	gfs2: assign rgrp glock before compute_bitstructs	fs/gfs2/rgrp.c	-
+006	43ce33a68e2bcc431097e1075aad5393d0bf53ba	-	already-present	net/sched: cls_u32: fix netns refcount changes in u32_change()	net/sched/cls_u32.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+007	8ce3820fc9d496100fb39008a952eebfb695b060	b6e748b70aed8eeb289d049941f37d103e110d4c	picked	ALSA: usb-audio: Clear MIDI port active flag after draining	sound/usb/midi.c	-
+008	cf9b19546494b2e5df87486752946ae71c6775db	bbfdd8fc7e83b4ef7e4896cfce1b11e2d8154854	picked	ALSA: hda/realtek: Add quirk for Clevo NP70PNP	sound/pci/hda/patch_realtek.c	-
+009	d29c78d3f9c5d2604548c1065bf1ec212728ea61	-	already-present	dm: fix mempool NULL pointer race when completing IO	drivers/md/dm.c	Complete dec_pending already copies all needed fields and frees dm_io before end_io_acct/wakeup; keep the additional existing stats write barrier and accounting order.
+010	608fc58858bfa7552a9824c2f0e4a3ab8dd4efaa	706d56288a8223ca580e8fb4445fc2088bb4b3c3	picked	ASoC: atmel: Remove system clock tree configuration for at91sam9g20ek	sound/soc/atmel/sam9g20_wm8731.c	-
+011	b6f474cd3097b9570d5c2c30075ca3506fbbcf33	9b5f6464a8a978407c005912c04168b136a6e70f	picked	ASoC: msm8916-wcd-digital: Check failure for devm_snd_soc_register_component	sound/soc/codecs/msm8916-wcd-digital.c	-
+012	12aa8021c7a72811cd8096b1e456cd5d265896d9	eb1c5e6eb2df457fad0733a2f948553d256e9bbd	picked	ASoC: codecs: wcd934x: do not switch off SIDO Buck when codec is in use	sound/soc/codecs/wcd934x.c	-
+013	9bc949a181ba805b76b81d1ae1519af093328b81	f7bab474d00b6f58cd5144dd2d7570e5e5a5ac53	picked	dmaengine: imx-sdma: Fix error checking in sdma_event_remap	drivers/dma/imx-sdma.c	-
+014	f714abf28f819849d2fd93a4a8db15cff3f8798e	718a1d1e59dc128a38e09ceb26e8dcb33c3d2944	picked	dmaengine: mediatek:Fix PM usage reference leak of mtk_uart_apdma_alloc_chan_resources	drivers/dma/mediatek/mtk-uart-apdma.c	-
+015	3f7914dbeacdffe4fa198dee7afefa74998b5d8d	44d62803badd03fac012f0fff34a19cdb73bb3c1	picked	spi: spi-mtk-nor: initialize spi controller after resume	drivers/spi/spi-mtk-nor.c	-
+016	c075c3ea031757f8ea2d34567565b61a868c08d5	bf596ef64d1e9d60a0ba5499625419e79d09953e	picked	esp: limit skb_page_frag_refill use to a single page	include/net/esp.h;net/ipv4/esp4.c;net/ipv6/esp6.c	-
+017	46b0e4f998ceead45f273be4d282b7fbb70f6125	9636bb48e715bdb5f1e83f2f56c8985182f947a5	picked	igc: Fix infinite loop in release_swfw_sync	drivers/net/ethernet/intel/igc/igc_i225.c	-
+018	fc7116a79a86500e15520658f279b6536ff9f700	ba677f9510290c774b1d7e772384f4c530fbb177	picked	igc: Fix BUG: scheduling while atomic	drivers/net/ethernet/intel/igc/igc_phy.c	-
+019	60592f16a456d239df9060968dd9cb561d0a6fb0	28181cec409d49062009ad921aca6fb513df8a76	picked	rxrpc: Restore removed timer deletion	net/rxrpc/net_ns.c	-
+020	a499cb5f3ef9f976eac96c02adbcc505764e2b91	111abeba08112c23a6d77a9df1c80289bac14424	picked	net/smc: Fix sock leak when release after smc_shutdown()	net/smc/af_smc.c	-
+021	8fb76adb89f0d576c107e05fd922bf3d04c470d9	6f1905b09a5e6f808db82690f74646329eef98da	picked	net/packet: fix packet_sock xmit return value checking	net/packet/af_packet.c	-
+022	200f96ebb389788dea563e8a0b1105863a836039	f8eb523bf7a470d69fb78b391985b5fcb01474cc	picked	ip6_gre: Avoid updating tunnel->tun_hlen in __gre6_xmit()	net/ipv6/ip6_gre.c	-
+023	93366275be72bc55cada31a2a1273147553acab8	dfd79d964a235ecb4d64bfae17cbb239ac530ea4	picked	ip6_gre: Fix skb_under_panic in __gre6_xmit()	net/ipv6/ip6_gre.c	-
+024	0ac8f83d8f6471e39b3cfe8ee48560df3bf9c451	7582952bddfa8ed047cac9a6cbfd254ea0db54ae	picked	net/sched: cls_u32: fix possible leak in u32_init_knode()	net/sched/cls_u32.c	-
+025	078d839f11acfa9bf5b549d2189abda9f2a943a0	bfbb667e79bfa7587827aceca03262bfdccfd46b	picked	l3mdev: l3mdev_master_upper_ifindex_by_index_rcu should be using netdev_master_upper_dev_get_rcu	net/l3mdev/l3mdev.c	-
+026	49516e6ed91434d022a800321a8bc7d8054f62ac	a3c1a89574f5cf5c1f5379852209cac075dc3b12	backported	ipv6: make ip6_rt_gc_expire an atomic_t	include/net/netns/ipv6.h;net/ipv6/route.c	Apply all original atomic GC expiry operations and field initialization while preserving the existing newer void dst_ops.gc callback and no-hard-max allocation contract.
+027	3d55b195747c1259c994b868a509beae947a7c6e	acaa56ca0499548308b7a8e753d5595d44efa724	picked	netlink: reset network and mac headers in netlink_dump()	net/netlink/af_netlink.c	-
+028	f593f49fcd174ebe0ebeebecf46fadc134593ddb	56a59b9f4dfc470bc314ff9c4b0fec1ca24f30c1	picked	net: stmmac: Use readl_poll_timeout_atomic() in atomic state	drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c	-
+029	9a3c026dc3a59fa23c63d90752f07538a3c75646	85249920b149c5df0d7e5331faa8c8719915c335	picked	dmaengine: idxd: add RO check for wq max_batch_size write	drivers/dma/idxd/sysfs.c	-
+030	520aab8b723cb2bffef957844b634af04e96428d	1bbb1d4908b5ccc91b86e8f89b1d934802498e0c	picked	dmaengine: idxd: add RO check for wq max_transfer_size write	drivers/dma/idxd/sysfs.c	-
+031	3bf8ca35017024fa1cad55344f798cd5cd131c16	cc8022d32d8e6261fa2eadb4b5ecb63578e4adbe	picked	selftests: mlxsw: vxlan_flooding: Prevent flooding of unwanted packets	tools/testing/selftests/drivers/net/mlxsw/vxlan_flooding.sh	-
+032	18ff7a2efa4e14a6bd86aad31a6a8cebdf0dbabc	5db1ffcd5cd4d4ac1bcbd66d823254a342964a84	picked	arm64/mm: Remove [PUD|PMD]_TABLE_BIT from [pud|pmd]_bad()	arch/arm64/include/asm/pgtable.h	-
+033	052e4a661f90d27586b4364764dcfb2c022b00ee	6363912f94edef89839b3c51374532e649711f58	picked	arm64: mm: fix p?d_leaf()	arch/arm64/include/asm/pgtable.h	-
+034	d513ea9b7ef822b638857c7114d26af108e4bab1	918e3b60f6fe640cd236fc5ef0ddd63580eb770d	picked	ARM: vexpress/spc: Avoid negative array index when !SMP	arch/arm/mach-vexpress/spc.c	-
+035	cb17b56a9b4de46c057691b524c692c10e8d9d51	493bf0406ad36193428b5282f8a4c723f45e1065	picked	reset: tegra-bpmp: Restore Handle errors in BPMP response	drivers/reset/tegra/reset-bpmp.c	-
+036	490815f0b50e42238a22ea4b2dc64105f5a59e6f	0afa9fe915836ca516df388c7c5d5b526f3c4a3d	picked	platform/x86: samsung-laptop: Fix an unsigned comparison which can never be negative	drivers/platform/x86/samsung-laptop.c	-
+037	cd227ac03f2aa918ee3672fe2a5960dd0e7be331	150b2081bf73715423b3428d6a9a569fe4a5ab7d	picked	ALSA: usb-audio: Fix undefined behavior due to shift overflowing the constant	sound/usb/usbaudio.h	-
+038	8e7ea11364758d43e577b7835b8e98f27927d56c	7a35a3a1ce006e9213e25b73041a0faf5fcfec66	picked	arm64: dts: imx: Fix imx8*-var-som touchscreen property sizes	arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi;arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi	-
+039	e129c55153c8aba74e4c73451399f12dacf6347d	a1169d1b599efcaf346ea7c1a06dd7c4c86fa094	picked	vxlan: fix error return code in vxlan_fdb_append	drivers/net/vxlan.c	-
+040	5bef9fc38ffa3e0a712fcd1e07f4f123ba160242	393a071e543c5fd13e5457e3ef44e5340c24437c	picked	cifs: Check the IOCB_DIRECT flag, not O_DIRECT	fs/cifs/cifsfs.c	-
+041	0de9c104d04aed5e464bd788abb423ed333980c7	b0bfe40f3182fd71776f8f6bde2eb19cdb5b661f	picked	net: atlantic: Avoid out-of-bounds indexing	drivers/net/ethernet/aquantia/atlantic/aq_nic.c;drivers/net/ethernet/aquantia/atlantic/aq_vec.c	-
+042	202748f441488e08c730736bf5def1ae08f16811	0fd5e67ba34515840989b79f53e997d5c1538541	picked	mt76: Fix undefined behavior due to shift overflowing the constant	drivers/net/wireless/mediatek/mt76/mt76x2/pci.c	-
+043	b3afe5a7fd7548fa3a818f8dd20e22db4b8db019	8309a189e3d555452c64eb9f9b1238c5cc973a9c	picked	brcmfmac: sdio: Fix undefined behavior due to shift overflowing the constant	drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c	-
+044	8d71edabb0abe6c8e3e1601e73f63f81783b6cc0	99233f2b1a97fdf6af3d1d1bb2e85afe8430f253	picked	dpaa_eth: Fix missing of_node_put in dpaa_get_ts_info()	drivers/net/ethernet/freescale/dpaa/dpaa_ethtool.c	-
+045	9581e07b549bd911ce3af12b57ea2646b4995ebf	a55d2cadd7d9e60b7f560d7ec4741cbf6964ea4a	picked	drm/msm/mdp5: check the return of kzalloc()	drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c	-
+046	a284cca3d81ae5e5f5f23c09b8298339188953a5	a777ed2aefed2bccf586e74bc773bd67066f944c	picked	net: macb: Restart tx only if queue pointer is lagging	drivers/net/ethernet/cadence/macb_main.c	-
+047	bf28bba3041055759ce6afe5e61bc4fd709ea6e4	a4fe5fc6d339381408da5261d12aa31cc04f31f5	picked	scsi: qedi: Fix failed disconnect handling	drivers/scsi/qedi/qedi_iscsi.c	-
+048	76101c8e0c31938e59bbcb4beed47c8d8b89d39a	adc66ab99817c8f98d61ff892c11a258244dfce0	picked	stat: fix inconsistency between struct stat and struct compat_stat	arch/x86/include/asm/compat.h;fs/stat.c	-
+049	316bd86c2261fffa37577c3d35721a9337248e54	3b0da9bfe31dd2a9c521b2f5a7d63e5e22702b76	picked	nvme: add a quirk to disable namespace identifiers	drivers/nvme/host/core.c;drivers/nvme/host/nvme.h	-
+050	7ec6e06ee405756f90226b946790a5a7a65795b7	e8266b5a98630837e9b097ea82494210e0cf3950	picked	nvme-pci: disable namespace identifiers for Qemu controllers	drivers/nvme/host/pci.c	-
+051	50cbc583fa838a63f8447251b88da569c3d36ba6	03ad24a78a7d580c8ed0ced11bc61d5075df3db9	picked	EDAC/synopsys: Read the error count from the correct register	drivers/edac/synopsys_edac.c	-
+052	6b932920b96fc3002352fe8225ec63a1cd1717ec	02884e76e2a6670657d364e3d00c56489c876d51	backported	mm, hugetlb: allow for "high" userspace addresses	fs/hugetlbfs/inode.c;include/linux/sched/mm.h;mm/mmap.c	Apply the complete original hugetlb high-address limits and move the identical fallback mmap macros to sched/mm.h while preserving intervening OEM mmap hooks/export context.
+053	ed5d4efb4df1014bd5bc1d479e157c7687d8c187	ad071bf111575cb70e88ff2e34c9c6dd0f30cca0	picked	oom_kill.c: futex: delay the OOM reaper to allow time for proper futex cleanup	include/linux/sched.h;mm/oom_kill.c	-
+054	9ca66d79143980260be615b964b8dc1504a5d0c6	45df6b863cd7d21a5d3f6e2bad5f0d7bc670c09a	picked	mm/mmu_notifier.c: fix race in mmu_interval_notifier_remove()	mm/mmu_notifier.c	-
+055	cf23a960c5c62ddd8283a855a742977ee983a62a	0b087a87f9604bde880a1b5cb372e64bc761be2b	picked	ata: pata_marvell: Check the 'bmdma_addr' beforing reading	drivers/ata/pata_marvell.c	-
+056	358a3846f6a950b8db803262e74081ad4ab235d4	8d769e0e235ff68cc107fac6b0244832bf91d2d1	picked	dma: at_xdmac: fix a missing check on list iterator	drivers/dma/at_xdmac.c	-
+057	ba2716da233618c3f361b8ece818a0e91de7a8f0	a77fd6294d39ac09715c91b79a33a70321a3623a	picked	net: atlantic: invert deep par in pm functions, preventing null derefs	drivers/net/ethernet/aquantia/atlantic/aq_pci_func.c	-
+058	f399ab11dd6cc0a6927029371fbe2ec027181598	d6db34ecdcc872d8e326b3ade1d14fc4bcdccbc3	picked	xtensa: patch_text: Fixup last cpu should be master	arch/xtensa/kernel/jump_label.c	-
+059	19f6dcb1f0f0f8523976c8aa1800856c9b4f35c3	1b7b976f2091f9f89419cf9add4905ef68888f5f	picked	xtensa: fix a7 clobbering in coprocessor context load/store	arch/xtensa/kernel/coprocessor.S	-
+060	0837ff17d052b7d755d5086208c3445867aaff82	-	already-present	openvswitch: fix OOB access in reserve_sfa_size()	net/openvswitch/flow_netlink.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+061	54e6180c8c2d71b6f1fab0d1420f65299b26953e	f8213d79cc951b47ee3870c1aed81e45fd2ff207	picked	gpio: Request interrupts after IRQ is initialized	drivers/gpio/gpiolib.c	-
+062	43a2a3734aa3d25ef11b90f14f18bf31fb0a7feb	94b624928914bd98aee509383eec89e9f1b91837	picked	ASoC: soc-dapm: fix two incorrect uses of list iterator	sound/soc/soc-dapm.c	-
+063	7082650eb8265b583d0aea0515bcc6f65b0e8755	98193ed09f251b85cf3db6bcbb574a1affd728ed	picked	e1000e: Fix possible overflow in LTR decoding	drivers/net/ethernet/intel/e1000e/ich8lan.c	-
+064	5580b974a84b30f6da90a3a562ea0dbfb0038110	743a61851a1275c2a81508ea8622954b3ebbab24	picked	ARC: entry: fix syscall_trace_exit argument	arch/arc/kernel/entry.S	-
+065	c55327bc3712ca96dc05bc4c6aab805b6fa8bb74	e90241dbe820d3edeb4e24f86c82069155de5d48	picked	arm_pmu: Validate single/group leader events	drivers/perf/arm_pmu.c	-
+066	88fcfd6ee6c5a617e712b346e9c15fc3057e532e	4b50a9dde082a036aa31628db2ef33ad9dc34000	picked	sched/pelt: Fix attach_entity_load_avg() corner case	kernel/sched/fair.c	-
+067	51d9cbbb0f5a175e5b4c4a25d2ec995363304860	37f58648d4069c7941a6d23260a4de0ea4bb9f33	picked	perf/core: Fix perf_mmap fail when CONFIG_PERF_USE_VMALLOC enabled	kernel/events/core.c;kernel/events/internal.h;kernel/events/ring_buffer.c	-
+068	231381f5211620cec836b921f1c7a2cf702b3e8a	9b2f94722ffbf3747c24b9bbddc0827a531fac86	picked	drm/panel/raspberrypi-touchscreen: Avoid NULL deref if not initialised	drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c	-
+069	405d98427416849cf37c84c0c70bd5008b686a1e	f0be74887bd0b884da36607db15fc05f732b450f	picked	drm/panel/raspberrypi-touchscreen: Initialise the bridge in prepare	drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c	-
+070	f8f8b3124b899867a18a3f63e538c791e21252ac	eb1e28a8debab8a441cac802ce046b8abc0d1498	picked	KVM: PPC: Fix TCE handling for VFIO	arch/powerpc/kvm/book3s_64_vio.c;arch/powerpc/kvm/book3s_64_vio_hv.c	-
+071	0a2cef65b32919af7df4df979c5eede5f7825f17	b0bb673dbf92777fe25e51f1991bb47baac869eb	picked	drm/vc4: Use pm_runtime_resume_and_get to fix pm_runtime_get_sync() usage	drivers/gpu/drm/vc4/vc4_dsi.c	-
+072	e012f9d1af54ca3c24ca0e9ec03a1a212972771c	aeea86b57a5b170401e5da0a68cbda6b3e99c4cf	picked	powerpc/perf: Fix power9 event alternatives	arch/powerpc/perf/power9-pmu.c	-
+073	19590bbc691d81f03d2a24a3ec30c399ebe071e0	d20f82b6ccad6caa3d3026b1de6e9a301e8dacec	picked	perf report: Set PERF_SAMPLE_DATA_SRC bit for Arm SPE event	tools/perf/builtin-report.c	-
+074	f6038d43b25bba1cd50d2a77e207f6550aee9954	ac6495f49e98c7f787084bca407b462ee405aec1	backported	ext4: fix fallocate to use file_modified to update permissions consistently	fs/ext4/ext4.h;fs/ext4/extents.c;fs/ext4/inode.c	Apply every original file-based punch/collapse/insert signature, caller and locked file_modified permission update while preserving the intervening existing inline-data conversion/lock and fast-commit flow.
+075	a46b3d8498646913209693de52e3ad61da04c64a	93d33c5d4dfdf7b68438d64fc4ded025d94f5819	picked	ext4: fix symlink file size not match to file content	fs/ext4/page-io.c	-
+076	75ac724684b7e1ba39d196cea7b14f5fb74e938c	b5a401c94f286436d18e73528f7b657852495ea0	picked	ext4: fix use-after-free in ext4_search_dir	fs/ext4/ext4.h;fs/ext4/namei.c	-
+077	22c450d39f8922ae26de459cf4f83b2b294f207e	807d2f21e13cfe279e4dd7540b2110084294687c	picked	ext4: limit length to bitmap_maxbytes - blocksize in punch_hole	fs/ext4/inode.c	-
+078	0c54b093766becb9c83317232c93290cf612b8ff	7912d9acd9565b0bb222fdcb8dd4e45f78d61a62	picked	ext4, doc: fix incorrect h_reserved size	Documentation/filesystems/ext4/attributes.rst	-
+079	4789149b9ea2a1893c62d816742f1a76514fc901	006957473e5c4bb291386e83ec991ea2abd46770	picked	ext4: fix overhead calculation to account for the reserved gdt blocks	fs/ext4/super.c	-
+080	e1e96e37272156d691203a3725b876787f38c8f2	5c5ac92256f60f7356e0071ddbaf140764c47344	picked	ext4: force overhead calculation if the s_overhead_cluster makes no sense	fs/ext4/super.c	-
+081	50aac44273600cb0ae1efd010bb1de7701444a41	8eaf5c6721913c9ae721fbd927dd7c994773c660	picked	can: isotp: stop timeout monitoring when no first frame was sent	net/can/isotp.c	-
+082	572761645b88ad292ec45835035081ad30a5ba97	c54fd6c6efc283669202124c1bb1326370798aca	picked	jbd2: fix a potential race while discarding reserved buffers after an abort	fs/jbd2/commit.c	-
+083	dccee748af17fc087ff5017152e532ef8e18c8c0	4944ed62fa0c9bf9b95b1c527ab7545602289849	picked	spi: atmel-quadspi: Fix the buswidth adjustment between spi-mem and controller	drivers/spi/atmel-quadspi.c	-
+084	fea24b07edfc348c67a019b6e17b39c0698e631f	-	already-present	staging: ion: Prevent incorrect reference counting behavour	drivers/staging/android/ion/ion.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+085	8bedbc8f7f35f533000b347644b6bf1f62524676	02f39467f2982b2341d4d501ac83bd9a158ec0a1	picked	block/compat_ioctl: fix range check in BLKGETSIZE	block/ioctl.c	-
+086	7992fdb045fbc7cb0e34eba464b73044585c0638	67c43de004e0f3be54b524f09cbf334f86524223	picked	Revert "net: micrel: fix KS8851_MLL Kconfig"	drivers/net/ethernet/micrel/Kconfig	-
+087	54af9dd2b958096a25860b80d48a04cf59b53475	fa1bd488d7e89c18d72dcb45ed1dad895ec761e4	backported	Linux 5.10.113	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.

@@ -1,0 +1,72 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	326f02f172d08b959da035f69e93e6afdf91745c	9d667c605c7285379bdc71edd1d0b4045f790b75	picked	MIPS: Fix CP0 counter erratum detection for R4k CPUs	arch/mips/include/asm/timex.h;arch/mips/kernel/time.c	-
+002	a196f277c547066a185d7760c08c65a099d815ed	288ccfef346054abddf9b8fe5f6d7b8ed1ffb3a5	picked	parisc: Merge model and model name into one line in /proc/cpuinfo	arch/parisc/kernel/processor.c	-
+003	03ab174805a30e5b0bba04b81a879c93c969fc86	43db7b1f6b030898a0068659f4e30b69600dde9d	picked	ALSA: hda/realtek: Add quirk for Yoga Duet 7 13ITL6 speakers	sound/pci/hda/patch_realtek.c	-
+004	2906c73632d752fc97da8bc4b9bbd66b787445a2	c299e2bf0ebda722a1ded44de71317e64d0a022e	picked	ALSA: fireworks: fix wrong return count shorter than expected by 4 bytes	sound/firewire/fireworks/fireworks_hwdep.c	-
+005	66651d7199480427fff8a7b688a6e507a7fe8cb3	76dc201458049ff3f26b5b93c46784e5744df24f	picked	mmc: sdhci-msm: Reset GCC_SDCC_BCR register for SDHC	drivers/mmc/host/sdhci-msm.c	-
+006	2b7cb072d07cc7eb45afa9aa7f1aefc0ae56a6d7	e397aab379867102aac9d0e36e4f7fc38be7e477	backported	mmc: core: Set HS clock speed before sending HS CMD13	drivers/mmc/core/mmc.c	Apply the complete HS400ES clock-before-status reorder and non-ZODIAC HS200 CMD13 clock save/set/restore; preserve selected ZODIAC HS200 no-CMD13 and voltage-after-timing flow byte-exactly.
+007	b085afe226075f87036ceb45e17e4448028f5c30	9690aa162347d083b0f456c0b2f8314ef17b6320	picked	gpiolib: of: fix bounds check for 'gpio-reserved-ranges'	drivers/gpio/gpiolib-of.c	-
+008	fbb7c61e76017202dedd2020f4d51264f500de68	31646a82b148a3f441bb0d2aa8f880e8e9b5e1e9	picked	KVM: x86/svm: Account for family 17h event renumberings in amd_pmc_perf_hw_id	arch/x86/kvm/svm/pmu.c	-
+009	2e6f3d665a29fe15fffd155d35d13f8c4d119d38	e50cfcecb7558f492def4e2e6eab0a4e9dea53ee	picked	iommu/vt-d: Calculate mask for non-aligned flushes	drivers/iommu/intel/iommu.c	-
+010	466721d7671accc4fd19b0ffde6911c62b177d27	9d9974da937af087aa0acc14cc7d0fdc90f93ee0	picked	drm/amd/display: Avoid reading audio pattern past AUDIO_CHANNELS_COUNT	drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c	-
+011	70d25d4fba24b98bb1f0d4f26ec90ca2f262337b	436930ac68685e378626e8643daec3fe5ae7e724	picked	Revert "SUNRPC: attempt AF_LOCAL connect on setup"	net/sunrpc/xprtsock.c	-
+012	e757ff4bbc893bc030c2d10143091094da73b9ff	9d0e9b18eed61471c3ce29d1d44b079ddd88d363	picked	firewire: fix potential uaf in outbound_phy_packet_callback()	drivers/firewire/core-cdev.c	-
+013	629b4003a71a640ca69218227205f6cb8d67a0b7	69305a8ed912330c7e6c4d4d28c1f48d2f81ce86	picked	firewire: remove check of list iterator against head past the loop body	drivers/firewire/core-transaction.c;drivers/firewire/sbp2.c	-
+014	68f35987d43c3b177637e6f8db784f72bcc6c10f	ce4548b066016463de9374c30a03dc9b8dc3e745	picked	firewire: core: extend card->lock in fw_core_handle_bus_reset	drivers/firewire/core-card.c;drivers/firewire/core-topology.c	-
+015	dcf1150f2e69d6ad44a98f61bab48b2f75f4c9e2	f57609d00e79978310cbbeee1880bd2680118276	picked	net: stmmac: disable Split Header (SPH) for Intel platforms	drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c;drivers/net/ethernet/stmicro/stmmac/stmmac_main.c;include/linux/stmmac.h	-
+016	e6e61aab4967be9138f99e6d40b29aaf2d416576	b2954f2f71f5206b196ccb2a0ed44559c1190980	picked	genirq: Synchronize interrupt thread startup	kernel/irq/internals.h;kernel/irq/irqdesc.c;kernel/irq/manage.c	-
+017	f45359824a480fdebd661bb5dede5ef800148162	81586888a9181f227188681b3f1219cec618b136	picked	ASoC: da7219: Fix change notifications for tone generator frequency	sound/soc/codecs/da7219.c	-
+018	954d55170f438d0552a0fe4a7e36ae385174bb43	19875cd3240ee60962cc7fbac93a404824122f23	picked	ASoC: wm8958: Fix change notifications for DSP controls	sound/soc/codecs/wm8958-dsp2.c	-
+019	e8b08e2f171ba4e9dd5b249abbe2db66e2d191d4	595ccc92631a2267b503e7f54fe85573bfcdd516	picked	ASoC: meson: Fix event generation for AUI ACODEC mux	sound/soc/meson/aiu-acodec-ctrl.c	-
+020	93a1f0755edc3a126ac02e4097c04a175822194a	43a57e43695ece396a0411b66604c8a33a70576c	picked	ASoC: meson: Fix event generation for G12A tohdmi mux	sound/soc/meson/g12a-tohdmitx.c	-
+021	d53d47fadd17a5631cb7e7e5aba8d8d2c0f99bac	1050b1806fec528d4a164895edfb00a4174d018f	picked	ASoC: meson: Fix event generation for AUI CODEC mux	sound/soc/meson/aiu-codec-ctrl.c	-
+022	30e008ab3fe7766c2f3705251f0f3759513dcbf3	3b271342194c60909ab9742ed7c6f5cde6bcf5e2	picked	s390/dasd: fix data corruption for ESE devices	drivers/s390/block/dasd.c;drivers/s390/block/dasd_eckd.c;drivers/s390/block/dasd_int.h	-
+023	ecc8396827706925222576730588640a0ecd8c52	5f947c5d012ed820b1609a287bbd1688f36683b6	picked	s390/dasd: prevent double format of tracks for ESE devices	drivers/s390/block/dasd.c;drivers/s390/block/dasd_eckd.c;drivers/s390/block/dasd_int.h	-
+024	6e02c0413a93ee3195bd68f2166c6d1fbe21b73c	645b5cccbbd75cf1e1db33a81b41b97780726a34	picked	s390/dasd: Fix read for ESE with blksize < 4k	drivers/s390/block/dasd_eckd.c	-
+025	6c7c0e131ec172fa6ee4ecbb63e747e402112772	7ee975914ee28bbce4bac4cbbe25e08e6e018371	picked	s390/dasd: Fix read inconsistency for ESE DASD devices	drivers/s390/block/dasd.c	-
+026	13959b9117001337bf6426b19b79a7085c4186cf	bf6427cd8f0ad61aba9a34e3249495ad8e937b2c	picked	can: grcan: grcan_close(): fix deadlock	drivers/net/can/grcan.c	-
+027	45bdcb5ca4267bcb84181ee9b01d20bc2187f8b9	cd30ecedb4c51c412b1c01cb5608291118e2ac4a	picked	can: isotp: remove re-binding of bound socket	net/can/isotp.c	-
+028	dd973c0185c5b2aec9b5a2c63c78af0e601c6a90	0fc96ced2a421433e51e023701691d03835f8f86	picked	can: grcan: use ofdev->dev when allocating DMA memory	drivers/net/can/grcan.c	-
+029	4df5e498e0ff18adf38b382d2c8598268153552d	9b8e3af550b3ad3a9e14604407a109e0b90bf658	picked	can: grcan: grcan_probe(): fix broken system id check for errata workaround needs	drivers/net/can/grcan.c	-
+030	11adc9ab3eb36ef31bcb4f6d2cda3d7399bcbb49	2f6a8a3d72284b4194b4830680ab43f104ddd53a	picked	can: grcan: only use the NAPI poll budget for RX	drivers/net/can/grcan.c	-
+031	8a9e7c64f4a02c4c397e55ba379609168ec7df4a	-	already-present	nfc: replace improper check device_is_registered() in netlink related functions	net/nfc/core.c	All twelve netlink shutdown checks and locked register/unregister flag transitions are already present in full original function semantics; retain inherited rfkill pointer NULL after destruction.
+032	1961c5a688edb53fe3bc25cbda57f47adf12563c	41b7b0a68222c155b4aa5dc0c80fad88052cf042	picked	nfc: nfcmrvl: main: reorder destructive operations in nfcmrvl_nci_unregister_dev to avoid bugs	drivers/nfc/nfcmrvl/main.c	-
+033	879b075a9a364a325988d4484b74311edfef82a1	-	already-present	NFC: netlink: fix sleep in atomic bug when firmware download timeout	net/nfc/netlink.c	The complete ordered before file equals the official postfile, including both GFP_ATOMIC calls in nfc_genl_fw_download_done. The original repeated-context apply would instead alter unrelated nfc_genl_se_connectivity allocations, so preserve the already-present target semantics and unchanged connectivity function.
+034	997b8605e8f3d2de372b659637171d060ca42142	aa94afd94038ebe58fb1997f8f9ba6e74e81f3aa	picked	gpio: pca953x: fix irq_stat not updated when irq is disabled (irq_mask not set)	drivers/gpio/gpio-pca953x.c	-
+035	ad87f8498ea27e587a09b9fd5c2329ef4c98b7fc	55ca9d52133b969df19625600b7548bf75e282d2	picked	hwmon: (adt7470) Fix warning on module removal	drivers/hwmon/adt7470.c	-
+036	87f0d9a518b717f08e293127fa14341a31838d33	7c33d3e1c799aa8fc9bb5a6e27f4f3fc00f45fd6	picked	ASoC: dmaengine: Restore NULL prepare_slave_config() callback	sound/soc/soc-generic-dmaengine-pcm.c	-
+037	c7f87ad11584503cb4c62201d865449980993096	94cc3a24dd32fab58639714489f047357b3d8ffa	picked	net/mlx5e: Fix trust state reset in reload	drivers/net/ethernet/mellanox/mlx5/core/en_dcbnl.c	-
+038	d8338a7a09572a51dd903d6ca07f15c558bd0c43	38f401ea987b9085be326c2c00d55307f66704cd	picked	net/mlx5e: Don't match double-vlan packets if cvlan is not set	drivers/net/ethernet/mellanox/mlx5/core/en_tc.c	-
+039	e07c13fbdded4e43e6a8235c8c82c82d23f5d57e	b2ec5eb4695132d5091184a1d37f15cf35c7e23f	picked	net/mlx5e: CT: Fix queued up restore put() executing after relevant ft release	drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c	-
+040	24553315910c5548fce41e2a6469ca100ab09177	4c46544a4e1ec127084a7ddd80bbeb0520784d92	picked	net/mlx5e: Fix the calling of update_buffer_lossy() API	drivers/net/ethernet/mellanox/mlx5/core/en/port_buffer.c	-
+041	3ea0b44c01ee4c180293707b741fbd4671a92634	9f4ef90f4230ae3a150c1ea29f042fb36604ac13	picked	net/mlx5: Avoid double clear or set of sync reset requested	drivers/net/ethernet/mellanox/mlx5/core/fw_reset.c	-
+042	5bf2a45e33438d18ff7153a635ec5fc3577f79da	6df60b2b7ced66ccfdcd0d0422e66ab9a6920d0d	picked	selftests/seccomp: Don't call read() on TTY from background pgrp	tools/testing/selftests/seccomp/seccomp_bpf.c	-
+043	c1b480e6bed838f8384c8810c24b457ca3696e06	8e8d316a2734f601d5e8d8c28fb138d9900657f1	picked	RDMA/siw: Fix a condition race issue in MPA request processing	drivers/infiniband/sw/siw/siw_cm.c	-
+044	408fb2680e73ff6593e6e6eaca5667f78d11157d	09e09d264fb727c56676eb5a477cf8397cda2117	picked	NFSv4: Don't invalidate inode attributes on delegation return	fs/nfs/nfs4proc.c	-
+045	1092656cc4ca4a0c965218d672dcd66f9d0e46f4	f4542ad2868abb4ecc0b1e07fa4d2c83357d25ef	picked	net: ethernet: mediatek: add missing of_node_put() in mtk_sgmii_init()	drivers/net/ethernet/mediatek/mtk_sgmii.c	-
+046	2347e9c922709990cd79fc43695bb75d0b75b813	d1f1d7db9c63a8502979fd76192845050ce73ae1	picked	net: dsa: mt7530: add missing of_node_put() in mt7530_setup()	drivers/net/dsa/mt7530.c	-
+047	4eee9809505cc444ab32b71f55c65f81d5f23716	4b6d74de38f2a63430af1bc1e32e87a90661dafd	picked	net: stmmac: dwmac-sun8i: add missing of_node_put() in sun8i_dwmac_register_mdio_mux()	drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c	-
+048	8459485db70c8d1371062657d3988c5c1ff008ca	bd30f54d2161c6d176c90a029a342ab9f0b6e910	picked	net: cpsw: add missing of_node_put() in cpsw_probe_dt()	drivers/net/ethernet/ti/cpsw_new.c	-
+049	1b9f1f455de2dcb9dfc84090f142daf80f2ff0a3	707ca8b231af65ab4ba51526bd223eca4f13f0b0	picked	net: emaclite: Add error handling for of_address_to_resource()	drivers/net/ethernet/xilinx/xilinx_emaclite.c	-
+050	475237e807a2264b15772ddfd0d525b7ccc48ff8	05c407fe8f044fecd3cd9593df197685b09fd856	picked	hinic: fix bug of wq out of bound access	drivers/net/ethernet/huawei/hinic/hinic_hw_wq.c	-
+051	9ac9f07f0fbb651086a7a8679de564f2db910cce	6b8a76b17e5072a0b2bbbc24abba0d3903fae964	picked	selftests: mirror_gre_bridge_1q: Avoid changing PVID while interface is operational	tools/testing/selftests/net/forwarding/mirror_gre_bridge_1q.sh	-
+052	72e4fc1a4e6381fa10a6a9a7745e0d74db593175	b0d036fb8e056ac6b657fc70f6ac8e2dd626c765	picked	bnxt_en: Fix possible bnxt_open() failure caused by wrong RFS flag	drivers/net/ethernet/broadcom/bnxt/bnxt.c	-
+053	a9fd5d6cd5943a64fc0a7d94e6731f7da40de27f	75a0d72886e5ebb4fae1786c24d3a83c57237781	picked	bnxt_en: Fix unnecessary dropping of RX packets	drivers/net/ethernet/broadcom/bnxt/bnxt.c	-
+054	b280877eab49f19483360448a200d0e03f56f3e1	521d85839d987b8698955557835035b35f9566f9	picked	selftests: ocelot: tc_flower_chains: specify conform-exceed action for policer	tools/testing/selftests/drivers/net/ocelot/tc_flower_chains.sh	-
+055	687167eef99ef9417c3b43da2f9e64289f9d9f79	e0abff65cc385f84180079ad8b478dda81bad14e	picked	smsc911x: allow using IRQ0	drivers/net/ethernet/smsc/smsc911x.c	-
+056	4fd45ef7042a9521207a42a11cef68f21dec1308	57a59c810661485207d719325f4fa5a0e76f5ba7	picked	btrfs: always log symlinks in full mode	fs/btrfs/tree-log.c	-
+057	0a960a367216995e3a72899749c1786c6e9a5d7d	652e18a9104edcea28c65ddb84c57ed49dae52b1	picked	net: igmp: respect RCU rules in ip_mc_source() and ip_mc_msfilter()	net/ipv4/igmp.c	-
+058	599fc32e7421d7a591ee78bb4f3b79c54d51065c	3163ef5e8b047e075bbea6242b86f4036edb10c3	picked	kvm: x86/cpuid: Only provide CPUID leaf 0xA if host has architectural PMU	arch/x86/kvm/cpuid.c	-
+059	5f884e0c2ea6f6001c59842750ecfe32d71bc702	cdd8d1a5d108d43ef87cfcc4a021c9273f2097ae	picked	net/mlx5: Fix slab-out-of-bounds while reading resource dump menu	drivers/net/ethernet/mellanox/mlx5/core/diag/rsc_dump.c	-
+060	64e3e16dbc26c88bc182028b53c27df7af40239a	ce0713ae52be5333c246d823533be85e17f1d0ee	picked	x86/kvm: Preserve BSP MSR_KVM_POLL_CONTROL across suspend/resume	arch/x86/kernel/kvm.c	-
+061	a474ee5ececc19c764c718c76550c5650e54a3be	88fc1cf52c7f2861815c96e167dea60b417e263a	picked	KVM: x86: Do not change ICR on write to APIC_SELF_IPI	arch/x86/kvm/lapic.c	-
+062	9c8474fa3477395e754687b3edb17ca0dfe46d6a	9daee3b180f252822a81b5ea3ec3e67a169e415b	picked	KVM: x86/mmu: avoid NULL-pointer dereference on page freeing bugs	arch/x86/kvm/mmu/mmu.c	-
+063	43dbc3edada66eaa9d406ea9647359e795288ea0	86be7bc9dd3f6392ad9a24e5aaeda86a382e7a22	picked	KVM: LAPIC: Enable timer posted-interrupt only when mwait/hlt is advertised	arch/x86/kvm/lapic.c	-
+064	40fb3812d99746f0322ada92fdc8d904a024e6de	bef3422640942645d6d835c09c08daaf2d410105	picked	rcu: Fix callbacks processing time limit retaining cond_resched()	kernel/rcu/tree.c	-
+065	a22d66eb518f444bd66b38dbf8235d98e40f37e1	273dc9f772ccf8512c37186330e4cc7ca6a36e12	picked	rcu: Apply callbacks processing time limit only on softirq	kernel/rcu/tree.c	-
+066	a439819f4797f0846c7cffa9475f44aef23c541f	-	already-present	block-map: add __GFP_ZERO flag for alloc_page in function bio_copy_kern	block/blk-map.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+067	7676a5b99f3da170d42d3e457cd7ff8c82001dd1	-	already-present	dm: interlock pending dm_io and dm_wait_for_bios_completion	drivers/md/dm.c	Complete unmodified original patch reverse-applies at its ordered historical state.
+068	49143c9ed2326f98651aed6f376cfa3369c38bb3	e1eb2f00df8f1cc46b83061c790b0ef5a4c55277	picked	PCI: aardvark: Clear all MSIs at setup	drivers/pci/controller/pci-aardvark.c	-
+069	e1ab92302b4460416edbe473064a3dc1b5e0ec4f	6c11dcc16f5256b5607ffe651c737207c0566675	picked	PCI: aardvark: Fix reading MSI interrupt number	drivers/pci/controller/pci-aardvark.c	-
+070	8528806abed5a759ce2061206d5152a89350ef63	dd3f139713a288aaf09f75b99124842aa68e41d4	picked	mmc: rtsx: add 74 Clocks in power on flow	drivers/mmc/host/rtsx_pci_sdmmc.c	-
+071	e61686bb77c441d8e5f10dc063e2cea799e4aae6	1727a9f073219af1c7a350ac6c9f827af3c51de4	backported	Linux 5.10.115	Makefile	Only original release SUBLEVEL marker; preserve existing Huawei Makefile exports.

@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.110
-#63 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.115
+#64 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -261,6 +261,47 @@ options, signing material, independent ramdisk, Enforcing/CFI/forced
 signatures and PRMEM remain. This is the repeatable same-build update method,
 not independent old-module reuse or a stable GKI KMI claim.
 
+The installed 5.10.115/#64 milestone retains 13,835 exports, without additions
+or removals, but has 8,962 real CRC changes versus #63. `hex_to_bin` genuinely
+changes from char to unsigned char: natural AArch64 IR remains i32(i8), uses
+zero-extension and the unsigned-char CFI type, while its CRC changes from
+`0x11f7ed4c` to `0xab6d5b3b`. `cookie_tcp_reqsk_alloc` gains the address-family
+ops argument and actual store/callers; its CRC becomes `0xf710eecf` from
+`0xfcd6c6e4`. `ufshcd_init` changes from `0x06aac99b` to `0x6e37dedd`, and
+the unchanged socket-provider signature does not prevent its dependency CRC
+from changing. `list_sort` remains `0xe091c977`; none of these equalities
+certifies the full binary ABI. All 390 newly rebuilt modem imports and two
+optional dummy imports match.
+
+Four scoped reports bind the actual integrated source, successful/reaped
+natural #64 build, configuration, final ELF/exports, 25 current objects/entire
+commands and both normal module hashes. Sixteen new natural IR objects check
+selected record/API/task changes and the new delayed OOM timer target's actual
+CFI membership; nine normal-object contracts retain scoped prior proofs
+without broad old IR/assembly replay. `task_struct` grows for the standard
+timer and regenerated thread offsets match its actual layout. Fourteen
+generated OEM device/storage offsets and effective configuration/signing
+remain; LightNVM's disabled-only emitted option disappears as recorded.
+
+Original 111#166 removes NOLOAD from the three PLT/trampoline output sections
+while retaining FIPS initcall context. Each actual normal modem/dummy module
+has three one-byte zero-filled PROGBITS sections with flags 0x6. Normal
+Kbuild `.ko` outputs are unsigned link/postlink/CFI artifacts; do not mistake
+them for installed signed copies or require an invented sign-file command.
+The modem staging phase separately strips, re-signs and verifies CMS and
+the retained target certificate, ext4 labels/ownership and byte readback.
+The optional dummy is still not installed to fake coverage.
+
+The paired #64 images reach normal Android with automatic matching Live
+modem and equal runtime build-id/readbacks, preserving ramdisk, Enforcing,
+forced signatures, CFI and PRMEM. Two owned-probe wrapper errors cause paired
+#63 recovery and reinstallation of the same #64 images, with no kernel
+rebuild. After correcting only the probe identity and private-directory
+diagnostic, a drop-only UID1013 ordinary-file regression passes fixed-file
+reads/replacement/error cleanup and final-reference release. This does not
+weaken the existing OEM UID restriction or establish independent old-module
+reuse, stable KMI, GKI or full io_uring/OOM safety.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -301,13 +342,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #63's immediate rollback:
+overwrite existing candidates. The previous pair is #64's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.105-clang12-r62.img`.
-- `images/test/allen-modem_driver-test-5.10.105-clang12-r62.img`.
-- `images/test/allen-modem_driver-test-5.10.105-clang12-r62.ko`.
+- `images/test/allen-boot-test-5.10.110-clang12-r63.img`.
+- `images/test/allen-modem_driver-test-5.10.110-clang12-r63.img`.
+- `images/test/allen-modem_driver-test-5.10.110-clang12-r63.ko`.
 
-The installed next pair uses `5.10.110-clang12-r63` with the same device/purpose
+The installed next pair uses `5.10.115-clang12-r64` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

@@ -6,6 +6,13 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
+The installed upstream milestone is Linux 5.10.115 #64, with kernel source
+`9667daa8b`, normal Android and automatic loading of the same-build signed
+modem. #63/5.10.110 is the immediate paired rollback. Ordered synchronization
+toward the pinned 5.10.274 target continues; Android common parity, vendor/core
+separation and GKI certification are not complete. No release is exported or
+published.
+
 The upstream track is `upstream/linux-5.10.y`, forked from the
 r49 validation record `13570860d`. Its first adjacent stable batch advances
 5.10.43 -> 5.10.44: 103 exact picks, four code backports and one release-marker
@@ -224,6 +231,40 @@ initialization/reference-release defect remains open, not fixed by the absent
 old SCM-helper entry or certified by boot. Next is complete 5.10.111-115 and
 its independently reviewed lifetime repair; the pinned latest-stable target,
 Android common parity, GKI and inherited hardware/power acceptance remain open.
+
+The fifteenth milestone resolves all 564 official 5.10.111-115 entries:
+532 exact picks, twelve code adaptations, five markers, twelve PRESENT
+decisions and three missing prerequisites. The 549 original-author commits
+end at `1727a9f07`. Separate commit `792b8bc8b` first restores io_uring
+fixed-file node initialization and direct reference ownership; after a real
+compiler error, `9667daa8b` routes the OEM OOM task producer through the
+standard delayed queue. Original provenance and stronger inherited contracts
+remain distinct from these integrations.
+
+Full compilation naturally produces #64. Four scoped final reports bind
+25 current objects/entire commands; only sixteen new natural IR objects
+measure changed selected layouts, public interfaces and the new OOM timer
+CFI target. Fourteen generated OEM offsets and effective configuration/signing
+remain. The disabled `CONFIG_NVM` entry disappears because upstream disables
+LightNVM; this is not removal of NVMEM or NVMe support. All 13,835 exports
+remain, with 8,962 real CRC changes, and every rebuilt modem/dummy import
+matches. Normal module PLT sections and separately stripped/re-signed modem
+staging pass.
+
+The same #64 pair reaches normal Android with automatic matching Live modem,
+complete readbacks/build-id and unchanged ramdisk/security. Two diagnostic
+wrapper errors cause paired #63 recovery before final acceptance: root does
+not satisfy the OEM io_uring UID1013 rule, and ordinary ADB cannot list the
+subsequently UID1013-owned private 0700 directory. Only the wrapper is fixed;
+the kernel and probe binary are not rebuilt. The final drop-only UID1013
+ordinary-file probe passes fixed reads, replacement, error cleanup and actual
+last-reference release after asynchronous close. No actual kernel/module fault
+is found; 516 pre-probe AVCs and ten new probe-window AVCs remain visible,
+without a module-loading or probe-named denial in the additive attribution.
+Tracing and Asleep remain restored. #63 is immediate rollback; recent #60-64
+pairs and accepted #64 metadata remain local. Next is complete 5.10.116-120;
+full io_uring/OOM safety, selected AMA mempolicy, the pinned stable target,
+Android common/GKI and inherited hardware/power acceptance remain open.
 
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
@@ -694,7 +735,8 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12-r61-metadata/`: accepted #61 integrated-source/Perf-layout/CFI/build/runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r62-metadata/`: accepted #62 source/BHB/changed-layout/CFI/build/runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r63-metadata/`: accepted #63 source/changed-interface/CFI/build/runtime metadata retained before output reuse; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.110 #63 output, reused sequentially for stable milestones; not tracked.
+- `out/allen-clang12-r64-metadata/`: accepted #64 integrated-source/layout/CFI/build/owned-file-runtime metadata retained before output reuse; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.115 #64 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -721,7 +763,7 @@ scripts/build-allen.sh
 ```
 
 These commands describe the initial released-configuration build, not the
-stock-derived configuration used for the retained r49 or installed #63.
+stock-derived configuration used for the retained r49 or installed #64.
 For the retained upstream output and its r49-derived configuration, use:
 
 ```sh
@@ -732,7 +774,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.110` on the upstream
+Makefile still controls the release, currently `5.10.115` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.

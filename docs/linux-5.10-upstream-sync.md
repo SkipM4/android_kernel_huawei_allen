@@ -2467,3 +2467,206 @@ complete 5.10.111-115 and separately reviewed fixed-file lifetime repair.
 The pinned 5.10.274 target, Android common parity, GKI and full inherited
 hardware/power acceptance remain open. No release export, publication, tag
 or push occurs.
+
+## Fifteenth Milestone: 5.10.111 Through 5.10.115
+
+All 564 official entries are resolved: 532 exact picks, twelve code
+adaptations, five release markers, twelve PRESENT decisions and three
+missing prerequisites. PRESENT distinguishes seven whole-original historical
+reverse checks from five complete-context semantic decisions. All 549
+original-author commits end at `1727a9f07`; separate prelude `792b8bc8b` and
+post-release integration `9667daa8b` are not counted as original stable picks.
+Five per-release ledgers retain every original/local identity and decision.
+No intermediate 111-114 kernel is built or installed.
+
+| Release | Official Endpoint | Entries | Exact | Code | Marker | Present | Missing |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 5.10.111 | `6c8e5cb264df8e9fbfe1309550c10bccddc922f0` | 171 | 165 | 2 | 1 | 1 | 2 |
+| 5.10.112 | `1052f9bce62982023737a95b7ff1ad26a5149af6` | 105 | 99 | 1 | 1 | 3 | 1 |
+| 5.10.113 | `54af9dd2b958096a25860b80d48a04cf59b53475` | 87 | 79 | 3 | 1 | 4 | 0 |
+| 5.10.114 | `f40e35e79c115a5fd4b11aad1cf439d6e870aaf3` | 130 | 124 | 5 | 1 | 0 | 0 |
+| 5.10.115 | `e61686bb77c441d8e5f10dc063e2cea799e4aae6` | 71 | 65 | 1 | 1 | 4 | 0 |
+
+Sources are the original Linux stable repository and official
+ChangeLog-5.10.111 through ChangeLog-5.10.115 at
+<https://cdn.kernel.org/pub/linux/kernel/v5.x/>. Full independent source
+review and actual import binding check original authors/dates, complete
+messages, whole before/after file modes and contents, five release trees and
+all ledger rows. Nonkernel accepted #63 documentation is carried separately.
+The pinned later target remains 5.10.274, not imported by this milestone.
+
+### Standard Interfaces And Retained Platform Contracts
+
+The twelve adaptations retain the complete original behavior while preserving
+necessary platform context. IPv4 nexthop deletion moves the inherited guard
+to the original old-attribute match location. ARM64 module linker sections
+lose only the three NOLOAD qualifiers, retaining FIPS initcall context. The
+zram early-slot-free helper and all original bio/synchronous calls are removed,
+including the one OEM PARA_SWAPD call to the deleted helper; genuine swap-range
+freeing and platform completion/waiter logic remain.
+
+IPv6 route GC adopts atomic expiry without downgrading the already inherited
+void GC/no-hard-max allocation interface. Hugetlb high-address handling moves
+the original identical fallback macros while preserving OEM mmap hooks.
+Ext4 punch/collapse/insert operations use complete file-based signatures,
+callers and locked file_modified permission updates without removing inline
+conversion or fast-commit context. XHCI stops roothub polling before controller
+halt while preserving IRQ restoration and USB port power handling. Configfs
+deactivation resets remain under the existing lock alongside OEM request
+cleanup. DWC3 prioritizes the original role-switch path, initializes all four
+threshold locals and uses the safe DCTL helper while retaining notifiers,
+OTG fallback, reset timing and PHY workarounds.
+
+MMC clock/status ordering retains selected ZODIAC HS200 no-CMD13 behavior and
+voltage-after-timing handling. Real public changes include unsigned-char
+hex_to_bin and the address-family ops argument to cookie_tcp_reqsk_alloc.
+Selected BPF port width/padding, GPIO IRQ initialization, VLAN flow layout,
+IPv6/GRE atomics and TCP rate metadata are treated as real type/consumer
+changes, not release-string edits.
+
+PRESENT preserves complete open-time cgroup credentials, sixpack manual
+lifetime, cfg80211 locked unlink/ref-put, ARM64 TLS preservation, ION reference
+handling, NFC registration/allocation checks, zeroed bio buffers and DM
+completion serialization. Review catches repeated-context misapplication of
+original 115#33: nfc_genl_fw_download_done already has both GFP_ATOMIC calls,
+so applying the old patch would alter unrelated connectivity allocations.
+The entry is semantic PRESENT and the unrelated function remains unchanged.
+The missing OMAP5 DWC3 driver, old io_uring SCM producer and old ARM64 defconfig
+are recorded as absent prerequisites, not fabricated hardware support or
+claims of repaired functionality.
+
+### Separate Fixed-File Ownership Repair
+
+Before original 111#1, distinct `792b8bc8b` repairs three io_uring functions.
+The inherited selected UNIX path has no fixed-file SCM producer, yet teardown
+still searches/drains SCM records and misses acquired file references. The
+repair uses direct fput for current slots and existing delayed-node work for
+replaced slots. Removing the premature success return makes initial ref-node
+allocation/publication reachable; unpublished-node failure uses the existing
+balanced out_fput unwind rather than fallible public unregister.
+
+References are upstream `6e5e6d274956305f1fc0340522b38f5f5be74bdb` and Android
+common `21d85af22b5c6677ca6d2f9bd71ccc634a9c2554` (android12-5.10, 5.10.270),
+with the original registration context from stable 5.10.110. This is a minimal
+three-function ownership integration, not an exact transplant of the newer
+resource framework. Public/private signatures, socket identity API, headers,
+exports and configuration are not changed to evade the selected issue.
+Original 111#125 still changes an absent SCM producer and remains missing;
+that disposition does not count as this separate repair.
+
+### Actual OOM Compile-Time Integration
+
+The first actual full build fails because original 113#53 converts
+wake_oom_reaper from a task producer into a timer_list callback, while the OEM
+add_to_oom_reaper still passes a task pointer. Separate `9667daa8b`, after the
+original 115 release commit, changes only that call to queue_oom_reaper(p).
+Reference is upstream `e4a38402c36e42df28eb1a5394be87e6571fb48a`, stable
+`ed5d4efb4df1014bd5bc1d479e157c7687d8c187`.
+
+The standard queue retains duplicate-bit suppression, its own task reference
+and a two-second (`2 * HZ`) delay; callback/reaper paths balance the reference. Existing
+__mark_oom_victim and OEM counters stay intact. No cast, direct timer invocation,
+forced OOM workload, signature spoof or protection reduction is used. Additive
+whole-delta/source/configuration binding preserves original 564-item approval
+and the prior passed configuration without re-running them.
+
+### Full Build And Selected Interface Acceptance
+
+One actual olddefconfig/prepare retains effective selections, signing material,
+fourteen generated OEM offsets, Werror, ThinLTO, enforcing CFI, signatures,
+PRMEM and BHB. Emitted options change from 6,433 to 6,432 only because original
+114#2 disables LightNVM through BLOCK && BROKEN: the already-disabled
+CONFIG_NVM entry becomes invisible. This is not removal of NVMEM or NVMe.
+The first compiler failure precedes the counter increment; the necessary
+full-build retry succeeds and naturally produces 5.10.115 #64.
+
+Four final scoped reports bind actual source/configuration, successful/reaped
+full build, final ELF/export table, 25 current objects/entire commands and
+two normal module identities. Only sixteen new natural IR objects are decoded
+once; nine other objects retain normal-source/command contracts. Old OEM/BHB
+machine implementations and fixed-file source semantics are not replayed.
+Optimized byte-GEP VLAN stores, omitted optional BPF debug records and private
+LTO symbol names are checked against actual output rather than generating
+artificial frontend records or forcing unoptimized names.
+
+Actual task_struct is 4736 bytes with a 48-byte OOM timer at offset 3400 and
+thread at 3584. Generated THREAD_CPU_CONTEXT=3584, THREAD_SCTLR_USER=4712,
+THREAD_KEYS_USER=4552 and THREAD_KEYS_KERNEL=4632 match the selected descriptor.
+No concrete overlap is found in the examined cached OEM task operands;
+fourteen device/storage offsets retain scoped continuity. VLAN is 8 bytes,
+flow_keys 80, gpio_irq_chip 296, gpio_chip 496, hiv500 832, netns_ipv6 832,
+net 4800, rate_sample 64, ip_tunnel 192 and ip6_tnl 272. GPIO initialization,
+IPv6/GRE atomic fields and TCP sequence metadata match real producers and
+consumers. BPF verifier/converter constants validate the 80-byte UAPI layout,
+16-bit destination port and rejected padding without fabricating bpf_sock DI.
+
+The new OOM timer producer/consumer has the real void(timer_list *) type and
+enforcing call_timer_fn dispatch. Only its new canonical entry and bounded
+type-selector/membership path are inspected, not the whole CFI dispatcher or
+old callback implementations. Normal patch_alternative's private LTO body is
+within the real noinstr boundary, though the final linker merges its input
+section into .text. The trace stack trigger routes through the actual instance
+instead of assuming a global-buffer callback.
+
+All 13,835 exports remain, with 8,962 real CRC changes and no additions/removals.
+Hex signedness changes its CRC from 0x11f7ed4c to 0xab6d5b3b although AArch64
+IR uses i32(i8); unsigned extension/type metadata remain explicit.
+cookie_tcp_reqsk_alloc becomes 0xf710eecf from 0xfcd6c6e4 with actual four-argument
+calls and af_specific storage. ufshcd_init becomes 0x6e37dedd from 0x06aac99b;
+unchanged source signatures can still change dependency CRCs. list_sort remains
+0xe091c977, not an all-ABI guarantee. Every rebuilt modem import (390) and
+optional dummy import (two) matches.
+
+Each actual normal module has three one-byte zero PROGBITS PLT/trampoline
+sections. Normal Kbuild outputs are unsigned link/postlink/CFI artifacts;
+the modem installation copy is separately stripped, re-signed and verified
+against the retained certificate. CMS, ext4 ownership/labels and byte readback
+pass. Boot roundtrip preserves the original header, firmware stub, OEM DTB
+and partition bounds. No loader, signature, CRC or security check is bypassed.
+
+### Paired Boot And Owned-File Runtime Acceptance
+
+Normal #64 Android and automatic matching Live modem loading pass with full
+partition/module readbacks, runtime build-id, unchanged independent ramdisk,
+user 0 CE storage/RUNNING_UNLOCKED, three core services, Enforcing, taint 4,
+forced signatures and PRMEM. Two subsequent diagnostic-wrapper failures
+trigger successful paired #63 recovery and reinstallation of the same #64
+images, without changing or rebuilding the kernel/native probe.
+
+The first rootUID0 probe does not satisfy the unchanged OEM UID1013-only
+io_uring gate; its exact negative-stage stdout is lost by the original
+wrapper, so that return is source-attributed rather than falsely presented
+as a recovered observation. The corrected drop-only UID1013 probe then
+passes its three groups, but ordinary ADB cannot list the now UID1013-owned
+0700 directory, causing the second rollback. The final wrapper uses root only
+for that exact private-directory diagnostic and retains probe output separately
+from failed-command/timeout output. Ownership/mode and the OEM gate stay intact;
+no system service identity/queue or SELinux policy is modified.
+
+Final execution has UID1013, exit zero and three explicit PASS groups: sparse
+registration/native fixed-read CQEs/content with populated replacement;
+partial registration/error unwind, re-registration and failed replacement;
+and actual asynchronous ring-close last-reference release after mappings and
+FDs are dropped. Independent file descriptions use BSD flock as an observable
+last-reference oracle. Invalid replacement removes the old slot before fget
+failure, so the following fixed-index read correctly returns EBADF. All private
+ordinary files, mappings, descriptors and the exact remote directory are
+removed. No unsafe #63 reproduction, hardware nodes, priority changes, tracing
+or broad stress is used. Whole io_uring file-type/cycle/race/memory-pressure and
+allocation-failure safety, and OOM latency/safety, remain open.
+
+Complete final boot and additive post-probe logs contain no actual kernel or
+module fault. The 516 pre-probe AVCs and ten new probe-window AVCs remain
+visible. A later necessary attribution capture sees eighteen new records
+since the accepted pre-probe log, from logging/TEE/init domains; none names
+the probe or requests module loading. These are distinct windows, not a
+zero-AVC or blanket policy claim. Tracing and Asleep remain restored.
+
+The #63/5.10.110 pair is immediate rollback. Accepted #64 metadata and recent
+#60-64 pairs remain local below 20 GB after contract-checked retirement of
+obsolete #59 test artifacts. Originals, immutable source proofs and Git
+reference dependencies remain. Next is the complete official 5.10.116-120
+range; initial read-only preparation is not an actual import. The pinned
+5.10.274 target, selected AMA mempolicy, Android common parity, GKI and full
+inherited hardware/power acceptance remain open. No release export,
+publication, tag or push occurs.
