@@ -8729,8 +8729,6 @@ static int nft_verdict_init(const struct nft_ctx *ctx, struct nft_data *data,
 		if (desc->flags & NFT_DATA_DESC_SETELEM &&
 		    chain->flags & NFT_CHAIN_BINDING)
 			return -EINVAL;
-		if (nft_chain_is_bound(chain))
-			return -EINVAL;
 
 		chain->use++;
 		data->verdict.chain = chain;
