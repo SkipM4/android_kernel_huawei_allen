@@ -1,0 +1,3 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	37c7f25fe2b79184f3a7a9f15fdcfbcf8f46913c	991c0ca06ee80784599fc7af5e4946655c325df7	picked	kbuild: dummy-tools: avoid tmpdir leak in dummy gcc	scripts/dummy-tools/dummy-plugin-dir/include/plugin-version.h	-
+002	665ee746071bf02ce8b7b9d729c8beab704393c2	9cd8ee3bb954023634c943d688166526eddf2390	backported	Linux 5.10.139	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

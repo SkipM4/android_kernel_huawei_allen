@@ -6,9 +6,9 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.135 #69, with kernel source
-`6d6830bed`, normal Android, completed ISP firmware startup and automatic
-loading of the same-build signed modem. #68/5.10.130 is the immediate paired
+The installed upstream milestone is Linux 5.10.140 #70, with kernel source
+`c303cfc45`, normal Android, completed ISP firmware startup and automatic
+loading of the same-build signed modem. #69/5.10.135 is the immediate paired
 rollback. #65 remains a failed HKIP firmware-boot candidate, not an accepted
 runtime. Ordered synchronization
 toward the pinned 5.10.274 target continues; Android common parity, vendor/core
@@ -397,6 +397,44 @@ For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
 partition readback, security and necessary boot-log checks; repeat broader
 hardware tests only when a new change, fault or unresolved issue requires it.
+
+### Linux 5.10.136-140 Milestone
+
+All 812 canonical stable entries are resolved in order: 750 exact picks,
+20 adaptations, 40 already-present implementations and two absent/unselected
+platform patches. The 770 original-author commits end at `c218c464d`.
+Stable provenance now lands inside actual commit messages, before the mbox
+separator; earlier accepted history is not rewritten. A separate upstream
+ext4 correction (`61a1d87a324a`, local `266bbac94`) compares a logical directory
+block against a block count, not bytes. One integration cleanup removes a
+duplicate NFT bound-chain guard, ending final source at `c303cfc45`.
+
+Request-only block trace migration includes both Huawei IOTrace callbacks;
+deadline migration includes CPU pause and the unselected stub provider.
+Effective cpuset validation, RT count ordering and TASK_NEW CFS reweighting
+retain OEM hooks. NFT data type/size validation and cmp16 producer/consumer
+layouts are checked in current natural objects without replaying the old
+register-parser proof or relaxing CFI. Standard BLK_DEV_IO_TRACE callbacks
+remain disabled; actual generated raw/perf tracing and Huawei callbacks are
+checked instead of force-building them.
+
+One full build produces #70 with no effective/emitted configuration delta,
+unchanged signing material, 27 natural C contexts, 41 targets in 18 final CFI
+groups and fourteen unchanged current OEM selectors. There are 13,843 exports:
+seven additions, no removals and 267 CRC changes versus #69. All 390 rebuilt
+modem and two optional dummy imports match; the dummy is not installed.
+
+Stock boot roundtrip, CMS signature and ext4 metadata pass. Normal Android
+automatically loads the matching Live modem with partition/module/build-id
+readbacks, unlocked storage, required services and same-thread six-stage ISP
+startup. Independent ramdisk, Enforcing, taint4, mandatory signatures and
+PRMEM remain. Complete logs contain no actual kernel/module/HKIP fault;
+517 AVC denials are visible, none requests module loading. Original tracing
+and Asleep are restored. #69 is immediate paired rollback and the latest-five
+test window is #66-70; originals and failed #65 evidence remain below 20 GB.
+Next is complete 5.10.141-145. Target 5.10.274, inherited source/hardware/power
+findings and ACK/vendor-core/GKI remain open; no release is exported or
+published.
 
 ### Installed Bring-up Baseline
 

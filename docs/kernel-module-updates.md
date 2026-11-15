@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.135
-#69 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.140
+#70 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -415,6 +415,27 @@ ISP firmware startup, unlocked user storage, required services and enforcing
 controls remain. The dummy is not installed. This is same-build integration,
 not independent stable KMI, arbitrary old-module reuse or GKI certification.
 
+The installed 5.10.140/#70 milestone has 13,843 exports: seven additions, no
+removals and 267 changed CRCs versus #69, with unchanged providers, export
+types and namespaces. All 390 rebuilt modem and two optional dummy imports
+match. New request-only block tracing migrates Huawei IOTrace callbacks as
+well as canonical producers. Six current optimized objects establish actual
+trace/NFT callback types and descriptor/cmp16 layouts; final CFI checks 41
+targets in 18 groups and the real new NFT ops assignment. The disabled
+standard BLK_DEV_IO_TRACE callbacks are source-only, not forced-built.
+Current fourteen OEM selectors have unchanged direct providers and values.
+These gates are particular source/interface checks, not opaque-layout or
+independent stable-KMI certification.
+
+The same-build stripped modem is CMS-verified against the unchanged kernel
+certificate and staged with stock ext4 ownership/mode/SELinux label. Paired
+installation boots normal Android and automatically loads it. Full partition,
+module and live build-id readbacks match; unlocked storage/services and ISP
+firmware startup complete. Enforcing, mandatory signatures, taint4, PRMEM and
+independent ramdisk remain. Complete boot/later logs have no actual module,
+kernel or HKIP fault. The dummy is not installed, no older module is resigned
+or version-spoofed, and #69 is immediate paired recovery.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -455,13 +476,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #69's immediate rollback:
+overwrite existing candidates. The previous pair is #70's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.130-clang12-r68.img`.
-- `images/test/allen-modem_driver-test-5.10.130-clang12-r68.img`.
-- `images/test/allen-modem_driver-test-5.10.130-clang12-r68.ko`.
+- `images/test/allen-boot-test-5.10.135-clang12-r69.img`.
+- `images/test/allen-modem_driver-test-5.10.135-clang12-r69.img`.
+- `images/test/allen-modem_driver-test-5.10.135-clang12-r69.ko`.
 
-The installed next pair uses `5.10.135-clang12-r69` with the same device/purpose
+The installed next pair uses `5.10.140-clang12-r70` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

@@ -3372,3 +3372,151 @@ two inherited source-only fbcon findings, AMA/full io_uring/OOM/ext4 broader
 safety, async HKIP atomicity, NFC allocation ownership and hardware/network/
 performance/power remain open. Stable maintenance does not establish Android
 common parity, vendor/core separation, standard GKI or independent stable KMI.
+
+## Linux 5.10.136-140 Installed Milestone
+
+### Canonical Range And Source Decisions
+
+The full official range is v5.10.135
+(`4fd9cb57a3f5e611efde7772643134385de3a5a6`) exclusive through v5.10.140
+(`18ed766f3642fa75262885462d3052ad7c8c87a2`) inclusive from
+<https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git>.
+All 812 original commits, author dates/messages, full-index operations and
+modes are accounted for in order. The five durable per-release ledgers retain
+original/local identities without rewriting accepted source history.
+
+| Release | Originals | Exact Picks | Adapted | Already Present | Not Applicable |
+| --- | --- | --- | --- | --- | --- |
+| 5.10.136 | 24 | 22 | 1 | 1 | 0 |
+| 5.10.137 | 541 | 514 | 10 | 15 | 2 |
+| 5.10.138 | 158 | 146 | 5 | 7 | 0 |
+| 5.10.139 | 2 | 1 | 1 | 0 | 0 |
+| 5.10.140 | 87 | 67 | 3 | 17 | 0 |
+| Total | 812 | 750 | 20 | 40 | 2 |
+
+The 770 original-author source commits end at `c218c464d`. The importer now
+places the stable SHA inside the actual message before the format-patch
+separator. All actual author/date and stable-message checks pass; one exact
+message has normal Git repeated-blank-line normalization. Frozen raw originals
+and ledgers remain authoritative. Earlier accepted commits are not rewritten
+merely to add trailers that their old importer accidentally placed in patch
+commentary.
+
+137 retires the queue argument from request-based block tracing across all
+eight canonical paths. Both additional Huawei IOTrace insert/issue callbacks
+migrate without casts or body changes. MAS hooks stay in their real request
+scope. DWC3 TRB/high-speed request changes retain DMA, list, barrier and OEM PM
+contracts. MMC native/physical 4K sector single-read recovery is scoped around
+the local declaration context. RT dequeue uses the pre-decrement queue count
+and updates entities before top-level running counts; CFS reweight excludes
+TASK_NEW while preserving OEM latency/RTG hooks and all four callers.
+
+Deadline admission and hotplug share `int dl_cpu_busy(int cpu, task *)`.
+The additional OEM CPU pause declaration/call passes NULL; the configuration-
+unselected stub retains task-admission failure versus hotplug success.
+Cpuset admission uses effective CPUs and checks the active-mask result before
+using the root domain. No speculative all-priority reset or independent
+priority-vote deletion is added.
+
+138 adapts directory corruption rejection to the validated extra zero
+argument of the local `ext4_check_dir_entry` contract. It releases the buffer
+and rejects removal, without changing initial htree/dot/hole handling. NFT
+notification construction and base-sequence snapshots follow the original
+operations. 140 adds descriptor type/size/flags and validates data before
+copying; implicit set-element chain rejection coexists with the stronger
+existing bound-chain check and table/genmask ID lookup. The cmp16 fast path
+and full-width payload length/offset/csum validation are imported with their
+producers and consumers. UFS error masking now shares `INT_FATAL_ERRORS`;
+local masks already include link loss, so effective interrupt bits do not
+change. The only absent/unselected platform paths are Qualcomm regulator
+and DWC3 glue; Kirin hardware support is not deleted.
+
+### Separate Correctness Integrations
+
+The original 137 ext4 directory-size guard compares a logical block index
+against byte-sized `i_size`, which is not a correct bounds check. Before any
+configuration/build, the canonical upstream follow-up is imported separately:
+<https://github.com/torvalds/linux/commit/61a1d87a324ad5e3ed27c6699dfc93218fcf3201>,
+"ext4: fix check for block being out of directory size" (local `266bbac94`).
+It compares against `inode->i_size >> inode->i_blkbits`, preserving original
+error handling and rejecting out-of-directory reads. This is not concealed
+in the original812 ledger and does not close broader ext4 safety work.
+
+A second separate integration removes a duplicate bound-chain rejection
+created when 140 repeats the already-present check before its new implicit-
+chain guard. The final source at `c303cfc45` keeps the canonical single bound
+check then the set-element guard; accepted/rejected inputs do not change.
+No accepted source history is amended.
+
+### Actual #70 Build And Current Interface Gates
+
+One necessary natural configuration/prepare and full Image/modules build
+produce Linux 5.10.140 #70 using Android Clang/LLD 12.0.7. Effective and emitted
+configuration deltas against accepted #69 are empty. ThinLTO/enforcing CFI,
+BHB, actual Werror flags, signing material, SELinux/mandatory signatures and
+PRMEM/HKIP remain. The standard noexecstack linker option is added; the BFD
+RWX-warning option is capability-probed rather than forced onto LLD.
+
+Thirty changed prior source/dependency records are individually scoped.
+Twenty-seven current ordinary C contexts bind commands, primary sources and
+complete immutable/generated dependencies. The old full-width register
+load/store parser bodies and SK_LOOKUP table assignment are unchanged; their
+specific prior source proofs are references only, not replayed old object or
+layout claims. Six new current optimized objects are decoded once into a
+retained cache for trace/NFT checking. The current 16-byte data descriptor and
+40-byte cmp16 private state agree between actual producer and consumer.
+Four-argument data initialization and new callback types match.
+
+CONFIG_BLK_DEV_IO_TRACE=n removes the standard tracer callbacks despite the
+naturally built blktrace.o helper. An initial diagnostic roster mistakenly
+expected those disabled callbacks; it is corrected without configuration
+change, extra build or repeated decode. The actual generated raw/perf trace
+callbacks, both Huawei IOTrace callbacks and five traceiter CFI dispatches
+are checked instead. The final AArch64 ELF verifies 58 selected live symbols,
+41 normal targets in 18 precise CFI groups, retired APIs absent and real NFT
+cmp16 ops plus retained BPF canonical assignments. These are not whole OEM
+opaque-layout, malformed-input, independent KMI or GKI certifications.
+
+The complete table has 13,843 exports: seven additions, no removals and 267
+changed shared CRCs against #69, with no changed provider/export type/namespace.
+All 390 rebuilt modem and 2 optional dummy imports match the current same-build
+release/export policy. Fourteen current generated OEM selectors have unchanged
+direct declaring/provider sources and values. Dummy is not installed; no old
+module is resigned, version-spoofed or force-loaded to conceal incompatibility.
+
+### Paired Installation And Local Closeout
+
+Stock boot kernel/compression roundtrip, firmware stub/OEM DTB/header and
+partition bounds pass. Modem is stripped before signing; CMS verifies against
+the unchanged certificate embedded in the current kernel. Original ext4
+owner/mode/SELinux label and signed file readback pass. The target identity
+and live #69 boot/modem/module/ramdisk match the retained #69 paired recovery.
+Only local #70 boot and modem_driver are written; independent Magisk ramdisk
+is not changed.
+
+One normal #70 boot reaches Android and automatically loads the matching Live
+modem. Complete partition/module/readback and loaded build-id match; encrypted
+user storage is unlocked and required services are present. One existing
+CameraDaemon thread completes all six ISP firmware/startup/power stages.
+Enforcing, taint4, forced signatureY and PRMEM enabled remain. Complete
+time-zero/boot/later logs have no actual kernel/module/HKIP root-bit fault.
+517 visible AVC denials remain, none requests module loading. Original
+tracing-off/wifi instance and Asleep screen are restored. No second boot or
+unrelated broad hardware regression is repeated after these checks pass.
+
+#69/5.10.135 is immediate paired recovery. The latest-five test window becomes
+66-70, retiring only expired #65 images/module and consumed full build/runtime
+logs, not #65 failed HKIP evidence. Compact current metadata precedes output
+reuse; originals, #17, signing materials and precise alternate/cache/source
+references remain under 20 GB. No signing key copy, artifact bundle, release
+tag, push or publication occurs.
+
+Next is complete official 141-145. Canonical endpoints and 260 original inputs
+(38/81/77/24/40) are acquired in an independent bounded reference repository,
+not another source/build/runtime acceptance. Only its own alternate list is
+flattened in dependency-first order to avoid Git nesting limits; prior object
+stores remain read-only. Target 274, SELinux PRMEM capacity/reclamation/lifetime,
+two source-only fbcon findings, AMA/full io_uring/OOM/ext4 safety, async HKIP
+atomicity, NFC ownership and full hardware/network/performance/power remain
+open. Stable maintenance does not establish ACK parity, vendor/core separation,
+standard GKI or independent stable KMI.
