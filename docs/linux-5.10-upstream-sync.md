@@ -2670,3 +2670,267 @@ range; initial read-only preparation is not an actual import. The pinned
 5.10.274 target, selected AMA mempolicy, Android common parity, GKI and full
 inherited hardware/power acceptance remain open. No release export,
 publication, tag or push occurs.
+
+
+## Sixteenth Milestone: 5.10.116 Through 5.10.120
+
+### Ordered Source Import
+
+The complete adjacent official range after accepted #64/5.10.115 contains
+394 entries. Actual import ends at
+`aab63b923712f9bf03538d458cf3380f360b0230`: 347 exact picks, seventeen code
+adaptations and five OEM release-marker adaptations produce 369 source
+commits with original author/provenance. The other 25 entries need no new
+commit: four complete postimages, twenty semantic PRESENT dispositions and
+one semantic-superseded intermediate SWIOTLB revert. No absent-prerequisite
+entry is skipped. The later paired HKIP integration is a separate source step,
+not part of these 369 original-author commits.
+
+| Release | Official Endpoint | Entries | Exact | Code Adaptations | Markers | No New Commit |
+| --- | --- | --- | --- | --- | --- | --- |
+| 5.10.116 | `07a4d3649aef01a3150fc3ddd61dc9fbd0e3f15c` | 11 | 9 | 1 | 1 | 0 |
+| 5.10.117 | `7686a5c2a8d398196259b1bf3fa369a4fd6bcd6f` | 69 | 65 | 0 | 1 | 3 |
+| 5.10.118 | `c204ee3350ebbc4e2ab108cbce7afc0cac1c407d` | 97 | 89 | 1 | 1 | 6 |
+| 5.10.119 | `56c31ac1d8aadb706ea977c097c714762b3fcfdd` | 164 | 136 | 14 | 1 | 13 |
+| 5.10.120 | `70dd2d169d08f059ff25a41278ab7c658b1d2af8` | 53 | 48 | 1 | 1 | 3 |
+
+Sources are the original Linux stable repository and official
+ChangeLog-5.10.116 through ChangeLog-5.10.120 at
+<https://cdn.kernel.org/pub/linux/kernel/v5.x/>. All 394 actual ledger entries,
+ordered before/after contents and modes, and all five release/final trees
+match the independently approved immutable source package. Accepted #64's
+documentation root is carried separately, without rewriting source approval
+or replaying previously accepted source/runtime evidence.
+
+### Standard Interfaces And Preserved Platform Contracts
+
+116#6 removes CONFIG_ARCH_HAS_HOLES_MEMORYMODEL across all thirteen original
+paths, adapting only existing GPL-export context. Release markers update
+SUBLEVEL while retaining the OEM Makefile exports and file mode, not altering
+loader compatibility checks. 119#1 preserves the complete KGDB/KDB lockdown
+changes and relocates its two reason strings into the existing local static
+lockdown table. The complete source scope includes that local path, for 330
+paths; no lockdown policy is weakened.
+
+The upstream RNG series retains the BL31 firmware API, HISI guards,
+magic/error handling and existing entropy credit. Five mandatory OEM semantic
+adaptations are integrated at their ordered anchors. 119#45 removes obsolete
+pool arguments from two RNG helper calls; the BL31 firmware call and its
+arguments remain unchanged. 119#66 retains a valid file-scope declaration;
+119#87 follows the upstream initialization grouping; #140 changes the credit
+helper to credit_init_bits; and #150 retains one firmware tail hook while
+adopting upstream caller, latent-entropy and command-line handling. The
+firmware buffer remains sixteen bytes, contributing sixteen initialization
+credit bits, not 128. This is not an entropy-quality runtime test.
+
+119#96 adds the official RNG prepare/online CPU-hotplug callbacks and ordering
+while only bridging the local include context. Android/OEM callbacks, locks
+and workqueue ordering remain. #121/#150 leave one initialization sequence:
+timekeeping -> time_init -> KFENCE -> RNG -> canary -> perf, with the existing
+KFENCE initialization and executable source-file mode retained.
+
+120#14 retains all six original io_uring iterator snapshot/restore changes,
+bridging only existing UFS inline-crypto context. Complete io_read/io_write
+review retains seven guarded UFS blocks, completion behavior and executable
+file mode. It does not replay the accepted #64 fixed-file regression or
+certify all file types, cycles, races, memory pressure or allocation failure.
+
+### Allocator-Limited SELinux Cleanup And Qualified PRESENT
+
+118#37 repairs wrong-container cleanup, unsupported-free behavior and
+caller-owned container reset while retaining the selected SELinux PRMEM
+contract. NO_FLAGS table/node suballocations stay arena-owned, not individual
+pfree targets. Arena capacity/reclamation, full per-object freeing, pool
+reset/sealing and first-policy/boolean-copy/reload ownership/lifetime remain
+open; no allocator/protection bypass closes that residual.
+
+118#31 is semantic-superseded by the inherited complete immediate #32 final
+SWIOTLB postimage, not equivalent to the intermediate revert; #32 is separately
+whole-postimage PRESENT. 119#5/#6 retain the stronger inherited u64 secure-port,
+Algorithm4 and 65,536-entry perturb table. No older intermediate downgrade
+or new bounce adapter is introduced.
+
+The three 5.10.120 PRESENT results have complete functional source proofs:
+#8 rejects non-stateful expression types before allocation/initialization;
+#10 already locks pipe ring resize with ordinary-pipe capacity accounting;
+#28's concatenation parser/helper enforces field count, per-field u8 length
+and total register bounds. Existing unsigned poll_usage remains. These are
+source dispositions, not new packet, pipe or netfilter runtime tests.
+
+### Full Build And Selected Interface Acceptance
+
+Actual configuration/prepare and full compilation naturally produce
+5.10.120 #65. Emitted options change 6,432 -> 6,433:
+CONFIG_CRYPTO_LIB_BLAKE2S_GENERIC and CONFIG_XOR_BLOCKS change n -> y, while
+the retired disabled CONFIG_CRYPTO_LIB_BLAKE2S entry disappears. Security/signing
+selections, Werror, ThinLTO, enforcing CFI, forced signatures, PRMEM, BHB and
+fourteen generated OEM device/storage offsets remain. This is not exact
+configuration-file equality or a protection reduction.
+
+Final selected reports bind actual source/configuration, the successful full
+build, ELF/exports and current natural objects/modules. Fourteen selected
+records, the actual 32-bit DRBG seeded enum (UNSEEDED=0, PARTIAL=1, FULL=2),
+28 callbacks in ten CFI types and twelve APIs pass. Its seeded field is i32.
+Thirteen new natural IR objects are decoded once; inherited
+scoped contracts retain their accepted identities without old machine-proof
+replay. Checks use actual optimized compiler output, not artificial records,
+broadened interfaces, callback casts or CFI weakening.
+
+Three finite checker-only corrections handle the actual GPL export kind,
+the scalarized three-byte XFRM record and two exact nonnull call sites.
+They correct the verification readers/expectations, not the kernel. No new
+source integration or full-build retry is needed for those checker corrections.
+The later actual firmware boot fault requires the separate credential repair.
+
+The final table has 13,839 exports, six additions, two removals and 2,894 real
+CRC changes versus #64. All 390 rebuilt modem imports and two optional dummy
+imports match. Export/CRC agreement is not complete ABI or stable KMI proof.
+Normal Kbuild modules are unsigned link/postlink/CFI artifacts; the modem
+installation copy is separately stripped, re-signed and CMS/target-certificate
+verified. Ext4 staging and boot roundtrip pass, retaining original header,
+firmware stub, OEM device tree and partition bounds. The optional dummy is
+not installed. No loader, CRC, signature, SELinux or protection check is
+bypassed.
+
+### Actual #65 Firmware Boot Failure And Paired #64 Recovery
+
+The full 5.10.120 #65 build, final selected interfaces/CFI, natural rebuilt
+modem imports, CMS/ext4 staging and boot roundtrip pass. Actual boot does not
+reach normal Android/ADB and returns to fastboot within the bounded installer
+window. Both matching #64/5.10.115 partitions are restored successfully,
+returning normal Android/root. #65 is a failed boot candidate, not an accepted
+installed milestone or a diagnostic-wrapper failure.
+
+Root's persistent pstore capture identifies the first actual fault at 18.664
+seconds: GID root escalation BUG in
+`platform_source/see/drivers/hhee/hkip/critdata.c:187`, under CameraDaemon.
+The stack is hkip_check_gid_root -> generic_permission -> file_open_root ->
+kernel_read_file_from_path_initns -> _request_firmware -> rproc_boot ->
+hisp350. The modem has already linked; that observation neither certifies
+all modem functionality nor makes the failed kernel an accepted boot.
+
+The trigger is official 117#39, stable
+`5a73581116362340087fad4df7e4530c4a819821`, upstream
+`581dd69830341d299b0c097fc366097ab497d679`, imported as `68a97ef08`.
+Its kernel-credential firmware-read change is legitimate: drivers may load
+firmware while serving an unrelated userspace request, whose credentials
+must not govern the kernel's firmware access. Reverting that upstream logic,
+removing HKIP checks, granting a CameraDaemon exception or disabling SELinux
+would not be a correct integration fix.
+
+The inherited HKIP task bitmap updates on credential commit/task initialization
+and checks current subjective credentials during filesystem permission
+checks. Standard override_creds/revert_creds publish temporary/restored
+current->cred without synchronizing the bitmap. The firmware path installs
+kernel GID while CameraDaemon's protected bit remains non-root, causing the
+observed false-positive BUG. The relevant HKIP/core credential functions
+are unchanged between accepted115 and the candidate120 import; original
+117#39 newly exercises their missing temporary-transition contract.
+
+### Separate Paired Credential-Transition Integration
+
+The distinct minimal source step updates hkip_update_xid_root(new) immediately
+after override publishes current->cred, and hkip_update_xid_root(old) after
+revert publishes the saved credential. Both calls precede the Android vendor
+hook and use !CONFIG_HKIP_PROTECT_CRED guards. Commit
+`0436052d622d0dd192804a3df1635a3b48449e3e` records the repair separately from
+the 369 original-author source commits
+ending at `aab63b923`; do not amend the approved source package or count this
+repair as a stable original.
+
+Post-publication placement matters because existing hkip_compute_gid_root
+combines passed gid/sgid with in_egroup_p(current_cred)'s effective/supplementary
+groups. It must see the newly installed complete credential, not mixed old
+groups. The source update precedes vendor hooks; this selected configuration
+disables Android vendor hooks, whose empty implementations compile out.
+When those hooks are enabled, their source observers follow the update;
+revert precedes release of the override reference. Both transitions
+are required: override-only would leave a privileged protected bit after
+non-root restore and weaken escalation detection. Recomputing from saved
+credentials supports nested overrides and clears state at the final revert,
+without a global exception or independent bit stack.
+
+Existing reference/subscriber order, real_cred, firmware/LSM/permission checks,
+HHEE/PID/HVC writes and the separate PROTECT_CRED model remain. The short
+pointer-to-bitmap update interval shares the existing commit transition's
+ordering class; this scoped repair does not claim full atomicity for all
+asynchronous kernel credential observers. No concrete interrupt-side fault
+requires a global lock, IRQ suppression or classifier redesign here.
+
+### Necessary #66 Build And Actual Firmware Runtime Acceptance
+
+The separate source integration produces Linux 5.10.120 #66. Its kernel tree
+is `26bf0ef8896b1a38f5f5a2792cc84828b72738f3`, distinct from the original394
+source-only package. The previous package, actual #65 source/config/build and
+failed-boot evidence remain immutable; none is refrozen as #66 acceptance.
+
+Exact #65 configuration, signing and all 26 prior selected natural object/
+complete-command identities remain. The fourteen records, DRBG enum, 28
+callback definitions and twelve public definition/export contracts are
+inherited by those unchanged contexts, without rereading the previous
+thirteen IR objects or repeating layout measurements. Only new kernel/cred.o
+is naturally decoded once: both incoming credentials are release-published to
+current->cred, then passed directly to hkip_update_xid_root. The same ten
+CFI memberships and three credential API symbols are refreshed from the
+current final ELF, not relabelled from #65 link addresses.
+
+Two finite checker-only corrections accurately carry three nonexported public
+definitions and configured-out Android vendor hooks. They use the already
+decoded credential IR when correcting the observed NOP representation; no
+kernel/configuration change or duplicate credential decode is introduced.
+The original checker preparation and separate approved correction identities
+are retained. All 13,839 exports remain identical to #65; versus #64 there
+are six additions, two removals and 2,894 changed CRCs. All 390 modem and two
+optional dummy imports match. The separately stripped/signed modem, CMS and
+kernel certificate, original boot roundtrip and ext4 owner/mode/SELinux label
+readback pass. No dummy module is installed to fake hardware coverage.
+
+The matched #66 boot/modem partitions reach normal Android with automatic
+matching Live modem. Complete boot/modem/module readback, runtime build-id,
+encrypted unlocked user storage, required services and unchanged independent
+Magisk ramdisk pass. SELinux remains Enforcing, taint remains 4, forced
+signature loading remains Y and PRMEM remains enabled; CFI/ThinLTO/BHB/Werror
+are retained in the actual build.
+
+The boot log covers the previously failing path without launching a camera
+UI or capturing input: one CameraDaemon thread enters hisp350_power_on,
+requests the ISP firmware, logs successful isp_fw.elf loading, starts ISPCPU
+and returns from power-on. All six ordered stages
+come from one complete snapshot and one boot ID/thread; self-reboot or
+cross-retry splicing is rejected. request_firmware has restored its temporary
+credentials before the successful firmware-loading log. This verifies the
+actual affected path, not all nested/asynchronous credential observers or
+complete camera function.
+
+Time-zero, boot and later logs contain no actual WARN/BUG/Oops/panic/CFI or
+module-loading fault. There are 517 visible AVC denials, none requests module
+loading; this is not a blanket no-AVC claim. The original tracing-off state
+and wifi instance remain, and the screen is restored Asleep. No passed #64
+owned-file or broad hardware regression is replayed without a relevant change.
+
+| Gate | Actual Result |
+| --- | --- |
+| Original394 provenance/package and ordered369 commits/five release trees | Pass; original source `aab63b923` |
+| #65 configuration/build/interfaces/modules/signed staging | Pass; retained failed-candidate build evidence |
+| #65 normal Android | Fail; actual HKIP firmware GID BUG |
+| Both #64 recovery partitions and normal Android/root | Pass |
+| Separate paired credential integration | `0436052d6`; independent source review and necessary #66 build pass |
+| #66 current ELF/CFI, same-build modules and signed pair | Pass; only new credential IR decoded once |
+| #66 normal Android/auto matching modem/actual ISP firmware path | Pass; same-boot readbacks and enforcing controls |
+| Local Git, accepted metadata and bounded retention | Local closeout; no release export/publication |
+
+The immediate paired rollback is #64/5.10.115. Local closeout keeps accepted
+#66 metadata distinct from failed #65 metadata; originals, independent ramdisk, configuration,
+signing hashes and immutable reference/proof dependencies are retained. The
+latest five test versions are the retention target; bounded consumed-log and
+expired-image cleanup keeps the worktree below 20 GB. No private signing key
+is copied into metadata.
+
+Next is the complete official 5.10.121-125 range, prepared from accepted #66's
+integrated source and documentation root, not a fabricated accepted65 state.
+Its 734 frozen official inputs and driver preparation do not themselves grant
+source-preview/import or build acceptance. The pinned 5.10.274 target,
+SELinux arena capacity/reclamation/lifetime, selected AMA mempolicy, full
+io_uring/OOM safety, ACK parity, vendor/core split/GKI and inherited hardware/
+performance/power acceptance remain open. Work stays in the local source Git
+tree; no release bundle, tag, publication or push is requested.

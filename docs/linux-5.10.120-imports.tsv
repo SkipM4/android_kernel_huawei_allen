@@ -1,0 +1,54 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	75e35951d6ec28a3a1802ffd76fabe788aa8bb02	db2ba0bdc3660ccb6b5f59546d2b253021ee3785	picked	pinctrl: sunxi: fix f1c100s uart2 function	drivers/pinctrl/sunxi/pinctrl-suniv-f1c100s.c	-
+002	d007f49ab789bee8ed76021830b49745d5feaf61	bb884e5a6bd3af7a477978f10e7cea64d0a6a45e	picked	percpu_ref_init(): clean ->percpu_count_ref on failure	lib/percpu-refcount.c	-
+003	ac8d5eb26c9edeb139af1e02e1d3743aa2e1fcd7	6cd5cbbb557ff01c0921f1b3aae8d0286cbb3b6c	picked	net: af_key: check encryption module availability consistency	net/key/af_key.c	-
+004	640397afdf6ebfac558ed8340bac4bfd05f06c53	3d49ca42246d21ebf42884f8a90d22252163ed86	picked	nfc: pn533: Fix buggy cleanup order	drivers/nfc/pn533/pn533.c	-
+005	828309eee5b639394c84dca27a712c8a714819d0	60ab69a5188881a27f2dc45d9a2267dfb7834784	picked	net: ftgmac100: Disable hardware checksum on AST2600	drivers/net/ethernet/faraday/ftgmac100.c	-
+006	f0749aecb20b2d8fbc600a4467f29c6572e4f434	ddd6d5bf4ed8262cb10b80db0bcd4f17ce9b293c	picked	i2c: ismt: Provide a DMA buffer for Interrupt Cause Logging	drivers/i2c/busses/i2c-ismt.c	-
+007	5525af175be2184e0c87e268bd17c81235662f7d	254d41f0769020a229704f7490d8fb91c5b20f58	picked	drivers: i2c: thunderx: Allow driver to work with ACPI defined TWSI controllers	drivers/i2c/busses/i2c-thunderx-pcidrv.c	-
+008	ea62d169b6e731e0b54abda1d692406f6bc6a696	-	already-present	netfilter: nf_tables: disallow non-stateful expression in sets earlier	net/netfilter/nf_tables_api.c	PRESENT: both complete expression initialization and set-element allocator targets exactly match original postimage; reject non-stateful types before allocation or init callback
+009	cd720fad8b574f449fef015514542bd7455abde5	9de4babc633590ccb4afe45bd7892e60a9492574	picked	pipe: make poll_usage boolean and annotate its access	fs/pipe.c;include/linux/pipe_fs_i.h	-
+010	8fbd54ab06c955d247c1a91d5d980cddc868f1e7	-	already-present	pipe: Fix missing lock in pipe_resize_ring()	fs/pipe.c	PRESENT: complete pipe ring resize exactly matches original locking postimage plus one unchanged inherited ordinary-pipe capacity/accounting block
+011	b96b4aa65bbc0364ea44807f3a32b8d862008aa6	cc071b865c0106787295f849d58d4acf010b1f2e	picked	cfg80211: set custom regdomain after wiphy registration	net/wireless/core.c;net/wireless/reg.c	-
+012	6029f86740c92c182ff29b34b3c40bb5462050a1	2ef9b82c89b08c3f71941c6c79bbf2dd0ae0346f	picked	assoc_array: Fix BUG_ON during garbage collect	lib/assoc_array.c	-
+013	57d01bcae7041cfb86553091718d12bf36c082aa	0cffc602fa4e9642b197b929ed9e49688761883d	picked	io_uring: don't re-import iovecs from callbacks	fs/io_uring.c	-
+014	8adb751d294ed3b668f1c7e41bd7ebe49002a744	1bfc0fe756d86d63ec3e8e8408c4a6169f2683a9	backported	io_uring: fix using under-expanded iters	fs/io_uring.c	Complete original six-hunk iterator snapshot/restore fix with only existing UFS inline-crypto branch braces bridging sixth hunk context
+015	ffc8d613876f0225ac3cfe047fd0ab31623825cf	9694e81e8c2c43bc8ef073625c47cf9070a0df2b	picked	net: ipa: compute proper aggregation limit	drivers/net/ipa/ipa_endpoint.c	-
+016	f20e67b455e425a0d3d03f27bda5fdd32dc2c324	5d779779e03b0a10bfdc53e1cef7a2ab7d64879b	picked	xfs: detect overflows in bmbt records	fs/xfs/libxfs/xfs_bmap.c	-
+017	45d97f70da4d47f303a5202dba124c1d0e9120c3	ef93994b33eeae6afa1dbeba54cd4c7c960cd4b4	picked	xfs: show the proper user quota options	fs/xfs/xfs_super.c	-
+018	72464fd2b4b76fe924fd8c3d5bfe9b10a61aaa1c	10e303685851fb8b0788a36ac9665747ae5bfa92	picked	xfs: fix the forward progress assertion in xfs_iwalk_run_callbacks	fs/xfs/xfs_iwalk.c	-
+019	a9e7f19a5577894242e09dab6dcfc8064e634a1c	da732523a5ec5211b9beb97752d23bd622126ad1	picked	xfs: fix an ABBA deadlock in xfs_rename	fs/xfs/libxfs/xfs_dir2.h;fs/xfs/libxfs/xfs_dir2_sf.c;fs/xfs/xfs_inode.c	-
+020	2728d95c6c952ccf2c9a4b769b5852dfb36268af	58fb5927f75ba4c1401f5d5d4c86f2580b216e39	picked	xfs: Fix CIL throttle hang when CIL space used going backwards	fs/xfs/xfs_buf_item.c;fs/xfs/xfs_inode_item.c;fs/xfs/xfs_log_cil.c	-
+021	1f0681f3bd5665080bde3c5b9568cc27df765ce0	a45113d5886c0a92944edd09617d12ebf6240240	picked	drm/i915: Fix -Wstringop-overflow warning in call to intel_read_wm_latency()	drivers/gpu/drm/i915/intel_pm.c	-
+022	82f723b8a5adf497f9e34c702a30ca7298615654	6ad22c035e9d8bbe22a83c12bc5f87f35f27dbf0	picked	exfat: check if cluster num is valid	fs/exfat/balloc.c;fs/exfat/exfat_fs.h;fs/exfat/fatent.c	-
+023	630192aa45233acfe3d17952862ca215f6d31f09	2f30c0ff64ff9717991cf0e046b748e7bbc1f545	picked	lib/crypto: add prompts back to crypto libraries	crypto/Kconfig;lib/Kconfig;lib/crypto/Kconfig	-
+024	b2bef5500e0d2000c40c361720b0788db2abca5e	53fbb53280b04626514ee9636c783095231249c6	picked	crypto: drbg - prepare for more fine-grained tracking of seeding state	crypto/drbg.c;include/crypto/drbg.h	-
+025	54700e82a7a75d0f2b9126b7ff8bdd26efad738a	7bb06e52ff9e6b60b0fad5351b75d376df7ba795	picked	crypto: drbg - track whether DRBG was seeded with !rng_is_initialized()	crypto/drbg.c;include/crypto/drbg.h	-
+026	e744e34a3c35644b5af2b45053fbd178a15bf73f	3524ecaac06967287d5aad87e8a3be1ccda221ff	picked	crypto: drbg - move dynamic ->reseed_threshold adjustments to __drbg_seed()	crypto/drbg.c	-
+027	44f1ce55308d914e911184d3df30a1a6d78253e7	5d53a851a12af407032d597dec5d758840a1edfb	picked	crypto: drbg - make reseeding from get_random_bytes() synchronous	crypto/drbg.c;drivers/char/random.c;include/crypto/drbg.h	-
+028	c0aff1faf66b6b7a19103f83e6a5d0fdc64b9048	-	already-present	netfilter: nf_tables: sanitize nft_set_desc_concat_parse()	net/netfilter/nf_tables_api.c	PRESENT: both complete concatenation descriptor functions exactly implement original field count, per-field u8 length and total register bounds
+029	91a36ec160ec1a0c8f5352b772dffcbb0b6023e3	9186a01dc8ca7173386afdb249c4912bf10438a0	picked	netfilter: conntrack: re-fetch conntrack after insertion	include/net/netfilter/nf_conntrack_core.h	-
+030	4c4a11c74adac284534f3db927c726bd419bbacb	d80203283f6be2d12194a8747c7a1cf0cdc823eb	picked	KVM: PPC: Book3S HV: fix incorrect NULL check on list iterator	arch/powerpc/kvm/book3s_hv_uvmem.c	-
+031	4a9f3a9c28a6966c699b4264b6a3c5aaed21ea3e	483cad5c8ffced305f546d7e215b621706d8164c	picked	x86/kvm: Alloc dummy async #PF token outside of raw spinlock	arch/x86/kernel/kvm.c	-
+032	a2a3fa5b616a1b4caaf1c352051e169471296d4b	5098c7c7853ec7fc4f1cf5ae04eddf18f9f137e9	picked	x86, kvm: use correct GFP flags for preemption disabled	arch/x86/kernel/kvm.c	-
+033	3d8fc6e28f321d753ab727e3c3e740daf36a8fa3	7a0c6c3be450a287b1ec08f564d5a1d382036c3c	picked	KVM: x86: avoid calling x86 emulator without a decoded instruction	arch/x86/kvm/x86.c	-
+034	c013f7d1cd92d945398c63a7d6a8b0dd99c23679	97600b337ddfdbaf8ecdee434b5337988d387e32	picked	crypto: caam - fix i.MX6SX entropy delay value	drivers/crypto/caam/ctrl.c	-
+035	6a1cc25494056e6b8dff243f8b3d9c57259535f6	d2d57d21b9716deed3f6d0a9855a83a980930ebf	picked	crypto: ecrdsa - Fix incorrect use of vli_cmp	crypto/ecrdsa.c	-
+036	fae05b2314b147a78fbed1dc4c645d9a66313758	b267ee0e082916990b2aafed9a2f0277a84f9ff7	picked	zsmalloc: fix races between asynchronous zspage free and page migration	mm/zsmalloc.c	-
+037	4989bb03342941f2b730b37dfa38bce27b543661	04817fb8d357a6ebb37fac7160f960c0a50fefcc	picked	Bluetooth: hci_qca: Use del_timer_sync() before freeing	drivers/bluetooth/hci_qca.c	-
+038	8845027e55fc8b977607b4576ca6efd5d8d4566d	726f6cc6344aa52d71efd72516442c8acbaaed85	picked	ARM: dts: s5pv210: Correct interrupt name for bluetooth in Aries	arch/arm/boot/dts/s5pv210-aries.dtsi	-
+039	bb64957c472adc90eb7dbb45db95019d7a574088	63f11eb56859a56056a981a67acf2f197c2cffd1	picked	dm integrity: fix error code in dm_integrity_ctr()	drivers/md/dm-integrity.c	-
+040	4617778417d0a8c59f309b5eea21d943877f3c74	e7c47a6308ba5d693f1c4268b658c5a793ea412d	picked	dm crypt: make printing of the key constant-time	drivers/md/dm-crypt.c	-
+041	e39b536d70edc5f622187cf787db94287e389c50	60d9b1246db5238d8758dfd8803d42bea939dcf0	picked	dm stats: add cond_resched when looping over entries	drivers/md/dm-stats.c	-
+042	8df42bcd364cc3b41105215d841792aea787b133	49bd3ccdb694da07fcd422453d4353fe053e0ad0	picked	dm verity: set DM_TARGET_IMMUTABLE feature flag	drivers/md/dm-verity-target.c	-
+043	0f03885059c1f2a5fb690d21578d0cad55a98b1f	a7a7ab63e349483f8fa4ccc16600e1a4f2369f30	picked	raid5: introduce MD_BROKEN	drivers/md/raid5.c	-
+044	d6822d82c0e8d025fbc157755cab17252ad7092b	eb51d7128ac61893ef0b1d09ebdf31b8a39a3694	picked	HID: multitouch: Add support for Google Whiskers Touchpad	drivers/hid/hid-multitouch.c	-
+045	0c56e5d0e65531747c437c608d610a2fa8ecd9fe	c96bc5abeb28dfb70c6d5e8eeeb2cc180f539119	picked	HID: multitouch: add quirks to enable Lenovo X12 trackpoint	drivers/hid/hid-ids.h;drivers/hid/hid-multitouch.c	-
+046	5933a191ac3d6724833d87bd99bda1d1904cb800	5c5c17aab1971fcde28d12375c7552a1ab7c539f	picked	tpm: Fix buffer access in tpm2_get_tpm_pt()	drivers/char/tpm/tpm2-cmd.c	-
+047	ebbbffae71e2e0f322bf9e3fadb62d2bee0c33b3	96ac0c3ba664a11a8c65946f3b0a34428a7b9fb7	picked	tpm: ibmvtpm: Correct the return value in tpm_ibmvtpm_probe()	drivers/char/tpm/tpm_ibmvtpm.c	-
+048	1d100fcc1da7a5baaf29d81d1bfb8e106fc3c297	8dc20e3689812ba2fc322387af8392ef355ae26d	picked	docs: submitting-patches: Fix crossref to 'The canonical patch format'	Documentation/process/submitting-patches.rst	-
+049	78a62e09d88537150ffb31451d07efdc8a1c9b78	e2396ded98f9ba29fafdae88716fe17b4be3947a	picked	NFS: Memory allocation failures are not server fatal errors	fs/nfs/internal.h	-
+050	3097f38e91266c7132c3fdb7e778fac858c00670	7c4744df2251a8c24b408c8b9288d594f011bb33	picked	NFSD: Fix possible sleep during nfsd4_release_lockowner()	fs/nfsd/nfs4state.c	-
+051	7f845de2863334bed4f362e95853f5e7bc323737	fe6397c59e840c62cb149ea3394ae112714c3967	picked	bpf: Fix potential array overflow in bpf_trampoline_get_progs()	kernel/bpf/trampoline.c	-
+052	886eeb046096fec4f7e43ed8fc94974564b868d4	a2cb1dc7925e170876118b971427a9fa79051ba8	picked	bpf: Enlarge offset check value to INT_MAX in bpf_skb_{load,store}_bytes	net/core/filter.c	-
+053	70dd2d169d08f059ff25a41278ab7c658b1d2af8	aab63b923712f9bf03538d458cf3380f360b0230	backported	Linux 5.10.120	Makefile	Only original SUBLEVEL changes; retain local OEM Makefile exports and mode.

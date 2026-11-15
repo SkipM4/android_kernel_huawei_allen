@@ -1,0 +1,165 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	a8f4d63142f947cd22fa615b8b3b8921cdaf4991	e9d5078fa15b191b410c05fc09f696df81b2d99a	backported	lockdown: also lock down previous kgdb use	include/linux/security.h;kernel/debug/debug_core.c;kernel/debug/kdb/kdb_main.c;security/security.c	Complete original KGDB/KDB lockdown fix with only reason-table path relocation to the existing local static table
+002	c06e5f751a08a05d8e7e14f77a3d1ba783641b26	18f8340c8456e81690299ca080f6866318282af9	picked	staging: rtl8723bs: prevent ->Ssid overflow in rtw_wx_set_scan()	drivers/staging/rtl8723bs/os_dep/ioctl_linux.c	-
+003	74c6e5d584354c6126f1231667f9d8e85d7f536f	b59ac953cdb4327ab5e7b91e5f31b324c03324e4	picked	KVM: x86: Properly handle APF vs disabled LAPIC situation	arch/x86/kvm/lapic.c;arch/x86/kvm/x86.c	-
+004	9b4aa0d80b18b9d19e62dd47d22e274ce92cdc95	-	already-present	KVM: x86/mmu: fix NULL pointer dereference on guest INVPCID	arch/x86/kvm/mmu/mmu.c	Complete original postimage already present; source unchanged.
+005	33f1b4a27abced7ae0f740d2ec3040debf7c4b3c	-	already-present	tcp: change source port randomizarion at connect() time	net/ipv4/inet_hashtables.c	PRESENT: original Algorithm4 perturb lookup/writeback is already implemented in inherited wider isolated source-port variant
+006	a5c68f457fbf52c5564ca4eea03f84776ef14e41	-	already-present	secure_seq: use the 64 bits of the siphash for port offset calculation	include/net/inet_hashtables.h;include/net/secure_seq.h;net/core/secure_seq.c;net/ipv4/inet_hashtables.c;net/ipv6/inet6_hashtables.c	PRESENT: four whole official postimages and inherited complete IPv4 u64/offset variant already implement original secureport intent
+007	ed0e71cc3f1e57b71a004446cd804b366826dbeb	964b0f8b7c28661c3b4814a6c6be313f7ba4a9be	picked	media: vim2m: Register video device after setting up internals	drivers/media/test-drivers/vim2m.c	-
+008	0debc69f003bfedab65a08ebd29566e861cdd3cb	1b290ab048e148c1a945200a1e7453f3e9de0093	picked	media: vim2m: initialize the media device earlier	drivers/media/test-drivers/vim2m.c	-
+009	14fa2769ea6c8a76c76a092d4a0773f44df3e402	22cfbfd86f6b606ab1b5b63c5855ba9f293b1466	picked	ACPI: sysfs: Make sparse happy about address space in use	drivers/acpi/sysfs.c	-
+010	257fbea15ab1f9efd2185d469649cdf346a38c8d	51bb354fc09cf51c04db22f6d1d0a563014d730a	picked	ACPI: sysfs: Fix BERT error region memory mapping	drivers/acpi/sysfs.c	-
+011	6227458fef95fda06e8d16381462a90fd6e03bec	b835d5d6fd99cb5861ccf11e3f477681389e6b23	picked	random: avoid arch_get_random_seed_long() when collecting IRQ randomness	drivers/char/random.c	-
+012	acb198c4d11f4ffb538037c9057aa3d3731d21b8	d997c5951ac881d9817eb6bb58b2a516eb57f2bc	picked	random: remove dead code left over from blocking pool	drivers/char/random.c;include/trace/events/random.h	-
+013	c4882c6e1ec915493fc224a6352b5fb11b30dcd7	94cf735b6665f2c4089cb0855854d0b9c934b403	picked	MAINTAINERS: co-maintain random.c	MAINTAINERS	-
+014	c3a4645d803e924c1a45e7df3cb57d76368d9240	4ac926be51ab96ecd313e70bb0110e1bf3f58b5c	picked	MAINTAINERS: add git tree for random.c	MAINTAINERS	-
+015	0f8fcf5b6ed7ab1351064c87b1a5c47f9634f3c1	-	already-present	crypto: lib/blake2s - Move selftest prototype into header file	include/crypto/internal/blake2s.h;lib/crypto/blake2s-selftest.c;lib/crypto/blake2s.c	PRESENT: shared header declares selftest once, full selftest provider postimage includes it, caller no longer redeclares and retains exact original initialization
+016	89f9ee998e36681013ffd71cbe6a24cc44ec1037	-	already-present	crypto: blake2s - define shash_alg structs using macros	crypto/blake2s_generic.c	PRESENT: complete original macro and four algorithm records already retained with inherited generic wrapper names
+017	198a19d7ee95186fd2cfd69326c3b5ff6e63f13c	-	already-present	crypto: x86/blake2s - define shash_alg structs using macros	arch/x86/crypto/blake2s-glue.c	PRESENT: complete original x86 macro and four records already retained with inherited x86 wrapper names
+018	e467a55bd006be15200f8f533929bc491ccb28f0	-	already-present	crypto: blake2s - remove unneeded includes	crypto/blake2s_generic.c	PRESENT: two original unused generic BLAKE2s includes already absent and full original remaining include context present once
+019	72e5b68f33a12a99d6fdf702ca739fc5250a9fc0	-	already-present	crypto: blake2s - move update and final logic to internal/blake2s.h	include/crypto/internal/blake2s.h;lib/crypto/blake2s.c	PRESENT: complete original shared update/final helpers and typedef already equal, whole library postimage exact
+020	6c362b7c7764770926cf04b9ca776c0f28df0e6a	-	already-present	crypto: blake2s - share the "shash" API boilerplate code	arch/x86/crypto/blake2s-glue.c;crypto/blake2s_generic.c;include/crypto/internal/blake2s.h	PRESENT: both complete shash implementations exact postimages; shared header complete postimage differs solely by inherited next initialization optimization and guard naming
+021	d45ae768b71b96869643fcea7c2d629120d01ba2	-	already-present	crypto: blake2s - optimize blake2s initialization	include/crypto/blake2s.h;include/crypto/internal/blake2s.h	PRESENT: all five complete optional-key initialization functions already equal original postimages
+022	fea91e907076163ce319d41e0ea5862c9a0c10c0	-	already-present	crypto: blake2s - add comment for blake2s_state fields	include/crypto/blake2s.h	PRESENT: complete original blake2s_state including assembly-field comment already equal
+023	030d3443aa61153a5354b716a668ae501ead228b	-	already-present	crypto: blake2s - adjust include guard naming	include/crypto/blake2s.h;include/crypto/internal/blake2s.h	PRESENT: both original full-path header guards already present exactly; internal header whole postimage equal
+024	aec0878b1d13642033e9da6a05e530f2b8908446	-	already-present	crypto: blake2s - include <linux/bug.h> instead of <asm/bug.h>	include/crypto/blake2s.h	Complete original postimage already present; source unchanged.
+025	62531d446a985fd87fd1320beafec74455cc2bb5	422052db530fb23bb368e8bad3bae9e03d30c518	picked	lib/crypto: blake2s: include as built-in	arch/x86/crypto/Makefile;arch/x86/crypto/blake2s-glue.c;arch/x86/crypto/blake2s-shash.c;crypto/Kconfig;drivers/net/Kconfig;include/crypto/internal/blake2s.h;lib/crypto/Kconfig;lib/crypto/Makefile;lib/crypto/blake2s-generic.c;lib/crypto/blake2s.c	-
+026	5fb6a3ba3af6aff7cdc53d319fc4cc6f79555ca1	3cf1c1a448b22064c12f45d9a42c668e762dfb01	picked	lib/crypto: blake2s: move hmac construction into wireguard	drivers/net/wireguard/noise.c;include/crypto/blake2s.h;lib/crypto/blake2s-selftest.c;lib/crypto/blake2s.c	-
+027	07918ddba3ab7549ea6f69156accbdb6c467832a	40c4f69e94857b5f506babcab43d3f1f75a23f83	picked	lib/crypto: sha1: re-roll loops to reduce code size	lib/sha1.c	-
+028	ae33c501e059b7d43ce11937354605d5e96ba2a6	6684dec99b0b45dcc9df1427ccc65bff731d7396	picked	lib/crypto: blake2s: avoid indirect calls to compression function for Clang CFI	arch/x86/crypto/blake2s-shash.c;crypto/blake2s_generic.c;include/crypto/internal/blake2s.h;lib/crypto/blake2s.c	-
+029	b57a888740886462697453febcad22cdaa392218	65e3bd7effc54e3063dd2c7315a8b8f6f8c637a5	picked	random: document add_hwgenerator_randomness() with other input functions	drivers/char/random.c	-
+030	33c30bfe4fb4332ffbd896e5551cbcdf5ad360b7	8a8641d204460acb03abdefc9d6f70cde6a00d98	picked	random: remove unused irq_flags argument from add_interrupt_randomness()	arch/x86/kernel/cpu/mshyperv.c;drivers/char/random.c;drivers/hv/vmbus_drv.c;include/linux/random.h;kernel/irq/handle.c	-
+031	685200b076ff2d2b8a13aa1c03da48e373d205b2	2b61664c3cd71d81163952187ab307289534981b	picked	random: use BLAKE2s instead of SHA1 in extraction	drivers/char/random.c	-
+032	2bfdf588a8119ce4fc0ff2e12cc783abd620dfb8	d972725d90cea2e5fce2401c65877f8840282aed	picked	random: do not sign extend bytes for rotation when mixing	drivers/char/random.c	-
+033	542d8ebedb4d506f3da2c077845eb9909ec647eb	845623e1777121b8f0131d45fe7b7fbdbc1efee8	picked	random: do not re-init if crng_reseed completes before primary init	drivers/char/random.c	-
+034	ca57d51126e4b49ff6c1c42963b72337a885dea7	d69d6c30bde513ba71e6b2b5681935621f69dd3d	picked	random: mix bootloader randomness into pool	drivers/char/random.c	-
+035	644320410266e11f13b2f003025b2555c2d36383	633fa7e4e8c7436ddbbdf50b79064ed8f2aa4573	picked	random: harmonize "crng init done" messages	drivers/char/random.c	-
+036	efaddd56bc546fc4f2daf2210d8decf8934c1ec9	277a9b4209d933e84f9c4057642e1271d27148f1	picked	random: use IS_ENABLED(CONFIG_NUMA) instead of ifdefs	drivers/char/random.c	-
+037	c245231aecd3836f1b76f5bea8302394732b174d	ed6ae7f7b4827d416c5129354841eb3fac511d98	picked	random: early initialization of ChaCha constants	drivers/char/random.c;include/crypto/chacha.h	-
+038	17420c77f04cc3c0d68a4aff87d686a7ffa6561b	b5bb260b0dc412ff2a0847525929d2b895e8f006	picked	random: avoid superfluous call to RDRAND in CRNG extraction	drivers/char/random.c	-
+039	0ad5d6384d25b88ce6ff8aa6d7550b1c932ccea9	1348987599b6c6b0546cb1707cd0ceb480ba5cf5	picked	random: don't reset crng_init_cnt on urandom_read()	drivers/char/random.c	-
+040	8a3b78f9177c7d0f061e05b317f812507f3046a2	ed5250bf988eec139d91bab1080b7042f8bbaead	picked	random: fix typo in comments	drivers/char/random.c	-
+041	c9e108e36dc83c3c4fb4ec1cf53e76ecca3528a9	bb8a3d893284b7a592bc8a9211cefc6b7d2e0a8f	picked	random: cleanup poolinfo abstraction	drivers/char/random.c	-
+042	7abbc9809fa085393d90da01f9da3f25451168f1	63f0e067ba0601ea82a367bc74435f3d2186f9e4	picked	random: cleanup integer types	drivers/char/random.c	-
+043	ae093ca1256e286616ddb06bf7bc0c9cc4a2ec5d	864667666f87b640d0bde6232bbd2fa0a0f5d760	picked	random: remove incomplete last_data logic	drivers/char/random.c	-
+044	5897e06ac15a26d6dd408d927e2f53f3d060582a	08e4a72810d0d866e919060c49ca6ec6354772f6	picked	random: remove unused extract_entropy() reserved argument	drivers/char/random.c	-
+045	8cc5260c19da9ff46cd34e951d0cdbbc3733e418	deffcc3ab858c407e31346a85e6ee15a0c1115f8	backported	random: rather than entropy_store abstraction, use global	drivers/char/random.c;include/trace/events/random.h	Complete actual ordered RNG anchor matches reviewed v2 conditional source except unchanged firmware-include position
+046	09ae6b85197969ddf349346f626544e0e6d0b069	6373c824520ee6f00e56441a898587829a0a0de2	picked	random: remove unused OUTPUT_POOL constants	drivers/char/random.c	-
+047	f87f50b843e4206168326eee055b2528021a16d3	65247f95bc1313a43d36c7c56d6247e562ee79bc	picked	random: de-duplicate INPUT_POOL constants	drivers/char/random.c	-
+048	edd294052e77568e5b44a2605e8ba7779ef09cef	25c9e4b2a0ce5fb1c01cccb561f52e6e297879c5	picked	random: prepend remaining pool constants with POOL_	drivers/char/random.c	-
+049	a9db850c219fdaf144997c683ba35f293225dfdf	3829fe6abcf3e7abd1a58a28e3f07c7d64ef4da1	picked	random: cleanup fractional entropy shift constants	drivers/char/random.c	-
+050	bccc8d92310d1060468ca15f1324ced0c1926e86	9ceabc7de39041ef69a1446fbfa05999f15516d7	picked	random: access input_pool_data directly rather than through pointer	drivers/char/random.c	-
+051	a0653a9ec15e8312080d51f2684f1c41e41ff678	1fbc1c771b68be6669a029d41e7fc9e904dd4303	picked	random: selectively clang-format where it makes sense	drivers/char/random.c	-
+052	6d2d29f051be6533ad1e739b2fdaaea8f5ab90e1	77a4f1f87a2a4f1d3e4c52541f393ce79a398564	picked	random: simplify arithmetic function flow in account()	drivers/char/random.c	-
+053	0b9e36e895bbdfea615e7df713dcea65930e0f4d	447d7a684b86d90cf912d46e0a0d9017b2f219f6	picked	random: continually use hwgenerator randomness	drivers/char/random.c	-
+054	480fd91dcdc7074628d46b9ed1e597f328e027d1	c5f83ef50b0abfc231854f9206994874319a3358	picked	random: access primary_pool directly rather than through pointer	drivers/char/random.c	-
+055	e0cc561e4758fbd6e371ff0ff2b9b00d97ec329a	b5acd142d99a14905bc6ad4ca000d4ba7f4ff602	picked	random: only call crng_finalize_init() for primary_crng	drivers/char/random.c	-
+056	de0727c0c44884afde52f4bd097edfbb4f9a7327	84eca9850576a48cf965d49def6241fc133a157f	picked	random: use computational hash for entropy extraction	drivers/char/random.c	-
+057	bb9c45cfb97e7ad9942f6e076ea68a0663759f56	d1bf16e9dfe866c7a238aa3a139c9f040754ad53	picked	random: simplify entropy debiting	drivers/char/random.c;include/trace/events/random.h	-
+058	985292206167ddd2d6db65c8911417c6e8e3688d	a5aea72846ca4dfdaa1f12b198bb657de86e22e0	picked	random: use linear min-entropy accumulation crediting	drivers/char/random.c	-
+059	32d1d7ce3aada23f944e74c519687c45aa3d05b0	2fa7527957fb156a547e9f47ec5325f05925d73b	picked	random: always wake up entropy writers after extraction	Documentation/admin-guide/sysctl/kernel.rst;drivers/char/random.c	-
+060	b07fcd9e53fa778fd00b650a6b0b39a11dcdedb4	41d65923f16bf4e8dcaf4a8bb7c29a815b668a04	picked	random: make credit_entropy_bits() always safe	drivers/char/random.c	-
+061	8d07e2a22687ec0b424916543ec4a544dc85b681	a88d7c4e2d0e4e840f96081964db74ae0d040bbf	picked	random: remove use_input_pool parameter from crng_reseed()	drivers/char/random.c	-
+062	0762b7d1f1add397fe511c076b4871500a991ff0	e40fa1463eced570ea56fa75c9376ae032445539	picked	random: remove batched entropy locking	drivers/char/random.c	-
+063	1d1582e5fe5293561b868dcbea6ecef3976a90b0	fd1ca0ad6cb99519d005503c916599169df63525	picked	random: fix locking in crng_fast_load()	drivers/char/random.c	-
+064	c36e71b5a52e3a9c0f60b7d633de1980a1cf8652	686ac5d2a13eb7b028697c1b1b6216d4c8599c89	picked	random: use RDSEED instead of RDRAND in entropy extraction	drivers/char/random.c	-
+065	70377ee0740caaf264d3451252b9d8dea6684b1d	e0cc0ab375abd2814942671d189ea45e95757b48	picked	random: get rid of secondary crngs	drivers/char/random.c	-
+066	c521bf08ee694964e1ac0fe21b85271522d2fbe1	46a165309a7d2e807770ea7657388d9b6adc5d3a	backported	random: inline leaves of rand_initialize()	drivers/char/random.c	Complete actual ordered RNG anchor matches reviewed v2 conditional source except unchanged firmware-include position
+067	16a6e4ae71e238c70b630f7ceed1d742c38b7ef3	e5c875a61eb102b6e764ff4e395b01d0e51692a0	picked	random: ensure early RDSEED goes through mixer on init	drivers/char/random.c	-
+068	7a5b9ca583f9f00ab0f0c713379de40a66dc353a	944ac7008cce2b6f92bf0d2d3f9130da21f0f47f	picked	random: do not xor RDRAND when writing into /dev/random	drivers/char/random.c	-
+069	732872aa2c412457eae31589681d4eba96263e2f	0a650e03d7b448da3c3dbb471516f7f87c9588e0	picked	random: absorb fast pool into input pool after fast load	drivers/char/random.c	-
+070	95026060d80955bd699523381bb8f412ba92e3c0	2464c1796c5a9dacc6b4f6d393888ed43c18622f	picked	random: use simpler fast key erasure flow on per-cpu keys	drivers/char/random.c	-
+071	655a69cb41e008943ea2f0990141863159126b82	75abac3916b8605dc9e08dcb85ef78634172b4af	picked	random: use hash function for crng_slow_load()	drivers/char/random.c	-
+072	07280d2c3f33d47741f42411eb8c976b70c6657a	31dbf783e9f9de72b25a8650e8252245905d06c2	picked	random: make more consistent use of integer types	drivers/char/random.c;include/linux/hw_random.h;include/linux/random.h;include/trace/events/random.h	-
+073	63c1aae40ac16ed136188bb9c9b595c0147fe6fa	1e4d85545167f0f0bfaf8fe75e12f13fbdf6a9fa	picked	random: remove outdated INT_MAX >> 6 check in urandom_read()	drivers/char/random.c	-
+074	bb63851c25576e83cabe2d26c6548f3d5085d0e7	842cbae1964492c45862cbc752b19b964d545941	picked	random: zero buffer after reading entropy from userspace	drivers/char/random.c	-
+075	adc32acf23db38eaac913dc5694935a18c95494f	43e786e170c3a667f6512349f254bd8090a9d88b	picked	random: fix locking for crng_init in crng_reseed()	drivers/char/random.c	-
+076	28683a18853796b9fbb68febc62f3b8253f5b4af	dfef190bc23756d88f035005e19fdae56a9981e6	picked	random: tie batched entropy generation to base_crng generation	drivers/char/random.c	-
+077	17ad693cd21451924d4267df9235916b0982b455	aef4acbd1b27c31a9df5b8c57b624e0d71294f3d	backported	random: remove ifdef'd out interrupt bench	Documentation/admin-guide/sysctl/kernel.rst;drivers/char/random.c	Complete original unused interruptbench removal, only first context bridges unchanged local firmware include block
+078	9342656c013d3f3c3667298f0e2e6b0cfb69f0e8	b41bb3234f52d0493f8d53d2e4faef73aee0711e	backported	random: remove unused tracepoints	drivers/char/random.c;include/trace/events/random.h;lib/random32.c	Complete original unused trace removal and trace-header deletion; bridge only unchanged firmware include placement in first hunk
+079	ae1b8f19542f29cf733bd0c1de04b6844bd9e089	8b9f4f36db63d995810be7281225aaf2be2b4cfd	picked	random: add proper SPDX header	drivers/char/random.c	-
+080	0971c1c2fdc63002329bd74c1db40624cd1e3583	8e27daa2f2017ea6230cead4245ab5daa7b9242f	picked	random: deobfuscate irq u32/u64 contributions	drivers/char/random.c	-
+081	b3901816545ec65b6c6d4c85a8b80605eb035c99	39c76cec0b1d22c83435eeb9dc27932d2e123909	picked	random: introduce drain_entropy() helper to declutter crng_reseed()	drivers/char/random.c	-
+082	7b0f36f7c252409d7af62be2c2f9fb87d9322b75	2441819244263687b015260edf4483da7d9a2d09	picked	random: remove useless header comment	include/linux/random.h	-
+083	6c9cee15555dd032c2e7d92061adb6aadc87d33f	ee06766a3f318c8267a1dbd3662c3bff697d8b87	picked	random: remove whitespace and reorder includes	drivers/char/random.c	-
+084	6b1ffb3b5a08ecf57fe411ba2efa7f31f45f47aa	b2efa1d51e64f805cb2689149bed11378ed55d2a	backported	random: group initialization wait functions	drivers/char/random.c	Complete original readiness-function grouping with only unchanged includes bridging first context
+085	d7e5b1925a67a1861658bb5a3c2640eb8fbdd4d1	75423b3cee54b5e43bb4f336a2870229ec150c53	picked	random: group crng functions	drivers/char/random.c	-
+086	e9ff357860ab9630926bde5c479d43f7f4fb31dd	68d898bb0409e972a7b40a6f3249fed2f6b0da31	picked	random: group entropy extraction functions	drivers/char/random.c	-
+087	f04580811d26dbfa28a5af220077721e587fa779	7350c5651fb20f993b2153d306d84da1222f136d	backported	random: group entropy collection functions	drivers/char/random.c	Complete actual ordered RNG anchor matches reviewed v2 conditional source except unchanged firmware-include position
+088	21ae543e3afb807d6cf70f51b5795f6c53054779	2b877a732a87f66a6a2218fb7b1632eb95627ac9	picked	random: group userspace read/write functions	drivers/char/random.c	-
+089	6d1671b6d2531f06dd3aecad03c8eff0cbf83bff	50192535e7006220d7c9405bf12b35f03e412b6a	picked	random: group sysctl functions	drivers/char/random.c	-
+090	7873321cd88ffa2deafd7a156da29949e5a969c7	c0e5a39c21f14f6cd7bbdd363ac3cc178b02ef02	picked	random: rewrite header introductory comment	drivers/char/random.c	-
+091	5d73e69a5dd41bbad0d6bdf2f00e3f0739124657	127521d28d8d7e700f2d8debe9f2575db4e88033	picked	random: defer fast pool mixing to worker	drivers/char/random.c	-
+092	f656bd0011fd128d482fb75f45cd564578984473	c6465c18c488c3f830f083285ea0d9a3dfa5b54f	picked	random: do not take pool spinlock at boot	drivers/char/random.c	-
+093	684e9fe92d440b7700672118675ae8a8ace228bb	66f797a541347fbe9d416be744f7410643e79acd	picked	random: unify early init crng load accounting	drivers/char/random.c	-
+094	32252548b50fca325d8964b945dbb787934ab861	b738ba3bf67e64aa1647b8d4eb67b13e7a514b05	picked	random: check for crng_init == 0 in add_device_randomness()	drivers/char/random.c	-
+095	6e1cb84cc6a09ae7bb471fa88f1815450e6fcadf	0125e2fa9cdcad0cd25f28f5adebdad03439c9bb	picked	random: pull add_hwgenerator_randomness() declaration into random.h	drivers/char/hw_random/core.c;include/linux/hw_random.h;include/linux/random.h	-
+096	5064550d422dca59828eb4d29ef4ae00b965c20d	fe02824675a78f13c976fe907daf8931915d92f3	backported	random: clear fast pool, crng, and batches in cpuhp bring up	drivers/char/random.c;include/linux/cpuhotplug.h;include/linux/random.h;kernel/cpu.c	Complete original RNG CPU-hotplug fix with only retained local include-context bridge in kernel/cpu.c
+097	c47f215ab36d678e41dd3aa7710b542e79b0fed1	c4868643989cfbe56625558cd9d4e31459223466	picked	random: round-robin registers as ulong, not u32	drivers/char/random.c	-
+098	9b0e0e27140d007241772cadc7df1e05292f465d	d17912b92c80b7e5e6dedba30ccced7df37eee27	picked	random: only wake up writers after zap if threshold was passed	drivers/char/random.c	-
+099	47f0e89b71e281a659c34824176f19d58a003c2d	98b209d2a089da8780428ef3f076357a9a62c984	picked	random: cleanup UUID handling	drivers/char/random.c	-
+100	192d4c6cb3e23869d4a51975c8d6aac354510d6b	79ee42e759037d0c0897d259e536fe01bd6805c1	picked	random: unify cycles_t and jiffies usage and types	drivers/char/random.c	-
+101	0964a76fd58b5ea7a96d243fc23616b2377627e7	cd36267b038f800fe9e9e684f509ae6d6772c8ee	picked	random: do crng pre-init loading in worker rather than irq	drivers/char/random.c	-
+102	4c74ca006afe2410a48a7cddf9a3211d325b267a	373df4410089aaa2724741e77db6faa9ee80f538	picked	random: give sysctl_random_min_urandom_seed a more sensible value	drivers/char/random.c	-
+103	66307429b5df542004c43d822f80ea1c61703898	52de5415ae0a03917c67cc23abd7d402189cee94	picked	random: don't let 644 read-only sysctls be written to	drivers/char/random.c	-
+104	849e7b744cf2c6bfc47ebb099e29bd3e7b783182	a8dcc1956b76a8128d68a55bbc80e1fa11de87e4	picked	random: replace custom notifier chain with standard one	crypto/drbg.c;drivers/char/random.c;include/crypto/drbg.h;include/linux/random.h;lib/random32.c;lib/vsprintf.c	-
+105	95a1c94a1bd7be9843bd6e1a05dbb1e637ebb1b0	aebf0d6d64f2df09ca78560440b74d128a3227b0	picked	random: use SipHash as interrupt entropy accumulator	drivers/char/random.c	-
+106	9891211dfe0362877a3ba0c4b6ef96cef968cc71	f34c8ed60447e9270a2cb147f4e91e645aee757e	picked	random: make consistent usage of crng_ready()	drivers/char/random.c	-
+107	20da9c6079df82d3c6e53e5d196950e30ddf5252	ac1d59972b46cdcf8dfdeab93f7cdeace293c85f	picked	random: reseed more often immediately after booting	drivers/char/random.c	-
+108	083ab33951e45a4e7521241ee9e1570139bf66f0	b383197a1cb2bcda1efe726bd6ed0631b8322258	picked	random: check for signal and try earlier when generating entropy	drivers/char/random.c	-
+109	7cb6782146b88cb020b0b0d37e0a56d8fc6b134c	2b31e7fa3a310b4cde5ba88998f4835ebf6bc3f1	picked	random: skip fast_init if hwrng provides large chunk of entropy	drivers/char/random.c	-
+110	f3bc5eca83d37a1a723d4c378a167a83d1b9c771	877f0cb555c23ebec234b66c647e08f058798381	backported	random: treat bootloader trust toggle the same way as cpu trust toggle	Documentation/admin-guide/kernel-parameters.txt;drivers/char/Kconfig;drivers/char/random.c	Complete original bootloader trust toggle with only unchanged local helper separating the parser block context
+111	bb563d06c5bc3d08bd5c8665d6b1da6865114cfd	2700af9989e575da93c6dec64473334216bf2e7c	picked	random: re-add removed comment about get_random_{u32,u64} reseeding	drivers/char/random.c	-
+112	be0d4e3e96adb6a9bb68a237a33d95bf2b9d3143	d6b3b897cc346e0ab58f8cd3c205f739ddf9e297	picked	random: mix build-time latent entropy into pool at init	drivers/char/random.c	-
+113	bb515a5beff279443f54802d20d609f7294c98a4	f3dcde5264dc66e61289c0e7db2fad4e468d5450	picked	random: do not split fast init input in add_hwgenerator_randomness()	drivers/char/random.c	-
+114	26ee8fa4dfda061ecdb8d7be5b8f38292376e07e	69fc6801ab883bcb1f2774336002c4f490f6b82d	picked	random: do not allow user to keep crng key around on stack	drivers/char/random.c	-
+115	9641d9b4303f654636610ac6f001196ec5edd7e5	8f4138539d71c2e5967eb7b031a44677f9bfd57e	picked	random: check for signal_pending() outside of need_resched() check	drivers/char/random.c	-
+116	1805d20dfb67b3503e08a2ca0de714faf6e06fc4	39de4f6dcfe96ee05c96d55a03916f2776e6ef21	picked	random: check for signals every PAGE_SIZE chunk of /dev/[u]random	drivers/char/random.c	-
+117	72a9ec8d75142aaf818cdf1492b5a421009d8b81	11ec41a08def3f120cec5b55fa715008c80d3d70	picked	random: allow partial reads if later user copies fail	drivers/char/random.c	-
+118	a1b5c849d855c97f75375c564321961ad18b8f46	d9d0a293634288c1dc3d0579a0cb94268f6fe1aa	picked	random: make random_get_entropy() return an unsigned long	drivers/char/random.c;include/linux/timex.h	-
+119	9dff512945f19afc91515f7b4e0ffe06fab417ed	b86f643179d44ae907addbd94f6eb32a8b811123	picked	random: document crng_fast_key_erasure() destination possibility	drivers/char/random.c	-
+120	ec25e386d38190441a6a13423ec5fe842409c254	d5187dbb96e667ebe34c68f07ded5ff22194a678	picked	random: fix sysctl documentation nits	Documentation/admin-guide/sysctl/kernel.rst	-
+121	7d9eab78bed97625619c30b4dbc27a4702c589ad	7efad5b6e5422018236d342bb52a6ac2d3094d0e	backported	init: call time_init() before rand_initialize()	init/main.c	Complete original time_init-before-RNG order with inherited kfence_init retained after timekeeping and before RNG
+122	c895438b172c7071b720b0ccefe25500526b7a0d	7cfec528c62f624fff1e3dca3dab08ebbd18e999	picked	ia64: define get_cycles macro for arch-override	arch/ia64/include/asm/timex.h	-
+123	641d1fbd96676cb3c7c987aea4792349117fdbe6	22f495ae83521e5f21b2cf1514e4451f16ae0384	picked	s390: define get_cycles macro for arch-override	arch/s390/include/asm/timex.h	-
+124	c55a863c304e7301237c6c057350cf01d4ca9716	d1fc686252b57bb4ef5ea5d74b68efa3173c3209	picked	parisc: define get_cycles macro for arch-override	arch/parisc/include/asm/timex.h	-
+125	30ee01bcdc2cd684d9aec469cbc1881384846dd1	ad80961e4f4a9e9ecb8464a38a9c3eb173a83b81	picked	alpha: define get_cycles macro for arch-override	arch/alpha/include/asm/timex.h	-
+126	07b5d0b3e2cc435d9ae44b52df4f0a846170962b	e3d4e675a32dcff1dafd7674988690e6858276d2	picked	powerpc: define get_cycles macro for arch-override	arch/powerpc/include/asm/timex.h	-
+127	7690be1adf8a5b8cc5dd5530009b5004209461b3	15da5026a48fd0d83dbc85fd9a8d76a2b98d4051	picked	timekeeping: Add raw clock fallback for random_get_entropy()	include/linux/timex.h;kernel/time/timekeeping.c	-
+128	84397906a60373e7764553788cd3d1f04b640f80	3c166f983bda02e0fb05d17cf3e7f75260fdc5a1	picked	m68k: use fallback for random_get_entropy() instead of zero	arch/m68k/include/asm/timex.h	-
+129	714def449776d69dcf29b408b41ce6beff8e2074	a15a5a4b7912c1f4ee200ed9355068f27ab7859b	picked	riscv: use fallback for random_get_entropy() instead of zero	arch/riscv/include/asm/timex.h	-
+130	d5531246afcf798cdb6b82143ade30fa1d7513e9	ca63a303386a8a9628a9480fc89e5adc25f932d2	picked	mips: use fallback for random_get_entropy() instead of just c0 random	arch/mips/include/asm/timex.h	-
+131	fdca775081527364621857957655207d83035376	80fe475b002dbe6b7a1f82ec4edb2a9efdf901bf	picked	arm: use fallback for random_get_entropy() instead of zero	arch/arm/include/asm/timex.h	-
+132	0b93f40cbe9712563bb15329768bd73c9c19ac03	c13df98e5dca4cc5a642b66b0ad94b146e4a5bde	picked	nios2: use fallback for random_get_entropy() instead of zero	arch/nios2/include/asm/timex.h	-
+133	25d4fdf1f0f85e81e71d7c7e6cbcceb37d2ef65a	d2edb49332e16da638dd9d0ea3fe651d647c2fb7	picked	x86/tsc: Use fallback for random_get_entropy() instead of zero	arch/x86/include/asm/timex.h;arch/x86/include/asm/tsc.h	-
+134	a5092be129cf950aefcfd31789dba81f4d9337ac	f1265ae1e8c83b189526a50f0b2a705c8e6cb760	picked	um: use fallback for random_get_entropy() instead of zero	arch/um/include/asm/timex.h	-
+135	e1ea0e26d3e43a374695f56722f5be7ce5c9cd0e	f7f9aa7ee11b6373c7b070e5024a020e5ad48932	picked	sparc: use fallback for random_get_entropy() instead of zero	arch/sparc/include/asm/timex_32.h	-
+136	ffcfdd5de9d0287da52522fbcd1bbba52c81b3ef	188889fa56831815df1a8b6c9654c80d32390895	picked	xtensa: use fallback for random_get_entropy() instead of zero	arch/xtensa/include/asm/timex.h	-
+137	f4c98fe1d1005f021d78db102e6c52fc8b89c33b	a9a284d75d5fadaafcb0441e3fd5314b7c0dc087	picked	random: insist on random_get_entropy() existing in order to simplify	drivers/char/random.c	-
+138	273aebb50be6ce16e1b056cf9b39447821a5ac35	0ff4d6f8d36a9f69e1fd347c782151c2a9f8216b	picked	random: do not use batches when !crng_ready()	drivers/char/random.c	-
+139	24d32756857804ec8b425f2fe04ab809abcea0f2	fa3de4937ca0dcf9be2b01bcb84984be3f45aa26	picked	random: use first 128 bits of input as fast init	drivers/char/random.c	-
+140	ce3c4ff381865888c6375d3bc21f1eb867b6e4f0	2ea846e342c90fce571c5c300b0acc461dc20fbb	backported	random: do not pretend to handle premature next security model	drivers/char/random.c	Complete actual ordered RNG anchor matches reviewed v2 conditional source except unchanged firmware-include position
+141	999b0c9e8a97d8763edf0529cff573331f59162a	3362a3ddfdc5a918fe958c54f445a3409c02e83b	picked	random: order timer entropy functions below interrupt functions	drivers/char/random.c	-
+142	18413472339bb78395514b45012cb63a6fba26aa	4a9b6936e29b7fea538fd7c0944b052485359ee6	picked	random: do not use input pool from hard IRQs	drivers/char/random.c	-
+143	772edeb8c76abcfc37bb7f75e7679936b6c50b2c	8ce5fea2b5c469b008fa957e7048ef7d28e0d335	picked	random: help compiler out with fast_mix() by using simpler arguments	drivers/char/random.c	-
+144	30e9f362661c0311a2a89531bcdbf98c3313e3c6	31a8dbd9f6a9ef1fbb1083093436d57aa1da0538	picked	siphash: use one source of truth for siphash permutations	drivers/char/random.c;include/linux/prandom.h;include/linux/siphash.h;lib/siphash.c	-
+145	cef9010b78c4e54313a911313227a743b2443aeb	ded8ad349dc50e131cf7330f3cf6d6a67b99f08b	picked	random: use symbolic constants for crng_init states	drivers/char/random.c	-
+146	4c4110c052e86c5e1f6debf51c9c8cc0e501f19e	5dc097d80357f9c85fd87bb39f135b04fff5f536	picked	random: avoid initializing twice in credit race	drivers/char/random.c	-
+147	b50f2830b3df0f5067ac6cc472e7ba6aff94647a	7a892b0460c417bbd79331285d849b2d09d407f9	picked	random: move initialization out of reseeding hot path	drivers/char/random.c	-
+148	31ac294037be272967a4c8bc25d3178020580595	e50cf700be165ec50bdc5aa202682c648ad36d45	backported	random: remove ratelimiting for in-kernel unseeded randomness	drivers/char/random.c;lib/Kconfig.debug	Complete original in-kernel warning ratelimit removal with only unchanged HISI tail hook bridging initializer context
+149	9320e087f2b64257f34106eecbfe5a43be5199b0	3e98cf9bd2231796c9b623d9d4d73cb3b9994df0	picked	random: use proper jiffies comparison macro	drivers/char/random.c	-
+150	5123cc61e27d6aaddf564fe9068e3bbdd193abff	69aff8ba678c044f27949bdd1fe2720d32e31448	backported	random: handle latent entropy and command line from random_init()	drivers/char/random.c;include/linux/random.h;init/main.c	Complete actual ordered RNG anchor matches reviewed v2 conditional source except unchanged firmware-include position
+151	04d61b96bd8a97755d416fbbe07b4ba8bffba564	013b2e3756b295d22cd3ee556e5d2cc29ca4d292	backported	random: credit architectural init the exact amount	drivers/char/random.c	Complete original change with only unchanged HISI tail hook bridging initializer context
+152	811afd06e0f333d7bdd5c7debd90ad0c392b465c	d255ffb6ffb4e8821d43d58bd786d0b76dff01a8	picked	random: use static branch for crng_ready()	drivers/char/random.c	-
+153	1fdd7eef2100790d372f58ffee2fed3b38214e6e	75cad003459c37ed81313a86ce40e491b5911d90	picked	random: remove extern from functions in header	include/linux/random.h	-
+154	33783ca3556e8d3965fe44aa79ae41ab19897189	0c3f637cd64fa7224c0653068250667bb444e32f	picked	random: use proper return types on get_random_{int,long}_wait()	include/linux/random.h	-
+155	02102b63bd962b724a98c8ee7ffc038ca2c920cc	f48164993f4572f1d4d5a350125749d974e694dd	picked	random: make consistent use of buf and len	drivers/char/random.c;include/linux/random.h	-
+156	5f2a040b2fb47a76b11bc5f46dbdad55f6cdd753	562a670abdfe51d0cdde6332ec3cb0c253241028	picked	random: move initialization functions out of hot pages	drivers/char/random.c	-
+157	552ae8e4841ba0550952063922d3b38bcd84ec6e	078955f6d4b60279c65506fda7042881f95d111e	picked	random: move randomize_page() into mm where it belongs	drivers/char/random.c;include/linux/mm.h;include/linux/random.h;mm/util.c	-
+158	4bb374a1183b0d89ba8e0aa4510ce292bb3ed458	7f2ccb98026fc2e5016bca4fb89ab2fe2678b310	picked	random: unify batched entropy implementations	drivers/char/random.c	-
+159	affa1ae52219459af7a3bb1044360d31da1999fd	f5fa7fdf00ae50622ee6044e8fd2973a4633804d	picked	random: convert to using fops->read_iter()	drivers/char/random.c	-
+160	cf8f8d37586f5e492ea2a6dd82f10628a31f03b4	2e7ec8bcb06f85e59257b06e426357a30607aaf8	picked	random: convert to using fops->write_iter()	drivers/char/random.c	-
+161	18c261e9485a238129b857a8e53d3e2da8ca8246	6c90d02ae21a7aef395c85bd6dee6d615df44bf3	picked	random: wire up fops->splice_{read,write}_iter()	drivers/char/random.c	-
+162	514f587340010942e7d22f2a51b8c812399e4ce7	99795473ead0bae3920f147ee963ed465df48932	picked	random: check for signals after page of pool writes	drivers/char/random.c	-
+163	7c57f213498871972b0d84828d0d5dcd1893b36c	41e9adb628dac81874cb26bd2cf543949156122f	picked	ALSA: ctxfi: Add SB046x PCI ID	sound/pci/ctxfi/ctatc.c;sound/pci/ctxfi/cthardware.h	-
+164	56c31ac1d8aadb706ea977c097c714762b3fcfdd	64c61a7c80ecf36a11a444204c8e155096659c5b	backported	Linux 5.10.119	Makefile	Only original SUBLEVEL changes; retain local OEM Makefile exports and mode.

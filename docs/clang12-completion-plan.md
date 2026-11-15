@@ -11,8 +11,10 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #64/5.10.115 on `upstream/linux-5.10.y`, kernel source
-through `9667daa8b`. Immediate paired rollback is #63/5.10.110; r49/5.10.43 remains on
+Installed candidate is #66/5.10.120 on `upstream/linux-5.10.y`, kernel source
+through `0436052d6`. Immediate paired rollback is #64/5.10.115. #65 remains a
+failed HKIP firmware-boot candidate with successful paired #64 recovery;
+r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
 Each kernel iteration stays isolated, with matching boot/modem_driver
 validation, unchanged independent
@@ -63,7 +65,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.115 Resolved; #64 Full Build/Changed Selected Layouts/Public Interfaces/Timer CFI/Module PLT/Pair/Normal Boot/Auto Module/Owned Fixed-File Release Pass; Next Complete 5.10.116-120; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.120 Resolved; #65 HKIP Firmware Boot Failure Retained, Paired #64 Recovery Pass; Separate Credential Integration And #66 Full Build/Current CFI/Matching Signed Pair/Normal Android/Auto Module/Actual ISP Firmware Path Pass; Next Complete 5.10.121-125; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -428,6 +430,51 @@ accepted #64 metadata remain local below 20 GB. Next is complete 5.10.116-120;
 selected AMA mempolicy, full io_uring/OOM safety, latest-stable target,
 Android common, GKI and inherited hardware/power acceptance remain open.
 No release export, publication, tag or push occurs.
+
+The sixteenth milestone resolves all 394 official 5.10.116-120 entries:
+347 exact picks, seventeen code adaptations, five markers and 25 qualified
+no-new-commit dispositions. The 369 original-author commits end at
+`aab63b923`. Full #65 compilation, fourteen records, i32 DRBG enum,
+28 callbacks in ten CFI types, twelve APIs, matched modules and signed
+staging pass. Thirteen natural IR objects are decoded once. Emitted options
+change 6,432 -> 6,433 through two hidden library selections and a retired
+disabled entry; security/signing and fourteen generated OEM offsets remain.
+
+Actual #65 boot fails at 18.664 seconds in HKIP's GID root check during
+CameraDaemon firmware loading, after the modem has linked. Persistent pstore
+identifies the initiating fault; this is not RNG/BL31 initialization or a
+diagnostic-wrapper failure. Both #64 partitions restore normal Android/root.
+Official 117#39 installs kernel credentials for firmware reads; the inherited
+protected bitmap still reflects the prior subjective credentials.
+
+Separate `0436052d6` updates HKIP UID/GID root bits after each override/revert
+publication and before the source vendor hook call. Recompute-on-revert clears
+the temporary classification and supports saved nested credentials. HHEE/PID/
+HVC checks, references, real_cred, upstream firmware behavior, !PROTECT_CRED,
+permissions and SELinux remain. No process exemption, permanent root bit,
+global lock, IRQ suppression or protection bypass is introduced. Full
+asynchronous pointer/bitmap atomicity is not claimed.
+
+Necessary #66 rebuilding and finite additive gates pass. Configuration,
+signing and 26 prior natural object/entire-command contexts are identical to
+#65. Only new kernel/cred.o is decoded once; prior thirteen IR objects and
+layout measurements are not replayed. Current ten CFI groups and three
+credential API symbols are rebound. Two checker-only fixes preserve actual
+nonexported definitions and configured-out vendor hook semantics. All 390
+modem plus two optional dummy imports match 13,839 exports, with six additions,
+two removals and 2,894 CRC changes versus #64. CMS/ext4 and boot roundtrip pass.
+
+The paired #66 installation reaches normal Android with automatic matching
+Live modem, full readbacks/build-id and unchanged ramdisk/security. One real
+CameraDaemon thread completes firmware loading, ISPCPU startup and power-on
+return in the same boot. Complete logs contain no actual kernel/module fault;
+517 AVCs remain visible, none requests module loading. Tracing and Asleep are
+restored. #64 is paired recovery, #65 remains failed evidence. Local closeout
+retains accepted #66 metadata and bounded recent pairs below 20 GB. Next is complete
+5.10.121-125 from the new integrated source/documentation baseline, not an
+invented accepted65 boundary. Arena capacity/reclamation/lifetime, selected
+AMA mempolicy, complete io_uring/OOM safety, latest stable, ACK/GKI and full
+inherited hardware/power remain open; no release export, publication or push.
 
 ## Next-Stage Work Queue
 

@@ -6,9 +6,11 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.115 #64, with kernel source
-`9667daa8b`, normal Android and automatic loading of the same-build signed
-modem. #63/5.10.110 is the immediate paired rollback. Ordered synchronization
+The installed upstream milestone is Linux 5.10.120 #66, with kernel source
+`0436052d6`, normal Android, completed ISP firmware startup and automatic
+loading of the same-build signed modem. #64/5.10.115 is the immediate paired
+rollback. #65 remains a failed HKIP firmware-boot candidate, not an accepted
+runtime. Ordered synchronization
 toward the pinned 5.10.274 target continues; Android common parity, vendor/core
 separation and GKI certification are not complete. No release is exported or
 published.
@@ -265,6 +267,40 @@ Tracing and Asleep remain restored. #63 is immediate rollback; recent #60-64
 pairs and accepted #64 metadata remain local. Next is complete 5.10.116-120;
 full io_uring/OOM safety, selected AMA mempolicy, the pinned stable target,
 Android common/GKI and inherited hardware/power acceptance remain open.
+
+The sixteenth milestone resolves all 394 official 5.10.116-120 entries:
+347 exact picks, seventeen code adaptations, five markers and 25 qualified
+no-new-commit dispositions. The 369 original-author source commits end at
+`aab63b923`; separate `0436052d6` repairs HKIP subjective-credential tracking.
+The RNG series retains the BL31 firmware API, sixteen-byte buffer and sixteen
+credited initialization bits. SELinux cleanup remains limited by PRMEM arena
+ownership; the iterator-copy fix retains UFS inline-crypto completion hooks.
+
+Actual #65 compilation, selected interfaces and matched signed staging pass,
+but CameraDaemon firmware loading triggers HKIP's GID root-check BUG before
+normal Android. Official 117#39 correctly uses temporary kernel credentials
+for firmware access; the OEM bitmap still reflects the prior credentials.
+Both #64 partitions recover successfully. The separate repair updates HKIP
+root bits after each override/revert publication, preserving paired clearing,
+credential references, HVC checks and upstream firmware behavior.
+
+Necessary #66 compilation and current ELF/CFI/module gates pass. All 26 prior
+natural object/complete-command identities remain unchanged; only the new
+credential object is decoded once, and ten current CFI memberships are
+refreshed without replaying the prior thirteen IR objects. Configuration and
+signing remain unchanged from #65. There are 13,839 exports, six additions,
+two removals and 2,894 CRC changes versus #64; all 390 modem and two optional
+dummy imports match. No loader or protection bypass is used.
+
+The paired #66 installation reaches normal Android with automatic matching
+Live modem, full readbacks/build-id and unchanged ramdisk/security. One actual
+CameraDaemon thread completes ISP firmware loading, ISPCPU startup and power-on
+return in the same boot. Complete logs contain no actual kernel/module fault;
+517 AVC denials remain visible, none requests module loading. Tracing and
+Asleep are restored. #64 remains immediate rollback; failed #65 evidence is
+kept separately. Next is complete 5.10.121-125. Arena capacity/lifetime,
+selected AMA mempolicy, full io_uring/OOM safety, latest stable, ACK/GKI and
+inherited hardware/power acceptance remain open.
 
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
@@ -736,7 +772,9 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12-r62-metadata/`: accepted #62 source/BHB/changed-layout/CFI/build/runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r63-metadata/`: accepted #63 source/changed-interface/CFI/build/runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r64-metadata/`: accepted #64 integrated-source/layout/CFI/build/owned-file-runtime metadata retained before output reuse; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.115 #64 output, reused sequentially for stable milestones; not tracked.
+- `out/allen-clang12-r65-failed-metadata/`: source/build/interface and first-fault/recovery metadata for failed #65, not runtime acceptance; not tracked.
+- `out/allen-clang12-r66-metadata/`: local closeout destination for accepted #66 paired credential/build/CFI/firmware-runtime metadata before output reuse; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.120 #66 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -763,7 +801,7 @@ scripts/build-allen.sh
 ```
 
 These commands describe the initial released-configuration build, not the
-stock-derived configuration used for the retained r49 or installed #64.
+stock-derived configuration used for the retained r49 or installed #66.
 For the retained upstream output and its r49-derived configuration, use:
 
 ```sh
@@ -774,7 +812,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.115` on the upstream
+Makefile still controls the release, currently `5.10.120` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.

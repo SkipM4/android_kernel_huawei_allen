@@ -1,0 +1,70 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	a6a73781b460c4fe2cf2c40400ac91dfddb353fa	154712da6c09aa1a1d08ba13c88489998c81e1b4	picked	batman-adv: Don't skb_split skbuffs with frag_list	net/batman-adv/fragmentation.c	-
+002	85eba08be2f796b02add5bee402face948839f2f	c5b11cd948ea1206d7c8764afd6141354d6af522	picked	iwlwifi: iwl-dbg: Use del_timer_sync() before freeing	drivers/net/wireless/intel/iwlwifi/iwl-dbg-tlv.c	-
+003	9cbf2a7d5d17436071a444f55df02b1f2c4c4768	b4a3240aa5f3e3b89086f6d8a159b0a961b9affc	picked	hwmon: (tmp401) Add OF device ID table	drivers/hwmon/tmp401.c	-
+004	c420d66047068bd5a7e3d7c82d5a16a91f437513	0b9e638321327d14131b3e8e3c13d27df030ec1f	picked	mac80211: Reset MBSSID parameters upon connection	net/mac80211/mlme.c	-
+005	e2cdde89d253d740ba58e5ba5375855723ddca27	105a4165a5a4de4e11b1ef5b33015a14074376ef	picked	net: Fix features skip in for_each_netdev_feature()	include/linux/netdev_features.h	-
+006	c1184d2888a3650dc0b778b76ba2473227368456	4761f7d78a290b51a0d9d077740f1a76e2363334	picked	net: mscc: ocelot: fix last VCAP IS1/IS2 filter persisting in hardware when deleted	drivers/net/ethernet/mscc/ocelot_vcap.c	-
+007	f9674c52a158f40fb3a0c7bf8233a73f39342f0b	f5e61207f00d25f96a77babcbd3c602e93bd9bb7	picked	net: mscc: ocelot: fix VCAP IS2 filters matching on both lookups	drivers/net/ethernet/mscc/ocelot_vcap.c	-
+008	abb237c544f12b926cc0759890eefaaf04d586a7	37b89b5e652f49b2ae08a50eab2c9d7483b2151b	picked	net: mscc: ocelot: restrict tc-trap actions to VCAP IS2 lookup 0	drivers/net/ethernet/mscc/ocelot_flower.c	-
+009	c07a84492ffe9d0106848d1ad0b1e71b9fcf43b9	5a7d3bbc2a107e29e09ccd59e1e5339bdef34386	picked	net: mscc: ocelot: avoid corrupting hardware counters when moving VCAP filters	drivers/net/ethernet/mscc/ocelot_vcap.c	-
+010	54f26fc07e6d2479d81a28662af22bbcf1c185e7	a8a9f6d0149d4ab3961da7c49c67a1f2844534d5	picked	ipv4: drop dst in multicast routing path	net/ipv4/route.c	-
+011	9e40f2c513926371b30eebb14e5648378d11ba2e	b5d6471d26c6c575ef60acff25c9078ba960c008	picked	drm/nouveau: Fix a potential theorical leak in nouveau_get_backlight_name()	drivers/gpu/drm/nouveau/nouveau_backlight.c	-
+012	33c93f6e5598481b3390fae407bdfa337e81b097	bc5f1e24b5876305f0b0fc4863e10389760ec01e	picked	netlink: do not reset transport header in netlink_recvmsg()	net/netlink/af_netlink.c	-
+013	bdb8d4aed1cf5054b7edc3edd402efd889d414bb	08dcb8b77b1958e691bdb29696e326d53f91d2b1	picked	sfc: Use swap() instead of open coding it	drivers/net/ethernet/sfc/efx_channels.c	-
+014	79432d223728a1a3690de4f8bd2906c1fb131b3b	b0b04194ebe01ba2544a7bc851a3411b6e5de473	picked	net: sfc: fix memory leak due to ptp channel	drivers/net/ethernet/sfc/efx_channels.c;drivers/net/ethernet/sfc/ptp.c;drivers/net/ethernet/sfc/ptp.h	-
+015	49c10784b9550d5fe84d2482fb4b99577795a7b0	53516f2abb169f08d51a64ef0551960583f2357f	picked	mac80211_hwsim: call ieee80211_tx_prepare_skb under RCU protection	drivers/net/wireless/mac80211_hwsim.c	-
+016	2cb8689f45f2bf5843e60a028f0981a38fa2f5c4	27f29464357a497ce724ae55382fd1db661752b2	picked	nfs: fix broken handling of the softreval mount option	fs/nfs/fs_context.c	-
+017	8b1b8fc819f7dee14a93d83ef9b6b5b400e4d5cd	c2b2279dc6a85dae744bd876a47868fa61f8aa03	picked	ionic: fix missing pci_release_regions() on error in ionic_probe()	drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c	-
+018	ceb3db723fda76c2c16c4cbb21e8d3cd74043a72	74c1b39a46f1864d632eb1fc48ebe37ad8643a9a	picked	dim: initialize all struct fields	lib/dim/net_dim.c	-
+019	ce12e5ff8de8827f212af6b2ec9ddc69590c0a68	94a31a64969a5578c3024e92d2ae03c14bbadd03	picked	hwmon: (ltq-cputemp) restrict it to SOC_XWAY	drivers/hwmon/Kconfig	-
+020	cc71c9f17caf0987c92c0f188c658500a2625b3e	ac2788fd292ff6072c6e1d3035eeaa72baacc196	picked	selftests: vm: Makefile: rename TARGETS to VMTARGETS	tools/testing/selftests/vm/Makefile	-
+021	5497f87edcdacba158c3b8a94137e39b6ade296c	6e72eedbf37e7c68bd319c49dcf9c37234c919f9	picked	s390/ctcm: fix variable dereferenced before check	drivers/s390/net/ctcm_sysfs.c	-
+022	4d3c6d741816539b57fa1110c3f765a8c176d7b4	f3cb478d2879d59bc4bbc4cecabfd9fd2836432c	picked	s390/ctcm: fix potential memory leak	drivers/s390/net/ctcm_mpc.c	-
+023	b816ed53f3185fcb0637d4930d420b0e8b171358	8785f4e69f6ceeb0fb8524d78c09e8eba937cb69	picked	s390/lcs: fix variable dereferenced before check	drivers/s390/net/lcs.c	-
+024	abe35bf3be51482593076d516a680d79e5fbc8e1	38f35d7c87a54b0109b9f32a9f6ef5856ae4fd70	picked	net/sched: act_pedit: really ensure the skb is writable	include/net/tc_act/tc_pedit.h;net/sched/act_pedit.c	-
+025	9012209f435708ef4b432655ed7dd815478b5f08	521f9e1de3b6ac0d4a35ff6a1b43a16574d84d57	picked	net: bcmgenet: Check for Wake-on-LAN interrupt probe deferral	drivers/net/ethernet/broadcom/genet/bcmgenet.c	-
+026	e417a8fceaa9e7cc14634aa357a80d74d481893e	b641cec17e928e0dd19220750d8fd3dbfc848b4a	picked	net: dsa: bcm_sf2: Fix Wake-on-LAN with mac_link_down()	drivers/net/dsa/bcm_sf2.c	-
+027	d5e1b41bf7e02bf2cdccf516adadb083abf4bd0c	76ea4255ac9890fb27bd67187434a8db5c0adf9b	picked	net/smc: non blocking recvmsg() return -EAGAIN when no data and signal_pending	net/smc/smc_rx.c	-
+028	161c4edeca45a1b24a589693efbc639ecf850c20	486b7c9c40c31b926943533e339dc864a8b3ec17	picked	net: sfc: ef10: fix memory leak in efx_ef10_mtd_probe()	drivers/net/ethernet/sfc/ef10.c	-
+029	fccf4bf3f25dff4aa47d80926298f3707b8d1072	3b2b4b3f7591d47d34159580d14968d281070357	picked	tls: Fix context leak on tls_device_down	net/tls/tls_device.c	-
+030	88091c0275b2eed5ad24a444b58e1545abaca859	b220dc6fb338c76626a007f59e48f35aab03e807	picked	gfs2: Fix filesystem block deallocation for short writes	fs/gfs2/bmap.c	-
+031	5ecaaaeb2c767ea18c4dc77055f50d066c62c5b5	bd6575f411fd1a4e33979fe08d7534edb6c25a4a	picked	hwmon: (f71882fg) Fix negative temperature	drivers/hwmon/f71882fg.c	-
+032	ce154bd3bc436dd92a9084337c2b06d18a3e5d87	e51e190e994e533b3e9714cded1b38be33ed57cb	picked	ASoC: max98090: Reject invalid values in custom control put()	sound/soc/codecs/max98090.c	-
+033	31606a73baa35acdae6ab95ff5d3928e2d8b4cb0	5fe15da35e4481e281aefaa231fb081b848864c6	picked	ASoC: max98090: Generate notifications on changes for custom control	sound/soc/codecs/max98090.c	-
+034	03ebc6fd5c9ddbd5b8c3a3c2b704f506b5277c85	e2ab4fb3f0690445bc53991d0d22f7c4050682fa	picked	ASoC: ops: Validate input values in snd_soc_put_volsw_range()	sound/soc/soc-ops.c	-
+035	5c09dbdfd4fc786461b2fabf8160cb20d9e4c84f	049494f13ca62f0abc2189cfb81ab202b06a32e9	picked	s390: disable -Warray-bounds	arch/s390/Makefile	-
+036	48f1dd67a83fb83130db4d3dee93cf2b7d7ec939	274958d6979b17576d317a5ddda620c9a35d8ab7	picked	net: emaclite: Don't advertise 1000BASE-T and do auto negotiation	drivers/net/ethernet/xilinx/xilinx_emaclite.c	-
+037	3abbfac1ab24cf22e5a076e772fc7f204bfcc687	7660eca931067c8e41982c99f20f84dda9bb9a4d	picked	net: sfp: Add tx-fault workaround for Huawei MA5671A SFP ONT	drivers/net/phy/sfp.c	-
+038	d254309aab27fdcdc68e6bc9c663e51f3e7b37dc	-	already-present	tcp: resalt the secret every 10 seconds	net/core/secure_seq.c	PRESENT: entire official postimage equals inherited source after only two existing u64 return signatures
+039	5a73581116362340087fad4df7e4530c4a819821	68a97ef08a01367136cb6be96d681a67074f9fed	picked	firmware_loader: use kernel credentials when reading firmware	drivers/base/firmware_loader/main.c	-
+040	69139a45b89b957aa2847a7a1049123b3e3c930a	4d671ed5a5f99ccdb2623204f6a73963d43d612f	picked	tty/serial: digicolor: fix possible null-ptr-deref in digicolor_uart_probe()	drivers/tty/serial/digicolor-usart.c	-
+041	6d47eceaf311ea7fdefa55975ef005556eecfa60	a5d15c1190ac108da1b7116458790edfec702fc5	picked	tty: n_gsm: fix mux activation issues in gsm_config()	drivers/tty/n_gsm.c	-
+042	7335a6b11d135c6c2f7fa07f17532f321941af82	5b39ecf5b9a07467649abf79b2b2d4b97fb4e662	picked	usb: cdc-wdm: fix reading stuck on device close	drivers/usb/class/cdc-wdm.c	-
+043	54979aa49e0f79d2e38e97416c6b9336749c7831	f1fce21a058a011f593d2d70e064f2e02fe2f170	picked	usb: typec: tcpci: Don't skip cleanup in .remove() on error	drivers/usb/typec/tcpm/tcpci.c	-
+044	8276a3dbe21d0a0a476df984f095717f46d5d337	a65bcdad299fcde76cd017f8667866154190013b	picked	usb: typec: tcpci_mt6360: Update for BMC PHY setting	drivers/usb/typec/tcpm/tcpci_mt6360.c	-
+045	994395f356ea08c0c7f667c1bf2df3cdd4707313	4aa700cee9fbe6d8a3b37714c608b22653ee790c	picked	USB: serial: pl2303: add device id for HP LM930 Display	drivers/usb/serial/pl2303.c;drivers/usb/serial/pl2303.h	-
+046	319b312edb8ef2213ae01502a7fea7ae4887db87	35dbc01b541b05a6cc5fcce8cd74f367c4af1029	picked	USB: serial: qcserial: add support for Sierra Wireless EM7590	drivers/usb/serial/qcserial.c	-
+047	2ba0034e3649294c66c69db5880a654d3214918e	2111e3dd4eddd859e6b5dbb48c8d9acdc724a022	picked	USB: serial: option: add Fibocom L610 modem	drivers/usb/serial/option.c	-
+048	d7b7c5532a83f848ca40466ca617c088f2d2f42c	8f33e0458e422d565fd4ea92b3f9ef399fdd2f47	picked	USB: serial: option: add Fibocom MA510 modem	drivers/usb/serial/option.c	-
+049	f8d8440f1357117515dd2aa74f361c41751c4441	d5837c41e24a538ac9e08ef4e9a82ff2849b76e9	picked	slimbus: qcom: Fix IRQ check in qcom_slim_probe	drivers/slimbus/qcom-ctrl.c	-
+050	84ad84e495ae30617d568ceb2100ca5460b32517	b8fad3614176ccd5f14b05fd9a983387a093c4de	picked	serial: 8250_mtk: Fix UART_EFR register address	drivers/tty/serial/8250/8250_mtk.c	-
+051	86db01f37347aacd3a1db90d166f188e02abd623	4c673593194fe5520543a2b5f519bd28f8769597	picked	serial: 8250_mtk: Fix register address for XON/XOFF character	drivers/tty/serial/8250/8250_mtk.c	-
+052	e06605af8bdc9cd95b934016cdbed318dc1b8f02	ee22c059b080b7f3e64b71fe48368d7a7b9b9504	picked	ceph: fix setting of xattrs on async created inodes	fs/ceph/file.c	-
+053	819796024cceb8c63cad8e0632412f5d69bd402a	d77943020362be629d15cd6f2c53b4b419f10e9a	picked	drm/nouveau/tegra: Stop using iommu_present()	drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c	-
+054	6158df4fa5c263dcb4fa52d6b3894f35bae071a8	beee63267c058d0ab3f67a748487c015070be49d	picked	i40e: i40e_main: fix a missing check on list iterator	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+055	6aa239d82e35b9e3eb8e8c7750fd5caa377e1e15	d5c562567a14f628d0dd3cfcb8ad989dba749262	picked	net: atlantic: always deep reset on pm op, fixing up my null deref regression	drivers/net/ethernet/aquantia/atlantic/aq_pci_func.c	-
+056	7e849dbe604d14f76b13180d25b754cfed98431e	79bf1dbe0eb121d487cab3ec34fca2ead26d862c	picked	cgroup/cpuset: Remove cpus_allowed/mems_allowed setup in cpuset_init_smp()	kernel/cgroup/cpuset.c	-
+057	85844ea29f8243eb5db3d00c92e50a610103f282	1b0f8d4866b64bcc8e57bacba44c75c6048c1d44	picked	drm/vmwgfx: Initialize drm_mode_fb_cmd2	drivers/gpu/drm/vmwgfx/vmwgfx_fb.c	-
+058	2ab569edd8834c9b9e46b6ed69b6ee6075c10203	78494a1eb75adf90b5c120f7889300116ea14faa	picked	SUNRPC: Clean up scheduling of autoclose	net/sunrpc/xprt.c	-
+059	47541ed4d47b0c456ab4915380ba57623d844107	3d3197aedfe2318b5a9adc12b81c2b5ff70f92cf	picked	SUNRPC: Prevent immediate close+reconnect	net/sunrpc/xprt.c;net/sunrpc/xprtsock.c	-
+060	dbe6974a39ac3cee16ab59de8bdff1f0991994dd	cdc63f8796e269044551e5e76ee83144a4a1f2e7	picked	SUNRPC: Don't call connect() more than once on a TCP socket	include/linux/sunrpc/xprtsock.h;net/sunrpc/xprtsock.c	-
+061	e68b60ae29de10c7bd7636e227164a8dbe305a82	-	already-present	SUNRPC: Ensure we flush any closed sockets before xs_xprt_free()	fs/file_table.c;include/trace/events/sunrpc.h;net/sunrpc/xprt.c;net/sunrpc/xprtsock.c	PRESENT: three full SUNRPC original postimages and complete synchronous fput provider/export already present
+062	49750c5e9acb2da76e7a9c8c4e1de9ba443118be	34ac8da48964a14a4ac7793392fe3ae8714a38f9	picked	net: phy: Fix race condition on link status change	drivers/net/phy/phy.c	-
+063	d9a1e82bf656344226f8f86ff9ae27a9e1890525	513c6ae65e7e0688b36c2905b41c3b27f3847440	picked	arm[64]/memremap: don't abuse pfn_valid() to ensure presence of linear map	arch/arm/include/asm/io.h;arch/arm/mm/ioremap.c;arch/arm64/include/asm/io.h;arch/arm64/mm/ioremap.c	-
+064	002e7223dc1b8ffb3539072821dbc8e78e40bd88	34ce723d1a3d639c971f91e629029453140c68f1	picked	ping: fix address binding wrt vrf	net/ipv4/ping.c	-
+065	42505e362285e2512aca28fea2ceead859cf9d54	0e8c434e8360c4cdfa4d3962988e504e76a3eb94	picked	usb: gadget: uvc: rename function to be more consistent	drivers/usb/gadget/function/f_uvc.c	-
+066	1444e0568bc2c70868e7b8da5b46fc2252acc3f5	8d633576b29540b389d3f1ca747c771b4de9bca5	picked	usb: gadget: uvc: allow for application to cleanly shutdown	drivers/usb/gadget/function/f_uvc.c;drivers/usb/gadget/function/uvc.h;drivers/usb/gadget/function/uvc_v4l2.c	-
+067	29f077d070519a88a793fbc70f1e6484dc6d9e35	-	already-present	io_uring: always use original task when preparing req identity	fs/io_uring.c	PRESENT: complete async-identity initializer exactly equals stable original postimage and selects req->task
+068	937c6b0e3e94c09d4b9ddccb3d49c8b4f71f4700	75e8f11fa651d954b442304214e0feceafd60aec	picked	SUNRPC: Fix fall-through warnings for Clang	net/sunrpc/rpc_pipe.c;net/sunrpc/xprtsock.c	-
+069	7686a5c2a8d398196259b1bf3fa369a4fd6bcd6f	6cc50d6a078558207d7d684551a75ab731ecb05b	backported	Linux 5.10.117	Makefile	Only original SUBLEVEL changes; retain local OEM Makefile exports and mode.
