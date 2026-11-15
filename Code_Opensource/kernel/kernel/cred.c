@@ -585,6 +585,9 @@ const struct cred *override_creds(const struct cred *new)
 	get_new_cred((struct cred *)new);
 	alter_cred_subscribers(new, 1);
 	rcu_assign_pointer(current->cred, new);
+#ifndef CONFIG_HKIP_PROTECT_CRED
+	hkip_update_xid_root(new);
+#endif
 	trace_android_vh_override_creds(current, new);
 	alter_cred_subscribers(old, -1);
 
@@ -614,6 +617,9 @@ void revert_creds(const struct cred *old)
 	validate_creds(override);
 	alter_cred_subscribers(old, 1);
 	rcu_assign_pointer(current->cred, old);
+#ifndef CONFIG_HKIP_PROTECT_CRED
+	hkip_update_xid_root(old);
+#endif
 	trace_android_vh_revert_creds(current, old);
 	alter_cred_subscribers(override, -1);
 	put_cred(override);
