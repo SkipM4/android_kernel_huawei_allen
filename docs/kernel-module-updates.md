@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.120
-#66 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.125
+#67 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -335,6 +335,40 @@ Tracing and Asleep are restored. Failed #65 evidence remains separate; #64
 is immediate paired recovery. This does not establish stable KMI/GKI, all
 credential-observer atomicity or complete hardware/power acceptance.
 
+### 5.10.125 #67: Matched Rebuild And Installed Acceptance
+
+The complete 121-125 batch imports 734 official entries through 705
+original-author source commits. A USB application-location correction and an
+ext4 two-call compatibility integration are separate, giving 707 source
+commits at `606f5a0f8`. CONFIG_LIB_MEMNEQ is the sole effective configuration
+addition; the target toolchain, CFI/ThinLTO, mandatory signatures, signing
+materials, PRMEM and fourteen generated OEM device/storage values remain.
+
+The actual #67 full build produces 13,838 exports. Against accepted #66,
+`flow_indr_dev_exists` is added, `mdio_bus_init` and `xfrm4_protocol_init` are
+removed, and 403 shared export CRCs change. All 390 modem and two optional
+dummy imports match the current release and symvers without missing exports
+or CRC mismatches. Eight new normal-build contexts establish the changed
+selected records/types/provider contracts; the final ELF independently passes
+28 selected targets across eleven CFI groups. Old object/layout proofs are
+not rerun or mistaken for current ELF addresses.
+
+Strip-before-sign CMS verification, target certificate presence, original
+boot roundtrip and module ext4 owner/mode/SELinux label readback pass. The
+matched boot/modem pair reaches normal Android and automatically loads the
+same-build Live modem. Partition/module/build-id readbacks, required services,
+unlocked encrypted storage, unchanged independent ramdisk, Enforcing/taint4/
+signatureY and enabled PRMEM pass. One real CameraDaemon thread completes the
+ISP firmware read/start/return path in the accepted boot. Complete logs have
+no actual kernel/module fault; 528 AVC denials remain visible, none requests
+module loading. The original trace state and Asleep screen are restored.
+
+#66 is immediate paired rollback. The optional dummy is not installed or
+force-loaded. Stable synchronization and same-build module acceptance do not
+establish independent stable KMI, Android common parity, GKI or complete
+hardware/performance/power acceptance. This remains a local source/build/
+recovery workflow, not release export or publication.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -375,13 +409,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #66's immediate rollback:
+overwrite existing candidates. The previous pair is #67's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.115-clang12-r64.img`.
-- `images/test/allen-modem_driver-test-5.10.115-clang12-r64.img`.
-- `images/test/allen-modem_driver-test-5.10.115-clang12-r64.ko`.
+- `images/test/allen-boot-test-5.10.120-clang12-r66.img`.
+- `images/test/allen-modem_driver-test-5.10.120-clang12-r66.img`.
+- `images/test/allen-modem_driver-test-5.10.120-clang12-r66.ko`.
 
-The installed next pair uses `5.10.120-clang12-r66` with the same device/purpose
+The installed next pair uses `5.10.125-clang12-r67` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

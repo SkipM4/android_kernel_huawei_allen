@@ -6,9 +6,9 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.120 #66, with kernel source
-`0436052d6`, normal Android, completed ISP firmware startup and automatic
-loading of the same-build signed modem. #64/5.10.115 is the immediate paired
+The installed upstream milestone is Linux 5.10.125 #67, with kernel source
+`606f5a0f8`, normal Android, completed ISP firmware startup and automatic
+loading of the same-build signed modem. #66/5.10.120 is the immediate paired
 rollback. #65 remains a failed HKIP firmware-boot candidate, not an accepted
 runtime. Ordered synchronization
 toward the pinned 5.10.274 target continues; Android common parity, vendor/core
@@ -301,6 +301,32 @@ Asleep are restored. #64 remains immediate rollback; failed #65 evidence is
 kept separately. Next is complete 5.10.121-125. Arena capacity/lifetime,
 selected AMA mempolicy, full io_uring/OOM safety, latest stable, ACK/GKI and
 inherited hardware/power acceptance remain open.
+
+The seventeenth milestone imports all 734 official 5.10.121-125 entries:
+674 exact picks, 31 adaptations, 26 already-present fixes and three specific
+not-applicable dispositions. The 705 original-author commits retain their
+identities; separate `1dd5d0603` corrects USB hunk placement and `606f5a0f8`
+passes logical block zero to two new ext4 directory-check calls. Existing
+OEM checker semantics and original byte offsets remain unchanged.
+
+The actual #67 full build passes. Only CONFIG_LIB_MEMNEQ is newly selected;
+CFI/ThinLTO/BHB/Werror, signing materials and fourteen generated OEM values
+remain. Eight new natural contexts establish selected CFS, jack, thermal,
+GPIO, LSM and library contracts without replaying old object/layout proofs.
+The current ELF passes 28 targets in eleven CFI groups. There are 13,838
+exports, one addition, two removals and 403 changed CRCs versus #66; all 390
+modem and two optional dummy imports match. Signed matched-image checks pass.
+
+Paired #67 installation reaches normal Android with automatic matching Live
+modem, partition/module/build-id readbacks and unchanged independent ramdisk
+and enforcing controls. The same-thread ISP firmware path completes all six
+stages. Complete logs contain no actual kernel/module fault; 528 AVC denials
+remain visible, none requests module loading. Tracing and Asleep are restored.
+#66 is immediate rollback; compact metadata, originals and recent #63-67
+pairs remain local below 20 GB. Next is complete 5.10.126-130; the pinned
+latest-stable target, inherited subsystem/hardware/power findings and
+ACK/vendor-core/GKI architecture remain open. No release is exported or
+published.
 
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,
@@ -774,7 +800,8 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12-r64-metadata/`: accepted #64 integrated-source/layout/CFI/build/owned-file-runtime metadata retained before output reuse; not tracked.
 - `out/allen-clang12-r65-failed-metadata/`: source/build/interface and first-fault/recovery metadata for failed #65, not runtime acceptance; not tracked.
 - `out/allen-clang12-r66-metadata/`: local closeout destination for accepted #66 paired credential/build/CFI/firmware-runtime metadata before output reuse; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.120 #66 output, reused sequentially for stable milestones; not tracked.
+- `out/allen-clang12-r67-metadata/`: accepted #67 source/new-interface/CFI/module/firmware-runtime metadata before output reuse; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.125 #67 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -801,7 +828,7 @@ scripts/build-allen.sh
 ```
 
 These commands describe the initial released-configuration build, not the
-stock-derived configuration used for the retained r49 or installed #66.
+stock-derived configuration used for the retained r49 or installed #67.
 For the retained upstream output and its r49-derived configuration, use:
 
 ```sh
@@ -812,7 +839,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.120` on the upstream
+Makefile still controls the release, currently `5.10.125` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.

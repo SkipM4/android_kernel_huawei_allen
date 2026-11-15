@@ -2934,3 +2934,163 @@ SELinux arena capacity/reclamation/lifetime, selected AMA mempolicy, full
 io_uring/OOM safety, ACK parity, vendor/core split/GKI and inherited hardware/
 performance/power acceptance remain open. Work stays in the local source Git
 tree; no release bundle, tag, publication or push is requested.
+
+## Seventeenth Milestone: 5.10.121 Through 5.10.125
+
+### Ordered Source Import
+
+The complete official range after accepted #66/5.10.120 contains 734 entries:
+674 exact picks, 31 adaptations, 26 already-present dispositions and three
+specific absent/unselected-target dispositions. The 705 original-author
+source commits remain separate from one USB patch-placement correction and
+one subsequent ext4 call-site integration: 707 source commits in total.
+Intermediate 121-124 releases are source boundaries, not separately built or
+installed milestones. Five per-release ledgers retain every original/local
+identity and disposition.
+
+| Release | Official Endpoint | Entries | Exact | Adapted | Present | Not Applicable |
+| --- | --- | --- | --- | --- | --- | --- |
+| 5.10.121 | `e2e52b40ef1acfd4f2508c32fce1409013909581` | 450 | 420 | 18 | 10 | 2 |
+| 5.10.122 | `5754c570a569d3f31e874abbf08dae1218a7431c` | 175 | 164 | 6 | 4 | 1 |
+| 5.10.123 | `2a59239b22e0a39736b47c22462b3faa2c46b729` | 12 | 11 | 1 | 0 | 0 |
+| 5.10.124 | `4f3fee72a74c88c9039ce0405a715f6221791d06` | 84 | 75 | 3 | 6 | 0 |
+| 5.10.125 | `6a7c3bcc3c2e2c2e7a42d6601306095060ea938a` | 13 | 4 | 3 | 6 | 0 |
+
+Sources are the original Linux stable repository and official
+ChangeLog-5.10.121 through ChangeLog-5.10.125 at
+<https://cdn.kernel.org/pub/linux/kernel/v5.x/>. The immutable approved734
+package and completed import receipt retain all original outcomes and
+release/final source roots. No application correction or compatibility
+integration becomes an extra stable entry. Accepted #66's integrated source
+and documentation boundary remain the starting point; failed #65 is not
+relabelled as an accepted baseline.
+
+### Separate Application And Directory-Context Integrations
+
+Original 125#3, stable `16b1994679a0ad7f12a3b40b928e70241303d6f4`, remains local
+`b280f67aa74554b98a34eb4ab61be310aff4c640` in the ledger. Git am placed its USB
+fixed-MAC hunk in the wrong setup context. Separate
+`1dd5d0603263cd6525a54c1f8cebb2d8ce5ac470` restores the approved application
+location/postimage without amending the original commit or adding a feature.
+
+The first actual full-build failure after imported source `b35965d6f` is a
+local ext4 macro argument mismatch. Official 121#356, stable
+`dd887f83ea54aea5b780a84527e23ab95f777fed`, upstream
+`0be698ecbe4471fcad80e81ec6a05001421041b3`, adds dot/dotdot validation in
+ext4_get_first_dir_block using the seven-argument upstream interface. The
+existing local checker separately requires logical block and byte offset.
+Separate `606f5a0f8f448b241cd55eb115ffb2ba2cc74b89` adds logical block0 to the two
+new calls because their buffer comes from ext4_read_dirblock(inode, 0,
+DIRENT_HTREE). Original offsets, validation, brelse, -EFSCORRUPTED and the
+inline-data path remain. The macro, checker, public signature and other ext4
+call sites do not change. This is a reviewed two-line compatibility step,
+not a broad filesystem rewrite or a replacement for the original stable fix.
+
+The accepted candidate kernel tree is
+`af951ea33917faa77cb1f7cd2472cb30e2a2d93e`. The one actual configuration/prepare
+selects CONFIG_LIB_MEMNEQ n -> y through the standard crypto library
+provider. Security, entropy trust, signing selections and the fourteen
+generated OEM device/storage values remain; whole configuration equality is
+not claimed. Their applicability across the sole ext4 delta is inherited,
+without repeated configuration, old layout, IR or object measurements.
+
+### Selected Source And Interface Contracts
+
+The CFS PELT adaptation consistently uses the existing lost-idle-adjusted
+rq_clock_pelt domain for all throttle timestamp producers and the consumer,
+without changing OEM scaling or independent priority votes. LSM hooks use the
+standard flowi_common API across declarations, providers and callers; selected
+network-XFRM hooks remain inactive. Dynamic thermal names retain owned error
+cleanup and the actual NPU consumer, without dereferencing the object after
+put_device. The optional GPIO ranges hook preserves OF/node lifetime and
+Android KABI reserves; no active fallback provider is invented.
+
+Other scoped adaptations retain UFS runtime-PM/vendor recovery, inline-crypto
+completion hooks, local ftrace PLT lifetime and NFC packet bounds/error skb
+ownership. The TCP perturbation table uses the upstream dynamic allocation
+rather than retaining the local potentially undersized table. ARM64 DMA
+adopts the upstream FROM_DEVICE start-clean removal without disabling existing
+protection or end-of-transfer cache maintenance. Original release markers
+change only SUBLEVEL and retain local Makefile exports and modes.
+
+The three 125 ledger notes that say approval pending are historical import
+state strings, retained verbatim. Completed source-package and import records
+supply their source approval; they are not current pending build/runtime
+results. Original USB125#3 still points to its original local commit, not the
+separate application correction. No ledger history is rewritten.
+
+### Actual #67 Build And Installed Acceptance
+
+The necessary post-integration full build succeeds as Linux 5.10.125 #67.
+Exactly eight new ordinary build contexts are captured and decoded once;
+seven finite family checks cover four changed enclosing records and selected
+members, typed LSM producer/initializer/consumer, and library providers. The
+separate accepted66 applicability carrier retains particular old declaration,
+source/type and historical-command evidence, not current object/layout or
+address equality. No old object or layout proof is replayed.
+
+| Family | Selected Normal-Build Fact | Limit |
+| --- | --- | --- |
+| CFS PELT | cfs_rq size512; u64 throttle members at432/440 | Relevant clock dataflow, not all task/rq layout |
+| Jack input lock | snd_jack size248; new lock at40 | Selected parent/report access, not nested mutex remeasurement |
+| Thermal name | thermal_cooling_device size1064; char-pointer type at8 | Owned allocation/store/free; ignored naming failure remains open |
+| Optional GPIO ranges | gpio_chip size504; typed optional slot at496 | Null-guard/dispatch only, no invented active provider |
+| LSM common flow | Active selinux_req_classify_flow type0x6f5eb383d7535de1 | Actual wrapper/provider match; inactive XFRM remains source/stub only |
+| Nodemask | Unsigned-int __next_node_in provider/export | C source/debug supplies signedness, not LLVM i32 alone |
+| Memneq | Standard library __crypto_memneq provider/export | No new callback or side-channel certification |
+
+The current final ELF separately checks 51 required symbols, 28 selected
+normal targets and eleven actual CFI memberships/canonical jumps. The old RNG
+ready helpers retire individually while mix_interrupt_randomness retains its
+shared work type. The fourteen generated OEM selector values retain scoped
+source/configuration applicability. These observations do not establish an
+independently stable vendor ABI or general OEM assembly compatibility.
+
+There are 13,838 exports, one addition (flow_indr_dev_exists), two removals
+(mdio_bus_init and xfrm4_protocol_init), and 403 changed shared CRCs versus
+#66. All 390 modem and two optional dummy imports match without missing
+exports or CRC mismatches. The existing strip-before-sign/CMS/certificate
+checks, original boot layout/firmware stub/DTB roundtrip, and module ext4
+ownership/mode/SELinux label readback pass. No old binary, loader or CRC is
+patched to conceal incompatibility; the dummy is not installed.
+
+The matched #67 boot/modem pair reaches normal Android and automatically
+loads the same-build Live modem. Complete partition/module readback, runtime
+build-id, encrypted unlocked user storage, required services and unchanged
+independent Magisk ramdisk pass. SELinux remains Enforcing, taint4,
+signatureY and PRMEM enabled; CFI/ThinLTO/BHB/Werror and signing materials
+remain. The existing CameraDaemon boot sequence completes the six-stage ISP
+firmware read/ISPCPU start/power-on return path in one boot and thread, without
+launching the camera UI or changing driver parameters.
+
+Time-zero, boot and later logs contain no actual WARN/BUG/Oops/panic/CFI or
+module-loading fault. There are 528 visible AVC denials, none requests module
+loading; no blanket no-AVC claim is made. Original tracing-off/wifi instance
+and Asleep screen are restored. Passed broad hardware tests are not repeated
+without a relevant change, failure or unresolved issue.
+
+| Gate | Actual Result |
+| --- | --- |
+| Original734 provenance and ordered705 commits/five release boundaries | Pass; source b35965d6f |
+| Separate USB placement and ext4 call-context integrations | Independently reviewed; final606f5a0f8 |
+| Configuration and source/security continuity | Pass; LIB_MEMNEQ is sole effective addition |
+| Reaped #67 full build/new8 interfaces/current ELF and CFI | Pass; current28 targets/11types |
+| Same-build imports, signatures and matched image staging | Pass; modem390 and optional dummy2 |
+| Paired normal Android/automatic matching modem/ISP firmware path | Pass; same-boot readbacks and enforcing controls |
+| Local Git, compact metadata and bounded retention | Local closeout; no release export/publication |
+
+Immediate paired rollback is #66/5.10.120. Originals, #17, configuration,
+signing source, compact accepted metadata and still-referenced proof/cache
+dependencies remain. After accepted #67, the five-version test window becomes
+#63-67; only expired #62 test images/module and consumed full logs are retired.
+No private signing key is copied into metadata. The workspace remains below
+20 GB.
+
+Next is complete official 5.10.126-130. The pinned 5.10.274 target, SELinux
+PRMEM arena capacity/reclamation/lifetime, selected AMA mempolicy, full
+io_uring/OOM safety, async HKIP publication atomicity, NFC netlink allocation
+ownership and inherited hardware/performance/power acceptance remain open.
+Linux stable synchronization does not establish Android common parity,
+standard GKI, a vendor symbol allowlist or independent stable KMI. Hardware
+paths are not deleted simply because they are OEM-specific. Work stays in
+the local Git source tree; no bundle, release tag, push or publication occurs.
