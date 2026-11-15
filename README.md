@@ -6,9 +6,9 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.125 #67, with kernel source
-`606f5a0f8`, normal Android, completed ISP firmware startup and automatic
-loading of the same-build signed modem. #66/5.10.120 is the immediate paired
+The installed upstream milestone is Linux 5.10.130 #68, with kernel source
+`7c9fa502b`, normal Android, completed ISP firmware startup and automatic
+loading of the same-build signed modem. #67/5.10.125 is the immediate paired
 rollback. #65 remains a failed HKIP firmware-boot candidate, not an accepted
 runtime. Ordered synchronization
 toward the pinned 5.10.274 target continues; Android common parity, vendor/core
@@ -327,6 +327,39 @@ pairs remain local below 20 GB. Next is complete 5.10.126-130; the pinned
 latest-stable target, inherited subsystem/hardware/power findings and
 ACK/vendor-core/GKI architecture remain open. No release is exported or
 published.
+
+### Linux 5.10.126-130 Milestone
+
+The complete canonical stable range has 252 original entries: 226 exact
+picks, ten adaptations and sixteen already-present operations, recorded in
+five per-release ledgers. The 236 original-author source commits end at
+`7c9fa502b`; no separate kernel integration is needed in this batch. NFT
+register parsing keeps full-width validation before byte publication and
+the existing generic/verdict datatype normalization. PM supplier API and
+framebuffer fixes retain their real hardware contracts; duplicate operations
+are not reinserted.
+
+The single full build produces 5.10.130 #68 with unchanged effective
+configuration and retained CFI/ThinLTO/BHB/Werror, signing materials and
+security. Sixteen new ordinary contexts, selected NFT3 cached consumers,
+fourteen current OEM selectors and 28 current targets in eleven CFI groups
+pass scoped checks. Checker-only corrections account for inlined verdict/
+value branches and optimized byte addressing; they do not change kernel
+source or certify every expression layout. There are 13,837 exports, two
+additions, three removals and no shared CRC changes versus #67; all 390 modem
+and two optional dummy imports match.
+
+Paired #68 installation reaches normal Android with automatic matching Live
+modem, full partition/module/build-id readbacks, unlocked user storage and
+unchanged independent ramdisk/security. The same-thread six-stage ISP
+firmware startup completes. Complete logs contain no actual kernel/module
+fault; 519 AVC denials remain visible, none requests module loading. Tracing
+and Asleep are restored. #67 is immediate rollback; compact metadata,
+originals and recent #64-68 pairs remain local below 20 GB. Next is complete
+5.10.131-135, whose official inputs alone are prepared. The inherited SELinux
+PRMEM arena and two source-only fbcon findings, full hardware/power, the
+pinned 5.10.274 target and ACK/vendor-core/GKI work remain open. No release
+is exported or published.
 
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,

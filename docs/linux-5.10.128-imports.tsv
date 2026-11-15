@@ -1,0 +1,13 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	52dc7f3f6fa151f5d64b3e6fe95369c21600e72c	52185155311c2e08b6bbf59de520bbfbb63f8dc0	picked	MAINTAINERS: add Amir as xfs maintainer for 5.10.y	MAINTAINERS	-
+002	069fff50d4008970642a5380c3022e76dd8e7336	a4a9c64c7824f7b8cc662819414ade56ff1548df	picked	drm: remove drm_fb_helper_modinit	drivers/gpu/drm/drm_crtc_helper_internal.h;drivers/gpu/drm/drm_fb_helper.c;drivers/gpu/drm/drm_kms_helper_common.c	-
+003	c4ff3ffe0138234774602152fe67e3a898c615c6	23fdc99422453cf355a61024ae3779e0eefe376e	picked	tick/nohz: unexport __init-annotated tick_nohz_full_setup()	kernel/time/tick-sched.c	-
+004	09c9902cd80a07c2e69024f96f049985047e64b8	33153b9a951935554d66e79b50cb10246f58b15f	picked	bcache: memset on stack variables in bch_btree_check() and bch_sectors_dirty_init()	drivers/md/bcache/btree.c;drivers/md/bcache/writeback.c	-
+005	db3f8110c3b0e1185f6288331cb428978708fb79	b6e23169baa05e33d0eb27a5f064142d98adb104	picked	xfs: use kmem_cache_free() for kmem_cache objects	fs/xfs/xfs_extfree_item.c	-
+006	0cdccc05da76a87a4e04d03eb812bacc33864ad9	5d29969b7449c59a9f1d549cd5bbe9a82976561f	picked	xfs: punch out data fork delalloc blocks on COW writeback failure	fs/xfs/xfs_aops.c	-
+007	1e76bd4c67224a645558314c0097d5b5a338bba9	a4b3af5ec92ca35b0a248d627613c840089600ce	picked	xfs: Fix the free logic of state in xfs_attr_node_hasname	fs/xfs/libxfs/xfs_attr.c	-
+008	071e750ffb3dc625cc92826950c26554f161a32c	f7c0d403ebfadf65c38785ad54a613a88a106806	picked	xfs: remove all COW fork extents when remounting readonly	fs/xfs/xfs_super.c	-
+009	6b734f7b7071859f582b5acb95abb97e1276a030	9a31cc39a8dd01aa30ede82ec595c7d317713eef	picked	xfs: check sb_meta_uuid for dabuf buffer recovery	fs/xfs/xfs_buf_item_recover.c	-
+010	6a656280e775821f75c0b9ca599b10174210fbdb	57a3757512fb9e27909b733e25b1c92e014ac842	picked	powerpc/ftrace: Remove ftrace init tramp once kernel init is complete	arch/powerpc/include/asm/ftrace.h;arch/powerpc/kernel/trace/ftrace.c;arch/powerpc/mm/mem.c	-
+011	2d10984d99ac2b652b4f31efd2e059957f1fa51f	685fa76982a863a650d451f12995ae7ac63e1be9	picked	net: mscc: ocelot: allow unregistered IP multicast flooding	drivers/net/ethernet/mscc/ocelot.c	-
+012	ea86c1430c83aa91f2c4122408922e34a1279775	e1d66d0198fb34859e88982a6e6f77a179437a8b	backported	Linux 5.10.128	Makefile	Only original SUBLEVEL changes; retain every other local Makefile byte and mode.

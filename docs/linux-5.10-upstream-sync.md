@@ -3094,3 +3094,136 @@ Linux stable synchronization does not establish Android common parity,
 standard GKI, a vendor symbol allowlist or independent stable KMI. Hardware
 paths are not deleted simply because they are OEM-specific. Work stays in
 the local Git source tree; no bundle, release tag, push or publication occurs.
+
+## Linux 5.10.126-130 Installed Milestone
+
+The canonical Linux stable source is
+<https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git>.
+From accepted 5.10.125/#67, all original first-parent commits through
+v5.10.130 (`26ae9c361414418ed02d6e97b3d0c8eaa93be355`) are accounted for.
+Original authors, messages, stable identities, patch sections and file modes
+are retained; this is a Huawei/Allen integration, not an unrelated-history
+Android common merge.
+
+| Release | Original Entries | Exact Picks | Adapted | Already Present |
+| --- | --- | --- | --- | --- |
+| 5.10.126 | 2 | 0 | 1 | 1 |
+| 5.10.127 | 103 | 95 | 5 | 3 |
+| 5.10.128 | 12 | 11 | 1 | 0 |
+| 5.10.129 | 79 | 72 | 1 | 6 |
+| 5.10.130 | 56 | 48 | 2 | 6 |
+| Total | 252 | 226 | 10 | 16 |
+
+The five `linux-5.10.126-imports.tsv` through
+`linux-5.10.130-imports.tsv` ledgers preserve every original/local outcome.
+The 236 original-author source commits end at
+`7c9fa502b5789fbb0cae49cab0c08c0dc04d4ed5`, kernel subtree
+`3c4bc916b22a85824cd3a8616e4cf8f0afce048c`. Each release boundary and final
+source/root records match the approved ordered package. No separate kernel
+integration is needed in this batch.
+
+### Source Adaptations And Remaining Findings
+
+127 RNG threshold, ratelimit initializer and comment operations carry the
+original change under independent source review while retaining firmware
+entropy, credit and work-lifetime contracts. NFT load/store parsing validates
+the complete register value before publishing plain u8 fields. The store
+adaptation changes only the lookup context to retain `nft_set_datatype(set)`:
+generic user datatypes normalize to VALUE, while exact VERDICT remains
+distinct. The other 21 original paths in that store commit remain unchanged.
+
+130 BPF bounds propagation adds only the missing ALU32 MOV-after-zext hunk,
+using the existing `reg_bounds_sync(dst_reg)`; the other eight original
+effects are already present. USBnet, TUN, SLUB and relevant framebuffer
+duplicates are not inserted twice. The framebuffer mode/font validation and
+one-argument PM supplier API operations apply exactly. Release markers
+change only SUBLEVEL, preserving local Makefile exports and modes. Required
+hardware interfaces are not deleted merely because they are OEM-specific.
+
+Two inherited source-only fbcon findings remain open: the font guard reads
+`info->var.rotate` while resize uses `ops->rotate`, and late failed resize
+does not free a newly allocated unshared backend font. Neither is reproduced
+on this device or repaired by the original operation. The SELinux PRMEM
+arena capacity/reclamation/lifetime residual also remains open. They are not
+converted into completed safety claims by source import or normal boot.
+
+### Actual #68 Build And Interface Gates
+
+One natural configuration/prepare and one necessary full kernel/module build
+produce Linux 5.10.130 #68 with empty effective and emitted configuration
+deltas. Android Clang/LLD 12.0.7, enforcing CFI, ThinLTO, BHB, Werror, entropy
+trust, signing materials and the existing security configuration remain.
+Only sixteen new natural contexts are captured: fourteen NFT producer/core
+objects and two direct PM consumers. NFT API, lookup and core are decoded
+once into a retained cache; no old27/prior8 object or layout proof is replayed.
+
+The first diagnostic checker expected one full-width validation branch to
+dominate the merged store output. Actual inlined code has distinct VERDICT
+and VALUE success paths. A strict cache-only correction checks their
+full-width partition, exact datatype/lower/extent validation and error-edge
+returns before the sole byte output. A later checker correction distinguishes
+an error PHI incoming edge from its predecessor block, which also has a legal
+success edge. Actual completed load/store checks are checkpointed and not
+rerun when continuing at later boundaries.
+
+Ordinary optimized IR does not retain the selected private records as named
+LLVM structs. Lookup uses the typed `nft_expr` flexible-data GEP; core uses
+raw byte offsets from a cast expression root. Their current debug pointer
+types, private-data getter, data offset and consumer scope bind the observed
+private sreg/dreg offsets 8/9 and payload dreg offset 3. Exact byte loads,
+unsigned extension and the real register-array GEP are checked. This does
+not guess missing layouts, force frontend emission or certify all fourteen
+expression layouts or malformed-register arithmetic.
+
+The current final ELF independently checks 51 present symbols, two retired
+RNG symbols absent, 28 actual normal target names and eleven CFI group
+memberships/canonical entries. Fourteen current generated OEM selectors are
+snapshotted and bound to the current configuration and five direct declaring/
+provider records; old object/layout equality is not presumed. A finite
+independent metadata review binds final carriers without replaying compiler,
+IR, CFI, module or device tests.
+
+There are 13,837 exports: additions `nft_parse_register_load` and
+`nft_parse_register_store`; removals `drm_fb_helper_modinit`,
+`nft_validate_register_load` and `nft_validate_register_store`; no changed
+shared CRCs versus #67. All 390 freshly rebuilt modem and two optional dummy
+imports match with no missing export or CRC mismatch. The standard same-build
+rebuild method is retained, not an independent KMI guarantee. The dummy is
+not installed to fake runtime coverage.
+
+### Paired Installation And Local Closeout
+
+Original boot header/compression/firmware stub/DTB roundtrip and partition
+bounds pass. The matching modem is stripped before signing, its CMS signature
+verifies against the unchanged certificate present in the kernel, and stock
+ext4 ownership/mode/SELinux label and module readback pass. Installer checks
+the live #67 identity/bytes and retained rollback before writing only local
+#68 `boot` and `modem_driver`. Independent Magisk ramdisk is unchanged.
+
+One normal #68 boot enters Android and automatically loads the matching Live
+modem. Complete partition/module readbacks and live build-id match; encrypted
+user storage is unlocked and required services are present. A single existing
+CameraDaemon thread completes all six ISP firmware read/ISPCPU startup/
+power-on return stages without launching the camera UI or changing controls.
+SELinux Enforcing, taint4, signatureY and PRMEM enabled remain. Time-zero,
+boot and later logs contain no actual WARN/BUG/Oops/panic/CFI or module-load
+fault. There are 519 visible AVC denials, none requests module loading.
+Original tracing-off/wifi instance and Asleep screen are restored. No second
+boot or previously passed broad hardware test is repeated.
+
+Immediate paired rollback is #67/5.10.125. Local compact metadata is retained
+before reusing the build output; originals, #17, signing source and still-used
+proof/cache dependencies remain. The latest-five test window becomes #64-68;
+only expired #63 images/module and consumed full build/runtime logs are
+retired. The workspace remains below 20 GB. No private signing key is copied
+into metadata, and no artifact bundle, release tag, push or publication is
+created.
+
+Next is complete official 5.10.131-135. Only original inputs for that range
+are prepared: 432 commits (2/113/149/102/66), with full author/message/parent/
+patch/mode provenance. That preparation does not itself preview/import source
+or accept a build/device. The pinned 5.10.274 target, SELinux PRMEM and fbcon
+residuals, ext4/AMA/full io_uring/OOM, async HKIP atomicity, NFC allocation
+ownership and broad hardware/network/performance/power remain open. Linux
+stable synchronization is not Android common parity, vendor/core separation,
+standard GKI or independent stable KMI.

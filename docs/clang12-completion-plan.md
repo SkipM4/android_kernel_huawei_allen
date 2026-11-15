@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #66/5.10.120 on `upstream/linux-5.10.y`, kernel source
-through `0436052d6`. Immediate paired rollback is #64/5.10.115. #65 remains a
+Installed candidate is #68/5.10.130 on `upstream/linux-5.10.y`, kernel source
+through `7c9fa502b`. Immediate paired rollback is #67/5.10.125. #65 remains a
 failed HKIP firmware-boot candidate with successful paired #64 recovery;
 r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
@@ -65,7 +65,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.120 Resolved; #65 HKIP Firmware Boot Failure Retained, Paired #64 Recovery Pass; Separate Credential Integration And #66 Full Build/Current CFI/Matching Signed Pair/Normal Android/Auto Module/Actual ISP Firmware Path Pass; Next Complete 5.10.121-125; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.130 Resolved; #68 Full Build/Current Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/ISP Firmware Path Pass; #67 Immediate Rollback; #65 Failed Evidence Retained; Next Complete 5.10.131-135; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -475,6 +475,47 @@ retains accepted #66 metadata and bounded recent pairs below 20 GB. Next is comp
 invented accepted65 boundary. Arena capacity/reclamation/lifetime, selected
 AMA mempolicy, complete io_uring/OOM safety, latest stable, ACK/GKI and full
 inherited hardware/power remain open; no release export, publication or push.
+
+### Linux 5.10.121-130 Follow-up
+
+The complete 121-125 range and its separate USB placement/ext4 directory
+call-context corrections reach source `606f5a0f8`, accepted normal Android
+#67, automatic matching signed modem and completed ISP firmware startup.
+LIB_MEMNEQ is the sole effective configuration addition in that batch.
+Current eight natural contexts, 28 targets/eleven CFI groups, matching imports,
+signatures, readbacks and complete logs pass. The accepted #67 runtime has
+528 visible AVC denials, none requests module loading; full hardware and
+source-only lifetime findings do not pass by implication.
+
+The next complete 126-130 range resolves all 252 original entries: 226 exact,
+ten adapted and sixteen already present. Its 236 original-author commits end
+at `7c9fa502b` without a separate kernel integration. One necessary full build
+produces #68 with no effective/emitted configuration delta. Sixteen new
+ordinary contexts, selected NFT3 cached register boundaries and byte consumers,
+fourteen current generated selectors, and 28 current targets in eleven CFI
+groups pass. Corrections to the diagnostic checker preserve actual verdict/
+value control flow, error edges and optimized private-byte addressing; no
+kernel workaround, forced type emission, repeated decoder or weakened CFI is
+used. Particular prior27/prior8 source applicability stays separate.
+
+There are 13,837 exports, two additions, three removals and no changed shared
+CRCs versus #67. All 390 rebuilt modem and two optional dummy imports match.
+Stock-format boot roundtrip, stripped/CMS-signed module, certificate, ext4
+owner/mode/SELinux label and paired readbacks pass. Normal Android #68 loads
+the matching Live modem automatically, preserves unlocked user storage and
+required services, and completes the same-thread ISP firmware path. Complete
+logs contain no actual kernel/module fault; 519 AVCs remain visible, none
+requests module loading. Independent ramdisk, Enforcing, taint4, signatureY,
+PRMEM, tracing and Asleep remain. No accepted boot or broad hardware test is
+repeated without a relevant change or fault.
+
+#67 is immediate paired rollback; #64-68 local test pairs and compact metadata
+remain below 20 GB. Next is complete 131-135; official original inputs are
+prepared but not imported by that preparation. The pinned 5.10.274 target,
+SELinux PRMEM arena capacity/reclamation/lifetime, two inherited source-only
+fbcon findings, selected AMA/full io_uring/OOM and async HKIP atomicity,
+network/hardware/power and ACK/vendor-core/GKI remain open. A successful stable
+milestone is not release, independent KMI or production certification.
 
 ## Next-Stage Work Queue
 
