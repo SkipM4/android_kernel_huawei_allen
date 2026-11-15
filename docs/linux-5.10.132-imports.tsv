@@ -1,0 +1,114 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	4486bbe92840d315c427393725ddfb670b7c0051	672040f48ca3f7c4d427a0733252b0cfcceb8734	picked	ALSA: hda - Add fixup for Dell Latitidue E5430	sound/pci/hda/patch_realtek.c	-
+002	b642a3476a348cc9fbc71fadb8fd2a6f9872bbbe	903e7b45c3cba71aaad0373e4182c1632c4ff69e	picked	ALSA: hda/conexant: Apply quirk for another HP ProDesk 600 G3 model	sound/pci/hda/patch_conexant.c	-
+003	4d0d15d1846784388a5444435f7ab8208ea7cfef	a1d9da5830e58e2d5c7084ef576288b614627e70	picked	ALSA: hda/realtek: Fix headset mic for Acer SF313-51	sound/pci/hda/patch_realtek.c	-
+004	08ab39027a88279bec8e71ff6b4de13ddc7dd588	d6e69e33dce43a551b5df940e562462a17cef693	picked	ALSA: hda/realtek - Fix headset mic problem for a HP machine with alc671	sound/pci/hda/patch_realtek.c	-
+005	cacac3e13a816c917ee35d6ac4c9c0a8536c9df2	0ebb94c3bd1b070f013a945002dde04ee85fa6cc	picked	ALSA: hda/realtek - Fix headset mic problem for a HP machine with alc221	sound/pci/hda/patch_realtek.c	-
+006	782a6b07b12738f651d916ef62e67b4c2536142a	40627e30a482fe8572f18103790a1624346305fe	picked	ALSA: hda/realtek - Enable the headset-mic on a Xiaomi's laptop	sound/pci/hda/patch_realtek.c	-
+007	b9c32a6886af79d6e0ad87a7b01800ed079cdd02	68030b5a0a605b877ad06414f124e5644b7bc972	picked	xen/netback: avoid entering xenvif_rx_next_skb() with an empty rx queue	drivers/net/xen-netback/rx.c	-
+008	91530f675e88c6b27306c35ca4e482fb956794d1	9d23198f511e64c7263fcf2d321146a70d02c188	backported	fix race between exit_itimers() and /proc/pid/timers	fs/exec.c;include/linux/sched/task.h;kernel/exit.c;kernel/time/posix-timers.c	Retain existing exec POSIX CPU timer cleanup and siglock boundary; pass task to exit_itimers at both exec and group exit, detach shared timer list under sighand siglock, delete private list outside it. Other three original paths/hunks unchanged; only exec call context adapted.
+009	931dbcc2e02f0409c095b11e35490cade9ac14af	-	already-present	mm: split huge PUD on wp_huge_pud fallback	mm/memory.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+010	78a1400c42ee11197eb1f0f85ba51df9a4fdfff0	9a78647c6d5b402e7e029df3e4e645220f127791	picked	tracing/histograms: Fix memory leak problem	kernel/trace/trace_events_hist.c	-
+011	4d3e0fb05eec645a791c278a9c82e0a15a916aa8	4ab9e5152dcc2d03d34e92354a83bc0c89631354	picked	net: sock: tracing: Fix sock_exceed_buf_limit not to dereference stale pointer	include/trace/events/sock.h	-
+012	fa40bb3a5f0c380630923dbc9df6e5c8cf6591b4	617b449e2a4f7a2a20f419538587cfd75b734cb8	picked	ip: fix dflt addr selection for connected nexthop	net/ipv4/fib_semantics.c	-
+013	f851e4f40253f4f8b57cbee503806f2a7c16f7ce	14992ad03ee9fb9bf42c65a465d66545e7dbc67e	picked	ARM: 9213/1: Print message about disabled Spectre workarounds only once	arch/arm/mm/proc-v7-bugs.c	-
+014	db6e8c30154f390348b5bd6e8028461b90c0876e	fdbc3df3d6b80d16eb127dfa758c33c2c8e37360	picked	ARM: 9214/1: alignment: advance IT state after emulating Thumb instruction	arch/arm/include/asm/ptrace.h;arch/arm/mm/alignment.c;arch/arm/probes/decode.h	-
+015	e013ea2a51a94b903b396a8dff531a07d470335d	0dea82d1a64a0aa554c0432b978d53f7698511ec	picked	wifi: mac80211: fix queue selection for mesh/OCB interfaces	net/mac80211/wme.c	-
+016	7657e3958535d101a24ab4400f9b8062b9107cc4	-	already-present	cgroup: Use separate src/dst nodes when preloading css_sets for migration	include/linux/cgroup-defs.h;kernel/cgroup/cgroup.c	All original migration effects are already implemented using ext_css_set separate source/destination preload nodes: static/dynamic initialization, independent list pinning, identity-source deletion, destination hold, finish and dfl iteration. Preserve existing css_set layout/KABI and unused legacy preload slot; do not insert a second pair into the ABI record.
+017	c1ea39a77cbdbcae0c34559b3506374915a2080d	3e6cb3fd1a635eec944d73523f0dbe05fd487d9b	picked	btrfs: return -EAGAIN for NOWAIT dio reads/writes on compressed and inline extents	fs/btrfs/inode.c	-
+018	2e760fe05d3ea5b5addb02691ec8a29e601dff56	5f3aa29eb691e44e151f0b4218a487cc5283f30f	picked	drm/panfrost: Put mapping instead of shmem obj on panfrost_mmu_map_fault_addr() error	drivers/gpu/drm/panfrost/panfrost_mmu.c	-
+019	0581613df7f9a4c5fac096ce1d5fb15b7b994240	4eb03d1878c5620f30ec4d7a17c924617e2f665c	picked	drm/panfrost: Fix shrinker list corruption by madvise IOCTL	drivers/gpu/drm/panfrost/panfrost_drv.c	-
+020	14e63942d63e278d271aac211476b81b2c60aaf6	0ab84dbe2e0947cc0a30648c4237c86beee21010	picked	fs/remap: constrain dedupe of EOF blocks	fs/remap_range.c	-
+021	ea4dbcfb9532a6ac79755e5043d988859961d29c	0e20ea61ad95cf0c489eea304a702ff85af68b32	picked	nilfs2: fix incorrect masking of permission flags for symlinks	fs/nilfs2/nilfs.h	-
+022	41007669fc3b4c968c54b81088c2bbc18d8affe4	ab7156a98527493c6f60577e474627b4d04eea18	picked	sh: convert nommu io{re,un}map() to static inline functions	arch/sh/include/asm/io.h	-
+023	9d883b3f000d405d19b3484e3d8d97796e6854c6	947f96ee87d9996ef1a8def0dcd5e462a0266c90	picked	Revert "evm: Fix memleak in init_desc"	security/integrity/evm/evm_crypto.c	-
+024	91f90b571f1a23f5b8a9c2b68a9aa5d6981a3c3d	-	already-present	ext4: fix race condition between ext4_write and ext4_convert_inline_data	fs/ext4/extents.c;fs/ext4/inode.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+025	d8d42c92fe564ed9dad36a5b0dcfc3b12bfb7965	a2fe7b45fc3dafa4707f56fc51d1bdea7362fb72	picked	ARM: dts: imx6qdl-ts7970: Fix ngpio typo and count	arch/arm/boot/dts/imx6qdl-ts7970.dtsi	-
+026	0c300e294d1c8200d26d0eb561e93204cd868318	e1a57dbe61ba12c122c6a1d8e318394b0f32e7d9	picked	spi: amd: Limit max transfer and message size	drivers/spi/spi-amd.c	-
+027	3d82fba7d3632475e8005298d52ebd0202f8e24d	90c01186c23e860a540c40ddf6fc7d61e054db3d	picked	ARM: 9209/1: Spectre-BHB: avoid pr_info() every time a CPU comes out of idle	arch/arm/mm/proc-v7-bugs.c	-
+028	d6cab2e06c33533d45586cb6161cdc9a754b29a1	ac242547613d036b9c4eb112f3037dd423cf1ece	picked	ARM: 9210/1: Mark the FDT_FIXED sections as shareable	arch/arm/include/asm/mach/map.h;arch/arm/mm/mmu.c	-
+029	c87d5211be84e682b9d0ae781368446acf4f2639	49f64464ff88485f6feec58c6f2466a29c3e2b8a	picked	net/mlx5e: kTLS, Fix build time constant test in TX	drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_tx.c	-
+030	6eb1d0c370afbfb717824ba148e67243c85cfa72	b8be7d32632cba7c4efbd4a759c9577be86e8eb3	picked	net/mlx5e: kTLS, Fix build time constant test in RX	drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_rx.c	-
+031	4cb5c1950b7ad37f57ced2bea8c5b4bcb755b61a	a4be947de1040488aa801b289566a669425822ff	picked	net/mlx5e: Fix capability check for updating vnic env counters	drivers/net/ethernet/mellanox/mlx5/core/en_stats.c	-
+032	592f3bad00b7e2a95a6fb7a4f9e742c061c9c3c1	6a7e798488ffa4122e269bc403daf8debe05ef87	picked	drm/i915: fix a possible refcount leak in intel_dp_add_mst_connector()	drivers/gpu/drm/i915/display/intel_dp_mst.c	-
+033	831e190175f10652be93b08436cc7bf2e62e4bb6	f940962119cf0ddc375f14fb1c4f67e393b46fc6	picked	ima: Fix a potential integer overflow in ima_appraise_measurement	security/integrity/ima/ima_appraise.c	-
+034	f160a1f97091dc52e66b319829e60c7eeebfc9d4	445cbeed5ad6c5ef27b3f0e19c44dcdedb57a222	picked	ASoC: sgtl5000: Fix noise on shutdown/remove	sound/soc/codecs/sgtl5000.c;sound/soc/codecs/sgtl5000.h	-
+035	249fe2d20d55d7bd01779ec802cc9967a758a092	eeca93a403618d1c0727f120d1b65a834121841d	picked	ASoC: tas2764: Add post reset delays	sound/soc/codecs/tas2764.c	-
+036	52d1b4250ca9d1090d4cdbc4cb35d6be64fe1cce	491f8686fd220158ee6ad4b9047835e9a3694bf8	picked	ASoC: tas2764: Fix and extend FSYNC polarity handling	sound/soc/codecs/tas2764.c;sound/soc/codecs/tas2764.h	-
+037	f1cd988de463cd464c6844aa6f24ee79e085f1fd	9a02957d3a9764538398294f1b11afe3e0ac21c6	picked	ASoC: tas2764: Correct playback volume range	sound/soc/codecs/tas2764.c	-
+038	bb8bf8038771ba612000965915758cc364c4ca52	b18d405088072ee71b1cd884b5a0a2e8c03d2e4b	picked	ASoC: tas2764: Fix amp gain register offset & default	sound/soc/codecs/tas2764.c	-
+039	fbb87a0ed216c48109fb3c8b502cc772b23a4290	ac1404e7fbce88bc3543d5bb13425244fa452ad9	picked	ASoC: Intel: Skylake: Correct the ssp rate discovery in skl_get_ssp_clks()	sound/soc/intel/skylake/skl-nhlt.c	-
+040	cd201332cc397ab999a0af8ad3b4888f521b8a15	bd9a4e1b37da36f3a95381bbfeaa02213ac1fe5d	picked	ASoC: Intel: Skylake: Correct the handling of fmt_config flexible array	sound/soc/intel/skylake/skl-nhlt.c	-
+041	9cc8edc571b871d974b3289868553f9ce544aba6	91d8b00595061438b9e4cabc7e358a0d7a27600a	picked	net: stmmac: dwc-qos: Disable split header for Tegra194	drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c	-
+042	80cc28a4b4847894e450a591ea2883dead524214	-	already-present	sysctl: Fix data races in proc_dointvec().	kernel/sysctl.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+043	d5d54714e329f646bd7af4994fc427d88ee68936	-	already-present	sysctl: Fix data races in proc_douintvec().	kernel/sysctl.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+044	71ddde27c2eba5223c350513dd7d524c3cf1d6a4	-	already-present	sysctl: Fix data races in proc_dointvec_minmax().	kernel/sysctl.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+045	e3a2144b3b6bf9ecafd91087c8b8b48171ec19df	-	already-present	sysctl: Fix data races in proc_douintvec_minmax().	kernel/sysctl.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+046	a5ee448d388cdafb154c10bde41865fb9ccf76a4	-	already-present	sysctl: Fix data races in proc_doulongvec_minmax().	kernel/sysctl.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+047	609ce7ff75a75aff2c2301094bb1572544b3ffa7	-	already-present	sysctl: Fix data races in proc_dointvec_jiffies().	kernel/sysctl.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+048	6481a8a72a746dc96e3aa70a9f9f6d3daf0f88c2	42784da94082b013dc68f237a9a1d2dd20b03b71	picked	tcp: Fix a data-race around sysctl_tcp_max_orphans.	net/ipv4/tcp.c	-
+049	d54b6ef53cbcc40c61e83e7410451e19a038e6b0	124fb7a59f50a80bb5fa8985c687ec633e8430f7	picked	inetpeer: Fix data-races around sysctl.	net/ipv4/inetpeer.c	-
+050	f5811b8df2b97abb2a0c8936cdbdc4dc4457a9c2	-	already-present	net: Fix data-races around sysctl_mem.	include/net/sock.h	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+051	fe2a35fa2c4f9c8ce5ef970eb927031387f9446a	30d066106a9822414efb42abcc2db4e446ff5db9	picked	cipso: Fix data-races around sysctl.	Documentation/networking/ip-sysctl.rst;net/ipv4/cipso_ipv4.c	-
+052	e088ceb73c24ab4774da391d54a6426f4bfaefce	ad53e68af94d964a503d4fe5ee0f859026b35a2a	picked	icmp: Fix data-races around sysctl.	net/ipv4/icmp.c	-
+053	418b191d5f223a8cb6cab09eae1f72c04ba6adf2	83716fd12d93631dbd91cda7c450ee844dabb016	picked	ipv4: Fix a data-race around sysctl_fib_sync_mem.	net/ipv4/fib_trie.c	-
+054	e1aa73454ab4134c86b63b9cb805f5a0bc40f310	e5400f200f6388bd1813bcdfda9f869dd28fc5fe	picked	ARM: dts: at91: sama5d2: Fix typo in i2s1 node	arch/arm/boot/dts/sama5d2.dtsi	-
+055	359f2bca798968f6e680b0dcb79776abb2a205c6	d15a8394f313cb3d7b430090f8f31c484e8fdbbc	picked	ARM: dts: sunxi: Fix SPI NOR campatible on Orange Pi Zero	arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts	-
+056	636e5dbaf097aaf66b6234f0b10598d44ccc8a87	3aea7bfe4144d9b0d55840e8a6e8c83060bc297e	picked	drm/i915/selftests: fix a couple IS_ERR() vs NULL tests	drivers/gpu/drm/i915/gt/selftest_lrc.c	-
+057	2744e302e752fe3538dfefa406f382cd90681963	2c0b458dd1fa0251c7f9990f418840d030dfa861	picked	drm/i915/gt: Serialize TLB invalidates with GT resets	drivers/gpu/drm/i915/gt/intel_gt.c	-
+058	b8871d9186029458786f62e8f8ef72543ea274ac	-	already-present	sysctl: Fix data-races in proc_dointvec_ms_jiffies().	kernel/sysctl.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+059	4ebf26153215cbc3826d5ec57f051c3ec6c95b22	7a3bb9742db626038f9e935ea33a8bd8c93322b3	picked	icmp: Fix a data-race around sysctl_icmp_ratelimit.	net/ipv4/icmp.c	-
+060	38d78c7b4be7759555d45181213a7845aad279e2	35964243acdd20f9c1ffce7ecbc4751a1a57a644	picked	icmp: Fix a data-race around sysctl_icmp_ratemask.	net/ipv4/icmp.c	-
+061	038a87b3e460d2ee579c8b1bd3890d816d6687b1	e229d51c50fd2acf8069d4e53ee3af1d51bc9c54	picked	raw: Fix a data-race around sysctl_raw_l3mdev_accept.	include/net/raw.h	-
+062	2c56958de89b9a2efdb19310e3f11a6b97254d39	5b90fe812d1284ca9db32a7ad860de05d1e18474	picked	ipv4: Fix data-races around sysctl_ip_dynaddr.	Documentation/networking/ip-sysctl.rst;net/ipv4/af_inet.c	-
+063	a51040d4b120f3520df64fb0b9c63b31d69bea9b	05f3d56e15e033a74eda65e61dc057fc65d12a25	picked	nexthop: Fix data-races around nexthop_compat_mode.	net/ipv4/fib_semantics.c;net/ipv4/nexthop.c;net/ipv6/route.c	-
+064	29c6a632f8193b0a4b40156afb823371d1d4c05a	93d99e61365f06039c5cefe4145398d9c8c27ac5	picked	net: ftgmac100: Hold reference returned by of_get_child_by_name()	drivers/net/ethernet/faraday/ftgmac100.c	-
+065	eb360267e1e972475023d06546e18365a222698c	7ff3cd0e19bf751f0fd54890a3d1179a630b763d	picked	ima: force signature verification when CONFIG_KEXEC_SIG is configured	arch/x86/kernel/ima_arch.c;include/linux/kexec.h;kernel/kexec_file.c	-
+066	c1d9702ceb4a091da6bee380627596d1fba09274	4c889892bc54c6434468e51d19f1c23f5518ed76	picked	ima: Fix potential memory leak in ima_init_crypto()	security/integrity/ima/ima_crypto.c	-
+067	c2240500817b3b4b996cdf2a461a3a5679f49b94	f2722f6ee8234fdf323407317b50c6adfbdc4017	picked	sfc: fix use after free when disabling sriov	drivers/net/ethernet/sfc/ef10_sriov.c	-
+068	834fa0a22fe827ec443543ddab8939fb5d58d1f1	2fee6179d29a5f8308a5e9d552e3281a15cd1b8c	picked	seg6: fix skb checksum evaluation in SRH encapsulation/insertion	net/ipv6/seg6_iptunnel.c	-
+069	7b38df59a8f4119e1c9d83922f28c67fac9291d8	489b7bce1337d86a42ac0acb614f301c4a7dccdb	picked	seg6: fix skb checksum in SRv6 End.B6 and End.B6.Encaps behaviors	net/ipv6/seg6_local.c	-
+070	2d4efc9a0e853400dd9e453c63bf5e16aee2c399	401526c9a0a25b03864c19d55d10dac6f41cd703	picked	seg6: bpf: fix skb checksum in bpf_push_seg6_encap()	net/core/filter.c	-
+071	b82e4ad58a7fb72456503958a93060f87896e629	508387a7a78e0e1e749cac670a769ce5e92fcc2a	picked	sfc: fix kernel panic when creating VF	drivers/net/ethernet/sfc/ef10.c	-
+072	38e081ee06cb5892d1bb9a4565518485d435bbd1	012dcc0230573f1707cff119f2d762e49a3eb61f	picked	net: atlantic: remove deep parameter on suspend/resume functions	drivers/net/ethernet/aquantia/atlantic/aq_pci_func.c	-
+073	c2978d0124f26e453ed30fda6a37f62d8c7f19cb	f844febe912b6e8d4697cf1ecbb02b7c5f8a548e	picked	net: atlantic: remove aq_nic_deinit() when resume	drivers/net/ethernet/aquantia/atlantic/aq_pci_func.c	-
+074	eb58fd350a851b5cda9f4c9a2cefb15c7ccf33f3	4ee61e70799febb8505197192a2d264a3ad23ade	picked	KVM: x86: Fully initialize 'struct kvm_lapic_irq' in kvm_pv_kick_cpu_op()	arch/x86/kvm/x86.c	-
+075	c713de1d80a5d7035dc7f667b485bded83b4e74a	a77ce0c3a64945661b2eb95bf00b968ea1653fd1	picked	net/tls: Check for errors in tls_device_init	include/net/tls.h;net/tls/tls_device.c;net/tls/tls_main.c	-
+076	31e16a5e113fd843785194b28cbb16c1541e65ba	-	already-present	mm: sysctl: fix missing numa_stat when !CONFIG_HUGETLB_PAGE	kernel/sysctl.c	Original NUMA sysctl relocation already present with one complete numa_stat entry under CONFIG_NUMA outside CONFIG_HUGETLB_PAGE, same handler/mode/bounds. Preserve intervening OEM ION settings; no duplicate sysctl or provider change.
+077	d6115800325c984f51532b67c6e8420704583101	c62ea1b9bc980dec9402ca76393696dc608c6be4	picked	virtio_mmio: Add missing PM calls to freeze/restore	drivers/virtio/virtio_mmio.c	-
+078	93135dca8c4c4a107ea8125ace32ea3c08fe3d84	5b60e274768dd6b1d5f7c2ae4001f7314337ee44	picked	virtio_mmio: Restore guest page size on resume	drivers/virtio/virtio_mmio.c	-
+079	c458ebd6591e4dea76849ddfe62bf3c623e09b19	5dd082e0805bc464d3e5d3b5f1eb9f775747964c	picked	netfilter: br_netfilter: do not skip all hooks with 0 priority	net/bridge/br_netfilter_hooks.c	-
+080	24cd0b9bfdff126c066032b0d40ab0962d35e777	8ce871a7ac3730945b0e650b0901d77b099ace51	picked	scsi: hisi_sas: Limit max hw sectors for v3 HW	drivers/scsi/hisi_sas/hisi_sas_v3_hw.c	-
+081	3ea9dbf7c2f436952bca331c6f5d72f75aca224e	9ef93312c97bf5d45d78cae508ceb86c4a14b0f0	picked	cpufreq: pmac32-cpufreq: Fix refcount leak bug	drivers/cpufreq/pmac32-cpufreq.c	-
+082	bacfef0bf2fa26e7386a08d02235957a0e2a54b5	73878cebea2ce18fdcdda40ef75b3b621dbe2315	picked	platform/x86: hp-wmi: Ignore Sanitization Mode event	drivers/platform/x86/hp-wmi.c	-
+083	efa78f2ae363428525fb4981bb63c555ee79f3c7	28e858274dcbc968a0fff381ee99ba374a34781b	picked	net: tipc: fix possible refcount leak in tipc_sk_create()	net/tipc/socket.c	-
+084	de876f36f9a34eaa2fbcfab0123975970f9db1fa	edbf8e4769df9bd19d20285248d2ad9e600cdeb0	picked	NFC: nxp-nci: don't print header length mismatch on i2c error	drivers/nfc/nxp-nci/i2c.c	-
+085	5504e63832e7eb72607149ab5a83b155efd35d14	f8882057bc755bf5fad168b1a074520a46341475	picked	nvme-tcp: always fail a request when sending it failed	drivers/nvme/host/tcp.c	-
+086	104594de27789971e086aa92fb3f1b1da4887ede	07126630d5fdfeae7a6596d57036029f945cd69f	picked	nvme: fix regression when disconnect a recovering ctrl	drivers/nvme/host/core.c;drivers/nvme/host/nvme.h;drivers/nvme/host/rdma.c;drivers/nvme/host/tcp.c	-
+087	67dc32542a1fb7790d0853cf4a5cf859ac6a2002	25870b4666921ac20bf75b83c170521188bb539d	picked	net: sfp: fix memory leak in sfp_probe()	drivers/net/phy/sfp.c	-
+088	13fb9105cfc9693d1218ab8a6dbf7a51abd1333d	207c177159539cacf04591561337271fc8dd5e1a	picked	ASoC: ops: Fix off by one in range control validation	sound/soc/soc-ops.c	-
+089	ef1e38532f4b2f0f3b460e938a2e7076c3bed5ee	a870b725c8b1dfcb2a884fe5f89305fa20a8649b	picked	pinctrl: aspeed: Fix potential NULL dereference in aspeed_pinmux_set_mux()	drivers/pinctrl/aspeed/pinctrl-aspeed.c	-
+090	6cbbe59fdc7e01a614481831fbd61ff143140947	6e633593a5e5411b513fdb57b055384bd2003f16	picked	ASoC: SOF: Intel: hda-loader: Clarify the cl_dsp_init() flow	sound/soc/sof/intel/hda-loader.c	-
+091	11a14e4f31b73adc90b9f55277343080bfe311a5	57c397c116dc59590d14188641f826366aefe53a	picked	ASoC: wm5110: Fix DRE control	sound/soc/codecs/wm5110.c	-
+092	41f97b0ecfb345c98db4e7d7db21793bd1ae0920	-	already-present	ASoC: dapm: Initialise kcontrol data for mux/demux controls	sound/soc/soc-dapm.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+093	a7634527cb231ddc6049bc90608c6a2b309bdc25	fb2411bd6a990fef48ac85ba26bf57aac698af50	picked	ASoC: cs47l15: Fix event generation for low power mux control	sound/soc/codecs/cs47l15.c	-
+094	cae4b78f3c7d0874c05f01474ad8a84ec3533a45	4c514cd872795b9060032df414695af9ade5ef16	picked	ASoC: madera: Fix event generation for OUT1 demux	sound/soc/codecs/madera.c	-
+095	dae43b37925c7acead2ae0e4a1b64ec813c22321	e8b29d0a64edcee58a2dada57c47a39a771ac0dd	picked	ASoC: madera: Fix event generation for rate controls	sound/soc/codecs/madera.c	-
+096	fd830d8dd59a8040a9c3009c8d6e175c3f23637c	b8069e31b4512e200cd02b8a70567f194f30ec7b	picked	irqchip: or1k-pic: Undefine mask_ack for level triggered hardware	drivers/irqchip/irq-or1k-pic.c	-
+097	136d7987fcfdeca73ee3c6a29e48f99fdd0f4d87	f61c1d6ecb6fcb4e81b41f78db9e4555962ff989	picked	x86: Clear .brk area at early boot	arch/x86/kernel/head64.c	-
+098	227ee155eaf528e3b446b976e08b8698d2ad683a	9894ae0e26bff09ccc6f227e272dd7b8d116c4b3	picked	soc: ixp4xx/npe: Fix unused match warning	drivers/soc/ixp4xx/ixp4xx-npe.c	-
+099	35ce2c64e57e51be166f575330968b6b31298d6d	1e58745f7c94a3d146a14a1c771fdc3654e96c02	picked	ARM: dts: stm32: use the correct clock source for CEC on stm32mp151	arch/arm/boot/dts/stm32mp151.dtsi	-
+100	54bf0b8c75af7663ce802178c93163e6695dbe39	0259f4388c984e2c43686d5521c9614cae9465c8	picked	Revert "can: xilinx_can: Limit CANFD brp to 2"	drivers/net/can/xilinx_can.c	-
+101	e75f692b79b477826296841d1535dae6e3eaa8bb	fd6f6e93a482b8d8ea617a0bd7ce7f4769cf68db	picked	nvme-pci: phison e16 has bogus namespace ids	drivers/nvme/host/pci.c	-
+102	58b94325ee80c709f57b15f762bf3b25d8a534f1	-	already-present	signal handling: don't use BUG_ON() for debugging	kernel/signal.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+103	61ab5d644e16f0e27d31c8e2d33cbf6f570c3714	ebe39a9965c6e6cbc0706451365bdfca763b8a96	picked	USB: serial: ftdi_sio: add Belimo device ids	drivers/usb/serial/ftdi_sio.c;drivers/usb/serial/ftdi_sio_ids.h	-
+104	f1e01a42dcbde7d210a1b0688e6a07b1bb6b45f7	165429632209036d7314d07974928bde41067eed	picked	usb: typec: add missing uevent when partner support PD	drivers/usb/typec/class.c	-
+105	0e5668ed7b7aaab4a53126daeef0258c5c573d5d	679316e1482012a1080af72ced99ce7723c7401d	picked	usb: dwc3: gadget: Fix event pending check	drivers/usb/dwc3/gadget.c	-
+106	5450430199e319446d6b7a0ec963e3c951b121ab	9aba906fcdf6563fa5922156c4b2bf6c4342dbcb	picked	tty: serial: samsung_tty: set dma burst_size to 1	drivers/tty/serial/samsung_tty.c	-
+107	bfee93c9a6c395f9aa62268f1cedf64999844926	b40f9b196a94fc63ca8b117c211bad317f62b3e1	picked	vt: fix memory overlapping when deleting chars in the buffer	drivers/tty/vt/vt.c	-
+108	039ffe436ae55dabfaa4f46be39a7214c910cacc	1cadd37b9df9181f03cfad3be2cd6437bdabb276	picked	serial: 8250: fix return error code in serial8250_request_std_resource()	drivers/tty/serial/8250/8250_port.c	-
+109	b8c4661126568b8cd3e18908b920c3f83eba28e1	71e9cb5abad6d50d2c3c1cc23213a437686c5778	picked	serial: stm32: Clear prev values before setting RTS delays	drivers/tty/serial/stm32-usart.c	-
+110	e1bd94dd9e5c63ac7280d67e730061cf684125ba	0bcd2a3f705533437fc35267f7dc2cba4856baa5	picked	serial: pl011: UPSTAT_AUTORTS requires .throttle/unthrottle	drivers/tty/serial/amba-pl011.c	-
+111	d9cb6fabc90102f9e61fe35bd0160db88f4f53b4	8a45535bf0d401d01d8e1c01343b8147825d587c	picked	serial: 8250: Fix PM usage_count for console handover	drivers/tty/serial/8250/8250_core.c;drivers/tty/serial/serial_core.c;include/linux/serial_core.h	-
+112	06a5dc3911a3b29acefd53470bdeccb88deb155e	a739bfaaaa803e1081d1c22067532510c7e9cff1	picked	x86/pat: Fix x86_has_pat_wp()	arch/x86/mm/init.c	-
+113	7748091a31277b35d55bffa6fecda439d8526366	a428d45eb4924e8ff82baf9a90cb501679997177	backported	Linux 5.10.132	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

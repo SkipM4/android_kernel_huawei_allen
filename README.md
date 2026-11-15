@@ -6,9 +6,9 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.130 #68, with kernel source
-`7c9fa502b`, normal Android, completed ISP firmware startup and automatic
-loading of the same-build signed modem. #67/5.10.125 is the immediate paired
+The installed upstream milestone is Linux 5.10.135 #69, with kernel source
+`6d6830bed`, normal Android, completed ISP firmware startup and automatic
+loading of the same-build signed modem. #68/5.10.130 is the immediate paired
 rollback. #65 remains a failed HKIP firmware-boot candidate, not an accepted
 runtime. Ordered synchronization
 toward the pinned 5.10.274 target continues; Android common parity, vendor/core
@@ -360,6 +360,38 @@ originals and recent #64-68 pairs remain local below 20 GB. Next is complete
 PRMEM arena and two source-only fbcon findings, full hardware/power, the
 pinned 5.10.274 target and ACK/vendor-core/GKI work remain open. No release
 is exported or published.
+
+### Linux 5.10.131-135 Milestone
+
+All 432 canonical stable entries are resolved in order: 374 exact picks,
+27 adaptations and 31 already-present implementations. The 401 original-author
+source commits end at `6d6830bed`, without a separate kernel integration.
+POSIX timer teardown preserves the exec cleanup boundary; network unregister
+and TCP single-snapshot fixes retain hardware/OEM consumers. TTY API retirement
+and the pty insertion/commit transaction preserve the existing port lock and
+UART_V500 queue. x86 RETBleed/objtool changes migrate retained mcount and shared
+build-rule consumers without relaxing ARM64 CFI, ThinLTO or BHB.
+
+One full build produces 5.10.135 #69 with no effective or emitted configuration
+delta. Thirteen actual ordinary C contexts, the new BPF test callback's precise
+type and 64-byte context, 29 targets in twelve final CFI groups, and fourteen
+current generated OEM selectors pass scoped checks. VLAN remains disabled and
+source-only; a diagnostic selection correction does not force it into the
+build. There are 13,836 exports, only `tty_schedule_flip` removed, and no changed
+shared CRCs versus #68. All 390 modem and two optional dummy imports match.
+
+Stock-format boot roundtrip, CMS signature/certificate and ext4 metadata pass.
+Paired #69 installation reaches normal Android with automatic matching Live
+modem, complete partition/module/build-id readbacks, unlocked user storage,
+required services and completed same-thread ISP firmware startup. Independent
+ramdisk, SELinux Enforcing, taint4, forced signatures and PRMEM remain. Complete
+logs contain no actual kernel/module fault; 519 AVC denials remain visible,
+none requests module loading. Original tracing and Asleep are restored.
+#68 is immediate paired rollback; compact metadata and recent #65-69 pairs
+remain local below 20 GB. Next is complete 5.10.136-140, whose 812 original
+inputs are prepared but not yet imported. The pinned 5.10.274 target, SELinux
+PRMEM arena/fbcon/AMA lifetime findings, hardware/power and ACK/vendor-core/GKI
+work remain open. No release export or publication occurs.
 
 For later stable milestones, the user's acceptance gate is normal Android
 boot with automatic loading of the matching module. Retain build, signing,

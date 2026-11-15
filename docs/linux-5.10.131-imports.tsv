@@ -1,0 +1,3 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	cc5ee0e0eed0bec2b7cc1d0feb9405e884eace7d	62836eeb5217a6624f222bd659af9db545b25c31	picked	Revert "mtd: rawnand: gpmi: Fix setting busy timeout setting"	drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c	-
+002	8f95261a006489c828f1d909355669875649668b	eca7fca20d4e74723ad73d0636c16474a7b07ff8	backported	Linux 5.10.131	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

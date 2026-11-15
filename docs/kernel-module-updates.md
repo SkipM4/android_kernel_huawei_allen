@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.130
-#68 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.135
+#69 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -390,6 +390,31 @@ same-thread ISP firmware startup completes. No old module is resigned,
 version-patched or force-loaded. Immediate paired rollback is #67; the pinned
 latest-stable target, inherited source findings and ACK/GKI remain open.
 
+The installed 5.10.135/#69 milestone has 13,836 exports: only the retired
+`tty_schedule_flip` disappears, with no changed shared CRC, provider, export
+type or namespace versus #68. All 390 rebuilt modem imports and two optional
+dummy imports match. The retired symbol is not a modem dependency. The TTY
+port lock and UART_V500 queue remain, while pty insertion and buffer commit
+share one transaction without recursively calling the locking public push.
+
+Thirteen current ordinary C contexts bind actual source/commands/dependencies;
+VLAN is disabled by the unchanged configuration and is source-only, not a
+forced-build success. The new BPF SK_LOOKUP test producer, table assignment
+and syscall type check agree on one precise CFI type and the retained 64-byte
+UAPI context. The actual final table pointer and selected 29 targets in twelve
+CFI groups pass separately from export CRCs. Fourteen current generated OEM
+selectors retain specific direct-source applicability; equality of an old
+object or opaque layout is not presumed. No old NFT decoder/layout proof is
+replayed.
+
+The stripped matching modem is CMS-verified against the unchanged trusted
+certificate embedded in the current kernel, staged with stock ext4 ownership,
+mode and SELinux label, and installed with #69 boot. Normal Android loads it
+automatically. Live build-id and complete module/partition readbacks match;
+ISP firmware startup, unlocked user storage, required services and enforcing
+controls remain. The dummy is not installed. This is same-build integration,
+not independent stable KMI, arbitrary old-module reuse or GKI certification.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -430,13 +455,13 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #68's immediate rollback:
+overwrite existing candidates. The previous pair is #69's immediate rollback:
 
-- `images/test/allen-boot-test-5.10.125-clang12-r67.img`.
-- `images/test/allen-modem_driver-test-5.10.125-clang12-r67.img`.
-- `images/test/allen-modem_driver-test-5.10.125-clang12-r67.ko`.
+- `images/test/allen-boot-test-5.10.130-clang12-r68.img`.
+- `images/test/allen-modem_driver-test-5.10.130-clang12-r68.img`.
+- `images/test/allen-modem_driver-test-5.10.130-clang12-r68.ko`.
 
-The installed next pair uses `5.10.130-clang12-r68` with the same device/purpose
+The installed next pair uses `5.10.135-clang12-r69` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

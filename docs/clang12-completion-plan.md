@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #68/5.10.130 on `upstream/linux-5.10.y`, kernel source
-through `7c9fa502b`. Immediate paired rollback is #67/5.10.125. #65 remains a
+Installed candidate is #69/5.10.135 on `upstream/linux-5.10.y`, kernel source
+through `6d6830bed`. Immediate paired rollback is #68/5.10.130. #65 remains a
 failed HKIP firmware-boot candidate with successful paired #64 recovery;
 r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
@@ -65,7 +65,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.130 Resolved; #68 Full Build/Current Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/ISP Firmware Path Pass; #67 Immediate Rollback; #65 Failed Evidence Retained; Next Complete 5.10.131-135; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.135 Resolved; #69 Full Build/Current Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/ISP Firmware Path Pass; #68 Immediate Rollback; #65 Failed Evidence Retained; Next Complete 5.10.136-140; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -516,6 +516,38 @@ SELinux PRMEM arena capacity/reclamation/lifetime, two inherited source-only
 fbcon findings, selected AMA/full io_uring/OOM and async HKIP atomicity,
 network/hardware/power and ACK/vendor-core/GKI remain open. A successful stable
 milestone is not release, independent KMI or production certification.
+
+### Linux 5.10.131-135 Follow-up
+
+The complete 432-entry official range resolves 374 exact picks, 27 adaptations
+and 31 already-present implementations. Its 401 original-author commits end
+at `6d6830bed`; no separate kernel integration is required. Exec/POSIX timer
+teardown, network unregister/reference waiting, TCP single snapshots and TTY
+insertion/publication retain the real OEM hardware/caller contracts. x86
+RETBleed/objtool changes update retained mcount and shared build-rule callers
+without changing ARM64 security configuration.
+
+One necessary full kernel/module build produces #69. Effective/emitted
+configuration and signing material are unchanged. Thirteen actual ordinary
+C contexts, the new BPF callback's three-way type agreement/64-byte UAPI,
+29 actual targets in twelve final CFI groups and fourteen generated selectors
+pass. VLAN was mistakenly selected by the diagnostic context list despite
+CONFIG_VLAN_8021Q=n; it remains source-only, without a forced build or new
+configuration. No old NFT parser/layout proof is replayed. There are 13,836
+exports, only retired `tty_schedule_flip` removed, and no shared CRC changes;
+390 modem and two optional dummy imports match.
+
+Matched stock-format boot and CMS-signed ext4 module staging pass. Normal #69
+Android automatically loads the matching Live modem, with complete partition/
+module/build-id readbacks, unlocked user storage, required services and six
+same-thread ISP firmware startup stages. Independent ramdisk, Enforcing,
+taint4, forced signatures and PRMEM remain. Complete boot/later logs contain
+no actual kernel/module fault; 519 AVC denials remain visible, none requests
+module loading. Original tracing and Asleep are restored. #68 is immediate
+paired rollback; #65-69 test pairs and compact metadata remain below 20 GB.
+Next is complete 136-140, with 812 original inputs prepared but not imported.
+The pinned target274, source-only lifetime findings, ACK/vendor-core/GKI and
+full hardware/power remain open. No release is exported or published.
 
 ## Next-Stage Work Queue
 

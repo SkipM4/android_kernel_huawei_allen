@@ -3227,3 +3227,148 @@ residuals, ext4/AMA/full io_uring/OOM, async HKIP atomicity, NFC allocation
 ownership and broad hardware/network/performance/power remain open. Linux
 stable synchronization is not Android common parity, vendor/core separation,
 standard GKI or independent stable KMI.
+
+## Linux 5.10.131-135 Installed Milestone
+
+The source remains canonical Linux stable
+<https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git>, from
+v5.10.130 (`26ae9c361414418ed02d6e97b3d0c8eaa93be355`) exclusive to
+v5.10.135 (`4fd9cb57a3f5e611efde7772643134385de3a5a6`) inclusive. Every
+original first-parent commit is accounted for with author, message, stable
+identity, full-index patch and mode provenance. Five per-release ledgers
+record the actual local outcomes, not only a preview projection.
+
+| Release | Original Entries | Exact Picks | Adapted | Already Present |
+| --- | --- | --- | --- | --- |
+| 5.10.131 | 2 | 1 | 1 | 0 |
+| 5.10.132 | 113 | 97 | 2 | 14 |
+| 5.10.133 | 149 | 133 | 16 | 0 |
+| 5.10.134 | 102 | 85 | 7 | 10 |
+| 5.10.135 | 66 | 58 | 1 | 7 |
+| Total | 432 | 374 | 27 | 31 |
+
+The 401 original-author source commits end at
+`6d6830bedf7d0bb6f0b0d6ef509f91c417c5b5fa`, kernel subtree
+`6540971bb758ca31a34011d3c1a921d7647bff71`. All five actual release-marker
+trees match the reviewed ordered package. There is no separate range-external
+kernel integration. Makefile markers change only SUBLEVEL, retaining local
+build rules, exports and mode.
+
+Actual author/date identities match for all 401 source commits. Canonical
+stable-to-local identities are in the durable ledgers. Exact picks retain
+the original messages (one standard mboxrd `>From` dequoting); adapted commits
+include stable trailers. The exact-pick importer's appended trailer was in
+format-patch commentary, not the resulting commit message. This is recorded
+without rewriting accepted history; the next importer must place provenance
+inside the message rather than relying on diff commentary.
+
+### Source Contracts And OEM Adaptations
+
+132 POSIX timer teardown passes the task at both group exit and exec. It
+detaches the shared timer list under sighand siglock and deletes the private
+list outside that lock, retaining the existing exec POSIX CPU timer cleanup
+and siglock boundary. Already-present cgroup and NUMA implementations are not
+inserted twice. DWC3 pending-clear ordering retains the real pullup/PM hooks.
+
+133 imports the complete x86 RETBleed and objtool series. Shared relocation
+APIs migrate the retained local mcount producer as well as canonical static
+call/ORC consumers; independent mcount/retpoline/return lists remain separate.
+Existing CFI section skips and the compiler-generated int3 target remain.
+New x86 SLS/rethunk/unret options are placed in the actual shared
+`scripts/Makefile.lib` and current link dispatch, not an obsolete upstream
+context. Host-tool unwind CFI is not kernel Clang CFI. ARM64 BHB, enforcing
+CFI, ThinLTO and configuration are not weakened by this x86-only series.
+
+134 applies the original netdev unregister/reference/destructor transaction.
+Notifier failure queues the todo/reference wait while retaining caller-owned
+explicit free; all single/many callers migrate without deleting OEM hooks.
+TCP/IPv4 sysctl readers receive every original READ_ONCE or single-snapshot
+operation around Bastet/Xengine, netqos, MSS and QUICK_START contexts. GPIO
+inclusive bounds and deadline deboost checks are already present. MPOL_LOCAL
+is internally normalized to MPOL_PREFERRED with MPOL_F_LOCAL in this tree;
+the existing short-circuit/rebind representation already excludes the original
+uninitialized-mask read. No unreachable mode guard or AMA ABI change is added;
+the independent AMA allocator finding remains open.
+
+134 retires `tty_schedule_flip` after all canonical callers migrate. The
+public push retains its port lock and UART_V500 workqueue selection. The pure
+commit helper allows the original pty combined insertion/publication helper
+to hold one complete lock transaction and queue work outside it, without
+recursively acquiring the public push lock. Whole-tree source references to
+retired TTY and TCP ping-pong APIs are absent; the modem does not import the
+retired TTY symbol. 135 BPF timing consolidation and SK_LOOKUP test support
+carry all producer, declaration, callback-table, syscall and mirrored UAPI
+operations together. Later L2CAP/NTFS/UFS/challenge-ACK/watermark fixes already
+present retain their stronger local validation or later fix.
+
+### Actual #69 Build And Current Interfaces
+
+One natural configuration/prepare and one necessary full kernel/module build
+produce Linux 5.10.135 #69. Effective and emitted configuration deltas versus
+accepted #68 are empty. Android Clang/LLD 12.0.7, ThinLTO, enforcing CFI, BHB,
+the actual Makefile Werror flags and signing/security configuration remain.
+CONFIG_UNMAP_KERNEL_AT_EL0 stays disabled as before; this tree has no
+CONFIG_WERROR option. Diagnostic-only assumptions about those controls are
+corrected without changing configuration or rebuilding it.
+
+Thirteen actual ordinary C contexts bind complete source/generated dependency
+records, commands and compiler identity. The diagnostic input list also named
+VLAN, but CONFIG_VLAN_8021Q=n means no such object is naturally built; it is
+recorded as source-only rather than forced-built. Three actual BPF objects
+are decoded once into retained optimized IR. The producer, callback assignment
+and syscall type test agree on `0x65c1662a2926e9a9`; the 64-byte SK_LOOKUP
+context keeps its member offsets and cookie/socket union at offset zero.
+Compiled cookie generation is inlined, not an expected standalone call.
+
+The final current AArch64 ELF checks 51 live symbols, retired RNG/TTY symbols
+absent, 29 selected normal targets in twelve precise CFI groups and the real
+`sk_lookup_prog_ops` pointer to its canonical target. Fourteen generated OEM
+selectors are snapshotted against the current build and five unchanged direct
+declaring/provider sources. Particular prior callback/type and NFT source
+applicability is carried by explicit source scope; old ELF addresses, object
+equality, NFT decoder/parser-family or layout proof are not replayed. These
+checks do not certify opaque OEM layouts or all malformed-input paths.
+
+There are 13,836 exports: only `tty_schedule_flip` is removed. No shared CRC,
+provider, export type or namespace changes versus #68. Every one of the 390
+freshly rebuilt modem and two optional dummy imports matches the current
+export table and same-build release policy. CRC equality is not independent
+stable KMI or permission to reuse arbitrary old modules; matched rebuilding
+and installation remain the verified update method. The dummy is not installed.
+
+### Paired Installation And Local Closeout
+
+Stock boot format, kernel/compressed roundtrip, firmware stub, OEM DTB/header
+and partition bounds pass. The modem is stripped before signing; CMS verifies
+against the unchanged certificate embedded in the current kernel. Stock ext4
+owner/mode/SELinux label and signed-module readback pass. Before writing, the
+installer binds the confirmed #68 identity and live boot/modem/module/ramdisk
+bytes to the retained recovery pair. Only local #69 `boot` and `modem_driver`
+are written. Independent Magisk ramdisk is unchanged.
+
+One normal #69 boot enters Android and automatically loads the matching Live
+modem. Complete boot/modem partition and module readbacks plus loaded build-id
+match. Encrypted user storage is unlocked and required services are present.
+One existing CameraDaemon thread completes all six firmware-read/ISPCPU startup/
+power-on stages; no camera UI or broad hardware replay is needed. SELinux
+Enforcing, taint4, mandatory signatureY and PRMEM enabled remain. Complete
+time-zero, boot and later logs contain no actual WARN/BUG/Oops/panic/CFI,
+HKIP root-bit or module-load fault. There are 519 visible AVC denials, none
+requests module loading. Original tracing-off/wifi instance and Asleep screen
+are restored. No second accepted boot is repeated.
+
+Immediate paired rollback is #68/5.10.130. Current compact metadata is retained
+before output reuse; originals, #17, signing source and required reference/cache
+dependencies remain. The latest-five test window becomes #65-69, with only
+expired #64 images/module and consumed full build/runtime logs retired. #65
+is still a failed HKIP firmware-boot candidate, not a successful runtime. The
+workspace stays below 20 GB; no private signing key is copied into metadata.
+No artifact bundle, release tag, push or publication occurs.
+
+Next is complete official 5.10.136-140. Its 812 original entries are prepared
+(24/541/158/2/87), with full provenance and no source import inferred. The
+pinned 5.10.274 target, SELinux PRMEM arena capacity/reclamation/lifetime,
+two inherited source-only fbcon findings, AMA/full io_uring/OOM/ext4 broader
+safety, async HKIP atomicity, NFC allocation ownership and hardware/network/
+performance/power remain open. Stable maintenance does not establish Android
+common parity, vendor/core separation, standard GKI or independent stable KMI.
