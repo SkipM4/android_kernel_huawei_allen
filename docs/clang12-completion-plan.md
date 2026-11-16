@@ -762,6 +762,38 @@ canonical161-165 toward pinned274. ACK/vendor-core/GKI/KMI, inherited
 subsystem/hardware/network/power and inactive notifier coverage remain open;
 no release/export bundle, tag, push or publication occurs.
 
+### Complete Canonical5.10.161 And Accepted #76
+
+Complete161 imports all18 originals:16 exact, one existing Bluetooth fix and
+one adapted SUBLEVEL marker. Seventeen source commits end at `46497f881`;
+all raw author identities/timestamps and declared messages agree, and the
+actual tree matches projection. No162 migration belongs to this milestone.
+One actual prepare/full Image+modules build exits0 for5.10.161 #76 with
+unchanged configuration, security/signing material, all13,845 exports/CRCs
+and14 OEM selectors. All390 modem and two optional dummy imports match.
+Current240 actual natural contexts and three necessary HID/loopback IR
+objects pass; final ELF checks41 targets in27 CFI groups without replaying
+accepted75 layout decoders.
+
+One paired76 installation reaches normal Android with automatic matching
+Live modem, full partition/module/build-id readbacks, unlocked CE/services
+and same-thread ISP startup. Full logs have no actual kernel/module/HKIP
+fault;502 AVC denials remain, none for module loading. Independent ramdisk,
+Enforcing/taint4/signatureY/PRMEM stay; original trace/wifi and Asleep restore.
+#75 is immediate paired recovery. Compact local metadata and latest72-76
+test pairs remain below20 GB, while precise rejected71/failed65 evidence and
+original/signing/proof/alternate stores remain. No export or publication.
+
+The user explicitly approves Q3 A for162: keep the installed default
+Hyperframe34-37 interface, add explicit standard numbering mode and adapt
+actual new io_uring request/layout/lifetime ownership. The canonical import
+is5.15.85 code with5.10 reductions, also present in Android common. Installed
+vendor library opcodes overlap standard34-36 and the old bridge explicitly
+frees after completion; blind porting or disabling the feature is not an
+acceptable workaround. Continue complete162-165 with full ordered context
+validation, current migration-specific build/CFI/layout and matching modules.
+Previews alone do not establish import/build/runtime acceptance or target274.
+
 ## Next-Stage Work Queue
 
 These inherited bring-up follow-ups remain open independently of source

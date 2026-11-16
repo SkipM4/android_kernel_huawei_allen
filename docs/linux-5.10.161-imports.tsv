@@ -1,0 +1,19 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	1f7f7365aee8a3f34d6b273c332544619b860cda	897130b2a6f646f6b6a6565df0e986e5fb3e21b1	picked	udf: Discard preallocation before extending file with a hole	fs/udf/inode.c	-
+002	1a075f4a549481ce6e8518d8379f193ccec6b746	600487246d38f58a4c68d8c9dfa1509520391a24	picked	udf: Fix preallocation discarding at indirect extent boundary	fs/udf/truncate.c	-
+003	db873b770d8a1ea1ec41aa6cdc9573c4623a0293	114bf675b6985e4d779a42ce00826a947ccb7b11	picked	udf: Do not bother looking for prealloc extents if i_lenExtents matches i_size	fs/udf/truncate.c	-
+004	8b2f86f82c0e215ba3404259d89315abc15144bc	ee7180bbd3f5b692a26c2cc34d0ce44d9bacce34	picked	udf: Fix extending file within last block	fs/udf/inode.c	-
+005	c79538f32df12887f110dcd6b9c825b482905f24	918cd86734851c76eea4123760a3b395334900e0	picked	usb: gadget: uvc: Prevent buffer overflow in setup handler	drivers/usb/gadget/function/f_uvc.c	-
+006	398215f78338e79a2b6352896c902c9461b435f1	f85be2374e9cbaa4ce7efa0912f77dfd50162bf1	picked	USB: serial: option: add Quectel EM05-G modem	drivers/usb/serial/option.c	-
+007	9895ce5ea283384bc9374dc1b218f1811b16c4aa	db58adbf87e2392cb64143aa0e7686fc3fcb5200	picked	USB: serial: cp210x: add Kamstrup RF sniffer PIDs	drivers/usb/serial/cp210x.c	-
+008	5b75a004167422f1f4a8af767bd4239e53b3348c	0f69d81bbc8364e7ef934195a405ef0008b82103	picked	USB: serial: f81232: fix division by zero on line-speed change	drivers/usb/serial/f81232.c	-
+009	c8bf31a00f4f921259d950f1984fbea518eba557	fcf27a08e2bf560007d94158bdd6ca9f96e0b925	picked	USB: serial: f81534: fix division by zero on line-speed change	drivers/usb/serial/f81534.c	-
+010	9ff7aff40ef5d5d6b271bf94fb0903c5a550f557	a30d56d4e0966c6b69617c3615463358897b88dc	picked	xhci: Apply XHCI_RESET_TO_DEFAULT quirk to ADL-N	drivers/usb/host/xhci-pci.c	-
+011	f2479c3daaabccbac6c343a737615d0c595c6dc4	d2278f7d49ac391dbc571d44cfef9af96ea4ce35	picked	igb: Initialize mailbox message for VF reset	drivers/net/ethernet/intel/igb/igb_main.c	-
+012	a20b5eec0742396531cdcc2b6d655ed032a75d35	58fae4fe6d411007296c1c2c4f0fba1eb69cbd5e	picked	HID: ite: Add support for Acer S1002 keyboard-dock	drivers/hid/hid-ids.h;drivers/hid/hid-ite.c	-
+013	263a1782a618c1206e11932d4236dc3f30f856f2	56519f2b2b84c8b13e7bfefe237dfd2e910892c2	picked	HID: ite: Enable QUIRK_TOUCHPAD_ON_OFF_REPORT on Acer Aspire Switch 10E	drivers/hid/hid-ite.c	-
+014	1d5db0c322ae885bd18b73802ce34750c633adcf	b35cd326d2e770391b21ec3fd14b8822ec7f3b6a	picked	HID: ite: Enable QUIRK_TOUCHPAD_ON_OFF_REPORT on Acer Aspire Switch V 10	drivers/hid/hid-ids.h;drivers/hid/hid-ite.c	-
+015	7c3a523c9b19ba94c3cade5b2d4612bedcf22e21	a1587db8486a17df44fed263ab72045fe4e83f43	picked	HID: uclogic: Add HID_QUIRK_HIDINPUT_FORCE quirk	drivers/hid/hid-uclogic-core.c	-
+016	f3fe6817156a2ad4b06f01afab04638a34d7c9a6	-	already-present	Bluetooth: L2CAP: Fix u8 overflow	net/bluetooth/l2cap_core.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+017	eec1c3ade48b03d381b9e4a787970d8ddaf1c0b6	1d6258ebce0dee4306ea41271ad1751f90930297	picked	net: loopback: use NET_NAME_PREDICTABLE for name_assign_type	drivers/net/loopback.c	-
+018	1a9148dfd8e03835dc7617cee696dd18c0000e99	46497f8818a6fa06914bbd1d0fdf0dfb01a99033	backported	Linux 5.10.161	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

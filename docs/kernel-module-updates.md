@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.155
-#74 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.161
+#76 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -574,6 +574,31 @@ exception with exact source/date/signoffs retained, not a rewrite of history.
 Same-build success is not opaque OEM ABI, independent module reuse, stable
 KMI, ACK/vendor split or GKI certification.
 
+### 5.10.161 #76: Complete Independent Stable Milestone
+
+Complete161 accounts for18 originals and17 source commits. The actual full
+Image/modules build exits0 with unchanged accepted75 configuration/security/
+signing material. All13,845 exports retain CRCs, providers, types and
+namespaces;390 rebuilt modem and two optional dummy imports match. Fourteen
+generated OEM selectors and their provider sources remain. Three current
+HID/loopback objects bind actual types/consumers and final ELF checks41
+targets in27 CFI groups; previous75 layout/IR proofs are not replayed.
+
+The new modem is rebuilt, stripped and CMS signed against the unchanged
+embedded certificate, not substituted by a resigned old module. Original
+ext4 labels/ownership/byte readback and boot roundtrip pass. One paired76
+boot reaches normal Android with automatic Live modem, matching partition/
+file/build-id readbacks, unlocked CE/services and complete same-thread ISP
+startup. Full logs contain no actual kernel/module/HKIP fault;502 AVCs
+remain, none module loading. Ramdisk and security remain, trace/Asleep restore,
+and75 is immediate paired recovery. Dummy remains uninstalled.
+
+The next162 io_uring replacement is not included. Its now-approved explicit
+standard-mode/installed-default Hyperframe compatibility boundary requires
+new actual layout, completion-lifetime and CFI checks in addition to rebuilt
+modules; current zero CRC delta does not authorize an unchanged private ABI,
+arbitrary old-module reuse, stable KMI or GKI certification.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -614,14 +639,14 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous accepted pair is #75's immediate
+overwrite existing candidates. The previous accepted pair is #76's immediate
 rollback, not the rejected #71:
 
-- `images/test/allen-boot-test-5.10.155-clang12-r74.img`.
-- `images/test/allen-modem_driver-test-5.10.155-clang12-r74.img`.
-- `images/test/allen-modem_driver-test-5.10.155-clang12-r74.ko`.
+- `images/test/allen-boot-test-5.10.160-clang12-r75.img`.
+- `images/test/allen-modem_driver-test-5.10.160-clang12-r75.img`.
+- `images/test/allen-modem_driver-test-5.10.160-clang12-r75.ko`.
 
-The installed next pair uses `5.10.160-clang12-r75` with the same device/purpose
+The installed next pair uses `5.10.161-clang12-r76` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

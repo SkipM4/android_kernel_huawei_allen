@@ -6,12 +6,15 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.160 #75, with kernel source
-`b20c287b7`, normal Android, unlocked CE storage, completed ISP firmware
+The installed upstream milestone is Linux 5.10.161 #76, with kernel source
+`46497f881`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
-#74/5.10.155 is the immediate paired rollback. The current batch preserves
-the SDHCI platform epilogue while importing upstream voltage-switch state,
-and separately repairs a concrete io_uring backup-allocation error.
+#75/5.10.160 is the immediate paired rollback. Complete161 is accepted before
+the substantial162 io_uring replacement. Its public-mode compatibility
+boundary is now explicitly approved: keep existing Hyperframe34-37 defaults
+and offer standard numbering through an opt-in ring mode. That migration is
+not yet imported or runtime accepted. The previous SDHCI epilogue and concrete
+io_uring backup-allocation repair remain.
 Filesystem-owned keys, Huawei SDP cleanup and host OpenSSL4 PEM/CMS
 compatibility remain. #73's DWC3 disconnect/reconnect evidence is scoped to that
 accepted implementation. #71 is rejected for a real OEM
@@ -592,6 +595,38 @@ signature enforcement and PRMEM remain; trace and Asleep are restored.
 test pairs are retained below 20 GB. Next is complete canonical 5.10.161-165
 toward pinned274; ACK/vendor-core/GKI/KMI and inherited subsystem/hardware/
 power findings remain open. No release/export bundle or publication occurs.
+
+### Linux 5.10.161 Milestone And Approved162 Boundary
+
+Complete canonical161 accounts for all18 originals:16 exact picks, one
+already-present Bluetooth overflow fix and the adapted SUBLEVEL marker.
+Seventeen source commits end at `46497f881`; its actual kernel tree agrees
+with the complete ordered preview. All17 raw authors, dates and declared
+messages match. No162 code is included in this accepted milestone.
+
+One actual full #76 Image/modules build exits0. Configuration, security,
+signing material, all13,845 exports/CRCs and14 generated OEM selectors stay
+unchanged. All390 modem and two optional dummy imports match. Three necessary
+HID/loopback objects establish the real callbacks and consumers; final ELF
+checks41 targets in27 finite CFI groups. Prior75 layout decoders are not replayed.
+
+One paired installation reaches normal Android with automatic matching Live
+modem, full partition/module/build-id readbacks, unlocked CE/services and
+same-thread six-stage ISP startup. Full logs contain no actual kernel/module/
+HKIP fault;502 AVC denials remain, none for module loading. Independent
+ramdisk, Enforcing, taint4, forced signatures and PRMEM remain; trace and
+Asleep are restored. #75 is immediate paired recovery. Local metadata and
+recent72-76 pairs remain below20 GB; no release/export/publication occurs.
+
+The user approves the162 compatibility decision after read-only evidence
+shows the installed library uses fixed Hyperframe opcodes34-37, overlapping
+canonical SHUTDOWN/RENAMEAT/UNLINKAT34-36. New completion/cache/resource-ref
+ownership also differs from the old explicit completion-plus-free bridge.
+Next is a single upstream io_uring implementation with an explicit mode and
+minimal real layout/lifetime adaptation, not disabling Hyperframe or silently
+renumbering installed userspace. The remaining162-165 originals have saved
+previews, not a complete import/build authorization. Target274 and
+ACK/vendor-core/GKI/KMI plus inherited hardware/power findings remain open.
 
 ### Installed Bring-up Baseline
 

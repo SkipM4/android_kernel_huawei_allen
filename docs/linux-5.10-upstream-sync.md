@@ -4184,3 +4184,104 @@ failed65HKIP evidence and exact referenced source/proof/alternate stores stay
 below20 GB. No signing-key copy, release/export bundle, tag, push or publication
 occurs. Next is complete canonical161-165 toward pinned5.10.274; inherited
 subsystem/hardware/power findings and ACK/vendor-core/GKI/KMI remain open.
+
+## Complete Canonical5.10.161 And Accepted #76
+
+The accepted75 documentation/source boundary remains `5b0bd0666`, with
+kernel source `b20c287b7`. The next canonical inputs are already frozen from
+kernel.org, preserving real parents, raw authors/messages, full-index patches
+and annotated tag identities. While the162 public-interface decision waits,
+complete161 is a common prerequisite of both offered choices and is imported
+without any162 migration. Do not treat its pass as accepting the later928
+independent path previews or the deferred migration/dependent entries.
+
+| Release | Canonical endpoint | Originals | Exact | Adapted | Present | NA |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.161 | `1a9148dfd8e03835dc7617cee696dd18c0000e99` | 18 | 16 | 1 | 1 | 0 |
+
+All17 source commits preserve raw author identity, timestamp and complete
+declared message/stable provenance, ending at `46497f881`. Only the canonical
+SUBLEVEL160->161 marker is adapted to retain local build rules. Bluetooth's
+u8 overflow correction already has complete post-context. The full actual
+kernel tree is `b93fee6a1ef0680e4618181cb895196e2ccfdb10`, matching the reviewed
+ordered projection. `linux-5.10.161-imports.tsv` records every original.
+The previously declared157#147 in-body-From exception is not amended away.
+
+### Current161 Build And Paired Acceptance
+
+One actual olddefconfig/prepare and one full Image/modules invocation exit0
+and are directly observed/reaped. The resulting5.10.161 #76 uses unchanged
+configuration, Android Clang/LLD12.0.7, ThinLTO, enforcing CFI, BTI/BHB, Werror,
+LLVM/IAS, mandatory signatures/signing material and PRMEM/HKIP. Only three
+retained source dependencies change: SUBLEVEL, matched Acer HID IDs and
+matched Intel ADL-N PCI XHCI quirk. These do not alter the Kirin platform's
+types or layouts. All current original paths, including unselected UDF/USB
+serial/UVC/IGB providers, retain their complete official source changes.
+
+Current240 natural C contexts bind their actual source/generated dependencies.
+Only three necessary actual objects are decoded: HID ITE provider, HID core
+consumer and loopback. The bounded Acer fixups preserve report-size guards;
+provider/consumer hid_driver layout, actual probe/report-fixup CFI dispatch
+and four final canonical callback assignments agree. Loopback's real
+alloc_netdev_mqs call retains typed setup and name-assignment value2. Its
+unrelated blackhole call remains value0. Final ELF checks41 normal targets
+in27 finite CFI groups, preserving current BPF/NFT/cpuset/DWC3/IPv6/SDHCI
+assignments through exact retained75 source/type continuity. No old75
+interface decoder or new compiler frontend proof is replayed.
+
+All13,845 exports retain their CRC, provider, type and namespace versus75;
+all390 rebuilt modem and two optional dummy imports match. Fourteen generated
+OEM selectors and their actual provider sources remain unchanged. The modem
+is rebuilt for161, stripped before unchanged CMS signing, verified against
+the embedded target certificate and staged with original ext4 metadata,
+SELinux label and byte readback. Boot roundtrip retains the firmware stub,
+OEM DTB, header and partition bounds. Dummy remains uninstalled; zero CRC
+changes do not authorize arbitrary old binaries or stable KMI/GKI.
+
+The live accepted75 boot ID, identity and boot/modem/module/ramdisk readbacks
+bind immediate recovery before writing only local76 boot and modem_driver.
+One normal Android boot automatically loads the matching Live modem. Full
+partition/module/loaded build-id readbacks, unlocked CE/services and the
+same-thread six-stage ISP firmware startup pass. Complete time-zero/boot/
+later logs contain no actual kernel/module/HKIP fault;502 AVC denials remain,
+none for module loading. Enforcing/taint4/signatureY/PRMEM enabled stay;
+original trace0/wifi and Asleep are restored. No second boot or unrelated
+hardware/performance replay follows this pass. #75/5.10.160 is immediate
+paired recovery. Compact local metadata and recent72-76 pairs remain below
+20 GB, preserving originals, signing material and exact failed71/65 evidence
+and referenced source/proof/alternate stores. No release export, tag, push or
+publication occurs.
+
+### Approved162 io_uring Compatibility Boundary
+
+Canonical162 original55, `788d0824269bef539fe31a785b1517882eafed93`, imports
+5.15.85 io_uring wholesale with documented5.10 reductions. The Android common
+counterpart is
+<https://android.googlesource.com/kernel/common/+/5e6347b58643f36c00336c0a477ff3aa08d1f27a>;
+the original release description is
+<https://kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.10.162>.
+No upstream mainline commit is invented for this stable-specific import.
+
+Read-only checksum-verified inspection of the installed vendor library shows
+actual Hyperframe OPEN34/WRITE35/READ36/CLOSE37, including remove via CLOSE37
+with user_data1. Its queue initialization forwards caller flags to setup425.
+Canonical SHUTDOWN34/RENAMEAT35/UNLINKAT36 therefore cannot be silently
+substituted. CONFIG_HYPERFRAME is selected and extends real camera/direct-I/O
+behavior, not an unused feature suitable for blanket removal.
+
+The old assembly also directly consumes request/context layouts and request
+flag masks. The old completion bridge completes and explicitly frees; the
+new code retires requests through completion/cache and resource-reference
+ownership. Blind transplantation can double-clean or corrupt a changed
+layout. Existing eleven typed CFI wrappers and the init bridge must remain;
+do not add permissive CFI or a second old io_uring implementation.
+
+The user explicitly answers Q3 A: preserve installed default Hyperframe34-37,
+provide explicit standard numbering mode and make the minimal actual
+Hyperframe layout/lifetime adaptation. This authorizes implementation, not
+acceptance of an unbuilt design. The original928 independent path previews
+and reviewed72-entry prefix remain reusable only after exact before-context
+comparison with the actual full ordered prefix. Complete162-165 import,
+current migration layout/CFI/build and runtime acceptance remain next;
+pinned274, ACK/vendor split/GKI/KMI and inherited subsystem/hardware/power
+findings remain open.
