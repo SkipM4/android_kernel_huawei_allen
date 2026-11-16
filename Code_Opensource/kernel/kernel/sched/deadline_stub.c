@@ -5,6 +5,7 @@
  * Create: 2023-04-18
  */
 #include <securec.h>
+#include <linux/sched/deadline.h>
 #include "sched.h"
 
 struct dl_bandwidth def_dl_bandwidth;
@@ -64,9 +65,25 @@ int dl_cpuset_cpumask_can_shrink(const struct cpumask *cur, const struct cpumask
 	return 0;
 }
 
-int dl_cpu_busy(int cpu, struct task_struct *p)
+int dl_bw_check_overflow(int cpu)
 {
-	return p ? -1 : 0;
+	return 0;
+}
+
+int dl_bw_alloc(int cpu, u64 dl_bw)
+{
+	return -EBUSY;
+}
+
+void dl_bw_free(int cpu, u64 dl_bw)
+{
+	return;
+}
+
+bool dl_task_needs_bw_move(struct task_struct *p,
+			   const struct cpumask *new_mask)
+{
+	return false;
 }
 #endif /* CONFIG_SMP */
 
