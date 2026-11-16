@@ -6,11 +6,12 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.140 #70, with kernel source
-`c303cfc45`, normal Android, completed ISP firmware startup and automatic
-loading of the same-build signed modem. #69/5.10.135 is the immediate paired
-rollback. #65 remains a failed HKIP firmware-boot candidate, not an accepted
-runtime. Ordered synchronization
+The installed upstream milestone is Linux 5.10.145 #72, with kernel source
+`78095eb5f`, normal Android, completed ISP firmware startup and automatic
+loading of the same-build signed modem. #70/5.10.140 is the immediate paired
+rollback. #71 is rejected for a real OEM post-fork cpuset lock assertion;
+#72 repairs that caller without removing the assertion. #65 remains a failed
+HKIP firmware-boot candidate, not an accepted runtime. Ordered synchronization
 toward the pinned 5.10.274 target continues; Android common parity, vendor/core
 separation and GKI certification are not complete. No release is exported or
 published.
@@ -434,6 +435,49 @@ and Asleep are restored. #69 is immediate paired rollback and the latest-five
 test window is #66-70; originals and failed #65 evidence remain below 20 GB.
 Next is complete 5.10.141-145. Target 5.10.274, inherited source/hardware/power
 findings and ACK/vendor-core/GKI remain open; no release is exported or
+published.
+
+### Linux 5.10.141-145 Milestone
+
+All 260 canonical originals resolve in order: 214 exact picks, 16 adaptations,
+29 already present and one absent/unselected PFUZE driver. The 230
+original-author source commits end at `917c376f5`; complete author/date/message
+provenance and five per-release ledgers agree. A separate upstream cgroup
+transfer lock correction (`ab1de7ead871`, local `c7cfda261`) follows, without
+being disguised as a canonical entry.
+
+The standard cgroup/cpuset lock-order change requires the CPU hotplug read
+lock outside threadgroup write locking. #71 reaches Android and loads modem,
+but ten actual assertions expose an additional Huawei post-fork top-app
+caller missing that outer lock. The pair is rejected and #70 is restored.
+Local `78095eb5f` adds only the explicit CPU header and balanced caller-side
+read lock; VIP behavior and the cpuset assertion remain. The necessary #72
+build exits successfully. #71's original build exit was not directly observed
+after terminal restoration; its complete error-free log and products were
+verified, not misreported as an observed exit0.
+
+Only the canonical unnecessary XOR_BLOCKS selection is removed; ChaCha,
+ThinLTO, enforcing CFI, BHB, Werror, signing materials and security remain.
+Current anon_vma producer/consumer layouts, inlined pollfree/BPF guards,
+cgroup locks and PSOCK publication pass in nine once-decoded objects. #72
+retains those exact objects/contexts and decodes only the changed OEM caller.
+The final ELF checks 27 targets in 15 CFI groups, accurate XOR retirement and
+BPF/NFT/cpuset callback assignments. All 390 modem and two optional dummy
+imports match 13,843 exports, with two additions, two removals and 275 CRC
+changes versus #70. Fourteen OEM selectors retain their scoped providers;
+dummy is not installed.
+
+#72 normal Android, automatic matching Live modem, readbacks/build-id,
+unlocked storage/services and same-thread ISP startup pass. A short real
+framework window captures 14 top-app events and eight repaired OEM attach
+stacks without trace loss or CPU-lock WARN. Complete logs show no actual
+kernel/module/HKIP fault; 542 AVCs remain visible, none requests module load.
+Independent ramdisk, Enforcing, taint4, mandatory signatures and PRMEM remain;
+original tracing and Asleep are restored. #70 is immediate paired recovery;
+the latest-five build window is #68-72, with failed #71 evidence explicit.
+Originals and precise source/proof references stay below 20 GB. Next is
+complete 5.10.146-150. Target274, HID wrap, inherited lifetime/hardware/power
+findings and ACK/vendor-core/GKI/KMI remain open; no release is exported or
 published.
 
 ### Installed Bring-up Baseline

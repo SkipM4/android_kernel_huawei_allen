@@ -3520,3 +3520,176 @@ two source-only fbcon findings, AMA/full io_uring/OOM/ext4 safety, async HKIP
 atomicity, NFC ownership and full hardware/network/performance/power remain
 open. Stable maintenance does not establish ACK parity, vendor/core separation,
 standard GKI or independent stable KMI.
+
+## Linux 5.10.141-145 Installed Milestone
+
+### Canonical Range And Source Decisions
+
+The complete canonical range is v5.10.140
+(`18ed766f3642fa75262885462d3052ad7c8c87a2`) exclusive through v5.10.145
+(`4a77e6ef2057d9d4e2e1df3f7739622477e8738d`) inclusive from
+<https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git>.
+All original author/date/full messages, full-index changes and file modes
+are frozen and resolved in order. Five durable per-release ledgers bind all
+260 originals to actual local commits or specific present/inapplicable
+decisions, without rewriting accepted history.
+
+| Release | Originals | Exact Picks | Adapted | Already Present | Not Applicable |
+| --- | --- | --- | --- | --- | --- |
+| 5.10.141 | 38 | 31 | 3 | 4 | 0 |
+| 5.10.142 | 81 | 62 | 6 | 13 | 0 |
+| 5.10.143 | 77 | 67 | 5 | 5 | 0 |
+| 5.10.144 | 24 | 19 | 1 | 4 | 0 |
+| 5.10.145 | 40 | 35 | 1 | 3 | 1 |
+| Total | 260 | 214 | 16 | 29 | 1 |
+
+The 230 original-author commits end at `917c376f5`. Raw author headers and
+complete original messages with stable provenance all agree. The importer
+keeps stable SHA provenance before the format-patch separator; adapted
+messages retain original bodies and explicit Allen reasoning. PFUZE is the
+single absent/unselected driver, not an invented successful port.
+
+141's anon_vma accounting operations were already present, but its canonical
+unsigned-long children/active-VMA counters were missing. Only those widths
+are corrected; allocation/prepare/clone/fork/unlink accounting is retained.
+Both explicit io_poll_add rejection and POLLFREE file tagging existed. The
+missing automatic may_pollfree rejection is inserted in io_arm_poll_handler
+before allocation/publication. It is not inserted as an early return into
+the shared helper, which would leave the local caller reading uninitialized
+poll-table error/state and performing invalid cleanup.
+
+142's clock parent-enable addition/revert are both translated through the
+local runtime-PM put-last context; final clock code is unchanged and no
+intermediate variant is installed. The subsequent PM ordering fix was
+already present. PCA953x cache/sync uses existing i2c_lock and releases it
+before OEM resume error cleanup. Successful 1.8V SD recovery reaches cont
+before CQE/3.3V checks while preserving password handling. Shared DWC3 host
+teardown clears the released xhci pointer without importing absent Qualcomm
+glue. The already-present USB nested-reset prevention is not duplicated.
+
+143's EFI RANDSTRUCT exclusion precedes existing SCS filtering, preserving
+ordinary kernel LTO/sanitizer policy. Cgroup migration conditionally locks
+threadgroups only for nonempty sources, with CPU read locking outside any
+threadgroup write. Local ext_css_set, extra dst_cgrp argument, forced-kthread
+hook and mutex-based cpuset remain. The A510 AMU capability uses reserved63,
+preserving LDAPR59/protectedKVM60/HHEE61/BHB62/NCAPS76; AMU is unselected and
+no workaround is force-enabled. BPF zero-length rejection precedes optional
+context success. PSOCK ownership uses NOCOPY|PSOCK tagging before publication;
+consumers require the PSOCK tag and generic pointers strip all flags.
+HID's linear report-release change does not prove ring-wrap cleanup, which
+remains an explicit finding.
+
+### Separate Cgroup Integrations And Actual Failed #71
+
+Upstream `ab1de7ead871ebe6d12a774c3c25de0388cde082`
+("cgroup: fix missing cpus_read_{lock,unlock}() in cgroup_transfer_tasks()")
+is a required separate post145 integration. Its raw Git object is verified
+from <https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux/>.
+The real legacy cpuset transfer path lacks the outer CPU read lock after the
+143 change. Local `c7cfda261` adds it directly around existing threadgroup
+write locking, keeping 5.10 helpers private instead of exporting or
+restructuring them. It is not concealed among the original260 entries.
+
+#71 full build completes with an error-free final make log and verified
+AArch64 ELF/Image/modules. The original terminal session becomes unavailable
+after restoration, so its exit code is not directly observed. The build
+record retains that limitation; successful products are not falsely reported
+as a reaped exit0, and the full build is not replayed just for session metadata.
+Current interface/CFI/module/signature/stock-format staging gates pass.
+
+Paired #71 installation reaches normal Android and links the matching modem,
+but complete boot diagnostics report ten actual CPU hotplug lock assertions
+at kernel/cpu.c:341. The earliest stack is lockdep_assert_cpus_held ->
+cgroup_migrate_execute -> cgroup_attach_task -> attach_cgroup_to_task ->
+top_app_cgroup_attach_task -> kernel_clone. All ten warnings identify the
+same assertion. This is a reachable Huawei post-fork route omitted from the
+canonical-route-only source audit, not a module/CFI error or harmless string
+match. #71 is rejected; the retained #70 boot/modem pair is restored and
+pair/module/ramdisk/build-id/security readbacks agree.
+
+Local `78095eb5f` changes only kernel/cpu_netlink/proc_fork_nl.c: explicit
+linux/cpu.h and cpus_read_lock before the existing threadgroup write, with
+cpus_read_unlock after up-write. Existing dead-group/ref handling, attachment
+error release and VIP notification fallback remain. The cpuset assertion is
+not removed, and its earlier lock-order fix is not reverted. This real
+failure justifies the necessary #72 build and targeted runtime regression;
+it does not justify disabling OEM hardware or broad unrelated edits.
+
+### Actual #72 Build And Current Interfaces
+
+The corrective ordinary kernel/module build exits0 and is directly reaped,
+producing 5.10.145 #72. Canonical ChaCha drops its unnecessary XOR_BLOCKS
+selection: y becomes unselected, while ChaCha stays active and Btrfs/async
+XOR consumers remain disabled. This is the only effective/emitted config
+delta against #70. ThinLTO, enforcing CFI, BHB, original Werror flags,
+mandatory signatures/signing materials, PRMEM/HKIP and SELinux are retained.
+
+Nine #71 objects are decoded once for genuinely new145 interfaces. Anon_vma
+has matching128-byte layouts in rmap/mmap/fork, with 64-bit counters at88/96
+bytes, parent104 and rb_root112. The automatic poll gate is emitted inside
+__io_queue_sqe before allocation/shared helper and routes rejection to async
+work. The explicit gate inside io_issue_sqe returns -EOPNOTSUPP before poll
+publication; shared helper/completion-lock source remains. Debug scopes
+locate the actual inline code rather than demanding nonexistent standalone
+functions. Cgroup actual CPU/threadgroup acquisition and reverse release,
+cpuset's mutex with no nested CPU acquisition, BPF -EINVAL before optional
+context success and PSOCK tag5 before release publication all pass.
+
+#72 freezes28 ordinary C contexts with full source/generated dependencies.
+All nine prior interface objects/contexts are exactly unchanged, so only the
+new OEM proc_fork_nl object is decoded once. Both top-app destinations call
+the repaired helper with CPU read -> threadgroup write -> attachment ->
+up-write -> CPU read unlock. Retained140 trace/NFT bodies/layouts apply only
+through scoped source/dependency records, not a repeated decoder or old
+parser proof. Current final ELF verifies53 selected live symbols and27
+normal targets in15 precise CFI groups. Only four unselected XOR groups/
+sixteen targets are retired, with corresponding API absence. Current
+cpuset/BPF targets and canonical BPF/NFT/cpuset assignments remain checked;
+ThinLTO private suffixes are resolved from current symbols, not treated as
+permanent callback names.
+
+There are13,843 exports, with debugfs_lookup_and_remove/mmput_async added,
+xor_block_inner_neon/xor_blocks removed and275 changed shared CRCs versus
+#70. No provider/export-type/namespace changes. All390 current modem and2
+optional dummy imports match; fourteen OEM selectors retain direct provider
+sources/values. Dummy is not installed. Same-build compatibility does not
+certify opaque OEM layouts, arbitrary old-module reuse or independent KMI.
+
+### Paired Installation And Local Closeout
+
+Current #72 boot compression/kernel roundtrip, firmware stub/DTB/header and
+partition bounds pass. Matching modem is stripped before signing and CMS
+verifies against the unchanged certificate embedded in the kernel. Stock
+ext4 owner/mode/SELinux label and signed-file readback pass. The actual
+recovered #70 baseline is bound before writing only local #72 boot and
+modem_driver; independent Magisk ramdisk and user data are unchanged.
+
+One normal #72 boot automatically loads the matching Live modem. Complete
+partition/module/loaded build-id readbacks, unlocked user storage, required
+services and same-thread six-stage automatic ISP firmware startup pass.
+Enforcing, taint4, forced signatureY and PRMEM enabled remain. Time-zero/
+boot/later logs contain no actual kernel/module/HKIP fault;542 visible AVC
+denials remain, none requests module loading.
+
+The failed OEM route receives a specific short regression using an independent
+cgroup event/stack instance and normal Settings/Home/wake/sleep operations.
+Fourteen top-app migrations and eight actual attach_cgroup_to_task ->
+top_app_cgroup_attach_task -> kernel_clone stacks execute without lost trace
+events or CPU-lock WARN. No priority vote, system queue, brightness, SELinux
+or scheduler parameter is altered. The instance is removed and original
+tracing-off/wifi and Asleep state restored. No unnecessary second successful
+boot or broad hardware replay follows.
+
+#70/5.10.140 remains immediate paired recovery; #71 is failed, not rollback
+or runtime acceptance. The latest-five build window becomes68-72, retaining
+failed71 compact evidence separately from accepted72. Only expired66/67
+test pairs and consumed full logs are retired after72 acceptance; originals,
+#17, signing materials, failed65HKIP evidence and precise source/proof/alternate
+dependencies remain below20 GB. No private key copy, artifact export bundle,
+release tag, push or publication occurs.
+
+Next is complete canonical146-150, not a jump or version-string spoof to the
+pinned5.10.274 target. SELinux PRMEM lifetime/reclamation, two fbcon source
+findings, HID ring wrap, broader io_uring/OOM/ext4/AMA, async HKIP, NFC ownership
+and full hardware/network/performance/power remain open. Stable maintenance
+is not ACK parity, vendor/core separation, standard GKI or stable KMI.

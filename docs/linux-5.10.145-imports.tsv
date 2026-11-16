@@ -1,0 +1,41 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	6bae47548188ae957578e6d92d4b8753dec435e4	fc80ba10bbd7880e0295b8f61876cd2ffe35b6e4	picked	KVM: PPC: Book3S HV: Context tracking exit guest context before enabling irqs	arch/powerpc/kvm/book3s_hv.c	-
+002	9230af9188a2cc8872fb98ea50907f3440a1786a	01221f1992d4b93997a72c4fbdb1be36f569cd4b	picked	KVM: PPC: Tick accounting should defer vtime accounting 'til after IRQ handling	arch/powerpc/kvm/book3s_hv.c;arch/powerpc/kvm/booke.c	-
+003	59819f0aafd089cfbf8c087895f8c541af67392e	be1170de12978fdc9425700cf01bc7d2718e429c	picked	serial: 8250: Fix reporting real baudrate value in c_ospeed field	drivers/tty/serial/8250/8250_port.c	-
+004	b00a56e64713cf3e8f5ca00a943140b294c5f24e	1a89e9cb5783dff2f632c0d9123d49a1b39c5bd3	picked	parisc: Optimize per-pagetable spinlocks	arch/parisc/Kconfig;arch/parisc/include/asm/mmu_context.h;arch/parisc/include/asm/page.h;arch/parisc/include/asm/pgalloc.h;arch/parisc/include/asm/pgtable.h;arch/parisc/kernel/asm-offsets.c;arch/parisc/kernel/entry.S;arch/parisc/mm/hugetlbpage.c;arch/parisc/mm/init.c	-
+005	7bbdf49e2624a318b5e08f3a1acb0503ecd107d9	fc69d2cce9e7431d1fac805458271fb58f03a8d5	picked	parisc: Flush kernel data mapping in set_pte_at() when installing pte for user page	arch/parisc/include/asm/pgtable.h;arch/parisc/kernel/cache.c	-
+006	4dbe84b9b66cfe604f11d25a377c6ed1347ab6b3	c0dcb730056a999de02d66ee6905540c2d90e11e	picked	dmaengine: bestcomm: fix system boot lockups	drivers/dma/bestcomm/ata.c;drivers/dma/bestcomm/bestcomm.c;drivers/dma/bestcomm/fec.c;drivers/dma/bestcomm/gen_bd.c	-
+007	d5ee5a9e47f32626b6be3dec5710b342fca5c28b	5818e660e3ccc8941312c1dccba184ce5c3047e0	picked	powerpc/pseries/mobility: refactor node lookup during DT update	arch/powerpc/platforms/pseries/mobility.c	-
+008	cd226d8c1b4ae90f041c9ff12eaf93b994b1a149	f02139cba313ad0658a8fb32c0c5fe129b9401e5	picked	powerpc/pseries/mobility: ignore ibm, platform-facilities updates	arch/powerpc/platforms/pseries/mobility.c	-
+009	8faabaf112c925c808e95898da93072433ca1dc9	1ddf938ef102af5294ffa9ecd7cb1cc92be57328	picked	usb: cdns3: gadget: fix new urb never complete if ep cancel previous requests	drivers/usb/cdns3/gadget.c	-
+010	4a6c6041e8d80e2ea464a969d90347a4c28e7a7e	dc733398090e17e934f694f9efe4a3386090731a	picked	platform/x86/intel: hid: add quirk to support Surface Go 3	drivers/platform/x86/intel-hid.c	-
+011	cae6172a9464779c8f9f79e12c16ed2cf4778072	39b530c85afa79057858c3a54a85de59047a71a3	picked	net: dsa: mv88e6xxx: allow use of PHYs on CPU and DSA ports	drivers/net/dsa/mv88e6xxx/chip.c	-
+012	ee4369260e77821602102dcc7d792de39a56365c	-	already-present	of: fdt: fix off-by-one error in unflatten_dt_nodes()	drivers/of/fdt.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+013	2f16f5b582cd43898cfdae0d8a0570748f57f266	5d1ebe063365422b5fb4eb4dcfe43b208a91c653	picked	pinctrl: sunxi: Fix name for A100 R_PIO	drivers/pinctrl/sunxi/pinctrl-sun50i-a100-r.c	-
+014	4d065f83565858fd433e1abbda2fc0fda3ac4a87	89946dbe1ccddeeeb0aa0e85d7e66b14749d7aa7	picked	NFSv4: Turn off open-by-filehandle and NFS re-export for NFSv4.0	fs/nfs/super.c	-
+015	24196210b198e8e39296e277bb93b362aa207775	f86966c85295ce4c2987f583ef75b0927f5d7533	picked	gpio: mpc8xxx: Fix support for IRQ_TYPE_LEVEL_LOW flow_type in mpc85xx	drivers/gpio/gpio-mpc8xxx.c	-
+016	4d3d2e384b227cb2020d760cdddf8ab3a545b4a5	2133db581e952e21538c17359b0dc399fe8d9276	picked	drm/meson: Correct OSD1 global alpha value	drivers/gpu/drm/meson/meson_plane.c	-
+017	1f24b0a7ca41433c8f8c49c2398fde1129454bfa	fe873f9c52cb06451f50333f5cc90547cfda5d7d	picked	drm/meson: Fix OSD1 RGB to YCbCr coefficient	drivers/gpu/drm/meson/meson_viu.c	-
+018	65dd251c516d200456e5c92398966223adfa21b3	84ddfdb775eeb34bda03e97218d209dfa7bb5b7a	picked	parisc: ccio-dma: Add missing iounmap in error path in ccio_probe()	drivers/parisc/ccio-dma.c	-
+019	6a27acda3d6a8b388ca87868b30e1fcb05e2c18f	deb4be3e5eac9cbd2344d5e8945d98652c57adb8	picked	tracing: hold caller_addr to hardirq_{enable,disable}_ip	kernel/trace/trace_preemptirq.c	-
+020	a9398cb81cdc8464a308e7022d791d99dbf6480a	8b54db1139713b4a5be3bc9b845eae352b186227	picked	of/device: Fix up of_dma_configure_id() stub	include/linux/of_device.h	-
+021	f3fbd08e7ca36e4b43a257d55e99258f8b67b156	c47d60f0320bf78b88ff9dbfdc5f1376017bc566	picked	cifs: revalidate mapping when doing direct writes	fs/cifs/file.c	-
+022	331eba80cbd70bfd11c0608a3adadbaa6b05f869	eb66981af94fe2c4449f9e70d1a85fbd9137c125	picked	cifs: don't send down the destination address to sendmsg for a SOCK_STREAM	fs/cifs/transport.c	-
+023	f63ddf62d0c837ebc64dce3d3ce4e7f5ce94074d	7d7c407231c5eb7c5737c2a354145dd58b0223cc	picked	tools/include/uapi: Fix <asm/errno.h> for parisc and xtensa	tools/include/uapi/asm/errno.h	-
+024	e00582a36198888ffe91ed6b097d86556c8bb253	-	already-present	video: fbdev: i740fb: Error out if 'pixclock' equals zero	drivers/video/fbdev/i740fb.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+025	107c6b60582c99820916b19183b5c855e2d60434	6a40544aa79c872ebb287aeda46e82166fce9cd9	picked	Revert "serial: 8250: Fix reporting real baudrate value in c_ospeed field"	drivers/tty/serial/8250/8250_port.c	-
+026	c2ef959e33b2234bb9fc02e8120390fbb9ea8f20	aea33684486611b6835377e870fe949b0ef29249	picked	ASoC: nau8824: Fix semaphore unbalance at error paths	sound/soc/codecs/nau8824.c	-
+027	891d5c46f282a8d0d9ab2b2059816fa636d69f85	-	not-applicable	regulator: pfuze100: Fix the global-out-of-bounds access in pfuze100_regulator_probe()	drivers/regulator/pfuze100-regulator.c	PFUZE100 regulator driver source is absent in local Kirin tree; no memcpy implementation or selected provider to change. Do not introduce unrelated PFUZE hardware support as prerequisite for a bounds fix.
+028	35da670ed13ee161a9c943b839469fb3baf0e8fd	cd7ff6bb8f27f345c5ee6ea9595285a15b474341	picked	rxrpc: Fix local destruction being repeated	net/rxrpc/local_object.c	-
+029	c505fee07b3dbe24054fc54f9d3f0a73003d27b5	739c469d1ad17015c81fc86c6df4dbe5df5a35f1	picked	rxrpc: Fix calc of resend age	net/rxrpc/call_event.c	-
+030	b95a5ef4c05453de9765eb83a35c482bc2cd9064	7404ce6e4efce25ae0217d7dfa3124e2d9c64bc4	picked	wifi: mac80211_hwsim: check length for virtio packets	drivers/net/wireless/mac80211_hwsim.c	-
+031	e41b97a27780072584909f461e6de9cb5e6769a3	9365ffe80e5849ece6125a1cf3681022e012da53	picked	ALSA: hda/sigmatel: Keep power up while beep is enabled	sound/pci/hda/patch_sigmatel.c	-
+032	a36fd2d8d69cca7a961f06c97cf2331165e40822	a12ea8d9e679ad91dc3acad1609a293f87216e59	picked	ALSA: hda/tegra: Align BDL entry to 4KB boundary	sound/pci/hda/hda_tegra.c	-
+033	517a0324db6e639f4f558249268fa23371ec9a8d	0bb20791a94887a291b2421a4b8ae4acc36af56e	picked	net: usb: qmi_wwan: add Quectel RM520N	drivers/net/usb/qmi_wwan.c	-
+034	72602bc62013fa1a41dc931aeed34e78c63fd2e7	53e12eba7b7f20217c475f537ded2a14ffd77c39	picked	afs: Return -EAGAIN, not -EREMOTEIO, when a file already locked	fs/afs/misc.c	-
+035	3e6d2eff56611d03b0933951b11db6146790af60	acec31b008ecf036cdb63000f05d22958e5aa530	picked	MIPS: OCTEON: irq: Fix octeon_irq_force_ciu_mapping()	arch/mips/cavium-octeon/octeon-irq.c	-
+036	3fefe614ed802ab5bb383e32a0686333bd5e6fb7	d2a48dbfe550931b38b7ef76177f7f2dba07c96e	picked	mksysmap: Fix the mismatch of 'L0' symbols in System.map	scripts/mksysmap	-
+037	06e194e1130c98f82d46beb40cdbc88a0d4fd6de	deed4a9f4737471f8c2e962f6786754698e37370	picked	video: fbdev: pxa3xx-gcu: Fix integer overflow in pxa3xx_gcu_write	drivers/video/fbdev/pxa3xx-gcu.c	-
+038	9f267393b036f1470fb12fb892d59e7ff8aeb58d	-	already-present	cgroup: Add missing cpus_read_lock() to cgroup_attach_task_all()	kernel/cgroup/cgroup-v1.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+039	ca5539d421647d66c1d0076c4771a6a830074237	2a3de672070db4094c084dc804f612bad258261c	picked	ALSA: hda/sigmatel: Fix unused variable warning for beep power change	sound/pci/hda/patch_sigmatel.c	-
+040	4a77e6ef2057d9d4e2e1df3f7739622477e8738d	917c376f5f63cf54e2fd1978c3518953cbac39b0	backported	Linux 5.10.145	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

@@ -11,8 +11,10 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #70/5.10.140 on `upstream/linux-5.10.y`, kernel source
-through `c303cfc45`. Immediate paired rollback is #69/5.10.135. #65 remains a
+Installed candidate is #72/5.10.145 on `upstream/linux-5.10.y`, kernel source
+through `78095eb5f`. Immediate paired rollback is #70/5.10.140. #71 is rejected
+for the OEM post-fork CPU-lock assertion, fixed in #72 without disabling it.
+#65 remains a
 failed HKIP firmware-boot candidate with successful paired #64 recovery;
 r49/5.10.43 remains on
 `bringup/clang12` at validation record `13570860d` (kernel source `09aeaf9ec`).
@@ -65,7 +67,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.140 Resolved; #70 Full Build/Current Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/ISP Firmware Path Pass; #69 Immediate Rollback; #65 Failed Evidence Retained; Next Complete 5.10.141-145; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.145 Resolved; #72 Full Build/Current Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/ISP And Real OEM Attach Pass; #70 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.146-150; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -585,6 +587,44 @@ complete 141-145. Target274, SELinux PRMEM arena/lifetime, two source-only
 fbcon findings, broader AMA/io_uring/OOM/ext4, async HKIP/NFC ownership and
 full hardware/network/power remain open. Stable maintenance is not ACK parity,
 vendor/core separation, GKI or independent stable KMI; no release is published.
+
+### Linux 5.10.141-145 Follow-up
+
+All 260 canonical originals resolve in order to 214 exact picks, 16 adapted,
+29 already present and one absent/unselected driver. The 230 author/date/full
+message-provenance commits end at `917c376f5`; five durable ledgers record
+every original. The explicit separate upstream cgroup transfer CPU-lock
+correction (`ab1de7ead871`, local `c7cfda261`) follows.
+
+#71 reaches Android and auto-loads modem but is rejected for ten real CPU-lock
+assertions. The actual stack identifies Huawei kernel_clone/top-app migration,
+an OEM caller omitted by the canonical-route-only source audit. Paired #70
+recovery is verified. `78095eb5f` adds only the CPU header and outer read-lock
+pair before existing threadgroup write locking. The cpuset assertion, VIP
+semantics, security and error-path releases remain. #72's necessary corrective
+build exits0; #71's unobserved original terminal exit remains distinguished
+from its verified complete log/products rather than invented as a pass.
+
+Canonical XOR selection removal is the only effective config delta. Current
+anon_vma layouts, inlined pollfree/BPF guards, cgroup ordering and PSOCK tags
+pass in nine cached objects; #72 checks exact unchanged context/object
+identities and decodes only the changed OEM caller. Final ELF verifies 27
+targets in 15 CFI groups, retired XOR absence and real BPF/NFT/cpuset
+assignments. Complete exports are 13,843, with two additions/removals and 275
+CRC changes versus #70; 390 modem and two dummy imports match, with fourteen
+current selectors. No dummy installation, CFI relaxation or module spoofing.
+
+#72 matched boot/CMS/ext4 staging, normal Android/automatic Live modem,
+partition/module/build-id readback, storage/services and six ISP stages pass.
+One short real framework window records 14 top-app events and eight repaired
+OEM attach stacks without loss or WARN. Complete logs have no actual kernel/
+module/HKIP fault; 542 visible AVCs do not request module loading. Independent
+ramdisk, Enforcing/signatureY/taint4/PRMEM and original trace/Asleep remain.
+Immediate recovery is #70; latest-five build pairs are #68-72, with #71 failed
+and originals/#65 failure evidence explicit. Local metadata and precise
+dependency stores stay below 20 GB. Next is complete146-150; target274,
+source-only HID wrap and other lifetime/hardware/power/ACK/GKI/KMI work remain
+open. No release export/publication occurs.
 
 ## Next-Stage Work Queue
 

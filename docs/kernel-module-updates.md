@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.140
-#70 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.145
+#72 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -436,6 +436,38 @@ independent ramdisk remain. Complete boot/later logs have no actual module,
 kernel or HKIP fault. The dummy is not installed, no older module is resigned
 or version-spoofed, and #69 is immediate paired recovery.
 
+### 5.10.145 #72: Matched Rebuild After A Real Caller Failure
+
+Complete exports remain 13,843, with `debugfs_lookup_and_remove` and
+`mmput_async` added, the two XOR exports removed, and 275 changed shared CRCs
+versus #70. Providers/export types/namespaces remain. Canonical ChaCha no
+longer selects the unused XOR implementation; four XOR CFI groups are retired
+accurately, not forced back into the configuration. Enforcing CFI still
+checks 27 retained/current targets in 15 groups and actual BPF/NFT/cpuset
+canonical assignments. All 390 rebuilt modem and two optional dummy imports
+match; fourteen generated OEM selectors retain direct-source applicability.
+
+#71's source/build/interface gates pass, but actual normal boot discovers
+the Huawei post-fork top-app route calling cpuset attachment without the
+new required outer CPU read lock. That pair is rejected and #70 restored;
+successful module loading alone does not conceal the actual WARN. Minimal
+caller-side integration produces #72. Its ordinary build exits0 and its
+single changed OEM object verifies the correct lock order. The prior nine
+145 interface objects and contexts are identical, so no repeated IR decode
+or old parser/layout proof is needed. #71's original terminal exit was not
+directly observed after restoration; its log/products were verified with
+that limitation retained separately.
+
+The matching #72 modem is stripped before CMS signing against the unchanged
+kernel certificate and staged with stock ext4 metadata. Paired installation
+boots normal Android and automatically loads the Live modem. Partition/file/
+loaded build-id readbacks, unlocked storage/services and same-thread ISP
+startup pass. Eight real OEM post-fork attach stacks execute in a bounded
+framework window without CPU-lock WARN or lost trace events. Complete logs,
+Enforcing/signatureY/taint4/PRMEM and independent ramdisk agree. #70 remains
+immediate paired recovery. Dummy is not installed, old binaries are not
+resigned or version-spoofed, and independent stable KMI/GKI remains open.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -476,13 +508,14 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous pair is #70's immediate rollback:
+overwrite existing candidates. The previous accepted pair is #72's immediate
+rollback, not the rejected #71:
 
-- `images/test/allen-boot-test-5.10.135-clang12-r69.img`.
-- `images/test/allen-modem_driver-test-5.10.135-clang12-r69.img`.
-- `images/test/allen-modem_driver-test-5.10.135-clang12-r69.ko`.
+- `images/test/allen-boot-test-5.10.140-clang12-r70.img`.
+- `images/test/allen-modem_driver-test-5.10.140-clang12-r70.img`.
+- `images/test/allen-modem_driver-test-5.10.140-clang12-r70.ko`.
 
-The installed next pair uses `5.10.140-clang12-r70` with the same device/purpose
+The installed next pair uses `5.10.145-clang12-r72` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 
