@@ -6,16 +6,18 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.175 #79, with kernel source
-`a0dc72d14b`, normal Android, unlocked CE storage, completed ISP firmware
+The installed upstream milestone is Linux 5.10.180 #80, with kernel source
+`baa22bf578`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
-#78/5.10.170 is the immediate paired rollback. Complete171-175 resolves all
-647 originals, plus two separately referenced poll-allocation/ext4-unlock
-fixes before building. Effective configuration, signing material and36
-OEM/HF selectors remain. Fresh poll/HF/task/selected HW_F2FS/ext4/HIDPP/trace/
-irq/PCI facts and final112-target/64-group CFI checks pass. Three finite
-new private-ring cases cover fixed-input async splice, normal poll and
-registered-buffer sources; warn_count/oops_count remain0. The accepted162-165 migration
+#79/5.10.175 is the immediate paired rollback. Complete176-180 resolves all
+841 originals with817 ordered commits and a separate comment-whitespace
+cleanup. Effective selections, signing material and36 OEM/HF selectors
+remain; canonical LLVM assembler selectors are emitted. Current rq/SMT/task,
+VFS/HW_F2FS, MAS/UFS, IPv6/NF, DWC3/TTY/trace/allocator/verity facts and
+final139-target/81-group CFI checks pass. All390 rebuilt modem imports match
+the actual changed export table; no old binary or forced versions are used.
+warn_count/oops_count remain0. Accepted79 private-ring evidence is retained,
+not replayed. The accepted162-165 migration
 keeps one canonical io_uring core: installed Hyperframe34-37 defaults remain,
 and immutable `IORING_SETUP_STANDARD_OPS` explicitly enables standard34-36.
 Fresh task/HF layout, lifetime, enforcing CFI and assembly checks pass; nine
@@ -748,6 +750,53 @@ below20 GB with78 immediate rollback. The unselected child-clock resource
 issue remains source-only open. Next is complete176-180 toward pinned274;
 ACK/vendor-core/GKI/KMI and wider hardware/network/power work remain open.
 No release export, tag, push or publication occurs.
+
+### Linux 5.10.176-180 And #80
+
+All841 canonical originals are resolved in order:777 exact,40 adapted,21
+already present and three absent/unselected entries.817 source commits
+retain all raw original authors, timestamps/timezones and complete messages
+plus declared trailers. All five release trees match the approved projection.
+Ordered source ends at `b863b88f8e`; separate `baa22bf578` removes one imported
+PowerPC comment trailing space without rewriting the canonical commit.
+
+Standard VFS SGID handling replaces the obsolete helper and updates actual
+callers. Scheduler long-sleeper/migration and uclamp capacity-inversion groups
+retain selected HISI EAS, WALT, SMT and isolation contracts. All six F2FS
+fixes also reach selected HW_F2FS: quota errors, paired capacity consumers,
+raw compressed-page writeback, cached IPU selection and moved-directory
+locking. IPv6 destructor ownership, locked NF validation reset, DWC3 public
+EndTransfer/delay and suspend state, TTY write serialization, trace IRQ-work
+drain/reset and deferred-printk zonelist locking remain scoped to real paths.
+
+One prepare and one full Image/modules build exit0 with Android Clang/LLD
+12.0.7 and retained security.511 actual ordinary contexts and35 necessary
+objects bind current layouts, including five matching rq providers, current
+task/thread, selected MAS bio/request/UFS offsets and56-byte nfnetlink
+subsystem. The Android KABI reserve invocation remains, but this tree's
+macro emits no padding; no stable-KMI claim follows.139 final targets in81
+CFI groups, current UDP destructor stores, protocol/NF/PM tables and raw
+crypto/thread operands pass. Direct-only TTY helpers are not labelled as
+indirect CFI targets. Generic inline crypto, DCCP/SCTP and zoned F2FS remain
+unselected source-only work; unchanged HF/PCI IR is not re-decoded.
+
+All13,857 exports are compared with79's13,854: eight additions, five removals
+and2732 changed CRCs, with no common provider/type/namespace change.390
+freshly rebuilt modem and two optional dummy imports match. Original-format
+boot/modem staging, signatures/CMS and metadata/readback checks pass. Only
+the matching boot/modem pair is installed; independent ramdisk stays.
+Normal Android, automatic Live modem/loaded build-id, unlocked CE/services
+and six-stage ISP startup pass. Complete logs have no actual kernel/module/
+HKIP fault;519 AVC denials remain, none module-load. Enforcing, mandatory
+signatures, taint4 and PRMEM stay; read-only warn/oops counts are0, limits
+0/10000. Original trace0/wifi and Asleep restore.
+
+Compact80 metadata and recent76-80 test pairs remain local below20 GB with79
+immediate rollback. Originals, signing materials, referenced proof/blob/
+alternate stores and failed71/65 evidence remain. The unselected child-clock
+allocation issue and full hardware/network/performance/power/ACK/GKI/KMI
+work remain open. Next is complete181-185 toward pinned5.10.274; no release
+export, tag, push or publication occurs.
 
 ### Installed Bring-up Baseline
 

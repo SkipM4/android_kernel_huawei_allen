@@ -11,12 +11,13 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #79/5.10.175 on `upstream/linux-5.10.y`, kernel source
-through `a0dc72d14b`. Immediate paired rollback is #78/5.10.170. Complete171-175
-plus two separate upstream-backed corrections and current poll/HF/task/
-HW_F2FS/ext4/HIDPP/trace/irq/PCI, finite CFI/matching module/runtime gates
-pass. Three new finite private-ring groups pass without replaying the old
-HF suite. The accepted162-165 single-core explicit-standard-mode/default-Hyperframe migration passes
+Installed candidate is #80/5.10.180 on `upstream/linux-5.10.y`, kernel source
+through `baa22bf578`. Immediate paired rollback is #79/5.10.175. Complete176-180
+plus a separate imported comment-whitespace cleanup and current rq/SMT/task,
+VFS/HW_F2FS, MAS/UFS, IPv6/NF, DWC3/TTY/trace/allocator/verity,139-target/
+81-group CFI/matching module/runtime gates pass. Effective selections and
+security remain. Accepted79 private-ring evidence is retained, not replayed.
+The accepted162-165 single-core explicit-standard-mode/default-Hyperframe migration passes
 current build/layout/CFI, normal Android/automatic modules and nine finite
 private-ring checks. Retained HF requires aligned buffers and uses CLOSE
 user_data as cancel/unlink; general-buffer, concurrency and full hardware
@@ -75,7 +76,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.175 Resolved; #79 Full Build/Poll-HF-Task-Filesystem-HIDPP-Trace-Irq-PCI/112-Target-64-Group CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP/Read-Only Warn-Oops Counts/Three Private-Ring Groups Pass; #78 Immediate Rollback; #77 Private Migration Proof And #71/#65 Failed Evidence Retained; Next Complete 5.10.176-180; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.180 Resolved; #80 Full Build/Current Rq-SMT-Task-VFS-HW-MAS-IPv6-NF-DWC3-TTY-Trace/139-Target-81-Group CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP/Read-Only Warn-Oops Counts Pass; #79 Immediate Rollback; #79/#77 Private Evidence And #71/#65 Failed Evidence Retained; Next Complete 5.10.181-185; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -871,6 +872,41 @@ immediate rollback; original/signing/precise proof and failed71/65 evidence
 remain. Unselected child-clock source and wider lifetime/hardware/power/
 ACK/GKI/KMI findings stay open. Next is complete176-180 toward pinned274.
 No release export, tag, push or publication occurs.
+
+### Complete Canonical 5.10.176-180 And Accepted #80
+
+All841 originals are resolved with817 ordered source commits through
+`b863b88f8e`:777 exact,40 adapted,21 present and three absent/unselected.
+All five release trees and raw author/timezone/complete-message identities
+match. Separate `baa22bf578` removes one imported PowerPC comment trailing
+space, without altering original history. Standard VFS SGID, scheduler
+long-sleeper/migration/uclamp, IPv6 destructors, NF transaction state and
+DWC3/TTY/trace/allocator fixes retain actual hardware/security contracts.
+All six generic F2FS originals also reach selected HW_F2FS.
+
+One prepare and one full Image/modules build exit0 with unchanged effective
+selections, signing keys and36 generated OEM/HF selectors. Canonical
+AS_IS_LLVM/AS_VERSION select the actual LLVM12.0.7 IAS.511 natural contexts
+and35 once-decoded objects bind current layouts, including five rq providers,
+task/thread, MAS bio/request/UFS offsets and56-byte nfnetlink subsystem.
+Android KABI reserve syntax remains but this tree's macro emits no padding;
+no stableKMI claim.139 final targets in81 CFI groups, protocol/NF/PM tables,
+UDP destructor stores and raw crypto/thread offsets pass. Direct-only TTY
+helpers and unselected generic crypto/DCCP/SCTP/zoned paths stay scoped;
+unchanged HF/PCI IR and accepted private tests are not replayed.
+
+13,857 exports have eight additions, five removals and2732 changed CRCs;
+390 rebuilt modem and two optional dummy imports match. Signed matching
+staging, paired installation/readbacks, normal Android, automatic Live modem,
+unlocked CE/services and automatic six-stage ISP startup pass. Independent
+ramdisk stays. Complete logs have no actual kernel/module/HKIP fault;519
+AVC denials remain, none module-load. Enforcing, mandatory signatures, taint4
+and PRMEM stay; read-only warn/oops counts are0, limits0/10000. Trace0/wifi
+and Asleep restore. Compact80 metadata and recent76-80 pairs remain local
+below20 GB with79 immediate rollback. Original/signing/referenced proof and
+failed71/65 evidence remain. Child-clock unselected source, wider lifetime/
+hardware/network/power and ACK/GKI/KMI findings stay open. Next is complete
+181-185 toward pinned274; no release export, tag, push or publication occurs.
 
 ## Next-Stage Work Queue
 

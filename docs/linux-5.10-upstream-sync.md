@@ -4689,3 +4689,145 @@ The named unselected child-clock allocation-size finding stays source-only
 open. Next is complete176-180 toward pinned5.10.274. ACK/vendor-core/GKI/KMI,
 wider lifetime and hardware/network/performance/power findings remain open.
 No release export, tag, push or publication occurs.
+
+## Complete Canonical 5.10.176-180 And Accepted #80
+
+Accepted175/#79 boundary `bc9b0700b5`, kernel source `a0dc72d14b`, is the
+exclusive start. Official kernel.org inputs retain first-parent order, raw
+author headers/timezones, complete messages, full-index patches and tags.
+
+| Release | Canonical endpoint | Originals | Exact | Adapted | Present | NA |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.176 | `ca9787bdecfa2174b0a169a54916e22b89b0ef5b` | 99 | 95 | 1 | 3 | 0 |
+| 5.10.177 | `387078f9030cf336cd9fef521540db75b61615e0` | 173 | 157 | 7 | 8 | 1 |
+| 5.10.178 | `791a854ae5a5f5988f1291ae91168a149bd5ba57` | 121 | 116 | 5 | 0 | 0 |
+| 5.10.179 | `f1b32fda06d2cfb8eea9680b0ba7a8b0d5b81eeb` | 69 | 51 | 11 | 6 | 1 |
+| 5.10.180 | `4c893ff55907c61456bcb917781c0dd687a1e123` | 379 | 358 | 16 | 4 | 1 |
+
+All841 originals are resolved in five TSV ledgers.817 ordered local commits
+end at `b863b88f8e`; all five release endpoint trees match the approved
+projection. Every raw original author, timestamp/timezone and complete
+message plus declared trailers matches byte-for-byte. Canonical178's
+PowerPC comment trailing space is imported unchanged; separate `baa22bf578`
+then removes only that space. Final kernel tree is
+`cb8485ba9c742096bd51afe23665edc1afc0c32f`. No canonical commit is amended or
+rewritten. Two source-preview adapter slicing errors are corrected before
+packaging/import: generic keyslot eviction boundaries and the OEM verity
+common-tail boundary. Neither erroneous preview reaches built source.
+
+### Ordered Source And Real OEM Adaptations
+
+The176 VFS SGID group replaces should_remove_suid with the inode-based
+setattr_should_drop_suidgid, moves the actual export to attr.c, adds
+mode_strip_sgid and updates real VFS/OCFS2 callers. Capability and
+security_inode_need_killpriv checks remain. The176 poll/ext4 fixes already
+incorporated at79 are classified present, not imported twice.
+
+The177 long-sleeper/migration pair preserves START_DEBIT, WALT/VIP and the
+source Android placement hook; migrated exec_start clears after placement.
+The178 cpuset cancel wakeup uses this tree's actual cpuset_mutex and retains
+OEM post-fork/threadgroup contracts. The179 uclamp group adds per-rq
+cpu_capacity_inverted and canonical raw-util/min/max fitness while retaining
+separate selected HISI EAS/boost, WALT, CPU isolation and SMT. The capacity
+loop preserves the original rq for update_smt_capacity even after reusing
+the cpu iterator. External one-argument OEM uclamp_task_util remains.
+
+All six180 F2FS originals also reach actual selected HW_F2FS. dqget errors
+return before quota transfer. The single/all-zone capacity pair removes
+dangling per-zone-array consumers while retaining bitmap ownership and
+non-zoned/OEM paths. Raw compressed-page fallback skips busy pages for
+asynchronous writeback or waits with locked-page arguments before clearing
+dirty/resubmission. Both cached IPU scans require a real nonnull target for
+pointer identity, otherwise use the supplied page. Moved-directory rename
+takes one old-inode lock after quota setup and releases on distinct success/
+error paths; scoped hunks do not alter cross-rename.
+
+The generic inline-crypto keyslot completion/merge/eviction group preserves
+Android passthrough and callback contracts in source. CONFIG_BLK_INLINE_ENCRYPTION
+is unselected: no generic keyslot object or device acceptance is invented.
+Actual selected MAS/UFS inline encryption remains, with current raw offsets
+checked separately. IPv6 cleanup/destructor ownership moves with UDP/UDPLite
+initializer changes; DCCP/SCTP source is imported but their transports remain
+unselected. seccomp copies only after the final fork failure checks under
+sighand locking, preserving OEM/HKIP cleanup.
+
+NF validation state resets during locked validation, not a later unlocked
+cleanup callback; the obsolete nfnetlink cleanup member/call is removed.
+The later anonymous-set PREPARE_ERROR rule remains already present. Android
+KABI reserve invocation remains, but this Huawei tree's existing macro emits
+no padding. DWC3 keeps the public exported void stop interface, EndTransfer
+command/delay pair and actual SUSPEND event6 spelling with pre-configuration
+link-state update. TTY internal-header relocation has no external source
+consumers and serializes actual message writes with atomic_write_lock/tty_lock.
+Trace IRQ-work drains before destruction and RESET_BIT balances online reset;
+per-instance wakeup/watermark semantics remain. ARM64 current-SCS load sites
+retain sp_el0, ptrauth/MTE/BTI/HKIP; SCS is unselected. Deferred-printk zonelist
+seqlock/IRQ pairing and verity's failed-FEC data-I/O error tail preserve
+integrity enforcement and actual OEM/non-OEM branches.
+
+### Current Build, Interfaces And Matching Modules
+
+One olddefconfig/prepare and one full Image/modules build exit0 for5.10.180
+#80. Effective feature selections and signing materials remain. Canonical
+CONFIG_AS_IS_LLVM=y and CONFIG_AS_VERSION=120007 are new emitted toolchain
+descriptors: LLVM uses CLANG_VERSION, not as-version.sh's LLVM0 token.
+Actual Android Clang/LLD12.0.7, IAS, ThinLTO, enforcing CFI, BTI/BHB, Kbuild
+Werror, mandatory signatures, SELinux and PRMEM/HKIP remain. Before final
+linking, only the superseded79 intermediate output is removed after proving
+the current whole-archive linker does not read it; no build restarts.
+
+511 current ordinary contexts bind complete source/generated dependencies.
+35 necessary objects are decoded once. Five core/fair/WALT/SMT providers
+agree on4736-byte rq with the new capacity member at3016; actual producer
+stores and five fitness consumers use its IR element38, and the SMT call
+keeps the original rq. Current4736-byte task and1136-byte thread layouts
+agree with retained79 facts/selectors. Real selected MAS bio/request/queue
+and UFS layouts agree with final raw crypto field operands; bio's terminal
+flexible array is represented without inventing size. Current VFS/HW_F2FS,
+IPv6/NF, DWC3/TTY/trace/allocator/verity optimized call order is scoped by
+actual debug origins when helpers inline, not stale function-name assumptions.
+
+Final ELF checks139 normal indirect targets in81 CFI groups. Actual
+UDP/UDPLite protocol, NF commit/abort/valid_genid and DWC3 PM tables,
+IPv4/IPv6 destructor stores and raw crypto/thread operands use current
+canonical addresses. Generated exit initcall counters change886/888 to
+811/813 through headers; actual unique target/relative entry identity is
+checked. Direct-only tty_write_lock/unlock have no indirect canonical table
+and are recorded separately. CONFIG_ANDROID_VENDOR_HOOKS=n preserves the
+source placement hook as a no-op; selected HCK hooks remain. The actual
+nfnetlink subsystem is56 bytes with cleanup removed, not an assumed Android
+reserve layout. Unchanged HF/PCI IR and family proofs remain references,
+not re-decoded or substituted for new ownership evidence.
+
+All13,857 exports are compared with79's13,854: eight additions, five removals
+and2732 changed common CRCs. New exports include VFS SGID, IPv6 cleanup/
+destructor, UDP common cleanup, MDIO owner helpers and proc_dou8vec_minmax;
+removed entries are the obsolete VFS/MDIO helpers and old UDP exports.
+Common providers, export types and namespaces remain.390 rebuilt modem and
+two optional dummy imports all match. No old module, CRC/vermagic editing
+or permissive loader is used. Matching stock-format boot/modem staging
+passes original header/stub/DTB roundtrip, target signing certificate/CMS,
+ext4 metadata/label and signed module readback.
+
+### Normal Android And Local Closeout
+
+Accepted79 live identity, boot ID, matching pair/module and independent
+ramdisk readbacks bind recovery. Only local180/#80 boot and modem_driver are
+flashed. Normal Android automatically loads the signed same-build Live
+modem; full partition/file/loaded build-id checks, unlocked CE storage,
+required services and same-thread six-stage automatic ISP startup pass.
+Time-zero, boot and subsequent logs contain no actual kernel/module/HKIP
+fault.519 AVC denials remain, none module-load. Enforcing, taint4, signaturesY
+and PRMEM enabled remain. Read-only warn/oops counts are0 and limits remain
+0/10000; no limit or fault is induced. The unmodified io_uring/HF providers
+retain accepted79/77 private evidence without replay. Original trace0/wifi
+and Asleep restore.
+
+Compact80 source/build/interface/module/runtime metadata is preserved before
+future output reuse. Recent76-80 pairs stay local below20 GB with79 immediate
+rollback; expired75 test images/module and consumed full logs are retired,
+not referenced source/proof/blob/alternate stores. Originals, signing
+materials and failed71/65 evidence remain. Named unselected child-clock
+allocation and full hardware/network/performance/power/ACK/vendor-core/GKI/
+KMI work stay open. Next is complete181-185 toward pinned5.10.274, not
+latest-stable or GKI completion. No release export, tag, push or publication.

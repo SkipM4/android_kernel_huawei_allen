@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.175
-#79 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.180
+#80 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -739,6 +739,46 @@ full hardware. Trace0/wifi and Asleep restore. Compact79 metadata and
 recent75-79 test pairs remain local; child-clock unselected-source and
 ACK/vendor-core/GKI/KMI findings stay open. Next is complete176-180,
 continuing mandatory same-build module updates without release publication.
+
+### 5.10.176-180 #80: Changed Exports And Current Ownership
+
+The installed pair uses `5.10.180-clang12-r80`; #79/5.10.175 is immediate
+paired rollback. Complete841-original ordered source plus a separate imported
+comment-whitespace cleanup precede one full Image/modules build. Effective
+selections, keys and36 selectors remain; new canonical LLVM assembler
+selectors describe the actual Clang12.0.7 IAS without changing the toolchain.
+
+All13,857 exports are compared with79's13,854. Eight additions include the
+new VFS SGID helpers, IPv6 cleanup/destructor, UDP common cleanup, MDIO owner
+helpers and proc_dou8vec_minmax. Five removals include the obsolete VFS and
+MDIO helpers and the old UDP exports.2732 common CRCs change; common
+provider/export-type/namespace entries remain.390 freshly rebuilt modem and
+two optional dummy imports match the actual new table. No old binary, forced
+CRC/vermagic or permissive signature/loader substitutes for rebuilding.
+
+511 current ordinary contexts and35 necessary objects check rq/SMT/task,
+VFS/HW_F2FS, MAS/UFS, IPv6/NF and DWC3/TTY/trace contracts. Actual bio/request/
+queue fields agree with selected raw crypto operands; generic inline crypto
+is unselected, so canonical keyslot fixes are source-only. The56-byte
+nfnetlink subsystem has cleanup removed; its preserved Android KABI macro
+invocation emits no padding in this tree. No stable ABI is inferred from its
+spelling.139 targets in81 final CFI groups, new protocol/transaction/PM tables
+and UDP destructor pointer stores pass; direct-only TTY helpers are separate.
+Unchanged HF/PCI proofs remain references without old IR/runtime replay.
+
+Matching signed boot/modem staging checks original header/stub/DTB, CMS and
+certificate, ext4 metadata/label and readback. Paired installation reaches
+normal Android with automatic matching Live modem, full partition/file/
+loaded build-id checks, unlocked CE/services and six-stage ISP startup.
+Independent ramdisk remains. Complete logs have no actual kernel/module/
+HKIP fault;519 AVC denials remain, none module-load. Enforcing, signaturesY,
+taint4 and PRMEM stay; read-only warn/oops counts are0 and limits0/10000.
+Trace0/wifi and Asleep restore. Required modules continue to follow each
+complete kernel update by matching rebuild, not independent old-module reuse.
+
+Compact80 metadata and recent76-80 pairs stay local; unselected child-clock,
+full hardware/network/power and ACK/vendor-core/GKI/KMI findings stay open.
+Next is complete181-185; no release export or publication occurs.
 
 ## Actual Module Inventory And Limits
 

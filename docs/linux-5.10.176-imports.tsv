@@ -1,0 +1,100 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	0da0b816972a88dc82431586cb2c1e85876f9c77	70a2d529d028d9aae655cfa20d60e959f11b0d35	picked	xfrm: Allow transport-mode states with AF_UNSPEC selector	net/xfrm/xfrm_state.c	-
+002	a3c502218cd34992dabbfe0b5385a2ece5864f82	17dd784eb7830dad56dffacab14fac0db622e58e	picked	drm/panfrost: Don't sync rpm suspension after mmu flushing	drivers/gpu/drm/panfrost/panfrost_mmu.c	-
+003	ed9ed2f58cebfa4894efaee43986e1e96e8ca850	240b1ce2ad706d8db68c54913b9645fb899983b7	picked	cifs: Move the in_send statistic to __smb_send_rqst()	fs/cifs/transport.c	-
+004	081893e254f1369b64f4427911d4fd7b48d651aa	b2dcc26d7c051a324b35bfdd1f626e265a4d94dd	picked	drm/meson: fix 1px pink line on GXM when scaling video overlay	drivers/gpu/drm/meson/meson_vpp.c	-
+005	ea1e21d38a8d78f22c6cd87d2df89ac08705c1e8	f0fff1c5d03385d3ed3df7b1786f31e505dce091	picked	clk: HI655X: select REGMAP instead of depending on it	drivers/clk/Kconfig	-
+006	79fe786dab5c10b1d5cb40aa3b4cdcc4489626ad	e4dc8efecf3ddb123d79384309a19046a1bc003c	picked	docs: Correct missing "d_" prefix for dentry_operations member d_weak_revalidate	Documentation/filesystems/vfs.rst	-
+007	6f0c2f70d9929208d8427ec72c3ed91e2251e289	068a0ccb373c252cdfc7a8f822a9794ab6fad338	picked	scsi: mpt3sas: Fix NULL pointer access in mpt3sas_transport_port_add()	drivers/scsi/mpt3sas/mpt3sas_transport.c	-
+008	0c6c5abeb471fead787ab12d8cafb9850cf66de2	02eaa79397e00ba98cbee622d733233c4fc63a04	picked	ALSA: hda: Match only Intel devices with CONTROLLER_IN_GPU()	sound/pci/hda/hda_intel.c	-
+009	eff050d83eee162a88d52b421f55ea9fad0bb826	30e530593206868f0d351c42030bed154845fa86	picked	netfilter: nft_nat: correct length for loading protocol registers	net/netfilter/nft_nat.c	-
+010	3a0f8ea35ddc9b205dbc04f6e848890ec983065e	059daca365e8bf3e692000e260518c5c3e8228f7	picked	netfilter: nft_masq: correct length for loading protocol registers	net/netfilter/nft_masq.c	-
+011	c144dff64ea9c924c1a85714d4fcf420c2df3213	14e34d3a9f550ad4a85df923fbed5aec42d0813f	picked	netfilter: nft_redir: correct length for loading protocol registers	net/netfilter/nft_redir.c	-
+012	0fac20b1806b211fc38fa8778208bc1cad7a5df1	3826810bfe8a5fe64adb96d2936bfc0676726d16	picked	netfilter: nft_redir: correct value of inet type `.maxattrs`	net/netfilter/nft_redir.c	-
+013	be5aa2534188ab5df96508b532bcd59181650e5f	459622e3008b97c5595f86aaee408b5f88afa86f	picked	scsi: core: Fix a comment in function scsi_host_dev_release()	drivers/scsi/hosts.c	-
+014	68c665bb185037e7eb66fb792c61da9d7151e99c	35f221bb30a68e69511afed2060a769c837e8e0f	picked	scsi: core: Fix a procfs host directory removal regression	drivers/scsi/hosts.c	-
+015	77ad58bca0119e8cc3e0e9d91a3f22caa66e4dfa	f0a0a53c74f34e60081f417ec047d9ed7c324c1f	picked	tcp: tcp_make_synack() can be called from process context	net/ipv4/tcp_output.c	-
+016	2703da78849c47b6b5b4471edb35fc7b7f91dead	ba0b3225dcd5d5578035ee7eee8634013085f180	picked	nfc: pn533: initialize struct pn533_out_arg properly	drivers/nfc/pn533/usb.c	-
+017	91eb59240150f2b5907a88be3fc7ebb7f636cdfd	bfafbbc2f9d4b2d70902066d5d2285beaeaaa3e2	picked	ipvlan: Make skb->skb_iif track skb->dev for l3s mode	drivers/net/ipvlan/ipvlan_l3s.c	-
+018	3cbecb1c9085a00155639404f7addbcbfc987ba3	3991c7e4ddd61d2cf4fc4ea514fdb0f083ebf5bd	picked	i40e: Fix kernel crash during reboot when adapter is in recovery mode	drivers/net/ethernet/intel/i40e/i40e_main.c	-
+019	31817c530768b0199771ec6019571b4f0ddbf230	35bd63098f90e752f1733da1b9588386d40cbd02	picked	net/smc: fix NULL sndbuf_desc in smc_cdc_tx_handler()	net/smc/smc_cdc.c	-
+020	281e86e3fab69294e0a7467d0447d1b0468aa1fd	be650f89f669cc27557c5a3fde065dfa8e4072b5	picked	qed/qed_dev: guard against a possible division by zero	drivers/net/ethernet/qlogic/qed/qed_dev.c	-
+021	be59b87ee4aed81db7c10e44f603866a0ac3ca5d	-	already-present	net: tunnels: annotate lockless accesses to dev->needed_headroom	include/linux/netdevice.h;net/ipv4/ip_tunnel.c;net/ipv6/ip6_tunnel.c	LL_RESERVED_SPACE and IPv6 already carry the exact READ_ONCE/WRITE_ONCE fix; IPv4 already uses the later capped ip_tunnel_adj_headroom READ_ONCE/WRITE_ONCE helper, with skb_cow_head using the local headroom snapshot. Retain that later overflow bound rather than restoring the older shared-headroom read.
+022	194248138f8da8a74cbdc359fb5e5a7b116f35da	6fd443415cec849a15b65d8a1cbd1f07d4e27bc8	picked	net: phy: smsc: bail out in lan87xx_read_status if genphy_read_status fails	drivers/net/phy/smsc.c	-
+023	43aa468df246175207a7d5d7d6d31b231f15b49c	ff6b7f7a945b130e8a4e5860a3cba905a870d214	picked	nfc: st-nci: Fix use after free bug in ndlc_remove due to race condition	drivers/nfc/st-nci/ndlc.c	-
+024	9708efad9ba5095b9bb7916e11a135b3bd66c071	f424734b83c18b877837fb35a1ba13fbaed1cfef	picked	net/smc: fix deadlock triggered by cancel_delayed_work_syn()	net/smc/smc_core.c	-
+025	e294f0aa47e4844f3d3c8766c02accd5a76a7d4e	5968748bc3db65d913c868696124db0b56af0f1b	picked	net: usb: smsc75xx: Limit packet length to skb->len	drivers/net/usb/smsc75xx.c	-
+026	d5e61a859a8aeed4300ce4d067c3440770d9e728	04cec13057c2dffb9c7a1bed9ce47fa99e7e6f34	picked	drm/bridge: Fix returned array size name for atomic_get_input_bus_fmts kdoc	include/drm/drm_bridge.h	-
+027	d14d2574a54c2ee7ae6c44a5507973972ecce7f5	0fd4b7478249fc6ca48c477cde64ba535d392f39	picked	null_blk: Move driver into its own directory	drivers/block/Kconfig;drivers/block/Makefile;drivers/block/null_blk.h;drivers/block/null_blk/Kconfig;drivers/block/null_blk/Makefile;drivers/block/null_blk/main.c;drivers/block/null_blk/null_blk.h;drivers/block/null_blk/trace.c;drivers/block/null_blk/trace.h;drivers/block/null_blk/zoned.c;drivers/block/null_blk_main.c;drivers/block/null_blk_trace.c;drivers/block/null_blk_trace.h;drivers/block/null_blk_zoned.c	-
+028	4cf15887a41be1e8c723788846c3c412ed856df0	de222275afbb553b9dc669c631fe24f601564174	picked	block: null_blk: Fix handling of fake timeout request	drivers/block/null_blk/main.c	-
+029	9ebc344ce547206de488215eaaa96e5f007548b2	8bb383d2170635165b6b6829cdb42d0036eb9208	picked	nvme: fix handling single range discard request	drivers/nvme/host/core.c	-
+030	a6317235da8aa7cb97529ebc8121cc2a4c4c437a	8f58fe694f5843a4b3fea7a2b13fcb7e402745ba	picked	nvmet: avoid potential UAF in nvmet_req_complete()	drivers/nvme/target/core.c	-
+031	2f28cb5c2a510185fec4a52e9ca20d78ce72f57d	3ea2b1cf2e186087b84bbc70f6e472a8a06a0f1c	picked	block: sunvdc: add check for mdesc_grab() returning NULL	drivers/block/sunvdc.c	-
+032	cccba1ff0798a27f7b8d0c06762ef977400a2afb	492b0d7485fc4143d8d90f63e69b9bb18171b59f	picked	ice: xsk: disable txq irq before flushing hw	drivers/net/ethernet/intel/ice/ice_xsk.c	-
+033	1f0586dcc0768e95006c99598fe101302f78fac1	47b0bd436210ed44729fec4efaa3adeec4d53df9	picked	net: dsa: mv88e6xxx: fix max_mtu of 1492 on 6165, 6191, 6220, 6250, 6290	drivers/net/dsa/mv88e6xxx/chip.c	-
+034	013fae04b8ff8b00ad7c60633b4d3ae2c22d1086	a4983f427969b254aec99c0775306ec1d170ff25	picked	ipv4: Fix incorrect table ID in IOCTL path	net/ipv4/fib_frontend.c	-
+035	2cc46ed406bb325f10a251b03d9a83ae67b3d3d8	a12fbcd55e5d7343a792ca5683a3623f8b146c14	picked	net: usb: smsc75xx: Move packet length check to prevent kernel panic in skb_pull	drivers/net/usb/smsc75xx.c	-
+036	bd2e78462ae18484e55ae4d285df2c86b86bdd12	64829c79dd749b5bc69d52ac1e821b5b94af0476	picked	net/iucv: Fix size of interrupt data	net/iucv/iucv.c	-
+037	1c06d12237282200566a556be965f4d7801d6ec8	4c2911d522199976a0c37cfd9d71760ada5c60bc	picked	selftests: net: devlink_port_split.py: skip test if no suitable device available	tools/testing/selftests/net/devlink_port_split.py	-
+038	eb80cb66a2c5e94794bcb52fc6272a7ab20152f4	4998dd0f8b093e7324fecadee92ae75605c2322c	picked	qed/qed_mng_tlv: correctly zero out ->min instead of ->hour	drivers/net/ethernet/qlogic/qed/qed_mng_tlv.c	-
+039	d4dbd26f985c1cb9a36610708beb01cf0ed95741	60e02a5a424c695922da89e3d760ef2f187b2e63	picked	ethernet: sun: add check for the mdesc_grab()	drivers/net/ethernet/sun/ldmvsw.c;drivers/net/ethernet/sun/sunvnet.c	-
+040	aff84fadba53befed494a28c84544c87fce908c4	aac2766caffc7a868029b373baa2c6101d886a20	picked	hwmon: (adt7475) Display smoothing attributes in correct order	drivers/hwmon/adt7475.c	-
+041	4a8c3ad12c9dd6456ae3fade707166935bf29ba5	986b98e95ac255b74738e2d72f74f179a92ffd2f	picked	hwmon: (adt7475) Fix masking of hysteresis registers	drivers/hwmon/adt7475.c	-
+042	0a73c8b3cc99d214dff83c51805c844240c4f749	be82a3ca3236bbef33d0d92e16e74995367091b6	picked	hwmon: (xgene) Fix use after free bug in xgene_hwmon_remove due to race condition	drivers/hwmon/xgene-hwmon.c	-
+043	663c3afee81ea56952293b869c623e7dd20548ec	8d0890678369577d931e21b764787170c03f7d7a	picked	hwmon: (ina3221) return prober error code	drivers/hwmon/ina3221.c	-
+044	c5bd9719b53be9afe872bc03a88ba5df3a5fd00e	d36ef0cbb7907ff45b1c01627ccf957f5602662c	picked	hwmon: (ucd90320) Add minimum delay between bus accesses	drivers/hwmon/pmbus/ucd9000.c	-
+045	a4c3e1132422b8cdb515fbe64162419c3c761a9f	dc50cdad4d2551c0797dcc7d44f30cf3464f549b	picked	hwmon: tmp512: drop of_match_ptr for ID table	drivers/hwmon/tmp513.c	-
+046	a4c048d502eb24fd8040f88031a493b1f10cd4e9	665d4dc809045a1de38d1ede4b971b4c838ce530	picked	hwmon: (adm1266) Set `can_sleep` flag for GPIO chip	drivers/hwmon/pmbus/adm1266.c	-
+047	04eaeaa2f79fa5a4df421d24492e241ac5e0fb28	b89bde33faa14cab44770d4d71b27ae0fde1b5f0	picked	media: m5mols: fix off-by-one loop termination error	drivers/media/i2c/m5mols/m5mols_core.c	-
+048	980d4e70c7085351623ad6c5ff104ea0c5f0abc4	14343f5f302c6696346bd76ae8a096d9fbb01cea	picked	mmc: atmel-mci: fix race between stop command and start of next command	drivers/mmc/host/atmel-mci.c	-
+049	8e7f26b9565a83e6116ce24512191e21f13c7a7f	c8a7c3dbf5441dd9da3f798bb4801357ab2d3340	picked	jffs2: correct logic when creating a hole in jffs2_write_begin	fs/jffs2/file.c	-
+050	0bf15bc393a15dbb723c28d571326e727c60f298	9a1fa3829344f92237a87f8d89718efa681ee746	picked	ext4: fail ext4_iget if special inode unallocated	fs/ext4/inode.c	-
+051	a98160d8f3e6242ca9b7f443f26e7ef3a61ba684	08f2d8e90267374e2c6d2bd19aeaacd9af608977	picked	ext4: fix task hung in ext4_xattr_delete_inode	fs/ext4/xattr.c	-
+052	6936525142a015e854d0a23e9ad9ea0a28b3843d	ec6916ecbaa781f774181833305daaba3e61f1cd	picked	drm/amdkfd: Fix an illegal memory access	drivers/gpu/drm/amd/amdkfd/kfd_events.c	-
+053	ab7da8d93a6ff68a921b6dffbfb8c463e606517c	21508b182f40353de8d6a9e7034d0ef09383404e	picked	sh: intc: Avoid spurious sizeof-pointer-div warning	include/linux/sh_intc.h	-
+054	7257070be70e19a9138f39009c1a26c83a8a7cfa	a06605a14cf8baf544f9f867e80494ebb835537a	picked	drm/amd/display: fix shift-out-of-bounds in CalculateVMAndRowBytes	drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c	-
+055	020166bc6669ca9fb267ebd96bd88c4fb64a5d46	-	already-present	ext4: fix possible double unlock when moving a directory	fs/ext4/namei.c	Exact mainline70e42fe fix was separately imported as a0dc72d14b before accepted79; final common unlock remains the single release. Full post-context matches; no duplicate commit or rollback of earlier accepted fix.
+056	f5a5150c7066c6fc5d617e277cd432ebbb8f97b4	b3e09373c925088615978f9ee5535770b1944620	picked	tty: serial: fsl_lpuart: skip waiting for transmission complete when UARTCTRL_SBK is asserted	drivers/tty/serial/fsl_lpuart.c	-
+057	0c16c20b87873801d6eaa79e5a150eadab9145b3	573d4c212307870a59ff16ae3ea31b5123b65382	picked	serial: 8250_em: Fix UART port type	drivers/tty/serial/8250/8250_em.c	-
+058	b37d3ccbd549494890672136a0e623eb010d46a7	80c22a4654671fabf2d912c581ab3accd580b75c	picked	firmware: xilinx: don't make a sleepable memory allocation from an atomic context	drivers/firmware/xilinx/zynqmp.c	-
+059	efae80ca13faa94457208852825731da44a788ad	8018cb71c56a68f3f730596af6d95d4858295e92	picked	interconnect: fix mem leak when freeing nodes	drivers/interconnect/core.c	-
+060	de3170bd41dee29039e8a87efa960759ad256a5a	08d7241982933b4459460586f6dfd058bcb266cb	picked	tracing: Make splice_read available again	kernel/trace/trace.c	-
+061	8ae86ef7a0580135ac6d0afce3e16e2c9e4b8e96	a2682c9f25a44144a854c8021fc7b6f1c79ab2e0	picked	tracing: Check field value in hist_field_name()	kernel/trace/trace_events_hist.c	-
+062	ec663c410ce0023e13f56a95e096be9cd6d471c2	3e5c0c71a14aa7674184c270f76d68af34bba4ec	picked	tracing: Make tracepoint lockdep check actually test something	include/linux/tracepoint.h	-
+063	7b18dea697e400dd91c2a0447cebf1f5fe9f5d1c	9b432b08489426a593e065e1dd548cf159579d1d	picked	cifs: Fix smb2_set_path_size()	fs/cifs/smb2inode.c	-
+064	c54974ccaff73525462e278602dfe4069877cfaa	04b8f2bf53917f2244fe482c294ec79c1ea3c0c8	picked	KVM: nVMX: add missing consistency checks for CR0 and CR4	arch/x86/kvm/vmx/nested.c	-
+065	9addf5e1050abb5c63cd7d9d40f6b004f2b45cfc	e89eaee94db45b696451d2af88eaf91d4eecfa84	picked	ALSA: hda: intel-dsp-config: add MTL PCI id	sound/hda/intel-dsp-config.c	-
+066	fbc5ffcce72be7805a1c0da19e86d8e3fddc7399	08fe6b782d8a143950e3bd7bb56b567b5c34688f	picked	ALSA: hda/realtek: Fix the speaker output on Samsung Galaxy Book2 Pro	sound/pci/hda/patch_realtek.c	-
+067	684c7372bbd6447c2e86a2a84e97a1478604d21f	b0751ec365fe2283cf089f32f83314492bc8ea23	picked	drm/shmem-helper: Remove another errant put in error path	drivers/gpu/drm/drm_gem_shmem_helper.c	-
+068	f9a98b8dde09330c238cbb556a9f75bd965b91aa	522c67ae932fcb355b88c07df886e028fdb7dc09	picked	mptcp: avoid setting TCP_CLOSE state twice	net/mptcp/subflow.c	-
+069	83c3b2f4e7c61367c7b24551f4c6eb94bbdda283	a4c4dfd18634906687769a0d5855bb80e7382af7	picked	ftrace: Fix invalid address access in lookup_rec() when index is 0	kernel/trace/ftrace.c	-
+070	b2747b690cb911263fa6e2cbe32a85446f259165	a6475fbc0d3abffe9efab12a53e24d64b39f5454	picked	mm/userfaultfd: propagate uffd-wp bit when PTE-mapping the huge zeropage	mm/huge_memory.c	-
+071	03fc29e75e44bac3108068a9403ff1b316f3f0fa	731700ac3b091714050b867a9e3c94a2c7caefdd	picked	mmc: sdhci_am654: lower power-on failed message severity	drivers/mmc/host/sdhci_am654.c	-
+072	38742635eda98fb5d3304d921cddaaa62d656814	9d8c04bf70098274109283a570c1a443d67a52af	picked	fbdev: stifb: Provide valid pixelclock and add fb_check_var() checks	drivers/video/fbdev/stifb.c	-
+073	15e926dfd82081e759754ac3917817d427ec2889	cb17da6cd4738c3fb1f89f5d4afdcbeb32c2e92b	picked	cpuidle: psci: Iterate backwards over list in psci_pd_remove()	drivers/cpuidle/cpuidle-psci-domain.c	-
+074	764217184f9ef1fe2c8e1f6abed010dda4a53a94	e0e6c1ce3b83fe912e7aa3bd3d1676914e03fe09	picked	x86/mce: Make sure logged MCEs are processed after sysfs update	arch/x86/kernel/cpu/mce/core.c	-
+075	b4a798374f2d269af00886616386beea7388a8ea	6a7323d71237e635aa9d04b12115310494e0d117	picked	x86/mm: Fix use of uninitialized buffer in sme_enable()	arch/x86/mm/mem_encrypt_identity.c	-
+076	8f27d432170068709654da9ce7e9e8f3aa2f6b8d	aac7241b1264d41511d1c0a98ea1326158b47fb3	picked	drm/i915: Don't use stolen memory for ring buffers with LLC	drivers/gpu/drm/i915/gt/intel_ring.c	-
+077	5e784a7d07af42057c0576fb647b482f4cb0dc2c	e0c244d3ccca60c231aabb70097256e7ee14a94b	picked	drm/i915/active: Fix misuse of non-idle barriers as fence trackers	drivers/gpu/drm/i915/i915_active.c	-
+078	84e2e393bf9fa47d134eddaeb8319c755e646f30	-	already-present	io_uring: avoid null-ptr-deref in io_arm_poll_handler	io_uring/io_uring.c	Full canonical post-context already matches separately imported ACK f4ba554 correction78a7868847 from accepted79. NULL check precedes retries initialization and existing polled branch remains valid; retain HF/public modes and avoid duplicate source.
+079	b5e0b3d74285f7b5491e7fa5c3c1e0860f924edf	7a81a9486e57da32551ab824a64908439bf7c7cc	picked	s390/ipl: add missing intersection check to ipl_report handling	arch/s390/boot/ipl_report.c	-
+080	337aa99f76ea07a0cd9eebe694fd21760c343330	140b7c8131c9c295553e62523a44e19d0549d9df	picked	PCI: Unify delay handling for reset and resume	drivers/pci/pci-driver.c;drivers/pci/pci.c;drivers/pci/pci.h	-
+081	d0292124bb5787a2f1ab1316509e801ca89c10fb	4d69276a7774201d60df6f0d1d9a444644f9cebd	picked	PCI/DPC: Await readiness of secondary bus after reset	drivers/pci/pci.c;drivers/pci/pci.h;drivers/pci/pcie/dpc.c	-
+082	d6f223cfef322d92305a697b848852ba4c2caecc	b289080bb8318a092a3545e31ac2abeb2340c0bb	picked	xfs: don't assert fail on perag references on teardown	fs/xfs/xfs_mount.c	-
+083	be60f08c03dedb2e78d4c472de92b812ac2e5dca	91c27e8768351cb26845b76e81c0662a73b8de12	picked	xfs: purge dquots after inode walk fails during quotacheck	fs/xfs/xfs_qm.c	-
+084	c84fb2962680fa85d9916d67026e4f01ea4cadca	bca263779e69acdf61ffca429796bacc96cadd51	picked	xfs: don't leak btree cursor when insrec fails after a split	fs/xfs/libxfs/xfs_btree.c	-
+085	35f049abbae3954fe2c3d57d62fe6624d9b29df6	0f8880e9b08263be04b169eb6f032c0300a0f412	picked	xfs: remove XFS_PREALLOC_SYNC	fs/xfs/xfs_file.c;fs/xfs/xfs_pnfs.c	-
+086	308dfe49eb753d7263fa4e001251d733c710ed14	df02114f9bc70afb3a8ea888c15dcd725e3b1d51	picked	xfs: fallocate() should call file_modified()	fs/xfs/xfs_file.c	-
+087	8cf9400f8948781cc9175f94666421e77622d639	c66c1f0c1237849d93cbdefb2ec173636c6dd930	picked	xfs: set prealloc flag in xfs_alloc_file_space()	fs/xfs/xfs_bmap_util.c;fs/xfs/xfs_file.c	-
+088	f60b68c46444e4e9321a4313efd5ea0eddd77fb7	d85d732ad683433fc19f22f4e4e53842efcd5403	picked	xfs: use setattr_copy to set vfs inode attributes	fs/xfs/xfs_iops.c;fs/xfs/xfs_pnfs.c	-
+089	347750e1b69cef62966fbc5bd7dc579b4c00688a	37048fadc932f3702463111dbbf5cb6165cc2e3b	picked	fs: add mode_strip_sgid() helper	fs/inode.c;include/linux/fs.h	-
+090	94ac142c19f1016283a1860b07de7fa555385d31	7e8daf4d3ca86fc55c20bda55694b6aacd19a577	picked	fs: move S_ISGID stripping into the vfs_*() helpers	fs/inode.c;fs/namei.c;fs/ocfs2/namei.c	-
+091	24378d6f748649060f4d0c3eea8a1efe5bccfd1d	9af4d129b6408f7a741e863a2805c6be952fac0e	picked	attr: add in_group_or_capable()	fs/attr.c;fs/inode.c;fs/internal.h	-
+092	baea3ae425fb3d65a3aef15e58724e717a746a0b	473569351175f0864d53e4c718dbee0b921cf1f1	picked	fs: move should_remove_suid()	fs/attr.c;fs/inode.c	-
+093	240b96ffece8fc959c1b7d8647b178503a51255b	521b3b76d3b326efdd02b40cf5ac13acbf85a185	picked	attr: add setattr_should_drop_sgid()	fs/attr.c;fs/internal.h	-
+094	0e9dbde96cacd0e95e05e862b50f3079146917f2	4dd566df2ea1f498a10d09d2f0db1012e8a3392d	picked	attr: use consistent sgid stripping checks	Documentation/trace/ftrace.rst;fs/attr.c;fs/inode.c;fs/ocfs2/file.c;fs/open.c;include/linux/fs.h	-
+095	183ca919544c898dfbb40f6b26d33bfe8765a986	af2c8692748f8e07e12ba927a97de756c2e13e2e	picked	fs: use consistent setgid checks in is_sxid()	include/linux/fs.h	-
+096	daa97e770e780b5e74d85afd236849359711a8d0	f38e4ecefa98446a87dc7a034cb2c2d4246ecea2	picked	xfs: remove xfs_setattr_time() declaration	fs/xfs/xfs_iops.h	-
+097	9bc878756b017f2e1d8dc4f261faa64f69c4c2ee	8a7c52f006c7c9571a3246f6fddb3cfb8d6ceb8a	picked	HID: core: Provide new max_buffer_size attribute to over-ride the default	drivers/hid/hid-core.c;include/linux/hid.h	-
+098	e57f797e3ffafb09eafb9be69d065d1e0331da61	7c0463554f2ca5a9fd6fcfe17defc31f0c2f77a3	picked	HID: uhid: Over-ride the default maximum data buffer value with our own	drivers/hid/uhid.c	-
+099	ca9787bdecfa2174b0a169a54916e22b89b0ef5b	6b5fd9465081b9575f11fcb1ea9a8132315342b7	backported	Linux 5.10.176	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
