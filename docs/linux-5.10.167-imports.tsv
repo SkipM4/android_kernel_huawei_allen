@@ -1,0 +1,11 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	67a8beb8544e4b15ea27620439b1c63c3fbdd187	1cb229f85ac81b8c7ef05b7bf9640eacaf26f5e4	picked	ARM: dts: imx: Fix pca9547 i2c-mux node name	arch/arm/boot/dts/imx53-ppd.dts	-
+002	a26cef004146cc49463e88a8511269d5a414067e	337ec8a3852272c94e8b4046476d7aa34531e17d	picked	ARM: dts: vf610: Fix pca9548 i2c-mux node names	arch/arm/boot/dts/vf610-zii-dev-rev-b.dts;arch/arm/boot/dts/vf610-zii-dev-rev-c.dts	-
+003	f185468631238a98c0cf98e0403a90dc3eab5c70	ad085f1ddb15af1678cb76264ca0d5c81aa7b923	picked	arm64: dts: imx8mq-thor96: fix no-mmc property for SDHCI	arch/arm64/boot/dts/freescale/imx8mq-thor96.dts	-
+004	a1c0263f1eb4deee132e11e52ee6982435460d81	ba0ccef134a89a4f6e21debc09549577c9a0e7c8	picked	bpf: Skip task with pid=1 in send_signal_common()	kernel/trace/bpf_trace.c	-
+005	19c9a2ba46996f2dbc5bfbf1e8f3dc50b347c91c	0dfabc28a29b9c5f883169f0b4203e08b4c2ef65	picked	blk-cgroup: fix missing pd_online_fn() while activating policy	block/blk-cgroup.c	-
+006	bd0050b7ffa87c7b260d563646af612f4112a778	ecd98a6bab63129bdccedcdef99fb651ec3813e9	picked	dmaengine: imx-sdma: Fix a possible memory leak in sdma_transfer_init	drivers/dma/imx-sdma.c	-
+007	d744c03c04a76b3732b18c034bb5d872c3808b7b	f6f334a7df6d3b3b510786f27ff361285a7e962e	picked	ACPI: processor idle: Practically limit "Dummy wait" workaround to old Intel systems	drivers/acpi/processor_idle.c	-
+008	0f9db1209f59844839175b5b907d3778cafde93d	351d0bb7b17d70fe87af62527a7d664cc7a1fafc	picked	Bluetooth: fix null ptr deref on hci_sync_conn_complete_evt	net/bluetooth/hci_event.c	-
+009	6446369fb9f083ce032448c5047da08e298b22e6	-	already-present	net: fix NULL pointer in skb_segment_list	net/core/skbuff.c	The actual skb_segment_list already uses a guarded while(list_skb) loop and has no do/while trailer, so an empty frag_list is never dereferenced. Its full function differs from canonical postimage only in harmless whitespace; retain existing networking providers without a duplicate code change.
+010	a5acb54d4066f27e9707af9d93f047f542d5ad88	40670e5ef5990c9895812a1ba0094afe110af5a1	backported	Linux 5.10.167	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

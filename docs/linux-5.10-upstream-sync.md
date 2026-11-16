@@ -4442,3 +4442,124 @@ No passed build/boot/interface gate is repeated absent a relevant change or
 fault. Next is complete canonical166-170 toward pinned5.10.274; ACK alignment,
 vendor/core separation, GKI/KMI and inherited subsystem/hardware/power
 findings remain open. No release export, tag, push or publication occurs.
+
+## Complete Canonical 5.10.166-170 And Accepted #78
+
+The accepted165/#77 boundary is `0efd421463`, kernel source `da36d4e1f`.
+Complete canonical kernel.org inputs retain original parent order, raw
+authors/dates/messages, full-index patches and annotated tag object identities.
+
+| Release | Canonical endpoint | Originals | Exact | Adapted | Present | NA |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.166 | `8d823aaa220eebec88c9f307225d3e163252ea95` | 143 | 128 | 11 | 4 | 0 |
+| 5.10.167 | `a5acb54d4066f27e9707af9d93f047f542d5ad88` | 10 | 8 | 1 | 1 | 0 |
+| 5.10.168 | `707c48210a5384a72c82655a37895b7e822755f2` | 133 | 125 | 2 | 4 | 2 |
+| 5.10.169 | `2ae73796985b582b79711dfed2941d190b571fb5` | 58 | 51 | 2 | 5 | 0 |
+| 5.10.170 | `22d269bb30db7f5a4e71a8a813a0f4df5255f7de` | 27 | 24 | 1 | 2 | 0 |
+
+All371 originals have per-release TSV entries;353 source commits end at
+`1e81b711ac`, with no separate kernel integration patch. All five release
+trees match the approved ordered projection. The final kernel tree is
+`0b279563fda43e0d7e7ee28d31ea9697f4adac37`. All353 raw authors/dates and stable
+trailers remain exact. Complete message prefixes are exact for352;168#74
+(`556959327b190a4efcfccc4ed311a08f6ea520ed`, local `caeba0c5af`) has one
+declared whitespace-only exception: default Git commit cleanup collapses a
+duplicate blank line after the lore URL. No nonempty message line changes,
+the complete raw original remains stored, and history is not amended. Future
+imports use `git commit --cleanup=verbatim`.
+
+### Ordered Source And OEM Boundaries
+
+Standard warning/oops counters, sysctls, `make_task_dead` and consolidated
+`check_panic_on_warn` arrive with their full ordered followups. Fatal entry
+and shared warning policy retain actual bbox/coresight, Android trace and
+KASAN/MTE hooks; panic_on_warn resets before OEM hooks that may themselves
+warn. Ordinary do_exit/RTG/POSIX/io_uring cleanup remains. No deliberate
+oops/panic, diagnostic suppression or on-device limit write is used.
+
+Betop's two output-report guards adapt to the actual per-field count while
+protecting every indexed value. Overlay fallocate removes file privileges
+inside the named operation and common unlock path, retaining both Android
+credential modes. Hugetlb sharing helper placement preserves existing TLB
+prototypes/AMA context; HUGETLB_PAGE is unselected. Existing PageHead
+snapshot, SDIO card-reference lifecycle and tcindex RCU changes are verified
+as already present. The two absent/unselected Qualcomm DWC3 corrections do
+not replace selected Kirin DWC3. Five BPF verifier partial-spill/liveness
+fixes are exact; the selected interpreter retains its nospec/PRMEM hooks.
+PSI wake_up_pollfree precedes the existing RCU grace period and final free.
+
+Managed clocks retain typed get/init/exit dispatch and the final166 pointer
+cast fix. Four prepared/enabled optional/nonoptional helpers are real new
+GPL exports. NVMEM ignore_wp, wp_gpio config removal, cell/error cleanup and
+publication ordering move together with the provider and RTC consumer; no
+additional OEM nvmem_config.wp_gpio consumer is found. Selected layouts are
+checked rather than inferred from module CRCs.
+
+A separate source-only clock followup remains open: devm_get_clk_from_child
+still allocates one pointer while the generalized release reads the
+two-pointer devm_clk_state. Upstream `66fbfb35da47f391bdadf9fa7ceb88af4faa9022`
+fixes it, documented by the later
+[Android common backport](https://android.googlesource.com/kernel/common/+/5cc7d81cf57618e24b6db2bc45430bd7249f810d)
+and [original review](https://lists.openwall.net/linux-kernel/2023/08/05/156).
+All six source callers are unselected in this build; current390 modem
+imports do not use that helper. No child-clock unbind experiment or blanket
+clock lifetime acceptance occurs; the later complete ordered fix is required.
+
+### Current Build, Interfaces And Matching Modules
+
+One actual olddefconfig/prepare and one full Image/modules invocation exit0
+for5.10.170 #78. Effective configuration, signing material and36 generated
+OEM/HF selectors remain identical to77. Android Clang/LLD12.0.7, ThinLTO,
+enforcing CFI, BTI/BHB, actual Kbuild Werror flags, LLVM/IAS, mandatory module
+signatures, SELinux and PRMEM/HKIP are retained. CONFIG_WERROR is not an
+existing selector here; error flags are checked in real object commands.
+
+The366 current ordinary contexts bind complete source/generated dependencies.
+Eleven necessary new objects are decoded once for actual managed-clock,
+NVMEM/RTC, sysfs/sysctl and PSI producer/consumer contracts. New facts include
+13 callbacks in six type groups,16-byte devm clock state,112-byte matching
+nvmem_config and actual warning/oops attribute/initialization dispatch.
+NVMEM cell construction/removal and register_sysctl are inlined; their real
+optimized calls and debug scopes establish publication/cleanup order, not
+an expectation of preserved helper names. Current task layouts agree with
+accepted77, explicitly linking the unchanged single io_uring/HF providers
+and selectors without re-decoding old objects or replaying the private probe.
+
+Final ELF checks97 normal targets in55 finite CFI groups.
+The new managed-release target retains its ordinary object's ThinLTO identity
+because clk.c has another static function with the same spelling. Four new
+relative initcalls and two attribute pointers use their actual typed
+canonical entries. Relinked HF/task checks retain eleven hook stores, three
+work stores, ki_complete, the typed initcall,15 direct raw bridges and actual
+worker/thread offsets. This is finite selected-machine continuity, not a
+whole opaque assembly or concurrency certificate.
+
+All13,854 exports are compared with77's13,850: four new managed-clock helpers,
+no removals and three changed CRCs for devm_nvmem_register, nvmem_register and
+rtc_nvmem_register. Providers/export types/namespaces remain. All390 rebuilt
+modem and two optional dummy imports match; no old module, forced CRC,
+vermagic spoof or permissive loader is used. Matching boot/modem staging
+checks original header/stub/DTB roundtrip, target signing certificate/CMS,
+ext4 metadata/SELinux label and module readback.
+
+### Normal Android And Local Closeout
+
+Accepted77's live identity, boot ID and paired partition/module/ramdisk
+readbacks bind recovery. Only local170/#78 boot and modem_driver are flashed.
+Normal Android automatically loads the signed same-build Live modem.
+Partition/file/loaded build-id checks, unlocked CE storage, required services
+and same-thread six-stage automatic ISP firmware startup pass. Time-zero,
+boot and later logs have no actual kernel/module/HKIP fault;518 AVC
+denials remain, none for module loading. Enforcing, taint4, forced signaturesY
+and PRMEM enabled remain. New read-only warn_count/oops_count are both0;
+warn_limit remains0 and oops_limit10000. No limit is written or fault induced.
+The accepted77 private migration proof is retained rather than replayed.
+Original trace0/wifi and Asleep are restored.
+
+Current78 compact metadata is saved before output reuse; accepted77 remains
+immediate paired rollback and recent74-78 test pairs stay below20 GB.
+Originals, signing material, failed71/65 evidence and exact referenced
+proof/blob/alternate stores remain. Next is complete171-175 toward pinned
+5.10.274. ACK/vendor-core/GKI/KMI, named source-only issues and full
+hardware/network/performance/power acceptance remain open. No release
+export, tag, push or publication occurs.

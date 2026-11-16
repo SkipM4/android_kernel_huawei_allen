@@ -11,9 +11,10 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #77/5.10.165 on `upstream/linux-5.10.y`, kernel source
-through `da36d4e1f`. Immediate paired rollback is #76/5.10.161. Complete162-165
-and the single-core explicit-standard-mode/default-Hyperframe migration pass
+Installed candidate is #78/5.10.170 on `upstream/linux-5.10.y`, kernel source
+through `1e81b711ac`. Immediate paired rollback is #77/5.10.165. Complete166-170
+and current clock/NVMEM/sysfs/PSI, finite CFI/matching module/runtime gates
+pass. The accepted162-165 single-core explicit-standard-mode/default-Hyperframe migration passes
 current build/layout/CFI, normal Android/automatic modules and nine finite
 private-ring checks. Retained HF requires aligned buffers and uses CLOSE
 user_data as cancel/unlink; general-buffer, concurrency and full hardware
@@ -72,7 +73,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.165 Resolved; #77 Full Build/Current Single io_uring-HF-Task-Devfreq Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP/Nine Private Migration Checks Pass; #76 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.166-170; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.170 Resolved; #78 Full Build/New Clock-NVMEM-Sysfs-PSI/97-Target-55-Group CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP/Read-Only Warn-Oops Counts Pass; #77 Immediate Rollback And Private Migration Proof Retained; #71 And #65 Failed Evidence Retained; Next Complete 5.10.171-175; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -798,6 +799,39 @@ frees after completion; blind porting or disabling the feature is not an
 acceptable workaround. Continue complete162-165 with full ordered context
 validation, current migration-specific build/CFI/layout and matching modules.
 Previews alone do not establish import/build/runtime acceptance or target274.
+
+### Complete Canonical 5.10.166-170 And Accepted #78
+
+All371 official originals are resolved in order with353 source commits
+through `1e81b711ac`; five release trees match the approved projection.
+Raw authors/dates/trailers remain. One168#74 message has only a duplicate
+blank-line cleanup exception, with complete raw original retained; history
+is not amended and future imports use verbatim cleanup. No separate kernel
+repair is added in this batch.
+
+One actual prepare/full Image+modules build exits0 with unchanged config,
+keys and36 OEM/HF selectors.366 actual contexts and eleven new ordinary
+objects cover clock/NVMEM/RTC/sysfs/sysctl/PSI. New typed facts,97 normal
+targets in55 final CFI groups, four initcalls/two attributes and relinked HF
+bridges/worker-thread offsets pass. Old primary providers remain unchanged;
+accepted77 private migration proof is retained without replay.
+
+All13,854 exports, four additions and three NVMEM CRC changes are accounted
+for;390 modem and two optional dummy imports match. Matching CMS-signed
+staging, paired installation/readbacks and automatic Live modem pass.
+Normal Android, unlocked CE, required services and six-stage ISP startup
+complete. Full logs contain no actual kernel/module/HKIP fault;518 AVC
+denials remain, none module load. Enforcing, mandatory signatures, taint4
+and PRMEM stay. New warn/oops counts are read only and both0; limits remain
+0/10000. Independent ramdisk, trace0/wifi and Asleep are preserved/restored.
+
+The later upstream child-clock devres allocation-size fix remains source
+only open: six callers are unselected and current modem has no such import.
+No destructive clock/fault experiment or blanket lifetime claim follows.
+Compact78 metadata and recent74-78 pairs remain below20 GB with77 immediate
+rollback. Next is complete171-175 toward pinned274; ACK/vendor-core/GKI/KMI,
+inherited subsystem and full hardware/network/performance/power findings
+remain open. No release export, tag, push or publication occurs.
 
 ## Next-Stage Work Queue
 

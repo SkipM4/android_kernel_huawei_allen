@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.161
-#76 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.170
+#78 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -667,6 +667,41 @@ scoped evidence, not a stable-KMI, cellular-data or whole-device certificate.
 These are local test/recovery files, not an exported release bundle or an
 OEM-signed AVB claim. Their build, installation and runtime evidence is in
 [linux-5.10-upstream-sync.md](linux-5.10-upstream-sync.md).
+
+### 5.10.166-170 #78: Matching Current Interface Update
+
+The current installed pair uses `5.10.170-clang12-r78`; #77/5.10.165 is the
+immediate boot/modem_driver rollback. Full Image/modules compilation exits0
+with unchanged effective configuration, signing keys and36 OEM/HF selectors.
+All13,854 exports are compared with77's13,850: four new prepared/enabled
+managed-clock helpers, no removal and three changed CRCs for
+devm_nvmem_register, nvmem_register and rtc_nvmem_register. Provider, export
+type and namespace stay. All390 rebuilt modem and two optional dummy imports
+match the actual new table; no prior binary or synthetic versions are used.
+
+Eleven necessary current objects establish typed managed-clock release,
+112-byte NVMEM config agreement with RTC, new sysfs/sysctl callbacks and PSI
+pollfree-before-RCU/free. Final97-target/55-type CFI memberships and actual
+relative initcall/attribute/raw bridge assignments pass. Unchanged HF/task
+providers retain77's explicitly linked facts without old object decode or
+private runtime replay. These scoped interface checks remain separate from
+the complete module CRC comparison, not stable KMI certification.
+
+Original-format boot and signed modem ext4 staging pass certificate/CMS,
+metadata/label and roundtrip checks. Paired installation reaches normal
+Android with automatically loaded matching Live modem, full partition/file/
+loaded build-id readbacks and unchanged independent ramdisk. Unlocked CE,
+required services and automatic six-stage ISP startup pass; complete logs
+have no actual kernel/module/HKIP fault.518 AVC denials remain, none for
+module loading. SELinux Enforcing, forced signatures, taint4 and PRMEM stay;
+read-only warn/oops counts are0. Trace0/wifi and Asleep are restored.
+
+devm_get_clk_from_child's later upstream allocation-size repair remains a
+named source-only finding; all six source consumers are unselected and the
+actual modem does not import it. No child-clock unbind or unrelated dummy
+load is used to enlarge acceptance. Required modules continue to follow
+version updates by rebuilding against the complete current kernel, not by
+relaxing validation. Next is complete171-175; all files remain local.
 
 ## Actual Module Inventory And Limits
 

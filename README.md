@@ -6,11 +6,14 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.165 #77, with kernel source
-`da36d4e1f`, normal Android, unlocked CE storage, completed ISP firmware
+The installed upstream milestone is Linux 5.10.170 #78, with kernel source
+`1e81b711ac`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
-#76/5.10.161 is the immediate paired rollback. Complete162-165 is accepted
-with one canonical io_uring core: installed Hyperframe34-37 defaults remain,
+#77/5.10.165 is the immediate paired rollback. Complete166-170 resolves all
+371 originals, retaining configuration, signing material and36 OEM/HF
+selectors. New clock/NVMEM/sysfs/PSI contracts and final97-target/55-group
+CFI checks pass; warn_count/oops_count remain0. The accepted162-165 migration
+keeps one canonical io_uring core: installed Hyperframe34-37 defaults remain,
 and immutable `IORING_SETUP_STANDARD_OPS` explicitly enables standard34-36.
 Fresh task/HF layout, lifetime, enforcing CFI and assembly checks pass; nine
 finite private-ring checks cover both modes and fixed-file reference release.
@@ -669,6 +672,41 @@ Accepted77 metadata and recent73-77 pairs stay local below20 GB. Next is
 complete166-170 toward pinned274; ACK/vendor-core/GKI/KMI and inherited
 subsystem/hardware/power findings remain open. No release is exported or
 published.
+
+### Linux 5.10.166-170 And #78
+
+All371 canonical originals are resolved in order:336 exact picks,17
+adaptations,16 already-present and two absent/unselected Qualcomm DWC3
+entries. The353 source commits end at `1e81b711ac`; all five release trees
+match the approved projection. Raw authors/dates and stable trailers remain.
+One declared168#74 message exception collapses a duplicate blank line after
+a lore URL; no nonempty line changes, raw provenance remains and history is
+not rewritten. Future imports use verbatim message cleanup.
+
+Standard warning/oops controls and make_task_dead preserve OEM fault hooks
+and ordinary exit cleanup. Managed clocks, NVMEM cell/publication fixes,
+PSI pollfree, BPF verifier and named VFS adaptations retain real hardware
+providers and security contracts. One complete #78 Image/modules build
+exits0. Eleven new ordinary objects establish current typed/layout facts;
+final ELF checks97 targets in55 CFI groups and actual raw bridge continuity.
+Unchanged HF primary providers/selectors retain77 proofs without a private
+probe replay. Configuration, signing material and enforcing controls stay.
+
+Four new managed-clock exports and three NVMEM-related CRC changes are
+accounted for. All390 rebuilt modem and two optional dummy imports match.
+Signed matching boot/modem staging and paired installation pass, with the
+independent ramdisk unchanged. Normal Android automatically loads the Live
+modem; full readbacks/loaded build-id, unlocked CE, services and six-stage
+ISP startup pass. Complete logs have no actual kernel/module/HKIP fault;
+518 AVC denials remain, none for module loading. Read-only warn/oops counts
+are0; no fault or limit write is induced. Trace0/wifi and Asleep are restored.
+
+A later upstream child-clock resource-size fix remains source-only open;
+all six current callers are unselected and modem does not import that API.
+This is not whole-clock lifetime or hardware/power certification. Compact78
+metadata and recent74-78 pairs stay local below20 GB, with77 immediate
+rollback. Next is complete171-175 toward pinned274. ACK/vendor-core/GKI/KMI
+and inherited findings remain open; no release export/publication occurs.
 
 ### Installed Bring-up Baseline
 

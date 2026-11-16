@@ -1,0 +1,28 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	eb9236d74c8cf2a7d68784018e290a48cebbee2e	cd6fed731e55a643265a786147c02973c5b5155c	picked	drm/etnaviv: don't truncate physical page address	drivers/gpu/drm/etnaviv/etnaviv_mmu.c	-
+002	051d73eb9ab456bcf5214554f1b37d97bedbb6d0	4d4f75774f68e87179129128694e7c9de9aa83c0	picked	wifi: rtl8xxxu: gen2: Turn on the rate control	drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c	-
+003	072eb5fbd69c1e566e1c9c4b08c199dbbf1dc181	9b3c16af58baee7e3759b9ff72b8531925cd7973	picked	clk: mxl: Switch from direct readl/writel based IO to regmap based IO	drivers/clk/x86/Kconfig;drivers/clk/x86/clk-cgu-pll.c;drivers/clk/x86/clk-cgu.c;drivers/clk/x86/clk-cgu.h;drivers/clk/x86/clk-lgm.c	-
+004	3789e905f4885522ebf37b040eefd62422cff249	7864f8d4e749e68bc53c054c3d7eb53556ac9ca7	picked	clk: mxl: Remove redundant spinlocks	drivers/clk/x86/clk-cgu-pll.c;drivers/clk/x86/clk-cgu.c;drivers/clk/x86/clk-cgu.h;drivers/clk/x86/clk-lgm.c	-
+005	9dcf2ca5d30147d56037679432908e4222c5794f	3548b28450d3b61f2dd4238ada8683c43a3d4cb7	picked	clk: mxl: Add option to override gate clks	drivers/clk/x86/clk-cgu.c;drivers/clk/x86/clk-cgu.h	-
+006	caa47d91738f0e65687733fad53d87cc2048ed98	61e01b678448e40721f8c52aa1f6015981439bc7	picked	clk: mxl: Fix a clk entry by adding relevant flags	drivers/clk/x86/clk-cgu.c;drivers/clk/x86/clk-cgu.h;drivers/clk/x86/clk-lgm.c	-
+007	1423d88753ed4cc9c2564a76ef0858b927dbc5a7	174e06f4b1234897195e8a85f839ebed59e431ef	picked	powerpc: dts: t208x: Mark MAC1 and MAC2 as 10G	arch/powerpc/boot/dts/fsl/qoriq-fman3-0-10g-2.dtsi;arch/powerpc/boot/dts/fsl/qoriq-fman3-0-10g-3.dtsi;arch/powerpc/boot/dts/fsl/t2081si-post.dtsi	-
+008	2da1f95085791ad8912dc4d9584e2ae003616662	03e74588ce3f688d20fa99edcaae9aedfe01e754	picked	clk: mxl: syscon_node_to_regmap() returns error pointers	drivers/clk/x86/clk-lgm.c	-
+009	119e75d8fe4ddc758a04568fdf28f3c3cda130e9	be049fbba09c0af2c719518227d6e4cb796d128f	picked	random: always mix cycle counter in add_latent_entropy()	include/linux/random.h	-
+010	a7ef904b68f001b1faef6ba324a267b9b5d74000	2a160216133021b63c09251ffb4663538487f106	picked	KVM: x86: Fail emulation during EMULTYPE_SKIP on any exception	arch/x86/kvm/x86.c	-
+011	c41d856b7064e20252e660ff4f2cc49569213b31	8160984cf185fa61780babfed293aeeb5dddd9d4	picked	KVM: SVM: Skip WRMSR fastpath on VM-Exit if next RIP isn't valid	arch/x86/kvm/svm/svm.c	-
+012	1b0cafaae8884726c597caded50af185ffc13349	0e73be041b4dfa0af15f43a3b85249802fcfee6c	picked	KVM: VMX: Execute IBPB on emulated VM-exit when guest has IBRS	arch/x86/kvm/vmx/nested.c;arch/x86/kvm/vmx/vmx.c	-
+013	6a3fb887da7d85aaf9a32539976b8ceb12a6306d	8b0e864c57536fd9145e9ac6a930b903867ccb91	picked	can: kvaser_usb: hydra: help gcc-13 to figure out cmd_len	drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c	-
+014	b50f6fc9d79f0dc875df004c73b6b3fd31186b0b	7b7fa78f13fe2532ddd3aa1229fe81f6965bab38	picked	powerpc: dts: t208x: Disable 10G on MAC1 and MAC2	arch/powerpc/boot/dts/fsl/t2081si-post.dtsi	-
+015	3d743415c6fb092167df6c23e9c7e9f6df7db625	7598d11e71a030dc6dd75bdabd7479753280bead	picked	drm/i915/gvt: fix double free bug in split_2MB_gtt_entry	drivers/gpu/drm/i915/gvt/gtt.c	-
+016	267f62b7f3ee94bb0242a72a173073e0da04836f	b53c9c758161740f32f070c4df3af6de9d0b99c6	picked	mac80211: mesh: embedd mesh_paths and mpp_paths into ieee80211_if_mesh	net/mac80211/ieee80211_i.h;net/mac80211/mesh.h;net/mac80211/mesh_pathtbl.c	-
+017	3b6ce54cfa2c04f0636fd0c985913af8703b408d	-	already-present	uaccess: Add speculation barrier to copy_from_user()	include/linux/nospec.h;kernel/bpf/core.c;lib/usercopy.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+018	f3f6b33b77bac0bd27f1f1bec05ab58a54948fc9	2d5819bb4bab24c8cbe6cc52935e804914244561	picked	Revert "Revert "block: nbd: add sanity check for first_minor""	drivers/block/nbd.c	-
+019	fd8107206a672f5a529a819e8930bf81fb54ae0f	3c02d66693bfcf6389d50138deb6b91cae465481	picked	nbd: fix max value for 'first_minor'	drivers/block/nbd.c	-
+020	2e0c3e43ebb99c2b495229f8fade4c043fbd06a5	71a8dfbc797a4be572675c9b8161567efe7355f8	picked	nbd: fix possible overflow for 'first_minor' in nbd_dev_add()	drivers/block/nbd.c	-
+021	4311ad1e7654f9dd569a4d1b0059f838f474e9d3	51ed1007c0a30661989752a3d0f9dd8fd4dccc31	picked	nbd: fix possible overflow on 'first_minor' in nbd_dev_add()	drivers/block/nbd.c	-
+022	e1dc3f102a8127255975ddbdd81fa2525d861d00	24ed867596e007d858caa9f83a7824e5e3add849	picked	wifi: mwifiex: Add missing compatible string for SD8787	drivers/net/wireless/marvell/mwifiex/sdio.c	-
+023	01e652f03a865b41cfc44e04dbdbbc1d83f15dd4	a73976c41070c075cd40b11d0e821471956743a0	picked	audit: update the mailing list in MAINTAINERS	MAINTAINERS	-
+024	1ba10d3640e9783dad811fe4e24d55465c37c64d	97d8c6b2d3b3f7528846b8d7ae5ff5a88c969e4b	picked	ext4: Fix function prototype mismatch for ext4_feat_ktype	fs/ext4/sysfs.c	-
+025	c44e96d6c31a0937c6b82c3dc3e6500545fb1024	2e8a7b44bf655307cc4977ccc1060dc652307186	picked	Revert "net/sched: taprio: make qdisc_leaf() see the per-netdev-queue pfifo child qdiscs"	net/sched/sch_taprio.c	-
+026	12e3119a87627741bd3871c895ce198f21529eb3	-	already-present	bpf: add missing header file include	kernel/bpf/core.c	The canonical linux/nospec.h include is already directly present beside log2.h and before selected HKIP_PRMEM includes. Earlier17017 barrier code therefore has its declaration in the actual BPF core; retain PRMEM allocation/hooks and no duplicate include change.
+027	22d269bb30db7f5a4e71a8a813a0f4df5255f7de	1e81b711accbdf5bc324be6d6c32878c449eabaf	backported	Linux 5.10.170	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
