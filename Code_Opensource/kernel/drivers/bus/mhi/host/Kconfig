@@ -28,4 +28,3 @@ config MHI_BUS_PCI_GENERIC
 	help
 	  This driver provides MHI PCI controller driver for devices such as
 	  Qualcomm SDX55 based PCIe modems.
-
