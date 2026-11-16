@@ -25,6 +25,7 @@
 #include "hwrtg/proc_state.h"
 #endif
 #ifdef CONFIG_HW_FORK_THREAD_CHANGE_CGROUP
+#include <linux/cpu.h>
 #include <../kernel/cgroup/cgroup-internal.h>
 
 static struct cgroup *cgroup_for_cpuctl_top_app;
@@ -181,12 +182,14 @@ static int attach_cgroup_to_task(struct cgroup *cgrp,
 		goto err_cgroup;
 	}
 
+	cpus_read_lock();
 	percpu_down_write(&cgroup_threadgroup_rwsem);
 	ret = cgroup_attach_task(cgrp, task, false);
 	if (ret != 0)
 		pr_err("[HW_VIP %s]cgroup_attach_task err: %d, cgrp: %p\n",
 			__func__, ret, cgrp);
 	percpu_up_write(&cgroup_threadgroup_rwsem);
+	cpus_read_unlock();
 
 err_cgroup:
 	mutex_unlock(&cgroup_mutex);
