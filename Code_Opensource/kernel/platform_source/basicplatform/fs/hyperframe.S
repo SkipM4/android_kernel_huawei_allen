@@ -4521,7 +4521,7 @@ hyperframe_fill_cq_asm:                     // @hyperframe_fill_cq
 	ret
 .Ltmp638:
 .Lfunc_end13:
-	.size	hyperframe_fill_cq_asm, .Lfunc_end13-hyperframe_fill_cq
+	.size	hyperframe_fill_cq_asm, .Lfunc_end13-hyperframe_fill_cq_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_read_work
@@ -5017,7 +5017,7 @@ hyperframe_read_work_asm:                   // @hyperframe_read_work
 	b	.LBB14_19
 .Ltmp708:
 .Lfunc_end14:
-	.size	hyperframe_read_work_asm, .Lfunc_end14-hyperframe_read_work
+	.size	hyperframe_read_work_asm, .Lfunc_end14-hyperframe_read_work_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_write_work
@@ -5501,7 +5501,7 @@ hyperframe_write_work_asm:                  // @hyperframe_write_work
 	b	.LBB15_19
 .Ltmp779:
 .Lfunc_end15:
-	.size	hyperframe_write_work_asm, .Lfunc_end15-hyperframe_write_work
+	.size	hyperframe_write_work_asm, .Lfunc_end15-hyperframe_write_work_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_fill_cq_work
@@ -5871,7 +5871,7 @@ hyperframe_fill_cq_work_asm:                // @hyperframe_fill_cq_work
 	b	.LBB16_15
 .Ltmp834:
 .Lfunc_end16:
-	.size	hyperframe_fill_cq_work_asm, .Lfunc_end16-hyperframe_fill_cq_work
+	.size	hyperframe_fill_cq_work_asm, .Lfunc_end16-hyperframe_fill_cq_work_asm
 	.cfi_endproc
                                         // -- End function
 	.p2align	2                               // -- Begin function hyperframe_io_rw_buf
