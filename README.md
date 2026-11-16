@@ -6,18 +6,20 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.185 #81, with kernel source
-`d90c2c11b7`, normal Android, unlocked CE storage, completed ISP firmware
+The installed upstream milestone is Linux 5.10.190 #82, with kernel source
+`46243eea39`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
-#80/5.10.180 is the immediate paired rollback. Complete181-185 resolves all
-515 originals with510 ordered commits:493 exact,17 adapted, three present
-and two absent/unselected PCA9450 entries; no separate integration is needed.
-Effective selections, signing material and36 OEM/HF selectors remain.
-609 natural contexts and46 current objects bind IO/Binder, TCP/socket,
-ext4/HW_F2FS, cgroup, DWC3 and actual OEM regulator/power interfaces.
-The new socket waiter field moves the tail by eight bytes; current destructor
-stores and187-target/91-group final CFI checks pass. All390 rebuilt modem
-imports match the changed export table; no old binary or forced versions are used.
+#81/5.10.185 is the immediate paired rollback. Complete186-190 resolves all
+838 originals with811 ordered commits:782 exact,29 adapted,21 present
+and six inapplicable entries. A required official trace-format release fix
+and separate original-whitespace cleanup are recorded outside that accounting.
+Effective and emitted configuration, signing material and36 OEM/HF selectors
+remain.2448 current natural contexts and61 relevant objects bind IO/HF,
+NFT/pernet/network, trace, VFS/ext4/HW_F2FS, GPIO/HIV500, SDHCI and DWC3/PM.
+The new IO message-control member changes its union member but not request
+size or HF offsets. Current211-target/107-group final CFI, HF/task and Kirin
+GPIO raw stores pass. All390 rebuilt modem imports match despite8898 changed
+export CRCs; no old binary, forced versions or weakened protection are used.
 warn_count/oops_count remain0. Accepted79 private-ring evidence is retained,
 not replayed. The accepted162-165 migration
 keeps one canonical io_uring core: installed Hyperframe34-37 defaults remain,

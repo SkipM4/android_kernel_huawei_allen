@@ -1,0 +1,5 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	113ce5ed59fc99838ec7564c37323a3b4e500cde	f13c0da5b5a683143fab24f07e154fa139b17642	picked	x86/microcode/AMD: Load late on both threads too	arch/x86/kernel/cpu/microcode/amd.c	-
+002	191b8f9b0e3708e8325d8d28e1005a1fbe5e3991	bc7d46d0279c97de14f7af6ecc06f75dee3fc755	picked	x86/cpu/amd: Move the errata checking functionality up	arch/x86/kernel/cpu/amd.c	-
+003	93df00f9d48d48466ddbe01a06eaaf3311ecfb53	2c01fc8f769287a6b7e86886011ef472cbcad4e1	picked	x86/cpu/amd: Add a Zenbleed fix	arch/x86/include/asm/microcode.h;arch/x86/include/asm/microcode_amd.h;arch/x86/include/asm/msr-index.h;arch/x86/kernel/cpu/amd.c;arch/x86/kernel/cpu/common.c	-
+004	140d69b4e41d185d886880460461fab70f3b5e84	a208998bbcc6d4e12f88b8a39393d2df9cfc63ab	backported	Linux 5.10.187	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

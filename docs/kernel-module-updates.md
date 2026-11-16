@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.180
-#80 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.190
+#82 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -824,6 +824,49 @@ recovery. Next is complete186-190 toward pinned5.10.274. Full hardware,
 network/power, ACK parity, vendor-core separation and GKI/KMI remain open;
 required modules continue to follow each kernel update by paired rebuild.
 No release export or publication occurs.
+
+### Complete186-190 / Accepted #82
+
+Required modules continue to follow stable releases by paired rebuilding,
+not by independent old-binary reuse. Complete838 original dispositions and
+the required official trace fmt-release followup produce5.10.190 #82 from
+source `46243eea39`. Effective/emitted configuration, Android Clang/LLD12.0.7,
+LLVM/IAS, ThinLTO, enforcing CFI, BTI/BHB, actual Werror, trusted signing
+material and36 OEM/HF selectors remain unchanged.
+
+The full export comparison is13,861->13,865: additions are __sock_i_ino,
+dev_pm_set_dedicated_wake_irq_reverse, tcp_bpf_bypass_getsockopt,
+trace_event_printf and xfrm4_udp_encap_rcv; nft_parse_register is removed.
+8898 common CRCs change; common providers/export types/namespaces remain.
+All390 freshly rebuilt modem and two optional dummy imports match. Signature
+verification, stock-format boot roundtrip and modem ext4 label/ownership/
+signed-byte readback pass. No CRC, vermagic, CFI or signature bypass occurs.
+
+2448 current ordinary contexts and61 relevant objects bind35 layout groups,
+IO/HF, NFT/pernet/proto, trace, actual HW_F2FS/ext4/VFS, SDHCI/Zodiac,
+GPIO/HIV500 and DWC3/PM. The new message-control field expands io_sr_msg
+48->56 bytes but not the64-byte request union or240-byte request. HF selectors
+are derived again from current C layouts;15 typed bridges,11 registrations,
+work/completion/allocation operands and11 actual HIV500 callback stores pass.
+211 indirect targets in107 current final CFI types and protocol/pernet/trace
+tables agree. Unchanged HF private raw allocation and MAS/PCI facts remain
+scoped; they do not certify all opaque assembly or stable KMI. Direct-call-only
+HF completion is checked as a branch, not an invented indirect CFI target.
+
+Only local190/#82 boot/modem_driver are flashed. Normal Android automatically
+loads matching signed Live modem; full partition/file/loaded build-id,
+unlocked CE/services and automatic same-thread six-stage ISP firmware pass.
+Time-zero, boot and later logs have no actual kernel/module/HKIP fault;
+518 AVC denials remain, none module-load. WARN/Oops counts stay0, limits
+0/10000. Independent ramdisk, Enforcing, signaturesY, taint4, PRMEM and
+trace0/wifi remain, and screen returns Asleep. Optional dummy installation,
+cellular service and broad private-ring/hardware coverage are not implied.
+
+Compact82 metadata and local78-82 pairs retain81 immediate recovery. Complete
+191-195 follows toward pinned274. Stable module reuse still requires a chosen
+Android KMI branch, toolchain/configuration and monitored vendor symbol/type
+contract; current stable imports are not GKI or stable-KMI certification.
+No release export, tag, push or publication occurs.
 
 ## Actual Module Inventory And Limits
 

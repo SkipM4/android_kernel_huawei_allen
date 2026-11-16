@@ -4974,3 +4974,150 @@ material and failed71/65 evidence remain. Named child-clock source,
 full hardware/network/performance/power, ACK parity and vendor-core/GKI/KMI
 work stay open. Next is complete186-190 toward pinned274, not a claim of
 latest-stable/GKI completion. No release export, tag, push or publication.
+
+## Complete Linux 5.10.186-190 / Accepted #82
+
+### Official Input And Ordered Source
+
+The accepted185/#81 local boundary remains distinct from canonical upstream
+185. The bounded official range ends at190
+`ec585727b63d12f9683140fe4b8eb8e564dd3aa0`, with838 originals:
+
+| Release | Originals | Exact | Adapted | Present | Inapplicable |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.186 | 82 | 77 | 5 | 0 | 0 |
+| 5.10.187 | 4 | 3 | 1 | 0 | 0 |
+| 5.10.188 | 509 | 482 | 13 | 9 | 5 |
+| 5.10.189 | 40 | 34 | 6 | 0 | 0 |
+| 5.10.190 | 203 | 186 | 4 | 12 | 1 |
+| Total | 838 | 782 | 29 | 21 | 6 |
+
+All811 exact/adapted source commits preserve original raw author/timezone,
+complete message/trailers and linear release order. Exact original patches
+stay exact, including their original whitespace. The five ledgers are
+`linux-5.10.186-imports.tsv` through `linux-5.10.190-imports.tsv`. Original
+source ends at `cca7a6ebc5`. Upstream
+`649e72070cbbb8600eb823833e4748f5a0815116`, "tracing: Fix memory leak in
+tracing_read_pipe()", is separately imported as `cc220bb110`:190's dynamic
+iterator fmt holder also needs release on the real trace_pipe path. It is
+not counted among838 originals. A separate seven-line trailing-whitespace
+cleanup for two exact originals is `46243eea39`, the final kernel source.
+No branch ref, source preview or version string is mistaken for device
+acceptance.
+
+### Actual OEM And Current Upstream Contracts
+
+The shared control pointer belongs to actual io_sr_msg, not an unrelated
+io_async_msghdr. Send retries restore the saved user control pointer, while
+receive partial retries clear exhausted control. Deferred IOPOLL flush uses
+completion_lock in io_iopoll_complete. task-work flushes/puts the context and
+clears it before the per-node rescheduling point. NOWAIT EAGAIN is final;
+pending in-flight requests gate iowait and the original task state is
+restored. The existing default-Hyperframe and explicit immutable standard
+mode, fixed-reference cleanup and canonical enqueue lifecycle remain.
+
+NFT transaction lists, commit mutex, base sequence and validation state move
+from embedded net.nft into net_generic per-net data. Embedded netns_nftables
+retains only gencursor and the local no-padding Android KABI reserve.
+This is not a wholesale older-upstream file replacement: current newer
+bidirectional-binding, PREPARE_ERROR, genmask and ingress behavior remains.
+The absent nf_tables_check_loops is not resurrected. The complete canonical
+scheduling followups remove the chain scheduling point and put it in safe
+table validation; present newer set/expression ownership fixes are retained.
+
+VFS owns moved-child rename locking, with directory/non-directory ordering
+and both F2FS copies dropping redundant moved-directory locks. Selected
+HW_F2FS already uses the file/mount/freeze resize repair; its OEM pre-resize
+checkpoint-failure path now reaches the existing mount-write drop after
+releasing gc_lock. Shrink-length UAPI and cp_global_sem remain. No resize,
+unmount or live user-data fault experiment is performed. ext4 freeze_bdev
+actually returns int locally and thaw_bdev takes one argument. rtnetlink
+continues attribute validation while retaining the captured FLAGS attribute
+for response copying, rather than using the exhausted traversal cursor.
+
+DWC3 applies negative runtime-resume propagation, complete AutoRetry removal
+and the host-only reset guard while preserving real Kirin PM/PHY, FIFO and
+debugfs ownership. Qualcomm, Meson and BayTrail glue sources are absent and
+unselected; their unrelated hardware is not invented. One absent obsolete
+NFT scheduling-only patch is explicitly inapplicable, with its applicable
+canonical followups completed elsewhere in the same batch. MM allocator
+cache initialization moves after PTI and before unchanged PRMEM, with early
+poking after mm_init; ARM64 architecture no-op hooks are not mitigation
+removal. Reclaim/HKIP handling remains. GPIO's parent-data union/flag and the
+new proto BPF getsockopt callback reach actual generic and OEM consumers.
+
+### Current Build, Interfaces And Matched Modules
+
+One olddefconfig/prepare and one complete Image/modules build exit0 for
+5.10.190 #82. Effective and emitted configuration deltas are empty. Android
+Clang/LLD12.0.7, LLVM/IAS, ThinLTO, enforcing CFI, BTI/BHB, actual Kbuild
+Werror, trusted signing material and36 OEM/HF selectors remain.2448 ordinary
+current contexts bind real changed-header consumers;61 selected objects are
+decoded once. Legacy removed/composite ordinary command leftovers do not
+establish current build coverage. Current archives select the relocated
+io_uring/futex and xfrm core providers.36 OEM ../ command spellings are
+normalized without discarding raw commands. Generated cfg80211 certificate C
+has generated-byte and immutable Makefile/certificate-input records.
+
+35 layout groups and57 typed facts bind current IO/task/HF, net/pernet/NFT/
+proto, trace/ring, VFS/ext4/HW_F2FS, SDHCI/Zodiac, GPIO/HIV500 and device/PM.
+io_sr_msg grows48->56 bytes inside the existing64-byte max union; io_kiocb
+stays240 bytes and all HF-used offsets remain. The union member does change
+size, so a whole-layout equality assertion would be false. Actual provider/
+consumer NFT transaction data agrees at144 bytes; net becomes4480 bytes.
+proto gains the bool callback at152. trace_iterator has fmt/fmt_size at its
+current offsets; ring counters independently invalidate stale iterators.
+GPIO parent-data aliases and per_parent_data agree across all six inspected
+generic/Kirin providers. Actual empty structure and flexible-array metadata
+is represented without conflating an aligned sizeof with the array offset.
+
+Optimized inline helpers use actual debug origins and containing owners.
+ext4_shutdown is inside __ext4_ioctl; IO message helpers are inside
+io_issue_sqe. Full preemption eliminates the no-op cond_resched call, not
+the reviewed context-release operation. Real pipe release loads/frees fmt
+and temp before the iterator. The reverse dedicated wakeIRQ completes after
+successful suspend, not resume. Reader corrections never modify kernel
+source, flags or configuration and do not repeat compilation or IR decoding.
+
+The current final AArch64 ELF checks211 normal indirect targets in107 CFI
+groups, current protocol/pernet/trace tables, socket destructor stores at
+the freshly checked968 offset and entry thread offset. Direct-only
+hf_io_req_complete has no final indirect CFI group and is checked through
+the four real raw completion branches.15 HF typed-to-raw bridges,11 hook
+registrations, three work stores, ki_complete, typed initcall, current
+allocation sizes and generated operands agree.11 current HIV500 GPIO/IRQ/
+parent stores use freshly derived private/shared offsets. Unchanged private
+raw HF request allocation/header and MAS/PCI/rq facts remain scoped evidence,
+not opaque ABI or whole lifetime certification.
+
+13,865 exports compare with81's13,861: five additions, one removal and8898
+changed common CRCs. Additions are __sock_i_ino, reverse dedicated wakeIRQ,
+TCP BPF getsockopt bypass, trace_event_printf and xfrm4_udp_encap_rcv;
+nft_parse_register is removed. Common providers/export types/namespaces
+remain. All390 rebuilt modem and two optional dummy imports match. Same-build
+signed boot/modem staging validates the original header/stub/DTB roundtrip,
+certificate/CMS signature, ext4 mode/ownership/SELinux label and signed-module
+readback. No old binary, fake CRC/vermagic or weaker loader is used.
+
+### Normal Android And Local Closeout
+
+Accepted81 identity/boot ID and paired image/module/ramdisk live readbacks
+bind immediate recovery. Only local190/#82 boot and modem_driver are flashed.
+Normal Android automatically loads matching signed Live modem. Partition,
+file and loaded build-id agree; unlocked CE storage, essential services and
+automatic same-thread six-stage ISP firmware startup pass. Time-zero, boot
+and later logs contain no actual WARN/BUG/Oops/panic/CFI/module/HKIP fault.
+518 AVC denials remain visible, none module-load. Read-only warn/oops counts
+are0 and limits remain0/10000. SELinux Enforcing, taint4, signaturesY and
+PRMEM enabled remain. Independent Magisk ramdisk is untouched; original
+trace0/wifi and Asleep restore. No private-ring suite or broad hardware replay
+inflates the normal-Android/module acceptance.
+
+Compact82 source/build/current-interface/module/runtime metadata is recorded
+before output reuse. Recent78-82 pairs remain local with81 immediate rollback.
+Only expired77 test files and consumed logs/link/derived IR caches are retired;
+original images, keys, referenced source/proof/alternate stores and failed71/65
+records remain. The worktree stays below20 GB. Complete191-195 is next toward
+pinned5.10.274. Full hardware/network/performance/power, ACK parity and
+vendor-core/GKI/KMI separation remain open. No release export, tag, push or
+publication occurs.

@@ -11,11 +11,12 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #80/5.10.180 on `upstream/linux-5.10.y`, kernel source
-through `baa22bf578`. Immediate paired rollback is #79/5.10.175. Complete176-180
-plus a separate imported comment-whitespace cleanup and current rq/SMT/task,
-VFS/HW_F2FS, MAS/UFS, IPv6/NF, DWC3/TTY/trace/allocator/verity,139-target/
-81-group CFI/matching module/runtime gates pass. Effective selections and
+Installed candidate is #82/5.10.190 on `upstream/linux-5.10.y`, kernel source
+through `46243eea39`. Immediate paired rollback is #81/5.10.185. Complete186-190
+plus the required official trace-format release followup and separate
+original-whitespace cleanup pass current IO/HF/NFT/netns/trace/GPIO/VFS/
+HW_F2FS/SDHCI/DWC3/PM interfaces,211-target/107-group final CFI, actual HF/
+Kirin GPIO raw stores and matching module/runtime gates. Effective selections and
 security remain. Accepted79 private-ring evidence is retained, not replayed.
 The accepted162-165 single-core explicit-standard-mode/default-Hyperframe migration passes
 current build/layout/CFI, normal Android/automatic modules and nine finite
@@ -949,6 +950,62 @@ rollback, below20 GB. Original/signing/referenced evidence and failed71/65
 records remain. Next is complete186-190 toward pinned274; full hardware/
 network/power, ACK/vendor-core split and GKI/KMI work remain open.
 No release export, tag, push or publication occurs.
+
+### Complete Canonical 5.10.186-190 And Accepted #82
+
+All838 originals resolve with811 ordered original-author commits:782 exact,
+29 adapted,21 already present and six inapplicable entries. Each original
+author/timestamp/timezone, complete message and stable trail remains. The
+official trace_pipe fmt-release followup is separate, as is cleanup of seven
+trailing-space lines introduced by exact originals. Final source is
+`46243eea39`; no incomplete preview or version-only acceptance substitutes
+for the full batch.
+
+NFT transaction lists/mutex/state migrate to per-net storage without
+regressing newer binding/PREPARE_ERROR/genmask behavior. Canonical scheduling
+followups remain complete; absent obsolete loop validation is not resurrected.
+IO send/receive control, IOPOLL flush locking, task-work context release,
+pending-request iowait and final NOWAIT EAGAIN use actual local owners.
+VFS owns moved-child rename locks; selected HW_F2FS gets the checkpoint-error
+mount-write release while retaining shrink-length UAPI and cp_global_sem.
+ext4 uses the actual int-returning freeze_bdev and one-argument thaw_bdev.
+DWC3 preserves Kirin PM/PHY handling while propagating negative resume,
+removing AutoRetry coherently and excluding device reset in host-only mode.
+MM cache initialization precedes unchanged PRMEM. Missing Qualcomm/Meson/
+BayTrail glue is not invented or substituted for Allen hardware.
+
+One prepare and one complete Image/modules build exit0 for5.10.190 #82.
+Effective and emitted config deltas are empty; pinned Android Clang/LLD12.0.7,
+LLVM/IAS, ThinLTO, enforcing CFI, BTI/BHB, actual Werror, keys and36 selectors
+remain.2448 current C contexts and61 once-decoded objects establish35 layout
+groups and57 callback facts. Four old removed/composite .cmd leftovers are
+excluded using current archive membership; OEM ../ paths and generated
+regdb certificate C are represented without another compiler invocation.
+io_sr_msg grows48->56 bytes but fits the existing64-byte union, so request
+size240 and all actual HF offsets remain. NFT pernet/net, trace fmt/ring-page
+generation, GPIO/HIV500, SDHCI/Zodiac and device consumers agree.211 indirect
+targets in107 current final CFI groups,11 HF hook registrations/three work
+stores/completion/15 direct bridges, current worker/thread offsets and11
+HIV500 GPIO/IRQ/parent stores pass. Direct-only hf_io_req_complete remains
+separate, not fabricated into a nonexistent CFI group.
+
+13,865 exports have five additions, one removal and8898 changed common CRCs;
+providers/types/namespaces remain.390 rebuilt modem and two optional dummy
+imports match; same-build signatures and stock-format paired staging pass.
+Only boot/modem_driver are installed. Normal Android, automatic Live modem,
+partition/file/loaded build-id, unlocked CE/services and same-thread six-stage
+ISP startup pass. Time-zero/boot/later logs contain no actual kernel/module/
+HKIP fault;518 AVC denials remain visible, none module-load. Read-only WARN/
+Oops counts are0, limits0/10000. Enforcing, signaturesY, taint4, PRMEM, original
+trace0/wifi and Asleep remain; independent ramdisk is untouched.
+
+Compact82 metadata and recent78-82 pairs stay local with81 immediate
+rollback, below20 GB. Only expired77 test files and consumed logs/link/derived
+IR caches are retired; original images, keys and referenced source/proof/
+alternate inputs and failed71/65 evidence remain. Next is complete191-195
+toward pinned274. Broad hardware/network/performance/power, ACK parity,
+vendor-core separation and GKI/KMI remain open. No release export, tag,
+push or publication occurs.
 
 ## Next-Stage Work Queue
 
