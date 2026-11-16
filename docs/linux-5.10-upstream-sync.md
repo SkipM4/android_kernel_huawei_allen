@@ -3860,3 +3860,187 @@ version-string spoof. SELinux PRMEM lifetime/reclamation, fbcon/HID wrap,
 broader io_uring/OOM/ext4/AMA, async HKIP/NFC and full hardware/network/
 performance/power remain open. Stable maintenance is not ACK parity,
 vendor/core separation, standard GKI or independent stable KMI.
+
+## Linux 5.10.151-155 Installed Milestone
+
+### Canonical Range And Source Decisions
+
+The complete canonical range is v5.10.150
+(`a10a57a224f32035b58ef68b069f5b7491dd13e2`) exclusive through v5.10.155
+(`41217963b1d97ec170f24fc4155953a2b0835191`) inclusive from
+<https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git>.
+Original parent continuity, author/date/full messages, full-index patches
+and modes are frozen before sequential import from accepted #73. Five
+per-release ledgers bind every original entry to its local commit or
+explicit present/inapplicable decision. Accepted history is not rewritten.
+
+| Release | Originals | Exact Picks | Adapted | Already Present | Not Applicable |
+| --- | --- | --- | --- | --- | --- |
+| 5.10.151 | 6 | 4 | 2 | 0 | 0 |
+| 5.10.152 | 73 | 68 | 4 | 1 | 0 |
+| 5.10.153 | 92 | 89 | 2 | 0 | 1 |
+| 5.10.154 | 118 | 104 | 5 | 9 | 0 |
+| 5.10.155 | 98 | 96 | 1 | 1 | 0 |
+| Total | 387 | 361 | 14 | 11 | 1 |
+
+The375 original-author source commits end at `e597c18c7`. All author/date
+headers and complete messages with stable trailers agree, and all five
+release trees match the reviewed prefix projection. Local version markers
+change only the canonical SUBLEVEL through retained Makefile exports/rules
+and mode. An interrupted Git index-lock acquisition at155#65 is resumed
+from its complete353-entry checkpoint; no prior commit is replayed, dropped
+or amended. This is a local import-control issue, not a source adaptation.
+
+151's PAHOLE_FLAGS definition/export fits the local lz4/LLVM context while
+the original executable helper and link-vmlinux changes are preserved.
+DEBUG_INFO_BTF remains unselected. 152#68 restores IAS assembly debug -g
+exactly; it is a5.10.y-only maintenance commit, not mislabelled as an
+ordinary upstream commit or a reason to relax target warnings/security.
+
+152's A57/A72 COMPAT AES workaround uses unused reserved capability64,
+preserving LDAPR59, protectedKVM60, HHEE61, BHB62, A51063 and NCAPS76. Normal
+MIDR matching and HWCAP fixup remain; no Kirin identity is invented. Shared
+store_cpu_topology replaces the architecture-local definition with the
+canonical driver-model helper. TGRAN support ranges and AMPERE1 BHB matching
+are updated without changing the selected4K page size or existing controls.
+
+The SELinux conversion callback gains gfp_t coherently across provider,
+header and both consumers. Locked live SID conversion uses GFP_ATOMIC;
+unlocked tree conversion uses GFP_KERNEL. Selected PRMEM arena ownership,
+capacity and reclamation remain separate open findings, not fixed by this
+allocator argument change. 153's exec action snapshot moves under the
+existing tasklist/siglock rather than introducing a second lock family.
+
+The two exact153 DWC3 IMI changes stop reclamation on missed ISOC and enable
+IMI only when !no_interrupt && !chain. Accepted73 pullup, requested-state,
+PM/reset and live-IRQ halt bodies remain unchanged; no redundant USB
+disconnect experiment is needed to claim fresh coverage of those old bodies.
+Normal current boot/ADB operation does not certify all ISOC, host/OTG or
+suspend paths. SD broken-discard bit14, CID match and fallback preserve
+OEM eMMC IDs/flush whitelist. No format/discard test touches device data.
+
+153#26 is specifically not applicable, not PRESENT: the old CIS-specific
+parent-reference producer is absent. Local sdio_alloc_func unconditionally
+gets its parent after allocation, and sdio_release_func unconditionally
+puts it; CIS read/free own no such reference. Gating that release would
+break the real allocation-level lifetime. Kernfs root get/remove/put uses
+the local kernfs_rwsem while preserving descendant refs and drain behavior.
+The unselected TIPC/CTI adaptations retain their actual API/claim helpers
+without forcing support on Kirin.
+
+### Filesystem-Owned Master-Key Integration
+
+Canonical154#80, stable `391cceee6d435e616f68631e68f5b32d480b1e67`
+(upstream `d7e7b9af104c7b389a0c21eb26532511bce4b510`), replaces struct-key
+master ownership with a filesystem hashtable, mk_sem, active/structural refs
+and RCU structural release. Canonical154#79's locking simplification is
+already present;154#81 follows exactly with mount-failure cleanup.
+
+The adaptation includes the actual relocated fscrypt_info::ci_master_key
+provider in include/linux/fscrypt_common.h and duplicated SDP cleanup in
+fs/crypto/adaptor_keyinfo_sdp.c. Both normal and SDP cleanup remove the inode
+list entry and drop the new active reference. Prepared subkeys are removed
+at final active release; structural references retain the object through
+RCU lookup/free. Keyring destruction follows inode eviction and precedes
+sop->put_super, so inline keyslot cleanup still has underlying devices.
+Mount-failure final super release also destroys the keyring, and the pointer
+is nulled after free.
+
+OEM derived-key arguments, wrapped-key implementation selection, nonce/IV/
+metadata, raw-key buffer erasure and HWDPS APIs remain. keysetup deliberately
+keeps linux/key.h because real process-keyring requests still use struct key;
+canonical removal of that include is not valid locally. Inactive old-version
+HWDPS branches are not gratuitously edited. This changes neither encryption
+format nor user key policy. Normal current CE availability and filesystem
+startup are observed; no user-key removal, unmount stress or data-format
+operation is used as a test.
+
+154's new ext4 dirent validation calls the real eight-argument checker with
+the logical block returned by ext4_append and actual de-data2 byte offset.
+The OEM checker consumes both for fake-entry classification; the canonical
+reporting-only remaining-length expression is not a substitute. Both-buffer
+EFSCORRUPTED cleanup remains before record extension. Existing Binder VMA
+write locking, including the OEM htmmap branch and async mm release, is
+already present. IPC adds only the missing accounted large semop array;
+the local accounted kvzalloc undo path stays. 155's SQPOLL break/unconditional
+finish_wait is already present, and prior owned-file/poll/credential
+corrections remain without replaying old tests.
+
+### Actual Host Build Repair And Current Interfaces
+
+One normal olddefconfig selects only CONFIG_ARM64_ERRATUM_1742098=y against
+73. The initial prepare fails because the actual host OpenSSL4.1 defines
+OPENSSL_NO_ENGINE and no longer exports ENGINE APIs used by sign-file and
+extract-cert. Separate local `13b01f4cb` guards unavailable ENGINE include,
+helper and PKCS#11 paths, with an explicit unsupported-input error. The
+minimal guard is referenced to Android common Change-Id
+I5ecac477c274ef040934710fd4a042c133942e34, preserved in
+`51023832d07f54381dab9b568c71eed72d408ac2`, and Linux upstream
+`558bdc45dfb2669e1741384a0c80be9c82fa052c`. The latter's unrelated provider
+and shared-error refactor is not imported. PEM/DER/CMS/SHA512 operations,
+trusted certificate and mandatory target signature policy are unchanged.
+prepare is resumed after this real change, not by repeating olddefconfig
+or substituting a prebuilt signer.
+
+The necessary full current kernel/module build then exits0, directly
+observed and reaped, producing5.10.155 #74. ThinLTO, enforcing CFI, BTI/BHB,
+existing Werror flags, SELinux, PRMEM/HKIP and signing material remain.
+Actual178 ordinary C contexts bind source and generated dependencies.
+All38 changed prior dependencies are reviewed individually, and retained
+NFT parser/data/cmp, io_uring poll/fixed-file, OEM CPU/threadgroup and DWC3
+PM bodies are unchanged. Eighteen genuinely current interface objects are
+decoded once; ten73 object caches are not decoded again.
+
+Actual selected filesystem is HW_F2FS_FS=y, not HMFS_FS or upstream F2FS_FS;
+standard BLK_INLINE_ENCRYPTION is unselected while OEM UFS inline encryption
+remains. Compiled crypto/HW_F2FS/ext4 consumers agree on616-byte master key,
+248-byte fscrypt_info,1664-byte super_block and256-byte fscrypt_operations.
+The pointer fields retain64-bit width/order. Ordinary/SDP active-ref calls
+agree with the provider. The new RCU callback matches the real dispatcher
+on `_ZTSFvP13callback_headE` / `0xf237894abfa2338d`. SELinux provider/both
+typed dispatches agree on `_ZTSFiP7contextS0_PvjE` /
+`0xcb030e582049bf17`.
+
+IPv4/IPv6 protocol structs drop the two redundant early-demux callbacks;
+current provider/dispatcher layouts both become24 bytes with handler at
+offset0. Direct early-demux calls preserve namespace gating, and IPv6 TCP/
+UDP handlers match `_ZTSFiP7sk_buffE` / `0xd960f35bf5d6bebf`. Final AArch64
+ELF checks32 normal targets in18 finite CFI groups, plus canonical BPF/NFT/
+cpuset/DWC3/IPv6 handler assignments and selected retired API absence.
+
+There are13,845 exports: reuseport_has_conns_set added, no removal, and8,884
+shared CRC changes against73. Providers/export types/namespaces remain.
+All390 current modem and two optional dummy imports match. Fourteen generated
+OEM selectors are unchanged with explicit provider-source applicability.
+Dummy is not installed. This is not arbitrary old-module reuse, opaque OEM
+ABI, ACK parity, vendor/core split, stable KMI or standard GKI certification.
+
+### Paired Installation And Local Closeout
+
+Original boot compression/header/firmware-stub/DTB roundtrip and bounds pass.
+The rebuilt modem is stripped before unchanged CMS signing, verified against
+the embedded certificate and staged with original ext4 ownership/mode/
+SELinux label and byte readback. Accepted73 live identity, boot ID and four
+readbacks bind the immediate rollback before writing only local74 boot and
+modem_driver. Independent Magisk ramdisk and user data remain unchanged.
+
+One normal74 boot automatically loads the matching Live modem. Full
+partition/module/loaded build-id readbacks, unlocked CE storage/services and
+same-thread six-stage automatic ISP startup pass. Complete time-zero/boot/
+later logs contain no actual kernel/module/HKIP fault;516 AVC denials remain,
+none for module loading. Enforcing/taint4/forced signatureY/PRMEM enabled
+remain, and original trace0/wifi plus Asleep are restored. There is no second
+passed boot, full build or redundant USB cycle after those gates.
+
+#73/5.10.150 is immediate paired recovery. Accepted74 compact metadata and
+local source/documentation boundary are saved before output reuse; latest
+five test pairs become70-74, including explicitly failed71. Only expired69
+test files and consumed full logs are retired. Originals, #17, signing
+materials, failed65HKIP evidence and exact referenced source/proof/alternate
+stores remain below20 GB. No private signing key copy, release/export bundle,
+tag, push or publication occurs.
+
+Next is complete canonical156-160 toward pinned5.10.274, not a version-only
+jump. SELinux PRMEM lifetime/reclamation, fbcon/HID wrap, broader io_uring/
+OOM/ext4/AMA, async HKIP/NFC and full hardware/network/performance/power remain
+open. Stable maintenance is not full de-OEM, ACK or GKI acceptance.

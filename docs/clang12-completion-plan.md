@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #73/5.10.150 on `upstream/linux-5.10.y`, kernel source
-through `f2bebf7c2`. Immediate paired rollback is #72/5.10.145. #71 is rejected
+Installed candidate is #74/5.10.155 on `upstream/linux-5.10.y`, kernel source
+through `13b01f4cb`. Immediate paired rollback is #73/5.10.150. #71 is rejected
 for the OEM post-fork CPU-lock assertion, fixed in #72 without disabling it.
 #65 remains a
 failed HKIP firmware-boot candidate with successful paired #64 recovery;
@@ -67,7 +67,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.150 Resolved; #73 Full Build/Current Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/ISP And Relevant USB/Random Timer Pass; #72 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.151-155; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.155 Resolved; #74 Full Build/Current Crypto-SELinux-Protocol Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP Pass; #73 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.156-160; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -667,6 +667,52 @@ full logs and expired68 test pair are retired, not referenced object/cache
 dependencies. Next is complete151-155 toward pinned274. Inherited subsystem,
 hardware/power findings and ACK/vendor-core/GKI/KMI remain open; no release
 bundle, tag, push or publication occurs.
+
+### Complete Canonical 5.10.151-155 And Accepted #74
+
+All 387 canonical originals resolve in sequence: 361 exact picks, 14
+adaptations, 11 already present and one specifically inapplicable SDIO
+reference change. All 375 source commits preserve original author/date and
+complete messages with stable provenance, ending at `e597c18c7`.
+The separate `13b01f4cb` host compatibility fix addresses a real OpenSSL4
+no-ENGINE link failure while retaining the existing PEM/CMS signing path
+and mandatory target verification. No canonical import is replaced by it.
+
+The fscrypt master-key hashtable, active/structural refs and early keyring
+teardown include the relocated fscrypt_info pointer and duplicated SDP
+cleanup. OEM key buffers, HWDPS APIs, user key policy and encryption format
+remain. Current build selection is HW_F2FS, not unselected HMFS or upstream
+F2FS; normal unlocked CE storage is observed without formatting, key removal
+or destructive filesystem testing. DWC3's two exact IMI fixes leave the
+accepted73 pullup/PM/reset body unchanged. SELinux conversion uses the new
+gfp-aware provider, locked GFP_ATOMIC and unlocked GFP_KERNEL consumers.
+The existing PRMEM ownership/reclamation limitation remains open.
+
+One actual full kernel/module build exits0 and produces #74. Only the
+canonical COMPAT A57/A72 AES erratum is newly selected; reserved capability64,
+existing ARM assignments and NCAPS76 remain coherent. Actual178 C contexts
+freeze complete source/generated dependencies. Eighteen necessary current
+IR objects pass crypto/HW_F2FS/ext4/RCU, SELinux and reduced IPv4/IPv6 protocol
+layout/dispatch checks without re-decoding ten73 objects. Final ELF checks
+32 targets in18 CFI groups; 13,845 exports include one addition and8,884 CRC
+changes. All390 modem and two optional dummy imports match, and14 generated
+OEM selectors remain unchanged. Dummy is not installed.
+
+Signed paired installation and readback reach normal Android with automatic
+matching Live modem, current loaded build-id, CE storage/services and all six
+same-thread ISP startup stages. Time-zero/boot/later logs have no actual
+kernel/module/HKIP fault;516 AVCs remain, none requests module loading.
+Independent ramdisk, Enforcing/taint4/forced signatures/PRMEM remain, and
+original tracing/Asleep are restored. No redundant second boot, USB
+disconnect cycle or full build follows these passed gates.
+
+#73/5.10.150 is immediate paired recovery. Compact metadata and the accepted
+local boundary are saved before build-output reuse; recent pairs become70-74
+after retiring only expired69 files and consumed logs. Original images,
+signing materials, failed65HKIP evidence and precise referenced source/proof/
+alternate stores remain below20 GB. Next is complete canonical156-160 toward
+pinned274. ACK/vendor-core/GKI/KMI and inherited subsystem/hardware/power
+work remain open; no release bundle, tag, push or publication occurs.
 
 ## Next-Stage Work Queue
 

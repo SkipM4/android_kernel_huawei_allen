@@ -6,11 +6,14 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.150 #73, with kernel source
-`f2bebf7c2`, normal Android, completed ISP firmware startup and automatic
-loading of the same-build signed modem. #72/5.10.145 is the immediate paired
-rollback. The changed DWC3 path passes actual USB disconnect/automatic
-reconnect and duplicate-connect checks. #71 is rejected for a real OEM
+The installed upstream milestone is Linux 5.10.155 #74, with kernel source
+`13b01f4cb`, normal Android, unlocked CE storage, completed ISP firmware
+startup and automatic loading of the same-build signed modem.
+#73/5.10.150 is the immediate paired rollback. The fscrypt master-key
+ownership migration includes the real Huawei SDP cleanup consumer; a
+separate host OpenSSL4 compatibility fix preserves mandatory PEM/CMS
+signing. #73's DWC3 disconnect/reconnect evidence remains scoped to that
+accepted implementation. #71 is rejected for a real OEM
 post-fork cpuset lock assertion; #72 repairs that caller without removing
 the assertion. #65 remains a failed
 HKIP firmware-boot candidate, not an accepted runtime. Ordered synchronization
@@ -518,6 +521,39 @@ tracing and Asleep are restored. #72 is immediate paired recovery; the
 latest-five build window becomes #69-73. Next is complete 5.10.151-155;
 target274, ACK/vendor-core/GKI/KMI and inherited hardware/lifetime/power
 findings remain open. No release is exported or published.
+
+### Linux 5.10.151-155 Milestone
+
+All 387 canonical originals resolve in order: 361 exact picks, 14 adaptations,
+11 already present and one specifically inapplicable SDIO ownership change.
+The 375 original-author source commits end at `e597c18c7`; separate
+`13b01f4cb` fixes a real host OpenSSL4 no-ENGINE signing-tool link failure,
+without changing the target signature policy or existing PEM/CMS path.
+fscrypt uses filesystem-owned master keys and active/structural references;
+the relocated pointer provider and Huawei SDP cleanup consumer migrate
+together. Keyring teardown precedes filesystem device teardown. Encryption
+format, user key policy, OEM key buffers and HWDPS APIs remain.
+
+The necessary full build exits0 and produces #74. Only the canonical COMPAT
+A57/A72 AES erratum is newly selected; capability64 preserves the existing
+ARM64 assignments and NCAPS76. Current 178 ordinary C contexts and eighteen
+once-decoded interface objects establish new SELinux gfp callback/dispatch,
+crypto/HW_F2FS/ext4 layouts, fscrypt RCU release and reduced IP protocol
+structures. Final ELF checks 32 targets in eighteen CFI groups. All 390 modem
+and two optional dummy imports match 13,845 exports, with one addition and
+8,884 shared CRC changes versus #73. Fourteen OEM selectors and signing
+materials remain; dummy is not installed.
+
+One paired #74 boot reaches normal Android with automatic matching Live
+modem, partition/file/live build-id readbacks, unlocked CE storage, required
+services and the six-stage same-thread ISP startup. Independent ramdisk,
+Enforcing, taint4, signature enforcement and PRMEM remain. Full logs contain
+no actual kernel/module/HKIP fault; 516 AVC denials remain, none for module
+loading. Original tracing and Asleep are restored. #73 is immediate paired
+recovery; local metadata and recent #70-74 test pairs remain below 20 GB.
+Next is complete canonical 5.10.156-160. The pinned target274, ACK/vendor-core/
+GKI/KMI architecture and inherited subsystem/hardware/power findings remain
+open; no release is exported or published.
 
 ### Installed Bring-up Baseline
 

@@ -1,0 +1,99 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	76eba54f0ddfb580240f150b90b87d57fb3924e3	5f4c274f7e8ed65ecde82ab0d52f41e27d0ca172	picked	fuse: fix readdir cache race	fs/fuse/readdir.c	-
+002	925bf1ba760482591218ace2c8fe135155da2710	bd2f4ee8b6f2d8abde8750415f924fb8eec60640	picked	hwspinlock: qcom: correct MMIO max register for newer SoCs	drivers/hwspinlock/qcom_hwspinlock.c	-
+003	72ea2fc29962f3bb16eba80a2f0c88ffa6bb9e08	40bac92ddb5a28788f172d7057e152f06a026b5c	picked	phy: stm32: fix an error code in probe	drivers/phy/st/phy-stm32-usbphyc.c	-
+004	914cb94e738ba6ebb482d61567fb50bf700e4f19	7f23a488a52ffccf94a2092897a976013891d78f	picked	wifi: cfg80211: silence a sparse RCU warning	net/wireless/scan.c	-
+005	e1e12180321f416d83444f2cdc9259e0f5093d35	658cf5af28ae48060a3188e05abc67c7cb4aa314	picked	wifi: cfg80211: fix memory leak in query_regdb_file()	net/wireless/reg.c	-
+006	cc21dc48a78cc9e5af9a4d039cd456446a6e73ff	88a351e6fdccf04d0e66227c292b8b241409338d	picked	bpf, sockmap: Fix the sk->sk_forward_alloc warning of sk_stream_kill_queues	net/ipv4/tcp_bpf.c	-
+007	8c80b2fca4112d724dde477aed13f7b0510a2792	dddc06a3404acc12399716c82480ce21cf654ab8	picked	bpftool: Fix NULL pointer dereference when pin {PROG, MAP, LINK} without FILE	tools/bpf/bpftool/common.c	-
+008	8597b59e3d22b27849bd3e4f92a3d466774bfb04	66297635fcc6bda903ea856eeace87c15b828ae6	picked	HID: hyperv: fix possible memory leak in mousevsc_probe()	drivers/hid/hid-hyperv.c	-
+009	95b6ec733752b31bfd166c4609d2c1b5cdde9b47	bf01d61940de86d315e90ef0a34e4ca8e76b4303	picked	bpf: Support for pointers beyond pkt_end.	include/linux/bpf_verifier.h;kernel/bpf/verifier.c	-
+010	9069db2579e92a1ba604dd85e5de5206ea4beb6d	3475e86288c824c7cc18dbac3e40b87d620c9e24	picked	bpf: Add helper macro bpf_for_each_reg_in_vstate	include/linux/bpf_verifier.h;kernel/bpf/verifier.c	-
+011	cedd4f01f67be94735f15123158f485028571037	c55ea5fb573e683c02ca7f9d1458e3348cede414	picked	bpf: Fix wrong reg type conversion in release_reference()	kernel/bpf/verifier.c	-
+012	50868de7dc4e7f0fcadd6029f32bf4387c102ee6	7b02d3efd2cea51d4ca9a272af40d5de2ac12e9e	picked	net: gso: fix panic on frag_list with mixed head alloc types	net/core/skbuff.c	-
+013	3b05d9073ae26c686d9d26d138164d1766cf470e	0c027ff6205f704e1337cf4fa18f31ff6cb22fb2	picked	macsec: delete new rxsc when offload fails	drivers/net/macsec.c	-
+014	7f4456f0119b8014ce61c38912d74fa4fd24092c	b94d6bdb18d21c3159b0341cc848ba73a6ea05a2	picked	macsec: fix secy->n_rx_sc accounting	drivers/net/macsec.c	-
+015	9dc7503bae33046c6301562f7e03d5352e6f8c50	51cbcfe280a4eac0ae9c5df855ac76a64e09ab53	picked	macsec: fix detection of RXSCs when toggling offloading	drivers/net/macsec.c	-
+016	adaa0f180de5236e086ddab6476c4364d922f1fd	1e577e49a2dfc4995ad7acb3d7801ff8899470bf	picked	macsec: clear encryption keys from the stack after setting up offload	drivers/net/macsec.c	-
+017	3401f964028ac941425b9b2c8ff8a022539ef44a	1ee8ee939b8453da10f3cb460fe630310d9dc38f	picked	net: tun: Fix memory leaks of napi_get_frags	drivers/net/tun.c	-
+018	38147073c96dce8c7e142ce0e5f305a420a729ba	3fb0183dddf9fc8e491b96fa4cbd7c7afb65c365	picked	bnxt_en: Fix possible crash in bnxt_hwrm_set_coal()	drivers/net/ethernet/broadcom/bnxt/bnxt_ethtool.c	-
+019	e2c5ee3b628f72729c369611290524d662424e16	9f127ecff567c037120bd78857ac798def54f346	picked	bnxt_en: fix potentially incorrect return value for ndo_rx_flow_steer	drivers/net/ethernet/broadcom/bnxt/bnxt.c	-
+020	8aae24b0ed767542e71159ba0756a1faea70a6b2	ff61b87417610a7f50743cfc92fd2d2e3b751bfb	picked	net: fman: Unregister ethernet device on removal	drivers/net/ethernet/freescale/fman/mac.c	-
+021	fcbd2b336834bd24e1d9454ad5737856470c10d7	d64e317a2cb9159fa047c2283365fcb5cea88f6e	picked	capabilities: fix undefined behavior in bit shift for CAP_TO_MASK	include/uapi/linux/capability.h	-
+022	a60cc64db72f9fa87b82fbda12fb11270599f8c4	ff6451edf0ddb5b9adbf2529b12a8e6d1824d928	picked	KVM: s390x: fix SCK locking	arch/s390/kvm/kvm-s390.c;arch/s390/kvm/kvm-s390.h;arch/s390/kvm/priv.c	-
+023	2bf8b1c111fff86317a61cdb92c3a5a10525e68a	0684446f8b308165586584e8170de02f7a30b818	picked	KVM: s390: pv: don't allow userspace to set the clock under PV	Documentation/virt/kvm/devices/vm.rst;arch/s390/kvm/kvm-s390.c;arch/s390/kvm/kvm-s390.h	-
+024	bc4591a86b8fe322944776bb1c92a3f2daf31ebf	700a50bb2eaa2f27603b7d121431e56499cbced6	picked	net: lapbether: fix issue of dev reference count leakage in lapbeth_device_event()	drivers/net/wan/lapbether.c	-
+025	bcb3bb10695f555c66f18b195e4b41cdd14be450	8fd40aab4b07735297728d9f8308d416ec2ebd1d	picked	hamradio: fix issue of dev reference count leakage in bpq_device_event()	drivers/net/hamradio/bpqether.c	-
+026	f3aa8a7d9550a5f9ccbd4e0ed914a065d0741cc8	5a4778c6f2efbfff9f8626db8bcdd682bc5ff347	picked	drm/vc4: Fix missing platform_unregister_drivers() call in vc4_drm_register()	drivers/gpu/drm/vc4/vc4_drv.c	-
+027	02f8dfee7580b65449a67baa65cc2da4e5ffc473	07a7de8f8864b96419becb3df79ab116e17033d1	picked	tcp: prohibit TCP_REPAIR_OPTIONS if data was already sent	net/ipv4/tcp.c	-
+028	a033b86c7f7621fde31f0364af8986f43b44914f	f50382ee505455da0f938e0a05a653308402a4ed	picked	ipv6: addrlabel: fix infoleak when sending struct ifaddrlblmsg to network	net/ipv6/addrlabel.c	-
+029	d68fa77ee3d03bad6fe84e89759ddf7005f9e9c6	3e3701787b37e41ff1d2db7f138af251bd66de0a	picked	can: af_can: fix NULL pointer dereference in can_rx_register()	net/can/af_can.c	-
+030	cb6d639bb1efaa4d6ec28a49a98cb23bc19559a7	bc8d89f5e6e9d8d5d8832cb5df105205a5627494	picked	net: stmmac: dwmac-meson8b: fix meson8b_devm_clk_prepare_enable()	drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c	-
+031	fbb4e8e6dc7b38b3007354700f03c8ad2d9a2118	14460c9ad45cd8068cfe43a1c99fb3c27725ca73	picked	net: broadcom: Fix BCMGENET Kconfig	drivers/net/ethernet/broadcom/Kconfig	-
+032	f31dd158580940938f77514b87337a777520185a	7a7c417adc6eec05a70e966e924be856b93b8bc5	picked	tipc: fix the msg->req tlv len check in tipc_nl_compat_name_table_dump_header	net/tipc/netlink_compat.c	-
+033	6e2ffae69d17da317a892cfd6a3c24c8a8bbaed3	6be0cac0ffec4acdc96906774afcde2ba1ad54ff	picked	dmaengine: pxa_dma: use platform_get_irq_optional	drivers/dma/pxa_dma.c	-
+034	0b7ee3d50f32d277bf024b4ddb4de54da43a3025	4934c1e7208ba664ea11560748d8ae0c70c1e763	picked	dmaengine: mv_xor_v2: Fix a resource leak in mv_xor_v2_remove()	drivers/dma/mv_xor_v2.c	-
+035	3a4a3c3b1fe6f9e2580abf1f5cf57f6c47c98111	ae090aa8d58af2dbd3a12e9730d9a68ea9b57178	picked	drivers: net: xgene: disable napi when register irq failed in xgene_enet_open()	drivers/net/ethernet/apm/xgene/xgene_enet_main.c	-
+036	cf4853880e2433909880145aad650f52554662bd	5968f2783a95a56c38a044882245fae41c81af33	picked	perf stat: Fix printing os->prefix in CSV metrics output	tools/perf/util/stat-display.c	-
+037	5333cf1b7f6861912aff6263978d4781f9858e47	7aeecf13b9bf33b0863324b67c5037af6c63081b	picked	net: marvell: prestera: fix memory leak in prestera_rxtx_switch_init()	drivers/net/ethernet/marvell/prestera/prestera_rxtx.c	-
+038	bdd282bba72de096145d75ef9db40792c9c710ea	6341461b49bd3879896a98c641deda8cb48f9c80	picked	net: nixge: disable napi when enable interrupts failed in nixge_open()	drivers/net/ethernet/ni/nixge.c	-
+039	eb6fa0ac2a9c14b700ee7a2bb55736a0bd14a099	3c23932a4e84414bcadb79193462b903cbe5c5c4	picked	net/mlx5: Allow async trigger completion execution on single CPU systems	drivers/net/ethernet/mellanox/mlx5/core/cmd.c	-
+040	3b27e20601abe48ae4baf9cb0cb0e3dcfdff4525	6838cb4d348667788348f1b697a6070c46189d28	picked	net/mlx5e: E-Switch, Fix comparing termination table instance	drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads_termtbl.c	-
+041	fd52dd2d6e2f5e34bed00e654d06e02c6bef39d4	710187519eca18fd032b831014e930d7043e8772	picked	net: cpsw: disable napi in cpsw_ndo_open()	drivers/net/ethernet/ti/cpsw.c	-
+042	38aa7ed8c2c3cace4b542f2a3369271878b45e74	ccbed75b4978575a859650f3fff722b886c38130	picked	net: cxgb3_main: disable napi when bind qsets failed in cxgb_up()	drivers/net/ethernet/chelsio/cxgb3/cxgb3_main.c	-
+043	4ad684ba028cfb5c4bf924e46855ef11c15aa5ae	8409e7b385f96fec63cfda0a05bdf25cce3aeb98	picked	cxgb4vf: shut down the adapter when t4vf_update_port_info() failed in cxgb4vf_open()	drivers/net/ethernet/chelsio/cxgb4vf/cxgb4vf_main.c	-
+044	1a4e495edfe25b42c0b59f809a8df97ad5a6eed3	47eab5cac9fbf2e19a5b23c03e131d1eed56f93b	picked	net: phy: mscc: macsec: clear encryption keys when freeing a flow	drivers/net/phy/mscc/mscc_macsec.c	-
+045	05b222843457391683889d319afb8998c10f9562	f5d3939c953460f324284dd374552a4c161aad2a	picked	net: atlantic: macsec: clear encryption keys from the stack	drivers/net/ethernet/aquantia/atlantic/aq_macsec.c;drivers/net/ethernet/aquantia/atlantic/macsec/macsec_api.c	-
+046	56d3b5531bf64009adb616f06ad30695b7e70018	64bd9bf808a86cec91e37a21dc7fca269670e273	picked	ethernet: s2io: disable napi when start nic failed in s2io_card_up()	drivers/net/ethernet/neterion/s2io.c	-
+047	dd7beaec8b48916acd98d01dd24e75e6fdba3d9e	cb9922cc0f9cb9ccd32746a1ca8a9efa81804934	picked	net: mv643xx_eth: disable napi when init rxq or txq failed in mv643xx_eth_open()	drivers/net/ethernet/marvell/mv643xx_eth.c	-
+048	59ec132386a07ac09165f96226fe6fcb44b54b37	5c3b7b36b4c027a7b2f48340b6270698675c3f74	picked	ethernet: tundra: free irq when alloc ring failed in tsi108_open()	drivers/net/ethernet/tundra/tsi108_eth.c	-
+049	956e0216a19994443c90ba2ea6b0b284c9c4f9cb	e8e8da9a0a3b5f07456b79fa592f23bb2722c331	picked	net: macvlan: fix memory leaks of macvlan_common_newlink	drivers/net/macvlan.c	-
+050	e56d18a976dda653194218df6d40d8122c775712	a13e6b5960c5dadb4c27c1fc0ebb055f2ebd25d5	picked	riscv: process: fix kernel info leakage	arch/riscv/kernel/process.c	-
+051	ecf78af5141f079fffddddf708ffd311699cc131	5818aac392d0d33d1c563f336bdb57efdc955949	picked	riscv: vdso: fix build with llvm	arch/riscv/kernel/vdso/Makefile	-
+052	d7716240bca508fb9e74d00d96304bc30acc3d6c	75edd1f8da3f0571daa0e81ac25b7bc21a32d553	picked	riscv: Enable CMA support	arch/riscv/mm/init.c	-
+053	0cf9cb06149398daab565586b56825418567a7e1	6e1146de45f1816e9924405946f3b9b98bf318e1	picked	riscv: Separate memory init from paging init	arch/riscv/include/asm/pgtable.h;arch/riscv/kernel/setup.c;arch/riscv/mm/init.c	-
+054	94ab8f88feb75e3b1486102c0c9c550f37d9d137	548113d0fd502337937f57ede2cbdb099727117b	picked	riscv: fix reserved memory setup	arch/riscv/kernel/setup.c;arch/riscv/mm/init.c	-
+055	475fd3991a0d98e7b43b51e64b1eb92d0a885430	337f651976ec854bd4ac6dbbb782334431b966d0	picked	arm64: efi: Fix handling of misaligned runtime regions and drop warning	arch/arm64/kernel/efi.c	-
+056	4631cb040645eff4626d02a2a318863a3e53e2af	515c3b2d954c65de9032e4c1b567a925b6c461b8	picked	MIPS: jump_label: Fix compat branch range check	arch/mips/kernel/jump_label.c	-
+057	b55e64d0a3a3341d0a416478fa367b74a98cf821	e853845ed885c34674531f84da8fb614f4c9b745	picked	mmc: cqhci: Provide helper for resetting both SDHCI and CQHCI	drivers/mmc/host/sdhci-cqhci.h	-
+058	3f558930add76be2a0e23991256c6a7eb46b4131	4e1b68975750350dddfb0b06e79c4c15c9c554f8	picked	mmc: sdhci-of-arasan: Fix SDHCI_RESET_ALL for CQHCI	drivers/mmc/host/sdhci-of-arasan.c	-
+059	0a8d4531a0d58fa4b118f657ee38024154d4385a	b3b682d6c89bbf3155bb23bb3796a2a623ee96cf	picked	mmc: sdhci_am654: Fix SDHCI_RESET_ALL for CQHCI	drivers/mmc/host/sdhci_am654.c	-
+060	ea6787e482add0093b6049f9e29e6b05ea88e4ff	41094d3289ccc0266c2d920a9f17712d1161f9e5	picked	mmc: sdhci-tegra: Fix SDHCI_RESET_ALL for CQHCI	drivers/mmc/host/sdhci-tegra.c	-
+061	181cfff57bdca50850eb8f841c5b0338b5b6d30d	f42aecb5d10d254d526bc8ee464b6e1739d42fbc	picked	ALSA: hda/hdmi - enable runtime pm for more AMD display audio	sound/pci/hda/hda_intel.c	-
+062	380d64168da41b17dc4faaf5c5e780793566ca09	34d25d8f407c4c419df1d2a6a09e89ee104fbcda	picked	ALSA: hda/ca0132: add quirk for EVGA Z390 DARK	sound/pci/hda/patch_ca0132.c	-
+063	3a79f9568de08657fcdbc41d6fc4c0ca145a7a2b	435f9c9ec63069ea6e96ef74358d899d69f64e20	picked	ALSA: hda: fix potential memleak in 'add_widget_node'	sound/hda/hdac_sysfs.c	-
+064	a414a6d6ef3ca3ba68a75d7d03b1e0e731e00aa4	e42c0f22cec5cf1e795fcffbca6f95dd3e287fb6	picked	ALSA: hda/realtek: Add Positivo C6300 model quirk	sound/pci/hda/patch_realtek.c	-
+065	2032c2d32b2afd030343cde491d23224421d5f4b	09638a58c7221ad444e349b324b5ff3014b30e8a	picked	ALSA: usb-audio: Add quirk entry for M-Audio Micro	sound/usb/quirks-table.h	-
+066	f6896fb69d50909170a3812f71808b682c66d82b	ce57923c39dd4e4718da1f461b91f81c1c340330	picked	ALSA: usb-audio: Add DSD support for Accuphase DAC-60	sound/usb/quirks.c	-
+067	516f9f23008b1e3033df7944f5d616b95076acd3	c83b9830a94a7c872771240539700739a05b223f	picked	vmlinux.lds.h: Fix placement of '.data..decrypted' section	include/asm-generic/vmlinux.lds.h	-
+068	344ddbd688d869aff2831e1345755d1b163000f4	1ce052c7dc942fd61f3cb614f7162a7081ba0939	picked	ata: libata-scsi: fix SYNCHRONIZE CACHE (16) command failure	drivers/ata/libata-scsi.c	-
+069	1d4ff73062096c21b47954d2996b4df259777bda	f88b966ebd90128d758f6d12813daffcef25ac9b	picked	nilfs2: fix deadlock in nilfs_count_free_blocks()	fs/nilfs2/the_nilfs.c	-
+070	4feedde5486c07ea79787839153a71ca71329c7d	0675423cedbaca53f7206b00fb47ae3eab9c2c33	picked	nilfs2: fix use-after-free bug of ns_writer on remount	fs/nilfs2/segment.c;fs/nilfs2/super.c	-
+071	b5ee579fcb147c0939017eb78b6c75f7d79a6719	c0a73780e859369839324d21186fea4a266de376	picked	drm/i915/dmabuf: fix sg_table handling in map_dma_buf	drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c	-
+072	8fa0c22ef8242f2fbe722f2f1ac39df6a95faa73	6cdf7d152b6f756dba67e06e799f546fd5ce217b	picked	platform/x86: hp_wmi: Fix rfkill causing soft blocked wifi	drivers/platform/x86/hp-wmi.c	-
+073	9c0accfa5a358b89afabd4d4e82ca6eaca06e72c	f71aedcb527ddcbcc7cd23a6be16afe9d44c0c31	picked	btrfs: selftests: fix wrong error check in btrfs_free_dummy_root()	fs/btrfs/tests/btrfs-tests.c	-
+074	4ea3aa3b983b18863719960bb03568fc7eff29a7	daebe0703fb998e2bef6de965b4ebd9b6b290708	picked	mms: sdhci-esdhc-imx: Fix SDHCI_RESET_ALL for CQHCI	drivers/mmc/host/sdhci-esdhc-imx.c	-
+075	03f9582a6a2ebd25a440896475c968428c4b63e7	774755e795fe6f5da4b6f0b0b543e05d980e3e79	picked	udf: Fix a slab-out-of-bounds write bug in udf_find_entry()	fs/udf/namei.c	-
+076	0b692d41ee5c88097ecf5dbb37c59083044c996a	af78b62167375e578862019ac2d0233d49d70c47	picked	mm/memremap.c: map FS_DAX device memory as decrypted	mm/memremap.c	-
+077	f8e0edeaa0f2b860bdbbf0aafb4492533043d650	8a3d2d9eec6af19966c28867f308926a6c350d41	picked	can: j1939: j1939_send_one(): fix missing CAN header initialization	net/can/j1939/main.c	-
+078	d37dfb9357e935c8701e80429f5f7c416fb946a3	faf23c0d97f1387162fdf0dc59dca1d9e0cf4095	picked	cert host tools: Stop complaining about deprecated OpenSSL functions	scripts/extract-cert.c;scripts/sign-file.c	-
+079	4b51cce72ab7d173fd511917396c832b912b7634	5288ff1fbc48b0f9985322226547edabde3ce0e8	picked	dmaengine: at_hdmac: Fix at_lli struct definition	drivers/dma/at_hdmac_regs.h	-
+080	24f9e93e506aa366172385ef2e367add05de422b	87fb7a603b10cd123c0d62b2f76d2db411d7af17	picked	dmaengine: at_hdmac: Don't start transactions at tx_submit level	drivers/dma/at_hdmac.c	-
+081	ad4cbe8e9c3a2e0b3c5eacd1f74ea6835835f38d	7d5f8ce7ce45f7172648037c679c7da8ce4eb260	picked	dmaengine: at_hdmac: Start transfer for cyclic channels in issue_pending	drivers/dma/at_hdmac.c	-
+082	7078e935b4102a63a2473dbeeeb13dd9fefc33fb	ffc2a0b1b83a079aea569602f22fcebea4b2e38f	picked	dmaengine: at_hdmac: Fix premature completion of desc in issue_pending	drivers/dma/at_hdmac.c	-
+083	ee356822618ee86cfab8fac1bec0bf66fb98ea2e	bcd51b8dc1604419ee2108a183bf4cd78bf12268	picked	dmaengine: at_hdmac: Do not call the complete callback on device_terminate_all	drivers/dma/at_hdmac.c	-
+084	9b69060a725dbc8ee3f3d270279d6b2d9e39079b	0ce4eb6c951670a758623acb0955b045f29ac41f	picked	dmaengine: at_hdmac: Protect atchan->status with the channel lock	drivers/dma/at_hdmac.c	-
+085	1582cc3b480501b6144c724306d2c8d8dd4b84e3	3a4cf5fa7f9f6726f6e6dfcdb94fbde74f7ff478	picked	dmaengine: at_hdmac: Fix concurrency problems by removing atc_complete_all()	drivers/dma/at_hdmac.c	-
+086	7f07cecc7411d8f634fd23766368c92264fc2d73	d379d653ca3c4f31fe420cca0b7449cf338ec54e	picked	dmaengine: at_hdmac: Fix concurrency over descriptor	drivers/dma/at_hdmac.c	-
+087	0f603bf553a70af22ced122d706feeae2bb6ed76	52480f8dc9be5512ac9098790dcc965d39d17ebc	picked	dmaengine: at_hdmac: Free the memset buf without holding the chan lock	drivers/dma/at_hdmac.c	-
+088	a35dd5dd98b67b98f57e55efb4374e55c2cb680f	4754c68ef67e80c15ba8abc2a4136aab9be62665	picked	dmaengine: at_hdmac: Fix concurrency over the active list	drivers/dma/at_hdmac.c	-
+089	6be4ab08c8637bcea930ee399bd1001d2250b168	f8708ac5e28ffb709037ed7228f61cac68a0b310	picked	dmaengine: at_hdmac: Fix descriptor handling when issuing it to hardware	drivers/dma/at_hdmac.c	-
+090	f4512855223c37aae610f667aed85fdfc701fc4f	14a6c850d5875b50907250cf02f2f4f85296ddac	picked	dmaengine: at_hdmac: Fix completion of unissued descriptor in case of errors	drivers/dma/at_hdmac.c	-
+091	f53a233eaad61ddb7622bc279cf1145b022cff46	1fadba97493663499de11560ec08505f05528100	picked	dmaengine: at_hdmac: Don't allow CPU to reorder channel enable	drivers/dma/at_hdmac.c	-
+092	85f97c97efc501191bb73020e98d822561d61828	9395ae9fc35746989e4d8e746c17db9add46a3ff	picked	dmaengine: at_hdmac: Fix impossible condition	drivers/dma/at_hdmac.c	-
+093	367bc0fa988fde83dbb6f654067c0d76c86faf68	b641be0973165c891714f1461b48b0db76ab0444	picked	dmaengine: at_hdmac: Check return code of dma_async_device_register	drivers/dma/at_hdmac.c	-
+094	534762e261c84d43e5d56a780e40278b94c20540	4900ffaf452233cf716a1a6cf73545ac0124d239	picked	net: tun: call napi_schedule_prep() to ensure we own a napi	drivers/net/tun.c	-
+095	e7294b01de40eb34bed65f376986181fcdeca0cd	f9e60ee0b443d9ce9c6206fa59ffaf14382848df	picked	mmc: sdhci-esdhc-imx: Convert the driver to DT-only	drivers/mmc/host/sdhci-esdhc-imx.c	-
+096	154d744fbefcd13648ff036db2d185319afa74dc	9a8eff275018079d230fb1eba1ca4105e5e26e50	picked	x86/cpu: Restore AMD's DE_CFG MSR after resume	arch/x86/include/asm/msr-index.h;arch/x86/kernel/cpu/amd.c;arch/x86/kernel/cpu/hygon.c;arch/x86/kvm/svm/svm.c;arch/x86/kvm/x86.c;arch/x86/power/cpu.c;tools/arch/x86/include/asm/msr-index.h	-
+097	0f544353fec8e717d37724d95b92538e1de79e86	-	already-present	io_uring: kill goto error handling in io_sqpoll_wait_sq()	fs/io_uring.c	Canonical sqpoll dead-thread break and unconditional finish_wait already exist exactly. Keep current task/file/accounting ownership and credential safeguards; do not duplicate wait cleanup or replay prior owned-file tests.
+098	41217963b1d97ec170f24fc4155953a2b0835191	e597c18c77bb20e9c90b0f8f75baf38de1ef1a5c	backported	Linux 5.10.155	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

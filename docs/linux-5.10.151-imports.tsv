@@ -1,0 +1,7 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	bbaea0f1cd33d702d053d5bdaf6d6dec3932894c	0522e567ddd3289af249c69ad0b4b19e54eb24bc	picked	bpf: Generate BTF_KIND_FLOAT when linking vmlinux	scripts/link-vmlinux.sh	-
+002	06481cd9f7f692088bce03244f8cf132018f2fc6	83fc1136e0b4b7a00794e900be05dbfc582ab6b3	picked	kbuild: Quote OBJCOPY var to avoid a pahole call break the build	scripts/link-vmlinux.sh	-
+003	f5f413cb3e8af235c5d310bea9942424fb242c2c	0e84e3df0f5680617de60147b5364370015c23c5	picked	kbuild: skip per-CPU BTF generation for pahole v1.18-v1.21	scripts/link-vmlinux.sh	-
+004	c5006abb80e276896ff7237300a6d447708c7924	d352a8c912b763ca782c747d76bb499ffd6a3e81	backported	kbuild: Unify options for BTF generation for vmlinux and modules	Makefile;scripts/link-vmlinux.sh;scripts/pahole-flags.sh	Add both canonical PAHOLE_FLAGS definition/export through local lz4/LLVM export context; pick the original link-vmlinux and executable pahole helper unchanged. Preserve LLVM/CFI/ThinLTO build rules and existing DEBUG_INFO_BTF=n selection; no forced BTF/module format change.
+005	ecad3312111798d84dac1ce6a853e0ac9de8d505	305253906acd0e3c9c408f1fe45dd99f33a8377b	picked	kbuild: Add skip_encoding_btf_enum64 option to pahole	scripts/pahole-flags.sh	-
+006	c34d1b22fef329d5cecd003d7be249937ec70a3c	473cfc7cc1c6425cb7069806b55e7b1f2181d0a1	backported	Linux 5.10.151	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

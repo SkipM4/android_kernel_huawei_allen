@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.145
-#72 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.155
+#74 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -504,6 +504,39 @@ disconnected runtime-PM, all host/OTG or full suspend validation. #72 is
 immediate paired recovery. Dummy remains uninstalled, old binaries are not
 resigned or version-spoofed, and independent stable KMI/GKI remains open.
 
+### 5.10.155 #74: Filesystem-Owned Keys And Current Modules
+
+The complete387 canonical151-155 inputs produce375 original-author commits,
+followed by a separate real host OpenSSL4 no-ENGINE compatibility fix.
+Only unavailable ENGINE includes/helpers/PKCS#11 branches are excluded;
+unsupported PKCS#11 input fails explicitly. Existing PEM/DER certificate
+handling, SHA512/CMS module signing and target forced signatures remain.
+The small compatibility pattern is referenced to Android common Change-Id
+I5ecac477c274ef040934710fd4a042c133942e34 (preserved in
+`51023832d07f54381dab9b568c71eed72d408ac2`) and Linux upstream
+`558bdc45dfb2669e1741384a0c80be9c82fa052c`, without importing its unrelated
+provider/shared-error-helper refactor. The actual host-tool link failure is
+not hidden by a prebuilt signer or a signature-enforcement change.
+
+The full current kernel/module build exits0. There are13,845 exports,
+reuseport_has_conns_set is added, none is removed, and8,884 common CRCs
+change against73. Provider/export-type/namespace sets are unchanged. All390
+modem and two optional dummy imports match;14 generated OEM selectors are
+unchanged. New filesystem-owned fscrypt master keys include the actual
+Huawei SDP consumer, active/structural refs and early keyslot teardown.
+Actual selected HW_F2FS/ext4/crypto layouts, gfp-aware SELinux dispatch and
+reduced IP protocol layouts agree. Final ELF checks32 targets in18 CFI
+groups. These gates do not certify every opaque OEM contract or arbitrary
+old-module reuse; matching required modules are rebuilt, not merely resigned.
+
+Boot roundtrip and original ext4 metadata/CMS signature checks pass. One
+paired #74 installation reaches normal Android with automatic matching
+Live modem, partition/module/live build-id readbacks, unlocked CE storage,
+required services and same-thread six-stage ISP startup. Independent
+ramdisk/security remain and complete logs have no actual kernel/module/HKIP
+fault. #73 is immediate paired recovery. Source format/key policy remain,
+dummy stays uninstalled, and stable KMI/GKI remains open.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -544,14 +577,14 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous accepted pair is #73's immediate
+overwrite existing candidates. The previous accepted pair is #74's immediate
 rollback, not the rejected #71:
 
-- `images/test/allen-boot-test-5.10.145-clang12-r72.img`.
-- `images/test/allen-modem_driver-test-5.10.145-clang12-r72.img`.
-- `images/test/allen-modem_driver-test-5.10.145-clang12-r72.ko`.
+- `images/test/allen-boot-test-5.10.150-clang12-r73.img`.
+- `images/test/allen-modem_driver-test-5.10.150-clang12-r73.img`.
+- `images/test/allen-modem_driver-test-5.10.150-clang12-r73.ko`.
 
-The installed next pair uses `5.10.150-clang12-r73` with the same device/purpose
+The installed next pair uses `5.10.155-clang12-r74` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 
