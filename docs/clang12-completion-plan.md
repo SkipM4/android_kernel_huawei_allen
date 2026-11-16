@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #74/5.10.155 on `upstream/linux-5.10.y`, kernel source
-through `13b01f4cb`. Immediate paired rollback is #73/5.10.150. #71 is rejected
+Installed candidate is #75/5.10.160 on `upstream/linux-5.10.y`, kernel source
+through `b20c287b7`. Immediate paired rollback is #74/5.10.155. #71 is rejected
 for the OEM post-fork CPU-lock assertion, fixed in #72 without disabling it.
 #65 remains a
 failed HKIP firmware-boot candidate with successful paired #64 recovery;
@@ -67,7 +67,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.155 Resolved; #74 Full Build/Current Crypto-SELinux-Protocol Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP Pass; #73 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.156-160; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.160 Resolved; #75 Full Build/Current SDHCI-io_uring-Trace-IP-THP Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP Pass; #74 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.161-165; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -713,6 +713,54 @@ signing materials, failed65HKIP evidence and precise referenced source/proof/
 alternate stores remain below20 GB. Next is complete canonical156-160 toward
 pinned274. ACK/vendor-core/GKI/KMI and inherited subsystem/hardware/power
 work remain open; no release bundle, tag, push or publication occurs.
+
+### Complete Canonical 5.10.156-160 And Accepted #75
+
+All520 canonical originals resolve in order:486 exact,11 adapted,19 present
+and4 absent unrelated hardware providers. Five exact ordered-prefix trees
+agree with projection;497 source commits end at `dac68d33f`. One157#147
+git-am in-body From author/message exception is explicitly preserved with
+exact source/date/signoffs;496 raw authors and all497 timestamps agree. The
+separate `b20c287b7` fixes a concrete original io_uring uninitialized initial
+OOM return and overwritten retry-backup leak, using mainline lifecycle
+without its unrelated rsrc refactor. No accepted history is amended.
+
+VFS fsdata initialization preserves HW_F2FS/OEM accounting. DMA-heap duplicate
+check/publication uses one list lock with the existing device pin after
+rejection. DWC3 receives canonical request/descriptor/ENDTRANSFER fixes while
+OEM PM/IRQ hooks stay. SDHCI voltage-switch state preserves HS200/HS400 and
+the reset/PHY/delay epilogue, including the extra OEM reset site. memcg
+validates the actual cgroup1 control fd, and copy_file_range keeps VFS freeze
+protection. THP paired source notifiers compile out with MMU_NOTIFIER=n;
+active synchronous page-table IPI and CFI dispatch are covered, not active
+notifier runtime. DMABUF_HEAPS is unselected; its separate pin lifetime is open.
+
+One actual prepare/full Image+modules build exits0 for5.10.160 #75. Only TCP
+perturb order16 is newly emitted, equivalent to the old shift. ThinLTO,
+enforcing CFI, BTI/BHB, existing Werror/IAS, mandatory signatures/signing
+material, Enforcing and PRMEM/HKIP remain. Current238 natural contexts,42
+individually reviewed prior dependency changes and eleven once-decoded
+interfaces pass. Actual SDHCI1472-byte host/ops, io_uring136-byte quiesce and
+single-initial/single-retry backup lifecycle, five-argument trace poll,20/40-byte
+IP wire groups and THP/SMP agree. Final ELF checks36 targets in22 CFI groups.
+
+All13,845 exports remain with682 shared CRC changes versus74, no provider/
+type/namespace change. All390 modem and2 optional dummy imports match;
+14 OEM selectors and signing material stay. Boot roundtrip, CMS/embedded
+certificate and original ext4 metadata/label/byte readback pass. One paired75
+installation reaches normal Android with automatically loaded matching Live
+modem, full partition/file/live build-id readbacks, unlocked CE/services and
+same-thread ISP startup. Complete logs have no actual kernel/module/HKIP
+fault;517 AVC denials remain, none for module loading. Independent ramdisk,
+security and original trace/Asleep stay; no redundant boot/build/USB replay.
+
+#74/5.10.155 is immediate paired recovery. Compact75 metadata and local
+source/documentation boundary precede output reuse. Latest five test pairs
+are71-75; expired70 and consumed full logs are retired, precise proof/alternate/
+original/signing/failed-HKIP inputs retained below20 GB. Next is complete
+canonical161-165 toward pinned274. ACK/vendor-core/GKI/KMI, inherited
+subsystem/hardware/network/power and inactive notifier coverage remain open;
+no release/export bundle, tag, push or publication occurs.
 
 ## Next-Stage Work Queue
 

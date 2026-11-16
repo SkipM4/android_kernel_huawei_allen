@@ -47,8 +47,10 @@ upstream Git ancestry. An unrelated-history merge would not establish a
 correct common base. Instead, original stable format-patches are applied in
 order with `git am --directory=Code_Opensource/kernel`.
 
-Each imported commit retains its original author/date, original upstream
-provenance and a stable SHA trailer. Context/implementation adaptations are
+Imported commits retain their original author/date, upstream provenance and
+a stable SHA trailer. The single 157#147 in-body `From:` interpretation
+exception is explicitly preserved and documented at its milestone, not
+hidden or repaired by rewriting accepted history. Context adaptations are
 marked `BACKPORT` with an Allen-specific explanation. Existing later fixes
 are retained rather than replaced by their older intermediate versions.
 Present files outside the selected Allen platform also receive applicable
@@ -4044,3 +4046,141 @@ Next is complete canonical156-160 toward pinned5.10.274, not a version-only
 jump. SELinux PRMEM lifetime/reclamation, fbcon/HID wrap, broader io_uring/
 OOM/ext4/AMA, async HKIP/NFC and full hardware/network/performance/power remain
 open. Stable maintenance is not full de-OEM, ACK or GKI acceptance.
+
+## Complete Canonical 5.10.156-160 And Accepted #75
+
+The accepted local 5.10.155/#74 boundary is `c3764fe9e`, with kernel source
+`13b01f4cb`. A bounded canonical kernel.org fetch uses a new read-only-alternate
+reference store, preserving the complete raw commits, authors/messages,
+full-index patches, real-parent modes and six annotated tag objects. Tag
+object identity is verified; this is not a new GPG-trust assertion.
+
+| Release | Canonical endpoint | Originals | Exact | Adapted | Present | NA |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.156 | `6d46ef50b123f2da3871690e619f5169eb97af92` | 149 | 145 | 2 | 2 | 0 |
+| 5.10.157 | `f4245f05389c29c0d556fea359b2fcfd8dce7bdb` | 159 | 143 | 3 | 11 | 2 |
+| 5.10.158 | `592346d5dc9b61e7fb4a3876ec498aa96ee11ac8` | 96 | 91 | 3 | 2 | 0 |
+| 5.10.159 | `931578be69875087a62524da69964d575426d287` | 99 | 93 | 2 | 2 | 2 |
+| 5.10.160 | `a2428a8dcb4f3eb80e7d38dba0bf71e4ff20cecd` | 17 | 14 | 1 | 2 | 0 |
+| Total | | 520 | 486 | 11 | 19 | 4 |
+
+All five actual ordered-prefix kernel trees match the reviewed projection.
+The 497 canonical source commits end at `dac68d33f`; their five ledgers are
+`linux-5.10.156-imports.tsv` through `linux-5.10.160-imports.tsv`. The only NA
+providers are absent TI TWL6030 (two commits), SLG51000 and Exynos DWC3, not
+invented hardware support. Applicable source outside the selected platform
+still receives its complete official changes.
+
+One provenance exception is deliberately retained: stable
+`f8f80d532f7811a1da04480233dbb4be0256e38d`, 157#147, maps to local
+`0838e609b0f80edee2a84f5476eaac4e5e58999e`. `git am` interprets the original
+message's in-body `From:` as the author override and removes that line. Its
+source patch is exact, timestamp/signoffs/stable trailer agree, and both
+complete raw identities/messages are preserved. The ledger records the
+exception. The other 496 raw authors and all 497 author timestamps match;
+remaining complete messages match declared adaptations or Git blank-line
+normalization. No amend/history rewrite hides the discrepancy. The next
+three affected originals use exact apply plus raw-author/full-message commits.
+
+### Actual Platform Adaptations And Separate io_uring Fix
+
+156 initializes all four actual VFS fsdata declarations. Only filemap context
+needs adaptation across retained CGROUP_IOLIMIT; HW_F2FS compression write_end
+can consume fsdata when write_begin leaves it unset. Write accounting, callback
+contracts and local file modes stay. 157's DMA heap replaces the unlocked OEM
+duplicate precheck with list-lock duplicate rejection/publication. The existing
+successful device pin is taken after rejection so error unwind does not leak
+a newly acquired ref. DMABUF_HEAPS is unselected; its unrelated existing
+release-pin lifetime remains open.
+
+DWC3 receives the official host blanket-PHY-skip revert, status-aware request
+cleanup followed immediately by the official ESHUTDOWN correction, descriptor
+cleanup after transfer stop/givebacks, and all-speed ENDTRANSFER PHY sleep-bit
+save/clear/restore. OEM pullup/PM/IRQ hooks stay. Six Binder security commits
+are already present in the actual sender-aware bounded object/copy/FD and
+deferred SG/fixup cleanup implementation; stronger alignment and prior copy
+error fixes stay, rather than duplicating or regressing them.
+
+158's SDHCI voltage-switch state adds drv_type/reinit coherently across the
+generic core, platform and Zodiac consumers. Preserve real HS200/HS400 preset
+eligibility. The clock-only skip reaches the existing reset-on-IOS/PHY/delay
+epilogue with `goto out`, not a return that would bypass platform duties.
+Three canonical reset sites plus the actual OEM clock-zero hardware reset set
+reinit. Zodiac's preset-broken quirk and runtime no-reset/power guards stay.
+
+The original io_uring quiesce field belongs in the real relocated provider
+`fs/io_uring_types.h`; the original function and teardown hunks are imported.
+A separate `b20c287b7` fixes a concrete defect in that original backport:
+allocating at both the loop top and bottom overwrites a retry node, while an
+initial allocation failure returns an uninitialized ret. Allocate the first
+backup before arming quiesce and return `-ENOMEM` directly. Keep one retry
+allocation, locked publication, unpublished-node cleanup, state reset and
+unlock/task-work/relock sequence. Reference mainline
+`8bad28d8a305b0e5ae444c8c3051e8744f5a4296` for the lifecycle, not its unrelated
+file-to-rsrc refactor. The focused eight-line change passes checkpatch; it is
+not counted as one of the 520 canonical entries.
+
+159 THP adds mapping/mmap write-lock scope, synchronous IPI page-table walker
+invalidation and paired MMU_NOTIFY_CLEAR ranges around file/shmem PMD clearing.
+MMU_GATHER_RCU_TABLE_FREE is active, but MMU_NOTIFIER is unselected: notifier
+wrappers compile to no-ops. Huge CONT-PTE follow is already present with the
+stronger migration helper. memcg validates a regular cgroup1 control fd before
+name/parent access; move cgroup_fs_type to the actual public-header context.
+160's copy_file_range selects callback/superblock eligibility and internal
+COPY_FILE_SPLICE fallback through VFS freeze protection; public flags still
+must be zero. No encryption format, user data or priority policy is changed.
+
+### Current Build, Interfaces And Paired Installation
+
+One actual olddefconfig/prepare and full Image/modules invocation exit0,
+directly observed and reaped, producing5.10.160 #75. Only canonical157#138
+CONFIG_INET_TABLE_PERTURB_ORDER=16 is newly emitted, equivalent to the previous
+hardcoded shift16/allocation. ThinLTO, enforcing CFI, BTI/BHB, existing Werror,
+LLVM/IAS, mandatory signatures/signing material, SELinux and PRMEM/HKIP remain.
+
+238 actual ordinary C contexts bind source and generated dependencies; 42
+changed prior dependencies are reviewed individually. Eleven necessary current
+interface objects are decoded once, not the eighteen old74 caches again.
+Generic/platform/Zodiac consumers agree on1472-byte sdhci_host including its
+flexible private tail, drv_type/reinit and ops layout. Core IOS/voltage and
+Zodiac voltage callbacks agree with typed dispatch and final ops assignments.
+The actual136-byte fixed_file_data quiesce byte and optimized single-initial/
+single-retry backup phi/publication/cleanup are checked. Five-argument trace
+poll provider/caller agree. Mirrored IP address groups preserve20/40-byte wire
+headers and both anonymous/named offsets. THP's actual file/shmem synchronous
+IPI sites and SMP CFI dispatcher agree; paired notifier source is recorded as
+unselected/no-op, not active runtime coverage.
+
+Final AArch64 ELF checks36 normal targets in22 finite CFI groups, including
+the new SDHCI and synchronous SMP targets. Retained BPF/NFT/cpuset/DWC3/IPv6
+assignments still point to canonical CFI entries. All13,845 exports remain:
+no addition/removal or provider/type/namespace change;682 shared CRCs change
+against74. All390 modem and two optional dummy imports match the current build.
+Fourteen OEM selectors are unchanged with their specific provider-source
+applicability. Matching modules are rebuilt, not merely resigned; dummy stays
+uninstalled. This is not arbitrary old-module reuse, opaque OEM ABI, ACK
+parity, stable KMI, vendor/core split or standard GKI certification.
+
+Boot Image/stub/DTB/header roundtrip and bounds pass. The rebuilt modem is
+stripped before unchanged CMS signing, verified against the embedded target
+certificate and staged with original ext4 mode/ownership/SELinux label and
+signed byte readback. Current accepted74 identity, boot ID and four live
+readbacks bind immediate recovery before writing only local75 boot and
+modem_driver. Independent Magisk ramdisk and user data stay unchanged.
+
+One normal75 Android boot automatically loads the matching Live modem. Full
+partition/module/loaded build-id readbacks, unlocked CE storage/services and
+same-thread six-stage ISP startup pass. Complete time-zero/boot/later logs
+contain no actual kernel/module/HKIP fault;517 AVC denials remain, none for
+module loading. Enforcing/taint4/forced signatureY/PRMEM enabled and original
+trace0/wifi plus Asleep remain. No redundant second boot/build/USB replay is
+used after these gates pass.
+
+#74/5.10.155 is immediate paired recovery. Save compact75 metadata and local
+source/documentation boundary before output reuse. Latest five test pairs
+become71-75, including explicitly failed71; only expired70 test files and
+consumed full logs are retired. Original images, #17, signing material,
+failed65HKIP evidence and exact referenced source/proof/alternate stores stay
+below20 GB. No signing-key copy, release/export bundle, tag, push or publication
+occurs. Next is complete canonical161-165 toward pinned5.10.274; inherited
+subsystem/hardware/power findings and ACK/vendor-core/GKI/KMI remain open.

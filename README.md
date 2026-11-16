@@ -6,13 +6,14 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.155 #74, with kernel source
-`13b01f4cb`, normal Android, unlocked CE storage, completed ISP firmware
+The installed upstream milestone is Linux 5.10.160 #75, with kernel source
+`b20c287b7`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
-#73/5.10.150 is the immediate paired rollback. The fscrypt master-key
-ownership migration includes the real Huawei SDP cleanup consumer; a
-separate host OpenSSL4 compatibility fix preserves mandatory PEM/CMS
-signing. #73's DWC3 disconnect/reconnect evidence remains scoped to that
+#74/5.10.155 is the immediate paired rollback. The current batch preserves
+the SDHCI platform epilogue while importing upstream voltage-switch state,
+and separately repairs a concrete io_uring backup-allocation error.
+Filesystem-owned keys, Huawei SDP cleanup and host OpenSSL4 PEM/CMS
+compatibility remain. #73's DWC3 disconnect/reconnect evidence is scoped to that
 accepted implementation. #71 is rejected for a real OEM
 post-fork cpuset lock assertion; #72 repairs that caller without removing
 the assertion. #65 remains a failed
@@ -554,6 +555,43 @@ recovery; local metadata and recent #70-74 test pairs remain below 20 GB.
 Next is complete canonical 5.10.156-160. The pinned target274, ACK/vendor-core/
 GKI/KMI architecture and inherited subsystem/hardware/power findings remain
 open; no release is exported or published.
+
+### Linux 5.10.156-160 Milestone
+
+All 520 canonical originals resolve in order: 486 exact picks, 11 adaptations,
+19 already present and four specifically absent unrelated hardware providers.
+The 497 source commits end at `dac68d33f`; separate `b20c287b7` allocates the
+first io_uring quiesce backup before entering the loop, fixing an uninitialized
+OOM return and overwritten retry-node leak. All original dates agree; one
+157#147 exact-source commit retains an explicitly recorded `git am` in-body
+`From:` author/message exception without rewriting accepted history.
+
+VFS initializes actual fsdata declarations while preserving HW_F2FS/OEM
+accounting. DMA-heap duplicate checking and publication share the list lock.
+DWC3 preserves OEM PM hooks while importing canonical request/ENDTRANSFER
+lifecycle corrections. SDHCI keeps HS200/HS400 eligibility and the actual
+reset/PHY/delay epilogue; reinit state covers the extra OEM reset site.
+THP gains synchronous page-table IPI invalidation and paired source notifiers;
+MMU_NOTIFIER is unselected, so its wrappers compile out, not active coverage.
+copy_file_range fallback retains VFS filesystem-freeze protection.
+
+The full #75 kernel/module build exits0. Only canonical TCP perturb order16
+is newly emitted, equivalent to the prior hardcoded shift. Current 238 natural
+C contexts and eleven once-decoded interface objects pass; final ELF checks
+36 targets in 22 finite CFI groups. All 390 modem and two optional dummy
+imports match 13,845 exports; 682 shared CRCs change versus #74, with no
+export addition/removal. Fourteen OEM selectors, signing material and security
+remain. Matching modules are rebuilt, not just resigned; dummy is not installed.
+
+One paired #75 installation reaches normal Android with automatic matching
+Live modem, full readbacks, unlocked CE/services and same-thread six-stage ISP
+startup. Full logs contain no actual kernel/module/HKIP fault; 517 AVC denials
+remain, none for module loading. Independent ramdisk, Enforcing, taint4,
+signature enforcement and PRMEM remain; trace and Asleep are restored.
+#74 is immediate paired recovery. Compact local metadata and recent #71-75
+test pairs are retained below 20 GB. Next is complete canonical 5.10.161-165
+toward pinned274; ACK/vendor-core/GKI/KMI and inherited subsystem/hardware/
+power findings remain open. No release/export bundle or publication occurs.
 
 ### Installed Bring-up Baseline
 

@@ -537,6 +537,43 @@ ramdisk/security remain and complete logs have no actual kernel/module/HKIP
 fault. #73 is immediate paired recovery. Source format/key policy remain,
 dummy stays uninstalled, and stable KMI/GKI remains open.
 
+### 5.10.160 #75: Current SDHCI And Synchronous IPI Contracts
+
+The complete canonical156-160 range accounts for520 originals and497 source
+commits; a separate focused io_uring backup-allocation fix precedes the normal
+full build. One actual Image/modules invocation exits0, producing5.10.160 #75.
+The new TCP perturb order16 selection is equivalent to the old hardcoded
+allocation; compiler/IAS, ThinLTO, CFI, signatures/signing material, SELinux
+Enforcing and PRMEM/HKIP remain.
+
+Current238 natural C contexts and eleven once-decoded interface objects bind
+the selected SDHCI generic/platform/Zodiac layouts and typed callback dispatch,
+actual io_uring quiesce/backup lifetime, five-argument trace poll, mirrored IP
+wire headers and active synchronous page-table IPI callback. MMU_NOTIFIER is
+not selected, so paired THP source notifier wrappers compile out; this is not
+an active notifier test. Final ELF checks36 targets in22 finite CFI groups,
+including final SDHCI core/Zodiac ops assignments and retained BPF/NFT/cpuset/
+DWC3/IPv6 canonical assignments. No old74 interface decoder is replayed.
+
+There are13,845 exports, with no addition/removal/provider/type/namespace
+change against74. The682 shared CRC changes are real: all390 rebuilt modem
+and two optional dummy imports match current Module.symvers; a previously
+signed74 module is not a substitute. Fourteen generated OEM selectors and
+signing material are unchanged. Required modem is stripped then CMS signed
+and verified against the certificate embedded in the current kernel. Original
+ext4 metadata/labels and byte readback plus boot roundtrip/bounds pass.
+
+One paired75 installation reaches normal Android with automatically loaded
+matching Live modem, full partition/file/live build-id readbacks, unlocked
+CE/services and same-thread ISP startup. Full logs have no actual kernel/
+module/HKIP fault;517 AVC denials remain, none for module loading. Independent
+ramdisk and enforcing security stay, and original trace/Asleep are restored.
+#74 is immediate paired recovery; dummy remains uninstalled. Current source
+provenance includes one explicit157#147 git-am in-body From author/message
+exception with exact source/date/signoffs retained, not a rewrite of history.
+Same-build success is not opaque OEM ABI, independent module reuse, stable
+KMI, ACK/vendor split or GKI certification.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -577,14 +614,14 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous accepted pair is #74's immediate
+overwrite existing candidates. The previous accepted pair is #75's immediate
 rollback, not the rejected #71:
 
-- `images/test/allen-boot-test-5.10.150-clang12-r73.img`.
-- `images/test/allen-modem_driver-test-5.10.150-clang12-r73.img`.
-- `images/test/allen-modem_driver-test-5.10.150-clang12-r73.ko`.
+- `images/test/allen-boot-test-5.10.155-clang12-r74.img`.
+- `images/test/allen-modem_driver-test-5.10.155-clang12-r74.img`.
+- `images/test/allen-modem_driver-test-5.10.155-clang12-r74.ko`.
 
-The installed next pair uses `5.10.155-clang12-r74` with the same device/purpose
+The installed next pair uses `5.10.160-clang12-r75` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

@@ -1,0 +1,18 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	970862a96c0d157cbad044406e0062674857d1a8	0c6134c527fdfdc0acc9cfe44459ebdf6b6c232f	picked	x86/smpboot: Move rcu_cpu_starting() earlier	arch/x86/kernel/cpu/mtrr/mtrr.c;arch/x86/kernel/smpboot.c	-
+002	ed9673394979b7a5dff10ba878178054625beda9	148cf41a2ef392280152a4c1eee68d6f490e471e	picked	vfs: fix copy_file_range() regression in cross-fs copies	fs/nfsd/vfs.c;fs/read_write.c	-
+003	965d93fb39b99348d6c327853afd4708b610e132	99d121de9100c5d9150407443b740d63924e934b	picked	vfs: fix copy_file_range() averts filesystem freeze protection	fs/nfsd/vfs.c;fs/read_write.c;include/linux/fs.h	-
+004	eb6313c12955c58c3d3d40f086c22e44ca1c9a1b	-	already-present	nfp: fix use-after-free in area_cache_get()	drivers/net/ethernet/netronome/nfp/nfpcore/nfp_cppcore.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+005	17f386e6b7695afdb10474431dfd754c92feaedd	a0d28f044955e6f96d228f4be45a33da9d86091c	picked	fuse: always revalidate if exclusive create	fs/fuse/dir.c	-
+006	75454b4bbfc7e6a4dd8338556f36ea9107ddf61a	-	already-present	io_uring: add missing item types for splice request	fs/io_uring.c	The actual IORING_OP_SPLICE table already sets IO_WQ_WORK_BLKCG | IO_WQ_WORK_FILES in the complete unique post-context, retaining established owned file input cleanup. No splice struct or UAPI change is needed.
+007	a49c1a7307752ed5e371373f4db6a426857d4eed	9c9444c1a4c4443aaf66277dcbb56540e101be88	picked	ASoC: fsl_micfil: explicitly clear software reset bit	sound/soc/fsl/fsl_micfil.c	-
+008	344739dc56f1b3e33e6a3170b89731d450455df6	a13edfe4a5c02dfe0dc2c008fb1b98faf7260151	picked	ASoC: fsl_micfil: explicitly clear CHnF flags	sound/soc/fsl/fsl_micfil.c	-
+009	50b5f6d4d9d2d69a7498c44fd8b26e13d73d3d98	96720fb7f32876e6154574901408a1d07e82170a	picked	ASoC: ops: Check bounds for second channel in snd_soc_put_volsw_sx()	sound/soc/soc-ops.c	-
+010	5cb4abb0caa586859e56c71a6c44882e451a980a	9720675fe5608e37c9be47715070d96502a5e45e	picked	libbpf: Use page size as max_entries when probing ring buffer map	tools/lib/bpf/libbpf_probes.c	-
+011	434b5236710f40f09c52f7073dc269d2904ce232	01762487ab7f66e4f131edeefcbe7d11411bb9b4	picked	pinctrl: meditatek: Startup with the IRQs disabled	drivers/pinctrl/mediatek/mtk-eint.c	-
+012	683837f2f69d5ebd5e770d5096e3f65c237db4f9	83f6eba344ef9178ccd6acd5c18130e01a2748d9	picked	can: sja1000: fix size of OCR_MODE_MASK define	include/linux/can/platform/sja1000.h	-
+013	4db1d19b74e013ba26dae0e9e6025d670afc8759	9dbb09465e058fe7c476dd8891ae696cdc17ce25	picked	can: mcba_usb: Fix termination command argument	drivers/net/can/usb/mcba_usb.c	-
+014	77ebf88e003140f10625d998b572ad1dde76d0c1	bb55f539a7e5af7b738b981ac40d27947b294c8a	picked	ASoC: cs42l51: Correct PGA Volume minimum value	sound/soc/codecs/cs42l51.c	-
+015	74b139c63f0775cf79266e9d9546c62b73fb3385	86e0e677d6f0856f68b2d90e31c3b2ae96e84cc1	picked	nvme-pci: clear the prp2 field when not used	drivers/nvme/host/pci.c	-
+016	54c15f67cb72a5ab856d15d3a887a4d8474e44be	c8250256b30accd9a3af31bd6d20e3830b39a538	picked	ASoC: ops: Correct bounds check for second channel on SX controls	sound/soc/soc-ops.c	-
+017	a2428a8dcb4f3eb80e7d38dba0bf71e4ff20cecd	dac68d33f78faf4a4cf24b048f0e2893ef4264a8	backported	Linux 5.10.160	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
