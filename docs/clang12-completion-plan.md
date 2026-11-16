@@ -11,10 +11,13 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #76/5.10.161 on `upstream/linux-5.10.y`, kernel source
-through `46497f881`. Immediate paired rollback is #75/5.10.160. The162
-explicit-standard-mode/default-Hyperframe compatibility decision is approved
-but not yet implemented or accepted. #71 is rejected
+Installed candidate is #77/5.10.165 on `upstream/linux-5.10.y`, kernel source
+through `da36d4e1f`. Immediate paired rollback is #76/5.10.161. Complete162-165
+and the single-core explicit-standard-mode/default-Hyperframe migration pass
+current build/layout/CFI, normal Android/automatic modules and nine finite
+private-ring checks. Retained HF requires aligned buffers and uses CLOSE
+user_data as cancel/unlink; general-buffer, concurrency and full hardware
+acceptance do not follow from this pass. #71 is rejected
 for the OEM post-fork CPU-lock assertion, fixed in #72 without disabling it.
 #65 remains a
 failed HKIP firmware-boot candidate with successful paired #64 recovery;
@@ -69,7 +72,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.160 Resolved; #75 Full Build/Current SDHCI-io_uring-Trace-IP-THP Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP Pass; #74 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.161-165; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.165 Resolved; #77 Full Build/Current Single io_uring-HF-Task-Devfreq Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP/Nine Private Migration Checks Pass; #76 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.166-170; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 

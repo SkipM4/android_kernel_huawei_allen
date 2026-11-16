@@ -639,16 +639,30 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous accepted pair is #76's immediate
+overwrite existing candidates. The previous accepted pair is #77's immediate
 rollback, not the rejected #71:
 
-- `images/test/allen-boot-test-5.10.160-clang12-r75.img`.
-- `images/test/allen-modem_driver-test-5.10.160-clang12-r75.img`.
-- `images/test/allen-modem_driver-test-5.10.160-clang12-r75.ko`.
+- `images/test/allen-boot-test-5.10.161-clang12-r76.img`.
+- `images/test/allen-modem_driver-test-5.10.161-clang12-r76.img`.
+- `images/test/allen-modem_driver-test-5.10.161-clang12-r76.ko`.
 
-The installed next pair uses `5.10.161-clang12-r76` with the same device/purpose
+The installed next pair uses `5.10.165-clang12-r77` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
+
+Complete162-165 imports the canonical in-tree/external `modules` and
+`modules_install` unification while retaining Allen's real mixed-tree
+vmlinux/builtin/depmod prerequisites. #77 has13,850 exports versus13,845 at
+#76: six additions, one removal and8,966 changed CRCs, with no provider,
+export-type or namespace changes. All390 rebuilt modem and two optional
+dummy imports match the new table; old `__versions`, CRCs or vermagic are
+not patched or reused. Signing material and14 existing OEM selectors remain;
+22 new actual HF selectors follow the canonical replacement's real layouts.
+Current task/HF/devfreq/CFI contracts are checked independently of the module
+CRC gate. One normal Android boot automatically loads the signed matching
+modem, with complete partition/file/build-id checks and unchanged independent
+ramdisk/security. The nine private io_uring migration checks are additional
+scoped evidence, not a stable-KMI, cellular-data or whole-device certificate.
 
 These are local test/recovery files, not an exported release bundle or an
 OEM-signed AVB claim. Their build, installation and runtime evidence is in

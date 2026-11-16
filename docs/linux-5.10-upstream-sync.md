@@ -4285,3 +4285,160 @@ comparison with the actual full ordered prefix. Complete162-165 import,
 current migration layout/CFI/build and runtime acceptance remain next;
 pinned274, ACK/vendor split/GKI/KMI and inherited subsystem/hardware/power
 findings remain open.
+
+## Complete Canonical5.10.162-165 And Accepted #77
+
+The prior accepted161 source is `46497f881`, with documentation boundary
+`505bc8e79`. Complete162-165 uses the already-frozen canonical kernel.org
+parents, raw authors/messages, annotated release tags and full-index patches.
+The approved Q3 A compatibility decision is implemented within the complete
+ordered import, not as a partial selection of independent fixes.
+
+| Release | Canonical endpoint | Originals | Exact | Adapted | Present | NA |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.162 | `0fe4548663f7dc2c3b549ef54ce9bb6d40a235be` | 64 | 54 | 8 | 2 | 0 |
+| 5.10.163 | `19ff2d645f7a9626146b6b3ba698488d60aa04de` | 787 | 763 | 18 | 5 | 1 |
+| 5.10.164 | `3a9f1b907bc434a91f0d295533d2c7e3758efe92` | 65 | 54 | 1 | 9 | 1 |
+| 5.10.165 | `179624a57b78c02de833370b7bdf0b0f4a27ca31` | 99 | 88 | 8 | 3 | 0 |
+
+All1,015 originals have per-release TSV entries. The994 source commits retain
+all raw author identities/dates, complete original message prefixes and
+stable cherry-pick trailers; the four release root/kernel trees match the
+approved ordered projection, ending at `6935346ef`. Eighteen adapter patch
+files missing at163#81 are materialized from the exact previously approved
+before/after blobs, then the same import resumes; no disposition, author or
+approved tree is changed. The previously declared157#147 in-body-From
+exception remains separate. A later local `da36d4e1f` repair changes only
+four renamed raw-HF callback `.size` expressions to their own `_asm` labels;
+it changes no instructions, callbacks, layout or policy. The final built
+kernel tree is `c76a48f7328f37771a14b5ae04ff02ccdcd42a63`.
+
+### Ordered Provider Adaptations
+
+The canonical fork/signal/task-work/TIF_NOTIFY_SIGNAL preparation is applied
+through the actual HKIP, cpufreq, KASAN and throttle contexts without removing
+their checks. `PF_IO_WORKER` initialization and exit duties are canonical;
+ordinary task policy and the accepted post-fork CPU-lock assertion remain.
+VFS filename ownership also migrates the real `ksys_rename` caller, preserving
+security/crypto hooks and ESTALE reference lifetime. Futex's canonical
+`kernel/futex/` move retains the selected Android/Huawei provider rather than
+substituting a generic postimage. Ambiguous repeated NFS/configfs/ext4 hunks
+are bound to their named original functions, not applied globally.
+
+The real selected HW_F2FS resize flag receives the same lock-publication and
+error-clear correction as upstream F2FS. SCSI's completed-command timeout
+early return precedes OEM unistore handling. DWC3's role worker snapshots the
+desired role under its existing lock across all actual OEM decisions and
+keeps role0 teardown. ULPI reset/probe-defer applies at the selected PHY
+registration, with failed registration leaving `dwc->ulpi` NULL rather than
+an ERR_PTR cached as apparent success. The actual lpcpu and generic cpufreq
+kobject publication routes both receive early completion initialization.
+Overlay's creation-only credentials retain both Android override modes and
+their LSM/reference cleanup. Ext4 quota, EA-inode/xattr cache and unlink
+transaction changes preserve the accepted SDP/encryption/lblk ownership.
+Canonical module build/install unification retains the mixed-tree
+vmlinux/builtin/depmod prerequisites. XHCI's typed override/provider and NCM's
+missing-gadget guard retain the real OEM structure fields and speed policy.
+These are source fixes, not on-device filesystem resize or broad hardware
+experiments.
+
+### One io_uring Core And Installed Interface
+
+Canonical162#55 is the5.15.85-derived stable-specific io_uring/io-wq import,
+whose upstream and Android-common references are recorded in the preceding
+compatibility section. The old fs implementation/workers are retired; one
+new canonical `io_uring/` core serves both immutable ring modes. Default
+public OPEN34/WRITE35/READ36/CLOSE37 translates once to distinct private
+HF37-40. `IORING_SETUP_STANDARD_OPS (1U << 31)` opts in to canonical
+SHUTDOWN34/RENAMEAT35/UNLINKAT36 and rejects37+. Setup, dispatch, probe,
+restriction bits, trace numbering and bounds use the same stored mode.
+Installed UID1013 access gates and the retained `may_pollfree` policy stay;
+no userspace renumbering, permissive CFI, operation alias or second old core.
+
+One canonical private type header is shared with the real asm-offsets
+producer. Current task/request/context/rw/open and kiocb layouts generate22
+HF offsets/constants instead of freezing the former core's numbers. The
+raw HF device/data path remains, with typed task-work completion under
+`uring_lock`, a separate issue reference, one canonical dismantle/free/cache
+path and delayed-work drain before context release. Four exact-type work/
+kiocb bridges supplement the eleven existing hook bridges. Successful V3
+crypto begin owns one vote across retries and finishes once before fput;
+unstarted/error paths do not manufacture a vote. The previously accepted
+fixed-file deferred fput and prohibition on registering ring files remain.
+
+### Current Build, Layout And Machine Gates
+
+Current configuration/prepare and one full Image/modules build are directly
+observed/reaped with exit0. #77 retains Android Clang/LLD12.0.7, unchanged
+effective configuration/signing material, ThinLTO, enforcing CFI, BTI/BHB,
+Werror, LLVM/IAS, mandatory module signatures, SELinux and PRMEM/HKIP.
+The329 current natural object contexts bind complete source/generated
+dependencies;16 necessary new objects are decoded once, not substituted
+with old io_uring layouts or an extra compiler-frontend experiment.
+
+Six actual task layouts agree at4736 bytes, with `pf_io_worker`3584 and
+`thread`3600; fork initializes the pointer and current worker/scheduler
+loads agree. Actual io request240/context1856 and HF request136/context432
+allocations agree with the22 generated selectors. Current objects establish
+the task lock, issue/io-wq references, single cleanup, three worker drains,
+crypto release and fixed-file duties. Selected core/DDR/GPU devfreq objects
+all agree at2040 bytes with data1160/governor_data1168; no stale DDR artifact
+is used. Net-device stats union aliases agree across actual consumers.
+
+The new callback roster has43 callbacks/23 CFI types. Final ELF checks84
+normal targets in50 finite CFI groups. Eleven actual hook registrations,
+three work stores, ki_complete, the typed relative initcall and15 raw bridge
+branches point to the current canonical entries. Worker/cpu_switch_to loads,
+HF allocations and four raw completion calls match current facts. This is
+finite actual selected-machine evidence, not a blanket opaque-OEM ABI or
+concurrency certificate.
+
+All13,850 exports are compared with161's13,845: six additions, one removal
+and8,966 CRC changes; provider, export type and namespace stay. All390
+rebuilt modem and two optional dummy imports match. The14 original generated
+OEM selectors remain, alongside22 new HF selectors. The modem is freshly
+rebuilt, stripped before unchanged CMS signing, verified against the target
+certificate and staged with original ext4 metadata/label/readback. Boot
+roundtrip retains firmware stub, OEM DTB, header and partition bounds.
+No old-module CRC/vermagic spoofing, dummy installation or KMI/GKI claim.
+
+### Normal Android And Finite Private Migration Regression
+
+Accepted76's live identity, boot ID and paired partition/module/ramdisk
+readbacks bind immediate recovery. One paired installation writes only77
+boot and modem_driver. Normal Android automatically loads the same-build
+signed Live modem; partition/file/loaded build-id checks, unlocked CE storage,
+required services and same-thread six-stage ISP firmware startup pass.
+Time-zero, boot and later logs contain no actual kernel/module/HKIP fault.
+The561 visible AVC denials remain recorded, none for module loading;
+Enforcing, taint4, forced signaturesY and PRMEM enabled remain.
+
+A newly compiled actual165-UAPI probe runs only as UID1013 after capset/capget
+confirms zero effective/permitted/inheritable capabilities. Nine finite
+private-ring checks pass: default34-37/probe boundary38, standard34-36/boundary37,
+real HF open/read-content/write/close, standard shutdown/rename/unlink,
+both mode-specific restrictions, fixed-file sparse registration/replacement/
+deferred and final fput, partial registration/failed-update cleanup, and
+async ring close with independently opened flock last-reference oracles.
+No global trace, system queue, scheduling policy or setting is modified.
+
+Two earlier probe failures are harness-contract errors, with no actual kernel
+fault: the retained raw HF page-to-bvec path uses page offset0, requiring
+page-aligned buffers, and CLOSE consumes nonzero SQE user_data as its
+cancel/unlink flag. Only the private buffers/tagging are corrected; kernel
+ABI is not changed to make an invalid probe pass. INT_MAX is the failed-file
+update input because canonical `IORING_REGISTER_FILES_SKIP=-2` is valid for
+updates. Current update failure removes the old slot and subsequent fixed
+read correctly returns EBADF. Task-owned files/rings/processes are released,
+the probe directory is removed, and the successful window adds no AVC denial.
+This does not certify arbitrary HF buffers, stress/race/OOM, inherited
+asynchronous lifetime findings or full hardware/network/power behavior.
+
+Original trace0/wifi and Asleep are restored. Current77 compact metadata is
+saved before output reuse; accepted76 remains immediate paired rollback and
+recent73-77 test pairs stay local below20 GB. Originals, signing material,
+failed71/65 evidence and exact referenced proof/blob/alternate stores remain.
+No passed build/boot/interface gate is repeated absent a relevant change or
+fault. Next is complete canonical166-170 toward pinned5.10.274; ACK alignment,
+vendor/core separation, GKI/KMI and inherited subsystem/hardware/power
+findings remain open. No release export, tag, push or publication occurs.

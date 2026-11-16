@@ -6,15 +6,17 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.161 #76, with kernel source
-`46497f881`, normal Android, unlocked CE storage, completed ISP firmware
+The installed upstream milestone is Linux 5.10.165 #77, with kernel source
+`da36d4e1f`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
-#75/5.10.160 is the immediate paired rollback. Complete161 is accepted before
-the substantial162 io_uring replacement. Its public-mode compatibility
-boundary is now explicitly approved: keep existing Hyperframe34-37 defaults
-and offer standard numbering through an opt-in ring mode. That migration is
-not yet imported or runtime accepted. The previous SDHCI epilogue and concrete
-io_uring backup-allocation repair remain.
+#76/5.10.161 is the immediate paired rollback. Complete162-165 is accepted
+with one canonical io_uring core: installed Hyperframe34-37 defaults remain,
+and immutable `IORING_SETUP_STANDARD_OPS` explicitly enables standard34-36.
+Fresh task/HF layout, lifetime, enforcing CFI and assembly checks pass; nine
+finite private-ring checks cover both modes and fixed-file reference release.
+Retained Hyperframe buffers require page alignment, and CLOSE's user_data is
+its cancel/unlink flag; arbitrary-buffer support is not certified. The
+previous SDHCI epilogue and concrete io_uring backup-allocation repair remain.
 Filesystem-owned keys, Huawei SDP cleanup and host OpenSSL4 PEM/CMS
 compatibility remain. #73's DWC3 disconnect/reconnect evidence is scoped to that
 accepted implementation. #71 is rejected for a real OEM
@@ -624,9 +626,49 @@ canonical SHUTDOWN/RENAMEAT/UNLINKAT34-36. New completion/cache/resource-ref
 ownership also differs from the old explicit completion-plus-free bridge.
 Next is a single upstream io_uring implementation with an explicit mode and
 minimal real layout/lifetime adaptation, not disabling Hyperframe or silently
-renumbering installed userspace. The remaining162-165 originals have saved
-previews, not a complete import/build authorization. Target274 and
+renumbering installed userspace. At that161 checkpoint the remaining162-165
+originals were saved previews, not yet imported or accepted. Their completed
+next milestone follows. Target274 and
 ACK/vendor-core/GKI/KMI plus inherited hardware/power findings remain open.
+
+### Linux 5.10.162-165 Single-Core Migration And #77
+
+All1,015 canonical originals are resolved in order:959 exact picks,35
+adaptations,19 already-present and two inapplicable entries. The994 source
+commits retain raw authors, dates, complete messages and stable trailers;
+all four release trees match the approved projection through `6935346ef`.
+Separate `da36d4e1f` corrects four renamed raw-HF callback `.size` labels,
+without changing instructions or policy. Per-release ledgers record every
+original and adaptation, including selected HW_F2FS, DWC3, cpufreq, VFS,
+encryption and mixed-tree module-build providers.
+
+Canonical162's5.15.85-derived io_uring/io-wq replaces the old fs core rather
+than keeping two implementations. The user-approved default/standard ring
+mode preserves installed userspace without aliases or renumbering. Actual
+task/request/context and rw/open layouts drive22 generated HF selectors;
+typed task-work completion, separate issue references, single dismantle,
+delayed-worker drain and crypto vote release before fput are checked in
+current objects. Final ELF validates84 targets in50 CFI groups plus15 typed
+raw bridges. Selected core/DDR/GPU devfreq and net-stats consumers agree.
+
+One complete #77 Image/modules build exits0 with unchanged configuration,
+signing material and enforcing controls. The export table gains six symbols,
+loses one and changes8,966 CRCs; all390 rebuilt modem and two optional dummy
+imports match. The14 original OEM selectors remain. Signed boot/modem
+staging, paired installation/readbacks and automatic Live modem pass; the
+independent ramdisk is unchanged. Complete logs contain no actual kernel,
+module or HKIP fault;561 AVC denials remain, none for module loading.
+
+A finite UID1013/capabilities-zero private regression passes defaultHF34-37,
+standard34-36, mode-specific boundaries/restrictions, real private file
+operations and fixed-file replacement/error/async-close last-reference
+release. Earlier probe failures were its unaligned HF buffer and nonzero
+CLOSE tag, not new kernel faults; only the harness was corrected. No global
+trace, queue or policy changes occur. Trace state and Asleep are restored.
+Accepted77 metadata and recent73-77 pairs stay local below20 GB. Next is
+complete166-170 toward pinned274; ACK/vendor-core/GKI/KMI and inherited
+subsystem/hardware/power findings remain open. No release is exported or
+published.
 
 ### Installed Bring-up Baseline
 
