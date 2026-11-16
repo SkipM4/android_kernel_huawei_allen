@@ -908,6 +908,48 @@ failed71/65 evidence remain. Child-clock unselected source, wider lifetime/
 hardware/network/power and ACK/GKI/KMI findings stay open. Next is complete
 181-185 toward pinned274; no release export, tag, push or publication occurs.
 
+### Complete Canonical 5.10.181-185 And Accepted #81
+
+All515 originals resolve through `d90c2c11b7` with510 ordered source
+commits:493 exact,17 adapted, three present and two absent/unselected
+PCA9450 entries. Five endpoint trees and raw author/timestamp/timezone/
+complete-message identities match. No separate integration is needed.
+VLAN duplicate contexts use named tap owners; TCP close retains the accepted
+no-netref timer cleanup after release_sock. Binder partial/full cleanup,
+conditional io_poll_update locking and socket capability publication carry
+the complete canonical operations. Both F2FS fixes also reach selected
+HW_F2FS. DWC3 keeps OEM debugfs/FIFO behavior with15 balanced PM owners;
+DECnet removal is complete but was unselected. OEM SB_DELAY_SHRINK bit24
+and memory-hotplug extension remain; no hardware feature is blindly deleted.
+
+One prepare and one full Image/modules build exit0 for5.10.185 #81.
+Effective selections, keys, security and36 OEM/HF selectors remain; only
+five disabled configuration entries change their emitted representation.
+609 actual natural contexts include66 regulator-header consumers;46 current
+objects establish18 layout groups and48 targets in12 new CFI types.
+sock grows1072->1080 bytes from canonical sk_wait_pending; current final
+UDP/IPv6 destructor stores use sk_destruct at byte968. Generic/Kirin/camera
+regulator descriptors agree. Current Binder cleanup bounds, one IO mutex
+guard and15 DWC3 success owners/18 release sites pass cached-IR ownership
+checks.187 targets in91 final CFI groups and actual tables/thread operands
+pass; direct-only TTY helpers remain separate. Unchanged HF/PCI/rq/MAS
+proofs and accepted private-ring evidence remain scoped references, not
+replayed or substituted for current changed layouts.
+
+13,861 exports have six additions, two removals and2742 changed common
+CRCs; providers/export types/namespaces remain.390 freshly rebuilt modem
+and two optional dummy imports match. Signed paired staging, installation/
+readbacks, normal Android, automatic Live modem, unlocked CE/services and
+same-thread six-stage ISP startup pass. Independent ramdisk stays.
+Complete logs contain no actual kernel/module/HKIP fault;518 AVC denials
+remain, none module-load. Enforcing, signaturesY, taint4 and PRMEM stay;
+read-only warn/oops counts are0, limits0/10000. Trace0/wifi and Asleep restore.
+Compact81 metadata and recent77-81 pairs remain local with80 immediate
+rollback, below20 GB. Original/signing/referenced evidence and failed71/65
+records remain. Next is complete186-190 toward pinned274; full hardware/
+network/power, ACK/vendor-core split and GKI/KMI work remain open.
+No release export, tag, push or publication occurs.
+
 ## Next-Stage Work Queue
 
 These inherited bring-up follow-ups remain open independently of source

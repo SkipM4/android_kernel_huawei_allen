@@ -4831,3 +4831,146 @@ materials and failed71/65 evidence remain. Named unselected child-clock
 allocation and full hardware/network/performance/power/ACK/vendor-core/GKI/
 KMI work stay open. Next is complete181-185 toward pinned5.10.274, not
 latest-stable or GKI completion. No release export, tag, push or publication.
+
+## Complete Canonical 5.10.181-185 And Accepted #81
+
+### Official Range And Ordered Source
+
+Continue the accepted5.10.180/#80 boundary with the complete adjacent
+stable range, not a hand-selected security subset:
+
+| Release | Official Commit | Entries | Exact | Adapted | Present | Not Applicable |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.181 | `272d4b8a5b96dda1374b9039a884cce2cd9cb630` | 212 | 201 | 9 | 2 | 0 |
+| 5.10.182 | `c7992b6c7f0e2b0a87dd8e3f488250557b077c20` | 23 | 20 | 1 | 0 | 2 |
+| 5.10.183 | `7356714b95aa6b186430289090a7fe5bdff2cf18` | 121 | 118 | 3 | 0 | 0 |
+| 5.10.184 | `a1f0beb13d9b8955e00caa48f909462fb70e6f73` | 69 | 67 | 2 | 0 | 0 |
+| 5.10.185 | `ef0d5feb32ab7007d1316e9c5037cd7d9f7febbf` | 90 | 87 | 2 | 1 | 0 |
+
+Official source is `https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git`.
+The exclusive start is v5.10.180/`4c893ff55907c61456bcb917781c0dd687a1e123`.
+The pinned goal stays5.10.274/`3a323bc22b881a5bdc1646080f93f5ecb22850bf`;
+it is not yet imported.515 originals resolve as493 exact,17 adapted,
+three present and two absent/unselected PCA9450 entries.510 linear local
+source commits preserve raw author/timestamp/timezone, complete original
+messages and provenance trailers. All five endpoint trees match the approved
+projection. Source ends at `d90c2c11b7`; no separate integration or whitespace
+cleanup is required. Ledgers `linux-5.10.181-imports.tsv` through
+`linux-5.10.185-imports.tsv` account for every original in order.
+
+The first bounded fetch into a new borrowed-object repository encounters
+missing inherited shallow-parent boundaries. Repair only that new
+repository's shallow representation from the read-only prior180 repository;
+the retry completes and the official chain/tags are verified. Shared
+repositories, accepted source and private signing material are not changed.
+
+### Real OEM Adaptations And Standard Interfaces
+
+VLAN helper conversions use both exact tap function owners despite duplicate
+contexts; network-header pulling and drop behavior follow upstream. TCP
+close splits into the lock-owned __tcp_close and public wrapper, retaining
+the accepted no-netref timer synchronization after release_sock and before
+sock_put. Every original shutdown annotation is carried. The per-CPU TCP
+control socket owns temporary network/XFRM state and resets it after replies;
+socket route/GSO capabilities are computed before dst publication while
+retaining OEM cloud/TUN branches.
+
+Binder replaces the ambiguous failed-zero sentinel with explicit processed
+off_end_offset; full cleanup computes aligned data plus offset size. FD
+translation/unwind remains. io_poll_update holds the same uring mutex for
+worker removal/completion and leaves NONBLOCK callers' already-held ownership
+unchanged. Cgroup fork always puts/nulls cset, with cgrp/mutex cleanup still
+CLONE_INTO_CGROUP-owned; writeback has one reference exit. Ext4 allocator
+statistics, nullable group lookup and EA inode checks include the later
+canonical revert, not an intermediate hand-picked combination.
+
+Both generic F2FS fixes also reach selected HW_F2FS: closing CP-error
+metadata drops dirty/uptodate state and unlocks, page draining continues,
+closing directory data stops redirtying, and iostat period writes use IRQ
+locking. OEM compression/checkpoint behavior remains; no live user-data
+fault or unmount experiment is performed.
+
+All27 DWC3 debugfs PM hunks use their16 named owners, including regset
+device ownership,15 runtime acquisition functions and18 release sites.
+Early-error and normal puts stay outside the IRQ spinlock. OEM u32 FIFO
+width, chip debugfs and endpoint lifetime remain. Type-C DP empty-pin output
+and native/statfs64 initialization also use exact function ownership rather
+than ambiguous repeated endings. All21 superblock flag conversions preserve
+numeric values, including interposed OEM SB_DELAY_SHRINK bit24.
+
+Canonical DECnet removal spans50 paths and was unselected. UAPI constants
+and the empty neighbour-table slot remain; no selected Allen hardware is
+deleted. Standard regulator ramp helpers add descriptor fields and update
+actual consumers. PCA9450 source is absent, while generic build declarations
+exist with CONFIG_REGULATOR_PCA9450=n; its two NXP-specific changes have no
+selected Allen counterpart. Memory-hotplug multi-block offline/reonline
+logic is imported around retained OEM remove_memory_subsection, but hotplug
+is unselected. Existing usb-storage timeout, cls_u32 reference and pKVM
+position-independent library operations are explicitly present; KVM is not
+enabled by this accounting.
+
+### Actual Build And Current Module Contracts
+
+One prepare and one full Image/modules build exit0 for5.10.185 #81 using
+the pinned Android Clang/LLD12.0.7 and IAS. Effective feature selections are
+unchanged. Five disabled entries change emitted representation: SX8, DECnet
+and old RCAR LVDS disappear, new RCAR-use and DPT-I2O remain disabled.
+ThinLTO, CFI, actual Werror, BTI/BHB, signing material and36 OEM/HF selectors
+remain.609 ordinary current contexts include66 real regulator-header
+consumers;46 selected objects are decoded once for relevant interfaces.
+
+18 layout groups and48 new targets in12 CFI types bind IO/task/HF,
+Binder/TCP/socket, ext4/HW_F2FS, netns, DWC3, regulator/power and device
+contracts. Canonical sk_wait_pending grows sock1072->1080 bytes and shifts
+its tail by eight bytes; all existing fields retain the expected displacement.
+Final UDP/IPv6 destructor stores use sk_destruct at byte968, rather than
+reusing old operand evidence because their primary C files are unchanged.
+Current regulator descriptors agree across generic, Kirin and camera PMIC
+providers. device remains896 bytes; its empty dev_archdata is represented
+as a zero-sized structure, not a flexible array.
+
+Optimized inline calls use actual debug origins: sock_put becomes refcount/
+sk_free, XFRM free becomes two policy deletions, cset and wb_exit inline,
+and list release becomes AArch64 stlr. The metadata-drop owner is
+__f2fs_write_meta_page and IRQ helpers remain out of line. Reader corrections
+do not change kernel source or repeat compilation/IR decoding. Current
+Binder partial phi retains zero explicitly, the full end is separately
+computed, and the same IO condition guards the same mutex. Control-flow
+checks of15 DWC3 successful-acquisition owners verify all18 release sites
+with no reference/spinlock left held at return.
+
+Final ELF checks187 normal indirect targets in91 CFI groups, current
+callback tables and task entry offset. Direct-only TTY helpers stay separate.
+Unchanged HF/PCI/rq/MAS primary/layout evidence remains scoped references;
+no older proof substitutes for a changed offset.13,861 exports are compared
+with80's13,857: six additions, two removals and2742 changed common CRCs.
+Common providers/export types/namespaces remain. All390 rebuilt modem and
+two optional dummy imports match. New APIs include device_set_node,
+supplier property, regulator ramp, DPCM prepare and USB endpoint checkers;
+neigh_lookup_nodev and the old supplier setter are removed. No old module,
+CRC/vermagic spoofing or permissive loader is used. Same-build signed
+stock boot/modem staging checks header/stub/DTB roundtrip, certificate/CMS,
+ext4 metadata/label and module readback.
+
+### Normal Android And Local Closeout
+
+Accepted80 live identity, boot ID, paired image/module and independent
+ramdisk readbacks bind recovery. Only local185/#81 boot and modem_driver
+are flashed. Normal Android automatically loads the matching signed Live
+modem; full partition/file/loaded build-id, unlocked CE storage, required
+services and same-thread six-stage automatic ISP firmware startup pass.
+Time-zero, boot and later logs contain no actual kernel/module/HKIP fault.
+518 AVC denials remain visible, none module-load. Enforcing, taint4,
+signaturesY and PRMEM enabled remain. Read-only warn/oops counts are0;
+limits remain0/10000 without fault induction or writes. Original trace0/wifi
+and Asleep restore. Accepted private-ring evidence is retained, not replayed
+as a broad suite for this conditional-lock change.
+
+Compact81 source/build/current-interface/module/runtime metadata is saved
+before output reuse. Recent77-81 pairs stay local below20 GB with80 immediate
+rollback; expired76 pair and consumed logs/link intermediates are retired,
+not referenced source/proof/blob/alternate stores. Originals, signing
+material and failed71/65 evidence remain. Named child-clock source,
+full hardware/network/performance/power, ACK parity and vendor-core/GKI/KMI
+work stay open. Next is complete186-190 toward pinned274, not a claim of
+latest-stable/GKI completion. No release export, tag, push or publication.

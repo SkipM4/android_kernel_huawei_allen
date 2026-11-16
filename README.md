@@ -6,16 +6,18 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.180 #80, with kernel source
-`baa22bf578`, normal Android, unlocked CE storage, completed ISP firmware
+The installed upstream milestone is Linux 5.10.185 #81, with kernel source
+`d90c2c11b7`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
-#79/5.10.175 is the immediate paired rollback. Complete176-180 resolves all
-841 originals with817 ordered commits and a separate comment-whitespace
-cleanup. Effective selections, signing material and36 OEM/HF selectors
-remain; canonical LLVM assembler selectors are emitted. Current rq/SMT/task,
-VFS/HW_F2FS, MAS/UFS, IPv6/NF, DWC3/TTY/trace/allocator/verity facts and
-final139-target/81-group CFI checks pass. All390 rebuilt modem imports match
-the actual changed export table; no old binary or forced versions are used.
+#80/5.10.180 is the immediate paired rollback. Complete181-185 resolves all
+515 originals with510 ordered commits:493 exact,17 adapted, three present
+and two absent/unselected PCA9450 entries; no separate integration is needed.
+Effective selections, signing material and36 OEM/HF selectors remain.
+609 natural contexts and46 current objects bind IO/Binder, TCP/socket,
+ext4/HW_F2FS, cgroup, DWC3 and actual OEM regulator/power interfaces.
+The new socket waiter field moves the tail by eight bytes; current destructor
+stores and187-target/91-group final CFI checks pass. All390 rebuilt modem
+imports match the changed export table; no old binary or forced versions are used.
 warn_count/oops_count remain0. Accepted79 private-ring evidence is retained,
 not replayed. The accepted162-165 migration
 keeps one canonical io_uring core: installed Hyperframe34-37 defaults remain,

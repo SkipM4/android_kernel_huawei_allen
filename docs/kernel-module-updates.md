@@ -780,6 +780,51 @@ Compact80 metadata and recent76-80 pairs stay local; unselected child-clock,
 full hardware/network/power and ACK/vendor-core/GKI/KMI findings stay open.
 Next is complete181-185; no release export or publication occurs.
 
+### 5.10.181-185 #81: New Socket And Regulator Layouts
+
+The installed pair uses `5.10.185-clang12-r81`; #80/5.10.180 is immediate
+paired rollback. Complete515-original sequential source needs no separate
+integration before one full Image/modules build. Effective selections,
+signing material and36 OEM/HF selectors remain. Disabled DECnet/SX8/RCAR/
+DPT-I2O configuration spelling changes do not enable another driver.
+
+All13,861 exports are compared with80's13,857: six additions are
+device_set_node, the supplier-property and regulator-ramp helpers, DPCM
+prepare and two USB endpoint checkers. Removed entries are neigh_lookup_nodev
+and the old supplier current-limit setter.2742 common CRCs change; common
+providers, export types and namespaces remain.390 newly rebuilt modem and
+two optional dummy imports match the actual table. No old binaries, forced
+CRC/vermagic or weakened signatures substitute for rebuilding.
+
+609 current ordinary contexts, including66 actual regulator-header
+consumers, and46 relevant objects bind new IO/Binder/TCP/ext4/HW_F2FS/
+cgroup/DWC3/regulator/power contracts. Canonical sk_wait_pending grows
+sock1072->1080 bytes and shifts tail fields by eight bytes; current shared
+layouts and final UDP/IPv6 destructor stores at byte968 agree. An unchanged
+primary C file alone is not grounds to reuse old offset evidence after a
+shared header changes. New regulator_desc fields agree in generic, Kirin
+and camera PMIC providers. device remains896 bytes; its empty archdata
+member is not mistaken for a flexible array. Current187-target/91-type final
+CFI, callback tables, Binder explicit partial/full bounds, conditional IO
+mutex and15 DWC3 PM owners/18 release sites pass. Unchanged HF/PCI/rq/MAS
+evidence stays scoped; no independent stable-KMI promise follows.
+
+Same-build signed boot/modem staging checks original header/stub/DTB,
+certificate/CMS, ext4 metadata/label and module readback. Only boot and
+modem_driver are installed. Normal Android automatically loads the matching
+Live modem; partition/file/loaded build-id, unlocked CE/services and
+six-stage automatic ISP startup pass. Complete logs have no actual kernel/
+module/HKIP fault;518 AVC denials remain, none module-load. Independent
+ramdisk, Enforcing, mandatory signatures, taint4 and PRMEM stay; read-only
+warn/oops counts are0. Trace0/wifi and Asleep restore. No optional dummy
+installation or broad private-ring replay is used to inflate acceptance.
+
+Compact81 metadata and recent77-81 pairs remain local with80 immediate
+recovery. Next is complete186-190 toward pinned5.10.274. Full hardware,
+network/power, ACK parity, vendor-core separation and GKI/KMI remain open;
+required modules continue to follow each kernel update by paired rebuild.
+No release export or publication occurs.
+
 ## Actual Module Inventory And Limits
 
 The full configured build also produces `hisi_dummy_ko.ko`. Read-only normal
