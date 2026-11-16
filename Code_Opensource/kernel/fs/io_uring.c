@@ -6614,12 +6614,12 @@ static int io_file_ref_quiesce(struct fixed_file_data *data,
 	if (data->quiesce)
 		return -ENXIO;
 
+	backup_node = alloc_fixed_file_ref_node(ctx);
+	if (!backup_node)
+		return -ENOMEM;
+
 	data->quiesce = true;
 	do {
-		backup_node = alloc_fixed_file_ref_node(ctx);
-		if (!backup_node)
-			break;
-
 		io_sqe_files_kill_node(data);
 		percpu_ref_kill(&data->refs);
 		flush_delayed_work(&ctx->file_put_work);
