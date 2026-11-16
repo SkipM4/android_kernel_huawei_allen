@@ -11,8 +11,10 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #75/5.10.160 on `upstream/linux-5.10.y`, kernel source
-through `b20c287b7`. Immediate paired rollback is #74/5.10.155. #71 is rejected
+Installed candidate is #76/5.10.161 on `upstream/linux-5.10.y`, kernel source
+through `46497f881`. Immediate paired rollback is #75/5.10.160. The162
+explicit-standard-mode/default-Hyperframe compatibility decision is approved
+but not yet implemented or accepted. #71 is rejected
 for the OEM post-fork CPU-lock assertion, fixed in #72 without disabling it.
 #65 remains a
 failed HKIP firmware-boot candidate with successful paired #64 recovery;
