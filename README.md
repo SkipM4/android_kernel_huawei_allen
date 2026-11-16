@@ -6,11 +6,13 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.145 #72, with kernel source
-`78095eb5f`, normal Android, completed ISP firmware startup and automatic
-loading of the same-build signed modem. #70/5.10.140 is the immediate paired
-rollback. #71 is rejected for a real OEM post-fork cpuset lock assertion;
-#72 repairs that caller without removing the assertion. #65 remains a failed
+The installed upstream milestone is Linux 5.10.150 #73, with kernel source
+`f2bebf7c2`, normal Android, completed ISP firmware startup and automatic
+loading of the same-build signed modem. #72/5.10.145 is the immediate paired
+rollback. The changed DWC3 path passes actual USB disconnect/automatic
+reconnect and duplicate-connect checks. #71 is rejected for a real OEM
+post-fork cpuset lock assertion; #72 repairs that caller without removing
+the assertion. #65 remains a failed
 HKIP firmware-boot candidate, not an accepted runtime. Ordered synchronization
 toward the pinned 5.10.274 target continues; Android common parity, vendor/core
 separation and GKI certification are not complete. No release is exported or
@@ -479,6 +481,43 @@ Originals and precise source/proof references stay below 20 GB. Next is
 complete 5.10.146-150. Target274, HID wrap, inherited lifetime/hardware/power
 findings and ACK/vendor-core/GKI/KMI remain open; no release is exported or
 published.
+
+### Linux 5.10.146-150 Milestone
+
+All 641 canonical originals resolve in order: 577 exact picks, 27 adaptations,
+35 already present and two specifically inapplicable changes. The 604
+original-author commits end at `f2bebf7c2`; complete messages/provenance and
+five per-release ledgers agree, with no separate kernel integration needed.
+The coherent DWC3 migration uses canonical softconnect, runtime-PM-before-
+reset, live IRQ event acknowledgement and post-PM duplicate rejection while
+retaining the required platform PHY notification and event-clear wait.
+Zonelist retries retain OEM accounting; cpuset excludes per-CPU kthreads
+without removing the accepted CPU/threadgroup lock repair. Obsolete io_uring
+SCM producer code is not restored, and independent HMFS is not certified by
+unselected F2FS fixes.
+
+The ordinary full build exits0 and produces #73. Only the compiler capability
+probe CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO_ENABLER changes n -> y; explicit
+INIT_STACK_NONE and enforcing security remain. Ten new objects are decoded
+once with current generated dependencies: actual random timer types, three
+DWC3 layouts, UDC dispatch, cpuset and selected lifetime/accounting guards
+agree. The final ELF checks 60 symbols and 28 targets in 15 CFI groups.
+All 390 modem and two optional dummy imports match 13,844 exports, with two
+additions, one removal and eight shared CRC changes versus #72. Fourteen OEM
+selectors and signing materials remain; dummy is not installed.
+
+One paired #73 boot reaches normal Android, automatically loads matching
+Live modem and completes the same-thread six-stage ISP startup. Full
+partition/module/loaded build-id readbacks and independent ramdisk/security
+agree. The actual USB cycle records halt -> core reset -> RunStop and init's
+automatic gadget rebind; both later already-connected requests return0
+without DCTL writes. Actual random timer execution, zero lost trace events
+and ordinary ADB transfer pass. Complete logs contain no actual kernel/module
+fault; 548 AVC denials remain visible, none requests module loading. Original
+tracing and Asleep are restored. #72 is immediate paired recovery; the
+latest-five build window becomes #69-73. Next is complete 5.10.151-155;
+target274, ACK/vendor-core/GKI/KMI and inherited hardware/lifetime/power
+findings remain open. No release is exported or published.
 
 ### Installed Bring-up Baseline
 

@@ -11,8 +11,8 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #72/5.10.145 on `upstream/linux-5.10.y`, kernel source
-through `78095eb5f`. Immediate paired rollback is #70/5.10.140. #71 is rejected
+Installed candidate is #73/5.10.150 on `upstream/linux-5.10.y`, kernel source
+through `f2bebf7c2`. Immediate paired rollback is #72/5.10.145. #71 is rejected
 for the OEM post-fork CPU-lock assertion, fixed in #72 without disabling it.
 #65 remains a
 failed HKIP firmware-boot candidate with successful paired #64 recovery;
@@ -67,7 +67,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.145 Resolved; #72 Full Build/Current Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/ISP And Real OEM Attach Pass; #70 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.146-150; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.150 Resolved; #73 Full Build/Current Interfaces And CFI/Matching Signed Pair/Normal Android/Auto Module/ISP And Relevant USB/Random Timer Pass; #72 Immediate Rollback; #71 And #65 Failed Evidence Retained; Next Complete 5.10.151-155; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -625,6 +625,48 @@ and originals/#65 failure evidence explicit. Local metadata and precise
 dependency stores stay below 20 GB. Next is complete146-150; target274,
 source-only HID wrap and other lifetime/hardware/power/ACK/GKI/KMI work remain
 open. No release export/publication occurs.
+
+### Complete Canonical 5.10.146-150 And Accepted #73
+
+All641 canonical originals resolve in sequence:577 exact picks,27
+adaptations,35 already present and two specifically inapplicable operations.
+The604 original-author commits end at f2bebf7c2, with full messages/provenance
+and five durable per-release ledgers. No separate kernel integration is
+needed. Standard DWC3 requested-state/PM/reset/live-IRQ ownership replaces
+the unsafe OEM pre-PM restart while retaining necessary PHY/event handling.
+Zonelist retry preserves OEM counters; top-cpuset affinity skips per-CPU
+kthreads and retains the accepted CPU/threadgroup locks. F2FS is unselected
+and does not certify distinct HMFS; absent io_uring SCM producer code is not
+reintroduced. Unselected hugetlb's unrelated old_pte source gap remains open.
+
+The single ordinary full build exits0, directly observed and reaped, and
+produces #73. Only CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO_ENABLER changes n -> y;
+explicit INIT_STACK_NONE and security remain. Current103 natural contexts
+freeze actual source/generated dependencies; ten new objects are decoded
+once for timer/USB/cpuset and selected guards. Final ELF60 symbols/28 targets/
+15 CFI groups,390 modem/two optional dummy imports and14 OEM selectors pass.
+Exports13,844 have two additions,one removal and eight CRC changes versus72.
+
+Signed matched installation reaches normal Android with automatic Live
+modem, all readbacks/build-id, required services, unlocked storage and six
+same-thread ISP startup stages. The relevant USB regression actually halts,
+resets and restarts via automatic init rebind; two later already-connected
+requests return0 with no DCTL writes. A printf diagnostic initially wrote
+one character at a time and was corrected to a complete echo write; an
+analysis window initially missed init's earlier automatic reconnect and
+was corrected from cached trace, without another device cycle or kernel
+edit. Actual random timer execution, zero trace loss and restored ADB
+transfer pass. Complete logs have no actual kernel/module/HKIP fault;548
+AVCs remain visible, none requests module load. PRMEM,ramdisk and enforcing
+controls remain; original trace/Asleep are restored. This does not cover a
+sustained disconnected runtime-PM state, OTG or full suspend.
+
+Immediate paired recovery is72; latest-five build pairs become69-73, with71
+still failed. Compact metadata is preserved before output reuse; consumed
+full logs and expired68 test pair are retired, not referenced object/cache
+dependencies. Next is complete151-155 toward pinned274. Inherited subsystem,
+hardware/power findings and ACK/vendor-core/GKI/KMI remain open; no release
+bundle, tag, push or publication occurs.
 
 ## Next-Stage Work Queue
 

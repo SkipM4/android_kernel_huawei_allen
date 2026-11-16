@@ -3693,3 +3693,170 @@ pinned5.10.274 target. SELinux PRMEM lifetime/reclamation, two fbcon source
 findings, HID ring wrap, broader io_uring/OOM/ext4/AMA, async HKIP, NFC ownership
 and full hardware/network/performance/power remain open. Stable maintenance
 is not ACK parity, vendor/core separation, standard GKI or stable KMI.
+
+## Linux 5.10.146-150 Installed Milestone
+
+### Canonical Range And Source Decisions
+
+The complete canonical range is v5.10.145
+(`4a77e6ef2057d9d4e2e1df3f7739622477e8738d`) exclusive through v5.10.150
+(`a10a57a224f32035b58ef68b069f5b7491dd13e2`) inclusive from
+<https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git>.
+All original author/date/full messages, full-index patches and file modes
+are frozen and resolved in sequence. Five durable per-release ledgers bind
+every original to its local commit or precise present/inapplicable decision.
+Accepted history is not rewritten and no separate source integration is
+needed for this range.
+
+| Release | Originals | Exact Picks | Adapted | Already Present | Not Applicable |
+| --- | --- | --- | --- | --- | --- |
+| 5.10.146 | 139 | 116 | 11 | 12 | 0 |
+| 5.10.147 | 52 | 48 | 3 | 1 | 0 |
+| 5.10.148 | 55 | 41 | 5 | 9 | 0 |
+| 5.10.149 | 5 | 4 | 1 | 0 | 0 |
+| 5.10.150 | 390 | 368 | 7 | 13 | 2 |
+| Total | 641 | 577 | 27 | 35 | 2 |
+
+The604 original-author source commits end at `f2bebf7c2`. Complete original
+messages, authors/dates and stable SHA trailers agree. Actual release trees
+match the reviewed ordered projection; version markers change only the
+original SUBLEVEL while retaining local Makefile rules, exports and mode.
+
+146's DWC3 sequence is integrated as a coherent migration, not isolated
+conflict resolutions. Canonical softconnect records the requested state
+before runtime PM; resume no longer trusts stale OEM gadget_pullup. Core
+soft reset is exposed through the existing core header and takes place
+after PM synchronization and duplicate rejection, before event setup,
+gadget start and RunStop. The old pre-PM full PHY/core restart is removed.
+Soft disconnect lets the running event IRQ own GEVNTCOUNT acknowledgement
+while stopping/halting instead of disabling it and manually acknowledging
+the count. Required platform PHY reset, short atomic notifier locking,
+pcd bookkeeping and bounded OEM event-clear wait remain. No intermediate
+variant is installed. Canonical BTI compiler gates retain local CFI
+prerequisites and the actual Clang/LLD12.0.7 security selections.
+
+146's NFT basechain error path already frees its per-CPU stats, but
+incorrectly decrements a static key before its success-only increment.
+The adaptation uses canonical free_percpu and removes only that premature
+decrement; failed initialization publishes neither the hook nor counter.
+147's zonelist seqlock/retries preserve g_dr_num entry/exit accounting
+outside restart, plus AMA/kshrinkd and filecache/reclaim paths. Both
+pre-OOM and nopage retries refresh preferred_zoneref from the new cookie.
+The canonical negative page-fragment offset guard is picked exactly.
+Deferred usbnet URBs retain ordinary teardown while freeing their private
+unsubmitted skb/scatterlist/URB ownership.
+
+MMC setup refreshes capabilities after voltage negotiation and requires
+the actual S18R request bit before accepting a stale S18A response; named
+mask, existing retry bounds, locked-card/password and CQE behavior remain.
+The inode security initializer was already after all common fields and
+locks;148 completes only the canonical direct ENOMEM return. Standard
+const SCSI zero-initializer/API changes retain the existing passthrough
+fields and do not force-build unrelated STEX hardware.
+
+150's stack-init Kconfig/help/probes retain the explicit INIT_STACK_NONE
+choice and equivalent boolean KASAN_STACK exclusion. UFFD descriptors use
+O_RDONLY through the existing secure anonymous-inode API, preserving
+fork/security context and mm ownership. Top-cpuset task updates exclude
+per-CPU kthreads through the retained Android update_cpus_allowed wrapper;
+the accepted72 outer CPU/threadgroup lock correction is not removed.
+L2CAP acquires the canonical extra live ref before channel locking and
+releases it after unlock, preserving deletion callback ownership.
+
+io_uring drops its accounting mm after file/socket cleanup. The subsequent
+old SCM producer change is specifically not applicable, not PRESENT:
+marker/UNIX GC operations already exist but __io_sqe_files_scm is absent.
+Accepted `792b8bc8b` direct current-slot fput and delayed replacement-node
+ownership remain; obsolete SCM production is not reintroduced to claim
+coverage. F2FS checkpoint/writeback task accounting is source-only because
+F2FS_FS=n; distinct HMFS/hw_f2fs is not implicitly certified. Hugetlb's
+missing/minor UFFD path returns without reacquiring released locks, retaining
+local page-ref ownership. HUGETLBFS is unselected and its unrelated inherited
+old_pte source gap remains open. The Qualcomm RPM provider is absent and
+unselected, the other not-applicable disposition. OEM MINTP max_packets_seq
+belongs to mtp_sock, not the retired TCP field; its three OEM files are
+deliberately unchanged.
+
+### Actual #73 Build And Current Interfaces
+
+One ordinary full kernel/module build exits0, directly observed and reaped,
+and produces5.10.150 #73. The only effective/emitted configuration delta
+against72 is CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO_ENABLER n -> y. BARE remains
+unselected and explicit INIT_STACK_NONE remains. ThinLTO, enforcing CFI,
+BTI/BHB, Werror flags, signatures/signing materials and PRMEM/HKIP remain.
+
+Current103 ordinary C contexts freeze source/generated dependencies. Ten
+genuinely new objects are decoded once: random, DWC3 core/gadget/ep0,
+cpuset, io_uring, page_alloc, NFT API, timer dispatcher and UDC core. Random
+fast_pool is96 bytes and its actual callback/initializer/dispatcher agree
+on `_ZTSFvP10timer_listE` / `0xd11f8ef23197bc84`; the old work callback
+CFI group is accurately retired. All three DWC3 consumers agree on the
+1240-byte layout and canonical one-bit softconnect at9729 bits. Actual
+pullup ops/UDC dispatch agree on `_ZTSFiP10usb_gadgetiE` /
+`0xa0099a792d37d02c`, with PM-before-reset and live-IRQ halt code emitted.
+Current cpuset per-CPU kthread exclusion, late accounting-mm teardown,
+negative page-fragment guard, zonelist writer and failed NFT stats cleanup
+are checked from these existing decoded objects without another decode.
+MEMORY_HOTPLUG=n removes reader retries at compile time; no hot-remove
+stress or full allocator certification is claimed.
+
+The final AArch64 ELF checks60 selected symbols and28 normal targets in15
+finite CFI groups, plus actual BPF/NFT/cpuset/DWC3 canonical assignments.
+Retained old families apply only through individually reviewed current
+source/dependency records, not repeated old parser/layout proof. There are
+13,844 exports: __do_once_slow_done/start added, register_gifconf removed
+and eight shared CRC changes versus72. Providers/types/namespaces remain.
+All390 current modem and two optional dummy imports match; fourteen
+generated OEM selectors retain direct providers and unchanged values.
+Dummy is not installed. These scoped gates do not establish opaque vendor
+layout safety, arbitrary old-module reuse or independent stable KMI.
+
+### Paired Installation And Relevant Runtime Acceptance
+
+Boot roundtrip/compression, original firmware stub/DTB/header and partition
+bounds pass. The same-build modem is stripped before CMS signing against
+the unchanged embedded certificate, then staged with original ext4
+ownership/mode/SELinux label and byte readback. The accepted72 live baseline
+and rollback pair are bound before writing only local73 boot/modem_driver.
+Independent Magisk ramdisk and user data remain unchanged.
+
+One normal73 boot automatically loads the matching Live modem. Full
+partition/module/loaded build-id readbacks, unlocked storage/services and
+same-thread six-stage automatic ISP firmware startup pass. Enforcing,
+taint4, forced signatureY and PRMEM enabled remain. Complete time-zero,
+boot and later logs contain no actual kernel/module/HKIP fault;548 visible
+AVC denials remain, none requests module loading.
+
+A single recoverable softconnect cycle covers the changed DWC3 path using
+an independent DCTL/callback/timer trace instance, unchanged manufacture/ADB
+composition and a private detached shell. Initial printf writes were
+rejected one character at a time by sysfs without an actual disconnect;
+echo corrects the diagnostic's complete-command write. The real cycle
+records successful disconnect, DCTL halt -> core soft reset -> RunStop
+and automatic init gadget rebind. Init reconnects before the explicit
+reconnect marker, so that later request and the deliberate duplicate are
+already-connected calls: both return0 and issue no further DCTL writes.
+The analysis window is corrected from the existing cached trace rather
+than repeating the successful device cycle or changing the kernel.
+
+Actual141 mix_interrupt_randomness timer callbacks execute without CFI
+failure; no trace event is lost and ordinary post-reconnect ADB transfer
+matches. The post-disconnect PM sample is active after automatic rebind,
+not proof of sustained disconnected runtime suspend. Host/OTG/all suspend
+paths remain untested. Task files/instance are removed and original
+tracing-off/wifi and Asleep are restored. No redundant full build, reflash
+or second successful boot follows diagnostic corrections.
+
+#72/5.10.145 is immediate paired recovery; failed71 is not rollback or
+runtime acceptance. Latest-five test pairs become69-73 after accepted73
+compact metadata is saved before output reuse. Only expired68 test files
+and consumed full logs are retired; original images, #17, signing materials,
+failed65HKIP evidence and precise referenced source/proof/alternate stores
+remain below20 GB. No private signing key copy, release/export bundle,
+tag, push or publication occurs.
+
+Next is complete canonical151-155 toward pinned5.10.274, not a jump or
+version-string spoof. SELinux PRMEM lifetime/reclamation, fbcon/HID wrap,
+broader io_uring/OOM/ext4/AMA, async HKIP/NFC and full hardware/network/
+performance/power remain open. Stable maintenance is not ACK parity,
+vendor/core separation, standard GKI or independent stable KMI.

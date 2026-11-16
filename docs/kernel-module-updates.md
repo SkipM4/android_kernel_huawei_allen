@@ -468,6 +468,42 @@ Enforcing/signatureY/taint4/PRMEM and independent ramdisk agree. #70 remains
 immediate paired recovery. Dummy is not installed, old binaries are not
 resigned or version-spoofed, and independent stable KMI/GKI remains open.
 
+### 5.10.150 #73: Standard DWC3 And Timer Interfaces
+
+The complete146-150 source range resolves641 canonical originals in order
+and builds the required modem in the same ordinary full invocation. Its
+directly observed and reaped exit0 produces #73. Only the compiler capability
+probe CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO_ENABLER changes; explicit stack-init
+choice, CFI/ThinLTO/BTI/BHB/Werror, mandatory signatures and signing material
+remain. Current exports total13,844: __do_once_slow_done/start added,
+register_gifconf removed and eight shared CRC changes versus #72. All390
+modem and two optional dummy imports match; providers/types/namespaces and
+fourteen generated OEM selector values retain their actual contracts.
+
+Ten genuinely new interface objects are decoded once from the current full
+build and generated dependencies. Random's callback now has the standard
+timer_list signature, not the retired work_struct CFI type. The three DWC3
+producer/consumer layouts and typed UDC pullup dispatch agree. The final ELF
+checks60 selected symbols and28 normal targets in15 CFI groups, retaining
+canonical BPF/NFT/cpuset/DWC3 assignments. No old layout/parser family is
+replayed or treated as certification of opaque vendor interfaces.
+
+The modem is stripped before CMS signing, verified against the unchanged
+embedded certificate and staged with original ext4 ownership/mode/SELinux
+label. Normal paired #73 boot automatically loads the matching Live module;
+partition/file/live build-id readbacks, services, unlocked storage and the
+same-thread ISP firmware startup pass. Independent ramdisk, PRMEM,
+Enforcing/taint4/signatureY remain. Complete logs have no actual kernel/module
+fault; existing AVC denials contain no module-load request.
+
+The changed DWC3 path has a single real disconnect/automatic init rebind,
+with halt/reset/run ordering and two later already-connected requests
+without another DCTL write. Actual random timer execution and restored ADB
+transfer pass without CFI failure or trace loss. This is not sustained
+disconnected runtime-PM, all host/OTG or full suspend validation. #72 is
+immediate paired recovery. Dummy remains uninstalled, old binaries are not
+resigned or version-spoofed, and independent stable KMI/GKI remains open.
+
 ## Repeatable Matched-Build Flow
 
 1. Pin the source batch, target configuration, LLVM revision and signing
@@ -508,14 +544,14 @@ scripts/check-module-abi.py \
 ```
 
 The original staging scripts take a new output image path and refuse to
-overwrite existing candidates. The previous accepted pair is #72's immediate
+overwrite existing candidates. The previous accepted pair is #73's immediate
 rollback, not the rejected #71:
 
-- `images/test/allen-boot-test-5.10.140-clang12-r70.img`.
-- `images/test/allen-modem_driver-test-5.10.140-clang12-r70.img`.
-- `images/test/allen-modem_driver-test-5.10.140-clang12-r70.ko`.
+- `images/test/allen-boot-test-5.10.145-clang12-r72.img`.
+- `images/test/allen-modem_driver-test-5.10.145-clang12-r72.img`.
+- `images/test/allen-modem_driver-test-5.10.145-clang12-r72.ko`.
 
-The installed next pair uses `5.10.145-clang12-r72` with the same device/purpose
+The installed next pair uses `5.10.150-clang12-r73` with the same device/purpose
 naming. It passes full matching kernel/module build, signed ext4 staging,
 paired installation/readback and normal Android with automatic Live modem.
 

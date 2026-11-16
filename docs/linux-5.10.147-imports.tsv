@@ -1,0 +1,53 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	53e6282dde62be35ed311a41bbdf2372aedc8430	3a9065c0c0e6b0feaccad79b4c753c34b88f5370	picked	thunderbolt: Add support for Intel Maple Ridge	drivers/thunderbolt/icm.c;drivers/thunderbolt/nhi.h	-
+002	b2ad53fbc0e16771f393cb14ca0aeb25101eae60	12abbf414972e8c3da7a1ed48e5312b50324541f	picked	thunderbolt: Add support for Intel Maple Ridge single port controller	drivers/thunderbolt/icm.c;drivers/thunderbolt/nhi.h	-
+003	ded9e8964d0020bad431d8f1a7cc9a776a9ff5dc	bc4ec45d33142648d12f68e88547e485be47f10f	picked	ALSA: hda/tegra: Use clk_bulk helpers	sound/pci/hda/hda_tegra.c	-
+004	c1256c531d6733bda3397e7428bcef2a9ad9dd1a	da8fbe849a8274ac96f1e0c2a2039045f686cc75	picked	ALSA: hda/tegra: Reset hardware	sound/pci/hda/hda_tegra.c	-
+005	24070d32c6ecec3a008553ca56e6a03ffa2aee89	9929ee776c5450aa2c5acd7ebb0d89854c9bf8d8	picked	ALSA: hda/hdmi: let new platforms assign the pcm slot dynamically	sound/pci/hda/patch_hdmi.c	-
+006	29d849c3de5775185bddfce7fd7c57b7c37c2e7d	ee77a5d5d4424d352becb1e7ac957fc73bdcb98d	picked	ALSA: hda: Fix Nvidia dp infoframe	sound/pci/hda/patch_hdmi.c	-
+007	6ac5b52e3f352f9cb270c89e6e1d4dadb564ddb8	a644ed686868164f35091ec0cf34adb758a2b004	picked	btrfs: fix hang during unmount when stopping a space reclaim worker	fs/btrfs/disk-io.c	-
+008	1e4b856fc0bba4cebea5a7ab3ed2de52bcaf91cb	06357ffae126d67512bfb0eedc939a744ce9c1e4	picked	uas: add no-uas quirk for Hiksemi usb_disk	drivers/usb/storage/unusual_uas.h	-
+009	5f91ceea6c146ea78c25a45fefa0b361410b1f99	44e778fd8694360e8a1a1344d5ca13a85de687d6	picked	usb-storage: Add Hiksemi USB3-FW to IGNORE_UAS	drivers/usb/storage/unusual_uas.h	-
+010	e5ee7b77ac9b1fe459eba7a389b80b1feb527334	4ca959fe2f1e64077ed5d3703040ef71787d57d2	picked	uas: ignore UAS for Thinkplus chips	drivers/usb/storage/unusual_uas.h	-
+011	efdff533946284ed013f8e062be66e57463304bf	5aea20d61447d6898dd4a76b84b7408705c01ebd	picked	usb: typec: ucsi: Remove incorrect warning	drivers/usb/typec/ucsi/ucsi.c	-
+012	0695e590de3c0ccec993430458728e748c27eb30	0a3ccc10f11d8f591bd1ef68dfa6a77b144422b6	picked	thunderbolt: Explicitly reset plug events delay back to USB4 spec value	drivers/thunderbolt/switch.c	-
+013	8cf377baf0c32eca34bd8bda4798f1e934fe199f	c3fda62f7c80df82eb3eefa730f41c822b294cea	picked	net: usb: qmi_wwan: Add new usb-id for Dell branded EM7455	drivers/net/usb/qmi_wwan.c	-
+014	6c5742372b2d5d36de129439e26eda05aab54652	c2adcf0803bbc033a08d7cdbdc08ad51061298a6	picked	Input: snvs_pwrkey - fix SNVS_HPVIDR1 register address	drivers/input/keyboard/snvs_pwrkey.c	-
+015	dab144c5dd075cfeba3c8ad1e975b30bfd22f0c9	7d85feb380509a9af6889a373b7bdc4e1a87caa2	picked	clk: ingenic-tcu: Properly enable registers before accessing timers	drivers/clk/ingenic/tcu.c	-
+016	1d71422bd4837a6a880a32bc03299ed04caaff83	74527b72911a4ec1a0cec00263f4a289dbcd2da3	picked	ARM: dts: integrator: Tag PCI host with device_type	arch/arm/boot/dts/integratorap.dts	-
+017	a48daecd0994d9d5dc512302412880fe0f5613f4	0c5de4142430bdb805d5ec76e5946794a449a658	picked	ntfs: fix BUG_ON in ntfs_lookup_inode_by_name()	fs/ntfs/super.c	-
+018	e72a435fa30cd96a917ce2be112a4ea0a536aeca	7338801f995f9d68714d62206fa2585fd4a46935	picked	net: mt7531: only do PLL once after the reset	drivers/net/dsa/mt7530.c	-
+019	02d55a837e1ae2d59955dbe8dbc9b6ff8d5cf7c9	b9e22ca8e2018086468dd1341fd8435045f2d414	picked	libata: add ATA_HORKAGE_NOLPM for Pioneer BDR-207M and BDR-205	drivers/ata/libata-core.c	-
+020	36b10cde0c440ccd57ad3c99f6279f38f35705a5	315eb51d24d9e4fb720699669c3d146a22edbd49	picked	mmc: moxart: fix 4-bit bus width and remove 8-bit bus width	drivers/mmc/host/moxart-mmc.c	-
+021	9b751b4dc350a5ba836fb33518da1daac5b4a205	-	already-present	mmc: hsq: Fix data stomping during mmc recovery	drivers/mmc/host/mmc_hsq.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+022	466a26af2d105666a427e4892b2be67cfcc55f4f	70566247a64ae16ddd2229b98bc0807a2bb899d3	backported	mm/page_alloc: fix race condition between build_all_zonelists and page allocation	mm/page_alloc.c	Apply all canonical zonelist seqlock writer and slowpath read/retry operations over OEM allocation accounting and filecache-retry context. Keep the existing g_dr_num entry/exit balance outside restart, AMA kshrinkd, reclaim tracing and final accounting intact; both pre-OOM and nopage restart rebuild preferred_zoneref from a fresh cookie. No hot-remove stress or global allocation-policy changes.
+023	a54fc536911371bd5863afdcb2418ab948484b75	d0d02938c1e938a86212bffac10cb04aefdf3d28	picked	mm: prevent page_frag_alloc() from corrupting the memory	mm/page_alloc.c	-
+024	1002d5fef406c8dc685679aedb16938ad57d968c	f6beaa47af0de7bc2f99a8df45645fb8547f022a	picked	mm/migrate_device.c: flush TLB while holding PTL	mm/migrate.c	-
+025	be2cd261ca510be5cb51b198c602c516207dd32b	faf04abc38eddadf9025452f4dd8730cd0808af0	picked	mm: fix madivse_pageout mishandling on non-LRU page	mm/madvise.c	-
+026	ac828e2416911b27e78663c32a8c168a40549103	4b5de133c595955d0408cc6db582e6b29a7fbc9f	picked	media: dvb_vb2: fix possible out of bound access	drivers/media/dvb-core/dvb_vb2.c	-
+027	6f478fe8c3fbdfd82249bad762b0ffa7a551389f	c2056a1c29aa5ccb52ab36b5702316ac27ea6c7b	picked	media: rkvdec: Disable H.264 error detection	drivers/staging/media/rkvdec/rkvdec-h264.c	-
+028	625899cd06e1b4a12b374b09354404e52457da6a	98d969ea02e6051c9362f2e29c29f14f280ef420	picked	swiotlb: max mapping size takes min align mask into account	kernel/dma/swiotlb.c	-
+029	cce5dc03338e25e910fb5a2c4f2ce8a79644370f	735c525ed54c2aab7e10a003a5d42fc807b6b5da	picked	scsi: hisi_sas: Revert "scsi: hisi_sas: Limit max hw sectors for v3 HW"	drivers/scsi/hisi_sas/hisi_sas_v3_hw.c	-
+030	8934aea1a46c7f41e713613cbc865c135838ab54	a8d14ed79ca0ae3b51e335d92165739700a82470	picked	ARM: dts: am33xx: Fix MMCHS0 dma properties	arch/arm/boot/dts/am33xx-l4.dtsi	-
+031	a658f0bc72cb4e9189ced0713da5b6f536f6941b	0c97e8d1cc3eb978c51fc67a3f44935358423367	picked	reset: imx7: Fix the iMX8MP PCIe PHY PERST support	drivers/reset/reset-imx7.c	-
+032	3e0405c69bc9e3717f247c1849a31545098997c1	3ec3e7061aa5f87471e5da14c8af0a218b2b304c	picked	soc: sunxi: sram: Actually claim SRAM regions	drivers/soc/sunxi/sunxi_sram.c	-
+033	0fdc3ab9b4386b73b47e55d06f4b6c3888da7246	9d39341243a5e103d66aa325f900f3ab6f85a2ff	picked	soc: sunxi: sram: Prevent the driver from being unbound	drivers/soc/sunxi/sunxi_sram.c	-
+034	50fbc81f80d2d7eefca6992190b07a1285fdcf95	3b1e70222dc962e24ab3f98d774e30d7fd79b0db	picked	soc: sunxi_sram: Make use of the helper function devm_platform_ioremap_resource()	drivers/soc/sunxi/sunxi_sram.c	-
+035	4e2ede7cb9b5d4950d8e837d50a480250752f2d1	62601a96273df2c32d356c6b87fab1a7df8a988c	picked	soc: sunxi: sram: Fix probe function ordering issues	drivers/soc/sunxi/sunxi_sram.c	-
+036	8884a192f95e6f845d11d039b1bc0ca0c368737f	db83501b3660d49486c2326734e9a9dcd2fe300e	picked	soc: sunxi: sram: Fix debugfs info for A64 SRAM C	drivers/soc/sunxi/sunxi_sram.c	-
+037	359e73edd3be51d192923a90f2f2d44dd6a7c131	ad8bb506aa7df5f689ccf1e6a243013f0ce4a6c8	picked	ASoC: tas2770: Reinit regcache on reset	sound/soc/codecs/tas2770.c	-
+038	330b77578168ae6b83fe783d797a86b139cdc4f4	60e4bd3c392717737ecee720306c0ae57df79043	picked	Revert "drm: bridge: analogix/dp: add panel prepare/unprepare in suspend/resume time"	drivers/gpu/drm/bridge/analogix/analogix_dp_core.c	-
+039	57959392f7f00db2c2b82be8e3624810b7e0c59f	7a942f0bae10eca1a55a07503c14bbc1ad55212e	picked	Input: melfas_mip4 - fix return value check in mip4_probe()	drivers/input/touchscreen/melfas_mip4.c	-
+040	fa065e60811a689601924e8ade4a81a90468e204	3e953fe60fefb755ebd9ebefc2b4a1ea22e75f21	backported	usbnet: Fix memory leak in usbnet_disconnect()	drivers/net/usb/usbnet.c	Apply the canonical deferred-anchor skb/scatterlist/URB release loop and URB local across the OEM CDC diagnostic declarations. The deferred URBs were never submitted so no completion callback owns these buffers; keep actual tx/rx stop, unbind and interrupt teardown unchanged.
+041	fde656dbc3720f1991631eb678087c6af7a4461b	a28e816d743517c3ee3911f0bf78fde9e3e95ccd	picked	net: sched: act_ct: fix possible refcount leak in tcf_ct_init()	net/sched/act_ct.c	-
+042	2c248c4681620e76d42ef16a14050e26bd07702d	18b664cc9b701f6ea45e2d6fb547a6d77a117d98	picked	cxgb4: fix missing unlock on ETHOFLD desc collect fail path	drivers/net/ethernet/chelsio/cxgb4/cudbg_lib.c	-
+043	469dc5fd9a58e8111a9163083a87a940bb2ee20d	6e6ca7c5c25106d5e520683e4c3c5c08a1bbadfb	picked	nvme: add new line after variable declatation	drivers/nvme/host/core.c	-
+044	743a6e53cf1c19786144d4268f7e445403fb86f1	dd06c5c9c11118c1defc29a1be6fa1b479b6024f	picked	nvme: Fix IOC_PR_CLEAR and IOC_PR_RELEASE ioctls for nvme devices	drivers/nvme/host/core.c	-
+045	84cab3531ff77583ef7e76cff025e76e2a748f3f	8fe03a4797a71949cc636a2827a529a5a56af68c	picked	net: stmmac: power up/down serdes in stmmac_open/release	drivers/net/ethernet/stmicro/stmmac/stmmac_main.c	-
+046	83db457b41a821b39e0e7988341a9341b5848f08	3d84cc71be0e23b7fb3bb5bf5c1ac7da20903135	picked	selftests: Fix the if conditions of in test_extra_filter()	tools/testing/selftests/net/reuseport_bpf.c	-
+047	cf41711aa4a7000fead6c9e8c088e4fd4fc02316	1807c75ee10624105f44823e9992c24a15b5219b	picked	clk: imx: imx6sx: remove the SET_RATE_PARENT flag for QSPI clocks	drivers/clk/imx/clk-imx6sx.c	-
+048	a8e6cde5062fb2aff81f86cc0770591714bee545	ce0b63d2a1de8cda6372f09f2b1cece1e5537267	picked	clk: iproc: Do not rely on node name for correct PLL setup	drivers/clk/bcm/clk-iproc-pll.c	-
+049	374d4c307534c5fdd56aa7f1eb2cba67160ac9a2	42e8c95b2b8c0faeebccc04298241ed09cc1a656	picked	KVM: x86: Hide IA32_PLATFORM_DCA_CAP[31:0] from the guest	arch/x86/kvm/cpuid.c	-
+050	b12d0489e4021220b3341a95a6be37c5ff14729e	52eebd58e509ffa9144ddd6944699443806d8366	picked	x86/alternative: Fix race in try_get_desc()	arch/x86/kernel/alternative.c	-
+051	98f722cc2438d16b8949fdce712feb1fbf9699e8	88c31b4fb5c60c1038eacb5bb3fd0156c101132f	picked	ALSA: hda/hdmi: fix warning about PCM count when used with SOF	sound/pci/hda/patch_hdmi.c	-
+052	014862eecf03f58066a957027dde73cbecdf4395	92de428f762b9974ccd58241f1b1e4d48c228a83	backported	Linux 5.10.147	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
