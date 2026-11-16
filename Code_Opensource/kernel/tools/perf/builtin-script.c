@@ -2166,7 +2166,7 @@ static int process_attr(struct perf_tool *tool, union perf_event *event,
 	evsel = evlist__last(*pevlist);
 
 	if (!evsel->priv) {
-		if (scr->per_event_dump) { 
+		if (scr->per_event_dump) {
 			evsel->priv = evsel_script__new(evsel, scr->session->data);
 			if (!evsel->priv)
 				return -ENOMEM;
