@@ -6,13 +6,16 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.170 #78, with kernel source
-`1e81b711ac`, normal Android, unlocked CE storage, completed ISP firmware
+The installed upstream milestone is Linux 5.10.175 #79, with kernel source
+`a0dc72d14b`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
-#77/5.10.165 is the immediate paired rollback. Complete166-170 resolves all
-371 originals, retaining configuration, signing material and36 OEM/HF
-selectors. New clock/NVMEM/sysfs/PSI contracts and final97-target/55-group
-CFI checks pass; warn_count/oops_count remain0. The accepted162-165 migration
+#78/5.10.170 is the immediate paired rollback. Complete171-175 resolves all
+647 originals, plus two separately referenced poll-allocation/ext4-unlock
+fixes before building. Effective configuration, signing material and36
+OEM/HF selectors remain. Fresh poll/HF/task/selected HW_F2FS/ext4/HIDPP/trace/
+irq/PCI facts and final112-target/64-group CFI checks pass. Three finite
+new private-ring cases cover fixed-input async splice, normal poll and
+registered-buffer sources; warn_count/oops_count remain0. The accepted162-165 migration
 keeps one canonical io_uring core: installed Hyperframe34-37 defaults remain,
 and immutable `IORING_SETUP_STANDARD_OPS` explicitly enables standard34-36.
 Fresh task/HF layout, lifetime, enforcing CFI and assembly checks pass; nine
@@ -707,6 +710,44 @@ This is not whole-clock lifetime or hardware/power certification. Compact78
 metadata and recent74-78 pairs stay local below20 GB, with77 immediate
 rollback. Next is complete171-175 toward pinned274. ACK/vendor-core/GKI/KMI
 and inherited findings remain open; no release export/publication occurs.
+
+### Linux 5.10.171-175 And #79
+
+All647 canonical originals are resolved in order:615 exact picks,20
+adaptations,10 already-present and two absent/unselected regulator entries.
+The635 source commits end at `aa4c719872`; all five release trees match the
+approved projection and all raw authors/dates/messages retain exact original
+content with declared trailers. Two separate upstream-backed corrections,
+`78a7868847` and `a0dc72d14b`, prevent the canonical backport's poll-allocation
+NULL dereference and ext4 rename error-path double unlock before any build.
+
+Fixed-file locking includes its immediate NONBLOCK followup; no171-only
+intermediate is built. All four F2FS fixes also reach actual selected
+HW_F2FS, preserving its quick-write, crypto and writeback semantics. Fresh
+actual poll/task/HF types and selected ext4/HIDPP/trace/irq/PCI contracts,
+112 targets in64 final CFI groups and raw bridge/worker offsets pass.
+One complete Image/modules build exits0. Effective configuration, signing
+material and36 selectors stay; only two already-disabled configuration
+lines naturally disappear through canonical Kconfig changes.
+
+All13,854 exports remain, with21 real CRC changes and no provider/type/
+namespace change.390 freshly rebuilt modem and two optional dummy imports
+match. Signed matching boot/modem staging and installation pass; independent
+ramdisk stays unchanged. Normal Android, automatic Live modem, full readbacks/
+loaded build-id, unlocked CE, services and six-stage ISP startup pass.
+Three new UID1013/caps-zero private regression groups pass async fixed-input
+splice/replace/bad-slot cleanup, ordinary poll content/EOF, and anonymous/
+shmem/mixed-source buffer registration with error recovery. No old HF suite,
+system queue, forced spurious event or memory-pressure/fault test is replayed.
+
+Complete logs contain no actual kernel/module/HKIP fault;533 AVC denials
+remain, none module-load. Enforcing, taint4, mandatory signatures and PRMEM
+stay; read-only warn/oops counts are0 and limits0/10000. Trace0/wifi and
+Asleep are restored. Compact79 metadata and recent75-79 pairs stay local
+below20 GB with78 immediate rollback. The unselected child-clock resource
+issue remains source-only open. Next is complete176-180 toward pinned274;
+ACK/vendor-core/GKI/KMI and wider hardware/network/power work remain open.
+No release export, tag, push or publication occurs.
 
 ### Installed Bring-up Baseline
 

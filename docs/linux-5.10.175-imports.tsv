@@ -1,0 +1,92 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	a759905de9cd6ec9ca08ceadf0920272772ed830	33181fb938057a2f9009086b33bad14e5b9d56c1	picked	fs: prevent out-of-bounds array speculation when closing a file descriptor	fs/file.c	-
+002	a1eb8bf1e35f5d274efcfd55e91361a91d85e327	137ba9c7a3f8b490a1ccefc1ae394b6fed566eef	picked	fork: allow CLONE_NEWTIME in clone3 flags	kernel/fork.c	-
+003	5462843dc40f23fcdacac0460b75ec4916ef6ae6	1fe408caab9c514da4b1c7a4437555f11b7cb649	picked	x86/CPU/AMD: Disable XSAVES on AMD family 0x17	arch/x86/kernel/cpu/amd.c	-
+004	4279e87da6c88d63796904184b6f027321e370ab	9df5df5dd129a44571a19873f7af383d0045a7b6	picked	drm/amdgpu: fix error checking in amdgpu_read_mm_registers for soc15	drivers/gpu/drm/amd/amdgpu/soc15.c	-
+005	3106cb47cded559a8937b26d6cf4740f6f5de76f	6000fadc82405f16db5b6cd275572790887195b9	picked	drm/connector: print max_requested_bpc in state debugfs	drivers/gpu/drm/drm_atomic.c	-
+006	d0632ff49bd1a7d56f33ef2b935acbb6d00c9310	b07586c42eab79fd8bf702660d98fa40b2e8c7c1	picked	ext4: fix cgroup writeback accounting with fs-layer encryption	fs/ext4/page-io.c	-
+007	8706c972fcfa8c9533f37989c808a18bfa058ccd	da0fee7271167ff1498b2ae635f95047213dabf1	backported	ext4: fix RENAME_WHITEOUT handling for inline directories	fs/ext4/namei.c	Apply all canonical inline flag propagation and RENAME_WHITEOUT lookup fixes through actual five-argument ext4_find_entry/lblk contract. Keep existing lblk0 initialization, reset NULL lblk and rename old.lblk; set old.inlined at both named old lookup callers. Preserve SDP/encryption/quota and accepted later directory transaction logic; no prototype is regressed.
+008	1d2366624b4c19a2ba6baf67fe57f4a1b0f67c05	ca3f0bfb2b64b71cddacc4c69739202107b70ff4	picked	ext4: fix another off-by-one fsmap error on 1k block filesystems	fs/ext4/fsmap.c	-
+009	d72a6c31393da918c8004233f53b601efd732be5	b275243e7dd2f3e0aafb7759acc1bfd264e2185c	picked	ext4: move where set the MAY_INLINE_DATA flag is set	fs/ext4/inline.c;fs/ext4/inode.c	-
+010	a9bd94f67b27739bbe8583c52256502bd4cc7e83	a2192792cf781c91af79a20a07d86485c94cade5	picked	ext4: fix WARNING in ext4_update_inline_data	fs/ext4/xattr.c	-
+011	3f00c476da8fe7c4c34ea16abb55d74127120413	a9dccc4d6e47c4d47fcf39bd2569a9e3a28e476a	picked	ext4: zero i_disksize when initializing the bootloader inode	fs/ext4/ioctl.c	-
+012	7786bfd8f7ab94f5c1ceb3e721aeccb76e24f414	cc232da0c93c7d0fcebd5d7c9aaf95386e257108	picked	nfc: change order inside nfc_se_io error path	net/nfc/netlink.c	-
+013	fe80a53eabdb256a0610c7681ca8823435c963ac	74f53f4188a96dff1ee07f3ffdc19db701b3d801	picked	udf: Fix off-by-one error when discarding preallocation	fs/udf/inode.c	-
+014	6414597815d57c15cc083df1ad0d043b724b7418	4a483a08b94b3694e11706fda5d5a5646fb84306	picked	irq: Fix typos in comments	drivers/irqchip/irq-aspeed-vic.c;drivers/irqchip/irq-bcm7120-l2.c;drivers/irqchip/irq-csky-apb-intc.c;drivers/irqchip/irq-gic-v2m.c;drivers/irqchip/irq-gic-v3-its.c;drivers/irqchip/irq-gic-v3.c;drivers/irqchip/irq-loongson-pch-pic.c;drivers/irqchip/irq-meson-gpio.c;drivers/irqchip/irq-mtk-cirq.c;drivers/irqchip/irq-mxs.c;drivers/irqchip/irq-sun4i.c;drivers/irqchip/irq-ti-sci-inta.c;drivers/irqchip/irq-vic.c;drivers/irqchip/irq-xilinx-intc.c;include/linux/irq.h;include/linux/irqdesc.h;kernel/irq/chip.c;kernel/irq/dummychip.c;kernel/irq/irqdesc.c;kernel/irq/irqdomain.c;kernel/irq/manage.c;kernel/irq/msi.c;kernel/irq/timings.c	-
+015	ff762cdbf0c8c9bf0b97684f39af13b3332e77e8	b3f7c73cb8edcc4023d4f524a960098dca46de86	picked	irqdomain: Look for existing mapping only once	kernel/irq/irqdomain.c	-
+016	8617599c646f8c4623fe8c998fc4f9303c2967d4	1e25d0d51454e4451c4125629437027e35fabd44	picked	irqdomain: Refactor __irq_domain_alloc_irqs()	kernel/irq/irqdomain.c	-
+017	4ab311d51cd99ddc48e828e70fbdf9c076416cf2	abe952b428fa49325286916e00987c82c75db200	picked	irqdomain: Fix mapping-creation race	kernel/irq/irqdomain.c	-
+018	bb7597777c134a6229f74843d307866643a792ed	c782b7653516c4f77fd26ff7e24ef5ea01ee1037	picked	irqdomain: Change the type of 'size' in __irq_domain_add() to be consistent	include/linux/irqdomain.h;kernel/irq/irqdomain.c	-
+019	aeab1f1a60ae19ab7bc509f2b6c9ae5a60761ca9	071e0b2f42f591f29c387b487c75098e7046de3a	picked	irqdomain: Fix domain registration race	kernel/irq/irqdomain.c	-
+020	c424b1819120093d34852c5893c507a4bc0b5a98	34a60b3bab40916ffa0eae8be19d66bcc6465a7a	picked	iommu/vt-d: Fix lockdep splat in intel_pasid_get_entry()	drivers/iommu/intel/pasid.c	-
+021	7e00b52c8cdd9d3a985d63d72ecae7bde6314883	6d36098bf0a7d6f42a9a800255c1b51195ff5a51	picked	iommu/vt-d: Fix PASID directory pointer coherency	drivers/iommu/intel/pasid.c	-
+022	030b1c4217a4f504c7d0795a2bd86b7181e56f11	ffc8493ad65ccd5843751dda3ee5e4e45d8b1fbd	picked	arm64: efi: Make efi_rt_lock a raw_spinlock	arch/arm64/include/asm/efi.h;arch/arm64/kernel/efi.c	-
+023	f9fdb3e7b0758516fbc5ae12e3ec23d9060f7035	32bd7f591335e34400d0ea3d667bdb28e00fcfa6	picked	RISC-V: Avoid dereferening NULL regs in die()	arch/riscv/kernel/traps.c	-
+024	713c335e5a8f1e65dbe9980ed77d8ae4c0364c34	f4d991c8890b641ae08496d524e3aba7d2a3158d	picked	riscv: Avoid enabling interrupts in die()	arch/riscv/kernel/traps.c	-
+025	e993e3ea9550d5b604748ada728386ca25372aae	c04779eabad4ee637b66e77da9f82d788d3e47dc	picked	riscv: Add header include guards to insn.h	arch/riscv/include/asm/parse_asm.h	-
+026	6b223e32d66ca9db1f252f433514783d8b22a8e1	3e21be404d3ed135565d4729349d5517a8c1ed9b	picked	scsi: core: Remove the /proc/scsi/${proc_name} directory earlier	drivers/scsi/hosts.c	-
+027	0c440f14558bfacd22c6935ae1fd4b2a09e96b5d	a5e213c126531dd13ca48d411d211bc8e24a1e02	picked	ext4: Fix possible corruption when moving a directory	fs/ext4/namei.c	-
+028	9ca74e5e75ea29399cbec3102bb195a1d899fa4a	ef9929a342470ad5d7bfd75eb1c859eb0ea66c1e	picked	drm/nouveau/kms/nv50-: remove unused functions	drivers/gpu/drm/nouveau/dispnv50/disp.c;drivers/gpu/drm/nouveau/dispnv50/wndw.c;drivers/gpu/drm/nouveau/dispnv50/wndw.h	-
+029	8b4a6dd1571783a3129ea5697bb2f16104d1ee13	df4c47bc357f0ee40e330c72027c4dd0d99abfef	picked	drm/nouveau/kms/nv50: fix nv50_wndw_new_ prototype	drivers/gpu/drm/nouveau/dispnv50/wndw.h	-
+030	08c0b54bef78eb74b9e1df32616fc85d5492c66f	2d61f60a6948b01ddb39ffe8690be0a1a740eb09	picked	drm/msm: Fix potential invalid ptr free	drivers/gpu/drm/msm/msm_gem_submit.c	-
+031	00c2020b8bb8914f08b5df63992a7ea3c87cdb45	a3d3143597025c070e2a43d0245be9727487e60f	picked	drm/msm/a5xx: fix setting of the CP_PREEMPT_ENABLE_LOCAL register	drivers/gpu/drm/msm/adreno/a5xx_gpu.c	-
+032	8dde1d9d6f065ea4c03c1d77182ba9e122d516d3	55b17c31c97909dc779a76083e5eb2a1e06d0bb6	picked	drm/msm: Document and rename preempt_lock	drivers/gpu/drm/msm/adreno/a5xx_gpu.c;drivers/gpu/drm/msm/adreno/a5xx_preempt.c;drivers/gpu/drm/msm/adreno/a6xx_gpu.c;drivers/gpu/drm/msm/msm_ringbuffer.c;drivers/gpu/drm/msm/msm_ringbuffer.h	-
+033	34e71ca0a0068f9d7e12c59dc997ae5725fa181f	41dbec98ec8dda51c1aab1fa221cac1e78e45f11	picked	drm/msm/a5xx: fix the emptyness check in the preempt code	drivers/gpu/drm/msm/adreno/a5xx_preempt.c	-
+034	4c43a0291f878bf194061b34e367f521f7066e25	a53b451ff5943e14fa032ecc5595ecf4eed5cb69	picked	drm/msm/a5xx: fix context faults during ring switch	drivers/gpu/drm/msm/adreno/a5xx_preempt.c	-
+035	cbf11ff3708ff163387da924f80a47ce7c721e9b	53095ac98dbe9b0e3f7f4d535c9d8c3a7c120107	picked	bgmac: fix *initial* chip reset to support BCM5358	drivers/net/ethernet/broadcom/bgmac.c;drivers/net/ethernet/broadcom/bgmac.h	-
+036	80be62358fa5507cefbaa067c7e6648401f2c3da	7e8ae774c27e06011d3bcb00a4f3691f29a5a6ea	picked	nfc: fdp: add null check of devm_kmalloc_array in fdp_nci_i2c_read_device_properties	drivers/nfc/fdp/i2c.c	-
+037	6f0cc879c889596c7ea0cddc86ca19fcf540a1c4	333b4995f712ce6a95c3b6b21c70cba65212b91a	picked	powerpc: dts: t1040rdb: fix compatible string for Rev A boards	arch/powerpc/boot/dts/fsl/t1040rdb-rev-a.dts	-
+038	42d9ed4e5dc5f87fbd67c232e2e4a9b88ceeb47f	39fe3ab1c029c759ed4b2e327e8d4fbe16eee4f5	picked	ila: do not generate empty messages in ila_xlat_nl_cmd_get_mapping()	net/ipv6/ila/ila_xlat.c	-
+039	374cbffe7d6fd93ee22db7783a0205a0f7d5dccf	3547c609e1efb02032a111a009d0c3454c23eb29	picked	selftests: nft_nat: ensuring the listening side is up before starting the client	tools/testing/selftests/netfilter/nft_nat.sh	-
+040	d5e8f7edc2ac6b2fddeeaadf4930dea4c65da03d	f601fd727ec23d18732ea657343e038efc12af8d	picked	net: usb: lan78xx: Remove lots of set but unused 'ret' variables	drivers/net/usb/lan78xx.c	-
+041	db16d6567402754300059b99f137844ca3fe532a	de18dcdd6e28a2088b575b98af3b126adfa6ebda	picked	net: lan78xx: fix accessing the LAN7800's internal phy specific registers from the MAC driver	drivers/net/phy/microchip.c;drivers/net/usb/lan78xx.c	-
+042	c3aaec463a632cf4187dc017e421bfa69d7834a9	596977e85d7dc1ed80522b95d539a9f35c66d2ca	picked	net: caif: Fix use-after-free in cfusbl_device_notify()	net/caif/caif_usb.c	-
+043	d2a5a9cdc5d6a33008c508d592f9847e7ff347cd	61e29f89fb1b2086135f08efb227f93a0f78558f	picked	net: stmmac: add to set device wake up flag when stmmac init phy	drivers/net/ethernet/stmicro/stmmac/stmmac_main.c	-
+044	c0df4e5c247d73f80925a62e7f0f9f8ae84bf691	49597c50684e2cc9c11ad28716548797b5525efa	picked	net: phylib: get rid of unnecessary locking	drivers/net/phy/phy_device.c	-
+045	d16701a385b54f44bf41ff1d7485e7a11080deb3	e5de2f9cccb30baaa55ff0471b54318c3e316ab1	picked	bnxt_en: Avoid order-5 memory allocation for TPA data	drivers/net/ethernet/broadcom/bnxt/bnxt.c	-
+046	26fa059cc92477c5fb16ef5bdca3b75997ddf95c	b854b67566b4dac4f62be4528014a6451f6be01c	picked	netfilter: ctnetlink: revert to dumping mark regardless of event type	net/netfilter/nf_conntrack_netlink.c	-
+047	065c1ed5c4cec2ae676f2b6b35fd13acf85a11eb	084b0a26b58d3a4df83b3537a5c85747d41a28d2	picked	netfilter: tproxy: fix deadlock due to missing BH disable	include/net/netfilter/nf_tproxy.h;net/ipv4/netfilter/nf_tproxy_ipv4.c;net/ipv6/netfilter/nf_tproxy_ipv6.c	-
+048	01a1e98109056dd8c760283f618a8d5fa97d26f9	cff4a692a4e4ce32dd493bc4b6113351238e7b34	picked	btf: fix resolving BTF_KIND_VAR after ARRAY, STRUCT, UNION, PTR	kernel/bpf/btf.c	-
+049	f4eae84f575492e18bd71176ad1a084bf837252d	e613730e621aa5b2a52ddb0c5919c0866f0f83c9	picked	net: ethernet: mtk_eth_soc: fix RX data corruption issue	drivers/net/ethernet/mediatek/mtk_eth_soc.c;drivers/net/ethernet/mediatek/mtk_eth_soc.h	-
+050	0fe672336d69c56d0656e705158311618f627aba	cb30c138ffba094015e1f4a385c1ee403679dd39	picked	scsi: megaraid_sas: Update max supported LD IDs to 240	drivers/scsi/megaraid/megaraid_sas.h;drivers/scsi/megaraid/megaraid_sas_fp.c	-
+051	93367126f68cd66359bbc81c3e9f6fda93701099	7c0e5436497c8dbd66afecbc55cbee36eadbea5f	picked	platform: x86: MLX_PLATFORM: select REGMAP instead of depending on it	drivers/platform/x86/Kconfig	-
+052	e1b8342a85289d0d3411744c4fc1e0fc46fc9d5c	c142a9f2ccfcb2a5f4b7143d1d7d1d954dd455ef	picked	net/smc: fix fallback failed while sendmsg with fastopen	net/smc/af_smc.c	-
+053	ce7dd61e004002bc1c48d1ca47c887f3f3cc7370	a1a64edcd39312cb1fe3ff75106b228ac171325b	picked	SUNRPC: Fix a server shutdown leak	net/sunrpc/svc.c	-
+054	3de277af481ab931fab9e295ad8762692920732a	740b0abb825222f00a43d7f452a835cc5e973ced	picked	riscv: Use READ_ONCE_NOCHECK in imprecise unwinding stack mode	arch/riscv/kernel/stacktrace.c	-
+055	ab89b8a67fbbc37c34c2ecb3ed0d7d2ea4bc4c3d	d91177ea8f8a0fc2c1f32319134bd64d6357d274	picked	RISC-V: Don't check text_mutex during stop_machine	arch/riscv/include/asm/ftrace.h;arch/riscv/include/asm/patch.h;arch/riscv/kernel/ftrace.c;arch/riscv/kernel/patch.c	-
+056	b113f90204479f55a17295bedf0cc966a60c7a56	53e86a25206bf2f9ed46eddc87fd01eeba946255	backported	ext4: Fix deadlock during directory rename	fs/ext4/namei.c	Apply all canonical lock-before-transaction and final unlock_moved_dir operations through the actual five-argument ext4_find_entry/lblk contract. Keep original prepare-error unlock for transparent provenance; the independently confirmed double-unlock regression is corrected by separate referenced upstream 70e42feab2e20618ddd0cbfc4ab4b08628236ecd before any build. Preserve quota, encryption, whiteout and selected fast-commit semantics.
+057	f2a5ec7f7b28f9b9cd5fac232ff51019a7f7b9e9	e7cd426fd29f7023420910df6e756a5183944e9b	picked	iommu/amd: Add a length limitation for the ivrs_acpihid command-line parameter	drivers/iommu/amd/init.c	-
+058	b1fddddf58acd6d9618a2e3e974f3a2629b2ebf5	9e714e341d06099fb4f64107788dfb6f03cc62f8	picked	watch_queue: fix IOC_WATCH_QUEUE_SET_SIZE alloc error paths	kernel/watch_queue.c	-
+059	c660e024bc681fdd0bd839a94834be216afd30d5	09d9de3336038bbccd6e997f55f15744dfd68dc1	picked	tpm/eventlog: Don't abort tpm_read_log on faulty ACPI address	drivers/char/tpm/eventlog/acpi.c	-
+060	5533742c7cb1bc9b1f0bf401cc397d44a3a9e07a	f66c1050985e499da99221053e354f5b13cce2fb	picked	block, bfq: fix possible uaf for 'bfqq->bic'	block/bfq-iosched.c	-
+061	1425f1bb5df5239021fd09ebc2a5e8070e705d36	78f3c154e12ca0da2652d5ad804c90000d943324	picked	block, bfq: fix uaf for bfqq in bfq_exit_icq_bfqq	block/bfq-iosched.c	-
+062	e6f03decf5b77214602ba2a1a6e33f1fb789bae3	5539502e0e2ad10884c507f2aa4409264bc6552c	picked	block/bfq-iosched.c: use "false" rather than "BLK_RW_ASYNC"	block/bfq-iosched.c	-
+063	6291281f15e147428c95f0e053108086eba78f6e	b250b8cee30238f4b2dd1928f44112dea56329ac	picked	block, bfq: replace 0/1 with false/true in bic apis	block/bfq-cgroup.c;block/bfq-iosched.c	-
+064	7f77f3dab5066a7c9da73d72d1eee895ff84a8d5	8847465089dbf58bf15961a3fd3abf4135befcba	picked	block, bfq: fix uaf for bfqq in bic_set_bfqq()	block/bfq-cgroup.c;block/bfq-iosched.c	-
+065	5ddcb0a348194b372e9f0d027ba7eedb6b5bd1e0	6cb4d9396b0beb2c1088388c5f5a2d38277401cd	picked	MIPS: Fix a compilation issue	arch/mips/include/asm/mach-rc32434/pci.h	-
+066	9a61a3a6ec660915b641dacc6ac40bb52cc9e06b	b49225de394ce1c9c16456b3121b2c0ba213b2dc	picked	powerpc/kcsan: Exclude udelay to prevent recursive instrumentation	arch/powerpc/kernel/time.c	-
+067	9cff3f106a4cc59454c764eb3eff7c6237d649ab	226f752b95e19dfc686737ef058e02c1e4e5d174	picked	alpha: fix R_ALPHA_LITERAL reloc for large modules	arch/alpha/kernel/module.c	-
+068	d47d364f6671d8794a89e4972b1fd3284d213c96	57f6a4de42fe9ceda5af0fdf1e3e7128de00b66f	picked	macintosh: windfarm: Use unsigned type for 1-bit bitfields	drivers/macintosh/windfarm_lm75_sensor.c;drivers/macintosh/windfarm_smu_sensors.c	-
+069	be658aa43a47c9a8e3462b01c7eb1420ba74d433	84ccbe7d0cb6b0add4362e51466141f96e2323b2	picked	PCI: Add SolidRun vendor ID	include/linux/pci_ids.h	-
+070	42bb1e6b7fe8f826851eb4c5f1bac2b22a06a80b	0a2f1e57d67782ac26760155424b0fd0f4ec8419	picked	scripts: handle BrokenPipeError for python scripts	scripts/checkkconfigsymbols.py;scripts/clang-tools/run-clang-tools.py;scripts/diffconfig	-
+071	13b04efb5bd011570a392a912df3e6109e414a9c	71dde109b563ccace75cd0e6698ed640a5aafe4b	picked	media: ov5640: Fix analogue gain control	drivers/media/i2c/ov5640.c	-
+072	a5c140d88a69eb43de2a030f1d7ff7b16bff3b1a	585a6dc0fa008626a06bcc50516d1d28077a3419	picked	media: rc: gpio-ir-recv: add remove function	drivers/media/rc/gpio-ir-recv.c	-
+073	7aa5a495cbf8a33cd9fec892c180dedf14292b76	94140e7a9c480ef30eb4f6729b09ade82dcef01e	picked	ipmi/watchdog: replace atomic_add() and atomic_sub()	drivers/char/ipmi/ipmi_watchdog.c	-
+074	a4932a2c544607640ddab7f3275726e364a897bf	5da8372c0cb08fd38349cca897a7c8576f649a15	picked	ipmi:watchdog: Set panic count to proper value on a panic	drivers/char/ipmi/ipmi_watchdog.c	-
+075	c53d50d8081a49ba21f866a51277a012b9efad8e	ee48f33d235da45498f10e664067403e2fd9edba	picked	skbuff: Fix nfct leak on napi stolen	net/core/dev.c;net/core/skbuff.c	-
+076	b5005605013d30ab27c303cbaeff60b7872234a3	085f864d8a5021c910c43da6fb4026891af2f3cc	picked	drm/i915: Don't use BAR mappings for ring buffers with LLC	drivers/gpu/drm/i915/gt/intel_ring.c	-
+077	9cd21f5babb51e0eccb4bd18db890419971fe9d3	4cb6bceeea251aed3c33431dd4d93fa2d8c02fc0	picked	ext4: refactor ext4_free_blocks() to pull out ext4_mb_clear_bb()	fs/ext4/mballoc.c	-
+078	65061f49a50f8a303af61e9328e94a6c51ea4ab1	e09d81f1ed4c8d77360f2929cbadd71cb459786b	picked	ext4: add ext4_sb_block_valid() refactored out of ext4_inode_block_valid()	fs/ext4/block_validity.c;fs/ext4/ext4.h	-
+079	c3fd717b58f0a3e2461c16e2360ee6a949b47940	e39821e4985f8f66ad4578be8b3b9b4e4c9049be	picked	ext4: add strict range checks while freeing blocks	fs/ext4/mballoc.c	-
+080	7550aade978371ac582f6d43b14c4cb89ca54463	fe845e35b501dfb6663cfd9c112a62ea3262b3ed	picked	ext4: block range must be validated before use in ext4_mb_clear_bb()	fs/ext4/mballoc.c	-
+081	d367c5ebe94359b0ac38c0d91c4c10654460bb03	48d94ede3d9b7a001f8620b74ea65f285077d2d7	picked	arch: fix broken BuildID for arm64 and riscv	include/asm-generic/vmlinux.lds.h	-
+082	af560685bad5f182a2ca00b82774081f71939c86	90e0f91a3e24536a3806514732bb4e32fc6ba633	picked	powerpc/vmlinux.lds: Define RUNTIME_DISCARD_EXIT	arch/powerpc/kernel/vmlinux.lds.S	-
+083	6af633e7782c85d6522fe44ef8a97632725fa5fe	c427f243dbce12667de1806a81f19cc544a0184f	picked	powerpc/vmlinux.lds: Don't discard .rela* for relocatable builds	arch/powerpc/kernel/vmlinux.lds.S	-
+084	bfef72d2fc62c194a36f271917ff1240f45d0f2f	db375fa8af2b78865721a6b35b8acd19c2f5b722	picked	s390: define RUNTIME_DISCARD_EXIT to fix link error with GNU ld < 2.36	arch/s390/kernel/vmlinux.lds.S	-
+085	5c425eb9da8ace13cecd18e705b0ed65923927f4	acb82d62cb868531911dde63aebac9cbf5d5acf8	picked	sh: define RUNTIME_DISCARD_EXIT	arch/sh/kernel/vmlinux.lds.S	-
+086	9da269bee7ead0922dc091475e525cbe21cbdfa8	7476036c70bef58e38a9c5f1fb848bc4c7e20e91	picked	UML: define RUNTIME_DISCARD_EXIT	arch/um/kernel/vmlinux.lds.S	-
+087	0ef55bafabb9ebf45bf5cdfaeabdc37d206e7624	35a109121117da065d176b4fbb09e8db0f17f10f	picked	KVM: nVMX: Don't use Enlightened MSR Bitmap for L3	arch/x86/kvm/vmx/vmx.c	-
+088	685ed0a277f16881090891988b4d93257f8caf3c	8e2ae235c8fd15c236e0c5ecf721640c51b6d45b	picked	KVM: VMX: Introduce vmx_msr_bitmap_l01_changed() helper	arch/x86/kvm/vmx/vmx.c	-
+089	6baebcecf09acd19e2bab1c2911dcdba5d48a1dc	78c7c10bfeaa9feffa2ce4fd07d38b72543f0300	picked	KVM: VMX: Fix crash due to uninitialized current_vmcs	arch/x86/kvm/vmx/evmcs.h;arch/x86/kvm/vmx/vmx.c	-
+090	aa8579bc084673c651204f7cd0d6308a47dffc16	3b0c18bd20f26668216c6198cf9297b99b289a54	picked	s390/dasd: add missing discipline function	drivers/s390/block/dasd_diag.c;drivers/s390/block/dasd_fba.c;drivers/s390/block/dasd_int.h	-
+091	de26e1b2103b1f56451f6ad77f0190c9066c87dc	aa4c719872b4d61d318e03a83cbb206d5cfbdaa1	backported	Linux 5.10.175	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

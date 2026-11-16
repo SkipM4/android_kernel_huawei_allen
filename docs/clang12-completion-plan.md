@@ -11,10 +11,12 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #78/5.10.170 on `upstream/linux-5.10.y`, kernel source
-through `1e81b711ac`. Immediate paired rollback is #77/5.10.165. Complete166-170
-and current clock/NVMEM/sysfs/PSI, finite CFI/matching module/runtime gates
-pass. The accepted162-165 single-core explicit-standard-mode/default-Hyperframe migration passes
+Installed candidate is #79/5.10.175 on `upstream/linux-5.10.y`, kernel source
+through `a0dc72d14b`. Immediate paired rollback is #78/5.10.170. Complete171-175
+plus two separate upstream-backed corrections and current poll/HF/task/
+HW_F2FS/ext4/HIDPP/trace/irq/PCI, finite CFI/matching module/runtime gates
+pass. Three new finite private-ring groups pass without replaying the old
+HF suite. The accepted162-165 single-core explicit-standard-mode/default-Hyperframe migration passes
 current build/layout/CFI, normal Android/automatic modules and nine finite
 private-ring checks. Retained HF requires aligned buffers and uses CLOSE
 user_data as cancel/unlink; general-buffer, concurrency and full hardware
@@ -73,7 +75,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.170 Resolved; #78 Full Build/New Clock-NVMEM-Sysfs-PSI/97-Target-55-Group CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP/Read-Only Warn-Oops Counts Pass; #77 Immediate Rollback And Private Migration Proof Retained; #71 And #65 Failed Evidence Retained; Next Complete 5.10.171-175; Target 5.10.274 Not Imported |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through 5.10.175 Resolved; #79 Full Build/Poll-HF-Task-Filesystem-HIDPP-Trace-Irq-PCI/112-Target-64-Group CFI/Matching Signed Pair/Normal Android/Auto Module/Unlocked CE/ISP/Read-Only Warn-Oops Counts/Three Private-Ring Groups Pass; #78 Immediate Rollback; #77 Private Migration Proof And #71/#65 Failed Evidence Retained; Next Complete 5.10.176-180; Target 5.10.274 Not Imported |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
@@ -832,6 +834,43 @@ Compact78 metadata and recent74-78 pairs remain below20 GB with77 immediate
 rollback. Next is complete171-175 toward pinned274; ACK/vendor-core/GKI/KMI,
 inherited subsystem and full hardware/network/performance/power findings
 remain open. No release export, tag, push or publication occurs.
+
+### Complete Canonical 5.10.171-175 And Accepted #79
+
+All647 official originals are resolved with635 ordered source commits
+through `aa4c719872`; all five release trees and raw author/date/message
+identities match the approved projection. Verbatim cleanup preserves full
+original messages without a new exception. Separate ACK poll-allocation
+and mainline ext4-unlock corrections produce final source `a0dc72d14b`
+before any build. The171 fixed-file change includes172's required NONBLOCK
+followup; all four generic F2FS fixes also reach selected HW_F2FS.
+
+One actual prepare/full Image+modules build exits0 with unchanged effective
+selections, keys and36 selectors.433 ordinary contexts and14 necessary
+decoded objects establish actual poll/HF/task/filesystem/HIDPP/trace/irq
+contracts. Three additional PCI objects follow a real export-type change;
+435 distinct contexts and17 decoded objects in total retain exact current
+dependencies. Final112-target/64-group CFI assignments, HF bridges and
+worker/thread offsets pass. Reader-only inlining/flexible-array corrections
+do not change source or repeat compilation.
+
+All13,854 exports remain with21 changed CRCs;390 modem and two optional
+dummy imports match. Signed matching staging, paired installation/readbacks,
+normal Android, automatic Live modem, unlocked CE/services and six-stage
+ISP startup pass. Complete logs have no actual kernel/module/HKIP fault;
+533 AVC denials remain, none module-load. Enforcing, forced signatures,
+taint4 and PRMEM stay; read-only warn/oops counts are0, limits0/10000.
+Three finite new UID1013/caps-zero private-ring groups pass async fixed-input
+splice, ordinary poll and registered-buffer source/error recovery. No old
+HF migration replay, system queue, forced event or fault/stress test follows.
+
+Independent ramdisk remains; trace0/wifi and Asleep restore. Compact79
+metadata binds final source including both corrections and the local
+documentation-only boundary. Recent75-79 pairs remain below20 GB with78
+immediate rollback; original/signing/precise proof and failed71/65 evidence
+remain. Unselected child-clock source and wider lifetime/hardware/power/
+ACK/GKI/KMI findings stay open. Next is complete176-180 toward pinned274.
+No release export, tag, push or publication occurs.
 
 ## Next-Stage Work Queue
 

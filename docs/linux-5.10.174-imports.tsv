@@ -1,0 +1,5 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	decf73066f7eae34e434f707698c2c8b3bc62902	241c551427d826a2887bf7c2897aae593c0d9d0c	picked	wifi: cfg80211: Partial revert "wifi: cfg80211: Fix use after free for wext"	net/wireless/sme.c	-
+002	1afff6203a734f9e6eacdc356c29b2fabd82f1b6	1509d3662d9b7e47c77d7f91ed3072e6707e18be	picked	staging: rtl8192e: Remove function ..dm_check_ac_dc_power calling a script	drivers/staging/rtl8192e/rtl8192e/rtl_dm.c	-
+003	c036dae0367852ac08d0810478d7276e47ebc0c6	756691689c5c213bf13d3927d41156030ebaace8	picked	staging: rtl8192e: Remove call_usermodehelper starting RadioPower.sh	drivers/staging/rtl8192e/rtl8192e/rtl_dm.c	-
+004	955623617f2f505ac08d0efda2bb50c1a52e2c96	5aa4655cfd887f3612621b03ff14faf204da1c56	backported	Linux 5.10.174	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

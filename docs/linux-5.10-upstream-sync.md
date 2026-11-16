@@ -4563,3 +4563,129 @@ proof/blob/alternate stores remain. Next is complete171-175 toward pinned
 5.10.274. ACK/vendor-core/GKI/KMI, named source-only issues and full
 hardware/network/performance/power acceptance remain open. No release
 export, tag, push or publication occurs.
+
+## Complete Canonical 5.10.171-175 And Accepted #79
+
+The accepted170/#78 local boundary is `a48d49d0d9`, kernel source
+`1e81b711ac`. Complete kernel.org inputs preserve original parent order,
+raw author headers, complete messages, full-index patches and annotated tags.
+
+| Release | Canonical endpoint | Originals | Exact | Adapted | Present | NA |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 5.10.171 | `a25aa776b0c49b17c67ee047e58537552f16776f` | 21 | 17 | 3 | 1 | 0 |
+| 5.10.172 | `9fd42770b50756c08f04b4070ab6572adb2d6e1b` | 2 | 1 | 1 | 0 | 0 |
+| 5.10.173 | `e5f315b55f8e09ac17c968da42f9345f64efcdd2` | 529 | 506 | 12 | 9 | 2 |
+| 5.10.174 | `955623617f2f505ac08d0efda2bb50c1a52e2c96` | 4 | 3 | 1 | 0 | 0 |
+| 5.10.175 | `de26e1b2103b1f56451f6ad77f0190c9066c87dc` | 91 | 88 | 3 | 0 | 0 |
+
+All647 originals are resolved in per-release TSV ledgers. The635 ordered
+source commits end at `aa4c719872`; all five release trees match the approved
+projection. All635 raw authors, timestamps/timezones and complete original
+messages plus declared trailers match exactly. Imports use verbatim commit
+cleanup, including the original unusual timezone; there is no new message
+normalization exception or rewrite of accepted history. Two separate
+corrections below produce final kernel source `a0dc72d14b` and kernel tree
+`7c3b1d82e2e47a5acf5d15005c84f3b3ddbae5eb` before any build.
+
+### Ordered Source And Separate Corrections
+
+The171 fixed-file lookup locking change is paired with172's immediate
+NONBLOCK-caller correction; no171-only intermediate is built. Poll retries
+are placed in the actual shared io_uring_types.h, retaining may_pollfree
+exclusion and both installed Hyperframe and explicit standard modes.
+All four generic F2FS changes also reach selected HW_F2FS: full dentry
+zeroing, three original-page cgroup accounting paths, page memcpy conversion
+and verity fsdata initialization. Existing quick-write, crypto and writeback
+semantics remain. Ext4 whiteout/rename keeps the actual five-argument
+ext4_find_entry including old.lblk.
+
+ASUS LED locking retains its already-present later work-scheduling guard;
+selected HIDPP retains schedule_work/flush_work before conditional restart.
+TUN/TAP preserve the explicit safe current_fsuid opener policy. NAPI stolen
+head cleanup releases nfct without duplicating the ordinary path's existing
+conntrack put. The two MAX77802/S5M8767 corrections are absent/unselected,
+not substitutes for Kirin hardware. Applicable fixes in present unselected
+source are still imported.
+
+The canonical poll retry backport writes apoll->poll.retries before testing
+kmalloc's result. Separate local `78a7868847` moves the NULL check before
+that write and removes the later redundant check under the existing
+REQ_F_POLLED contract. The source is the
+[Android common correction](https://android.googlesource.com/kernel/common/+/f4ba55411cc8ffa883df861ce79af4bd35885b11);
+there is no mainline commit identity for this ACK-only backport correction.
+
+The175 ext4 directory-lock move leaves a prepare-error unlock followed by
+the common final unlock. Separate local `a0dc72d14b` removes the first
+unlock, retaining exactly one release at unlock_moved_dir, from
+[mainline70e42feab2e20618ddd0cbfc4ab4b08628236ecd](https://github.com/torvalds/linux/commit/70e42feab2e20618ddd0cbfc4ab4b08628236ecd).
+Neither defect is left in a built intermediate. No malformed filesystem,
+allocation-failure or memory-pressure experiment is required for these
+direct source findings.
+
+### Current Build, Interfaces And Matching Modules
+
+One actual prepare and one full Image/modules build exit0 for5.10.175 #79.
+Effective selections, signing material and36 OEM/HF generated selectors
+remain. Only the already-disabled DRM_MXSFB and NET_CLS_TCINDEX lines
+naturally disappear through canonical Kconfig changes. Android Clang/LLD
+12.0.7, ThinLTO, enforcing CFI, BTI/BHB, actual Kbuild Werror, LLVM/IAS,
+mandatory signatures, SELinux and PRMEM/HKIP stay enabled.
+
+The433 current ordinary contexts bind full source/generated dependencies.
+Fourteen necessary objects are decoded once for actual poll/HF/task,
+selected HW_F2FS/ext4/HIDPP, trace and irq contracts. Actual io request240,
+context1856, poll64 with retries offset20 and async poll72 agree with their
+providers/consumers. The new callback roster contains57 callbacks in35 type
+groups. Final ELF checks112 targets in64 finite CFI groups, including eight
+HIDPP and five selected HW fsverity assignments. Eleven HF hook stores,
+three work stores, ki_complete,15 typed raw bridges, relative initcall,
+current worker/thread offsets and completion calls retain canonical entries.
+
+The full CRC inventory identifies the new PCI host-bridge bitfield, requiring
+three additional actual provider/core-reader/DesignWare objects, decoded
+once without re-decoding the first14. The provider and consumers agree on
+1024-byte host-bridge layout, no_inc_mrrs bit8066 and actual mask4. Across
+both sets there are435 distinct ordinary contexts and17 decoded objects.
+The ext4 helper is inlined and the PCI trailing private array is flexible;
+readers use actual optimized calls/debug scopes and represent the size-less
+member instead of requiring nonexistent helper symbols or scalar sizes.
+These reader corrections do not change the kernel or repeat compilation.
+
+All13,854 exports remain: no addition/removal,21 changed CRCs and unchanged
+provider/export-type/namespace identities. All390 rebuilt modem and two
+optional dummy imports match. Matching original-format boot/modem staging
+passes target certificate/CMS, ext4 metadata/label and roundtrip/readback
+checks. No old binary, forged CRC/vermagic, relaxed loader or dummy
+installation is used. Finite selected interface evidence is not stable KMI.
+
+### Normal Android And Local Closeout
+
+Accepted78's live identity and paired readbacks bind immediate rollback.
+Only local175/#79 boot and modem_driver are flashed; independent Magisk
+ramdisk and user data stay untouched. Normal Android automatically loads
+the same-build signed Live modem. Full partition/file/loaded build-id,
+unlocked CE, required services and same-thread six-stage ISP startup pass.
+Time-zero, boot and later logs have no actual kernel/module/HKIP fault;
+533 AVC denials remain, none module-load. Enforcing, taint4, forced
+signaturesY and PRMEM enabled stay. Read-only warn/oops counts are0 and
+limits0/10000 remain unchanged.
+
+One new finite current175 probe runs as UID1013 with zero capabilities using
+only private rings, pipes and memfds. Three groups pass: async fixed-input
+splice with replacement/bad-slot cleanup; ordinary pipe poll with content,
+EOF and cleanup; anonymous/shmem buffer registration with mixed-source
+rejection and successful re-registration. Its UIO header is exported through
+canonical headers_install with host unifdef, not a private ABI substitute.
+No old77 HF suite, system queue, forced spurious event, stress or allocation
+failure is replayed. Task-owned device files/processes are fully released.
+
+Trace0/wifi and Asleep are restored. Compact79 metadata binds final source,
+both separate corrections, build/interface/module/runtime evidence and the
+documentation-only Git boundary before output reuse. Recent75-79 test pairs
+remain local below20 GB, with78 immediate rollback; expired74 images/module
+and consumed full logs are retired, not its referenced proof/alternate
+stores. Originals, signing materials and failed71/65 evidence remain.
+The named unselected child-clock allocation-size finding stays source-only
+open. Next is complete176-180 toward pinned5.10.274. ACK/vendor-core/GKI/KMI,
+wider lifetime and hardware/network/performance/power findings remain open.
+No release export, tag, push or publication occurs.

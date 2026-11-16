@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.170
-#78 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.175
+#79 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -702,6 +702,43 @@ actual modem does not import it. No child-clock unbind or unrelated dummy
 load is used to enlarge acceptance. Required modules continue to follow
 version updates by rebuilding against the complete current kernel, not by
 relaxing validation. Next is complete171-175; all files remain local.
+
+### 5.10.171-175 #79: Actual Poll, Filesystem And PCI Contracts
+
+The installed pair uses `5.10.175-clang12-r79`; #78/5.10.170 is immediate
+paired rollback. Complete647-original ordered source plus separate ACK
+poll-allocation and mainline ext4-unlock corrections precede the one full
+Image/modules build. Effective configuration, keys and36 selectors stay;
+two already-disabled entries disappear through canonical Kconfig changes.
+
+All13,854 exports remain with21 changed CRCs, including irq-domain,
+io_uring socket and PCI host-bridge/DesignWare interfaces. Provider, export
+type and namespace remain. All390 freshly rebuilt modem and two optional
+dummy imports match. No CRC/vermagic editing, old module reuse or relaxed
+loader substitutes for current compilation and interface checks.
+
+Current selected poll/HF/task/HW_F2FS/ext4/HIDPP/trace/irq contracts,57 new
+callbacks in35 types and final112-target/64-group CFI assignments pass.
+The complete export inventory additionally triggers three actual PCI
+objects: allocator, core reader and DesignWare agree on1024-byte host-bridge
+layout and the new no_inc_mrrs bit/mask. These are necessary type/opaque
+consumer checks separate from MODVERSIONS, not a stable-KMI claim.
+
+Matching signed boot/modem staging, target certificate/CMS, ext4 metadata/
+label and roundtrip checks pass. Only boot/modem_driver are installed;
+independent ramdisk remains. Normal Android automatically loads the matching
+Live modem, with partition/file/loaded build-id, unlocked CE/services and
+six-stage ISP startup checks. Complete logs have no actual kernel/module/
+HKIP fault;533 AVC denials remain, none module-load. Enforcing, mandatory
+signatures, taint4 and PRMEM stay; read-only warn/oops counts are0.
+
+Three finite UID1013/caps-zero private-ring regression groups cover current
+async fixed-input splice, normal poll and registered-buffer source handling.
+They do not certify arbitrary HF buffers, OOM/stress, cellular service or
+full hardware. Trace0/wifi and Asleep restore. Compact79 metadata and
+recent75-79 test pairs remain local; child-clock unselected-source and
+ACK/vendor-core/GKI/KMI findings stay open. Next is complete176-180,
+continuing mandatory same-build module updates without release publication.
 
 ## Actual Module Inventory And Limits
 

@@ -1,0 +1,3 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	da24142b1ef9fd5d36b76e36bab328a5b27523e8	223ec66bd912bcd22116254e374f6021e99b66f5	picked	io_uring: ensure that io_init_req() passes in the right issue_flags	io_uring/io_uring.c	-
+002	9fd42770b50756c08f04b4070ab6572adb2d6e1b	0a1ab6e73c478c3101774db3403dd96b2a327b97	backported	Linux 5.10.172	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
