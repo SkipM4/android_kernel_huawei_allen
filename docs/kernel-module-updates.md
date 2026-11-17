@@ -987,3 +987,38 @@ The independent ramdisk and security protections remain. #87 is paired
 recovery. This is paired rebuilding, not stable KMI: independently reusable
 vendor binaries still require an Android common base, explicit KMI generation
 and symbol policy, type-level ABI monitoring and OEM/core dependency split.
+
+### Linux 5.10.211-215: Android Boot And Matching Modules On #91
+
+The complete official range contains 763 entries (123, 42, 71, 233 and 294
+per release): 701 exact imports, 21 adaptations, 40 already-present changes
+and one absent PWM regulator implementation. The 722 ordered original-author
+commits are recorded in the five release ledgers. Source ends at
+`bc330d53cc9ddaf014cdc28c55406963d7b7524b`, including separate whitespace,
+socket/devlink integration and timer-assembly corrections.
+
+Four Huawei assembly calls now use upstream `timer_delete_sync` instead of
+requiring the removed external `del_timer_sync` symbol. IO ring socket removal
+changes the generated HF buffer offset from 1792 to 1784; current final-machine
+checks cover that operand and HF callback registration. Current PCI consumers,
+shared block layouts and SELinux sockptr callback types were inspected.
+Clang/LLD 12.0.7 Image/modules build #91 completes with the existing security
+configuration. The 390 modem imports and two optional dummy imports match
+current exports; 3 exports are added, 2 removed and 5,195 common CRCs change.
+This requires matching rebuilt modules and does not establish stable GKI KMI.
+
+Paired boot/modem installation boots normal Android 5.10.215 #91 and loads
+the matching modem automatically. Partition/module readbacks and loaded build
+ID agree; independent Magisk ramdisk, SELinux Enforcing, signature enforcement,
+PRMEM, CE storage, critical services and automatic ISP startup pass. Recorded
+WARN/Oops counters are zero; 500 AVC denials include no module-load denial.
+Trace state and Asleep screen are restored. An initial validation-script
+version mismatch caused a rollback after candidate boot; the corrected
+script subsequently completed scoped acceptance. Immediate recovery is
+5.10.210 #89. The local evidence directory retains its original build90 lane
+name, while the actual successful build is #91.
+
+Next work is the complete 216-220 range toward pinned 5.10.274, followed by
+explicit Android common/KMI comparison and OEM/core separation. GKI ABI,
+full hardware/network/performance/power acceptance remain open. No release
+export or publication is performed.
