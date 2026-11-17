@@ -65,6 +65,7 @@ struct clk_core {
 	struct clk_hw		*hw;
 	struct module		*owner;
 	struct device		*dev;
+	struct hlist_node	rpm_node;
 	struct device_node	*of_node;
 	struct clk_core		*parent;
 	struct clk_parent_map	*parents;
@@ -139,6 +140,42 @@ static void clk_pm_runtime_put(struct clk_core *core)
 		return;
 
 	pm_runtime_put_sync(core->dev);
+}
+
+static HLIST_HEAD(clk_rpm_list);
+static DEFINE_MUTEX(clk_rpm_list_lock);
+
+static int clk_pm_runtime_get_all(void)
+{
+	struct clk_core *core, *failed;
+	int ret;
+
+	mutex_lock(&clk_rpm_list_lock);
+	hlist_for_each_entry(core, &clk_rpm_list, rpm_node) {
+		ret = clk_pm_runtime_get(core);
+		if (ret) {
+			failed = core;
+			goto err;
+		}
+	}
+	return 0;
+err:
+	hlist_for_each_entry(core, &clk_rpm_list, rpm_node) {
+		if (core == failed)
+			break;
+		clk_pm_runtime_put(core);
+	}
+	mutex_unlock(&clk_rpm_list_lock);
+	return ret;
+}
+
+static void clk_pm_runtime_put_all(void)
+{
+	struct clk_core *core;
+
+	hlist_for_each_entry(core, &clk_rpm_list, rpm_node)
+		clk_pm_runtime_put(core);
+	mutex_unlock(&clk_rpm_list_lock);
 }
 
 /***           locking             ***/
@@ -1325,12 +1362,16 @@ __setup("clk_ignore_unused", clk_ignore_unused_setup);
 static int __init clk_disable_unused(void)
 {
 	struct clk_core *core;
+	int ret;
 
 	if (clk_ignore_unused) {
 		pr_warn("clk: Not disabling unused clocks\n");
 		return 0;
 	}
 
+	ret = clk_pm_runtime_get_all();
+	if (ret)
+		return ret;
 	clk_prepare_lock();
 
 	hlist_for_each_entry(core, &clk_root_list, child_node)
@@ -1346,6 +1387,7 @@ static int __init clk_disable_unused(void)
 		clk_unprepare_unused_subtree(core);
 
 	clk_prepare_unlock();
+	clk_pm_runtime_put_all();
 
 	return 0;
 }
@@ -3730,7 +3772,6 @@ static int __clk_core_init(struct clk_core *core)
 	clk_core_reparent_orphans_nolock();
 
 
-	kref_init(&core->ref);
 #ifdef CONFIG_CLK_DEBUG
 	clk_list_add(core);
 #endif
@@ -3961,6 +4002,21 @@ static void clk_core_free_parent_map(struct clk_core *core)
 	kfree(core->parents);
 }
 
+/* Free memory allocated for a clock. */
+static void __clk_release(struct kref *ref)
+{
+	struct clk_core *core = container_of(ref, struct clk_core, ref);
+
+	if (core->rpm_enabled) {
+		mutex_lock(&clk_rpm_list_lock);
+		hlist_del(&core->rpm_node);
+		mutex_unlock(&clk_rpm_list_lock);
+	}
+	clk_core_free_parent_map(core);
+	kfree_const(core->name);
+	kfree(core);
+}
+
 static struct clk *
 __clk_register(struct device *dev, struct device_node *np, struct clk_hw *hw)
 {
@@ -3980,6 +4036,7 @@ __clk_register(struct device *dev, struct device_node *np, struct clk_hw *hw)
 		ret = -ENOMEM;
 		goto fail_out;
 	}
+	kref_init(&core->ref);
 
 	core->name = kstrdup_const(init->name, GFP_KERNEL);
 	if (!core->name) {
@@ -3996,6 +4053,12 @@ __clk_register(struct device *dev, struct device_node *np, struct clk_hw *hw)
 	if (dev && pm_runtime_enabled(dev))
 		core->rpm_enabled = true;
 	core->dev = dev;
+	if (dev && pm_runtime_enabled(dev)) {
+		core->rpm_enabled = true;
+		mutex_lock(&clk_rpm_list_lock);
+		hlist_add_head(&core->rpm_node, &clk_rpm_list);
+		mutex_unlock(&clk_rpm_list_lock);
+	}
 	core->of_node = np;
 	if (dev && dev->driver)
 		core->owner = dev->driver->owner;
@@ -4035,12 +4098,10 @@ __clk_register(struct device *dev, struct device_node *np, struct clk_hw *hw)
 	hw->clk = NULL;
 
 fail_create_clk:
-	clk_core_free_parent_map(core);
 fail_parents:
 fail_ops:
-	kfree_const(core->name);
 fail_name:
-	kfree(core);
+	kref_put(&core->ref, __clk_release);
 fail_out:
 	return ERR_PTR(ret);
 }
@@ -4119,18 +4180,6 @@ int of_clk_hw_register(struct device_node *node, struct clk_hw *hw)
 	return PTR_ERR_OR_ZERO(__clk_register(NULL, node, hw));
 }
 EXPORT_SYMBOL_GPL(of_clk_hw_register);
-
-/* Free memory allocated for a clock. */
-static void __clk_release(struct kref *ref)
-{
-	struct clk_core *core = container_of(ref, struct clk_core, ref);
-
-	lockdep_assert_held(&prepare_lock);
-
-	clk_core_free_parent_map(core);
-	kfree_const(core->name);
-	kfree(core);
-}
 
 /*
  * Empty clk_ops for unregistered clocks. These are used temporarily
