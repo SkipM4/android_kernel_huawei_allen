@@ -1,0 +1,75 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	bc3c57493b20230fe4a0ca909682c542a5afce2b	bf10283182ae1577adb97306c0bc23e09f3cfbcb	picked	ksmbd: fix wrong name of SMB2_CREATE_ALLOCATION_SIZE	fs/cifs/smb2pdu.h	-
+002	dbc8edb80f05b7530ad52b3fa93d4e9a89f27684	680fea58c8a6ce942ec3bcdf1f8b273d944da43b	picked	smb: client: fix OOB in smb2_query_reparse_point()	fs/cifs/smb2ops.c	-
+003	c999682ce8ded4d9acdf657a19f114a421aa805d	7f3e82cda146513fc19c9baebc8784276a5a6390	picked	ARM: OMAP2+: Fix null pointer dereference and memory leak in omap_soc_device_init	arch/arm/mach-omap2/id.c	-
+004	c48219fad182b0f7de71c5daf8e12b20cf91f523	bc9ac49bf3385d62e67949b7fd3e937ef37bcae9	picked	reset: Fix crash when freeing non-existent optional resets	drivers/reset/core.c	-
+005	717f08fb5140e2caf6c4aeb4c4ff111bc331cc7b	93c4e41bca3540c2e0b4b311c0971572d56b4208	picked	s390/vx: fix save/restore of fpu kernel context	arch/s390/include/asm/fpu/api.h	-
+006	b851889e9184c00e062b50157b3d4623c9c3e013	632013e96a726aee5e848a8e60bcbb2b603572f2	picked	wifi: mac80211: mesh_plink: fix matches_local logic	net/mac80211/mesh_plink.c	-
+007	50aa92e6999d3534277a6759108269c49db0c360	079f67f287b4fdfb1478cd8cf5e3b384289ff044	picked	Revert "net/mlx5e: fix double free of encap_header"	drivers/net/ethernet/mellanox/mlx5/core/en/tc_tun.c	-
+008	fc4c53f8e9298448c49daee6f6f8115d8e87e74a	a2ed62378c933ab1e5ed42150971ded9ecd85c5e	picked	net/mlx5e: Fix slab-out-of-bounds in mlx5_query_nic_vport_mac_list()	drivers/net/ethernet/mellanox/mlx5/core/vport.c	-
+009	e8ba688a64f9163c95546bb6d2d6500d4c5f9ed2	03a0bf4688a73441e09c6e92de0f40e4d0ddf648	picked	net/mlx5: Fix fw tracer first block check	drivers/net/ethernet/mellanox/mlx5/core/diag/fw_tracer.c	-
+010	f245312e9f4f9e0cda684044c646073f23876754	1a203a9b6578bd8a70134d85d2eefcd542442ce1	picked	net/mlx5e: Correct snprintf truncation handling for fw_version buffer used by representors	drivers/net/ethernet/mellanox/mlx5/core/en_rep.c	-
+011	8b6f8bfe3a3a0939edcc8b1fdca5c11d754e9245	4a3d11bbf0bd6f590e606b213351d03bba0f0129	picked	net: sched: ife: fix potential use-after-free	net/ife/ife.c	-
+012	be0988c9b0754c2ae88606422f8c40defef9cfb2	4810f144c3b4c0ef875b9dfbae09adc0f0f32d99	picked	ethernet: atheros: fix a memleak in atl1e_setup_ring_resources	drivers/net/ethernet/atheros/atl1e/atl1e_main.c	-
+013	12e5a4719c99d7f4104e7e962393dfb8baa1c591	7c17de1c56395f3862bee5cd0e6316467b5fb222	picked	net/rose: fix races in rose_kill_by_device()	net/rose/af_rose.c	-
+014	a3218319ee866edc5ef33969e25bcea9873fdc90	3ad278cd9d241947a70c86699a31b4140e434b75	picked	net: check vlan filter feature in vlan_vids_add_by_dev() and vlan_vids_del_by_dev()	net/8021q/vlan_core.c	-
+015	65d2c287fc00dfb73d1a146e28ef21f9f9f9fdeb	2de0b69f2d653d0b0389cc5ba23e3f3b03df0307	picked	afs: Fix the dynamic root's d_delete to always delete unused dentries	fs/afs/dynroot.c	-
+016	63ad66d4844bcfa246a858d0dc77c63c91543bfd	ea66c41555ba8bdab32897ec4545ab898ac6795a	picked	afs: Fix dynamic root lookup DNS check	fs/afs/dynroot.c	-
+017	59dc16ce095d4bd4c806128e9a664c97e081dbc1	698f80dcd9fd88f9769c28ef876ded34add830c3	picked	net: warn if gso_type isn't set for a GSO SKB	net/core/dev.c	-
+018	9e0d18f946b2209dffd5bbe213d20bc4b0ca5684	fffcec423670be54c5e8fd1f6a18127d7f9ede0b	picked	net: check dev->gso_max_size in gso_features_check()	net/core/dev.c	-
+019	97be1e865e70e5a0ad0a5b5f5dca5031ca0b53ac	6568dc674d610fab0d90c19fdb1ca5bb3bd6c895	picked	keys, dns: Allow key types (eg. DNS) to be reclaimed immediately on expiry	include/linux/key-type.h;net/dns_resolver/dns_key.c;security/keys/gc.c;security/keys/internal.h;security/keys/key.c;security/keys/proc.c	-
+020	3dce7a52b2fa7035840e82f684c0ee323b64c944	93591479268222428ab258c31fd21d6d6f3d3f1b	picked	afs: Fix overwriting of result of DNS query	fs/afs/cell.c	-
+021	0b85149a9dc1d4dc86ad7f8c9adf647441473994	ea6de0aef5188464366dfad6dc816d82bf717abe	picked	i2c: aspeed: Handle the coalesced stop conditions with the start conditions.	drivers/i2c/busses/i2c-aspeed.c	-
+022	e032ddb0e387cc9139147e9b335d86a81df8b8c4	ecf770a6ce2eb82116014e69d59a185b56087446	picked	pinctrl: at91-pio4: use dedicated lock class for IRQ	drivers/pinctrl/pinctrl-at91-pio4.c	-
+023	a4692c38cd57150a44de0b282dcfa6c3a50f9856	44438b1170c00c06f9550b9e7a45cc85101cd568	picked	ALSA: hda/hdmi: Add quirk to force pin connectivity on NUC10	sound/pci/hda/patch_hdmi.c	-
+024	41350e813acf39a51faa16fafc41ee8422a171d5	6737fdac407c34d1bea973f3db9bb4ba3445bb32	picked	ALSA: hda/hdmi: add force-connect quirk for NUC5CPYB	sound/pci/hda/patch_hdmi.c	-
+025	bd267af18f7b96c00dbef963b550444df956ebf0	3f5bca1abba37cbdb28ce2dbf635333188fc237c	picked	smb: client: fix NULL deref in asn1_ber_decoder()	fs/cifs/smb2misc.c	-
+026	cc5eec86a4ffeaeb7ed88c291d59eac359d30437	31262435d87d0342ac19c61098095666842ffc53	picked	btrfs: do not allow non subvolume root targets for snapshot	fs/btrfs/ioctl.c	-
+027	505df1c0abe6ed90e9d6920f44b3c5374effbf71	fd952e718fbc7823ec44f0f40f9676208944dffa	picked	interconnect: Treat xlate() returning NULL node as an error	drivers/interconnect/core.c	-
+028	b5f67cea27fa9929bf651541154de4a534a3efd0	530b8514aa38ff6458f2f50e9d32105c16a93ec0	picked	iio: imu: inv_mpu6050: fix an error code problem in inv_mpu6050_read_raw	drivers/iio/imu/inv_mpu6050/inv_mpu_core.c	-
+029	e3749f85fddc8e5b22e434bcaf6bb0c1fe69262d	bf6d466c69219780219396161f5168dae238d8c3	picked	Input: ipaq-micro-keys - add error handling for devm_kmemdup	drivers/input/keyboard/ipaq-micro-keys.c	-
+030	c40db29812f9d405c6cedbda564cf4d312e15080	81c66ba161e1bfccb263ba7a8e1b71d53d7a6e49	picked	scsi: bnx2fc: Fix skb double free in bnx2fc_rcv()	drivers/scsi/bnx2fc/bnx2fc_fcoe.c	-
+031	abbebddb19ac5eaa3ba8fb2a0dcdd946e315998d	ca76c3dd5b550a71107c4b0d3540dc56ba3d26a7	picked	iio: common: ms_sensors: ms_sensors_i2c: fix humidity conversion time table	drivers/iio/common/ms_sensors/ms_sensors_i2c.c	-
+032	9dcf50da596d67db7fca9e95576523f3dab5802e	4694c6a945cbe95cb04191270cfcc41ccba2be0c	picked	iio: adc: ti_am335x_adc: Fix return value check of tiadc_request_dma()	drivers/iio/adc/ti_am335x_adc.c	-
+033	7a0a5cbfea34a0fb3bae6b1c089f25c23fc548b5	dc3b0eed030830b90708b0f9d4fd6082e4a3c4a5	picked	wifi: cfg80211: Add my certificate	net/wireless/certs/wens.hex	-
+034	20d84a19466fa5c49cf58f7debffb6cc1fa8363c	59467ad82002bb13883360a0a4cbbbdf108cc66b	picked	wifi: cfg80211: fix certs build to not depend on file order	net/wireless/certs/wens.hex	-
+035	f41f44cea9ebde7e9201632acf95767c21a1e6c6	235a9d4145a164ecc42b033aca4f1e6c54e12013	picked	USB: serial: ftdi_sio: update Actisense PIDs constant names	drivers/usb/serial/ftdi_sio.c;drivers/usb/serial/ftdi_sio_ids.h	-
+036	d0cf8a4bee4229b5c8a54fc55529236c31949957	b4caec6a969b75898da4f00db1d0122a0d668fde	picked	USB: serial: option: add Quectel EG912Y module support	drivers/usb/serial/option.c	-
+037	d521896bcc0bc3656bce0bb4a5f38ed1774b5870	4e44c5d8bb252ed8fa56a5726c175b2c05c707f2	picked	USB: serial: option: add Foxconn T99W265 with new baseline	drivers/usb/serial/option.c	-
+038	71e1c7654010ec24473fe5edba78a90b185c1645	4bf4b43ad78c457c205d003a1ae15b32892fba55	picked	USB: serial: option: add Quectel RM500Q R13 firmware support	drivers/usb/serial/option.c	-
+039	25a6fdd26d138c9de86e22407b9abe2fb4ed6e0e	6af2b7408144de2a69390f22586ad7c064c80c0a	picked	Bluetooth: hci_event: Fix not checking if HCI_OP_INQUIRY has been sent	net/bluetooth/hci_event.c	-
+040	2aa744ad0e9e85550bde88e4d68350e3512bd838	22ad44b8945eaea2b641b328c60b99fd2f05b125	picked	Bluetooth: L2CAP: Send reject on command corrupted request	net/bluetooth/l2cap_core.c	-
+041	45b63f09ba89f84c061812a518ae5ff2b017b408	a3a7e95624815651f027d9369160926426495c31	picked	Input: soc_button_array - add mapping for airplane mode button	drivers/input/misc/soc_button_array.c	-
+042	6d7b8e5a6d916c07ab3339bdb2084e42cd1f8733	f66b84cbf7e86279fb224d835cc2ec0af5bb2cb2	picked	net: 9p: avoid freeing uninit memory in p9pdu_vreadf	net/9p/protocol.c	-
+043	391c1019a005ec0a589590369b405eb0a68cc432	1bab887f88e7aa9e3a84b4ea4f93e80c38be26c5	picked	net: rfkill: gpio: set GPIO direction	net/rfkill/rfkill-gpio.c	-
+044	786788bb1396ed5ea27e39c4933f59f4e52004e4	8c5fe096ef06e31fa96d8575e318ff9d3de0b265	picked	net: ks8851: Fix TX stall caused by TX buffer overrun	drivers/net/ethernet/micrel/ks8851.h;drivers/net/ethernet/micrel/ks8851_common.c;drivers/net/ethernet/micrel/ks8851_spi.c	-
+045	cd6e41593ed70d1d982e03261fff60ae79491c0d	5a8ece9aa56484d9302b3ec9b074547aff75dbcd	picked	dt-bindings: nvmem: mxs-ocotp: Document fsl,ocotp	Documentation/devicetree/bindings/nvmem/mxs-ocotp.yaml	-
+046	e50cfb5447428650104b4c5f3e47608870c59901	da5bf20d2624c03c3ffdc21e7807a8d29917fc3b	picked	tracing / synthetic: Disable events after testing in synth_event_gen_test_init()	kernel/trace/synth_event_gen_test.c	-
+047	565fadc3ea91923e9699aeb3d631f0dbaef3b88d	57e78c392a6da946948507f00ce6147bcafa8e40	picked	bus: ti-sysc: Flush posted write only after srst_udelay	drivers/bus/ti-sysc.c	-
+048	7d407ef18327c2d7d444751c4ba276696534748c	57bd25a5a1c3ee77278e9080e2ee74f1b2a19337	picked	lib/vsprintf: Fix %pfwf when current node refcount == 0	lib/vsprintf.c	-
+049	c4a22227f7eb331efc477ad74e41845b21532c08	e00d20de7093bf4a7a297e10665e42d18e04293a	picked	x86/alternatives: Sync core before enabling interrupts	arch/x86/kernel/alternative.c	-
+050	1e2db0124c695b11e5c522d87f6ca329e608a897	9bfcba8f48805cae118586b4ddf2c0ede7fcf511	picked	9p/net: fix possible memory leak in p9_check_errors()	net/9p/client.c	-
+051	cdbc4a1115a56e87724d7626490c76aea3e24102	5091ff51199cc14c79966c95f554797c03479581	picked	ARM: dts: Fix occasional boot hang for am3 usb	arch/arm/boot/dts/am33xx.dtsi	-
+052	e219c3110a160e5801ab1eb276cfed21d686017f	a0c0d343801fdf0df1efb2f10bf8d785355b818f	picked	Bluetooth: SMP: Convert BT_ERR/BT_DBG to bt_dev_err/bt_dev_dbg	net/bluetooth/smp.c	-
+053	4bc912140b1c33089549fb8bed130fe466e487aa	a56954d51d946fbc56c576dd248a9453fe550235	picked	Bluetooth: use inclusive language in SMP	include/net/bluetooth/mgmt.h;net/bluetooth/mgmt.c;net/bluetooth/smp.c;net/bluetooth/smp.h	-
+054	da448f145f8df52b5708a2aa6e9582618dea67d8	b74261720d3f015b1b970d806443c9742cd0cca4	picked	Bluetooth: MGMT/SMP: Fix address type when using SMP over BREDR/LE	include/net/bluetooth/hci_core.h;net/bluetooth/mgmt.c;net/bluetooth/smp.c	-
+055	79e158ddc3c761d315b41dcbdb231add350e9d1f	91f1fd85adcb90366d5a5c53ab4eae5a0a2ea069	picked	usb: fotg210-hcd: delete an incorrect bounds test	drivers/usb/host/fotg210-hcd.c	-
+056	203a412e52b59ee1fcae28870cac5edccebd8637	dca7dac55ffa31cc56c60509acb8f9cceffbb6f1	picked	smb: client: fix OOB in SMB2_query_info_init()	fs/cifs/smb2pdu.c	-
+057	0c54b79d1d9b25f5a406bcf1969f956e14c4704d	4446d35263dfe1c5054fe8f8781ac076928be848	picked	smb: client: fix OOB in smbCalcSize()	fs/cifs/misc.c	-
+058	db1b14eec8c61a20374de9f9c2ddc6c9406a8c42	e163e16310ca4c50549edbcc71ea3402d2b2a202	picked	Bluetooth: af_bluetooth: Fix Use-After-Free in bt_sock_recvmsg	net/bluetooth/af_bluetooth.c	-
+059	23d9267c548b6c10b3a65da8bd7166af5f91f0a6	f0a78eb2a3f043642727b00cde6b69cf8821cf17	picked	spi: atmel: Switch to transfer_one transfer method	drivers/spi/spi-atmel.c	-
+060	929f475ebaf09d2e4e40bdc6fc3902cca150974f	e3d3b265437bdf8d33e8ecab9472e4fbdd1af7e3	picked	spi: atmel: Fix CS and initialization bug	drivers/spi/spi-atmel.c	-
+061	294d66c35a4e019a9dfe889fe382adce1cc3773e	fcbfa5350f7b1801d90a9b786ec24c299ee374d1	picked	scsi: core: Add scsi_prot_ref_tag() helper	include/scsi/scsi_cmnd.h	-
+062	f230e6d4249b9ccdcb571077023cecabf91ecbb1	55bcd5877e178026d839fc9ff0a9f0d2715dcde1	picked	scsi: core: Introduce scsi_get_sector()	include/scsi/scsi_cmnd.h	-
+063	d054858a9c9e4406099e61fe00c93516f9b4c169	cc4644e255464a5f25af7e86358e7b1230675fcf	picked	scsi: core: Make scsi_get_lba() return the LBA	include/scsi/scsi_cmnd.h	-
+064	df83ca8e986d0285974dfa510973191547dcd173	520a6c7b715937d367ea513c25f18507ba6a5bca	backported	scsi: core: Use scsi_cmd_to_rq() instead of scsi_cmnd.request	drivers/scsi/scsi.c;drivers/scsi/scsi_error.c;drivers/scsi/scsi_lib.c;drivers/scsi/scsi_logging.c;include/scsi/scsi_cmnd.h;include/scsi/scsi_device.h	Carry all original scsi_cmd_to_rq conversions. Requeue local rq is declared before MAS latency hook; use it there too. Preserve MAS completion/order branches and direct legacy request fields not changed by this original; helper already maps actual blk-mq PDU.
+065	f2d30198c0530b8da155697d8723e19ac72c15fe	1d61e44f42520bfc413df11976869749e2f08809	backported	scsi: core: Use a structure member to track the SCSI command submitter	drivers/scsi/scsi_error.c;drivers/scsi/scsi_lib.c;drivers/scsi/scsi_priv.h;include/scsi/scsi_cmnd.h	Carry complete submitter enum/dispatch/reset/error/block initialization. Adapt only contexts containing MAS header, OEM command diagnostic and queue gear hook; retain those hooks and packed member placement. Current SCSI/UFS shared layout and completion targets require fresh build verification.
+066	9db5239d7533c841dcd7a36700f829f6ee96a76d	a92cb039cd291ddcaebe347dfe7a27d2b2278543	backported	scsi: core: Always send batch on reset or error handling command	drivers/scsi/scsi_error.c	Carry both original LAST flags at EH/reset submission; extra OEM diagnostic before EH assignment changes only hunk context.
+067	0afe420228654d743ea455886b02cf7008d58142	b5af4b194496d4bec7e598f62f87ee0683e42064	picked	ring-buffer: Fix wake ups when buffer_percent is set to 100	kernel/trace/ring_buffer.c	-
+068	8bf79dec73fe9ec97996a292cfacf89e12f1e74d	2b492c78ea8de8f1b112328089543df2901244f4	picked	tracing: Fix blocked reader of snapshot buffer	kernel/trace/ring_buffer.c;kernel/trace/trace.c	-
+069	73117ea03363d4493bd4e9f82f29b34b92d88a91	edac24239eef4d918f783e6e5fb1b9dc8e9aeb1b	picked	netfilter: nf_tables: skip set commit for deleted/destroyed sets	net/netfilter/nf_tables_api.c	-
+070	9175341bd80be4c90e2b26f0bac9d10be02e55b1	38a0f8b264277f1f3e52488c966e61a945e5c1d6	picked	dm-integrity: don't modify bio's immutable bio_vec in integrity_metadata()	drivers/md/dm-integrity.c	-
+071	ecd50f820d864c61b97a85492417547f97753d19	db2a8547156dcbe9bdd621550307f30b228bcb4e	picked	Revert "MIPS: Loongson64: Enable DMA noncoherent support"	arch/mips/Kconfig;arch/mips/include/asm/mach-loongson64/boot_param.h;arch/mips/loongson64/env.c	-
+072	2a0a658ed6ef6bbddf700d1c2e1690e4e8054117	45f1578e1af7dab1a867844376e6a53adb6c8506	picked	Bluetooth: SMP: Fix crash when receiving new connection when debug is enabled	net/bluetooth/smp.c	-
+073	2df1e1887c6801fdba74dfe03704aa9a40608056	267d0a113e0930308b422810a7544d889cca2e02	picked	spi: atmel: Fix PDC transfer setup bug	drivers/spi/spi-atmel.c	-
+074	cf13ba74e8eb7f37cba10d64f17e39b2679a8178	01562332c4e4ab72e40f947c56f7bc94ed708000	backported	Linux 5.10.206	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

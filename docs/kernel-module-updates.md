@@ -971,3 +971,19 @@ contracts are checked rather than inherited from older offsets. Immediate
 paired recovery is #86. Independent module reuse still requires a matched
 Android common base, explicit KMI generation/symbol policy, type ABI checks
 and OEM dependency separation; this boot pass does not establish GKI/KMI.
+
+### Complete 5.10.206-210 / Accepted #89
+
+The actual #89 kernel and required modem module are built together with the
+same current configuration/generated headers, Clang/LLD12.0.7 and trusted
+signing key. All390 modem imports and two optional dummy imports match the
+current export table. Six exports are added, none removed and9,000 common
+CRCs change versus #87. Current BPF release callback signatures, LSM compat
+hook placement, hrtimer and OEM shared consumers are independently checked.
+
+The same-build boot/modem pair boots normal Android5.10.210, automatically
+loads the matching Live modem and passes partition/file/build-ID readbacks.
+The independent ramdisk and security protections remain. #87 is paired
+recovery. This is paired rebuilding, not stable KMI: independently reusable
+vendor binaries still require an Android common base, explicit KMI generation
+and symbol policy, type-level ABI monitoring and OEM/core dependency split.

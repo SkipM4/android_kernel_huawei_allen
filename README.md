@@ -1424,3 +1424,54 @@ toward pinned5.10.274. Android common parity, OEM/core separation and stable
 KMI/GKI certification remain open, as do broad hardware/network/performance/
 power validation and the known configfs cursor race. This is local source,
 build and necessary boot/module acceptance, not a release publication.
+
+### Complete Canonical 5.10.206-210 And Accepted #89
+
+The complete official v5.10.205-exclusive through v5.10.210-inclusive range
+ends at `aa6ca808a46767ba80d92d79d5cfd308f4d71b73`. All785 records are accounted
+for:709 exact,36 adapted and40 already covered, preserving745 ordered
+original-author commits. The five per-release ledgers retain provenance.
+Source endpoint is `e2e06739bad6`; no separate out-of-range fix was needed.
+
+Adapters preserve real MAS/SCSI hooks through the original206 conversions,
+207 reverts and corrected batch flag fix; selected HW_F2FS receives compressed
+move rejection, fault accounting and recovery repairs. Other adaptations
+retain OEM Binder diagnostics with corrected async accounting, bounded packed
+trace_marker text starting at its real ip/buf location, MMC health-detect
+arguments with full SBC pairing, PM diagnostics with unlocked reference drops,
+and distinct online CPU-isolation versus dying hrtimer behavior. Complete210
+already includes the official dpm_prepare error-loop correction at entry241.
+An intermediate-source review briefly interrupted compilation unnecessarily;
+the frozen final source contains the fix, and no duplicate patch was added.
+
+Configuration preparation retains all effective/security options and all36
+OEM generated values. Four obsolete unselected architecture options disappear
+from emitted config only. Android Clang/LLD12.0.7, LLVM/IAS, ThinLTO, enforcing
+CFI, Werror, BTI/BHB, signing material and PRMEM/HKIP remain. Initial #88 link
+was interrupted at the20GB workspace cap. The user authorized a temporary24GB
+limit; resumed complete Image/modules build produced actual #89. Consumed
+link intermediates/cache were retired and workspace restored below20GB.
+
+Current5050 natural contexts and100 necessary decoded objects bind changed
+shared types and actual OEM consumers. Final checks cover125 CFI groups,
+243 targets, current BPF three-argument release callbacks and table pointers,
+LSM compat ioctl physical hook head/canonical pointer, hrtimer online state,
+trace flexible storage and HF/GPIO registrations. Direct-only SCSI helpers
+are not falsely claimed as indirect CFI targets. Unselected IPSET/hibernation
+changes remain source-only, not runtime coverage.
+
+All390 modem imports and two optional dummy imports match. Six exports are
+added, none removed and9,000 common CRCs change versus #87. Same-build signed
+boot/modem images pass staging and are installed as a pair. Normal Android
+5.10.210/#89 automatically loads the matching Live modem; partition/file and
+loaded build-ID readbacks agree. Independent Magisk ramdisk, Enforcing,
+signature enforcementY, taint4, PRMEM, critical services, unlocked CE and
+automatic six-stage ISP startup pass. Complete logs show no actual kernel or
+module fault, WARN/Oops counts are0;511 AVC denials remain, none module-load.
+Trace0/wifi and Asleep screen are restored.
+
+Immediate paired recovery is accepted #87/5.10.205. Next is complete211-215
+toward pinned5.10.274. Android common parity, OEM/core separation, stableKMI/
+GKI certification, known configfs cursor race and broad hardware/network/
+performance/power acceptance remain open. Local Git/build/device work only;
+no release export, publication or independent old-module compatibility claim.
