@@ -5214,3 +5214,71 @@ ramoops/rrecord/bootfail evidence and restoring that pair. The last accepted
 runtime remains190/#82; it must not be confused with what is currently on
 the device partitions. Current local source9fab5dfdac and full-build/interface
 facts remain reviewable. No release export/publication or GKI claim occurs.
+
+### Recovery Evidence And Official Configfs Revert
+
+The target automatically reaches engineering recovery. Serial-scoped read-only
+capture preserves console/dmesg ramoops plus rrecord and bootfail_info before
+reboot. The actual first fault is init/480 at15.601607 seconds: BUG spinlock
+recursion on configfs_dirent_lock, followed by repeated soft lockups.
+The stack is queued_spin_lock_slowpath -> _raw_spin_lock -> configfs_lookup
+-> path_openat. The failure is explicitly5.10.195 #84; recovery's generic
+product name/kernel is not mistaken for candidate Android acceptance.
+
+Actual lookup holds configfs_dirent_lock while calling configfs_attach_attr,
+which takes the same lock. The official5.10.195 file has the same defective
+backport c709c7ca020a of upstream c42dd069be8d. The stable maintainer explicitly
+reverted it in2cc1f498623311cb7d1608115b68793bfc505638, admitting the bad
+backport. The public report is
+https://lists.openwall.net/linux-kernel/2023/09/20/139 . The canonical source
+is https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2cc1f498623311cb7d1608115b68793bfc505638 .
+
+Recovery is followed by a confirmed ALN-AL00/unlocked fastboot identity and
+paired190/#82 restoration. Normal Android, automatic Live modem, all paired
+partition/module readbacks, unchanged independent ramdisk, Enforcing,
+signaturesY and taint4 pass. This is actual completed recovery, superseding
+the earlier transport-unavailable result without erasing failed84 evidence.
+
+The exact official two-line revert is separately imported as38bf2c8e46,
+with reconstructed raw upstream Git object identity, original author/timezone
+and full message/trailers preserved. Original699 accounting/order remains.
+It restores accepted82 configfs dir.c; it does not fix the preexisting cursor
+traversal race, which remains for the later correct upstream repair. No lock
+debug, watchdog, SELinux, CFI or signature check is disabled.
+
+One necessary Image/modules build succeeds as5.10.195 #85. Only configfs/dir.o
+and init/version.o change among4922 current natural contexts. All50 previously
+measured interface objects are byte-identical; their scoped facts are retained,
+with no redundant decode. A single new configfs IR decode confirms balanced
+readiness/attribute lock sections and inode creation after unlock. Current85
+ELF/CFI/table addresses are checked anew; source/header/config/signing material
+and36 generated selectors retain their actual contracts. Module export/import
+comparison and original-format signed boot/modem staging pass. Failed84 runtime
+acceptance is never inherited by85.
+
+### Accepted5.10.195 / #85
+
+The repaired85 same-build boot/modem pair reaches normal Android.226 final
+indirect targets in116 CFI groups, current tables/destructor/thread operands,
+HF/GPIO continuity and paired signing/import checks pass. Normal init crosses
+the former15-second configfs failure. Automatic signed Live modem, full
+partition/file/loaded-build-id readbacks, unlocked CE storage, essential
+services and automatic same-thread six-stage ISP firmware startup pass.
+Time-zero, boot and later logs have no actual WARN/BUG/Oops/panic/CFI/module
+or HKIP fault.504 AVC denials remain visible, none module-load. Read-only
+warn_count/oops_count are0; limits0/10000 remain. Independent Magisk ramdisk,
+Enforcing, signature enforcementY, taint4, PRMEM and trace0/wifi remain;
+screen returns Asleep.
+
+Final kernel source is38bf2c8e46, separate from the699 original source prefix
+and failed84 candidate. Compact85 source/build/interface/module/runtime
+metadata precedes output reuse. Recent accepted79/80/81/82/85 pairs retain82
+immediate recovery; expired78 and unaccepted84 image products can be retired
+after their identities and failed84 source/ramoops/rrecord/bootfail evidence
+are preserved. Original images, keys, referenced source/proof/blob/alternate
+stores and failed71/65 evidence remain. Directory use stays below20 GB.
+
+Next is complete196-200 toward pinned274. The known configfs cursor race,
+full hardware/network/performance/power, ACK parity, vendor/core separation
+and stableKMI/GKI remain open. Stable imports and normal Android/module
+acceptance do not certify those goals. No release export/tag/push/publication.

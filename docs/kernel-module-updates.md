@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.190
-#82 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.195
+#85 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -867,6 +867,34 @@ Compact82 metadata and local78-82 pairs retain81 immediate recovery. Complete
 Android KMI branch, toolchain/configuration and monitored vendor symbol/type
 contract; current stable imports are not GKI or stable-KMI certification.
 No release export, tag, push or publication occurs.
+
+### Complete191-195 / Accepted #85
+
+699 originals and separately recorded scheduler/cpuset integrations produce
+195. Candidate84 fails in init due to the official5.10.195 configfs bad
+backport recursively acquiring configfs_dirent_lock. Recovery preserves
+ramoops/rrecord/bootfail and restores82. Official stable revert2cc1f4986233
+is imported separately as38bf2c8e46; repaired85 is the accepted runtime.
+The original cursor race remains for the later correct upstream fix.
+
+Effective selections, Clang/LLD12.0.7, LLVM/IAS, ThinLTO, enforcing CFI,
+BTI/BHB, actual Werror, trusted keys and36 selectors remain.4922 natural
+contexts bind the actual archives/modules. Only configfs/version objects
+change after84; exact50 interface objects retain their scoped facts and one
+fresh configfs decode verifies balanced locks.226 final targets/116 CFI groups
+and current HF/GPIO stores pass. Exports13,865->13,866 add managed MMC host,
+eventfd read and coordinated rtnetlink parser; the old rtnetlink parser and
+TCP quickack helper disappear.190 common CRCs change.390 rebuilt modem and
+two optional dummy imports match; providers/types/namespaces remain.
+
+Matched signed85 boot/modem reach normal Android and automatic Live modem,
+with full partition/file/build-id readbacks, unlocked CE/services and automatic
+six-stage ISP firmware. Logs and read-only WARN/Oops counts pass;504 AVCs
+remain, none module-load. Enforcing, signaturesY, taint4, PRMEM, independent
+ramdisk and trace0/wifi remain; screen is Asleep.82 is immediate recovery.
+No old-binary reuse, dummy installation, CRC/vermagic spoofing or weakened
+security is involved. Failed84 evidence remains separate. Complete196-200,
+ACK/vendor split and stableKMI/GKI remain open; no release publication.
 
 ## Actual Module Inventory And Limits
 

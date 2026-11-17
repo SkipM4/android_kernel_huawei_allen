@@ -6,31 +6,25 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-Latest candidate5.10.195/#84 is **not accepted**: complete191-195 source,
-full build,226-target/116-group CFI and matching signed modules pass, but the
-target disappears from ADB/fastboot after successful paired boot/modem flash.
-Automatic recovery cannot reach the device; manual confirmed-target
-bootloader/recovery access is needed. The last accepted runtime is190/#82,
-and its paired recovery images remain. Device partitions currently contain
-the unaccepted195 candidate; ramdisk was not written. See the latest entry
-in `docs/linux-5.10-upstream-sync.md`. Further imports wait for recovery.
+The installed upstream milestone is Linux5.10.195 #85, kernel source
+`38bf2c8e46`, with normal Android, unlocked CE, automatic ISP firmware startup
+and same-build signed Live modem. #82/5.10.190 is immediate paired recovery.
+Complete191-195 resolves699 originals:666 exact,24 adapted, seven present
+and two inapplicable, with690 ordered original-author commits. Four required
+upstream scheduler/cpuset followups and separate local integrations are
+recorded outside that accounting.
 
-
-The last accepted upstream milestone is Linux 5.10.190 #82, with kernel source
-`46243eea39`, normal Android, unlocked CE storage, completed ISP firmware
-startup and automatic loading of the same-build signed modem.
-#81/5.10.185 is the immediate paired rollback. Complete186-190 resolves all
-838 originals with811 ordered commits:782 exact,29 adapted,21 present
-and six inapplicable entries. A required official trace-format release fix
-and separate original-whitespace cleanup are recorded outside that accounting.
-Effective and emitted configuration, signing material and36 OEM/HF selectors
-remain.2448 current natural contexts and61 relevant objects bind IO/HF,
-NFT/pernet/network, trace, VFS/ext4/HW_F2FS, GPIO/HIV500, SDHCI and DWC3/PM.
-The new IO message-control member changes its union member but not request
-size or HF offsets. Current211-target/107-group final CFI, HF/task and Kirin
-GPIO raw stores pass. All390 rebuilt modem imports match despite8898 changed
-export CRCs; no old binary, forced versions or weakened protection are used.
-warn_count/oops_count remain0. Accepted79 private-ring evidence is retained,
+Candidate#84 failed during init with real configfs spinlock recursion, caused
+by an incorrect upstream5.10.195 backport. Recovery logs are preserved and
+paired#82 recovery passed. The official stable revert `2cc1f4986233` removes
+the bad backport; repaired#85 full build,226-target/116-group CFI, current
+HF/GPIO stores and normal Android/module acceptance pass.4922 natural
+contexts and exact50 unchanged interface objects retain scoped facts; one
+fresh configfs decode checks lock balance. All390 modem and two optional
+dummy imports match. Enforcing CFI/SELinux, actual Werror, signatures, keys,
+PRMEM, independent ramdisk and36 OEM/HF selectors remain. WARN/Oops counts
+are0. The original configfs cursor race remains for its correct upstream fix.
+Accepted79 private-ring evidence is retained,
 not replayed. The accepted162-165 migration
 keeps one canonical io_uring core: installed Hyperframe34-37 defaults remain,
 and immutable `IORING_SETUP_STANDARD_OPS` explicitly enables standard34-36.
