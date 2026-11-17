@@ -452,7 +452,7 @@ mas_blk_busyidle_notify_handler:        // @mas_blk_busyidle_notify_handler
 	//DEBUG_VALUE: mas_blk_busyidle_notify_handler:handler_result <- 0
 	.loc	2 168 2 is_stmt 1               // kernel/platform_source/basicplatform/block/mas_blk_busy_idle_notify.c:168:2
 	mov	x0, x21
-	bl	del_timer_sync
+	bl	timer_delete_sync
 .Ltmp27:
 	.loc	2 169 6                         // kernel/platform_source/basicplatform/block/mas_blk_busy_idle_notify.c:169:6
 	bl	ktime_get

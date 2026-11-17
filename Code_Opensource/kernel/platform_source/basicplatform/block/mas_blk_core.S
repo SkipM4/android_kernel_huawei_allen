@@ -680,7 +680,7 @@ mas_blk_queue_usr_ctrl_set:             // @mas_blk_queue_usr_ctrl_set
 .Ltmp66:
 	//DEBUG_VALUE: mas_blk_queue_usr_ctrl_set:q <- [DW_OP_LLVM_entry_value 1] $x0
 	.loc	2 215 3 is_stmt 0               // kernel/platform_source/basicplatform/block/mas_blk_core.c:215:3
-	bl	del_timer_sync
+	bl	timer_delete_sync
 .Ltmp67:
 .LBB5_3:
 	//DEBUG_VALUE: mas_blk_queue_usr_ctrl_set:q <- [DW_OP_LLVM_entry_value 1] $x0
@@ -2498,7 +2498,7 @@ mas_blk_cleanup_queue:                  // @mas_blk_cleanup_queue
 	.loc	2 229 31                        // kernel/platform_source/basicplatform/block/mas_blk_core.c:229:31
 	add	x0, x19, #1384                  // =1384
 	.loc	2 229 2 is_stmt 0               // kernel/platform_source/basicplatform/block/mas_blk_core.c:229:2
-	bl	del_timer_sync
+	bl	timer_delete_sync
 .Ltmp310:
 	.loc	2 742 2 is_stmt 1               // kernel/platform_source/basicplatform/block/mas_blk_core.c:742:2
 	mov	x0, x19

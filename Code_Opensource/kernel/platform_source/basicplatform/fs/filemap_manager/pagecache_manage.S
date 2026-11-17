@@ -8034,7 +8034,7 @@ umounting_fs_register_pch:              // @umounting_fs_register_pch
 .Ltmp961:
 	//DEBUG_VALUE: umounting_fs_register_pch:sb <- [DW_OP_LLVM_entry_value 1] $x0
 	.loc	1 1398 5 is_stmt 0              // kernel/platform_source/basicplatform/fs/filemap_manager/pagecache_manage.c:1398:5
-	bl	del_timer_sync
+	bl	timer_delete_sync
 .Ltmp962:
 	.loc	1 1399 17 is_stmt 1             // kernel/platform_source/basicplatform/fs/filemap_manager/pagecache_manage.c:1399:17
 	ldr	x8, [x19, :lo12:pch_info]
