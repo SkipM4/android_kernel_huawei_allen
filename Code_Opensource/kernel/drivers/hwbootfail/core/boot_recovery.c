@@ -6,6 +6,7 @@
  */
 
 /* ----includes ---- */
+#include <linux/kernel.h>
 #include <hwbootfail/core/boot_recovery.h>
 
 /* ----local macroes ---- */
@@ -320,7 +321,7 @@ static int get_bi_code(const struct recovery_run_param *pparam)
 	int bootfail_errno = pparam->pparam->binfo.bootfail_errno;
 	int bi_code = BI_UNKNOWN;
 
-	for (i = 0; i < (int)array_size(errno_to_bi_tbl); i++) {
+	for (i = 0; i < (int)ARRAY_SIZE(errno_to_bi_tbl); i++) {
 		if (bootfail_errno >= errno_to_bi_tbl[i].range.start &&
 			bootfail_errno <= errno_to_bi_tbl[i].range.end) {
 			bi_code = (int)errno_to_bi_tbl[i].bi_code;
@@ -616,9 +617,9 @@ static int select_fixed_method(struct select_param *pparam)
 	int i;
 	int j;
 
-	for (i = 0; i < (int)array_size(fixed_method); i++) {
+	for (i = 0; i < (int)ARRAY_SIZE(fixed_method); i++) {
 		int is_errno_matched = 0;
-		for (j = 0; j < (int)array_size(fixed_method[i].bootfail_errno);
+		for (j = 0; j < (int)ARRAY_SIZE(fixed_method[i].bootfail_errno);
 			j++) {
 			if (pparam->rparam->pparam->binfo.bootfail_errno ==
 				(int)fixed_method[i].bootfail_errno[j]) {
@@ -630,7 +631,7 @@ static int select_fixed_method(struct select_param *pparam)
 		if (is_errno_matched == 0)
 			continue;
 
-		for (j = 0; j < (int)array_size(fixed_method[i].region); j++) {
+		for (j = 0; j < (int)ARRAY_SIZE(fixed_method[i].region); j++) {
 			if (pparam->count_total >=
 				fixed_method[i].region[j].start &&
 				pparam->count_total <
@@ -756,7 +757,7 @@ static void parse_kernel_bootfail_further(struct select_param *pparam)
 {
 	int i;
 
-	for (i = 0; i < (int)array_size(prrecord->rrecord); i++) {
+	for (i = 0; i < (int)ARRAY_SIZE(prrecord->rrecord); i++) {
 		struct rrecord *precord = (struct rrecord *)(
 			&prrecord->rrecord[i]);
 

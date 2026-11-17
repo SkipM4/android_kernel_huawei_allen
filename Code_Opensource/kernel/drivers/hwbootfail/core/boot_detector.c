@@ -6,6 +6,7 @@
  */
 
 /* ----includes ---- */
+#include <linux/kernel.h>
 #include <hwbootfail/core/boot_detector.h>
 #include <hwbootfail/core/boot_recovery.h>
 #include <hwbootfail/core/adapter.h>
@@ -93,7 +94,7 @@ static void calc_log_max_count(struct bootfail_meta_log *pinfo)
 		run_param.adp.bl_log_ops.log_size +
 		run_param.adp.kernel_log_ops.log_size);
 	pinfo->log_max_count = min(pinfo->log_max_count,
-		(unsigned int)array_size(pinfo->logs_info));
+		(unsigned int)ARRAY_SIZE(pinfo->logs_info));
 }
 
 static void calc_rrecord_offset(struct bootfail_meta_log *pinfo)

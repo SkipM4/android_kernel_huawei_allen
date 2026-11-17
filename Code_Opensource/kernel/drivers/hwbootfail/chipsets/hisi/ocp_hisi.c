@@ -6,6 +6,7 @@
  */
 
 /* ----includes ---- */
+#include <linux/kernel.h>
 #include "ocp_hisi.h"
 #include <linux/sched.h>
 #include <linux/kthread.h>
@@ -48,7 +49,7 @@ static void __boot_fail_process_ocp(void)
 {
 	int i;
 
-	for (i = 0; i < (int)array_size(proc_ocp_param.ocp_info); i++) {
+	for (i = 0; i < (int)ARRAY_SIZE(proc_ocp_param.ocp_info); i++) {
 		if (down_trylock(&(proc_ocp_param.ocp_info[i].sem)))
 			continue;
 
@@ -97,7 +98,7 @@ int process_ocp_callback(struct notifier_block *self,
 {
 	int i;
 
-	for (i = 0; i < (int)array_size(proc_ocp_param.ocp_info); i++) {
+	for (i = 0; i < (int)ARRAY_SIZE(proc_ocp_param.ocp_info); i++) {
 		if (down_trylock(&(proc_ocp_param.ocp_info[i].sem))) {
 			print_err("There's an OCP is being processed!\n");
 			continue;
@@ -159,7 +160,7 @@ int ocp_init(struct ocp_init_param *pparam)
 	}
 
 	memset((void *)&proc_ocp_param, 0, sizeof(proc_ocp_param));
-	for (i = 0; i < (int)array_size(proc_ocp_param.ocp_info); i++)
+	for (i = 0; i < (int)ARRAY_SIZE(proc_ocp_param.ocp_info); i++)
 		sema_init(&proc_ocp_param.ocp_info[i].sem, 1);
 	sema_init(&proc_ocp_sem, 0);
 	(void)boot_fail_process_ocp();

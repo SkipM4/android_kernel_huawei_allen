@@ -47,9 +47,6 @@ extern "C" {
 #endif
 
 /* boot fail log info */
-#ifndef array_size
-#define array_size(a) (sizeof(a) / sizeof((a)[0]))
-#endif
 #define is_bl1_stage(stage) ((stage) == BL1_STAGE)
 #define is_bl2_stage(stage) ((stage) == BL2_STAGE)
 #define is_kernel_stage(stage) ((stage) == KERNEL_STAGE)

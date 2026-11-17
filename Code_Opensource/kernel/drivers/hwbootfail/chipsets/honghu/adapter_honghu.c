@@ -6,6 +6,7 @@
  */
 
 /* ----includes ---- */
+#include <linux/kernel.h>
 #include "adapter_honghu.h"
 #include <linux/types.h>
 #include <linux/slab.h>
@@ -161,7 +162,7 @@ static void register_exceptions_to_rdr(void)
 	unsigned int i;
 	u32 ret;
 
-	for (i = 0; i < array_size(boot_detector_excp_info); i++) {
+	for (i = 0; i < ARRAY_SIZE(boot_detector_excp_info); i++) {
 		ret = rdr_register_exception(&boot_detector_excp_info[i]);
 		if (ret == 0)
 			print_err("rdr_register_exception failed! ret: %d\n", ret);
