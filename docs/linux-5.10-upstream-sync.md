@@ -5121,3 +5121,96 @@ records remain. The worktree stays below20 GB. Complete191-195 is next toward
 pinned5.10.274. Full hardware/network/performance/power, ACK parity and
 vendor-core/GKI/KMI separation remain open. No release export, tag, push or
 publication occurs.
+
+## Complete Linux 5.10.191-195
+
+### Official Input And Actual Integration
+
+The batch follows accepted190/#82, distinct from canonical upstream190,
+and ends at official195 `5452d1be676cb0fb9dc417f7b48a917c9d020420`.
+All699 originals are resolved in order:666 exact,24 adapted, seven present
+and two inapplicable, producing690 original-author commits. Per-release
+counts are191:68,192:130,193:85,194:12 and195:404. Raw author/timezone,
+complete messages/trailers and linear ordering are checked. Required
+upstream followups are separate from these699 dispositions; no whole-file
+replacement or source preview is counted as runtime acceptance.
+
+The DEADLINE/cpuset series uses the existing sleepable cpuset mutex before
+OEM dynamic-priority spinlocks, preserves the no-PI atomic exemption and
+balances retry/success/error ownership. Same-width atomic task counters
+account for independent PI/exit writers. Aggregate destination reservations
+track the actual charged CPU/root domain, reset common failed state and
+reserve bandwidth only for real root-domain moves. Official followups
+41d701ddc36d,4a39eda5fdd8 and5dd74441cbf4 are separately adapted to actual
+embedded5.10 cpusets. Missing legacy UAPI task-reference/RCU prerequisite
+710da3c8ea7d is restored without resurrecting the old rwsem.
+
+The first full build#83 fails at final link: OEM pause_cpus still references
+removed dl_cpu_busy. Commit9fab5dfdac changes the actual caller to standard
+dl_bw_check_overflow, adds its declaration and keeps the unselected OEM
+stub API coherent. It does not add an old-interface shim or disable DL.
+A separate MHI Kconfig EOF cleanup preserves exact original commits.
+
+Kirin DWC3 pending events use the real synchronous check/threaded handler,
+with balanced runtime-PM/IRQ ownership rather than requeueing the OEM tasklet
+and nesting IRQ disables. USB descriptor allocation, all core consumers and
+reset comparison are coordinated; published descriptors remain immutable.
+OEM enumeration telemetry stays. NFT full-width use counters and checked
+operations retain newer pernet/binding/generation behavior. Trace exclusive
+pipe masks, resize exclusion and synchronous target-CPU snapshot swapping
+keep the existing fmt/temp release. Actual devfreq notifier initialization
+moves before device publication, so release cleanup is valid on registration
+and stats-unwind failures. Kirin DDR/GPU/NPU/UFS providers stay intact.
+
+Standard SCSI host lookup widens to unsigned int across selected proc/UFS
+consumers, MMC adds managed host allocation, and eventfd/rtnetlink exports
+follow upstream. Shared fsverity rejects an empty keyring with ENOKEY before
+PKCS7 parsing, without weakening signature policy. Absent/unselected Qualcomm
+and Meson glue does not justify inventing unrelated platform hardware.
+
+### Full Build And Current Interface Boundary
+
+One configuration preparation retains every effective selection; only the
+already-disabled ARM_SDE_INTERFACE emitted entry disappears. The real failed
+#83 and successful retry#84 are distinct. Full5.10.195 Image/modules exits0
+under Android Clang/LLD12.0.7, LLVM/IAS, ThinLTO, enforcing CFI, BTI/BHB,
+actual Werror and unchanged signing material/36 OEM-HF selectors.
+
+4922 actual ordinary contexts include top-level ARM64/library archives and
+262 modem component membership, not just depth-two built-in archives.
+Dependency rows are interned rather than duplicating full dependency text.
+50 necessary current objects are decoded once.28 layout groups and48 typed
+targets cover actual IO/HF/task, DL/cpuset, NFT/trace, USB/module/Binder/tick,
+devfreq, SCSI/MMC and shared network interfaces. Current task4736 bytes,
+thread offset3600, request/HF layouts and socket destructor offset968 agree
+with the prior accepted contract. cpuset is360 bytes, nft_object192,
+nft_flowtable512 and Scsi_Host3160. Flexible arrays and optimized/inlined
+wrappers are read as emitted, not forced into guessed layouts or calls.
+Binder allocator source owns shrinker/LRU cleanup. Reader corrections change
+neither kernel source nor build flags and do not repeat compile/IR decoding.
+
+Exports compare13,865->13,866: devm_mmc_alloc_host,eventfd_ctx_do_read and
+rtnl_nla_parse_ifinfomsg are added; rtnl_nla_parse_ifla and
+tcp_enter_quickack_mode are removed.190 common CRCs change; common provider,
+export type and namespace remain. All390 rebuilt modem and two optional
+dummy imports match. Original-format boot roundtrip, modem CMS/certificate,
+ext4 mode/ownership/SELinux label and signed-byte readback pass. No old
+binary, fake CRC/vermagic, loader bypass or independent stable-KMI promise.
+
+### Runtime Failure / Recovery Pending
+
+Candidate195/#84 is not accepted. Both confirmed-target boot/modem_driver
+flash commands and reboot succeed, but normal Android does not return within
+240 seconds. The subsequent120-second paired82 recovery attempt cannot find
+the target in either serial-scoped ADB or fastboot. Host USB inventory also
+lacks Allen. No early kernel log is available, so boot failure versus cable,
+power or transport state is unresolved. No random source repair, repeated
+flash or next stable batch is attempted.
+
+The independent Magisk ramdisk was not written. Accepted190/#82 boot/modem
+and module files remain bound to their preinstall live readbacks. Manual
+bootloader/recovery access on the confirmed Allen is required before reading
+ramoops/rrecord/bootfail evidence and restoring that pair. The last accepted
+runtime remains190/#82; it must not be confused with what is currently on
+the device partitions. Current local source9fab5dfdac and full-build/interface
+facts remain reviewable. No release export/publication or GKI claim occurs.

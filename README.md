@@ -6,7 +6,17 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux 5.10.190 #82, with kernel source
+Latest candidate5.10.195/#84 is **not accepted**: complete191-195 source,
+full build,226-target/116-group CFI and matching signed modules pass, but the
+target disappears from ADB/fastboot after successful paired boot/modem flash.
+Automatic recovery cannot reach the device; manual confirmed-target
+bootloader/recovery access is needed. The last accepted runtime is190/#82,
+and its paired recovery images remain. Device partitions currently contain
+the unaccepted195 candidate; ramdisk was not written. See the latest entry
+in `docs/linux-5.10-upstream-sync.md`. Further imports wait for recovery.
+
+
+The last accepted upstream milestone is Linux 5.10.190 #82, with kernel source
 `46243eea39`, normal Android, unlocked CE storage, completed ISP firmware
 startup and automatic loading of the same-build signed modem.
 #81/5.10.185 is the immediate paired rollback. Complete186-190 resolves all

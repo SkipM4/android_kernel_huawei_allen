@@ -1,0 +1,13 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	ecd62c85120dc74b07c5ccd1532de121e81a4dba	56de33064d99d0dff72185dd05ce16298acb80c4	picked	module: Expose module_init_layout_section()	include/linux/moduleloader.h;kernel/module.c	-
+002	943ed7dc5ee42382f4be4de6fc404490d9c424a3	bd0f145f0e6b46c8ca1579cadce2e7781cbceb73	backported	arm64: module-plts: inline linux/moduleloader.h	arch/arm64/kernel/module-plts.c	Add complete original moduleloader include across actual intervening OEM include order, retaining CFI/PLT and module protection headers. Precise exposed classifier prototype is required by the next ARM64 module allocation change.
+003	b59cfee8d8a2ff7595f2ea68a6ac3cdbe4e18e31	ac261dd7007d2e927610f0ea4cea98049ce86f62	picked	arm64: module: Use module_init_layout_section() to spot init sections	arch/arm64/kernel/module-plts.c	-
+004	df3427204f1d75e369f691d3dc95f5e27b50728d	12062ab5b6520f9cc52ea035693d85dde19c69bb	picked	ARM: module: Use module_init_layout_section() to spot init sections	arch/arm/kernel/module-plts.c	-
+005	be4ccafc077f3830c685c734597c52bf83f7ed71	18d948398cba45fef792892273f6ec0c990c25eb	picked	mhi: pci_generic: Fix implicit conversion warning	drivers/bus/mhi/host/pci_generic.c	-
+006	79ea9eb723b7d38e427e734d97f0e62596ba1389	7b949f0e1aebaafeac985af473cc0e0081dd0097	picked	Revert "drm/amdgpu: install stub fence into potential unused fence pointers"	drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c	-
+007	268e9225227756860df52a520f6c5f3994a7a1ba	82f56974d7b526acf597970fb451be81f458c761	picked	Revert "MIPS: Alchemy: fix dbdma2"	arch/mips/alchemy/common/dbdma.c	-
+008	ad4f8c117b8be93fce960db83f2038ac4dd38508	22fc7a0b0a35af5e65d27f82bdc7af43d0999bce	picked	rcu: Prevent expedited GP from enabling tick on offline CPU	kernel/rcu/tree_exp.h	-
+009	9190c1f0aed1af3a54e2df656c1892cba214df16	9dfa76967a3f5730c985dd3ac7a2933b457008d4	picked	rcu-tasks: Fix IPI failure handling in trc_wait_for_one_reader	kernel/rcu/tasks.h	-
+010	3e22624f8fd39f0571d388130f0cc44ff551fa12	6bc1d1997cc9d66da0a9e95e7be71a57e474e692	picked	rcu-tasks: Wait for trc_read_check_handler() IPIs	kernel/rcu/tasks.h	-
+011	d93ba6e46e5f60a59d045fbc537232b835ee64ca	4904e088c9511e8f27921c10851b460e13e0ff50	picked	rcu-tasks: Add trc_inspect_reader() checks for exiting critical section	kernel/rcu/tasks.h	-
+012	006d5847646be8d430ae201c445afa93f08c8e52	4b57586a22ba629233f77d2419fe87804ab649e8	backported	Linux 5.10.194	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

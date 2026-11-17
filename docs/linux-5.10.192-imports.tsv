@@ -1,0 +1,131 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	b630367a608d3c9011d6b9f568891f1ea93027a2	d820e94ef81ea16bebe1ee13db9380ebf66667da	picked	mmc: sdhci-f-sdh30: Replace with sdhci_pltfm	drivers/mmc/host/sdhci_f_sdh30.c	-
+002	ecf0e627fbbbc7d1b1cb8dc117c2a79a6c5d24e5	4cca3caa2485d3ce97f178da9dee02038ecbdfda	picked	macsec: Fix traffic counters/statistics	drivers/net/macsec.c	-
+003	e77ef787415b14310e3c79e09a00b9f0604f871c	ef127d3a41a86075b3d407184ba231be5f549a22	picked	macsec: use DEV_STATS_INC()	drivers/net/macsec.c	-
+004	ba2e27e5100d1da5e56ffa4e73a1b2e44391709e	5ec6c18c1cc528eb8c15c4727a541bce1cf30d49	picked	net/mlx5: Refactor init clock function	drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c	-
+005	81cc91bba42b03532e3f0067a4dfc168bdda753d	91475544d049f37b841485e9cb56f76f6bc08581	picked	net/mlx5: Move all internal timer metadata into a dedicated struct	drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c;drivers/net/ethernet/mellanox/mlx5/core/lib/clock.h;include/linux/mlx5/driver.h	-
+006	e6c0a9728e3ad1b930364b79468207fb46c090fe	1cffd5cb9a2d8293dd9d0416e048ab68f8880502	picked	net/mlx5: Skip clock update work when device is in error state	drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c	-
+007	e6825b30d37fe89ceb87f926d33d4fad321a331e	caaf685548d70b7d8da9bf767949bfdf79a22854	picked	drm/radeon: Fix integer overflow in radeon_cs_parser_init	drivers/gpu/drm/radeon/radeon_cs.c	-
+008	751c5b6a23155bae588e6c80552af60d7d2117ff	f84924815567b1889df68647cc176ecec5552592	picked	ALSA: emu10k1: roll up loops in DSP setup code for Audigy	sound/pci/emu10k1/emufx.c	-
+009	9f4dd39696c8b42b9560cc493c6f335713c3be05	05b2d29e660656a9810be6caa219986b7cd4a4c9	picked	ASoC: Intel: sof_sdw: add quirk for MTL RVP	sound/soc/intel/boards/sof_sdw.c	-
+010	10459ffd56adce0134427fb4915c724b2fc3841e	addb02a73c60c8446b5f17eac9b6e2d4ef3cbbef	picked	ASoC: Intel: sof_sdw: add quirk for LNL RVP	sound/soc/intel/boards/sof_sdw.c	-
+011	dbe0f607f84c5e538ad7cf045773f56e8400dcb7	b7eefe672b8176f54e4339eeaae823a34affef91	picked	PCI: tegra194: Fix possible array out of bounds access	drivers/pci/controller/dwc/pcie-tegra194.c	-
+012	b2882c51e6d0751186e81789e52cadf2afd9cf9a	cf92682bc12240d48c8f8a926d74c558938c9763	picked	ARM: dts: imx6dl: prtrvt, prtvt7, prti6q, prtwd2: fix USB related warnings	arch/arm/boot/dts/imx6dl-prtrvt.dts;arch/arm/boot/dts/imx6qdl-prti6q.dtsi	-
+013	940ccc291ccaa1b7e6f0328526584e2405b903ee	30728643d5b84ee0dafe8658b3d2c1b9d3ca1055	picked	ASoC: Intel: sof_sdw: Add support for Rex soundwire	sound/soc/intel/boards/sof_sdw.c	-
+014	df907501ba543a2adb8ef224a8f9b0c8f9786328	57191215b2c09902233bb6614bc9f49958d8d306	picked	iopoll: Call cpu_relax() in busy loops	include/linux/iopoll.h	-
+015	8a4f4d47b82f61138214b74c309270fafbeb4ba2	f9d2759159cb31fdc83a3bd9a398c3f80016b61c	picked	quota: Properly disable quotas when add_dquot_ref() fails	fs/quota/dquot.c	-
+016	cbaebbba722cb9738c55903efce11f51cdd97bee	1f49f8e341e9c567d52ce86fe0ab0d1b1671cf4b	picked	quota: fix warning in dqgrab()	fs/quota/dquot.c	-
+017	04e774fb678979a28ff82e860938e4e06829e268	fd9fb57c30b2df700dd5a9bd09ca10ad9346824b	picked	dma-remap: use kvmalloc_array/kvfree for larger dma memory remap	kernel/dma/remap.c	-
+018	04bd3a362d2f1788272776bd8b10e5a012e69b77	e914cb9e413650e3595163f3da11703f3e9d7c09	picked	drm/amdgpu: install stub fence into potential unused fence pointers	drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c	-
+019	19312bc3ff678142d5a31ea1f9d08f2ace659ddb	79ac721a3771c212f43b17a3339495a682b18d45	picked	HID: add quirk for 03f0:464a HP Elite Presenter Mouse	drivers/hid/hid-ids.h;drivers/hid/hid-quirks.c	-
+020	73311dd831858d797cf8ebe140654ed519b41c36	6437438817a1bb1549b8724514f27fc6c2381596	picked	RDMA/mlx5: Return the firmware result upon destroying QP/RQ	drivers/infiniband/hw/mlx5/qpc.c	-
+021	a2966e0436dd6f20fda68ac903971411ba20a9a8	f26b2836f4d7c79bca0523f3cc78583ba1f053d8	picked	ovl: check type and offset of struct vfsmount in ovl_entry	fs/overlayfs/ovl_entry.h	-
+022	4503f6fc95d6dee85fb2c54785848799e192c51c	80c0d8c47b344721687ae07f27ec0f3c8bf12caf	picked	udf: Fix uninitialized array access for some pathnames	fs/udf/unicode.c	-
+023	911b48eec45152822bccf45cd3563b48256b1520	4af34e8779df60732c2a9b3232c10b9b324063a6	picked	fs: jfs: Fix UBSAN: array-index-out-of-bounds in dbAllocDmapLev	fs/jfs/jfs_dmap.c	-
+024	e778c8b0a9b6c5a0206c3b86e19defee9d9a7581	d781c4be008ac59ac7197ac2078cdb2e0b05a3f2	picked	MIPS: dec: prom: Address -Warray-bounds warning	arch/mips/include/asm/dec/prom.h	-
+025	2a3f20efe6c901d4c0871cfd1d8c65e2ade71fc1	862e80e8a83446a9e50334f88af54dbc1bf9b46d	picked	FS: JFS: Fix null-ptr-deref Read in txBegin	fs/jfs/namei.c	-
+026	5c094ca994824e038b6a97835ded4e5d1d808504	cd5e4df108db776e3410f8f4cb7e71cd4f90f094	picked	FS: JFS: Check for read-only mounted filesystem in txBegin	fs/jfs/jfs_txnmgr.c	-
+027	e52de26cb37459b16213438a2c82feb155dd3bbd	f67583eacc651abc68c18fb1423ef5af11e48153	picked	media: v4l2-mem2mem: add lock to protect parameter num_rdy	include/media/v4l2-mem2mem.h	-
+028	99d6afa19d6de25e609a803cb209544f0d630364	92ec7efc3ae3bc68cfa9c28d8535ff5e6f2fd193	picked	usb: gadget: u_serial: Avoid spinlock recursion in __gs_console_push	drivers/usb/gadget/function/u_serial.c	-
+029	2caeb722f0ea5d2d24af30bb1753a89d449b6aa0	c5131327250eaef4eef6feed1943f2e91cf13c71	picked	media: platform: mediatek: vpu: fix NULL ptr dereference	drivers/media/platform/mtk-vpu/mtk_vpu.c	-
+030	7a3a7c6fa0dc15a3803d3dcee480e989ecb540c9	3966873367cab03e2603ee71f696f8826d3ca6f6	picked	usb: chipidea: imx: don't request QoS for imx8ulp	drivers/usb/chipidea/ci_hdrc_imx.c	-
+031	e8f3d96051c14b6bb087ccb8347eced5e7432774	d100e6a398a27e9bdb5874628a419347d449799a	picked	usb: chipidea: imx: add missing USB PHY DPDM wakeup setting	drivers/usb/chipidea/usbmisc_imx.c	-
+032	7c5b2649f6a37d45bfb7abf34c9b71d08677139f	4281fb9ce3b442bb0dfa29782462601d3c5ac096	picked	gfs2: Fix possible data races in gfs2_show_options()	fs/gfs2/super.c	-
+033	04bb8af40a7729c398ed4caea7e66cedd2881719	cb5c956c9af9956139662363577b17f1ab24fdac	picked	pcmcia: rsrc_nonstatic: Fix memory leak in nonstatic_release_resource_db()	drivers/pcmcia/rsrc_nonstatic.c	-
+034	2958cf9f805b9f0bdc4a761bf6ea281eb8d44f8e	f471b62267ddb46440196ece49ebffed4678eaa2	picked	Bluetooth: L2CAP: Fix use-after-free	net/bluetooth/l2cap_core.c	-
+035	f19add5c77601599f52dd7e3554e58da5d25367c	34a7fcc67985a46e9c92cd7288f6b1ac27d6ec81	picked	Bluetooth: btusb: Add MT7922 bluetooth ID for the Asus Ally	drivers/bluetooth/btusb.c	-
+036	b870b9a47fdba29bd6828f690e4817c950fa3430	dec4c7d38ca67583568b5acfb431a1b240e6c6ce	picked	drm/amdgpu: Fix potential fence use-after-free v2	drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c	-
+037	7a21c2e474ae6f0edeac36d4b6a3e4336c021802	3fbb6eac835b2f50c07adb62360bc6eab94a2f8e	picked	ALSA: hda/realtek: Add quirks for Unis H3C Desktop B760 & Q760	sound/pci/hda/patch_realtek.c	-
+038	9f9eed451176ffcac6b5ba0f6dae1a6b4a1cb0eb	c9c472db78354c41d7e1e33554a2e56ba2c05449	picked	ALSA: hda: fix a possible null-pointer dereference due to data race in snd_hdac_regmap_sync()	sound/hda/hdac_regmap.c	-
+039	dd5a12cdf20c457c5654ee7204dfce0e198a3ea5	ac761fa219caa2a04340610bda7854d7f061138d	picked	powerpc/kasan: Disable KCOV in KASAN code	arch/powerpc/mm/kasan/Makefile	-
+040	66a3b2a121386702663065d5c9e5a33c03d3f4a2	5a1a1abbcf00d2a68c0799b74bb3df254fa46d5a	picked	ring-buffer: Do not swap cpu_buffer during resize process	kernel/trace/ring_buffer.c;kernel/trace/trace.c	-
+041	bb70fdbfa272bb3d1224bbfbc168bad9e7fe964d	82d3ce83334ad7f74ce609cd05bb1e8fda28cb51	picked	IMA: allow/fix UML builds	security/integrity/ima/Kconfig	-
+042	c5e580831b2dd4eb42b3f1baccec7ea3e4fb6077	0699ad7f42ab0d143248d360a3a67682f72865cc	picked	iio: add addac subdirectory	drivers/iio/Kconfig;drivers/iio/Makefile;drivers/iio/addac/Kconfig;drivers/iio/addac/Makefile	-
+043	d2ba1f40fc09914394516f6aba473cc713941c80	d2ee064d6860ebde1efe16f3b6d3c0b31c360fd0	picked	dt-bindings: iio: add AD74413R	Documentation/devicetree/bindings/iio/addac/adi,ad74413r.yaml;include/dt-bindings/iio/addac/adi,ad74413r.h	-
+044	9d1609824554d49fe010cd27e79c5491f79b93b0	da2cd5d4e6742d9c9d18743c52e1e589037fb3f7	picked	iio: adc: stx104: Utilize iomap interface	drivers/iio/adc/stx104.c	-
+045	f6576d4851facdfdfbca4280994c17e4cc93e2db	93bb9b46018b5705fb4b31873f81640dcb0656b2	picked	iio: adc: stx104: Implement and utilize register structures	drivers/iio/adc/stx104.c	-
+046	aeecd8d97da758b9cc41cacfd45de0e76237b674	3b35ed9f94325b57dc16be3b3fa0abc6dec9a536	picked	iio: addac: stx104: Fix race condition for stx104_write_raw()	drivers/iio/adc/stx104.c	-
+047	436b4232533a8eb586f75179b391da17e18cdf1e	21c50bd7e8993fd3fcabdedc57eeef5de416b2f8	picked	iio: addac: stx104: Fix race condition when converting analog-to-digital	drivers/iio/adc/stx104.c	-
+048	1cacbb711e322402d2d731f7b65182d992cb65a1	24e6883f459ccfb8075a96534c11501fc9d9eb5e	picked	bus: mhi: Add MHI PCI support for WWAN modems	drivers/bus/mhi/Kconfig;drivers/bus/mhi/Makefile;drivers/bus/mhi/pci_generic.c	-
+049	f73891261566c8b0dae759fde5498d98f4f17ab6	0dd151493ba94113771e6d9f6b36fcc095a05e5c	picked	bus: mhi: Add MMIO region length to controller structure	include/linux/mhi.h	-
+050	77944a6f3cf85bd4af5fbda1c5ee07009e27515e	35ad257667e01bb0e28ca70675a8b7eca84c419a	picked	bus: mhi: Move host MHI code to "host" directory	drivers/bus/Makefile;drivers/bus/mhi/Kconfig;drivers/bus/mhi/Makefile;drivers/bus/mhi/core/Makefile;drivers/bus/mhi/core/boot.c;drivers/bus/mhi/core/debugfs.c;drivers/bus/mhi/core/init.c;drivers/bus/mhi/core/internal.h;drivers/bus/mhi/core/main.c;drivers/bus/mhi/core/pm.c;drivers/bus/mhi/host/Kconfig;drivers/bus/mhi/host/Makefile;drivers/bus/mhi/host/boot.c;drivers/bus/mhi/host/debugfs.c;drivers/bus/mhi/host/init.c;drivers/bus/mhi/host/internal.h;drivers/bus/mhi/host/main.c;drivers/bus/mhi/host/pci_generic.c;drivers/bus/mhi/host/pm.c;drivers/bus/mhi/pci_generic.c	-
+051	372f1752b74572b0a9d2288841eab7db17daccae	d854ed3ff15d28b0042d184d48e6acefb70cdae0	picked	bus: mhi: host: Range check CHDBOFF and ERDBOFF	drivers/bus/mhi/host/init.c	-
+052	0704666c570d13061bb97e1fa483561501260618	49eff38357156ec11e10f98b430be41cb65ea722	picked	irqchip/mips-gic: Get rid of the reliance on irq_cpu_online()	drivers/irqchip/irq-mips-gic.c	-
+053	a64f5fe493b50f69799e998678ecfd7711d3fba9	161648d1c3261800e4c8a4a6d8e10dde2a6fb0c7	picked	irqchip/mips-gic: Use raw spinlock for gic_lock	drivers/irqchip/irq-mips-gic.c	-
+054	a461bcfb36d62a9598f6efe1672de44e68f21ed1	-	already-present	usb: gadget: udc: core: Introduce check_config to verify USB configuration	drivers/usb/gadget/udc/core.c;include/linux/usb/gadget.h	Complete check_config implementation/export, precise gadget callback field and enabled/disabled public declarations already exist in original ALN sources. Header post-context differs only because later callback additions and Android KABI reserves follow the field; do not add a duplicate member or drop those interfaces.
+055	f5c11b45f3f97126b4f56b3758287cf4f7a82062	9d3c56f332836104980cc9a40b5467e96a02b6d6	picked	usb: cdns3: allocate TX FIFO size according to composite EP number	drivers/usb/cdns3/gadget.c;drivers/usb/cdns3/gadget.h	-
+056	3e2b5d66e9266c32d5d92d13636f1b5ae5315c06	8d99fffd3809ff69e84b1e949a80fc02c95476ec	picked	usb: cdns3: fix NCM gadget RX speed 20x slow than expection at iMX8QM	drivers/usb/cdns3/gadget.c	-
+057	01dfc61f72a86fb46aa11e68b402183d6470ac29	-	not-applicable	USB: dwc3: qcom: fix NULL-deref on suspend	drivers/usb/dwc3/dwc3-qcom.c	The QCOM glue provider is absent from the imported ALN tree; its Kconfig option is not selected and there is no current object. The Qualcomm-specific host-role probe helper has no Kirin equivalent to patch; do not introduce an unrelated platform driver to apply a NULL check.
+058	939a12f29a4bfaca08ac40eeef820747e09a6c51	cf3acdc8cca6ac3fb3e6b1adb0318fa76eeb01ef	picked	mmc: bcm2835: fix deferred probing	drivers/mmc/host/bcm2835.c	-
+059	d523ce6f51f1ae3098d8e738307dadc612c8c6fb	d6597270ba9fbb7429772b1bade362b2d34dfa2f	picked	mmc: sunxi: fix deferred probing	drivers/mmc/host/sunxi-mmc.c	-
+060	50ed76c9e09bff90c595d9531cdce5d8904324ee	b4efaff2ca3b1beb249615ed6185de080bf07944	picked	mmc: core: add devm_mmc_alloc_host	drivers/mmc/core/host.c;include/linux/mmc/host.h	-
+061	e8a41b4a5008e2ab24c36a8daa4da8a46a2ab2c5	97394219e4c8989c180ad24e4e2f9b7054ddb536	picked	mmc: meson-gx: use devm_mmc_alloc_host	drivers/mmc/host/meson-gx-mmc.c	-
+062	a89054535368a06bad6939ef51bc87caf3e714dc	7a0ea139193f8d8cbec63db9d5f0483ae9849c38	picked	mmc: meson-gx: fix deferred probing	drivers/mmc/host/meson-gx-mmc.c	-
+063	265a979dedb123aba2480112cf0288ebf348de84	a08d6279d52f8e5e5cc8a4255cc1c3cd01a52018	picked	tracing/probes: Have process_fetch_insn() take a void * instead of pt_regs	kernel/trace/trace_kprobe.c;kernel/trace/trace_probe_tmpl.h;kernel/trace/trace_uprobe.c	-
+064	3b76d92636791261c004979fd1c94edc68058d3e	c54197a298a318f784d5d46b3be8737e0a0f3551	picked	tracing/probes: Fix to update dynamic data counter if fetcharg uses it	kernel/trace/trace_probe_tmpl.h	-
+065	b1fe05cc51262fb071908faee549bfd923fca808	858186445f24fdd8d0319cea49da16059f5c32fe	picked	virtio-mmio: Use to_virtio_mmio_device() to simply code	drivers/virtio/virtio_mmio.c	-
+066	3ff54d904fafabd0912796785e53cce4e69ca123	2286805ad05a5f59e4c28399e98ab307dc2f9d24	picked	virtio-mmio: don't break lifecycle of vm_dev	drivers/virtio/virtio_mmio.c	-
+067	268cc9bc54bd98979293b10f3f1ff13515809c08	147c8c6f3e42671add8c4e8c091fd76527736cf8	picked	i2c: bcm-iproc: Fix bcm_iproc_i2c_isr deadlock issue	drivers/i2c/busses/i2c-bcm-iproc.c	-
+068	c5f59de36202cbd299f4ad6270167a8e545b4594	a00c07ac3947eaaeed2823b0794a3c19431c1f30	picked	fbdev: mmp: fix value check in mmphw_probe()	drivers/video/fbdev/mmp/hw/mmp_ctrl.c	-
+069	0ba7f969be599e21d4b1f1e947593de6515f4996	af0d670edacede8256b3d426186c76926c160f1c	picked	powerpc/rtas_flash: allow user copy to flash block cache objects	arch/powerpc/kernel/rtas_flash.c	-
+070	869ce5e5984595bd2c62b598d977debc218b6f4d	eb52a4fca80efeeb1f1c2fa52e2e025b12887107	picked	tty: n_gsm: fix the UAF caused by race condition in gsm_cleanup_mux	drivers/tty/n_gsm.c	-
+071	483d713ba2f628687058c6f6ce98e508191bdf77	94a858a8aee1c73d2e35a7e09392ab942bd9c2e3	picked	tty: serial: fsl_lpuart: Clear the error flags by writing 1 for lpuart32 platforms	drivers/tty/serial/fsl_lpuart.c	-
+072	bd7bef82ce0e929ef4cf63a34990545aaca28077	1272c44267e631ae2892711396ab242b57e7456e	picked	btrfs: fix BUG_ON condition in btrfs_cancel_balance	fs/btrfs/volumes.c	-
+073	549e4e167a4d4a9679c831cae536dcb4999a4747	a3bc407a67b54f2e11bfd89a8f2203485f6c69bc	picked	i2c: designware: Handle invalid SMBus block data response length value	drivers/i2c/busses/i2c-designware-master.c	-
+074	7e50815d29037e08d3d26f3ebc41bcec729847b7	-	already-present	net: xfrm: Fix xfrm_address_filter OOB read	net/xfrm/xfrm_user.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+075	8b92d03cfcec3cfa1c1d4e0d19e07434992bd4c0	712d151cfe876fec2d100f0adbc9bac0db212cf2	picked	net: af_key: fix sadb_x_filter validation	net/key/af_key.c	-
+076	0f89909c80a9d426f98d4ada1ac0811372ac509f	a1450c4d7aa928f24ce96ed1e7bbaa7c436270d6	picked	net: xfrm: Amend XFRMA_SEC_CTX nla_policy structure	net/xfrm/xfrm_compat.c;net/xfrm/xfrm_user.c	-
+077	bafa236380816b41b2c4c6970d9067fefa4a6c9e	251c86b0840c92abf2c61f782a0763dec1c8855c	picked	xfrm: fix slab-use-after-free in decode_session6	net/xfrm/xfrm_interface_core.c	-
+078	ec23b25e5687dbd644c0f57bcb6af22dd5a6dd36	0c6554d8a85c9b277132d2e549147be66661354f	picked	ip6_vti: fix slab-use-after-free in decode_session6	net/ipv6/ip6_vti.c	-
+079	0b4d69539fdea138af2befe08893850c89248068	5a01b7888c9699c135ad412088bdae30d46ccde0	picked	ip_vti: fix potential slab-use-after-free in decode_session6	net/ipv4/ip_vti.c	-
+080	bd30aa9c7febb6e709670cd5154194189ca3b7b5	-	already-present	xfrm: add NULL check in xfrm_update_ae_params	net/xfrm/xfrm_user.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+081	614811692e21cef324d897202ad37c17d4390da3	-	already-present	xfrm: add forgotten nla_policy for XFRMA_MTIMER_THRESH	net/xfrm/xfrm_user.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+082	86517421f470bf153eaa19de0e9eb3c8184bc810	c5f9a806274fafa374dcb7f9a698929cab4ed176	picked	selftests: mirror_gre_changes: Tighten up the TTL test match	tools/testing/selftests/net/forwarding/mirror_gre_changes.sh	-
+083	c8d0d3811e20d57284891d452f330ebaf36efd4c	bd38f2a637e886b27d23a2e716220b42574a70c9	picked	drm/panel: simple: Fix AUO G121EAN01 panel timings according to the docs	drivers/gpu/drm/panel/panel-simple.c	-
+084	49f57a9087d135542ed3de878bdf0eef9333289f	5f2af0114141c062608dc96f9a89f577e553ffa9	picked	ipvs: fix racy memcpy in proc_do_sync_threshold	net/netfilter/ipvs/ip_vs_ctl.c	-
+085	a7653eaea0a59a6993c62d3653af5c880ce28533	39f2c08d6a259310513d5ec72835eba7de9a9f17	picked	netfilter: nft_dynset: disallow object maps	net/netfilter/nft_dynset.c	-
+086	526d42c558f5133bcf9fff831eb3f2995ef5a7b3	b69122183a19b09071b9962c342f048ab74770d3	picked	net: phy: broadcom: stub c45 read/write for 54810	drivers/net/phy/broadcom.c	-
+087	abe68922d77492a46adb5fc22f70729c30c561ed	490022f3c5437c6d1989e729dbc05f76d2eb531f	picked	team: Fix incorrect deletion of ETH_P_8021AD protocol vid from slaves	drivers/net/team/team.c	-
+088	0a9040dedec21fbf362437d35f5e6f57735c06d2	ffb85067796463334d4435cf1a8a4f66d8bc862e	picked	i40e: fix misleading debug logs	drivers/net/ethernet/intel/i40e/i40e_nvm.c	-
+089	773075d38a2f0b77d94bfa024a5741d3516c46aa	03b9f95d2467b23e85f0cd2a092f6d6a0d72c9e9	picked	net: dsa: mv88e6xxx: Wait for EEPROM done before HW reset	drivers/net/dsa/mv88e6xxx/chip.c	-
+090	51bc052db86dd6f0edb428b867a1bcededda8539	4fa5fcfd6df343972b9ffe11345eab8754cbdfeb	picked	sock: Fix misuse of sk_under_memory_pressure()	include/net/sock.h;net/core/sock.c	-
+091	0a593e8a9d24360fbc469c5897d0791aa2f20ed3	83a4008d9019b14c14eaad71e1b9782699c4b54c	picked	net: do not allow gso_size to be set to GSO_BY_FRAGS	include/linux/virtio_net.h	-
+092	73990370d63d7416e5efd41669d4a8407bc41e92	2781b68d1fb501dfd0cb25eaa2ddae11d697691f	picked	bus: ti-sysc: Flush posted write on enable before reset	drivers/bus/ti-sysc.c	-
+093	eb5b1e932c185f856a90ad661be1f9f33d856676	1b82f8c42145745b446e7f8ea1ba59043c8d82ec	picked	arm64: dts: rockchip: fix supplies on rk3399-rock-pi-4	arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi	-
+094	1411c3e86e66cc30f4dee15937276ed33598b787	470955bd84fded717ec256895cbda94d8a7b891b	picked	arm64: dts: rockchip: use USB host by default on rk3399-rock-pi-4	arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi	-
+095	77806f63c317cab3392f3ab7d4c6d392fb4a5da9	a0bcfd01675f809a18ab7a8af4ce01932d03a1bd	picked	arm64: dts: rockchip: add ES8316 codec for ROCK Pi 4	arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi	-
+096	fba59a4b55ae582b0b2a86cb2f854385c69f2761	6af6db272d222a6e67ab3c6d22e85128c7aa99bb	picked	arm64: dts: rockchip: add SPDIF node for ROCK Pi 4	arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi	-
+097	7ba9ac0b5a90ea3838bdb537dc3ec7d725aa0e74	27dd2febaed1de11ba5c6dd9878d6e359e394461	picked	arm64: dts: rockchip: fix regulator name on rk3399-rock-4	arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi	-
+098	70626b93d6eb81ce15260728e4f312e94e46b2de	4a186f4d07add9663ba94bc53ac87123fb4765db	picked	arm64: dts: rockchip: sort nodes/properties on rk3399-rock-4	arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi	-
+099	d23dd85903c915fbecfe3b8615de15db0c5793a1	146721c0952147ebd7121b9d24a097104e01a5cc	picked	arm64: dts: rockchip: Disable HS400 for eMMC on ROCK Pi 4	arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi	-
+100	e761b7e90ac91e00b6ab84e6cad892367b13f196	4c66ed5feaa44a3a18cea9277490ceb9f5265290	picked	ASoC: rt5665: add missed regulator_bulk_disable	sound/soc/codecs/rt5665.c	-
+101	b7d1c719842db2e01206f936d1e3460dcd788a0e	3ce9b3726e7b7116e4882b228eafa84051cf789a	picked	ASoC: meson: axg-tdm-formatter: fix channel slot allocation	sound/soc/meson/axg-tdm-formatter.c	-
+102	03a7f213af465205f3fa7c4b6d4e2b6bef316393	2d1ceadb0223cd561b12c3a41cbb8cc4a5af5d2a	picked	ALSA: hda/realtek - Remodified 3k pull low procedure	sound/pci/hda/patch_realtek.c	-
+103	bd70d0b28010d560a8be96b44fea86fe2ba016ae	20db7287d7611ede28b8b9a4c818673b998ddd75	picked	serial: 8250: Fix oops for port->pm on uart_change_pm()	drivers/tty/serial/8250/8250_port.c	-
+104	a04ac0c31881efacc66f3d674696d93b2f67b277	934e23de8e4cbf878d40781e98daed73b6677956	picked	ALSA: usb-audio: Add support for Mythware XA001AU capture and playback interfaces.	sound/usb/quirks-table.h	-
+105	6e74926ede96470be84e66a1c576982fe4f8ea79	a40ae59b43913730cf55987e711c7e24cdcc09e0	picked	cifs: Release folio lock on fscache read hit.	fs/cifs/file.c	-
+106	9022e9e62db9a560817a7f48386eb8b6f675304f	228f9996864d5754c31c7a0fddcef2182787bc83	picked	mmc: wbsd: fix double mmc_free_host() in wbsd_init()	drivers/mmc/host/wbsd.c	-
+107	e62de63c63f38642788bc570deeb9e97b52eb277	fe75172d8982c74b06dc68c6ea2917befb7e4cdb	picked	mmc: block: Fix in_flight[issue_type] value error	drivers/mmc/core/block.c	-
+108	7aa165d761e70a1761edabf774a0cf74b3771d68	849be641353cc14c298d84ec9face1256ee24039	picked	netfilter: set default timeout to 3 secs for sctp shutdown send and recv state	net/netfilter/nf_conntrack_proto_sctp.c	-
+109	c080cee930303124624fe64fc504f66c815ee6b9	-	already-present	af_unix: Fix null-ptr-deref in unix_stream_sendpage().	net/unix/af_unix.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+110	9aead733f5e0d40e3d2798f4d2fd4a5d7930111c	672f1c3f68d5ba58cf4e0b247ccb33f82bdac0f5	picked	virtio-net: set queues after driver_ok	drivers/net/virtio_net.c	-
+111	98c7fe38c41e41ae247f8fa5125d2a557d65f6e5	ac2742c107dcb8ef1f35236642968cefa4328efb	backported	net: fix the RTO timer retransmitting skb every 1ms if linear option is enabled	net/ipv4/tcp_timer.c	Apply complete original thin-stream RTO clamp using tcp_rto_min(sk), across intervening OEM SYN-linear-retry conditional. Keep that separate SYN path and normal exponential backoff/XEngine hook unchanged; no socket layout or callback change.
+112	5962f64ed2b674103f1b0ee64a36bb8f61e5e06c	b07da25f58a02b48f016cf5adf58b5bc9c7d7354	picked	mmc: f-sdh30: fix order of function calls in sdhci_f_sdh30_remove	drivers/mmc/host/sdhci_f_sdh30.c	-
+113	d5b3c88d153cf10404dc9efb6b17ec2ff5e1dc67	58f4cddbb04908957e6ebddefa4befef8883c2da	picked	x86/cpu: Fix __x86_return_thunk symbol type	arch/x86/lib/retpoline.S	-
+114	043d3bfe0a72a7b164d84bc19ef8fc1c69fcfb79	9143be32c8222d0c5fcbd65a0d57c164d7ea67a6	picked	x86/cpu: Fix up srso_safe_ret() and __x86_return_thunk()	arch/x86/lib/retpoline.S	-
+115	bd3d12e6fda0a7911a0f56f223924bb075b92d1e	3e36f30735c97a33135186dbd3914317a1e63709	picked	x86/alternative: Make custom return thunk unconditional	arch/x86/include/asm/nospec-branch.h;arch/x86/kernel/cpu/bugs.c	-
+116	bbbe1b23c7e61e6dd6cd1389cac704ad14cd9d4a	4b3ebd8637d2a882c646ae5947197a2369a6a79a	picked	objtool: Add frame-pointer-specific function ignore	include/linux/objtool.h;tools/include/linux/objtool.h	-
+117	20e24c8b4c2ab49571457340039d4686515f7f33	bb9eb6ae149dc5af1b5d59c1b762d290bba07eaf	picked	x86/ibt: Add ANNOTATE_NOENDBR	include/linux/objtool.h;tools/include/linux/objtool.h	-
+118	8b0ff83e8ad3daaeab583189ff7504383c854f24	331e5c616e48e98b56792d6dc5d0017620e93ce8	picked	x86/cpu: Clean up SRSO return thunk mess	arch/x86/include/asm/nospec-branch.h;arch/x86/kernel/cpu/bugs.c;arch/x86/kernel/vmlinux.lds.S;arch/x86/lib/retpoline.S;tools/objtool/arch/x86/decode.c	-
+119	0676a392539be5ace44588d68dc13483fedea08c	cf8550429133f384a3ae5ea21e9cf25070e679c2	picked	x86/cpu: Rename original retbleed methods	arch/x86/include/asm/nospec-branch.h;arch/x86/kernel/cpu/bugs.c;arch/x86/kernel/vmlinux.lds.S;arch/x86/lib/retpoline.S;tools/objtool/arch/x86/decode.c;tools/objtool/check.c	-
+120	e0f50b0e4186489f9abc8d7cd3c654f47eefc792	7cf97aa7d17a3f6bc8cdd96eb007a873bfc4f7e0	picked	x86/cpu: Rename srso_(.*)_alias to srso_alias_\1	Documentation/admin-guide/hw-vuln/srso.rst;arch/x86/include/asm/nospec-branch.h;arch/x86/kernel/vmlinux.lds.S;arch/x86/lib/retpoline.S	-
+121	06597b650beb49bffc61e077f41e39b830d72128	2ffa436134e12a972b053a9b09dc1c2a6d5128ce	picked	x86/cpu: Cleanup the untrain mess	arch/x86/include/asm/nospec-branch.h;arch/x86/kernel/cpu/bugs.c;arch/x86/lib/retpoline.S	-
+122	d2be58f9215a480c1aed3e47e1b2b889d83a8fed	2636dd3917dbadc2d898bdb12cfc626d2d624599	picked	x86/srso: Explain the untraining sequences a bit more	arch/x86/lib/retpoline.S	-
+123	91b349289ef1540b0374ac0c1896dbddb8d4aff1	23d57ff41114893d5c1c4e3cc1f74c27d69a286d	picked	x86/static_call: Fix __static_call_fixup()	arch/x86/kernel/static_call.c	-
+124	62ebfeb0dcf7f107f0b08bc98c1f9b6619f4f212	21626316a74cccbf2109eb9ed6f7c4a1e1d2cfdc	picked	x86/retpoline: Don't clobber RFLAGS during srso_safe_ret()	arch/x86/lib/retpoline.S	-
+125	69712baf249570a1419e75dc1a103a44e375b2cd	98f9a963dc4c53ff9d9961679186306450124c80	picked	x86/CPU/AMD: Fix the DIV(0) initial fix attempt	arch/x86/include/asm/entry-common.h;arch/x86/kernel/cpu/amd.c;arch/x86/kernel/traps.c;arch/x86/kvm/svm/svm.c	-
+126	88e16ce7f8a6b1e1024f70f1729b93e5612da7b2	2037408a93bd7509388ff9bf811577b2081d7cda	picked	x86/srso: Disable the mitigation on unaffected configurations	arch/x86/kernel/cpu/bugs.c	-
+127	26e3f7690cda4e241835ca80c3fbaf1b615a05a8	6403234ff67f7ea6b8074b4b91ce57be06ad0f8c	picked	x86/retpoline,kprobes: Fix position of thunk sections with CONFIG_LTO_CLANG	arch/x86/kernel/vmlinux.lds.S;arch/x86/lib/retpoline.S;tools/objtool/check.c	-
+128	23e59874657c6396abb82544f6f60d100d84ee6a	5fd9dcffa6cd41e560744e433869c7e1d9247e5c	picked	objtool/x86: Fixup frame-pointer vs rethunk	tools/objtool/check.c	-
+129	0e8139f92304cef82ac769cfb51dda341a17fb1c	508fe68b1d5e53971d9e00d4a885344711764b4c	picked	x86/srso: Correct the mitigation status when SMT is disabled	arch/x86/kernel/cpu/bugs.c	-
+130	1599cb60bace881ce05fa520e5251be341e380d2	f37b6c60c989c34eb9853610672e3db8530ee92d	backported	Linux 5.10.192	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
