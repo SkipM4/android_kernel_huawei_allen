@@ -42,4 +42,3 @@ SYM_CODE_END(mds_verw_sel);
 EXPORT_SYMBOL_GPL(mds_verw_sel);
 
 .popsection
-
