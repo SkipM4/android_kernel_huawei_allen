@@ -11,15 +11,14 @@ For subsequent stable milestones, normal Android boot and automatic matching
 module loading are the user's required runtime gate. Keep paired-build,
 readback, security and boot-log sanity checks; do not replay passed full
 hardware regressions without a new relevant change, fault or unresolved issue.
-Installed candidate is #85/5.10.195 on `upstream/linux-5.10.y`, kernel source
-`38bf2c8e46`; immediate paired rollback is #82/5.10.190. Complete191-195
-resolves699 originals with690 original-author commits. The real#83 link
-failure and#84 configfs spinlock-recursion boot failure are recorded. Recovery
-preserves84 logs and restores82 before official configfs revert2cc1f4986233
-is separately imported. Repaired85 full build,226-target/116-group CFI,
-current HF/GPIO stores, signed matching modules, normal Android/automatic
-Live modem/CE/services/ISP and WARN/Oops counts pass. Original configfs
-cursor race, ACK/vendor split, GKI/KMI and full hardware/power remain open.
+Installed candidate is #86/5.10.200 on `upstream/linux-5.10.y`, kernel source
+`c0e3bac720`; immediate paired rollback is #85/5.10.195. Complete196-200
+resolves601 originals with587 original-author commits. #86 full build,118
+CFI groups/230 targets, current shared layouts, signed matching modules,
+normal Android/automatic Live modem/CE/services/ISP and WARN/Oops counts pass.
+The #84 configfs recursion and official revert remain recorded in history;
+the target is running normally, not in recovery. The original configfs cursor
+race, ACK/vendor split, GKI/KMI and full hardware/power remain open.
 Accepted79 private-ring evidence is retained, not replayed.
 The accepted162-165 single-core explicit-standard-mode/default-Hyperframe migration passes
 current build/layout/CFI, normal Android/automatic modules and nine finite
@@ -80,7 +79,7 @@ removed and the device stays #50/Asleep. Full hardware/power/GKI remains open.
 | Step | Work | Acceptance Condition | State |
 | --- | --- | --- | --- |
 | U01 | First stable batch through 5.10.44 | Ordered provenance ledger, duplicate/absence classification, reviewed adaptations and matched build/installation with scoped regression | #50 Installed; Source/Build/Pair/Boot/USB/Direct-I/O/Frame-Stop Pass; Full Runtime Open |
-| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through5.10.195 Resolved; Repaired#85 Build/Current Interfaces/226-Target-116-Group CFI/Signed Pair/Normal Android/Auto Module/CE/ISP/WARN-Oops Pass; #82 Immediate Recovery; Failed84/71/65 Evidence Retained; Next Complete196-200 Toward Pinned274 |
+| U02 | Next 5.10.y batches, starting at 5.10.45 | Bounded ordered imports toward a pinned target; matched build, normal Android boot and automatic module loading at milestones, retaining paired rollback | All Ordered Entries Through5.10.200 Resolved; #86 Build/118-Group-230-Target CFI/Signed Pair/Normal Android/Auto Module/CE/ISP/WARN-Oops Pass; #85 Immediate Recovery; Failed84/71/65 Evidence Retained; Next Complete201-205 Toward Pinned274 |
 | U03 | Android common alignment | Audit version-matched ACK deltas and preserve required hardware/userspace contracts | Not Started; Stable Picks Are Not ACK Parity |
 | U04 | Vendor/core split and GKI preparation | Audit OEM hooks, vendor-module dependencies, configuration/KMI and relevant installed regressions | Not Started; No GKI Certification |
 
