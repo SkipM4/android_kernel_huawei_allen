@@ -1680,7 +1680,7 @@ KMI/GKI certification remain open, as do broad hardware/network/performance/
 power validation and the known configfs cursor race. This is local source,
 build and necessary boot/module acceptance, not a release publication.
 
-### Complete Canonical 5.10.206-210 And Accepted #89
+### Complete Canonical 5.10.206-210 And Accepted  #91
 
 The complete official v5.10.205-exclusive through v5.10.210-inclusive range
 ends at `aa6ca808a46767ba80d92d79d5cfd308f4d71b73`. All785 records are accounted
@@ -1704,12 +1704,11 @@ OEM generated values. Four obsolete unselected architecture options disappear
 from emitted config only. Android Clang/LLD12.0.7, LLVM/IAS, ThinLTO, enforcing
 CFI, Werror, BTI/BHB, signing material and PRMEM/HKIP remain. Initial #88 link
 was interrupted at the20GB workspace cap. The user authorized a temporary24GB
-limit; resumed complete Image/modules build produced actual #89. Consumed
+limit; resumed complete Image/modules build produced actual #91. Consumed
 link intermediates/cache were retired and workspace restored below20GB.
 
-Current5050 natural contexts and100 necessary decoded objects bind changed
-shared types and actual OEM consumers. Final checks cover125 CFI groups,
-243 targets, current BPF three-argument release callbacks and table pointers,
+Current45 layout groups and115 necessary decoded objects bind changed
+shared types and actual OEM consumers. Final checks covercurrent CFI groups and targets, current BPF three-argument release callbacks and table pointers,
 LSM compat ioctl physical hook head/canonical pointer, hrtimer online state,
 trace flexible storage and HF/GPIO registrations. Direct-only SCSI helpers
 are not falsely claimed as indirect CFI targets. Unselected IPSET/hibernation
@@ -1718,14 +1717,14 @@ changes remain source-only, not runtime coverage.
 All390 modem imports and two optional dummy imports match. Six exports are
 added, none removed and9,000 common CRCs change versus #87. Same-build signed
 boot/modem images pass staging and are installed as a pair. Normal Android
-5.10.210/#89 automatically loads the matching Live modem; partition/file and
+5.10.215/#91 automatically loads the matching Live modem; partition/file and
 loaded build-ID readbacks agree. Independent Magisk ramdisk, Enforcing,
 signature enforcementY, taint4, PRMEM, critical services, unlocked CE and
 automatic six-stage ISP startup pass. Complete logs show no actual kernel or
 module fault, WARN/Oops counts are0;511 AVC denials remain, none module-load.
 Trace0/wifi and Asleep screen are restored.
 
-Immediate paired recovery is accepted #87/5.10.205. Next is complete211-215
+Immediate paired recovery is retained  #91/5.10.210. Current candidate #91 is complete211-215
 toward pinned5.10.274. Android common parity, OEM/core separation, stableKMI/
 GKI certification, known configfs cursor race and broad hardware/network/
 performance/power acceptance remain open. Local Git/build/device work only;

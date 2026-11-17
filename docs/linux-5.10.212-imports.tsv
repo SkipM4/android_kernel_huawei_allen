@@ -1,0 +1,43 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	bf85def4b6cbfa50811c478d397e3c86c1d03112	749e6d6120445105a4716ac1568ed8ce769b6a85	picked	platform/x86: touchscreen_dmi: Allow partial (prefix) matches for ACPI names	drivers/platform/x86/touchscreen_dmi.c	-
+002	37077ed16c7793e21b005979d33f8a61565b7e86	c2f7992c4e70b2b352482a12e2b861af2084e666	picked	crypto: virtio/akcipher - Fix stack overflow on memcpy	drivers/crypto/virtio/virtio_crypto_akcipher_algs.c	-
+003	8e3a867593e1f2f1fcaea813760f4a3a27fab859	5995b3362fec77277b671eb430214d79b5678977	picked	mtd: spinand: gigadevice: Support GD5F1GQ5UExxG	drivers/mtd/nand/spi/gigadevice.c	-
+004	acd9f6d481d89d4624641381ed633b0811cf0ff5	f0e6c8f0ca1d282f54165a7008576d7de9869005	picked	mtd: spinand: gigadevice: Fix the get ecc status issue	drivers/mtd/nand/spi/gigadevice.c	-
+005	f19d1f98e60e68b11fc60839105dd02a30ec0d77	-	already-present	netlink: Fix kernel-infoleak-after-free in __skb_datagram_iter	net/netlink/af_netlink.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+006	2e95350fe9db9d53c701075060ac8ac883b68aee	-	already-present	net: ip_tunnel: prevent perpetual headroom growth	net/ipv4/ip_tunnel.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+007	906986fed8276438e62af2e636e61a1f54e34acb	ae6dcc0e53061746fb9460fdfad5b905a372f28e	picked	tun: Fix xdp_rxq_info's queue_index when detaching	drivers/net/tun.c	-
+008	810fa7d5e5202fcfb22720304b755f1bdfd4c174	-	already-present	ipv6: fix potential "struct net" leak in inet6_rtm_getaddr()	net/ipv6/addrconf.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+009	c1c7396b571c230f4585607e37e4c69b23c8890d	17e05ebfdee919b36ccf895e20891333936c2f26	picked	lan78xx: enable auto speed configuration for LAN7850 if no EEPROM is detected	drivers/net/usb/lan78xx.c	-
+010	6782a54e1a7f7689618246285094eefce2f36253	bb91485fe42414a40200bcc8b2e75f1e008a116c	picked	net: usb: dm9601: fix wrong return value in dm9601_mdio_read	drivers/net/usb/dm9601.c	-
+011	6dd0a9dfa99f8990a08eb8fdd8e79bee31c7d8e2	af96ffc3f439e6cfc805da21a82a2964c8d85e1f	picked	Bluetooth: Avoid potential use-after-free in hci_error_reset	net/bluetooth/hci_core.c	-
+012	0309b68aeaac291a8e25c6fe622be504bfa42584	09b9660d14108412bf5d3a1bff4c350f2d3e5b18	picked	Bluetooth: hci_event: Fix wrongly recorded wakeup BD_ADDR	net/bluetooth/hci_event.c	-
+013	df193568d61234c81de7ed4d540c01975de60277	eda373a30f3fef6f5a087da48ea9ccd2a387ef51	picked	Bluetooth: hci_event: Fix handling of HCI_EV_IO_CAPA_REQUEST	net/bluetooth/hci_event.c	-
+014	e24acaefdd794118efa66cadba463b67a21ce12d	f607606eabef8cd12c28a27d43da4dfccfd2e66a	picked	Bluetooth: Enforce validation on max value of connection interval	net/bluetooth/hci_event.c;net/bluetooth/l2cap_core.c	-
+015	80fabcd5d10c7946285d3f0fec53bae37e6d7741	4b236ef8f253b14befc06ec3f46256e15c48f9fc	picked	netfilter: nf_tables: allow NFPROTO_INET in nft_(match/target)_validate()	net/netfilter/nft_compat.c	-
+016	882a51a10ecf24ce135d573afa0872aef02c5125	39e66d0c023c1d84daad505b7d7c5b3e6bbeccd8	backported	rtnetlink: fix error logic of IFLA_BRIDGE_FLAGS writing back	net/core/rtnetlink.c	Existing captured flags_attr writeback already fixes the cursor bug. Complete original boolean-to-pointer simplification scoped only to setlink, preserving mode validation and other routines.
+017	537e3f49dbe88881a6f0752beaa596942d9efd64	5df530d66830b0202b648c19a7992d33bbe990ca	picked	efi/capsule-loader: fix incorrect allocation size	drivers/firmware/efi/capsule-loader.c	-
+018	d7acc4a569f5f4513120c85ea2b9f04909b7490f	1a4b2b42d8bb4a08a9ff3a292147e3e6939e58c6	picked	power: supply: bq27xxx-i2c: Do not free non existing IRQ	drivers/power/supply/bq27xxx_battery_i2c.c	-
+019	14aacfcd73082451b2b103f82afc266f80fdb254	cebce0b0816ed7dd19764d99898972a2d8849bd1	picked	ALSA: Drop leftover snd-rtctimer stuff from Makefile	sound/core/Makefile	-
+020	96370ba395c572ef496fd2c7afc4a1ab3dedd3f0	22530cee6e8b9ba7b3db08b409f5f155abd7d78f	picked	afs: Fix endless loop in directory parsing	fs/afs/dir.c	-
+021	8af1c121b0102041809bc137ec600d1865eaeedd	4bf1ee9dea17d4be13c138dcf766357209dad906	picked	riscv: Sparse-Memory/vmemmap out-of-bounds fix	arch/riscv/include/asm/pgtable.h	-
+022	a23ac1788e2c828c097119e9a3178f0b7e503fee	b3c6dd765f8ff4816bede13593214e34f668c701	picked	tomoyo: fix UAF write bug in tomoyo_write_control()	security/tomoyo/common.c	-
+023	e668b92a3a01429923fd5ca13e99642aab47de69	51d9b320f2495de59adbe8427c29288f86d4f2f4	picked	gtp: fix use-after-free and null-ptr-deref in gtp_newlink()	drivers/net/gtp.c	-
+024	99eb2159680af8786104dac80528acd5acd45980	-	already-present	wifi: nl80211: reject iftype change with mesh ID change	net/wireless/nl80211.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+025	2886fe308a83968dde252302884a1e63351cf16d	e362d067751753ee3482dee6a83aef42c8bf8c39	picked	btrfs: dev-replace: properly validate device names	fs/btrfs/dev-replace.c	-
+026	bb3a06e9b9a30e33d96aadc0e077be095a4f8580	0bbcc706f6c113152c861b5345768daeffe2f573	picked	dmaengine: fsl-qdma: fix SoC may hang on 16 byte unaligned read	drivers/dma/fsl-qdma.c	-
+027	9579a21e99fe8dab22a253050ddff28d340d74e1	5e8963c945ad059a160108105f4f2f2cb524fa3f	picked	dmaengine: fsl-qdma: init irq after reg initialization	drivers/dma/fsl-qdma.c	-
+028	3fd14520dd86dbcbf55a47e8b350cac6084a9ae2	1c0f24a48f3da28645b604cf233f00a7388ce276	picked	mmc: core: Fix eMMC initialization with 1-bit bus connection	drivers/mmc/core/mmc.c	-
+029	d3c703c22b09677e6fc4bb6745cf6f26a9fb73c6	10d1f66230d38670ecbceb2f066eee2cbd61caeb	picked	mmc: sdhci-xenon: add timeout for PHY init complete	drivers/mmc/host/sdhci-xenon-phy.c	-
+030	36b02df0a6ce0c0fd31af2cab6607bbeeaccad58	b4629c4a76770128f9b80f4086f69df43f92f9a9	picked	mmc: sdhci-xenon: fix PHY init clock stability	drivers/mmc/host/sdhci-xenon-phy.c	-
+031	7a7cb5266b8f9a3fb65617f4597ad5e650371f37	7f6489cca128b0ea37a243d8e98863eccfb76262	picked	pmdomain: qcom: rpmhpd: Fix enabled_corner aggregation	drivers/soc/qcom/rpmhpd.c	-
+032	36103f8cb9020087b7439d74a304d4197c61b9a6	7d7404ab737b5161f448ce4cc273cd6db861f3c4	picked	x86/cpu/intel: Detect TME keyid bits before setting MTRR mask registers	arch/x86/kernel/cpu/intel.c	-
+033	70e5b013538d5e4cb421afed431a5fcd2a5d49ee	a5c1c9b4092806c81d02f5414ad12e5ac5db3519	picked	mptcp: fix possible deadlock in subflow diag	net/mptcp/diag.c	-
+034	2871728127264603b6a289c1e4c1d7fa80fe5c4b	916978d75eb67442e9d9cb92f413cd9edb045050	picked	ext4: avoid bb_free and bb_fragments inconsistency in mb_free_blocks()	fs/ext4/mballoc.c	-
+035	43eccc5823732ba6daab2511ed32dfc545a666d8	e8fb479eecb21c035e9ab7d205e7c0281f7ef47c	picked	cachefiles: fix memory leak in cachefiles_add_cache()	fs/cachefiles/bind.c	-
+036	80d852299987a8037be145a94f41874228f1a773	3f08ddd07b180ce1dae98c955cc21a25b21ae0d8	picked	fs,hugetlb: fix NULL pointer dereference in hugetlbs_fill_super	fs/hugetlbfs/inode.c	-
+037	947baae18505e4341a7a7d923d3c0f0557b85559	aa11c4b0deecb53753502c96af904dd6a2b52fcf	picked	gpio: 74x164: Enable output pins after registers are reset	drivers/gpio/gpio-74x164.c	-
+038	51f7044d103b35287c1396e786213003be027731	6a60a7c38067b9f21710726f0d70886d58d84c9d	picked	gpiolib: Fix the error path order in gpiochip_add_data_with_key()	drivers/gpio/gpiolib.c	-
+039	1805131d8f939fb1fefa5394b62af71523281990	ff6766afcbc6fc7faa842ef1755b5ae015590fb2	picked	gpio: fix resource unwinding order in error path	drivers/gpio/gpiolib.c	-
+040	30d84d87c36ef6f3c2c49b2049f8187095eb06f2	3239d85f8b3ec26ec632321e066fd5f420a22b97	picked	mtd: spinand: gigadevice: fix Quad IO for GD5F1GQ5UExxG	drivers/mtd/nand/spi/gigadevice.c	-
+041	f74362a004225df935863dea6eb7d82daaa5b16e	-	already-present	mptcp: fix double-free on socket dismantle	net/mptcp/protocol.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+042	7cfcd0ed929b28ff6942c2bee15816d08d6f7266	d5767da252640867c971267cc3f3f0166cc1a39a	backported	Linux 5.10.212	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
