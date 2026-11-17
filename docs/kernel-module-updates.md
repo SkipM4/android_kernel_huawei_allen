@@ -954,3 +954,20 @@ hooks from core code. `CONFIG_MODVERSIONS`, matching vermagic, successful
 signature verification or this paired boot pass alone do not establish KMI
 compatibility. Until that work is done, rebuild every required module from
 the matching source/configuration/toolchain and install it with its kernel.
+
+### Complete 5.10.201-205 / Accepted #87
+
+Kernel #87 and modem are rebuilt together with the same configuration,
+Clang/LLD12.0.7, generated headers and trusted signing key. All390 modem and
+two optional dummy imports match current exports. Four exports are added,
+none removed and8,986 common CRCs change versus #86: old binaries are not
+reused, CRCs/vermagic are not spoofed and security is not relaxed.
+
+The same-build signed boot/modem pair boots normal Android5.10.205 and
+automatically loads the Live modem. Partition/file/build-ID readbacks,
+certificate/filesystem checks and independent ramdisk preservation pass.
+Current device/credential/perf/MMC/GPIO/trace shared layouts and final CFI
+contracts are checked rather than inherited from older offsets. Immediate
+paired recovery is #86. Independent module reuse still requires a matched
+Android common base, explicit KMI generation/symbol policy, type ABI checks
+and OEM dependency separation; this boot pass does not establish GKI/KMI.

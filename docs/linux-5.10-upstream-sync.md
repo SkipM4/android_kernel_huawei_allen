@@ -5326,3 +5326,45 @@ Next is complete201-205 toward pinned274. Android common parity, independent
 stable KMI/GKI certification, OEM/core separation, ACK parity, full
 hardware/network/performance/power acceptance and the configfs cursor race
 remain open. No release export, tag, push or publication occurs.
+
+### Complete Canonical 5.10.201-205 And Accepted #87
+
+The complete ordered stable range from v5.10.200 through v5.10.205
+(`ca4427ebc6269ed2c255db88dc6e7bd2036c3103`) is integrated: 657 originals,
+611 exact, 29 adapted, 14 already present and three inapplicable absent
+Qualcomm DWC3 changes. The five per-release import ledgers preserve original
+provenance and dispositions; 640 ordered original-author commits are retained.
+
+Selected adaptations retain OEM hardware/security contracts while carrying
+upstream hrtimer hotplug migration, atomic-long credential references, perf
+lost-event accounting, trace-file lifetime fixes, device removable state,
+MMC regulator state, ext4 allocation ordering and both F2FS implementations.
+The first actual build error was an OEM one-argument `array_size` macro
+colliding with upstream saturating arithmetic. Separate commit `652175b840`
+uses standard `ARRAY_SIZE` in five bootfail files and removes both obsolete
+header macros; the upstream overflow helpers remain unchanged.
+
+The unchanged effective/emitted configuration builds Image and modules with
+Android Clang/LLD12.0.7, ThinLTO, enforcing CFI, Werror and original signing
+material. Current natural compilation contexts and shared provider/consumer
+layouts cover device, credentials, perf, MMC, GPIO, tracing and retained
+IO/HF/network contracts. Final ELF checks cover 122 CFI groups, 236 targets,
+current table stores and actual HF/GPIO registrations. Both retained local
+verity work callbacks are checked separately; direct-only trace reference
+helpers are not misrepresented as indirect CFI callbacks.
+
+All 390 modem imports and two optional dummy imports match. Versus #86,
+four exports are added, none removed and 8,986 common CRCs change. Same-build
+signed boot/modem images pass staging and device readback checks. Normal
+Android #87 automatically loads the matching Live modem; loaded build ID,
+critical services, unlocked CE and automatic six-stage ISP startup pass.
+SELinux Enforcing, signature enforcement, PRMEM, taint4 and the independent
+Magisk ramdisk remain unchanged. Complete boot/later logs show no actual
+kernel/module fault; WARN/Oops counts are zero. The 508 visible AVC denials
+include no module-load denial. Trace0/wifi and Asleep screen are restored.
+
+Accepted #86/5.10.200 is immediate paired recovery. Next is complete206-210
+toward pinned5.10.274. Android common parity, OEM/core separation and stable
+KMI/GKI certification remain open, as do broad hardware/network/performance/
+power validation and the known configfs cursor race. This is local source,
+build and necessary boot/module acceptance, not a release publication.

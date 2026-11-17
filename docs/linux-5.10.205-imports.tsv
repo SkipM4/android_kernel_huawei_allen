@@ -1,0 +1,62 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	8ee7b2c46594a804c02ee44402e0b04f1acc68e4	edd09cf680a9f38e8d7e50f1bd4908c1d31416b2	picked	netfilter: nf_tables: fix 'exist' matching on bigendian arches	net/netfilter/nft_exthdr.c;net/netfilter/nft_fib.c	-
+002	84eed654ff333b6f2d07258feccb98e97f688ccf	acb8c0f208f36fda0d3593b07085cbfc5bfd38b2	picked	afs: Fix refcount underflow from error handling race	fs/afs/rxrpc.c	-
+003	b30fbeb390d066e7686ce1b9035ebf7c61848ad9	0c4bbbf224c2b59aa7ee8dd6925f0c22ddce7d52	picked	HID: lenovo: Restrict detection of patched firmware only to USB cptkbd	drivers/hid/hid-lenovo.c	-
+004	97275e470c2a6d19916b47b631d6ec3bd4427566	ef8adcf4cca522e1e4c52cba401558236ecb5bcc	picked	net: ipv6: support reporting otherwise unknown prefix flags in RTM_NEWPREFIX	include/net/addrconf.h;include/net/if_inet6.h;net/ipv6/addrconf.c	-
+005	a07e5568d95f879127793ac4eb825885ab6cdcf9	9f54e3a38852ceac0a890e6d032b3aa82d4f16d2	picked	qca_debug: Prevent crash on TX ring changes	drivers/net/ethernet/qualcomm/qca_debug.c;drivers/net/ethernet/qualcomm/qca_spi.c	-
+006	347d10877bde00cd9f998f7dbaa82b87b524a3cf	cf2ecb2624a68c1c9493b45e18eee751a7a4c536	picked	qca_debug: Fix ethtool -G iface tx behavior	drivers/net/ethernet/qualcomm/qca_debug.c	-
+007	6a7b673e6ec7d1a5a86d4ff8c430e0a205a6af2b	3f593584e41f00d86afa8bf2b281d80488aad636	picked	qca_spi: Fix reset behavior	drivers/net/ethernet/qualcomm/qca_spi.c	-
+008	df5c24df63c4d289ca62bb654212bc9507c0d617	429edfa962ab2b99c3fa81f76d0c41eaad136245	picked	atm: solos-pci: Fix potential deadlock on &cli_queue_lock	drivers/atm/solos-pci.c	-
+009	bc0860a3c49c2b13a1c7992239d7e7a034ee34a9	6a417e3e76ba5c2a96d1a2aa28ca06e1979b0663	picked	atm: solos-pci: Fix potential deadlock on &tx_queue_lock	drivers/atm/solos-pci.c	-
+010	d15e4b825dc0b0ad24a54d493be2f17bd8eb7f0b	d49e0e5b372a2a067404605d89a9d2f3afb2f9fe	picked	net: vlan: introduce skb_vlan_eth_hdr()	drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c;drivers/net/ethernet/emulex/benet/be_main.c;drivers/net/ethernet/hisilicon/hns3/hns3_enet.c;drivers/net/ethernet/intel/i40e/i40e_txrx.c;drivers/net/ethernet/intel/ixgbe/ixgbe_main.c;drivers/net/ethernet/qlogic/netxen/netxen_nic_main.c;drivers/net/ethernet/qlogic/qlcnic/qlcnic_io.c;drivers/net/ethernet/sfc/tx_tso.c;drivers/net/ethernet/stmicro/stmmac/stmmac_main.c;drivers/staging/gdm724x/gdm_lte.c;include/linux/if_vlan.h;net/batman-adv/soft-interface.c	-
+011	c20f425e0692815ed5406a2d11f32d1ea9f6bf14	7018e0d0eaafdd962413c822f72160f25dcb0799	picked	net: fec: correct queue selection	drivers/net/ethernet/freescale/fec_main.c	-
+012	64a032015c336ca1795b3e1b1d1f94085ada3553	25ebbcadf0ee4ede75f16bb53c3d21ebe99cb5a5	picked	atm: Fix Use-After-Free in do_vcc_ioctl	net/atm/ioctl.c	-
+013	7eda5960a5332654b10d951e735750ed60d7f0a9	ee26d80b937592eeb4d73627cd550e165dc0bd61	picked	net/rose: Fix Use-After-Free in rose_ioctl	net/rose/af_rose.c	-
+014	10760f4234f752d5752aa5fc7717aedbd4076efc	b11baa018643ebd8d6b8395fd3773c14a32d638e	picked	qed: Fix a potential use-after-free in qed_cxt_tables_alloc	drivers/net/ethernet/qlogic/qed/qed_cxt.c	-
+015	7ed59c4027a8f1badc7a4bf43568603279c41781	2e7b70861812dc5fe9fc39c8a576b7e045e29f90	picked	net: Remove acked SYN flag from packet in the transmit queue correctly	net/ipv4/tcp_output.c	-
+016	c83544b70cc8c0219e17058c395383a03e098ed5	8743e5138fdee52407566f787af66dc79b7c8e75	picked	net: ena: Destroy correct number of xdp queues upon failure	drivers/net/ethernet/amazon/ena/ena_netdev.c	-
+017	25bfae19b84a72517320ae7c21eaf6e4d683d261	b959cdd349cc97a46fa78fc134c8184e120b891b	picked	net: ena: Fix XDP redirection error	drivers/net/ethernet/amazon/ena/ena_eth_com.c	-
+018	4c0d7e8261608e5ffa95ba1ba14eff6b429aae09	d7f0bb3ead691208a1e08ef41bb7f6340b4b91dd	picked	sign-file: Fix incorrect return values check	scripts/sign-file.c	-
+019	52a4c0e82a24b7c7aeb5851917f5501a7ebae99b	90fd8963278222ffea392c33b4f65bd94f1cdbb7	picked	vsock/virtio: Fix unsigned integer wrap around in virtio_transport_has_space()	net/vmw_vsock/virtio_transport_common.c	-
+020	5470533a7d7ea375d0da9e24616952737903fcc0	d1165eba963320fb47541ffb91cd19e86be3dea5	picked	net: stmmac: use dev_err_probe() for reporting mdio bus registration failure	drivers/net/ethernet/stmicro/stmmac/stmmac_main.c;drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c	-
+021	9deccfbaed4b8cc4902ae6f803e2261ff0ad888b	ed1bc74c74689aff9e6e39d149ccde9a9cce5774	picked	net: stmmac: Handle disabled MDIO busses from devicetree	drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c	-
+022	a232eb81c7cb5d4dbd325d4611ed029b7fa07596	7ac75272ecb2e941585ba0f5e3f82af19b7998d0	picked	appletalk: Fix Use-After-Free in atalk_ioctl	net/appletalk/ddp.c	-
+023	03b50868ae5325bfe3251920c56e29b19e5ec24b	6bea95c7359487e1f63d8ddb2222ebd5472ae358	picked	net: atlantic: fix double free in ring reinit logic	drivers/net/ethernet/aquantia/atlantic/aq_ring.c	-
+024	2623cf1fe825e5f706a5f00e6ac552e9d1852ec8	88265d3319b7080dbecd86ad0d4c8329e2c6f827	backported	cred: switch to using atomic_long_t	include/linux/cred.h;kernel/cred.c	Use atomic_long_t credential usage and all corresponding long atomic operations/diagnostic formats. Preserve OEM override credential hook between assignment and debug rather than replacing it; subscribers/group_info stay atomic_t. Shared cred layout and OEM protection consumers require fresh review.
+025	851783a0c4ffb87a8d8065f9bf286c2aa546a542	6a8a1863acfaa487dab3122b92ff32ac9230f7f8	picked	fuse: dax: set fc->dax to NULL in fuse_dax_conn_free()	fs/fuse/dax.c	-
+026	063302851147024f427144641122eb9df4cdb548	65e972884d5c389c0ccfedece4be3c47c6614853	picked	ALSA: hda/hdmi: add force-connect quirks for ASUSTeK Z170 variants	sound/pci/hda/patch_hdmi.c	-
+027	7e2afd08850628908c344f1375b0ebba85a1af5c	8dcc2185aeab0659c4c5389e1605101428b8f4b2	picked	ALSA: hda/realtek: Apply mute LED quirk for HP15-db	sound/pci/hda/patch_realtek.c	-
+028	791bca1b099696646c5174a5ad92b8a4d9f05b41	b13827a3c68fad480279c2ee79307c75484925dc	picked	Revert "PCI: acpiphp: Reassign resources on bridge if necessary"	drivers/pci/hotplug/acpiphp_glue.c	-
+029	022b82336a620c12f77a6047aee2287d74d00fd4	28486759b045b45c8b4e014057b743e20028b102	picked	PCI: loongson: Limit MRRS to 256	drivers/pci/controller/pci-loongson.c	-
+030	1e3ea8d2bad845e512ee3430323206d4f8ec9cc2	049c85ecf1a5969669aaae411cf9ac110adb90a4	picked	drm/mediatek: Add spinlock for setting vblank event in atomic_begin	drivers/gpu/drm/mediatek/mtk_drm_crtc.c	-
+031	d69581c17608d81824dd497d9a54b6a5b6139975	7a40509b405afd55ba9787e2329bfef191865daf	picked	usb: aqc111: check packet for fixup for true limit	drivers/net/usb/aqc111.c	-
+032	dbf0cdacdb4ebd68bf60dcd1a8b0d20dcdab1fbd	335bd3c20aa0517be73f5d7d6ff13485b821cac4	picked	blk-throttle: fix lockdep warning of "cgroup_mutex or RCU read lock required!"	block/blk-throttle.c	-
+033	ea2341d08255fae1dd9886f477312c86d3d95840	281e808dfc951c69bdec9792fbd842be66588ff6	picked	bcache: avoid oversize memory allocation by small stripe_size	drivers/md/bcache/bcache.h;drivers/md/bcache/super.c	-
+034	3b48e1c0485ada191e7a24822aa03842f3f6414a	ea69d48619653382ab007255fbd39b233e7c15b2	picked	bcache: remove redundant assignment to variable cur_idx	drivers/md/bcache/writeback.c	-
+035	a7555524e32520c35d2a3450c57e3418cd907955	c76cec1eb33022125364963e61ae553a2b948820	picked	bcache: add code comments for bch_btree_node_get() and __bch_btree_node_alloc()	drivers/md/bcache/btree.c	-
+036	e01135763b9bff27c8e84820a9ddda6062647322	18668318fa6ea858e0fe1f7cf5f89ca39597c3a9	picked	bcache: avoid NULL checking to c->root in run_cache_set()	drivers/md/bcache/super.c	-
+037	6026a862f351a67605e650c587e7b64e53173a54	94829cb62e94a252c972102297eff500f31267b6	picked	platform/x86: intel_telemetry: Fix kernel doc descriptions	drivers/platform/x86/intel_telemetry_core.c	-
+038	a64a9f38ae3e401487ba60c6efb48f65fbc79271	70000316226c502968548eb5e160f9c3a86012f0	picked	HID: glorious: fix Glorious Model I HID report	drivers/hid/hid-glorious.c;drivers/hid/hid-ids.h	-
+039	1ac7379d2e186c007ef6f84b6234f6a7a9e2402c	55fdb53bd02b15d301eecb6c33a715b390a8afa4	picked	HID: add ALWAYS_POLL quirk for Apple kb	drivers/hid/hid-quirks.c	-
+040	744027bb8ee0ef5be9a49f4f9c2f22c5f9d49abe	7a8c0d8d921aea8402a4db3d9094eab1cde782d0	picked	HID: hid-asus: reset the backlight brightness level on resume	drivers/hid/hid-asus.c	-
+041	f6a1bf42997853812461249ed2ca9f424b759d11	1e1022cbd6ff6b92d62e6ea6fcea38535cc7d77b	picked	HID: multitouch: Add quirk for HONOR GLO-GXXX touchpad	drivers/hid/hid-multitouch.c	-
+042	09c8ee5f9bb36aea2c5d90576fb7b38e33ddec06	54f1fe2a0ef96d1db303528e1cc53b420e09b8c7	picked	asm-generic: qspinlock: fix queued_spin_value_unlocked() implementation	include/asm-generic/qspinlock.h	-
+043	e9709a88a8ee67f383ee64d29e5c7be5e29e882a	1cb889695a1aa5ed71b60c900bbbd88fa74c1d7b	picked	net: usb: qmi_wwan: claim interface 4 for ZTE MF290	drivers/net/usb/qmi_wwan.c	-
+044	5984306f6ce7b1f872df1c6d24fe227dbb584361	a7ce8a448c0621f966d9289b27657e6223a2db05	picked	HID: hid-asus: add const to read-only outgoing usb buffer	drivers/hid/hid-asus.c	-
+045	7ccfc078cd475d11b233288c3ae3d639f7c4ce1c	-	already-present	perf: Fix perf_event_validate_size() lockdep splat	kernel/events/core.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+046	6e2628dfade502b5917e338cce87de728d221587	054d9be8231d192ffdbfe91ed6886db2e2fe388d	picked	soundwire: stream: fix NULL pointer dereference for multi_link	drivers/soundwire/stream.c	-
+047	26eeec522acaad86ed05da97db5ea7c72da96fb6	77a9f0a654ab0198c73788db6d3165173455e8fa	picked	ext4: prevent the normalized size from exceeding EXT_MAX_BLOCKS	fs/ext4/mballoc.c	-
+048	33fb8ac30c3ee1f14a9d95503ccb07d67e15d088	7d036662f1d02fd4c135437a2f8d8529a96bf50f	picked	arm64: mm: Always make sw-dirty PTEs hw-dirty in pte_modify	arch/arm64/include/asm/pgtable.h	-
+049	5ffda6998be51a8abb11b911087ebdd83ddfe7c5	6a2d94e51caac58692a24e61e04ac1d1e1f619aa	picked	team: Fix use-after-free when an option instance allocation fails	drivers/net/team/team.c	-
+050	a3580b2bfe909dd3e56cc9db29de85f100f0e83a	3a919b79eb102825db69daf06c39827f981a8b31	picked	ring-buffer: Fix memory leak of free page	kernel/trace/ring_buffer.c	-
+051	d7a2939814277efe81aa39cf0b9516e3a4d12032	36192ed4f4b0f42384dad1ab9e013909321fa868	picked	tracing: Update snapshot buffer on resize if it is allocated	kernel/trace/trace.c	-
+052	3e8055fc3b2193e59739da88393de6f43ec2f84d	e7db1c3e8cda92dc30ccddedc8e5c75bf9d744d1	picked	ring-buffer: Have saved event hold the entire event	kernel/trace/ring_buffer.c	-
+053	9f5bf009f77deb59159cc39f9fbdfa334fc0a193	18cd82d32ff02144965224629de7c680a2825966	picked	ring-buffer: Fix writing to the buffer with max_data_size	kernel/trace/ring_buffer.c	-
+054	20c2cb79a38c9470e855ce74a9c0ce4d09a98d14	fce62f10026c8ad7fcb35082c0afb66796b665fc	picked	ring-buffer: Fix a race in rb_time_cmpxchg() for 32 bit archs	kernel/trace/ring_buffer.c	-
+055	918ba07224e9e9a8bd8d375132be9a72e4cadc86	cba9f1b0086be7fe92622a81c29122aac73aa41b	backported	USB: gadget: core: adjust uevent timing on gadget unbind	drivers/usb/gadget/udc/core.c	Emit change event after unbind/stop and both driver pointers cleared, preserving newer disable_async_callbacks before IRQ synchronization. Userspace sees completed unbind state rather than stale driver.
+056	b8faa754b523a845facdc83120b2ecd290d7fa6d	71d7fd42969ae183b37fc72df5f3e9dfaf69cb30	picked	tty: n_gsm: fix tty registration before control channel open	drivers/tty/n_gsm.c	-
+057	a11ea2c08f517798e0af9ebd2b7318bf7be9f609	b9e340ce8b7c270c258fd27d3331ea8e0cb344e5	picked	tty: n_gsm, remove duplicates of parameters	drivers/tty/n_gsm.c	-
+058	5a82cf64f8ad63caf6bf115642ce44ddbc64311e	0a0999804aa191036ffb7db857c8a5dc439566c8	picked	tty: n_gsm: add sanity check for gsm->receive in gsm_receive_buf()	drivers/tty/n_gsm.c	-
+059	e30e62f0e17884b5723f64ba93e58a7efbda2cf4	c8f39b7e4870d62ececea98dfee9f3b5493f411b	picked	powerpc/ftrace: Create a dummy stackframe to fix stack unwind	arch/powerpc/kernel/trace/ftrace_64_mprofile.S	-
+060	05c547e8427af1a7b2919a38a54c673e697cd44f	a190ba3883f58430f71752aaee6bf66315e04f8a	picked	powerpc/ftrace: Fix stack teardown in ftrace_no_trace	arch/powerpc/kernel/trace/ftrace_64_mprofile.S	-
+061	ca4427ebc6269ed2c255db88dc6e7bd2036c3103	6c51a7cd1076e9a395b774c65e08f44ee030a6f3	backported	Linux 5.10.205	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
