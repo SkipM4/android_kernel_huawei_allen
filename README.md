@@ -6,24 +6,21 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux5.10.195 #85, kernel source
-`38bf2c8e46`, with normal Android, unlocked CE, automatic ISP firmware startup
-and same-build signed Live modem. #82/5.10.190 is immediate paired recovery.
-Complete191-195 resolves699 originals:666 exact,24 adapted, seven present
-and two inapplicable, with690 ordered original-author commits. Four required
-upstream scheduler/cpuset followups and separate local integrations are
-recorded outside that accounting.
+The installed upstream milestone is Linux5.10.200 #86, kernel source
+`c0e3bac720`, with normal Android, unlocked CE, automatic ISP firmware startup
+and same-build signed Live modem. #85/5.10.195 is immediate paired recovery.
+Complete196-200 resolves all601 stable entries:559 exact,28 adapted and14
+already present, with587 ordered original-author commits. The complete source
+range builds using Android Clang/LLD12.0.7 and unchanged effective security
+configuration. Current selected layouts, 118 CFI groups/230 targets, actual
+callbacks, signed module imports and matching staged pair pass. The required
+390 modem imports match; the two optional dummy imports also match. Runtime
+boot/module readbacks, Enforcing, forced signatures, PRMEM, independent
+ramdisk and original trace/screen state pass. This is stable-source progress,
+not Android common parity, stable KMI or GKI certification. The next range is
+201-205 toward pinned 5.10.274; full hardware/network/power coverage and
+OEM/core separation remain open.
 
-Candidate#84 failed during init with real configfs spinlock recursion, caused
-by an incorrect upstream5.10.195 backport. Recovery logs are preserved and
-paired#82 recovery passed. The official stable revert `2cc1f4986233` removes
-the bad backport; repaired#85 full build,226-target/116-group CFI, current
-HF/GPIO stores and normal Android/module acceptance pass.4922 natural
-contexts and exact50 unchanged interface objects retain scoped facts; one
-fresh configfs decode checks lock balance. All390 modem and two optional
-dummy imports match. Enforcing CFI/SELinux, actual Werror, signatures, keys,
-PRMEM, independent ramdisk and36 OEM/HF selectors remain. WARN/Oops counts
-are0. The original configfs cursor race remains for its correct upstream fix.
 Accepted79 private-ring evidence is retained,
 not replayed. The accepted162-165 migration
 keeps one canonical io_uring core: installed Hyperframe34-37 defaults remain,
@@ -1274,7 +1271,7 @@ need separate lifecycle diagnosis without relaxing protection.
 - `out/allen-clang12-r65-failed-metadata/`: source/build/interface and first-fault/recovery metadata for failed #65, not runtime acceptance; not tracked.
 - `out/allen-clang12-r66-metadata/`: local closeout destination for accepted #66 paired credential/build/CFI/firmware-runtime metadata before output reuse; not tracked.
 - `out/allen-clang12-r67-metadata/`: accepted #67 source/new-interface/CFI/module/firmware-runtime metadata before output reuse; not tracked.
-- `out/allen-clang12-upstream-5.10/`: installed 5.10.125 #67 output, reused sequentially for stable milestones; not tracked.
+- `out/allen-clang12-upstream-5.10/`: installed 5.10.200 #86 output, reused sequentially for stable milestones; not tracked.
 - `images/original/`: firmware device-tree backup; not tracked.
 - `docs/bringup-baseline.md`: device baseline, toolchain provenance and risks.
 - `docs/stock-module-compat.md`: installed modem ABI and signing compatibility.
@@ -1312,7 +1309,7 @@ The target and compiler revision come from the official README and Makefile.
 The wrapper uses LLVM tools and the integrated assembler, not the host GCC for
 ARM64. `JOBS` overrides the default eight build jobs; `OUTPUT_DIR` selects an
 independent output directory. `LOCALVERSION=` prevents a Git suffix; the
-Makefile still controls the release, currently `5.10.125` on the upstream
+Makefile still controls the release, currently `5.10.200` on the upstream
 branch. This alone does not establish module ABI compatibility. Project
 packaging uses same-build kernel/module pairs; MODVERSIONS may permit a
 different release token, but is not a full binary-compatibility guarantee.

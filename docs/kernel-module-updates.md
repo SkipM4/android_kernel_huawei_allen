@@ -5,8 +5,8 @@
 Update the kernel and all required loadable modules as a matched build while
 the Huawei tree has no independently maintained stable KMI. For the installed
 normal Android system, the required loadable module is `modem_driver.ko` on
-the independent read-only ext4 `modem_driver` partition. The installed 5.10.195
-#85 kernel and module are built together with the r49-derived configuration
+the independent read-only ext4 `modem_driver` partition. The installed 5.10.200
+#86 kernel and module are built together with the r49-derived configuration
 and newly selected standard BHB mitigation, Android Clang/LLD 12.0.7,
 enforcing CFI and the existing signing
 certificate. No loader, version CRC, signature or SELinux check is bypassed.
@@ -929,3 +929,28 @@ or incompatible API/layout requires rebuilding/adapting vendor modules.
 The present stable batch establishes neither that architecture nor a blanket
 promise of module reuse. Its working update method is paired rebuilding and
 verified installation, without spoofing versions or weakening protections.
+
+### Complete 5.10.196-200 / Accepted #86
+
+The #86 kernel and required `modem_driver.ko` were built together by the
+configured Kbuild using the existing configuration, generated headers,
+`Module.symvers`, Android Clang/LLD12.0.7 and trusted SHA-512 signing key. The
+stripped module's390 versioned imports all match the current export CRCs; the
+optional dummy module's two imports also match. Four exports are added, none
+removed and3,295 common CRCs change versus #85. These changes are recorded,
+not hidden by reusing or resigning the old module.
+
+The staged `boot` and `modem_driver` ext4 images were produced from this same
+build, verified against the kernel's certificate and original filesystem
+metadata, then flashed as a pair. Device readback and the loaded modem build
+ID match the staged bytes. The independent Magisk ramdisk was not touched.
+This demonstrates the currently supported update workflow, not a stable ABI
+across kernel sublevels.
+
+For independently reusable vendor modules, the project still needs a
+version-matched Android common/GKI base, frozen KMI generation, explicit
+allowlist/symbol lists, ABI type monitoring and a deliberate split of OEM
+hooks from core code. `CONFIG_MODVERSIONS`, matching vermagic, successful
+signature verification or this paired boot pass alone do not establish KMI
+compatibility. Until that work is done, rebuild every required module from
+the matching source/configuration/toolchain and install it with its kernel.

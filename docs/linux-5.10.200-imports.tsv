@@ -1,0 +1,93 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	09bcf925483854feabdc3c8913df1934a65b2901	22e49e3a39f559785c74df4319b48601c4cc8053	picked	selftests/ftrace: Add new test case which checks non unique symbol	tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq_symbol.tc	-
+002	6976459c6439465918b20819f115b4ba27b52a49	c3ee1dbbf4cd8cd5fe9dfa4e79b5ce0f1fde4b7f	picked	mcb: Return actual parsed size when reading chameleon table	drivers/mcb/mcb-parse.c	-
+003	c88dd2aebf0c85b78918fc4e6c21b29f0f839a71	102d753cb91e372620e6181509ec0052043a915c	picked	mcb-lpc: Reallocate memory region to avoid memory overlapping	drivers/mcb/mcb-lpc.c	-
+004	8b857a93d6be0d9bbbbab6038edfd442e3ed81d4	eae1bad38f31f89d2934bea61e6bb96d21bceef9	picked	virtio_balloon: Fix endless deflation and inflation on arm64	drivers/virtio/virtio_balloon.c	-
+005	f2c0b571a5fc511daf23c060e7a9c1c502069a06	893c83cba539785923e9f0f13d28795d636a92cc	picked	virtio-mmio: fix memory leak of vm_dev	drivers/virtio/virtio_mmio.c	-
+006	3ab81820bf9228924f3ca71cc37a90bae1ca0220	a7c331aa37566cd050ece15374b5a188740c18c2	picked	mm/page_alloc: correct start page when guard page debug is enabled	mm/page_alloc.c	-
+007	957ec0823a5ae39a96bf8a3d00460dfbcdae1c60	998d2a2e24a48eae51f469422f370b33f795231e	picked	mmc: renesas_sdhi: use custom mask for TMIO_MASK_ALL	drivers/mmc/host/renesas_sdhi_core.c;drivers/mmc/host/tmio_mmc.h	-
+008	31c31a78dccfc6ad15af1f6e55ce8cfbb3d31fa5	3befb41d06c222b7c39f26ea22e611dbbc8f56e6	picked	drm/dp_mst: Fix NULL deref in get_mst_branch_device_by_guid_helper()	drivers/gpu/drm/drm_dp_mst_topology.c	-
+009	13d357d9f22604b44c975080806c1bc6f3e2f51c	7f9346c9e4a1f2d271eff63f4d122b27736baf2b	picked	r8169: fix the KCSAN reported data-race in rtl_tx while reading TxDescArray[entry].opts1	drivers/net/ethernet/realtek/r8169_main.c	-
+010	5eab293b1cbfea1e5df41e81862c950d7c9509c6	c1a549754e721d3e162bcda0115d397bc4623888	picked	r8169: fix the KCSAN reported data race in rtl_rx while reading desc->opts1	drivers/net/ethernet/realtek/r8169_main.c	-
+011	1ac4f8e5553cc0d6a92b56016fe1d6b64d2b9daf	2982d9b770dc5e36712edd3df1057bc961f67201	picked	treewide: Spelling fix in comment	drivers/net/ethernet/toshiba/ps3_gelic_wireless.c	-
+012	77c4f14f952e50ece062fcc98df546ff4c8f732c	db8c51e96c4e15e303af9a18b53ef17c1254200c	picked	igb: Fix potential memory leak in igb_add_ethtool_nfc_entry	drivers/net/ethernet/intel/igb/igb_ethtool.c	-
+013	1e628189a21b1cde5c0ac7c1984d0356543963fb	8404a9492415d6c627dd9a814f588a6ca502d9d4	picked	neighbour: fix various data-races	net/core/neighbour.c	-
+014	634c72adc864124245305b602ac4a4ff0302b044	cf99fdf1656b6c75bc13199665f641e821ad52f3	picked	igc: Fix ambiguity in the ethtool advertising	drivers/net/ethernet/intel/igc/igc_ethtool.c	-
+015	d9864e589f0e0b86d6eb2d713e8187b88d818c8c	763830b975521a4b88fc93472c001147c4bf99df	picked	net: ieee802154: adf7242: Fix some potential buffer overflow in adf7242_stats_show()	drivers/net/ieee802154/adf7242.c	-
+016	79e2610efc940a0e62d37a38926a46313cc7a338	5a4ac0db543e63b471f0f016176d2250b8a2fbca	picked	net: usb: smsc95xx: Fix uninit-value access in smsc95xx_read_reg	drivers/net/usb/smsc95xx.c	-
+017	704c25fc6abd7a5a4d27f0ef53e5e0fda66c37b7	2ffd90480adbe6b1c43bfdecbeb18d39370b6427	picked	r8152: Increase USB control msg timeout to 5000ms as per spec	drivers/net/usb/r8152.c	-
+018	7dc907d855df3bf22c63dd1425973632540716a4	dd813380edc7d785bf7b122659c856ead844229a	picked	r8152: Run the unload routine if we have errors during probe	drivers/net/usb/r8152.c	-
+019	17b455747bc6d0b4a3b2fbb2781e7e8b67a259f9	c8837e93380d6d5f597cc8b3dbb97b1b855c1f2e	picked	r8152: Cancel hw_phy_work if we have an error in probe	drivers/net/usb/r8152.c	-
+020	e0308c793943b8ef7d790fc202914501820e9e4b	04484573ea3dbdd9ecdd641a83397826e63b2a96	picked	r8152: Release firmware if we have an error in probe	drivers/net/usb/r8152.c	-
+021	4d0d5e54b59063c6493f1e3cfb9349638f05f3a9	5b922e85b6cb28da2106df69e7df087a95367aee	picked	tcp: fix wrong RTO timeout when received SACK reneging	net/ipv4/tcp_input.c	-
+022	3ae8b75fce05f51643e3d90effdc76d6c6a41b75	64163bbea73f13530e15bdae49b09873bc17721e	picked	gtp: uapi: fix GTPA_MAX	include/uapi/linux/gtp.h	-
+023	fe65fc90e9f2f7e7766ba7534e32aa4a469a3101	dd666550b5e16c07c7c497e32b118f6b9a748e01	picked	gtp: fix fragmentation needed check with gso	drivers/net/gtp.c	-
+024	be9e6f51ba7b47fbe5869b8eb83eed100d33adf7	a97238c41b93cc05f9f993c15589672c7864ff89	picked	i40e: Fix wrong check for I40E_TXR_FLAGS_WB_ON_ITR	drivers/net/ethernet/intel/i40e/i40e_txrx.c	-
+025	632c2199e52d0e957dd47d4c931d60b82cd5ff29	d0d2702e79a5e9699f310bd392cd347daca364cc	backported	kasan: print the original fault addr when access invalid shadow	include/linux/kasan.h;mm/kasan/report.c	Apply upstream fault decoding for both inline and outline shadow instrumentation. This tree already has KASAN_HW_TAGS, unlike the stable patch base: its report.o is also built but it has no shadow mapping. Gate declaration and definition identically on GENERIC or SW_TAGS, retain the HW_TAGS/no-KASAN inline stub and existing KASAN_GRANULE_SIZE. Kbuild builds report.o for either shadow mode; sole actual caller is x86 dumpstack. No configuration changed.
+026	0c8587fec9d533346a3695ce36330a2441d9c13b	6f5ff96970139aee09b3a1b6c147630444f310fa	picked	iio: exynos-adc: request second interupt only when touchscreen mode is used	drivers/iio/adc/exynos_adc.c	-
+027	3cb69f1dbc86d12c61f09450da2f9f7fa49716de	0a24cb745b438b05707c8012149f7fce67cb4db5	picked	i2c: muxes: i2c-mux-pinctrl: Use of_get_i2c_adapter_by_node()	drivers/i2c/muxes/i2c-mux-pinctrl.c	-
+028	9a9ead53e72fb75157de646555f536091e424c47	887f4b9d5a0e2a29f4546b06158f285cee447e59	picked	i2c: muxes: i2c-mux-gpmux: Use of_get_i2c_adapter_by_node()	drivers/i2c/muxes/i2c-mux-gpmux.c	-
+029	80416f6ba0025753649dfae2d1ab18ddc3cbbc2e	46156b9c9663dffd4afef92dc6d08ab2e9c4238a	picked	i2c: muxes: i2c-demux-pinctrl: Use of_get_i2c_adapter_by_node()	drivers/i2c/muxes/i2c-demux-pinctrl.c	-
+030	18c5167d046038337c6dbf97e83cb4c0b89356ed	60799fec637b9012efa77578a21ad296029b8918	picked	i2c: stm32f7: Fix PEC handling in case of SMBUS transfers	drivers/i2c/busses/i2c-stm32f7.c	-
+031	ca764116b5c1d05913cf287cb486c23fd972c405	eaef533cbaed97db0c7651e94641cd0facfe54ab	picked	i2c: aspeed: Fix i2c bus hang in slave read	drivers/i2c/busses/i2c-aspeed.c	-
+032	866838eb8ee9a93fe5d26da8dacbb39897146002	ed7228b575c5caae5b78a7e23169108a500d1129	picked	tracing/kprobes: Fix the description of variable length arguments	kernel/trace/trace_kprobe.c	-
+033	d44166341f4bc838b30be139bdbcd289c87458d0	c45bcda3f984a945b86fde30a113900eb02bb171	picked	misc: fastrpc: Clean buffers on remote invocation failures	drivers/misc/fastrpc.c	-
+034	7a1c29e93c25dbf7868d942c1bd94dcef3364f07	5f977d59ca28da0f1bdbb12b566c9852083e2794	picked	nvmem: imx: correct nregs for i.MX6ULL	drivers/nvmem/imx-ocotp.c	-
+035	37ccf15ebeec7c685e88c4fae4024f152c832f67	b83b29d673be5a9e768231e86d02224e66bff1b1	picked	nvmem: imx: correct nregs for i.MX6SLL	drivers/nvmem/imx-ocotp.c	-
+036	4e3c606afa2595da31a41dde591f9520361e5436	9c0e6677e0d1af671b0f3028ea71335bef9656ce	picked	nvmem: imx: correct nregs for i.MX6UL	drivers/nvmem/imx-ocotp.c	-
+037	0258ca32b0eaf9d6dcc07b98587f51463dbffcf7	-	already-present	perf/core: Fix potential NULL deref	kernel/events/core.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+038	09ce0d85cc00fe1911e1e072e3ad7ed9adab2c41	52e09bcfc83e3f5bfbf27ef3e1fa59ba4bf25a94	picked	sparc32: fix a braino in fault handling in csum_and_copy_..._user()	arch/sparc/lib/checksum_32.S	-
+039	d8928befffe589dcac95efc6f30db59a8bad6b9f	0e2e5e7755c6dcc3c79834211881cb5d77a1fa60	picked	clk: Sanitize possible_parent_show to Handle Return Value of of_clk_get_parent_name	drivers/clk/clk.c	-
+040	c4b496c9f7724f205570107aaf678876428f8f79	f1da90e370b1ec2015e3218d0c103d814fc9973b	picked	iio: adc: xilinx: use helper variable for &pdev->dev	drivers/iio/adc/xilinx-xadc-core.c	-
+041	0eb1198fe4d6f163afc11eeba3a303a986d78915	33a4e381aa34873555c8146a4c4d433466b9faec	picked	iio: adc: xilinx: use devm_krealloc() instead of kfree() + kcalloc()	drivers/iio/adc/xilinx-xadc-core.c	-
+042	e96eb8853f334f96312968e4f01c5a452db54c00	a97610a58ce10303c043fda67e85dd3578c3d1e7	picked	iio: adc: xilinx: use more devres helpers and remove remove()	drivers/iio/adc/xilinx-xadc-core.c	-
+043	62184eb778213a807744d563b0df286dbdb98448	b0285b09e0ea09ecdbc4f06d3c0d40cb023495af	picked	iio: adc: xilinx-xadc: Don't clobber preset voltage/temperature thresholds	drivers/iio/adc/xilinx-xadc-core.c	-
+044	b9b197f659043bf29e86effa1d24bab96d1ee5c3	fa262110464083eaf420a54856e0ee7371eb32a4	picked	x86/i8259: Skip probing when ACPI/MADT advertises PCAT compatibility	arch/x86/include/asm/i8259.h;arch/x86/kernel/acpi/boot.c;arch/x86/kernel/i8259.c	-
+045	b2e62728b106fe54f8618c21a252df7d4a4cc775	-	already-present	kobject: Fix slab-out-of-bounds in fill_kobj_path()	lib/kobject.c	Every original operation has a complete unique post-context or whole postimage in this ordered source prefix.
+046	d1c37e849f3754f5837ae25ec41498685906e207	2986c05c04aaef400dc46d79c1e078dff332c7dd	picked	smbdirect: missing rc checks while waiting for rdma events	fs/cifs/smbdirect.c	-
+047	571ce7d944cdd204da163cb5d5cc75bb38090246	-	already-present	f2fs: fix to do sanity check on inode type during garbage collection	fs/f2fs/gc.c	Both fs/f2fs and actually selected fs/hw_f2fs already reject special_file(inode->i_mode) together with ERR/bad inodes before GC data-page access. Retain existing local error/debug handling; the upstream additional inode-type predicate is already present in both mirrors.
+048	01a5e17e3ef30ff45dc3f27631d4645f035b3e6c	22d7ee11664cf65278f44edb381df3906d4e49c2	picked	x86/mm: Simplify RESERVE_BRK()	arch/x86/include/asm/setup.h	-
+049	c761d34a7ec06f12faa776c2c6c53c18535e3557	611dbd9ed31549da6017cd7ca9c960e4f0e04005	picked	x86/mm: Fix RESERVE_BRK() for older binutils	arch/x86/include/asm/setup.h;arch/x86/kernel/setup.c;arch/x86/kernel/vmlinux.lds.S	-
+050	c0db17e55ff6105f04f8fddc3a0a8d381315e929	8686d822330a85a09685c8a481dbfbbe3bf7d37c	picked	ext4: add two helper functions extent_logical_end() and pa_logical_end()	fs/ext4/mballoc.c;fs/ext4/mballoc.h	-
+051	58fe961c606c446f5612f6897827b1cac42c2e89	72fb03d57341a8d685b0f5f81e31d2c8653d2178	picked	ext4: fix BUG in ext4_mb_new_inode_pa() due to overflow	fs/ext4/mballoc.c	-
+052	6b977a7323f7d932b5aa72952758056cf3a4b80f	2062f93c314ee5e67876dcfdccd2d99a50911f23	picked	ext4: avoid overlapping preallocations due to overflow	fs/ext4/mballoc.c	-
+053	4a20f5ea62db9dc5dc1ff5b8e44f32baf36d701e	e42acbc5297a505f88323b89409c6edd5b230dc9	picked	objtool/x86: add missing embedded_insn check	tools/objtool/check.c	-
+054	da369d3996ccd4ba6efaf73525789e70bd032168	48842a541ef0764d1ca79883da0f5915e8f7d001	picked	driver: platform: Add helper for safer setting of driver_override	drivers/base/driver.c;drivers/base/platform.c;include/linux/device/driver.h;include/linux/platform_device.h	-
+055	d0208fb38f439a9e05866a52d2394cbe9f58d87a	c480543f3ed6f4042bf84cb514b48a10a4c6b107	picked	rpmsg: Constify local variable in field store macro	drivers/rpmsg/rpmsg_core.c	-
+056	5bbd3469a4b60e026b3bf712e4108e646714231f	a733c76fb6629820db762041c043230ff703da4a	picked	rpmsg: Fix kfree() of static memory on setting driver_override	drivers/rpmsg/rpmsg_internal.h;include/linux/rpmsg.h	-
+057	5f1bb9f4d4b55c39180329c4e379aa740039eed3	83f5de8a05bf4f438ca4c7b00ce1f9dfb69a1736	picked	rpmsg: Fix calling device_lock() on non-initialized device	drivers/rpmsg/rpmsg_core.c;drivers/rpmsg/rpmsg_internal.h;include/linux/rpmsg.h	-
+058	41c13a571de449a94c92a68eac5b92a8860d5cc6	e4bc958080697f1c8df76107d45afc279bbfea7d	picked	rpmsg: glink: Release driver_override	drivers/rpmsg/qcom_glink_native.c	-
+059	3fdd5b2bb09fc2b5bf3504778f51c89bb48c097f	b1d0976f2b7213e802590c4c984db3167089a247	picked	rpmsg: Fix possible refcount leak in rpmsg_register_device_override()	drivers/rpmsg/rpmsg_core.c	-
+060	9ade01b2949b7c281d2895bd0ae6cdbd5039cfda	7b24f6812bd2d843b6e0c0cdabd495b6cbd0d4ae	picked	x86: Fix .brk attribute in linker script	arch/x86/kernel/vmlinux.lds.S	-
+061	d151fb8019573a47d564a8b17e62b6fe14c87af9	5e1a1dacca696ae54c86e24b4d930d36952f64a5	picked	net: sched: cls_u32: Fix allocation size in u32_init()	net/sched/cls_u32.c	-
+062	e619b38a873fc92239d5f65c417d362c099c0e19	607d4d6dd1ecc4521df99e9faf07925a35f37825	picked	irqchip/stm32-exti: add missing DT IRQ flag translation	drivers/irqchip/irq-stm32-exti.c	-
+063	fb8f253b953282e6087f9ddd916b8d89061af904	aa04a927ca06f1bdf2bb363567e11fa025ef2c44	picked	dmaengine: ste_dma40: Fix PM disable depth imbalance in d40_probe	drivers/dma/ste_dma40.c	-
+064	ead3c123a7539422aa77b517e94dbd8ffe780c14	6470b2d06afcc0b4a72fe76193839543b2c02d80	picked	Input: synaptics-rmi4 - handle reset delay when using SMBus trsnsport	drivers/input/mouse/synaptics.c;drivers/input/rmi4/rmi_smbus.c	-
+065	6f9093b6f8f76376cac1c262560524d7a0a8bee9	78ecc898bf53c8607336ef62715cd26c8e452063	picked	fbdev: atyfb: only use ioremap_uc() on i386 and ia64	drivers/video/fbdev/aty/atyfb_base.c	-
+066	66cc633fc6e1a8229c3adc3e3939335f9af90b3e	c3b924c2664fc8a341b47c19a7bebcdcfc397bce	picked	spi: npcm-fiu: Fix UMA reads when dummy.nbytes == 0	drivers/spi/spi-npcm-fiu.c	-
+067	c683d8b6417c2248cf6eedf9a41147447483501b	758a0fe7bb66ef4dcc202951fe06849916fa01b3	picked	netfilter: nfnetlink_log: silence bogus compiler warning	net/netfilter/nfnetlink_log.c	-
+068	ec45886637ee368772dcb568f76b9285d339ebfb	89cd83f1c1f7f5b1617b86e36f4fe3d71fc6b25e	picked	ASoC: rt5650: fix the wrong result of key button	sound/soc/codecs/rt5645.c	-
+069	abf9c7811836adda81e07478499e9ece1257b4a2	03db090f8727dea68d455559c2c2fbe840b031f7	picked	fbdev: uvesafb: Call cn_del_callback() at the end of uvesafb_exit()	drivers/video/fbdev/uvesafb.c	-
+070	268ec38b797b7dac36f16e135bd735b8dce80cd3	4ac4b6eb6e338a3096ad846cf038868efb5c6f92	picked	scsi: mpt3sas: Fix in error path	drivers/scsi/mpt3sas/mpt3sas_scsih.c	-
+071	955a1105eec28c9aeaf26d1b1d7a589810e80071	ac746605a5f608513a47aec0fad8e97106123c04	picked	platform/mellanox: mlxbf-tmfifo: Fix a warning message	drivers/platform/mellanox/mlxbf-tmfifo.c	-
+072	1b285a1bfb0de166139683ad18c98fa7a1b96392	466fa799a70e1f9e16939bce16005f79ddf891ca	picked	net: chelsio: cxgb4: add an error code check in t4_load_phy_fw	drivers/net/ethernet/chelsio/cxgb4/t4_hw.c	-
+073	b881ce6c7d10071ee9440deec03ac15e581f956c	adc80a7a4ae3ebf5b05c26fa0cbb14c8aa2a4b7f	picked	powerpc/mm: Fix boot crash with FLATMEM	arch/powerpc/kernel/setup-common.c;arch/powerpc/mm/mem.c	-
+074	186ab5645199cac4008645aff711c5d77f7fae5f	dfeda408bceec066d76a9bdebfca573253be0e5a	picked	can: isotp: change error format from decimal to symbolic error names	net/can/isotp.c	-
+075	57798a2cfe1594e7fa0f920811fe69cb093d8954	dd6d195a6ea60f90a4626d7d9de3743c5e300685	picked	can: isotp: add symbolic error message to isotp_module_init()	net/can/isotp.c	-
+076	7adbc048d84b54aaa2faf466d888e436fb83f70b	fe262cfa2ea65633404b80aaa9ca660142afb888	picked	can: isotp: Add error message if txqueuelen is too small	net/can/isotp.c	-
+077	93b1e3f3a263e9986e8f46d23f1a932d4e34adf4	3acfb6a5770e1f92ee44e24a05a1993f197f9618	picked	can: isotp: set max PDU size to 64 kByte	net/can/isotp.c	-
+078	0386f37047899b3af95b00090b1f4ff4f5990f8d	2ccaa4c44041b2ea80abb2bebc2f9d51e706b405	picked	can: isotp: isotp_bind(): return -EINVAL on incorrect CAN ID formatting	net/can/isotp.c	-
+079	de3c02383aa678f6799402ac47fdd89cf4bfcaa9	c612cb026aabba9c501b78469f45c99248aaddc3	picked	can: isotp: check CAN address family in isotp_bind()	net/can/isotp.c	-
+080	569c95b7ece0644dbe5d49d058d25bfa2a50d872	84de0ae0318db567dcca3c5a79304537b7860d17	picked	can: isotp: handle wait_event_interruptible() return values	net/can/isotp.c	-
+081	e4c4e0e1b29ca5ca539ae3cea8145e0a8154420e	e77b3d2cac4213f1ef2041c09bca924c80bbd0ba	picked	can: isotp: add local echo tx processing and tx without FC	include/uapi/linux/can/isotp.h;net/can/isotp.c	-
+082	8716c28f695cc5fe507235d37827fe6ad2816f4c	661b5e49bfa81ec545be70e9fafb5ca9b82bcdef	picked	can: isotp: isotp_bind(): do not validate unused address information	net/can/isotp.c	-
+083	deddf60c271f1fc1edba25c4bf66d02854df5c5d	8e9cfa474040fc2a9bb7854a5178d8fcaae1b493	picked	can: isotp: isotp_sendmsg(): fix TX state detection and wait behavior	net/can/isotp.c	-
+084	747b8f877998f6ee1b21c975b2e3c9de22827c26	eb5dd8aad16aac1402f025779c6cc29df12db44d	picked	PCI: Prevent xHCI driver from claiming AMD VanGogh USB3 DRD device	drivers/pci/quirks.c;include/linux/pci_ids.h	-
+085	8e0324f2cbb72b4519bf68ae4738ed3ff7c35030	833a56d094c09151e6623d19d4af9c7d8ebcc56f	picked	usb: storage: set 1.50 as the lower bcdDevice for older "Super Top" compatibility	drivers/usb/storage/unusual_cypress.h	-
+086	e705aee2a65701c462ed2be619ed83be3eb95901	c27b97df212a43cc81dd7c45fb6f21feac7ef602	picked	usb: raw-gadget: properly handle interrupted requests	drivers/usb/gadget/legacy/raw_gadget.c	-
+087	a8bf6f62187f02337cf04348e0dc599d38fff001	69cb1d12b0b210c121084eb89a8d8c822bc92995	picked	tty: 8250: Remove UC-257 and UC-431	drivers/tty/serial/8250/8250_pci.c	-
+088	119f38e8ca163914144642cce94f072d633113cf	effddc806b44cabc62df830d0cbe08998bf24485	picked	tty: 8250: Add support for additional Brainboxes UC cards	drivers/tty/serial/8250/8250_pci.c	-
+089	73bcb4d44988393255ab033dfd2f0bdfdb8f8e78	28b6c35be8e5569f84965c51cf127c1b622d5621	picked	tty: 8250: Add support for Brainboxes UP cards	drivers/tty/serial/8250/8250_pci.c	-
+090	9109649559f9815ecff167af38d7d621fa631bb7	ec4872efdbf44af9c48c6bb69702a3e9cc844a2b	picked	tty: 8250: Add support for Intashield IS-100	drivers/tty/serial/8250/8250_pci.c	-
+091	a5feaf765935cfd43a089738c20a8486cd192f51	d50b6714d49fe115c72478438aa140557471b8a8	picked	ALSA: hda: intel-dsp-config: Fix JSL Chromebook quirk detection	sound/hda/intel-dsp-config.c	-
+092	3e55583405ac3f8651966dcd23590adb3db1d8c2	c1b390f99e0f5fd947f072cde5e2aa64f319cdba	backported	Linux 5.10.200	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

@@ -1,0 +1,80 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	69ddafc7a7afd8401bab53eff5af813fa0d368a2	83efbc57d2bb1da100ebd383e5cb4022e9ea03a6	picked	autofs: fix memory leak of waitqueues in autofs_catatonic_mode	fs/autofs/waitq.c	-
+002	b7c3cf2f6c42e6688b1c37215a0b1663f982f915	bd20f35a04e152262357d50f9ea5979653b71c4a	picked	btrfs: output extra debug info if we failed to find an inline backref	fs/btrfs/extent-tree.c	-
+003	a6f4129378ca15f62cbdde09a7d3ccc35adcf49d	060814c4e1e95ee1718869d376ed5f02e896ee96	picked	locks: fix KASAN: use-after-free in trace_event_raw_event_filelock_lock	fs/locks.c	-
+004	625c12dc04a607b79f180ef3ee5a12bf2e3324c0	223a3a18dd1a1051555d7e5f15ce8c051919a289	picked	ACPICA: Add AML_NO_OPERAND_RESOLVE flag to Timer	drivers/acpi/acpica/psopcode.c	-
+005	f8bab887a4ae7956973bcb16c3b376fbaa1f5f78	ff351fb4fc35da4e7e37105a6050ea1d5e4f0843	picked	kernel/fork: beware of __put_task_struct() calling context	include/linux/sched/task.h;kernel/fork.c	-
+006	55887adc76e19aec9763186e2c1d0a3481d20e96	6fea6550800d0c4d12c74a6d0c81b4f3db99e06a	picked	rcuscale: Move rcu_scale_writer() schedule_timeout_uninterruptible() to _idle()	kernel/rcu/rcuscale.c	-
+007	3f72fdb20f6d1103ded73b1594ad9c26a6026a24	fae3edfb9b7933d16d25426cac89102338fbf2fa	picked	scftorture: Forgive memory-allocation failure if KASAN	kernel/scftorture.c	-
+008	560014aefb702e9f19d0970073859cf502f77f5d	9d86f3a0ffb50e837d752e21813c3a6070bd0bb6	picked	ACPI: video: Add backlight=native DMI quirk for Lenovo Ideapad Z470	drivers/acpi/video_detect.c	-
+009	dc01bfdc3d91dcbfd812fdb2ad86ce947aac939b	af2192c6801e88d43eac32e346c156420da7bb54	picked	perf/smmuv3: Enable HiSilicon Erratum 162001900 quirk for HIP08/09	Documentation/arm64/silicon-errata.rst;drivers/acpi/arm64/iort.c;drivers/perf/arm_smmuv3_pmu.c;include/linux/acpi_iort.h	-
+010	bfc747fe0725dfa5602406c207c99efabdbf6152	62a9fbb23752aeb561e51f58a54d0c5af34f8df4	picked	ACPI: video: Add backlight=native DMI quirk for Apple iMac12,1 and iMac12,2	drivers/acpi/video_detect.c	-
+011	020ecfa7b676191845bed3e86b1753c13ae6667f	de3f9370edce7a1a765b55c5799b8f8d076727f3	backported	hw_breakpoint: fix single-stepping when using bpf_overflow_handler	arch/arm/kernel/hw_breakpoint.c;arch/arm64/kernel/hw_breakpoint.c;include/linux/perf_event.h	Carry full original perf handler wrapper and all ARM/ARM64 callers across the actual ARM64 watchpoint helper declaration/context. Preserve existing Kirin breakpoint handling and CFI; no new event layout, disabled BPF mode or debug/protection change.
+012	cfca20009bff3427ebf11c49dd785389c178f8df	fe6095dc6ef1ef11f3c8b87db89c921f1a07d949	picked	devlink: remove reload failed checks in params get/set callbacks	net/core/devlink.c	-
+013	8c19ddc215664c33e0364a0e9faea8ac9dcf812c	1e14275e72d94f46f1c30a66040383ac4b8b9206	picked	crypto: lrw,xts - Replace strlcpy with strscpy	crypto/lrw.c;crypto/xts.c	-
+014	268a10c9eb0f3fade7b24a7cee3e8fe0e074c33c	d052ef2e8543c4ba1a43d29d678c164abf085513	picked	wifi: ath9k: fix fortify warnings	drivers/net/wireless/ath/ath9k/mac.h;drivers/net/wireless/ath/ath9k/xmit.c	-
+015	08fdbe37902211cf2f993d9e905cc210849b3803	6e1b05c1907d6386cc76b48bc435e0c5f23e7a62	picked	wifi: ath9k: fix printk specifier	drivers/net/wireless/ath/ath9k/ahb.c;drivers/net/wireless/ath/ath9k/pci.c	-
+016	269eb4e1d5ea3e4623888b990847389503d7221a	10ad402578f16a2e135976db7dbad70828976dc2	picked	wifi: mwifiex: fix fortify warning	drivers/net/wireless/marvell/mwifiex/tdls.c	-
+017	03385b243bad46188019395ea9ab423d3a9261b6	fadf09ed5c622508537d13d7de276f7516a2a3b9	picked	wifi: wil6210: fix fortify warnings	drivers/net/wireless/ath/wil6210/txrx.c;drivers/net/wireless/ath/wil6210/txrx.h;drivers/net/wireless/ath/wil6210/txrx_edma.c;drivers/net/wireless/ath/wil6210/txrx_edma.h	-
+018	0fc7147c694394f8a8cbc19570c6bc918cac0906	594eaef45053c53cf96ca01fceea40b734e90531	picked	crypto: lib/mpi - avoid null pointer deref in mpi_cmp_ui()	lib/mpi/mpi-cmp.c	-
+019	c7a8813d91f949b6c6265a3c5b43438682606c56	bf17583753be2cbab95207f3c5fa09ee0783199c	picked	tpm_tis: Resend command to recover from data transfer errors	drivers/char/tpm/tpm_tis_core.c	-
+020	acf0019b93a60370cdf5f6a923847adeb415d3d3	5a8ab79f63a9f860cc0a13a1a5895189af9ba44b	picked	mmc: sdhci-esdhc-imx: improve ESDHC_FLAG_ERR010450	drivers/mmc/host/sdhci-esdhc-imx.c	-
+021	f6f0a687546eaacdd496f36b30a5f416fddc6a71	564f353ed3b42af009716cd97476a114ec391417	picked	alx: fix OOB-read compiler warning	drivers/net/ethernet/atheros/alx/ethtool.c	-
+022	5bf52e431c835b2772570edaf9aee030cb2ce240	9b78a3c666a3c1264592995091b6b657432440e4	picked	netfilter: ebtables: fix fortify warnings in size_entry_mwt()	include/uapi/linux/netfilter_bridge/ebtables.h;net/bridge/netfilter/ebtables.c	-
+023	672205c6f2d11978fcd7f0f336bb2c708e28874b	b6c8f175a98329933b84d0218931f96fa8cca7e6	picked	wifi: mac80211_hwsim: drop short frames	drivers/net/wireless/mac80211_hwsim.c	-
+024	9726e8dcabae26520559e0477cfe1ad453ec92d3	d806fa87c5ada372e6d37b766747916ec21f8a8b	picked	drm/bridge: tc358762: Instruct DSI host to generate HSE packets	drivers/gpu/drm/bridge/tc358762.c	-
+025	fcfb71848e9e1b0e22b769a74d0c861276f1ef68	f69c199ce6c74bdc939ab96f9a92b65164577b59	picked	samples/hw_breakpoint: Fix kernel BUG 'invalid opcode: 0000'	samples/hw_breakpoint/data_breakpoint.c	-
+026	d51d6c42d1e5f39fecd6660529a2e0bce1ec23f7	885306294300984f37ef50654339d3372c671c08	picked	ALSA: hda: intel-dsp-cfg: add LunarLake support	sound/hda/intel-dsp-config.c	-
+027	5475b8bea1489403a4e6c2d102fcb5dde310acb3	e7220f22425286375ee27badaa49f72a7f86665a	picked	drm/exynos: fix a possible null-pointer dereference due to data race in exynos_drm_crtc_atomic_disable()	drivers/gpu/drm/exynos/exynos_drm_crtc.c	-
+028	5933cd61399c27b6d5c0940396e1d47208bfb60d	a0f68a922a64de5ec1fb56eb5b48dedcb6016d4b	picked	bus: ti-sysc: Configure uart quirks for k3 SoC	drivers/bus/ti-sysc.c	-
+029	7993cfc041481a3a9cd4a3858088fc846b8ccaf7	68f2454675b055cf32fb28902bc90b04bb88ffbd	picked	md: raid1: fix potential OOB in raid1_remove_disk()	drivers/md/raid1.c	-
+030	4bff1d95ba621894090e7512cb68cacb57f5cc6c	7e659b8eb704235ee181b6ad11defe1e4200df38	picked	ext2: fix datatype of block number in ext2_xattr_set2()	fs/ext2/xattr.c	-
+031	6f8b34458948ffca2fe90cd8c614e3fa2ebe0b27	97a1a646abfdac78a83f8d179a15b5860f65290b	picked	fs/jfs: prevent double-free in dbUnmount() after failed jfs_remount()	fs/jfs/jfs_dmap.c	-
+032	756747d4b439e3e1159282ae89f17eefebbe9b25	3ebfac7469eec26faf467089761449db36725571	picked	jfs: fix invalid free of JFS_IP(ipimap)->i_imap in diUnmount	fs/jfs/jfs_imap.c	-
+033	9f3b2b666833ebef6d0ce5a40e189f38e70342a1	288f464921b9356838e7ce489208d7c0be2e7298	picked	powerpc/pseries: fix possible memory leak in ibmebus_bus_init()	arch/powerpc/platforms/pseries/ibmebus.c	-
+034	6c01ef65de0b321b2db1ef9abf8f1d15862b937e	4afef62aca77351bacadc143897b4b4978f690cf	picked	media: dvb-usb-v2: af9035: Fix null-ptr-deref in af9035_i2c_master_xfer	drivers/media/usb/dvb-usb-v2/af9035.c	-
+035	97fdbdb750342cbc204befde976872fedb406ee6	77e8cd28846ab4cf1994cb47561b03fd3aee82e5	picked	media: dw2102: Fix null-ptr-deref in dw2102_i2c_transfer()	drivers/media/usb/dvb-usb/dw2102.c	-
+036	c7e5ac737db25d7387fe517cb5207706782b6cf8	dbec4d87f5484470a8b1ecb29d0bee3dffd881da	picked	media: af9005: Fix null-ptr-deref in af9005_i2c_xfer	drivers/media/usb/dvb-usb/af9005.c	-
+037	4a9763d2bc4a6d6fab42555b9c0b2eefa32585ac	27200bcdfd0dd756558e2ae3223268718f17c0f3	picked	media: anysee: fix null-ptr-deref in anysee_master_xfer	drivers/media/usb/dvb-usb-v2/anysee.c	-
+038	a9def3e9718a4dc756f48db147d42ec41a966240	ffb078854d8f0464c6d532f7ab8742a0d42e6faa	picked	media: az6007: Fix null-ptr-deref in az6007_i2c_xfer()	drivers/media/usb/dvb-usb-v2/az6007.c	-
+039	578b67614ae0e4fba3945b66a4c8f9ae77115bcb	b5a5da39502284732228cf7010ad90c43e9c5c48	picked	media: dvb-usb-v2: gl861: Fix null-ptr-deref in gl861_i2c_master_xfer	drivers/media/usb/dvb-usb-v2/gl861.c	-
+040	2ae53dd15eef90d34fc084b5b2305a67bb675a26	b47f6eeab1803cc5050d73e4f8d8fdd6c2e51fdc	picked	media: tuners: qt1010: replace BUG_ON with a regular error	drivers/media/tuners/qt1010.c	-
+041	890d10e6b72fc7e51bcb261679e1117f3520ca97	5aa16d47d30f369addc09cd6b673956e57701763	picked	media: pci: cx23885: replace BUG with error return	drivers/media/pci/cx23885/cx23885-video.c	-
+042	6d3a1dd10537023b135d542d33f855d698dfed9b	0cc09e4368baa7900d032e1524d613b088030ec7	picked	usb: gadget: fsl_qe_udc: validate endpoint index for ch9 udc	drivers/usb/gadget/udc/fsl_qe_udc.c	-
+043	bbe3ff47bf09db8956bc2eeb49d2d514d256ad2a	bee6ecd53c6fa60b74f3123a270fcc2b9d37016c	picked	scsi: target: iscsi: Fix buffer overflow in lio_target_nacl_info_show()	drivers/target/iscsi/iscsi_target_configfs.c	-
+044	f354456f8df1a4cb13c6d76f6e53474328b29426	1519040a441cdca233eee25944b5cbbbe392721e	picked	serial: cpm_uart: Avoid suspicious locking	drivers/tty/serial/cpm_uart/cpm_uart_core.c	-
+045	a3efb2b57e9df6755d88c2ac9986e490a2a92ab6	152e034d98ebc5356fb28d7a62a78be41d3cb087	picked	media: pci: ipu3-cio2: Initialise timing struct to avoid a compiler warning	drivers/media/pci/intel/ipu3/ipu3-cio2.c	-
+046	5df5829158513134ddcaf2184d9286eda7b0bb18	d2b1b6b04492f7490549c4771e85bbc6e834edbc	picked	kobject: Add sanity check for kset->kobj.ktype in kset_register()	lib/kobject.c	-
+047	b87d03ed6ab7b4273720cb76c51c58a3943675a4	e895ccf4efd57e65d98aad200128e1b417c9a57c	picked	mtd: rawnand: brcmnand: Allow SoC to provide I/O operations	drivers/mtd/nand/raw/brcmnand/brcmnand.c;drivers/mtd/nand/raw/brcmnand/brcmnand.h	-
+048	4954c5a05494ca9d35bfb4ae892ea82cd2aca920	f41c56e282af5a138728c5504503d154b611f99a	picked	mtd: rawnand: brcmnand: Fix ECC level field setting for v7.2 controller	drivers/mtd/nand/raw/brcmnand/brcmnand.c	-
+049	c560958127217219eaedac633b3eca66e0e590f4	63266ae3b77dcc9fa14783e1e6da741adacbfe48	picked	perf jevents: Make build dependency on test JSONs	tools/perf/pmu-events/Build	-
+050	e16f5f8cab650813773bafbca2383cfeaad00131	9661d5ae555332f8fdb86c05b7249c7432dfc4a8	picked	perf tools: Add an option to build without libbfd	tools/perf/Makefile.config	-
+051	cc87d2bb391cf12feb3c79fec86bc3597e08f3ac	c12745ade927a382097f92cd8e4b98a24326b16b	picked	btrfs: move btrfs_pinned_by_swapfile prototype into volumes.h	fs/btrfs/ctree.h;fs/btrfs/volumes.h	-
+052	ab90a3930d39579f94b5b22eed7337d81450f162	4d831d14b6f130f70e2106af27e644ffe80d39c7	picked	btrfs: add a helper to read the superblock metadata_uuid	fs/btrfs/volumes.c;fs/btrfs/volumes.h	-
+053	df380d6f5c06c7b8e5fd06819aa0b7fe1175d32b	2c50058c09a69e0308f123905952f48b4ff6cd58	picked	btrfs: compare the correct fsid/metadata_uuid in btrfs_validate_super	fs/btrfs/disk-io.c	-
+054	82910aa5501dd89c3e9a0f9803a1821ff091caf1	194498c2173cf4e5a2b7ea1663ba431a73665b5e	picked	drm: gm12u320: Fix the timeout usage for usb_bulk_msg()	drivers/gpu/drm/tiny/gm12u320.c	-
+055	ae889fffae52a4131dccfbd57487af7a1caf721b	1b5268a7a95c62b7c11b7d249bc060ff5628b99d	picked	scsi: qla2xxx: Fix NULL vs IS_ERR() bug for debugfs_create_dir()	drivers/scsi/qla2xxx/qla_dfs.c	-
+056	f990052376841f966290ecf5080427fc252e2d88	cdfee3b7f9c66c66695e5b572fb97b0624c6d7ad	picked	selftests: tracing: Fix to unmount tracefs for recovering environment	tools/testing/selftests/ftrace/ftracetest	-
+057	7635020b9bd4e4de37ec092c8690a534e971ceab	de1951413b633a3817b77476a74c87136ca22386	picked	scsi: lpfc: Fix the NULL vs IS_ERR() bug for debugfs_create_file()	drivers/scsi/lpfc/lpfc_debugfs.c	-
+058	d20beafaa69b8c653fbde14d5b0fe3ed12dc7597	bbf7ae0703821cfc7c0626911de2314ea8b0cc25	picked	x86/boot/compressed: Reserve more memory for page tables	arch/x86/boot/compressed/ident_map_64.c;arch/x86/include/asm/boot.h	-
+059	7be3a38f0e379ed3a68b293b3518e8ba5f700b32	aed6687d9f8b53fc6c6ac049b1ddd93c3ba2c568	picked	samples/hw_breakpoint: fix building without module unloading	samples/hw_breakpoint/data_breakpoint.c	-
+060	634444dea898914d9741f30fc4e4161fdd689a58	69d801379df800c5c61c6a9b8165231eeaa43872	picked	md/raid1: fix error: ISO C90 forbids mixed declarations	drivers/md/raid1.c	-
+061	68308b0a33edc3d92baf231a72c5a7d766dcc905	6ca3fb11cb2a55f7526a8a47e243acc217b9ea5b	picked	attr: block mode changes of symlinks	fs/attr.c	-
+062	c6422e6f173d760239cd250eb21fb35a43c54936	692fc1d64585105ff809c1a0de8da03e44562175	picked	ovl: fix incorrect fdput() on aio completion	fs/overlayfs/file.c	-
+063	3d379dd109f80c8f3b9aaa2d15681b37803aa4c0	b31abff79ccb2951acbbc8f9573af90ca1ccf71d	picked	btrfs: fix lockdep splat and potential deadlock after failure running delayed items	fs/btrfs/delayed-inode.c	-
+064	7390bb377b5fb3be23cb021e0f184d1f576be7d6	808abb2ba2ec0b4563d01fb4015e488839a90604	picked	btrfs: release path before inode lookup during the ino lookup ioctl	fs/btrfs/ioctl.c	-
+065	7a8f285cb58e4e5d7ad0e5cb0c670ec26575130d	b5f1f3613387187671c86ac60f835b69057220a5	picked	drm/amdgpu: fix amdgpu_cs_p1_user_fence	drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c	-
+066	8db844077ec9912d75952c80d76da71fc2412852	2399eb278261a9bae71d29b3f4b9bfb59b422b68	picked	net/sched: Retire rsvp classifier	net/sched/Kconfig;net/sched/Makefile;net/sched/cls_rsvp.c;net/sched/cls_rsvp.h;net/sched/cls_rsvp6.c	-
+067	0c5d5f8e0d2b94aecd81d7627f314fad954c6b5e	32a89f659797520204878ac0731d2dc0449ef3a6	backported	proc: fix a dentry lock race between release_task and lookup	fs/proc/base.c	Carry complete original generic inode/base-directory split and both PID/TID directory callers. First four hunks apply uniquely; last call crosses existing KSWAPD_PROTECT_DCACHE local declaration. Preserve that dcache protection and all OEM proc interfaces; non-base inode paths no longer register for release_task directory invalidation.
+068	2cdcf6481cb3f931b537615c1b9cfbb835e46e67	f78fa465783fc27d1361ce8eab4b763924c01eac	picked	mm/filemap: fix infinite loop in generic_file_buffered_read()	mm/filemap.c	-
+069	bb3e295a388c907c44a2af6ba27a7834f0a7c037	d00fa415a83c62d44ba557a1e902fe8943cfa06d	picked	drm/amd/display: enable cursor degamma for DCN3+ DRM legacy gamma	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c	-
+070	ec7eb8b06481dcd4f19473dc4ce46f1768559bcb	560fdecdad6086e65bb432e49f37ff12b480ac67	picked	tracing: Have current_trace inc the trace array ref count	kernel/trace/trace.c	-
+071	b3183f5f05cd867f5c17122773ca5aa8d07b51af	377d91076f54ee499b2f8fe67996cfb54ed5ed89	picked	tracing: Have option files inc the trace array ref count	kernel/trace/trace.c	-
+072	96afb318ae5de2bc67cc2e19c7fda49f981e700b	77eee64a1f63ef3132261615d2bf1315ba9d4dcc	picked	nfsd: fix change_info in NFSv4 RENAME replies	fs/nfsd/nfs4proc.c	-
+073	f5e303fce3be0021c506dc5b9ed29375477c4d23	10c873128dcc845c708c362951d22884c5815b3c	picked	tracefs: Add missing lockdown check to tracefs_create_dir()	fs/tracefs/inode.c	-
+074	993bb01d228b7cfccbade4e7e840f3d18678260b	ed0db343b011e98ec99a60198a5cc7ace9297b7f	picked	i2c: aspeed: Reset the i2c controller when timeout occurs	drivers/i2c/busses/i2c-aspeed.c	-
+075	3753e568d67f718b9ed7650953f975667838fe52	63652edb170205e14f088ad6319a0bd2dbb0171f	picked	ata: libata: disallow dev-initiated LPM transitions to unsupported states	drivers/ata/ahci.c;drivers/ata/libata-sata.c;include/linux/libata.h	-
+076	f4fffa1abb7fde221099bd88a6da15112690380a	dfe012cf187b4b44b4049c6617d8e2e20ad081bc	picked	scsi: megaraid_sas: Fix deadlock on firmware crashdump	drivers/scsi/megaraid/megaraid_sas.h;drivers/scsi/megaraid/megaraid_sas_base.c	-
+077	8768583b2509092bd070f2e04c89b5d2a5f94ae4	e6f1474c49c67ebd0464e9ed6ba7ae08a82d06fa	picked	scsi: pm8001: Setup IRQs on resume	drivers/scsi/pm8001/pm8001_init.c	-
+078	242c5740dd17ae1c7a44ff25b18dde29a618d250	a353b44cedc3b674b8155b4b596596dddf1b64a3	picked	ext4: fix rec_len verify error	fs/ext4/namei.c	-
+079	393e225fe8ff80ecc47065235027ce1a7fcbb8e5	0f04c586cd71d402a869d4792093fadd576f0e56	backported	Linux 5.10.197	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.

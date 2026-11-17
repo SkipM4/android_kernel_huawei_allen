@@ -5278,7 +5278,51 @@ after their identities and failed84 source/ramoops/rrecord/bootfail evidence
 are preserved. Original images, keys, referenced source/proof/blob/alternate
 stores and failed71/65 evidence remain. Directory use stays below20 GB.
 
-Next is complete196-200 toward pinned274. The known configfs cursor race,
-full hardware/network/performance/power, ACK parity, vendor/core separation
-and stableKMI/GKI remain open. Stable imports and normal Android/module
-acceptance do not certify those goals. No release export/tag/push/publication.
+### Complete Canonical 5.10.196-200 And Accepted #86
+
+All601 stable originals resolve in order:559 exact,28 adapted and14 already
+present, producing587 commits with original author/date and stable provenance.
+The official configfs revert already present in the accepted195 history is
+not duplicated. One required adapter changes the imported cpuacct lock
+assertion to this tree's existing core-aware `lockdep_assert_rq_held()` helper;
+the upstream RCU optimization remains intact. The source-only ledger files
+`linux-5.10.196-imports.tsv` through `linux-5.10.200-imports.tsv` account for
+each original entry.
+
+One configuration prepare and one successful complete Image/modules build
+produce5.10.200 #86 with no effective configuration delta. ThinLTO, enforcing
+CFI, BTI/BHB, actual Werror, trusted signing material, SELinux Enforcing,
+forced module signatures, PRMEM and36 generated OEM/HF selectors remain.
+The two emitted-only removals are disabled RSVP selectors. 5,008 natural
+compile contexts and68 selected interface objects bind the current build;
+supplemental current-object facts cover IPv6 router-lifetime consumers,
+trace iterator formatting storage, nftables GC/per-net state, USB/xHCI port
+state, perf overflow callbacks, ext4 trim layout, RPMsg driver override and
+ARM64 exception dispatch. The KASAN fault decoder is limited to shadow-based
+generic/software-tag modes so this tree's hardware-tag mode retains its
+non-shadow stub. Current final ELF checks pass for118 CFI groups and230
+targets, including current callback-table addresses and retained HF/GPIO
+assembly continuity.
+
+Module.symvers changes from13,866 to13,870 exports: four additions, no
+removals and3,295 changed common CRCs; providers, export types and namespaces
+remain. All390 required modem imports and two optional dummy imports match the
+same build. Same-build boot/modem staging, CMS signature, target certificate,
+ext4 ownership/mode/SELinux and signed-byte checks pass. The paired #86 images
+boot the confirmed ALN-AL00 to normal Android. Automatic Live modem loads with
+matching build ID; boot/modem/module readbacks match and the independent
+ramdisk remains unchanged. Critical services, unlocked CE storage and the
+existing automatic six-stage ISP path pass. Complete boot/later logs contain
+no actual kernel/module warning or fatal fault;508 AVC denials are visible,
+none for module loading. Read-only WARN/Oops counts are0; Enforcing, forced
+signatures, taint4, PRMEM and trace0/wifi remain, and the screen returns
+Asleep.
+
+Current local source is `c0e3bac720`; kernel tree is `150d87e35f713760`.
+#85/5.10.195 is the immediate paired rollback. The recovery report at the top
+of this document was stale: the target is now running normal Android #86, not
+in recovery. The earlier failed#84 and its recovery evidence remain preserved.
+Next is complete201-205 toward pinned274. Android common parity, independent
+stable KMI/GKI certification, OEM/core separation, ACK parity, full
+hardware/network/performance/power acceptance and the configfs cursor race
+remain open. No release export, tag, push or publication occurs.

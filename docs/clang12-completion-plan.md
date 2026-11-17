@@ -1604,3 +1604,37 @@ Stale-notification restart, shorter-request retention, released-group reuse,
 positive global queue, AUX/configured boost threads, complete frame/power and
 existing ABI/manual/hardware/source prerequisites remain open. Whole-device
 acceptance remains incomplete.
+
+## Stable Import Through 5.10.200 / #86
+
+The complete196-200 source range resolves601 stable entries with587 ordered
+original-author commits:559 exact,28 adapted and14 already present. The
+official configfs revert from the accepted195 source is not repeated. The
+cpuacct stable change is adapted to this tree's core-aware runqueue-lock
+assertion; its accounting and RCU semantics are retained.
+
+One prepared configuration and full Image/modules build complete with no
+effective config delta. ThinLTO, enforcing CFI, BTI/BHB, actual Werror,
+signing keys, SELinux Enforcing, forced module signatures, PRMEM and36
+generated selectors remain. Current selected interfaces use5,008 natural
+contexts and68 first-pass LTO objects, with supplemental layouts for new
+IPv6, xHCI/USB, ext4, nftables, trace, RPMsg and ARM64 paths. Final ELF checks
+bind118 CFI groups/230 targets. The kernel reports13,870 exports versus13,866
+at #85: four additions, no removals and3,295 changed CRCs. All390 required
+modem imports and two optional dummy imports match the new table.
+
+Same-build signed boot/modem images pass format, certificate and filesystem
+checks. The ALN-AL00 boots normal Android #86, automatically loads the matching
+Live modem, and reports matching partition/file/build-ID readbacks. The
+independent Magisk ramdisk remains unchanged; critical services, unlocked CE,
+automatic six-stage ISP startup, Enforcing, signature enforcement, taint4,
+PRMEM, trace0/wifi and Asleep screen pass. Complete logs have no actual
+kernel/module fault;508 AVC denials remain visible, none for module loading;
+WARN/Oops counts are0.
+
+The immediate paired rollback is accepted #85/5.10.195. Next import batch is
+201-205 toward pinned5.10.274. Android common parity, independent stable
+KMI/GKI certification, OEM/core separation, ACK parity, the known configfs
+cursor race and complete hardware/network/performance/power acceptance remain
+open. This work is local source/build/device verification only; no release is
+exported or published.

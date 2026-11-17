@@ -1,0 +1,3 @@
+sequence	stable_commit	local_commit	outcome	subject	files	note
+001	2cc1f498623311cb7d1608115b68793bfc505638	-	already-present	Revert "configfs: fix a race in configfs_lookup()"	fs/configfs/dir.c	Exact official revert2cc1f4986233 was required and imported separately as38bf2c8e46 to repair actual84 configfs recursion before accepted85. Both removed lock operations are already absent; retain original sequence without duplicate commit.
+002	ff0bfa8f23eb4c5a65ee6b0d0b7dc2e3439f1063	09ff86f5d0e927534037511aa274f467aa8c000e	backported	Linux 5.10.196	Makefile	Only original SUBLEVEL changes; retain local Makefile exports, build rules and mode.
