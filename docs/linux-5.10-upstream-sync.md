@@ -5516,3 +5516,21 @@ clk, USB port and CDC-WDM objects compile with Android Clang 12. Existing
 clock return-type warnings remain. No runtime USB test or new boot image has
 been installed. The kernel release remains 5.10.215 until the complete next
 release is integrated and validated.
+
+### 216 Prefix Through Entry 111
+
+Entries 66-105 have fresh actual import records: 35 exact original commits
+and five verified existing fixes (67, 68, 87, 100 and 105). The initially
+unmatched Rockchip/MediaTek DTS and mlxsw hunks apply after their ordered
+prerequisites; they were not omitted as configuration-specific conflicts.
+This range includes AX88179 receive-buffer accounting, GTP/Open vSwitch
+teardown, mlxsw rehash lifetime and board-description corrections.
+
+Entry 106's eight UART wrappers are already implemented in `d22542f09e`;
+its documentation difference still needs accounting with entry 136. Entries
+107-111 are now five additional exact original commits, including the crypto
+algorithm-name revert and the perf trace buffer increase to 8192 bytes.
+Selected AX88179, crypto algapi and trace_event_perf objects compile with
+Android Clang 12. No new kernel boot or module ABI acceptance is claimed.
+Entry 112 and the remainder of 216 await final reconciliation before the
+release number is advanced.
