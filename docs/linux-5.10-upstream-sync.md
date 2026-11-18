@@ -5534,3 +5534,19 @@ Selected AX88179, crypto algapi and trace_event_perf objects compile with
 Android Clang 12. No new kernel boot or module ABI acceptance is claimed.
 Entry 112 and the remainder of 216 await final reconciliation before the
 release number is advanced.
+
+### 5.10.216 Source Milestone
+
+Source commit `3a48d10500` advances SUBLEVEL to 216. The complete 138-entry
+ledger is in linux-5.10.216-imports.tsv: 109 exact imports, 22 existing fixes
+and seven adaptations. The CPU mitigation default change includes its
+non-x86 corrective patch before any build. Clock adaptations include the
+separate failure-path and lock-order corrections described above.
+
+Configuration preparation and selected TCP, UDP, Ethernet, GIC ITS and serial
+objects compile with Android Clang 12. CPU_MITIGATIONS, enforcing CFI,
+ThinLTO, BTI and forced module signatures remain enabled; NR_CPUS_BITS is 4
+for the configured 12 CPUs. Full Image/modules, final interface checks and
+boot acceptance remain pending. The installed accepted baseline is still
+5.10.215 #91. Continue the complete 217-220 ranges before the next paired
+installation; this is not a release publication or GKI/KMI certification.
