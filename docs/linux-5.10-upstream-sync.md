@@ -5493,3 +5493,26 @@ changes. The source version and installed baseline remain 5.10.215; these
 nine imports do not constitute full 5.10.216 or 5.10.220 acceptance. Earlier
 isolated cherry-picks must be accounted for before completing the sequential
 ledger; the invalidated preview is not an import authority.
+
+### 216 Prefix Through Entry 65
+
+Fresh actual application records cover entries 10-25, 27-43 and 50-65:
+36 original patches are committed unchanged and 13 have verified existing
+implementations. Entries 26 and 116 are applied as a paired CPU-mitigation
+update so ARM64 keeps CPU_MITIGATIONS=y. No intermediate configuration or
+build ran with the x86-only default change alone.
+
+Clock entries 44-49 are accounted for by the existing kref/runtime-PM work,
+its release-lock and parent-map ownership follow-up, and the actual spacing
+and diagnostic change in `d153259f4b`. Entry 45 reverse-checks successfully;
+44, 48 and 49 retain the reviewed local integration rather than overwriting
+the clock implementation. The invalidated old preview is not used as proof.
+
+This increment adds RISC-V stack canary/gp fixes, RDMA and display fixes,
+Thunderbolt suspend handling, USB serial IDs, the CDC-WDM stable revert,
+DWC2 NULL checking and USB3 LPM shutdown handling. Disabled architectures and
+drivers are source updates only. Selected drm_client_modeset, kernel/cpu,
+clk, USB port and CDC-WDM objects compile with Android Clang 12. Existing
+clock return-type warnings remain. No runtime USB test or new boot image has
+been installed. The kernel release remains 5.10.215 until the complete next
+release is integrated and validated.
