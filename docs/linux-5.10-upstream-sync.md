@@ -5608,3 +5608,34 @@ source fix. No SCMI compile/runtime coverage is claimed.
 Configuration/prepare and selected pinctrl/core and netlink objects compile
 with Android Clang 12. The installed baseline remains 215/#91; full kernel,
 module ABI and device acceptance remain pending for the 220 target.
+
+### 5.10.220 Source And Device Milestone
+
+The frozen 216-220 range contains 1,334 entries: 1,274 ordered upstream
+commits, 56 already-present changes and four not-applicable entries. The 220
+ledger records 751 exact imports, 18 targeted adaptations and two
+already-present patches. Adapters keep the selected Huawei VFS/NFS locking
+and change-attribute contracts while following upstream fdtable lookup,
+`renamedata`, module termination and kallsyms interfaces. The official
+5.10.220 release marker ends at `c700caaf68`; two separate OEM integration
+commits follow it.
+
+Clang/LLD 12.0.7 full Image/modules build #93 completes. ThinLTO, enforcing
+CFI, BTI/BHB, forced module signatures, SELinux and PRMEM/HKIP remain. The
+only effective config delta versus accepted #91 metadata is the newly defined
+`CONFIG_CPU_MITIGATIONS=y` default. All 390 modem imports and two optional
+dummy imports match current export CRCs; this is not stable KMI/GKI
+certification. Boot format/repack and signed modem filesystem/metadata gates
+pass.
+
+Paired `boot` and `modem_driver` installation starts normal Android
+5.10.220/#93, automatically loading the matching Live modem. Partition/file
+readbacks and module build ID match. The independent Magisk ramdisk is
+unchanged; SELinux Enforcing, signature enforcement, taint 4, PRMEM, critical
+services, unlocked CE, automatic ISP startup, trace state and asleep screen
+pass. Relevant boot logs show no classified kernel/module fault, WARN/Oops
+counters are zero and 511 AVCs include no module-load denial. Immediate
+paired recovery is 5.10.219/#92. Consumed link intermediates were retired
+and workspace usage returned below 20 GB. Next is 221-225 toward 5.10.274;
+Android common parity, stable KMI/GKI, OEM/core separation and broad
+hardware/network/performance/power acceptance remain open.

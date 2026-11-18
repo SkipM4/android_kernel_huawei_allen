@@ -1022,3 +1022,29 @@ Next work is the complete 216-220 range toward pinned 5.10.274, followed by
 explicit Android common/KMI comparison and OEM/core separation. GKI ABI,
 full hardware/network/performance/power acceptance remain open. No release
 export or publication is performed.
+
+### Linux 5.10.216-220: Matching Module Acceptance On #93
+
+The complete frozen stable range is recorded in the 216-220 TSV ledgers. The
+220 source includes 751 exact upstream imports, 18 necessary adaptations and
+two already-present changes. The selected Huawei tree retains VFS/NFS locking
+contracts while following upstream fdtable lookup, `renamedata`, module
+termination and kallsyms interfaces. Two post-release OEM integration commits
+are recorded separately.
+
+Build #93 completes with Android Clang/LLD 12.0.7, ThinLTO, CFI, forced
+module signatures, SELinux and PRMEM/HKIP. The newly defined
+`CONFIG_CPU_MITIGATIONS=y` is the only effective configuration delta from
+accepted #91 metadata. The modem's 390 versioned imports and the optional
+dummy module's two imports match current CRCs; this does not certify stable
+KMI/GKI.
+
+The paired 5.10.220/#93 `boot` and `modem_driver` images pass format,
+signature, filesystem and metadata staging. Device acceptance passes normal
+Android startup, automatic matching Live modem loading, partition and module
+readback/build-ID agreement, SELinux Enforcing, signature enforcement, taint
+4, PRMEM, services, unlocked CE, ISP startup, trace restoration and asleep
+screen. No classified kernel/module fault appears in relevant logs; WARN/Oops
+counts are zero and 511 AVCs include no module-load denial. The independent
+Magisk ramdisk remains unchanged. Immediate paired recovery is 5.10.219/#92;
+no release export or publication was made.

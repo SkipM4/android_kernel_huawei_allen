@@ -1765,3 +1765,43 @@ Next work is the complete 216-220 range toward pinned 5.10.274, followed by
 explicit Android common/KMI comparison and OEM/core separation. GKI ABI,
 full hardware/network/performance/power acceptance remain open. No release
 export or publication is performed.
+
+### Linux 5.10.216-220: Accepted #93
+
+The frozen official source range contains 1,334 entries, with 1,274 ordered
+upstream commits, 56 already-present patches and four not-applicable
+entries. Each release has a TSV disposition ledger. The 220 ledger records
+751 unchanged imports, 18 targeted adaptations and two already-present
+patches. Adaptations preserve OEM VFS rename data, explicit inode-lock and
+NFS change-attribute behavior while following the upstream API; current
+fdtable readers are moved to the RCU or lock-checked lookup helpers matching
+their callers. Build findings also corrected these interfaces and the
+Livepatch kallsyms conditional guard. The ordered source reaches official
+5.10.220 at `c700caaf68`; two source integration commits follow.
+
+Clang/LLD 12.0.7 `Image modules` build #93, same-build module import CRC
+checks, signature verification, boot repack and modem image filesystem,
+label and readback checks pass. `CONFIG_CPU_MITIGATIONS` is the only
+effective config difference from the accepted prior build: 5.10.220 defines
+it and defaults it on. Existing ThinLTO, enforcing CFI, BTI/BHB, module
+signing, SELinux and PRMEM/HKIP remain. All 390 modem imports and both
+optional dummy imports resolve with matching CRCs. This verifies matching
+rebuild compatibility only; stable KMI/GKI is not certified.
+
+The target was running accepted 5.10.219/#92 immediately before install.
+Only paired `boot` and `modem_driver` were flashed for candidate #93; the
+independent Magisk ramdisk was read back unchanged. Normal Android completes
+and automatically loads the matching modem as Live. Staged partitions and
+module file readback/build ID match. SELinux Enforcing, module-signature
+enforcement, taint 4, PRMEM, critical services, unlocked CE, automatic ISP
+startup, trace state and asleep screen pass. The complete relevant boot logs
+contain no matched kernel/module fault; read-only WARN/Oops counts are zero.
+511 AVC denials were visible, none for module load/request. Immediate paired
+recovery is 5.10.219/#92. The accepted device record is
+`.tmp/next216-input-preparation/r93-runtime-acceptance.json`.
+
+The workspace was returned below 20 GB by retiring only consumed final-link
+intermediates and the completed ThinLTO cache. Continue with 5.10.221-225
+toward 5.10.274. GKI/KMI certification, Android common parity, OEM/core
+separation and broad hardware/network/performance/power acceptance remain
+open; no release export or publication is performed.

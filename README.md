@@ -1510,3 +1510,41 @@ Next work is the complete 216-220 range toward pinned 5.10.274, followed by
 explicit Android common/KMI comparison and OEM/core separation. GKI ABI,
 full hardware/network/performance/power acceptance remain open. No release
 export or publication is performed.
+
+### Linux 5.10.216-220: 220 Boots With Matching Modules On #93
+
+The frozen official range contains 1,334 entries: 1,274 ordered upstream
+commits, 56 already-present patches and four not-applicable entries. The
+five ledgers record 216-219 and 220 separately. The 220 ledger contains 751
+exact imports, 18 source adaptations and two already-present changes. OEM
+adaptations preserve the existing descriptor lookup lifetime, VFS rename
+data/locking contracts and NFS filehandle attribute handling. Build-driven
+repairs also update remaining OEM fdtable and `vfs_rename()` callers, and fix
+the Livepatch kallsyms conditional boundary. Source release is 5.10.220 at
+`c700caaf68`; two additional OEM integration commits follow that official
+endpoint.
+
+The Clang/LLD 12.0.7 `Image modules` build completes as build #93 with
+ThinLTO, enforcing CFI, module signature enforcement, SELinux and the
+matching 390-import modem module intact. `CONFIG_CPU_MITIGATIONS` is newly
+enabled by the 5.10.220 source defaults; the prior source did not define it.
+The signed modem and optional dummy module imports match current export CRCs.
+This is same-build module compatibility, not stable GKI/KMI certification.
+Boot repacking and modem signing/filesystem/metadata readback checks pass.
+
+Paired `boot` and `modem_driver` installation boots normal Android
+5.10.220/#93 on the target; the matching modem automatically loads as Live.
+Partition/module readbacks and module build ID match the staged build. The
+independent Magisk ramdisk is unchanged, SELinux is Enforcing, signature
+enforcement and PRMEM remain active, essential services and unlocked CE
+storage are available, and the existing automatic six-stage ISP startup
+path passes. Complete boot logs contain no classified kernel/module faults;
+WARN/Oops counters are zero and 511 observed AVCs include no module-load
+denial. Trace state and asleep screen are restored. Immediate paired recovery
+is 5.10.219/#92.
+
+The workspace is below 20 GB after retiring consumed link intermediates.
+No release image export or publication is performed. Continue with
+5.10.221-225 toward the pinned 5.10.274 endpoint. Android common parity,
+stable KMI/GKI certification, OEM/core separation and broad hardware,
+network, performance and power acceptance remain open.
