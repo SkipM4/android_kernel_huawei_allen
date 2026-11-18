@@ -1,0 +1,17 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	8869c2916dc1f5b4f823f1ebaa9ca465689e9c9e	exact	8f98b01926f221c93a626a4a89485142a40c69cc	pinctrl: core: handle radix_tree_insert() errors in pinctrl_register_one_pin()	Original patch applied unchanged, retaining existing file modes.
+2	1424ab4bb386df9cc590c73afa55f13e9b00dea2	exact	bd112ac7ee8951b5e7431451c48c2189ac583ad7	x86/xen: Drop USERGS_SYSRET64 paravirt call	Original patch applied unchanged, retaining existing file modes.
+3	719225b0f93289360b02eacbdec6deb852e1d6b8	exact	21e6a17684920c1ce0b371c7cfb7deb151b67f2b	"Revert ""selftests: mm: fix map_hugetlb failure on 64K page size systems"""	Original patch applied unchanged, retaining existing file modes.
+4	b8d75bb01c560db69e63015b76617444a929f306	exact	25b8a803cb12c3ed695714abd3051a358ec36bbb	net: bcmgenet: synchronize EXT_RGMII_OOB_CTRL access	Original patch applied unchanged, retaining existing file modes.
+5	db7aa45c71914340568d492af38d4e391a051e7a	exact	a7a95d85bfff2076d3b8452d7074eb6ec180040b	net: bcmgenet: synchronize UMAC_CMD access	Original patch applied unchanged, retaining existing file modes.
+6	eb15243bc98b3f220f8575159135babef1dd6627	exact	bc2dbcfac430bdcef3cce9a3ab8f97715376c352	"ima: fix deadlock when traversing ""ima_default_rules""."	Original patch applied unchanged, retaining existing file modes.
+7	05c9e3fc93b02d18c3ab258d43350a6d44b40bbd	exact	b234dbd1fb0d8c15a047f685392093ffef6c172b	netlink: annotate lockless accesses to nlk->max_recvmsg_len	Original patch applied unchanged, retaining existing file modes.
+8	546751d9d43ef4165de0943ea52f395edb9af234	exact	44e75a27e1773983815c22a08b497c8efbf310eb	"KVM: x86: Clear ""has_error_code"", not ""error_code"", for RM exception injection"	Original patch applied unchanged, retaining existing file modes.
+9	f2277d9e2a0d092c13bae7ee82d75432bb8b5108	adapted	2e82cdfee77fcd78a5e432c1526fdd93aba655c9	firmware: arm_scmi: Harden accesses to the reset domains	Bounds check before descriptor indexing; retain newer protocol_handle/get_priv API. SCMI not selected; no runtime claim.
+10	99951b62bf20cec9247f633a3bea898338b9e5b4	exact	7be2435d7d758886e8f978d9d066a1606089c3a2	mptcp: ensure snd_nxt is properly initialized on connect	Original patch applied unchanged, retaining existing file modes.
+11	c48ab6a4cd8210100f97b78c8b98e8ccea3fcf22	exact	3d4930bd7d3f599fed4e548ec7bab43d4f7a40d8	btrfs: add missing mutex_unlock in btrfs_relocate_sys_chunks()	Original patch applied unchanged, retaining existing file modes.
+12	0eb296233f86750102aa43b97879b8d8311f249a	exact	789e552fd74a3ec77cbac6ff38c6a62f637abae1	drm/amdgpu: Fix possible NULL dereference in amdgpu_ras_query_error_status_helper()	Original patch applied unchanged, retaining existing file modes.
+13	7ed7748c94cb3d2e032cdefe7ba8e5e39dc02dcc	exact	909c7d9603702511227e989fd787005d33a56cf6	usb: typec: ucsi: displayport: Fix potential deadlock	Original patch applied unchanged, retaining existing file modes.
+14	b5fb355c9f5e5f6d63819925ca975df0597f2b2e	exact	3c0eb0083af16189f44bfa6a0ea6520c2ef5d710	serial: kgdboc: Fix NMI-safety problems from keyboard reset code	Original patch applied unchanged, retaining existing file modes.
+15	04a5842ed71f54760038941145ac1a9b3da32051	exact	ecfc3288c61653e6d1d50c0aa544c228f27b087b	docs: kernel_include.py: Cope with docutils 0.21	Original patch applied unchanged, retaining existing file modes.
+16	61458c864cac6c84d85c8ae53d2408ad5a6ecfd4	adapted	8af7ac80288c243a5941dc89d501b2f17e2882cc	Linux 5.10.218	SUBLEVEL only; preserve build rules.

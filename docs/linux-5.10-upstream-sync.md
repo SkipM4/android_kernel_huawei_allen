@@ -5596,3 +5596,15 @@ and still requires final ELF callback and device validation before flashing.
 DWC3 core/gadget/host, xhci-plat, skbuff, USB hub/composite/FunctionFS,
 regulator and keys objects compile with Android Clang 12; configuration
 preparation passes. No full Image/modules or device acceptance is claimed.
+
+### 5.10.218 Source Milestone
+
+Source `8af7ac8028` advances to 218. All 16 originals are recorded in
+linux-5.10.218-imports.tsv: 14 exact applications, the SCMI reset bounds check
+adapted to this tree's protocol_handle/get_priv API, and SUBLEVEL integration.
+The absent CONFIG_ARM_SCMI_PROTOCOL selection does not justify omitting the
+source fix. No SCMI compile/runtime coverage is claimed.
+
+Configuration/prepare and selected pinctrl/core and netlink objects compile
+with Android Clang 12. The installed baseline remains 215/#91; full kernel,
+module ABI and device acceptance remain pending for the 220 target.
