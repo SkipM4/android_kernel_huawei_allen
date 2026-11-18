@@ -5550,3 +5550,17 @@ for the configured 12 CPUs. Full Image/modules, final interface checks and
 boot acceptance remain pending. The installed accepted baseline is still
 5.10.215 #91. Continue the complete 217-220 ranges before the next paired
 installation; this is not a release publication or GKI/KMI certification.
+
+### 217 Initial Source Prefix
+
+Entries 1-18 of 5.10.217 are accounted for by 16 exact original commits and
+two existing fixes verified by reverse application (nl80211 and pinctrl
+core). The PL330 change and its immediate official revert are both retained
+in order; no build ran on the intermediate state. EEPROM, pinctrl and NFS
+patches apply after their ordered prerequisites. NFS source was updated even
+though it is not selected for Allen; no NFS runtime claim is made.
+
+Android Clang 12 compilation of drivers/pinctrl/devicetree.o passes with the
+node-reference cleanup change. Source remains 5.10.216, installed baseline
+5.10.215 #91. Entry 19 targets the absent MT6360 regulator implementation and
+requires applicability accounting before continuing the remaining range.
