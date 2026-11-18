@@ -5474,3 +5474,22 @@ Android Clang 12 object compilation of drivers/clk/clk.o passes. Two existing
 OEM pointer-to-int return warnings remain. No full-kernel, module-layout or
 boot acceptance is claimed for the post-#91 source. The installed baseline
 remains 5.10.215 #91; complete 216-220 synchronization is still pending.
+
+### Rebuilt 216 Import Accounting: Entries 1-9
+
+The first nine official 5.10.216 commits have now been applied as actual
+source commits, from `11a1409fc5` through `ae61072371`, preserving their author,
+message and stable commit reference. These cover batman-adv loop termination,
+Bluetooth request skb lifetime, CEC Timer Status validation, a typed nouveau
+cleanup callback, Open vSwitch diagnostics, u64_stats lockdep initialization,
+XDP socket option length validation, Geneve VLAN header validation and
+OcteonTX2 queue configuration.
+
+Disabled configuration is not a reason to omit an available upstream source
+fix. These drivers remain disabled where dictated by the Allen configuration;
+no runtime coverage of them is claimed. Android Clang 12 compilation of the
+selected ip_tunnel_core and IPv4 UDP consumers passes after the shared header
+changes. The source version and installed baseline remain 5.10.215; these
+nine imports do not constitute full 5.10.216 or 5.10.220 acceptance. Earlier
+isolated cherry-picks must be accounted for before completing the sequential
+ledger; the invalidated preview is not an import authority.
