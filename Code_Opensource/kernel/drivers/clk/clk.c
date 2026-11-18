@@ -3964,8 +3964,17 @@ static int clk_core_populate_parent_map(struct clk_core *core,
 			WARN(1, "Must specify parents if num_parents > 0\n");
 		}
 
-		if (ret)
+		if (ret) {
+			kfree_const(parent->name);
+			kfree_const(parent->fw_name);
+			while (--i >= 0) {
+				kfree_const(parents[i].name);
+				kfree_const(parents[i].fw_name);
+			}
+			kfree(parents);
+			core->parents = NULL;
 			return ret;
+		}
 	}
 
 	return 0;
@@ -3999,6 +4008,16 @@ static void __clk_release(struct kref *ref)
 	clk_core_free_parent_map(core);
 	kfree_const(core->name);
 	kfree(core);
+}
+
+static void clk_pm_runtime_init(struct clk_core *core)
+{
+	if (core->dev && pm_runtime_enabled(core->dev)) {
+		core->rpm_enabled = true;
+		mutex_lock(&clk_rpm_list_lock);
+		hlist_add_head(&core->rpm_node, &clk_rpm_list);
+		mutex_unlock(&clk_rpm_list_lock);
+	}
 }
 
 static struct clk *
@@ -4035,12 +4054,7 @@ __clk_register(struct device *dev, struct device_node *np, struct clk_hw *hw)
 	core->ops = init->ops;
 
 	core->dev = dev;
-	if (dev && pm_runtime_enabled(dev)) {
-		core->rpm_enabled = true;
-		mutex_lock(&clk_rpm_list_lock);
-		hlist_add_head(&core->rpm_node, &clk_rpm_list);
-		mutex_unlock(&clk_rpm_list_lock);
-	}
+	clk_pm_runtime_init(core);
 	core->of_node = np;
 	if (dev && dev->driver)
 		core->owner = dev->driver->owner;
