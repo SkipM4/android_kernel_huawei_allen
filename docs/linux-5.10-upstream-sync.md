@@ -5564,3 +5564,21 @@ Android Clang 12 compilation of drivers/pinctrl/devicetree.o passes with the
 node-reference cleanup change. Source remains 5.10.216, installed baseline
 5.10.215 #91. Entry 19 targets the absent MT6360 regulator implementation and
 requires applicability accounting before continuing the remaining range.
+
+### 217 Prefix Through Entry 80
+
+Entry 19 targets mt6360-regulator.c, which is absent in this source tree;
+this is an absent-implementation exception, not a disabled-config shortcut.
+Entries 20-45 add 25 exact original commits and one existing skb-copy fix.
+Entries 46-80 add 31 exact original commits and four existing fixes (clock
+release ordering, two TCP fixes and rtnetlink VLAN validation), verified
+against the current source. Original author/message/stable references are
+preserved for every applied patch.
+
+This prefix includes UDP GRO flush handling, network driver error paths,
+Btrfs and 9p fixes, credential handling for target initialization, and XFRM
+VLAN header restoration. The latter adds orig_mac_len to xfrm_offload and
+changes both IPv4/IPv6 transport consumers. Current sock, xfrm_input,
+xfrm4_input, xfrm6_input and UDP offload objects compile using Android
+Clang 12. Full shared-layout/module verification is still required before
+installation. Source remains 5.10.216; no device changes were performed.
