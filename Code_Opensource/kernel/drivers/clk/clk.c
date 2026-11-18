@@ -1359,6 +1359,8 @@ static int __init clk_disable_unused(void)
 		return 0;
 	}
 
+	pr_info("clk: Disabling unused clocks\n");
+
 	ret = clk_pm_runtime_get_all();
 	if (ret)
 		return ret;
@@ -3760,7 +3762,6 @@ static int __clk_core_init(struct clk_core *core)
 
 	clk_core_hold_state(core);
 	clk_core_reparent_orphans_nolock();
-
 
 #ifdef CONFIG_CLK_DEBUG
 	clk_list_add(core);
