@@ -5582,3 +5582,17 @@ changes both IPv4/IPv6 transport consumers. Current sock, xfrm_input,
 xfrm4_input, xfrm6_input and UDP offload objects compile using Android
 Clang 12. Full shared-layout/module verification is still required before
 installation. Source remains 5.10.216; no device changes were performed.
+
+### 5.10.217 Source Milestone
+
+Source `5fc965ab47` advances to 217 with all 110 originals accounted for in
+linux-5.10.217-imports.tsv. Entry 19 has no local MT6360 implementation;
+entry 95 is a real Kirin DWC3 adaptation (`e8789057d4`). PHY suspend remains
+disabled during setup, then the gadget start or primary xHCI plat_start
+callback enables it with the existing U2/U3 quirks honored. Gadget exit
+retains Huawei IRQ, tasklet and DMA cleanup. This changes runtime sequencing
+and still requires final ELF callback and device validation before flashing.
+
+DWC3 core/gadget/host, xhci-plat, skbuff, USB hub/composite/FunctionFS,
+regulator and keys objects compile with Android Clang 12; configuration
+preparation passes. No full Image/modules or device acceptance is claimed.
