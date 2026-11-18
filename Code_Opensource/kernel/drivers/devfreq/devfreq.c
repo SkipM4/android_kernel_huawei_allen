@@ -1670,8 +1670,10 @@ static ssize_t trans_stat_show(struct device *dev,
 		len += scnprintf(buf + len, PAGE_SIZE - len, "%10lu",
 				 df->profile->freq_table[i]);
 	}
-	if (len >= PAGE_SIZE - 1)
-		return PAGE_SIZE - 1;
+	if (len >= PAGE_SIZE - 1) {
+		pr_warn_once("devfreq transition table exceeds PAGE_SIZE. Disabling\n");
+		return -EFBIG;
+	}
 
 	len += scnprintf(buf + len, PAGE_SIZE - len, "   time(ms)\n");
 
