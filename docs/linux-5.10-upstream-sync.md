@@ -5454,3 +5454,23 @@ Next work is the complete 216-220 range toward pinned 5.10.274, followed by
 explicit Android common/KMI comparison and OEM/core separation. GKI ABI,
 full hardware/network/performance/power acceptance remain open. No release
 export or publication is performed.
+
+### Clock Integration Follow-up Before 216-220 Boot Testing
+
+The partial clock migration in `b9f9562960` needed its upstream companion
+`c43463fa3` (Linux stable, "clk: Don't hold prepare_lock when calling
+kref_put()"). Final release now runs outside prepare_lock in both
+clk_unregister and __clk_put, avoiding inversion against clk_rpm_list_lock.
+The unused-clock traversal drops its obsolete per-node runtime-PM references
+and uses the global references acquired before prepare_lock.
+
+A separate integration repair makes __clk_release the sole owner of parent-map
+cleanup, including partially initialized maps. It also handles a failed map
+allocation without dereferencing NULL. The earlier migration's eager cleanup
+could otherwise double-free a map after registration failure. These are real
+failure paths, not a claim that a runtime failure was observed on the phone.
+
+Android Clang 12 object compilation of drivers/clk/clk.o passes. Two existing
+OEM pointer-to-int return warnings remain. No full-kernel, module-layout or
+boot acceptance is claimed for the post-#91 source. The installed baseline
+remains 5.10.215 #91; complete 216-220 synchronization is still pending.
