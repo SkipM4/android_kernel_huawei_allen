@@ -1292,7 +1292,7 @@ static struct file *emcom_xengine_fget_by_pid(pid_t pid, unsigned int fd, fmode_
 	 * dup2() atomicity guarantee is the reason
 	 * we loop to catch the new file (or NULL pointer)
 	 */
-	while ((file = fcheck_files(files, fd)) != NULL) {
+	while ((file = files_lookup_fd_rcu(files, fd)) != NULL) {
 		if (file->f_mode & mask) {
 			file = NULL;
 			break;

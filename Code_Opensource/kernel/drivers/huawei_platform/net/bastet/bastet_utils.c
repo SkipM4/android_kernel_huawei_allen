@@ -451,7 +451,7 @@ static struct file *fget_by_pid(unsigned int fd, pid_t pid)
 	}
 	put_task_struct(task);
 	rcu_read_lock();
-	file = fcheck_files(files, fd);
+	file = files_lookup_fd_rcu(files, fd);
 	if (file) {
 		/* File object ref couldn't be taken */
 		if ((file->f_mode & FMODE_PATH) ||

@@ -61,10 +61,10 @@ struct file *kfile_fget_light(unsigned int fd, int *fput_needed)
 	*fput_needed = 0;
 
 	if (atomic_read(&files->count) == 1) {
-		file = fcheck_files(files, fd);
+		file = files_lookup_fd_rcu(files, fd);
 	} else {
 		spin_lock(&files->file_lock);
-		file = fcheck_files(files, fd);
+		file = files_lookup_fd_rcu(files, fd);
 		if (file) {
 			get_file(file);
 			*fput_needed = 1;
