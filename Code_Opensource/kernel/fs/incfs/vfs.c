@@ -1398,9 +1398,15 @@ static int dir_rename(struct inode *old_dir, struct dentry *old_dentry,
 		goto unlock_out;
 	}
 
-	error = vfs_rename(d_inode(backing_old_dir_dentry), backing_old_dentry,
-			d_inode(backing_new_dir_dentry), backing_new_dentry,
-			NULL, 0);
+	{
+		struct renamedata rd = {
+			.old_dir = d_inode(backing_old_dir_dentry),
+			.old_dentry = backing_old_dentry,
+			.new_dir = d_inode(backing_new_dir_dentry),
+			.new_dentry = backing_new_dentry,
+		};
+		error = vfs_rename(&rd);
+	}
 	if (error)
 		goto unlock_out;
 	if (target_inode)

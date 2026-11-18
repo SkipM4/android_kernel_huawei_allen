@@ -693,9 +693,16 @@ int hmdfs_rename_local_dentry(struct inode *old_dir, struct dentry *old_dentry,
 		goto out_lock;
 	}
 
-	rc = vfs_rename(d_inode(lower_old_dir_dentry), lower_old_dentry,
-			d_inode(lower_new_dir_dentry), lower_new_dentry, NULL,
-			flags);
+	{
+		struct renamedata rd = {
+			.old_dir = d_inode(lower_old_dir_dentry),
+			.old_dentry = lower_old_dentry,
+			.new_dir = d_inode(lower_new_dir_dentry),
+			.new_dentry = lower_new_dentry,
+			.flags = flags,
+		};
+		rc = vfs_rename(&rd);
+	}
 out_lock:
 	dget(old_dentry);
 

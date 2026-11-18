@@ -296,9 +296,17 @@ retry_deleg:
 				     &new_path, new_dentry, flags);
 	if (error)
 		goto exit5;
-	error = vfs_rename(old_path.dentry->d_inode, old_dentry,
-			   new_path.dentry->d_inode, new_dentry,
-			   &delegated_inode, flags);
+	{
+		struct renamedata rd = {
+			.old_dir = old_path.dentry->d_inode,
+			.old_dentry = old_dentry,
+			.new_dir = new_path.dentry->d_inode,
+			.new_dentry = new_dentry,
+			.delegated_inode = &delegated_inode,
+			.flags = flags,
+		};
+		error = vfs_rename(&rd);
+	}
 exit5:
 	dput(new_dentry);
 exit4:

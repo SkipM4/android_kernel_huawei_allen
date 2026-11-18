@@ -2382,8 +2382,13 @@ static void hmdfs_rename_bak(struct dentry *dentry)
 		goto unlock_parent;
 	}
 
-	err = vfs_rename(d_inode(lower_parent), lower_dentry,
-			 d_inode(lower_parent), new_dentry, NULL, 0);
+	{
+		struct renamedata rd = {
+			.old_dir = d_inode(lower_parent), .old_dentry = lower_dentry,
+			.new_dir = d_inode(lower_parent), .new_dentry = new_dentry,
+		};
+		err = vfs_rename(&rd);
+	}
 
 	dput(new_dentry);
 unlock_parent:
@@ -2709,9 +2714,13 @@ int hmdfs_root_rename(struct hmdfs_sb_info *sbi, uint64_t device_id,
 	if (ctx->path_old.dentry != ctx->path_new.dentry)
 		hmdfs_mark_drop_flag(device_id, ctx->path_new.dentry);
 
-	err = vfs_rename(d_inode(ctx->path_old.dentry), ctx->old_dentry,
-			 d_inode(ctx->path_new.dentry), ctx->new_dentry,
-			 NULL, 0);
+	{
+		struct renamedata rd = {
+			.old_dir = d_inode(ctx->path_old.dentry), .old_dentry = ctx->old_dentry,
+			.new_dir = d_inode(ctx->path_new.dentry), .new_dentry = ctx->new_dentry,
+		};
+		err = vfs_rename(&rd);
+	}
 
 out:
 	free_rename_ctx(ctx);

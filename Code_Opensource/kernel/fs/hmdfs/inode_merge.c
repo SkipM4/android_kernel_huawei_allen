@@ -1240,8 +1240,14 @@ int do_rename_merge(struct inode *old_dir, struct dentry *old_dentry,
 		lo_d_old_dir = dget_parent(lo_d_old);
 		lo_i_old_dir = d_inode(lo_d_old_dir);
 
-		ret = vfs_rename(lo_i_old_dir, lo_d_old, lo_i_new_dir, lo_d_new,
-				 NULL, flags);
+		{
+			struct renamedata rd = {
+				.old_dir = lo_i_old_dir, .old_dentry = lo_d_old,
+				.new_dir = lo_i_new_dir, .new_dentry = lo_d_new,
+				.flags = flags,
+			};
+			ret = vfs_rename(&rd);
+		}
 		new_comrade = alloc_comrade(lo_p_new.dentry, comrade->dev_id);
 		if (IS_ERR(new_comrade)) {
 			ret = PTR_ERR(new_comrade);
