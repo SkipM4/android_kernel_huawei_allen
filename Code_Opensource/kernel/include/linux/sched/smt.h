@@ -41,7 +41,7 @@ static __always_inline bool sched_smt_active(void)
 	return static_branch_likely(&sched_smt_present);
 }
 #else
-static inline bool sched_smt_active(void) { return false; }
+static __always_inline bool sched_smt_active(void) { return false; }
 static inline bool cpu_should_thread_off(int cpu) { return false; };
 #endif
 
