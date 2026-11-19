@@ -263,6 +263,8 @@ exit_idle:
 static void do_idle(void)
 {
 	int cpu = smp_processor_id();
+
+	nohz_run_idle_balance(cpu);
 	/*
 	 * If the arch has a polling bit, we maintain an invariant:
 	 *

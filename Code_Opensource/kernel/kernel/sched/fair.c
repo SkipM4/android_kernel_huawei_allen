@@ -13426,6 +13426,15 @@ static bool nohz_idle_balance(struct rq *this_rq, enum cpu_idle_type idle)
 	return true;
 }
 
+void nohz_run_idle_balance(int cpu)
+{
+	unsigned int flags;
+
+	flags = atomic_fetch_andnot(NOHZ_NEWILB_KICK, nohz_flags(cpu));
+	if (flags == NOHZ_NEWILB_KICK && !need_resched())
+		_nohz_idle_balance(cpu_rq(cpu), NOHZ_STATS_KICK, CPU_IDLE);
+}
+
 static void nohz_newidle_balance(struct rq *this_rq)
 {
 	int this_cpu = this_rq->cpu;
@@ -13447,14 +13456,8 @@ static void nohz_newidle_balance(struct rq *this_rq)
 		return;
 
 	raw_spin_rq_unlock(this_rq);
-	/*
-	 * This CPU is going to be idle and blocked load of idle CPUs
-	 * need to be updated. Run the ilb locally as it is a good
-	 * candidate for ilb instead of waking up another idle CPU.
-	 * Kick an normal ilb if we failed to do the update.
-	 */
-	if (!_nohz_idle_balance(this_rq, NOHZ_STATS_KICK, CPU_NEWLY_IDLE))
-		kick_ilb(NOHZ_STATS_KICK);
+	/* Defer blocked-load maintenance until this CPU is about to idle. */
+	atomic_or(NOHZ_NEWILB_KICK, nohz_flags(this_cpu));
 	raw_spin_rq_lock(this_rq);
 }
 
@@ -13467,6 +13470,7 @@ static inline bool nohz_idle_balance(struct rq *this_rq, enum cpu_idle_type idle
 }
 
 static inline void nohz_newidle_balance(struct rq *this_rq) { }
+static inline void nohz_run_idle_balance(int cpu) { }
 #endif /* CONFIG_NO_HZ_COMMON */
 
 /*
