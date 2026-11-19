@@ -2852,7 +2852,7 @@ static int xhci_configure_endpoint(struct xhci_hcd *xhci,
 	spin_unlock_irqrestore(&xhci->lock, flags);
 
 	/* Wait for the configure endpoint command to complete */
-	timeleft = wait_for_completion_timeout(command->completion, XHCI_CMD_DEFAULT_TIMEOUT * 2);
+	timeleft = wait_for_completion_timeout(command->completion, msecs_to_jiffies(XHCI_CMD_DEFAULT_TIMEOUT * 2));
 	if (timeleft == 0) {
 		xhci_warn(xhci, "Timeout while waiting for configure endpoint command\n");
 		spin_lock_irqsave(&xhci->lock, flags);
@@ -2941,6 +2941,7 @@ int xhci_check_bandwidth(struct usb_hcd *hcd, struct usb_device *udev)
 		return -ENOMEM;
 
 	command->in_ctx = virt_dev->in_ctx;
+	command->timeout_ms = timeout_ms;
 
 	/* See section 4.6.6 - A0 = 1; A1 = D0 = D1 = 0 */
 	ctrl_ctx = xhci_get_input_control_ctx(command->in_ctx);
@@ -3787,7 +3788,7 @@ static int xhci_discover_or_reset_device(struct usb_hcd *hcd,
 	spin_unlock_irqrestore(&xhci->lock, flags);
 
 	/* Wait for the Reset Device command to finish */
-	timeleft = wait_for_completion_timeout(reset_device_cmd->completion, XHCI_CMD_DEFAULT_TIMEOUT * 2);
+	timeleft = wait_for_completion_timeout(reset_device_cmd->completion, msecs_to_jiffies(XHCI_CMD_DEFAULT_TIMEOUT * 2));
 	if (timeleft == 0) {
 		xhci_warn(xhci, "Timeout while waiting for reset device\n");
 		spin_lock_irqsave(&xhci->lock, flags);
@@ -4021,7 +4022,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
 	xhci_ring_cmd_db(xhci);
 	spin_unlock_irqrestore(&xhci->lock, flags);
 
-	timeleft = wait_for_completion_timeout(command->completion, XHCI_CMD_DEFAULT_TIMEOUT * 2);
+	timeleft = wait_for_completion_timeout(command->completion, msecs_to_jiffies(XHCI_CMD_DEFAULT_TIMEOUT * 2));
 	if (timeleft == 0) {
 		xhci_warn(xhci, "%s while waiting for alloc dev\n",
 				timeleft == 0 ? "Timeout" : "Signal");
@@ -4202,7 +4203,7 @@ static int xhci_setup_device(struct usb_hcd *hcd, struct usb_device *udev,
 	spin_unlock_irqrestore(&xhci->lock, flags);
 
 	/* ctrl tx can take up to 5 sec; XXX: need more time for xHC? */
-	timeleft = wait_for_completion_timeout(command->completion, XHCI_CMD_DEFAULT_TIMEOUT * 2);
+	timeleft = wait_for_completion_timeout(command->completion, msecs_to_jiffies(XHCI_CMD_DEFAULT_TIMEOUT * 2));
 	if (timeleft == 0) {
 		xhci_warn(xhci, "Timeout while waiting for setup device\n");
 		spin_lock_irqsave(&xhci->lock, flags);
@@ -4305,15 +4306,17 @@ out:
 	return ret;
 }
 
-int xhci_address_device(struct usb_hcd *hcd, struct usb_device *udev)
+int xhci_address_device(struct usb_hcd *hcd, struct usb_device *udev,
+			unsigned int timeout_ms)
 {
-	return xhci_setup_device(hcd, udev, SETUP_CONTEXT_ADDRESS);
+	return xhci_setup_device(hcd, udev, SETUP_CONTEXT_ADDRESS, timeout_ms);
 }
 EXPORT_SYMBOL_GPL(xhci_address_device);
 
 static int xhci_enable_device(struct usb_hcd *hcd, struct usb_device *udev)
 {
-	return xhci_setup_device(hcd, udev, SETUP_CONTEXT_ONLY);
+	return xhci_setup_device(hcd, udev, SETUP_CONTEXT_ONLY,
+				 XHCI_CMD_DEFAULT_TIMEOUT);
 }
 
 /*
