@@ -285,6 +285,8 @@ again:
 	 */
 	if ((divisor * 4) <= INTERVALS * 3) {
 		CALL_HCK_VH(lpcpu_cpuidle_menu_device_clear_repeat, data);
+		if (divisor >= INTERVALS / 2)
+			return max;
 		return UINT_MAX;
 	}
 
