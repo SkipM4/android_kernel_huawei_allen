@@ -2941,7 +2941,6 @@ int xhci_check_bandwidth(struct usb_hcd *hcd, struct usb_device *udev)
 		return -ENOMEM;
 
 	command->in_ctx = virt_dev->in_ctx;
-	command->timeout_ms = timeout_ms;
 
 	/* See section 4.6.6 - A0 = 1; A1 = D0 = D1 = 0 */
 	ctrl_ctx = xhci_get_input_control_ctx(command->in_ctx);
@@ -4163,6 +4162,7 @@ static int xhci_setup_device(struct usb_hcd *hcd, struct usb_device *udev,
 	}
 
 	command->in_ctx = virt_dev->in_ctx;
+	command->timeout_ms = timeout_ms;
 
 	slot_ctx = xhci_get_slot_ctx(xhci, virt_dev->in_ctx);
 	ctrl_ctx = xhci_get_input_control_ctx(virt_dev->in_ctx);
