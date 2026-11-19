@@ -43,6 +43,7 @@
 #include <linux/kthread.h>
 #include <linux/init.h>
 #include <linux/mmu_notifier.h>
+#include <linux/cred.h>
 #include <linux/mm/lowmem_killer.h>
 
 #include <asm/tlb.h>
@@ -808,7 +809,11 @@ static void mark_oom_victim(struct task_struct *tsk)
 	 */
 	__thaw_task(tsk);
 	atomic_inc(&oom_victims);
-	trace_mark_victim(tsk->pid);
+	{
+		const struct cred *cred = get_task_cred(tsk);
+		trace_mark_victim(tsk, cred->uid.val);
+		put_cred(cred);
+	}
 }
 
 /**
