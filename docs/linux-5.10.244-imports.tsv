@@ -1,0 +1,9 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	28fbc7eddc481f8f3fbb16b01f9f8f5c6f2f14e3	adapted	790687cd950e76ec294d9bd9861db962670c521c	Documentation/hw-vuln: Add VMSCAPE documentation	Import the upstream VMSCAPE documentation; change the top-level reStructuredText heading underline so git diff --check does not misclassify it as a merge-conflict marker.
+2	e3e6bcf3284b5cd4d0ea6f672742c22fa0753db7	exact	12d32ace6e862d2fcc7f5c05d87b2a8febb1514c	x86/vmscape: Enumerate VMSCAPE bug	Original hunks applied unchanged; local file modes retained.
+3	ac60717f9a8d21c58617d0b34274babf24135835	exact	e229edc525ba3eef8b6b5264858ed4c18e41c353	x86/vmscape: Add conditional IBPB mitigation	Original hunks applied unchanged; local file modes retained.
+4	c08192b5d6730a914dee6175bc71092ee6a65f14	exact	07691f96d1443f5fbf1b9acf86ed51a13feb46ac	x86/vmscape: Enable the mitigation	Original hunks applied unchanged; local file modes retained.
+5	c2422d85692b9068c7c865a866be532073331619	exact	bbd466b2853144058d19de5d1bfdaac1bf7dcb5f	x86/bugs: Move cpu_bugs_smt_update() down	Original hunks applied unchanged; local file modes retained.
+6	b47d48dd45802d261608d163580fc3b7ffaa0a14	exact	fb0bfff70c82de41a64945ff7e4d7f95c5523684	x86/vmscape: Warn when STIBP is disabled with SMT	Original hunks applied unchanged; local file modes retained.
+7	276cc8b36d66ec7c68f03d84cc9ea1fbfd7be697	exact	7fd33caf18f773076113592c15e93d51a60ba5ec	x86/vmscape: Add old Intel CPUs to affected list	Original hunks applied unchanged; local file modes retained.
+8	863b76df7d1e327979946a2d3893479c3275bfa4	adapted	84a600a68aaec4d04631dc5cf846ad6ef31661a2	Linux 5.10.244	Update the release sublevel in the vendor-extended kernel Makefile while preserving product metadata preceding upstream VERSION fields.

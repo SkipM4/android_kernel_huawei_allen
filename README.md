@@ -1617,3 +1617,47 @@ export, tag or publication was performed. Continue with 5.10.241-250 toward
 the pinned 5.10.274 endpoint; Android common parity, stable KMI/GKI
 certification, OEM/core separation and broad hardware/network/performance/
 power acceptance remain open.
+
+### Linux 5.10.241-250: Accepted #97
+
+The frozen official 5.10.241-250 range contains 2,006 ordered entries.
+Per-release ledgers record 1,939 exact picks, 56 targeted adaptations, six
+fixes already present and five not-applicable changes. The upstream source
+ends at 5.10.250 (`b29eaaa7a0`); three separate local follow-ups correct a
+KSM page-reference release, avoid the new `in_range()` macro collision in
+OEM WALT, and use explicitly typed min/max at eight OEM expressions while
+preserving the previous C integer-conversion behavior. The 5.10.248 documentation-only
+virtio adaptation has a recorded local-author metadata exception.
+
+The first configuration-prepare attempt failed at arm64 `asm-offsets` with
+`MIGRATE_CMA` undeclared even though the regenerated configuration has
+`CONFIG_CMA=y`. A separate synchronized prepare and the final full build pass;
+no CMA/security option was disabled, and the first failure's precise cause
+is not established. The first full build also caught the WALT helper-name
+collision and stricter minmax signedness checks; the narrow follow-ups were
+compiled directly and the final Android Clang/LLD 12.0.7 `Image modules`
+build #97 passes with ThinLTO, CFI, forced module signatures, SELinux and
+the unchanged signing certificate. The signed modem's 390 and dummy module's
+two versioned imports match this same build. The current export table has 19
+additions, six removals and 8,994 changed CRCs compared with the retained
+5.10.230/#94 baseline; this cumulative table comparison is not a GKI/KMI
+certification. `CONFIG_KSM` is not selected in this device build, so the
+separate KSM reference-pair correction has not received a target-object or
+runtime test.
+
+Only paired `boot` and `modem_driver` were installed from #97 over the
+accepted 5.10.240/#95 system. The device starts normal Android 5.10.250/#97
+and automatically loads the matching signed modem as Live. Partition and
+module-file readbacks/build ID match, while the independent Magisk ramdisk
+is unchanged. SELinux Enforcing, module-signature enforcement, taint 4,
+PRMEM, critical services, unlocked CE, automatic six-stage ISP startup,
+trace state and asleep screen pass. Complete relevant logs show no matched
+kernel/module fault; WARN/Oops counts are zero. The 510 visible AVC denials
+include none for module loading. Immediate paired recovery is #95. Consumed
+ThinLTO and final-link intermediates and the selected #92/#94 image pairs were
+retired, returning the workspace below 20 GB. No release export, tag or
+publication was performed.
+
+Next is the complete 5.10.251-260 range toward pinned 5.10.274. Android
+common parity, stable KMI/GKI certification, OEM/core separation and broad
+hardware/network/performance/power acceptance remain open.
