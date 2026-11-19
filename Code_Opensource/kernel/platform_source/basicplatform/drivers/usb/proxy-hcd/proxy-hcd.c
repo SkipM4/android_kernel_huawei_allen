@@ -1078,11 +1078,14 @@ static void phcd_reset_bandwidth(struct usb_hcd *hcd, struct usb_device *udev)
 	dbg("-\n");
 }
 
-static int phcd_address_device(struct usb_hcd *hcd, struct usb_device *udev)
+static int phcd_address_device(struct usb_hcd *hcd, struct usb_device *udev,
+			       unsigned int timeout_ms)
 {
 	struct proxy_hcd *phcd = hcd_to_phcd(hcd);
 	int ret;
 
+	/* The proxy transport has its own response timeout. */
+	(void)timeout_ms;
 	dbg("+\n");
 	if (!udev->slot_id)
 		return -EINVAL;
