@@ -175,16 +175,19 @@ static void mmc_bus_shutdown(struct device *dev)
 	int ret;
 	int present = 1;
 
-	host->rescan_disable = 1;
 	if (host->ops->get_cd)
 		present = host->ops->get_cd(host);
 
-	if (0 == present)
+	if (0 == present) {
+		__mmc_stop_host(host);
 		return;
+	}
 
 	pr_info("%s:%d ++\n", __func__, __LINE__);
 	if (dev->driver && drv->shutdown)
 		drv->shutdown(card);
+
+	__mmc_stop_host(host);
 
 	if (host->bus_ops->shutdown) {
 		ret = host->bus_ops->shutdown(host);
