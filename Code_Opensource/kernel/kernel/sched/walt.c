@@ -2326,7 +2326,7 @@ void walt_migrate_sync_cpu(int cpu)
 }
 #endif
 
-static inline bool in_range(u64 x, u64 begin, u64 end)
+static inline bool walt_in_range(u64 x, u64 begin, u64 end)
 {
 	return begin <= x && x < end;
 }
@@ -2340,13 +2340,16 @@ move_out_cpu_busy_time(struct rq *rq, struct task_struct *p)
 	u32 window_size = walt_ravg_window;
 	u64 window_end = window_start + window_size;
 
-	if (in_range(mark_start, window_start, window_end)) {
+	if (walt_in_range(mark_start, window_start, window_end)) {
 		rq->curr_runnable_sum -= p->ravg.curr_window_cpu[cpu];
 		rq->prev_runnable_sum -= p->ravg.prev_window_cpu[cpu];
-	} else if (in_range(mark_start, window_start - window_size, window_start))
+	} else if (walt_in_range(mark_start, window_start - window_size,
+				 window_start)) {
 		rq->prev_runnable_sum -= p->ravg.curr_window_cpu[cpu];
-	else if (in_range(mark_start, window_end, window_end + window_size))
+	} else if (walt_in_range(mark_start, window_end,
+				 window_end + window_size)) {
 		rq->curr_runnable_sum -= p->ravg.prev_window_cpu[cpu];
+	}
 
 	p->ravg.curr_window_cpu[cpu] = 0;
 	p->ravg.prev_window_cpu[cpu] = 0;
