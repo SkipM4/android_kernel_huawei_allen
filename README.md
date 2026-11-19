@@ -1583,3 +1583,37 @@ publication occurs.
 Next is the complete 5.10.231-240 range toward pinned 5.10.274. Android
 common parity, stable KMI/GKI certification, OEM/core separation and broad
 hardware, network, performance and power acceptance remain open.
+
+### Linux 5.10.231-240: Accepted #95
+
+The official 5.10.231-240 input contains 2,575 ordered source entries. The
+ten ledgers record 2,496 exact imports, 67 targeted adaptations, eight fixes
+already present in the selected tree and four not-applicable driver changes.
+The final source is 5.10.240 plus two local compile-context corrections: the
+TCP readiness helper is ordered after its pressure helper, and a duplicate
+IPv6 cached device context from the retained OEM/UAF fixes is removed.
+
+Build #95 uses Android Clang/LLD 12.0.7 with ThinLTO, CFI, forced module
+signatures, SELinux and PRMEM/HKIP retained. The Image/modules build passed;
+the signing certificate is unchanged. The modem module has 390 versioned
+imports and the optional dummy module has two; both match the same-build
+export CRCs and 5.10.240 vermagic. Export CRCs changed for 8,996 symbols,
+with 11 additions and one removal, so matching modules remain required. This
+is not stable KMI/GKI certification.
+
+The paired 5.10.240/#95 `boot` and `modem_driver` images boot normal Android
+on ALN-AL00 and automatically load the matching signed modem as Live. Boot,
+modem, module and unchanged independent Magisk ramdisk readbacks match;
+SELinux is Enforcing, signature enforcement and PRMEM remain enabled, taint
+is 4, critical services and unlocked CE storage are available, and the
+automatic six-stage ISP startup path passes. Complete relevant logs contain
+no classified kernel/module fault; WARN/Oops counters are zero and 518
+visible AVCs include no module-load denial. Trace state and asleep display
+are restored. Immediate paired recovery is 5.10.230/#94.
+
+The temporary ThinLTO and final-link intermediates were retired after the
+successful build, returning the workspace below 20 GB. No release image
+export, tag or publication was performed. Continue with 5.10.241-250 toward
+the pinned 5.10.274 endpoint; Android common parity, stable KMI/GKI
+certification, OEM/core separation and broad hardware/network/performance/
+power acceptance remain open.

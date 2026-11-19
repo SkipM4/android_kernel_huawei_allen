@@ -1839,3 +1839,37 @@ intermediate and expired image cleanup; no release export/publication occurs.
 Next is the complete 5.10.231-240 range toward pinned 5.10.274. Android
 common parity, OEM/core separation, stable KMI/GKI certification and broad
 hardware/network/performance/power acceptance remain open.
+
+### Linux 5.10.231-240: Accepted #95
+
+The frozen official input contains 2,575 ordered entries. Ledgers in
+`docs/linux-5.10.231-imports.tsv` through `docs/linux-5.10.240-imports.tsv`
+record 2,496 exact imports, 67 targeted adaptations, eight already-present
+fixes and four not-applicable changes. The selected source reaches 5.10.240;
+two post-range local commits only correct compile context (TCP helper order
+and a duplicate IPv6 cached context) and do not change the stable patch
+scope.
+
+Build #95 passed with Android Clang/LLD 12.0.7, ThinLTO, CFI, forced module
+signatures, SELinux and PRMEM/HKIP. The same-build gate reports 390 modem
+imports and two dummy imports with no missing or mismatched CRCs, 5.10.240
+vermagic, unchanged signing certificate, and an export delta of 11 added,
+one removed and 8,996 changed CRCs. This remains a matching-module check,
+not a stable KMI/GKI certification. The BPF-JIT path was compiled once with
+temporary target selection for source validation; the product configuration
+still leaves `CONFIG_BPF_JIT` disabled.
+
+Only paired `boot` and `modem_driver` were installed on the previously
+accepted 5.10.230/#94 target. The device reached normal Android 5.10.240/#95,
+loaded the matching signed modem as Live, preserved the independent Magisk
+ramdisk, and passed partition/module readbacks, security, PRMEM, services,
+unlocked CE, ISP startup, trace/screen restoration and complete scoped log
+checks. WARN/Oops counters are zero; visible AVCs are recorded but none are
+module-load denials. Immediate paired recovery is 5.10.230/#94.
+
+Evidence is retained under `.tmp/next231-input-preparation/`, including the
+source/build/device boundary, build/module gates, staged image manifest and
+runtime acceptance record. Final-link and ThinLTO intermediates were
+retired after the successful build; the workspace is below 20 GB. No release
+export, tag or publication was made. Next boundary: import and review
+5.10.241-250, then repeat the ten-version build/device checkpoint.
