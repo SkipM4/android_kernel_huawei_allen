@@ -543,7 +543,7 @@
 	. = ALIGN((align));						\
 	.rodata           : AT(ADDR(.rodata) - LOAD_OFFSET) {		\
 		__start_rodata = .;					\
-		*(.rodata) *(.rodata.*)					\
+		*(.rodata) *(.rodata.*)					\ *(.data.rel.ro*)
 		SCHED_DATA						\
 		. = ALIGN(8);						\
 		__start___tracepoints_ptrs = .;				\
