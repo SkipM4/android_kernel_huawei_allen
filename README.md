@@ -1548,3 +1548,38 @@ No release image export or publication is performed. Continue with
 5.10.221-225 toward the pinned 5.10.274 endpoint. Android common parity,
 stable KMI/GKI certification, OEM/core separation and broad hardware,
 network, performance and power acceptance remain open.
+
+### Linux 5.10.221-230: Normal Android On #94
+
+All 1,901 official source entries across 221-230 are recorded in the ten
+release ledgers: 1,815 exact imports, 47 targeted adaptations, 35 already
+present fixes and four not-applicable changes. Two source integrations follow
+the official 5.10.230 endpoint; one carries xattr-directory checkpoint
+tracking into HW_F2FS while retaining its strict-fsync path. The first full
+build exposed a missing HW_F2FS checkpoint reason, corrected before the
+accepted build.
+
+Clang/LLD 12.0.7 Image/modules build #94, module signing and matching-module
+CRC gates pass with ThinLTO, CFI, SELinux and PRMEM/HKIP retained. All 390
+modem imports and two optional dummy imports match. Selected configuration
+changes from accepted #91 are ARM64 erratum 3194386, CPU mitigations and
+`CONFIG_PROC_MEM_ALWAYS_FORCE`; the signing certificate is unchanged. There
+are 8,923 changed export CRCs, 19 added exports and three removed exports.
+Matching modules are therefore required; this does not certify stable KMI
+or GKI.
+
+Paired `boot` and `modem_driver` installation reaches normal Android
+5.10.230/#94; the matching signed modem loads automatically as Live. Staged
+partition readbacks and loaded module Build ID match, while the independent
+Magisk ramdisk remains unchanged. SELinux Enforcing, signature enforcement,
+taint 4, PRMEM, essential services, unlocked CE and automatic six-stage ISP
+startup pass. Scoped boot-log checks find no classified kernel/module fault;
+WARN/Oops counters are zero and 518 visible AVCs include no module-load
+denial. Trace state and asleep display are restored. Immediate paired
+recovery is 5.10.220/#93. Consumed link intermediates and expired old image
+pairs are cleaned, leaving the workspace below 20 GB; no release export or
+publication occurs.
+
+Next is the complete 5.10.231-240 range toward pinned 5.10.274. Android
+common parity, stable KMI/GKI certification, OEM/core separation and broad
+hardware, network, performance and power acceptance remain open.

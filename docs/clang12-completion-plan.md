@@ -1801,7 +1801,41 @@ recovery is 5.10.219/#92. The accepted device record is
 `.tmp/next216-input-preparation/r93-runtime-acceptance.json`.
 
 The workspace was returned below 20 GB by retiring only consumed final-link
-intermediates and the completed ThinLTO cache. Continue with 5.10.221-225
+intermediates and the completed ThinLTO cache. Continue with 5.10.221-230
 toward 5.10.274. GKI/KMI certification, Android common parity, OEM/core
 separation and broad hardware/network/performance/power acceptance remain
 open; no release export or publication is performed.
+
+### Linux 5.10.221-230: Accepted #94
+
+The frozen official ten-release input contains 1,901 entries. The ten
+per-release ledgers record 1,815 exact imports, 47 targeted adaptations,
+35 already-present fixes and four not-applicable changes. Official source
+ends at `711d99f845cdb587b7d7cf5e56c289c3d96d27c5` (5.10.230); two local
+integration commits follow. The HW_F2FS integration carries xattr-directory
+checkpoint tracking while retaining strict-fsync behavior. A missing
+checkpoint reason found by the first full build was fixed before acceptance.
+
+Full Clang/LLD 12.0.7 Image/modules build #94, config/security, signature,
+and same-build module gates pass. ThinLTO, CFI, SELinux, forced module
+signatures and PRMEM/HKIP remain. Compared with accepted #91, selected
+configuration changes are ARM64 erratum 3194386, CPU mitigations and
+`CONFIG_PROC_MEM_ALWAYS_FORCE`; the signing certificate is unchanged. All
+390 modem and two optional dummy imports match. Export CRCs changed for 8,923
+symbols, with 19 additions and three removals; installed modules therefore
+must match this build. This is not stable KMI/GKI certification.
+
+Paired `boot` and `modem_driver` installation starts normal Android
+5.10.230/#94 on the ALN-AL00. The matching signed modem loads automatically
+as Live; partition readbacks and loaded module Build ID match. The independent
+Magisk ramdisk remains unchanged. SELinux Enforcing, signature enforcement,
+taint 4, PRMEM, critical services, unlocked CE and automatic six-stage ISP
+startup pass. Scoped log checks find no kernel/module fault; WARN/Oops
+counters are zero and 518 observed AVCs include no module-load/request
+denial. Trace state and asleep screen are restored. Immediate paired
+recovery is 5.10.220/#93. The workspace is below 20 GB after final-link
+intermediate and expired image cleanup; no release export/publication occurs.
+
+Next is the complete 5.10.231-240 range toward pinned 5.10.274. Android
+common parity, OEM/core separation, stable KMI/GKI certification and broad
+hardware/network/performance/power acceptance remain open.

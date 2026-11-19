@@ -5639,3 +5639,44 @@ paired recovery is 5.10.219/#92. Consumed link intermediates were retired
 and workspace usage returned below 20 GB. Next is 221-225 toward 5.10.274;
 Android common parity, stable KMI/GKI, OEM/core separation and broad
 hardware/network/performance/power acceptance remain open.
+
+### 5.10.221-230 Source And Device Milestone
+
+The frozen official input contains 1,901 original entries across all ten
+releases, from the 5.10.220-exclusive boundary through official
+`711d99f845cdb587b7d7cf5e56c289c3d96d27c5` (5.10.230). The ten ledgers
+account for 1,815 exact imports, 47 targeted adaptations, 35 fixes already
+present in the OEM tree and four not-applicable entries. Dispositions follow
+review of actual source changes. Two separate integration commits follow the
+5.10.230 release marker; the last mirrors xattr-directory checkpoint tracking
+into maintained HW_F2FS while preserving strict-fsync behavior and the shared
+tracepoint numbering. A missing xattr checkpoint reason found in the first
+build was corrected before the accepted full build.
+
+Clang/LLD 12.0.7 `Image modules` build #94 passes with ThinLTO, CFI, module
+signing, SELinux and PRMEM/HKIP retained. Effective config deltas versus
+accepted #91 are limited to ARM64 erratum 3194386 and CPU mitigations, plus
+`CONFIG_PROC_MEM_ALWAYS_FORCE`; the signing certificate is unchanged. All
+390 modem and two optional dummy-module imports resolve with matching CRCs.
+Compared with accepted #91, the export table has 19 additions, three
+removals and 8,923 changed CRCs, so modules must match this build. This is
+same-build compatibility, not stable Android KMI or GKI certification.
+
+The target was accepted 5.10.220/#93 before testing. Only paired `boot` and
+`modem_driver` partitions were replaced; the independent Magisk ramdisk was
+not flashed and reads back unchanged. Normal Android completes on 5.10.230
+#94; the signed modem loads automatically as Live and partition/module
+readbacks plus loaded module Build ID match the staged candidate. SELinux is
+Enforcing, signature enforcement and PRMEM remain enabled, taint is 4,
+critical services and unlocked CE are present, and the automatic six-stage
+ISP startup completes. Scoped boot-log checks find no classified kernel or
+module fault; WARN/Oops counters are zero and 518 visible AVCs include no
+module-load/request denial. Trace state and asleep display are restored.
+Immediate paired recovery remains 5.10.220/#93.
+
+Consumed final-link/ThinLTO intermediates and expired test-image pairs outside
+the recent-five set were retired; workspace usage is below 20 GB. No release
+bundle, tag or publication is produced. Next is the complete 5.10.231-240
+range toward the pinned 5.10.274 endpoint. Android common parity, stable
+KMI/GKI certification, OEM/core separation and broad hardware, network,
+performance and power acceptance remain open.
