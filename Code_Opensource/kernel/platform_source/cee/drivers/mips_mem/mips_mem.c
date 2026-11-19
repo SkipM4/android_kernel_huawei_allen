@@ -184,8 +184,8 @@ static void change_mem_freq(struct mipsmem_cpu_info *cpum)
 
 	for_each_cpu(cpu, &mem_policy->cpu_mask) {
 		mem_cpu = &per_cpu(cpu_info, cpu);
-		max_l3_freq = max(max_l3_freq, mem_cpu->next_l3_freq);
-		max_ddr_freq = max(max_ddr_freq, mem_cpu->next_ddr_freq);
+		max_l3_freq = max_t(u32, max_l3_freq, mem_cpu->next_l3_freq);
+		max_ddr_freq = max_t(u32, max_ddr_freq, mem_cpu->next_ddr_freq);
 	}
 	set_hw_vote(mem_policy->l3c_dev, max_l3_freq, cpum->l3_min_sample_time);
 	set_hw_vote(mem_policy->ddr_dev, max_ddr_freq, cpum->ddr_min_sample_time);

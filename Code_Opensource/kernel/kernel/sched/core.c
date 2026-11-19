@@ -123,7 +123,8 @@ unsigned int sysctl_sched_smt_expeller_util_ratio __read_mostly;
 
 smt_expeller_t expeller_of_task(struct task_struct *task)
 {
-	return max((int)task->smt_expeller, task_group(task)->smt_expeller);
+	return max_t(unsigned int, (int)task->smt_expeller,
+		     task_group(task)->smt_expeller);
 }
 
 static bool smt_expeller_less(struct task_struct *a, struct task_struct *b)

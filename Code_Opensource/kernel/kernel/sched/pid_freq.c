@@ -229,7 +229,10 @@ int calculate_pid_freq(int cpu, int cpu_usage, u64 tick_us_num)
 		(long)(p_freq + i_freq + d_freq) * (long)cpu_rq(cpu)->cluster->max_freq / (long)max_cap_cluster()->max_freq;
 
 	pid_control_cpu->last_freq_err = normalized_util_error;
-	freq_out = max(min(freq_out, cpu_rq(cpu)->cluster->max_freq), cpu_rq(cpu)->cluster->min_freq);
+	freq_out = max_t(unsigned int,
+			 min_t(unsigned int, freq_out,
+			       cpu_rq(cpu)->cluster->max_freq),
+			 cpu_rq(cpu)->cluster->min_freq);
 	trace_perf(calculate_pid_freq, cpu, curr_util, target_util, pid_control_cpu,
 		p_freq, i_freq, d_freq, normalized_util_error, freq_out, (int)cpu_capacity_orig);
 	return freq_out;

@@ -572,8 +572,10 @@ void update_siblings_masks(unsigned int cpuid)
 #ifdef CONFIG_SCHED_SMT_USER_HIDE
 		/* only update in booting */
 		if (system_state < SYSTEM_RUNNING && cpu != cpuid) {
-			cpumask_set_cpu(min(cpu, cpuid), &__cpu_primary_mask);
-			cpumask_set_cpu(max(cpu, cpuid), &__cpu_secondary_mask);
+			cpumask_set_cpu(min_t(unsigned int, cpu, cpuid),
+					&__cpu_primary_mask);
+			cpumask_set_cpu(max_t(unsigned int, cpu, cpuid),
+					&__cpu_secondary_mask);
 		}
 #endif
 	}

@@ -911,7 +911,7 @@ static int ion_system_heap_shrink(struct ion_heap *heap, gfp_t gfp_mask,
 #ifdef CONFIG_ZONE_MEDIA_OPT
 	if (only_scan) {
 		pool_pages = max(sys_heap->pool_watermark, sys_heap_keep_pages);
-		nr_total -= min(nr_total, pool_pages);
+		nr_total -= min_t(unsigned long, nr_total, pool_pages);
 	}
 #endif
 	return nr_total;
