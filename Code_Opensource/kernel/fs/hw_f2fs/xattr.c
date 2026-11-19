@@ -813,8 +813,12 @@ static int __f2fs_setxattr(struct inode *inode, int index,
 			f2fs_set_inline_encrypted_inode(inode);
 	}
 	f2fs_mark_inode_dirty_sync(inode, true);
-	if (!error && S_ISDIR(inode->i_mode))
-		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_CP);
+	if (!error && S_ISDIR(inode->i_mode)) {
+		if (F2FS_OPTION(sbi).fsync_mode == FSYNC_MODE_STRICT)
+			set_sbi_flag(sbi, SBI_NEED_CP);
+		else
+			f2fs_add_ino_entry(sbi, inode->i_ino, XATTR_DIR_INO);
+	}
 
 same:
 	if (is_inode_flag_set(inode, FI_ACL_MODE)) {
