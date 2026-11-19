@@ -1098,3 +1098,13 @@ int mmap_file(struct file *file, struct vm_area_struct *vma)
 	vma->vm_ops = &dummy_vm_ops;
 	return err;
 }
+
+void vma_close(struct vm_area_struct *vma)
+{
+	static const struct vm_operations_struct dummy_vm_ops = {};
+
+	if (vma->vm_ops && vma->vm_ops->close) {
+		vma->vm_ops->close(vma);
+		vma->vm_ops = &dummy_vm_ops;
+	}
+}
