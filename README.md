@@ -1661,3 +1661,54 @@ publication was performed.
 Next is the complete 5.10.251-260 range toward pinned 5.10.274. Android
 common parity, stable KMI/GKI certification, OEM/core separation and broad
 hardware/network/performance/power acceptance remain open.
+
+### Linux 5.10.251-260: Accepted #99
+
+The complete official range contains 1,879 ordered entries: 1,822 exact
+picks, 46 adaptations, four fixes already present and seven changes without
+a corresponding local implementation. Ten per-release ledgers preserve
+the official sequence and each disposition. Local adaptations retain the
+product's storage, power and scheduler contracts rather than replacing
+whole vendor files.
+
+The selected HW_F2FS implementation carries all five corresponding upstream
+filesystem fixes, including scalar sysfs widths, write-completion lifetimes,
+inline FIEMAP for unallocated inodes and ACL entry bounds. MMC write retries
+retain single-block recovery through requeues and clear that state before
+the next logical request reuses its tag. The ARM64 TLBI synchronization
+refactor also covers this tree's extra batched-unmap completion hook.
+The new upstream erratum default adds only two effective configuration
+symbols; captured device MIDRs do not match its CPU list. Existing security
+options and signing materials remain intact.
+
+The first full compilation exposed an OEM accessory HID caller missed by
+the upstream API conversion. It now passes the actual EP0 buffer capacity
+separately from the event length. A final source audit also completed the
+Bluetooth SRCU implementation after its header adaptation. Bluetooth is
+disabled in the product configuration; the final incremental build did not
+relink or advance the actual build number. The accepted products remain
+5.10.260/#99, including the selected HW_F2FS corrections.
+
+Android Clang/LLD 12.0.7 `Image modules` and selected driver, network,
+tracing and filesystem builds pass. Final ELF checks cover enforcing CFI's
+failure endpoint, the changed HID and ring-buffer interfaces, and 94
+repeat-TLBI alternatives including the local batch paths. All 390 modem
+and two optional dummy module imports match the same-build CRCs. Five
+exports were added, four removed and 9,021 common CRCs changed relative to
+#97. This establishes matching-module compatibility, not stable GKI/KMI.
+
+Only paired `boot` and `modem_driver` were installed. Normal Android starts
+and automatically loads the signed modem as Live; partition/module
+readbacks and Build ID match. The independent Magisk ramdisk, SELinux
+Enforcing, signature enforcement, taint 4 and PRMEM remain intact. CE,
+essential services, automatic six-stage ISP startup, trace state and asleep
+screen pass. Relevant complete logs contain no matched kernel/module
+fault, WARN/Oops counts are zero, and none of the 517 AVC denials concerns
+module loading. Immediate paired recovery is 5.10.250/#97. Consumed link
+intermediates, caches and the expired #89 image pair were retired to keep
+the workspace below 20 GB; the latest five image pairs remain.
+
+Next is the complete 5.10.261-270 batch, then the remaining releases toward
+the pinned 5.10.274 endpoint. Android common parity, OEM/core separation,
+formal GKI/KMI and broad hardware, network, power and performance acceptance
+remain open. No release export, tag, push or publication was performed.

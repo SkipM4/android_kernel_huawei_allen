@@ -1,0 +1,3 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	a6cb440f274a22456ef3e86b457344f1678f38f9	exact	c2d90e8f239c7c1924506585cbcab8413b043db7	xfrm: esp: avoid in-place decrypt on shared skb frags	Original hunks applied unchanged; local file modes retained.
+2	8d9ad8de1c07b07bc75178cda26a7c47f2cc0812	adapted	325b3ff58e6e531e1baae8d8430d6f6477cddeee	Linux 5.10.255	Advance SUBLEVEL to 255 while retaining product/platform exports and architecture assignment.

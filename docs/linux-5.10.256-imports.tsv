@@ -1,0 +1,8 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	93d4ba49d18e3d7fb41a9927c2d0cca5e9dfefd6	exact	32a7aae339735df2a6583dd3e9aeecab47b23404	ptrace: slightly saner 'get_dumpable()' logic	Original hunks applied unchanged; local file modes retained.
+2	dcadd6bf9090faf593f31319b02e4bc61814dc5c	exact	66e3d2a362ba793f2ea01ac31198562eb2cd6589	x86/CPU/AMD: Add ZenX generations flags	Original hunks applied unchanged; local file modes retained.
+3	af2d0b615d82a4ef66d962e55fc7b45f61d5090f	exact	3957a94c2cc866ececdaaa96e973abbc20507ef3	x86/CPU/AMD: Call the spectral chicken in the Zen2 init function	Original hunks applied unchanged; local file modes retained.
+4	c9a96bc8c878f44437c7367b41c204f5f60c3777	exact	a9a807b61ac9165ba2898e703d7484cd2856d1e6	x86/CPU/AMD: Rename init_amd_zn() to init_amd_zen_common()	Original hunks applied unchanged; local file modes retained.
+5	e1a52d9d02dc819912c81d7e3bcd526602776340	exact	6a57440ef145f6c32d4f50766864f12983e684c3	x86/CPU/AMD: Add X86_FEATURE_ZEN1	Original hunks applied unchanged; local file modes retained.
+6	1e23b30a80b14e5764657401ee2cca030525ae8e	exact	f3b8d321ed8b6b0cc614118df2ac6c7edd0bd56e	x86/CPU/AMD: Prevent improper isolation of shared resources in Zen2's op cache	Original hunks applied unchanged; local file modes retained.
+7	6b2498787ec6803cf0d0a983321796babe5392d4	adapted	f24e79b468530c70ac179cc5dfe51122fcad86dd	Linux 5.10.256	Advance SUBLEVEL to 256 while retaining product/platform exports and architecture assignment.

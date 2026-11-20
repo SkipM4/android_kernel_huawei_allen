@@ -1,0 +1,4 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	3599e6b3cc1ada96883d496a50a210d3afbb6987	exact	dada0d688f454bd1791bd64eb4e9edc0c6b2924a	net: skbuff: preserve shared-frag marker during coalescing	Original hunks applied unchanged; local file modes retained.
+2	fbeab9555564a1b98e8582cd106dfe46c4606991	exact	f2b8218154f937ee00e8932eaa7dccca0c3fc93c	net: skbuff: propagate shared-frag marker through frag-transfer helpers	Original hunks applied unchanged; local file modes retained.
+3	7adbe121223f7e32ab7e2592a72093f80f4e11a8	adapted	09b3a0090a4765eae937d9ab881ea7e14bb93858	Linux 5.10.257	Advance SUBLEVEL to 257 while retaining product/platform exports and architecture assignment.

@@ -1916,3 +1916,58 @@ export or publication was made.
 Next is the full 5.10.251-260 batch toward pinned 5.10.274. Android common
 parity, OEM/core separation, stable KMI/GKI certification and broad
 hardware/network/performance/power acceptance remain open.
+
+### Linux 5.10.251-260: Accepted #99
+
+The ten per-release ledgers record all 1,879 frozen official first-parent
+entries: 1,822 exact, 46 adapted, four present and seven not applicable to
+the available local implementations. The source reaches the official
+5.10.260 endpoint in order. Separate local commits synchronize the active
+HW_F2FS copy and complete API consumers omitted from upstream's ordinary
+driver inventory.
+
+The selected filesystem now covers all five F2FS fixes in this range:
+width-aware scalar sysfs access, checkpoint waiter ordering, warm-node
+cleanup before pending-page decrement, delayed inline-node FIEMAP and ACL
+entry bounds. MMC retry state persists through requeue but resets on a
+new logical request, avoiding state inherited from a reused blk-mq PDU.
+The TLBI refactor retains this tree's extra batched flush completion
+synchronization. Configuration preparation adds only upstream
+ARM64_ERRATUM_4118414 and its selected repeat-TLBI option; captured CPU
+MIDRs do not match the implementation's erratum list. No mitigation was
+disabled to make the build pass.
+
+The first whole build caught the Android accessory driver's five-argument
+HID call. Its separate adaptation passes the actual composite EP0 buffer
+capacity to the new six-argument API. Final review caught and fixed the
+HW_F2FS FIEMAP omission before any flash, then completed the unselected
+Bluetooth SRCU C-side lifecycle. Kbuild's successful check after the latter
+change left products and build number unchanged because Bluetooth is
+disabled. Record both the generated product source and this final
+incremental verification; the accepted product is #99, not an anticipated
+#100. Disabled generic F2FS, pedit and trace-KDB paths have no product build
+target and receive no runtime claim.
+
+The full Android Clang/LLD 12.0.7 build and selected risk objects pass with
+ThinLTO, enforcing CFI, BTI, forced signatures, SELinux and the retained
+certificate. Final ELF checks verify 94 repeat-TLBI alternatives and the
+local batch zero operands, enforcing CFI failure handling, the HID argument
+contract and ring-buffer's new read-start interface. Same-build checks
+resolve all 390 modem and two optional dummy imports. Relative to #97,
+five exports are added, four removed and 9,021 common CRCs differ; formal
+KMI stability is not established by those checks.
+
+Paired boot/modem installation boots normal Android 5.10.260/#99 and
+automatically loads the signed modem. Partition/module readbacks and Build
+ID match, and the independent ramdisk stays unchanged. Enforcing/signature
+enforcement, PRMEM, taint 4, CE, critical services, automatic ISP startup,
+trace state and asleep screen pass. Complete relevant logs contain no
+matched kernel/module fault, WARN/Oops counts are zero and 517 AVC denials
+include no module-load denial. Immediate paired rollback is #97. Retiring
+consumed caches/link intermediates and the expired #89 pair returns below
+20 GB while retaining five image pairs and referenced evidence.
+
+Continue with complete 5.10.261-270, then the remaining stable releases
+toward pinned 5.10.274. Android common parity, OEM/core separation, formal
+GKI/KMI and broad subsystem, hardware, performance and power acceptance
+remain open; all work remains local Git with no release publication.

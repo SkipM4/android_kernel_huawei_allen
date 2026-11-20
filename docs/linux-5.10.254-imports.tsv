@@ -1,0 +1,14 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	8b3843b1e3bc36f57d14d770fe0286a9cbeb38b1	exact	2afb407372a95c3dbc66cd33d795e544fe1c932f	crypto: doc - fix kernel-doc notation in chacha.c and af_alg.c	Original hunks applied unchanged; local file modes retained.
+2	534b7f208c6019df5aacc249c6667845b1cc1dd3	exact	3b874769f119ea30e3207f6337dc9864cc8fe7ee	crypto: scatterwalk - Backport memcpy_sglist()	Original hunks applied unchanged; local file modes retained.
+3	488f9c3ab90e333ad5185d9236c1e10898acf041	exact	dca51de782ea9c3288cc276035a853881dcb9a9d	crypto: algif_aead - use memcpy_sglist() instead of null skcipher	Original hunks applied unchanged; local file modes retained.
+4	893d22e0135fa394db81df88697fba6032747667	exact	974ae807fd6196d6c11983276675c6ae0a5ff16e	crypto: algif_aead - Revert to operating out-of-place	Original hunks applied unchanged; local file modes retained.
+5	08ea39a556ecd39b33c2b4888861001c6706a62e	exact	fb67456598db2446e5469a8badae9b645d77001d	crypto: algif_aead - snapshot IV for async AEAD requests	Original hunks applied unchanged; local file modes retained.
+6	274857bb1fbef99ce4dba0f6e940115e17c48361	exact	52c5494b0ec79aea61114e640fbf7b06e933b40b	crypto: authenc - use memcpy_sglist() instead of null skcipher	Original hunks applied unchanged; local file modes retained.
+7	8c62f618576519dbed6816fafc623ce592953025	exact	193885f91924bca3e879f23df481fed7bbea7501	crypto: authencesn - Do not place hiseq at end of dst for out-of-place decryption	Original hunks applied unchanged; local file modes retained.
+8	88881da57e60ef796c59bf53bb34221c960ec707	exact	d70e55aae3a9fe8873998a39b0d454257cb03218	crypto: authencesn - Fix src offset when decrypting in-place	Original hunks applied unchanged; local file modes retained.
+9	fa48d3ea9cdbfb28c1fd6756c6c5cd01351aa51e	exact	a92fd3159ac6f8d36028e1647a3d2751cad36aed	crypto: af_alg - Fix page reassignment overflow in af_alg_pull_tsgl	Original hunks applied unchanged; local file modes retained.
+10	74a66fdb5282d89e348b00c42cfca3a936946d94	exact	f580cf52c1506a1a55478a9438d7243709b14f1f	crypto: algif_aead - Fix minimum RX size check for decryption	Original hunks applied unchanged; local file modes retained.
+11	dbf862ce9f009128ab86b234d91413a3e450beb4	exact	5e052a7e06eb00b56f7ceddcb462dfadc5ccd2c5	xen/privcmd: fix double free via VMA splitting	Original hunks applied unchanged; local file modes retained.
+12	e3af585e1728c917682b6a3de9a69b41fb9194d4	exact	be578515bdce1e2927b78be7ad83d788d266f930	Buffer overflow in drivers/xen/sys-hypervisor.c	Original hunks applied unchanged; local file modes retained.
+13	484bc8b8a0b5816ecc80375b1bc38382abf6bcf5	adapted	830c4d7b4293c4a08bea57f2f0edaf92c4794c82	Linux 5.10.254	Advance SUBLEVEL to 254 while retaining the product/platform exports and architecture assignment.
