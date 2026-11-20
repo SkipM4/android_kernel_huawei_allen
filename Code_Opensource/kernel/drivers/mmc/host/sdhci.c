@@ -4482,7 +4482,8 @@ static void sdhci_allocate_bounce_buffer(struct sdhci_host *host)
 		/* Again fall back to max_segs == 1 */
 		return;
 	host->bounce_buffer_size = bounce_size;
-	ret = devm_add_action_or_reset(mmc_dev(mmc),
+	/* Release the DMA mapping before the embedded host is freed. */
+	ret = devm_add_action_or_reset(mmc_classdev(mmc),
 				       sdhci_unmap_bounce_buffer, host);
 	if (ret) {
 		devm_kfree(mmc_dev(mmc), host->bounce_buffer);
