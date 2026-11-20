@@ -70,9 +70,17 @@ also excluded at the user's request. The complete exclusions are recorded in
 
 The archive is checked by extracting it, validating every file against its
 manifest, preserving file modes, and regenerating both defconfigs from that
-extraction. This checks the source package; the earlier complete kernel builds
-and device tests are not repeated by this phase. New builds generate new local
-signing keys, so binary identity with #101/#103 is not promised.
+extraction. The completed local archive binds source commit `af19e0c0ae`.
+All 84,820 included source files match the Git blobs and permissions; the
+inner file manifest and outer archive checksum match. Both extracted profiles
+pass `modules_prepare` and `certs/`, including source-local public certificate
+extraction, and recreate the tested effective configurations and OEM offset
+selectors. The temporary verification output and generated test keys are
+removed after these checks.
+
+This checks the source package; the earlier complete kernel builds and device
+tests are not repeated by this phase. New builds generate new local signing
+keys, so binary identity with #101/#103 is not promised.
 
 This is a locally prepared source archive. No upload, tag, push or public
 release operation is performed. Android common parity, removal of remaining
