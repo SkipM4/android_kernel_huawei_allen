@@ -6,7 +6,7 @@
 # CONFIG_LTO_CLANG_FULL is not set
 CONFIG_LTO_CLANG_THIN=y
 CONFIG_MODULE_SIG_KEY="certs/signing_key.pem"
-CONFIG_SYSTEM_TRUSTED_KEYS="../../configs/allen-stock-module-signing.pem"
+CONFIG_SYSTEM_TRUSTED_KEYS="certs/allen-stock-module-signing.pem"
 # Match the stock kernel rather than enabling this from a nonempty tool prefix.
 # CONFIG_COMPAT_VDSO is not set
 # Retain pre-ADB boot warnings during the current diagnostic iterations.

@@ -7,9 +7,11 @@ not a release artifact.
 
 ## Configuration
 
-The reproducible fragment is `configs/allen-test-security-relaxed.fragment`.
-It is merged into the normal output configuration before building. The
-security-related changes are:
+The maintained configuration is
+`Code_Opensource/kernel/arch/arm64/configs/allen_relaxed_defconfig`.
+The companion `allen_secure_defconfig` preserves the #101 settings. Both are
+standard Kbuild defconfigs in the same source tree; the earlier test fragment
+was retired during the stage closeout. The security-related differences are:
 
 - `CONFIG_MODULE_SIG_FORCE=n`: modules are still signed with the existing
   SHA-512 key and `CONFIG_MODULE_SIG_ALL=y`, but unsigned or unknown-key modules
@@ -23,8 +25,10 @@ security-related changes are:
   `/sys/fs/selinux/enforce` write path for an explicit post-boot Magisk test.
 
 ThinLTO, CFI, module signing, the signing certificate, PRMEM/HKIP and the
-device-tree/ramdisk handling remain unchanged. The exact configuration is in
-`.tmp/security-test/build103.json`.
+device-tree/ramdisk handling remain unchanged. The exact tested configuration
+and compact acceptance record are retained in
+`out/allen-clang12-r103-metadata/`. The two defconfigs use the same public trust
+certificate, moved into the kernel's `certs/` directory for portable builds.
 
 ## Build And Stage
 
@@ -61,9 +65,12 @@ The runtime security checks were scoped to this test image:
 - The final security archive/vmlinux contain no Huawei root-scanner objects or
   scanner symbols, and `/proc/check_root` and `/proc/rootscan` are absent.
 
-The exact fallback pair is the accepted 5.10.274/#101 boot and modem pair. The
-full command log and runtime record remain under `.tmp/security-test/` for
-local audit; they are not release material.
+The exact fallback pair is the accepted 5.10.274/#101 boot and modem pair.
+Compact runtime/build records are retained in
+`out/allen-clang12-r103-metadata/`; the consumed command logs, debug scripts,
+build products and temporary import/analysis caches were retired at closeout.
+Hashes inside historical records describe the original measurements; their
+old temporary paths are not a promise that those caches remain replayable.
 
 This configuration deliberately weakens module-loading and root-detection
 controls. Keep it limited to local debugging and restore the #101 secure pair

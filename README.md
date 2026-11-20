@@ -12,6 +12,11 @@ currently running local test-only build #103 from that same source. It disables
 mandatory module signatures and Huawei root scans; SELinux starts Enforcing,
 was toggled to Permissive and restored through Magisk. The accepted #101 pair is
 the exact rollback. Details are in `docs/clang12-security-relaxed-test.md`.
+The stage closeout supplies one source archive with two standard profiles in
+`Code_Opensource/kernel/arch/arm64/configs/`: `allen_secure_defconfig` and
+`allen_relaxed_defconfig`. See `Code_Opensource/kernel/README.allen` for portable
+build instructions and `docs/allen-5.10.274-stage-closeout.md` for the local
+cleanup and source-package boundary.
 The official 5.10 branch and release tag still identify 5.10.274 on
 November 20, 2026.
 The final 271-274 range accounts for all 1,114 official entries and is built

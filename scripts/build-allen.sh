@@ -3,6 +3,7 @@ set -euo pipefail
 
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
 toolchain="$PWD/tools/toolchains/clang-r416183b1"
+kernel=$(realpath -- "${KERNEL_DIR:-$PWD/Code_Opensource/kernel}")
 output=$(realpath -m -- "${OUTPUT_DIR:-$PWD/out/allen-clang12}")
 export PATH="$PWD/tools/host/bin:$toolchain/bin:$PATH"
 
@@ -26,7 +27,7 @@ fi
 mkdir -p "$output" .tmp
 log="$PWD/.tmp/build-clang12.log"
 printf 'Building with Android Clang 12; log: %s\n' "$log"
-if make -C Code_Opensource/kernel \
+if make -C "$kernel" \
     ARCH=arm64 O="$output" LLVM=1 LLVM_IAS=1 \
     CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabi- \
     CLANG_PREBUILTS_PATH="$toolchain/" LOCALVERSION= \
