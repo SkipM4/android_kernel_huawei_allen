@@ -37,7 +37,8 @@ additional supported profiles.
 
 The unrelated original `external` and `vendor/open_source` projects are absent
 from the current tree and remain in the untouched original distribution and
-Git ancestors. The local operational `AGENTS.md`, firmware/boot backups,
+Git ancestors. The empty stock import artifact named `-c` is also removed.
+The local operational `AGENTS.md`, firmware/boot backups,
 images, output, archive, compiler and private signing material remain ignored.
 They are not needed to compile the source.
 
@@ -50,3 +51,8 @@ against the accepted #101/#103 effective configuration and generated OEM
 offsets using fresh `O=` outputs, `savedefconfig`, `modules_prepare` and
 `certs/`. This layout check does not extend the prior hardware acceptance or
 claim GKI/KMI certification.
+
+Both fresh root-directory profile checks passed: their regenerated effective
+configuration and OEM selectors match the recorded #101/#103 baselines, and
+`savedefconfig`, `modules_prepare` and `certs/` all completed. No full kernel
+rebuild, device reboot or flash was performed for this directory-only change.

@@ -15,7 +15,6 @@ import tarfile
 ROOT = Path(__file__).resolve().parent.parent
 PACKAGE = 'linux-5.10.274-allen'
 OMIT = {
-    '-c': 'Empty stock import artifact.',
     'tools/dtbTool': 'Unused OEM prebuilt host ELF tool.',
     'tools/dtc': 'Unused OEM prebuilt host ELF tool; DTC source is retained.',
     'tools/minigzip': 'Unused OEM prebuilt host ELF tool.',
@@ -62,7 +61,7 @@ def package(revision, output):
     omitted.update({name: 'Unselected OEM runtime firmware blob; EXTRA_FIRMWARE is empty.'
                     for name in files if name.startswith('firmware/') and name.endswith('.wa')})
     assert set(OMIT).issubset(files), 'Re-review changed archive filters'
-    assert len(omitted) == 16, 'Re-review changed OEM firmware/tool inventory'
+    assert len(omitted) == 15, 'Re-review changed OEM firmware/tool inventory'
     omitted.update({name: 'Test data, optional testing tools, or diagnostic/developer helper.'
                     for name in files if name.startswith(OMIT_PREFIXES) or name in OMIT_HELPERS})
     required = {'COPYING', 'LICENSES/preferred/GPL-2.0', 'Makefile', 'README.md',

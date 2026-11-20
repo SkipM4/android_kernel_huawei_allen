@@ -8,9 +8,11 @@ output=$(realpath -m -- "${OUTPUT_DIR:-$PWD/out/allen-clang12}")
 export PATH="$PWD/tools/host/bin:$toolchain/bin:$PATH"
 
 printf 'Working directory: %s\n' "$PWD"
-git status --short
-git branch --show-current
-git log -1 --oneline
+if [[ -e .git ]]; then
+    git status --short
+    git branch --show-current
+    git log -1 --oneline
+fi
 for tool in python gcc clang make; do
     command -v "$tool"
     "$tool" --version | head -n 1
