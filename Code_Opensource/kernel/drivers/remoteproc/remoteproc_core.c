@@ -1959,6 +1959,10 @@ void rproc_shutdown(struct rproc *rproc)
 		return;
 	}
 
+	/* Deletion also handles manual processors that were never booted. */
+	if (READ_ONCE(rproc->deleting) && !atomic_read(&rproc->power))
+		goto out;
+
 	/* if the remote proc is still needed, bail out */
 	if (!atomic_dec_and_test(&rproc->power))
 		goto out;
@@ -2515,6 +2519,7 @@ int rproc_del(struct rproc *rproc)
 	WRITE_ONCE(rproc->deleting, true);
 	spin_unlock_irqrestore(&rproc->crash_handler_lock, flags);
 
+	cancel_work_sync(&rproc->attach_work);
 	if (cancel_work_sync(&rproc->crash_handler))
 		pm_relax(rproc->dev.parent);
 

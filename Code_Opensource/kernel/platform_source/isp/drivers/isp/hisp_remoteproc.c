@@ -1046,7 +1046,10 @@ static int hisp_mbox_rx_thread(void *context)
 
 	while (!kthread_should_stop()) {
 		ret = wait_event_interruptible(hisp_rx_mbox->wait,
-				hisp_rx_mbox->can_be_wakeup == 1);
+				hisp_rx_mbox->can_be_wakeup == 1 ||
+				kthread_should_stop());
+		if (kthread_should_stop())
+			break;
 		hisp_rx_mbox->can_be_wakeup = 0;
 		if (ret != 0) {
 			pr_err("wait event failed\n");
@@ -1220,7 +1223,7 @@ static int hisp_ipc_resource_init(struct hisp_rproc *dev)
 					SCHED_RR, &param);
 		if (ret < 0) {
 			pr_err("Failed : sched_setscheduler\n");
-			return ret;
+			goto kthread_failure;
 		}
 		wake_up_process(hisp_rx_mbox->rpmsg_rx_tsk);
 	}
@@ -1232,13 +1235,12 @@ static int hisp_ipc_resource_init(struct hisp_rproc *dev)
 			GFP_KERNEL)) {
 		pr_err("Failed : kfifo_alloc\n");
 		ret = -ENOMEM;
-		goto kfifo_failure;
+		goto kthread_failure;
 	}
 
 	return 0;
-kfifo_failure:
-	if (IS_ERR(hisp_rx_mbox->rpmsg_rx_tsk))
-		kthread_stop(hisp_rx_mbox->rpmsg_rx_tsk);
+kthread_failure:
+	kthread_stop(hisp_rx_mbox->rpmsg_rx_tsk);
 
 	return ret;
 }
@@ -1247,9 +1249,8 @@ static void hisp_ipc_resource_exit(struct hisp_rproc *dev)
 {
 	struct hisp_rx_mbox *hisp_rx_mbox = &dev->rx_mbox;
 
+	kthread_stop(hisp_rx_mbox->rpmsg_rx_tsk);
 	kfifo_free(&hisp_rx_mbox->rpmsg_rx_fifo);
-	if (IS_ERR(hisp_rx_mbox->rpmsg_rx_tsk))
-		kthread_stop(hisp_rx_mbox->rpmsg_rx_tsk);
 }
 
 static int hisp_rproc_vring_init(struct hisp_rproc *dev)
@@ -1438,9 +1439,6 @@ static void hisp_rproc_exit(struct hisp_rproc *dev)
 {
 	int ret;
 
-	hisp_rproc_vring_exit(dev);
-	hisp_rproc_vqueue_exit(dev);
-	hisp_virtio_rpmsg_exit();
 	spin_lock_bh(&dev->rpmsg_ready_spin_mutex);
 	dev->rpmsg_ready_state = 0;
 	spin_unlock_bh(&dev->rpmsg_ready_spin_mutex);
@@ -1451,6 +1449,9 @@ static void hisp_rproc_exit(struct hisp_rproc *dev)
 	RPROC_FLUSH_TX(dev->ap_a7_mbox);
 	dev->nb.notifier_call = NULL;
 	hisp_ipc_resource_exit(dev);
+	hisp_virtio_rpmsg_exit();
+	hisp_rproc_vqueue_exit(dev);
+	hisp_rproc_vring_exit(dev);
 }
 
 static int hisp_rproc_probe(struct platform_device *pdev)
@@ -1486,13 +1487,6 @@ static int hisp_rproc_probe(struct platform_device *pdev)
 	dev->rproc = rproc;
 	platform_set_drvdata(pdev, rproc);
 
-	pr_info("rproc_add\n");
-	ret = devm_rproc_add(&pdev->dev, rproc);
-	if (ret != 0) {
-		pr_err("%s: devm_rproc_add fail. ret %d\n", __func__, ret);
-		return ret;
-	}
-
 	ret = dma_coerce_mask_and_coherent(&pdev->dev,
 			DMA_BIT_MASK(64));
 	if (ret != 0) {
@@ -1521,6 +1515,15 @@ static int hisp_rproc_probe(struct platform_device *pdev)
 		return ret;
 	}
 
+	pr_info("rproc_add\n");
+	ret = rproc_add(rproc);
+	if (ret != 0) {
+		pr_err("%s: rproc_add fail. ret %d\n", __func__, ret);
+		hisp_rproc_exit(dev);
+		hisp_device_remove(pdev);
+		return ret;
+	}
+
 	hisp_notify_probe(pdev);
 
 	return 0;
@@ -1543,9 +1546,12 @@ static int hisp_rproc_remove(struct platform_device *pdev)
 		return -EINVAL;
 	}
 
-	(void)hisp_device_remove(pdev);
-	(void)hisp_rproc_exit(dev);
+	hisp_rproc_state_lock();
+	rproc_del(rproc);
+	hisp_rproc_state_unlock();
 	hisp_notify_remove();
+	(void)hisp_rproc_exit(dev);
+	(void)hisp_device_remove(pdev);
 
 	return 0;
 }

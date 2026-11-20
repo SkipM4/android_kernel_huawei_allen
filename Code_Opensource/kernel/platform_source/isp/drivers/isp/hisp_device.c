@@ -997,7 +997,9 @@ static int hisp_power_on_work(void *data)
 	hisp_info("-\n");
 	while (!kthread_should_stop()) {
 		ret = wait_event_interruptible(dev->pwronisp_wait,
-			dev->pwronisp_wake);
+			dev->pwronisp_wake || kthread_should_stop());
+		if (kthread_should_stop())
+			break;
 		if (ret < 0) {
 			hisp_info("fail to wait for pwronisp_wake.%ld\n", ret);
 			continue;
