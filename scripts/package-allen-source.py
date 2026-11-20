@@ -23,6 +23,22 @@ OMIT = {
     'tools/mkbootimg': 'Unused OEM prebuilt host ELF tool.',
     'tools/lib64/libc++.so': 'Unused OEM prebuilt host ELF library.',
 }
+OMIT_PREFIXES = (
+    'scripts/clang-tools/', 'scripts/coccinelle/', 'scripts/gdb/',
+    'scripts/ksymoops/', 'scripts/tracing/', 'scripts/kconfig/tests/',
+    'tools/testing/', 'tools/perf/tests/', 'tools/perf/scripts/',
+    'tools/debugging/', 'tools/build/tests/', 'tools/memory-model/',
+    'tools/virtio/ringtest/', 'tools/virtio/vhost_test/',
+    'tools/bootconfig/samples/', 'tools/bootconfig/scripts/',
+    'Documentation/trace/postprocess/',
+)
+OMIT_HELPERS = {
+    'scripts/bloat-o-meter', 'scripts/bootgraph.pl', 'scripts/checkstack.pl',
+    'scripts/decode_stacktrace.sh', 'scripts/decodecode', 'scripts/faddr2line',
+    'scripts/leaking_addresses.pl', 'scripts/markup_oops.pl', 'scripts/objdiff',
+    'scripts/show_delta', 'scripts/stackdelta', 'scripts/stackusage',
+    'scripts/spdxcheck-test.sh', 'tools/bootconfig/test-bootconfig.sh',
+}
 PRIVATE_KEY = re.compile(rb'-----BEGIN (?:[A-Z0-9]+ )*PRIVATE KEY-----')
 
 
@@ -48,6 +64,8 @@ def package(revision, output):
                     for name in files if name.startswith('firmware/') and name.endswith('.wa')})
     assert set(OMIT).issubset(files), 'Re-review changed archive filters'
     assert len(omitted) == 16, 'Re-review changed OEM firmware/tool inventory'
+    omitted.update({name: 'Test data, optional testing tools, or diagnostic/developer helper.'
+                    for name in files if name.startswith(OMIT_PREFIXES) or name in OMIT_HELPERS})
     required = {'COPYING', 'LICENSES/preferred/GPL-2.0', 'Makefile', 'README.allen',
                 'certs/allen-stock-module-signing.pem',
                 'arch/arm64/configs/allen_secure_defconfig',
@@ -84,7 +102,7 @@ def package(revision, output):
                     assert not PRIVATE_KEY.search(data), f'Private key in source: {name}'
                     checksums.append((name, hashlib.sha256(data).hexdigest()))
                     item = tarfile.TarInfo(f'{PACKAGE}/{name}')
-                    item.mode = entry.mode
+                    item.mode = 0o755 if entry.mode & 0o111 else 0o644
                     item.mtime = timestamp
                     item.size = len(data)
                     result.addfile(item, io.BytesIO(data))

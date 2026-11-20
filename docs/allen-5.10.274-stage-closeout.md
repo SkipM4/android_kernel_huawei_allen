@@ -63,8 +63,10 @@ a per-file `SHA256SUMS`. The adjacent `.tar.xz.sha256` checks the compressed
 archive. It excludes local images, device identities/logs, compiler binaries,
 `.git`, private keys, and build/cache output. Sixteen reviewed stock artifacts
 are filtered: five unused host ELF binaries, ten unselected firmware blobs,
-and one empty import artifact. Formal debug code and upstream test fixtures
-remain part of the source.
+and one empty import artifact. Test datasets, optional testing tools, developer
+analysis/debug scripts, GDB/tracing helpers and binary/log test fixtures are
+also excluded at the user's request. The complete exclusions are recorded in
+`SOURCE_INFO.json`; kernel C/assembly and required Kbuild scripts are retained.
 
 The archive is checked by extracting it, validating every file against its
 manifest, preserving file modes, and regenerating both defconfigs from that

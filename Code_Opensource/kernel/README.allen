@@ -119,8 +119,14 @@ SOURCE_INFO.json records the exact source revision, kernel tree and archive
 filters. SHA256SUMS records each included file's content.
 
 The archive omits five unused OEM prebuilt ELF host tools and ten unselected
-Mali firmware .wa blobs, plus the zero-byte stock -c import artifact. These
-paths are listed in SOURCE_INFO.json. Formal source, Kbuild scripts, debug
-features, KUnit log fixtures and the reproducible upstream perf PE test data
-are retained. The archive contains no workspace .git, output/cache directory,
-device log, flashed image, external compiler, or private signing key.
+Mali firmware .wa blobs, plus the zero-byte stock -c import artifact. It also
+omits test datasets, optional testing tools, GDB/tracing/analysis scripts,
+stack/oops decoding helpers, and upstream binary/log test fixtures. The full
+list is in SOURCE_INFO.json. Kernel C/assembly source and Kbuild's required
+configuration, compiler, linker and signing scripts are retained; optional
+testing/debugging tool targets are outside this source package's scope.
+
+The archive contains no workspace .git, output/cache directory, device log,
+flashed image, external compiler, or private signing key. Runtime kernel debug
+features and Kconfig options remain source code; they are not removed merely
+because their names include "debug".
