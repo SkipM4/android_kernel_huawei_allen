@@ -1,0 +1,3 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	cfdbc8c2e6f9ef5d8b8e54859da03dfe682b0bee	exact	b7f441448f017b6b3234a5431e9819c6dbca2e01	inet: frags: strip GSO state from fragments before reassembly	Original hunks applied unchanged; local file modes retained.
+2	38a5e4f139eb1933f8837e7e2a841810d90cd44c	adapted	14c5358e26425c4c4555ca9723b69b3fc514054a	Linux 5.10.268	Advance only the official stable sublevel, preserving local kernel release name and established build rules.

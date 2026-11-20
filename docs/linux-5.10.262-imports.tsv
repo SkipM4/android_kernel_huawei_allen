@@ -1,0 +1,3 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	67aa823e3e8c229c6d374df79c804f6721cb83b6	exact	77b7cfe8d824c81d2eada61ebde2349f9e43b4d7	posix-cpu-timers: Prevent UAF caused by non-leader exec() race	Original hunks applied unchanged; local file modes retained.
+2	065a677fad98698de04279ba2cb152a472ab8b1f	adapted	b428e5e7fda12c316d877da9a804f9cf79c9d790	Linux 5.10.262	Advance only the official stable sublevel, preserving local kernel release name and established build rules.

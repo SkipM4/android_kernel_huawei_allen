@@ -1,0 +1,4 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	ad5e69629ebcec7615745142af5f6456ef942e80	exact	ebb35341cd8e6cce79e03b2f36cbfd0eac4012f1	"Revert ""x86/bugs: Make Safe-RET robust against interrupt injection"""	Original hunks applied unchanged; local file modes retained.
+2	dfefa3c51370f84acb643cddf98bb42c885d0483	exact	9c250367788bc08a9197ef1c97f7ae1d1b2dc670	x86/bugs: Make Safe-RET robust against interrupt injection	Original hunks applied unchanged; local file modes retained.
+3	acccef89f184a697fee1c96a1dc9cccbba36937b	adapted	e96fc7224fe74ee41b095691fb6c531575be800d	Linux 5.10.264	Advance only the official stable sublevel, preserving local kernel release name and established build rules.

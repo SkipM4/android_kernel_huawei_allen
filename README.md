@@ -1712,3 +1712,60 @@ Next is the complete 5.10.261-270 batch, then the remaining releases toward
 the pinned 5.10.274 endpoint. Android common parity, OEM/core separation,
 formal GKI/KMI and broad hardware, network, power and performance acceptance
 remain open. No release export, tag, push or publication was performed.
+
+### Linux 5.10.261-270: Accepted #100
+
+All 2,199 official entries are accounted for in ten ordered release ledgers:
+2,147 exact, 44 adapted, four present and four without a corresponding local
+implementation. The range contributes 2,191 original-author commits. Final
+source `4dd7b816cb` includes separately recorded corrections to selected OEM
+consumers; all adapted originals were reviewed against their actual commits
+and final behavior.
+
+The selected HW_F2FS copy carries the corresponding capacity, pinned-range,
+xattr/orphan validation, GC submission, writeback accounting, symlink and
+move-range fixes. Huawei SDP uses the standard P256 ECDH transform while
+retaining public curve/key validation. Schedutil stores utilization through
+the canonical helper interface across the generic and HCK paths, preserving
+WALT, the separate IO frequency floor and raw-util tracing. The highmem
+conversion preserves MM_LB mapping. Perf sibling promotion retains terminal
+states and consistent group accounting. SDHCI bounce-buffer cleanup follows
+the MMC class-device lifetime.
+
+Remoteproc retains the four-argument iomem translation contract and Huawei
+resource handlers. ISP registration now follows complete initialization;
+delete and worker shutdown precede backing-resource destruction. Live ISP
+unbind, crash injection and autonomous detach remain outside acceptance.
+The first whole compilation exposed a local anonymous-inode LSM caller that
+still supplied the old default-result argument; its separate fix follows
+the centrally defined hook default without changing authorization.
+
+Android Clang/LLD 12.0.7 Image/modules succeeds as #100. Effective configuration,
+signing materials and all 36 generated OEM constants remain unchanged.
+ThinLTO, enforcing CFI, BTI, forced module signatures, SELinux and HKIP/PRMEM
+remain enabled. Current checks cover 16 callbacks in four changed groups
+and eight CFI types, including actual final table pointers; nine natural
+HyperFrame/UFS/MAS assembly objects retain allocated bytes and relocation
+semantics. Final ELF checks retain 94 repeat-TLBI alternatives and enforcing
+CFI failure behavior. These are selected interface checks, not complete ABI
+coverage or formal GKI/KMI certification.
+
+All 390 modem and two optional dummy imports match this build. The staged
+modem CMS signature and same-build payload pass. Relative to #99, 16 exports
+are added, five removed and 2,634 common CRCs differ; modules require matching
+kernel builds. Paired boot/modem installation starts normal Android
+5.10.270/#100 and automatically loads the signed modem as Live. Readbacks
+and live Build ID match, the independent ramdisk remains unchanged, and CE,
+three essential services and same-thread six-stage ISP startup pass.
+Enforcing, signature enforcement, taint 4, PRMEM, trace state and asleep
+screen are retained. Relevant complete logs show no matched kernel/module
+fault; WARN/Oops counts are zero and none of 518 AVC denials is for module
+loading.
+
+Immediate paired recovery is 5.10.260/#99. Consumed link intermediates,
+caches, the consumed final ELF and expired #91 image pair are retired;
+five recent image pairs and referenced evidence remain below 20 GB.
+Continue with 271-274 toward the verified official 5.10 branch endpoint.
+Android common parity, OEM/core separation, stable GKI/KMI and broad hardware,
+network, performance and power validation remain open. Work stays in local
+Git without release export or publication.
