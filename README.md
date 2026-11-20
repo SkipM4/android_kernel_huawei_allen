@@ -6,20 +6,21 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed upstream milestone is Linux5.10.200 #86, kernel source
-`c0e3bac720`, with normal Android, unlocked CE, automatic ISP firmware startup
-and same-build signed Live modem. #85/5.10.195 is immediate paired recovery.
-Complete196-200 resolves all601 stable entries:559 exact,28 adapted and14
-already present, with587 ordered original-author commits. The complete source
-range builds using Android Clang/LLD12.0.7 and unchanged effective security
-configuration. Current selected layouts, 118 CFI groups/230 targets, actual
-callbacks, signed module imports and matching staged pair pass. The required
-390 modem imports match; the two optional dummy imports also match. Runtime
-boot/module readbacks, Enforcing, forced signatures, PRMEM, independent
-ramdisk and original trace/screen state pass. This is stable-source progress,
-not Android common parity, stable KMI or GKI certification. The next range is
-201-205 toward pinned 5.10.274; full hardware/network/power coverage and
-OEM/core separation remain open.
+The installed accepted kernel is Linux 5.10.274 #101, source `5b0cc1b997`,
+with normal Android and automatic matching signed Live modem. The official
+5.10 branch and release tag still identify 5.10.274 on November 20, 2026.
+The final 271-274 range accounts for all 1,114 official entries and is built
+with Android Clang/LLD 12.0.7. Effective security configuration, certificate
+and generated OEM constants remain intact. Current layout, selected callback
+CFI, raw-assembly, module signature/CRC and device readback checks pass.
+CE, essential services, automatic ISP startup, independent ramdisk, Enforcing,
+forced signatures, PRMEM and original trace/screen state pass. Immediate
+paired recovery is 5.10.270/#100; five recent accepted image pairs remain.
+
+The stable update and normal-boot milestone is complete. Android common
+parity, OEM/core separation, stable GKI/KMI certification and broad hardware,
+network, performance and power acceptance remain open. All work stays in
+local Git; nothing is exported or published as a release.
 
 Accepted79 private-ring evidence is retained,
 not replayed. The accepted162-165 migration
@@ -1769,3 +1770,55 @@ Continue with 271-274 toward the verified official 5.10 branch endpoint.
 Android common parity, OEM/core separation, stable GKI/KMI and broad hardware,
 network, performance and power validation remain open. Work stays in local
 Git without release export or publication.
+
+### Linux 5.10.271-274: Accepted #101, Current Stable Endpoint
+
+The final four releases account for all 1,114 official entries: 1,093 exact,
+18 adapted, two present and one without a corresponding local driver. The
+range preserves 1,111 ordered original-author commits. Source `5b0cc1b997`
+reaches the official 5.10.274 endpoint in sequence; the official branch and
+release tag were checked again on November 20, 2026 and both still point to
+`3a323bc22b881a5bdc1646080f93f5ecb22850bf`.
+
+Selected HW_F2FS receives inline directory name/slot bounds, collapse-range
+writeback errors and bounded recovery filenames. Its existing embedded GC
+threads remain intact. The generic GC conversion preserves MAS fields and
+all seven local consumers, including foreground-GC merging; generic F2FS
+is disabled and receives no product runtime claim. Tick broadcast replacement
+now serializes device publication and releases the old module outside the
+lock. The mremap self-merge fix retains anonymous VMA names and speculative
+fault arguments. Futex shared-mm identity and address-independent keyring
+indexes migrate as complete field/initialization/lookup transactions. Empty
+local KABI macros do not provide layout compatibility for their real fields.
+
+The full Android Clang/LLD 12.0.7 Image/modules build succeeds as #101 without
+a follow-up source correction. Effective configuration, signing materials
+and all 36 generated OEM constants stay unchanged; ThinLTO, enforcing CFI,
+BTI, forced signatures, SELinux and HKIP/PRMEM remain enabled. Current natural
+objects verify mm/signal/task/futex and key overlay layouts, actual new-ID
+stores, physical callback tables, IO write ownership and void TTY hangup.
+Seventeen callbacks and eleven CFI types pass. HyperFrame retains its two
+existing write-end branches without a duplicate completion release. Nine
+raw OEM objects preserve allocated bytes and normalized relocations; final
+ELF checks retain enforcing CFI failure handling and 94 TLBI alternatives.
+
+All 390 modem and two optional dummy imports match current CRCs/vermagic.
+The signed modem payload and CMS verification pass. Relative to #100, six
+exports are added, one removed and 9,038 common CRCs differ. Matching modules
+must still accompany each kernel; this is not stable Android KMI/GKI.
+Only paired boot and modem_driver are installed. Normal Android starts as
+5.10.274/#101 with automatic signed Live modem and matching readbacks/Build
+ID. Independent ramdisk, Enforcing, signature enforcement, taint 4 and PRMEM
+are retained. Unlocked CE, three services, same-thread six-stage ISP, trace
+state and asleep screen pass. Relevant complete logs contain no matched
+kernel/module fault, WARN/Oops counts are zero and none of 532 AVC denials
+is a module-load denial. Live ISP unbind, broad hardware/network, performance
+and power coverage remain outside this acceptance.
+
+Immediate paired recovery is 5.10.270/#100. Retain the five recent accepted
+image pairs #95/#97/#99/#100/#101; consumed linker caches/intermediates,
+final ELF and expired #93 pair are retired after their evidence is recorded.
+The workspace is below 20 GB and the local source/Git checkpoint is ready
+for the next phase. This completes the current stable-update/boot milestone;
+Android common parity, OEM/core separation and formal GKI/KMI restoration
+remain future work. No release export, tag, push or publication is performed.

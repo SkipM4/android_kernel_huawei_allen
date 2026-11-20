@@ -1,0 +1,5 @@
+sequence	stable_commit	status	local_commit_or_evidence_head	subject	note
+1	ec2ec685ad7fa8a34dd60add7972c300bec76dca	exact	a83a222f927a2cce00eb58c9bd3002de3ec8ea8e	netfilter: nfnetlink_queue: unbreak SCTP traffic	Original hunks applied unchanged; local file modes retained.
+2	a464d950f31c89565cbaae038cc60db04fe01956	exact	3f26225b4792793df3e85f2ee23816e894a671ad	ipv4: validate checksum_start before completing checksum	Original hunks applied unchanged; local file modes retained.
+3	b3b027ef0cd322bfa839b9aaf5b27551eea54cf6	exact	fc271eb4eacb1e7394ddc71ff28affaa60fbab7f	ipv4: free inet_opt and ireq_opt after an RCU grace period	Original hunks applied unchanged; local file modes retained.
+4	aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2	adapted	2141a36ff21e35c4838a7c442b64df317457443e	Linux 5.10.272	Advance only the official stable sublevel, preserving local kernel release name and established build rules.
