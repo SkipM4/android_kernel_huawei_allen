@@ -43,7 +43,7 @@ static int wait_sync_opt(int res, struct tcrypt_result *tr)
 	return res;
 }
 
-static int set_param(u32 curve_id, struct crypto_kpp *tfm)
+static int set_param(struct crypto_kpp *tfm)
 {
 	int err;
 	unsigned int ecdh_size;
@@ -56,7 +56,6 @@ static int set_param(u32 curve_id, struct crypto_kpp *tfm)
 		goto out_and_free;
 	}
 
-	ecdh_param->curve_id = curve_id;
 	ecdh_param->key = NULL;
 	ecdh_param->key_size = 0;
 	ecdh_size = crypto_ecdh_key_len(ecdh_param);
@@ -135,7 +134,7 @@ fail_and_free:
 	return err;
 }
 
-static int set_param_for_gen_secret(u32 curve_id, struct crypto_kpp *tfm,
+static int set_param_for_gen_secret(struct crypto_kpp *tfm,
 	const buffer_t *dev_priv_key)
 {
 	unsigned int ecdh_size;
@@ -149,7 +148,6 @@ static int set_param_for_gen_secret(u32 curve_id, struct crypto_kpp *tfm,
 		err = -ENOMEM;
 		goto out_and_free;
 	}
-	ecdh_param->curve_id = curve_id;
 	ecdh_param->key_size = FS_SDP_ECC_PRIV_KEY_SIZE;
 	ecdh_param->key = dev_priv_key->data;
 	ecdh_size = crypto_ecdh_key_len(ecdh_param);
@@ -185,13 +183,12 @@ out_and_free:
 
 /*
  * tfm: Kpp transformation with ecdh algorithm
- * curve_id: Curve id, ECC_CURVE_NIST_P256 now
  * dev_pub_key: Device public key. Get from keyring.
  * file_pub_key[out]: Generated file public key. To be stored in file xattr.
  * shared_secret[out: Used to decrypt the file content encryption key in GCM
  *                    mode. Not stored.
  */
-static int ecdh_gen_file_pubkey_secret(struct crypto_kpp *tfm, u32 curve_id,
+static int ecdh_gen_file_pubkey_secret(struct crypto_kpp *tfm,
 	const buffer_t *dev_pub_key, buffer_t *file_pub_key, buffer_t *out)
 {
 	unsigned int pub_key_size;
@@ -209,7 +206,7 @@ static int ecdh_gen_file_pubkey_secret(struct crypto_kpp *tfm, u32 curve_id,
 	if (!req)
 		return -EFAULT;
 	init_completion(&result.comp);
-	err = set_param(curve_id, tfm);
+	err = set_param(tfm);
 	if (err != 0)
 		goto free_all;
 
@@ -260,13 +257,12 @@ free_all:
 
 /*
  * tfm: Kpp transformation with ecdh algorithm
- * curve_id: Curve id, only ECC_CURVE_NIST_P256 now
  * dev_privkey: Device private key which is gotten from keyring.
  * file_pub_key: File public key which is gotten from file xattr.
  * shared_secret[out]: Used to decrypt the file content encryption key in GCM
  *                     mode. Not stored.
  */
-static int ecdh_gen_secret(struct crypto_kpp *tfm, u32 curve_id,
+static int ecdh_gen_secret(struct crypto_kpp *tfm,
 	const buffer_t *dev_priv_key, const buffer_t *file_pub_key,
 	buffer_t *out)
 {
@@ -285,7 +281,7 @@ static int ecdh_gen_secret(struct crypto_kpp *tfm, u32 curve_id,
 	if (!req)
 		return -ENOMEM;
 	init_completion(&result.comp);
-	err = set_param_for_gen_secret(curve_id, tfm, dev_priv_key);
+	err = set_param_for_gen_secret(tfm, dev_priv_key);
 	if (err != 0)
 		goto free_all;
 	err = -EFAULT;
@@ -380,7 +376,7 @@ int get_file_pubkey_shared_secret(u32 curve_id, const buffer_t *dev_pub_key,
 	buffer_t *file_pub_key, buffer_t *shared_secret)
 {
 	int err;
-	const char *alg_name = "ecdh";
+	const char *alg_name = "ecdh-nist-p256";
 	struct crypto_kpp *tfm = NULL;
 
 	err = check_param_for_pub_key(curve_id, dev_pub_key, file_pub_key,
@@ -395,7 +391,7 @@ int get_file_pubkey_shared_secret(u32 curve_id, const buffer_t *dev_pub_key,
 			PTR_ERR(tfm));
 		return PTR_ERR(tfm);
 	}
-	err = ecdh_gen_file_pubkey_secret(tfm, curve_id, dev_pub_key,
+	err = ecdh_gen_file_pubkey_secret(tfm, dev_pub_key,
 		file_pub_key, shared_secret);
 	if (err != 0)
 		sdp_pr_err("failed to gen file pub key and shared secret\n");
@@ -408,7 +404,7 @@ int get_shared_secret(u32 curve_id, const buffer_t *dev_priv_key,
 	const buffer_t *file_pub_key, buffer_t *shared_secret)
 {
 	int err;
-	const char *alg_name = "ecdh";
+	const char *alg_name = "ecdh-nist-p256";
 	struct crypto_kpp *tfm = NULL;
 
 	err = check_param_for_shared_key(curve_id, dev_priv_key, file_pub_key,
@@ -424,7 +420,7 @@ int get_shared_secret(u32 curve_id, const buffer_t *dev_priv_key,
 		return PTR_ERR(tfm);
 	}
 
-	err = ecdh_gen_secret(tfm, curve_id, dev_priv_key, file_pub_key,
+	err = ecdh_gen_secret(tfm, dev_priv_key, file_pub_key,
 		shared_secret);
 	if (err != 0)
 		sdp_pr_err("failed to generate shared secret\n");
