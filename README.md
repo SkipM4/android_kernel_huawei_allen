@@ -6,16 +6,22 @@ Project safety rules are in `AGENTS.md`.
 
 ## Current Status
 
-The installed accepted kernel is Linux 5.10.274 #101, source `5b0cc1b997`,
-with normal Android and automatic matching signed Live modem. The official
-5.10 branch and release tag still identify 5.10.274 on November 20, 2026.
+The secure accepted baseline is Linux 5.10.274 #101, source `5b0cc1b997`,
+with normal Android and automatic matching signed Live modem. The device is
+currently running local test-only build #103 from that same source. It disables
+mandatory module signatures and Huawei root scans; SELinux starts Enforcing,
+was toggled to Permissive and restored through Magisk. The accepted #101 pair is
+the exact rollback. Details are in `docs/clang12-security-relaxed-test.md`.
+The official 5.10 branch and release tag still identify 5.10.274 on
+November 20, 2026.
 The final 271-274 range accounts for all 1,114 official entries and is built
 with Android Clang/LLD 12.0.7. Effective security configuration, certificate
 and generated OEM constants remain intact. Current layout, selected callback
 CFI, raw-assembly, module signature/CRC and device readback checks pass.
 CE, essential services, automatic ISP startup, independent ramdisk, Enforcing,
-forced signatures, PRMEM and original trace/screen state pass. Immediate
-paired recovery is 5.10.270/#100; five recent accepted image pairs remain.
+forced signatures, PRMEM and original trace/screen state passed on #101. #103
+also reaches Android with the matching Live modem and unchanged ramdisk. Five
+recent accepted image pairs remain; #101 is the immediate secure rollback.
 
 The stable update and normal-boot milestone is complete. Android common
 parity, OEM/core separation, stable GKI/KMI certification and broad hardware,
