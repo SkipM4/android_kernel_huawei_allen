@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
 toolchain="$PWD/tools/toolchains/clang-r416183b1"
-kernel=$(realpath -- "${KERNEL_DIR:-$PWD/Code_Opensource/kernel}")
+kernel=$(realpath -- "${KERNEL_DIR:-$PWD}")
 output=$(realpath -m -- "${OUTPUT_DIR:-$PWD/out/allen-clang12}")
 export PATH="$PWD/tools/host/bin:$toolchain/bin:$PATH"
 

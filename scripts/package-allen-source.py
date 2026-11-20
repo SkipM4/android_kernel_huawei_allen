@@ -13,7 +13,6 @@ import tarfile
 
 
 ROOT = Path(__file__).resolve().parent.parent
-KERNEL = 'Code_Opensource/kernel'
 PACKAGE = 'linux-5.10.274-allen'
 OMIT = {
     '-c': 'Empty stock import artifact.',
@@ -57,8 +56,8 @@ def add_bytes(archive, name, data, timestamp):
 def package(revision, output):
     commit = git('rev-parse', '--verify', revision + '^{commit}')
     timestamp = int(git('show', '-s', '--format=%ct', commit))
-    tree = git('rev-parse', f'{commit}:{KERNEL}')
-    files = git('ls-tree', '-r', '--name-only', f'{commit}:{KERNEL}').splitlines()
+    tree = git('rev-parse', f'{commit}^{{tree}}')
+    files = git('ls-tree', '-r', '--name-only', commit).splitlines()
     omitted = dict(OMIT)
     omitted.update({name: 'Unselected OEM runtime firmware blob; EXTRA_FIRMWARE is empty.'
                     for name in files if name.startswith('firmware/') and name.endswith('.wa')})
@@ -66,7 +65,7 @@ def package(revision, output):
     assert len(omitted) == 16, 'Re-review changed OEM firmware/tool inventory'
     omitted.update({name: 'Test data, optional testing tools, or diagnostic/developer helper.'
                     for name in files if name.startswith(OMIT_PREFIXES) or name in OMIT_HELPERS})
-    required = {'COPYING', 'LICENSES/preferred/GPL-2.0', 'Makefile', 'README.allen',
+    required = {'COPYING', 'LICENSES/preferred/GPL-2.0', 'Makefile', 'README.md',
                 'certs/allen-stock-module-signing.pem',
                 'arch/arm64/configs/allen_secure_defconfig',
                 'arch/arm64/configs/allen_relaxed_defconfig'}
@@ -86,7 +85,7 @@ def package(revision, output):
         compressor = subprocess.Popen(['xz', '-T2', '-4', '-c'], stdin=subprocess.PIPE,
                                       stdout=destination, env=env)
         source = subprocess.Popen(['git', '-C', str(ROOT), 'archive', '--format=tar',
-                                   f'{commit}:{KERNEL}'], stdout=subprocess.PIPE)
+                                   commit], stdout=subprocess.PIPE)
         try:
             with tarfile.open(fileobj=source.stdout, mode='r|') as original, \
                     tarfile.open(fileobj=compressor.stdin, mode='w|', format=tarfile.PAX_FORMAT) as result:
@@ -110,7 +109,7 @@ def package(revision, output):
                             kernel_tree=tree, source_date_epoch=timestamp,
                             files=len(checksums), archive_filters=omitted,
                             source_licenses='COPYING and LICENSES/; original per-file notices retained',
-                            device_acceptance='Prior #101 secure and #103 relaxed tests; see README.allen',
+                            device_acceptance='Prior #101 secure and #103 relaxed tests; see README.md',
                             GKI_or_stable_KMI_certified=False, private_keys_distributed=False)
                 data = (json.dumps(info, sort_keys=True, indent=2) + '\n').encode()
                 add_bytes(result, 'SOURCE_INFO.json', data, timestamp)

@@ -1,4 +1,5 @@
 /.tmp/
+/AGENTS.md
 /.codex-tmp/
 /out/
 /build/
@@ -10,3 +11,29 @@
 /*.img
 *.log
 *.tmp
+
+# In-tree Kbuild output and locally generated signing material.
+/.config
+/.config.old
+/defconfig
+/vmlinux
+/vmlinux.*
+/System.map
+/Module.symvers
+/modules.order
+/modules.builtin*
+/.version
+/.tmp_versions/
+/include/config/
+/include/generated/
+/arch/*/include/generated/
+/certs/signing_key.pem
+/certs/signing_key.x509
+/certs/x509.genkey
+/certs/x509_certificate_list
+*.o
+*.a
+*.ko
+*.mod
+*.mod.c
+.*.cmd
