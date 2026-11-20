@@ -166,6 +166,10 @@ struct page *kmap_to_page(void *addr);
 
 #else /* CONFIG_HIGHMEM */
 
+#ifndef kmap_prot
+#define kmap_prot PAGE_KERNEL
+#endif
+
 static inline unsigned int nr_free_highpages(void) { return 0; }
 
 static inline struct page *kmap_to_page(void *addr)
@@ -206,6 +210,11 @@ static inline void *kmap_atomic_prot(struct page *page, pgprot_t prot)
 		return lb_page_to_virt(page);
 #endif
 	return page_address(page);
+}
+
+static inline void *kmap_atomic_pfn(unsigned long pfn)
+{
+	return kmap_atomic_prot(pfn_to_page(pfn), kmap_prot);
 }
 
 static inline void __kunmap_atomic(void *addr)
