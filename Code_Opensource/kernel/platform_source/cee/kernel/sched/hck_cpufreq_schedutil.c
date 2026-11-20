@@ -1126,10 +1126,11 @@ static unsigned int sugov_next_freq_shared_policy(struct sugov_policy *sg_policy
 
 	for_each_cpu(j, policy->cpus) {
 		struct sugov_cpu *j_sg_cpu = &per_cpu(sugov_cpu, j);
-		unsigned long j_util, j_max;
+		unsigned long j_util, j_max, raw_util;
 
 		sugov_get_util(j_sg_cpu);
 		j_util = j_sg_cpu->util;
+		raw_util = j_util;
 		j_max = j_sg_cpu->max;
 
 		if (j_sg_cpu->use_max_freq)
@@ -1149,9 +1150,8 @@ static unsigned int sugov_next_freq_shared_policy(struct sugov_policy *sg_policy
 		 * don't update util, only update the field of sg_policy
 		 */
 		sugov_iowait_apply(j_sg_cpu, sg_policy->update_time);
-		j_util = j_sg_cpu->util;
 
-		trace_perf(cpufreq_schedutil_get_util, j, j_sg_cpu->util,
+		trace_perf(cpufreq_schedutil_get_util, j, raw_util,
 						 j_sg_cpu->max,
 						 top_task_util(cpu_rq(j)),
 						 predict_util(cpu_rq(j)),
